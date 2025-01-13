@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "DiscordBotFunctionApp": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7240",
+      "launchBrowser": false
+    }
+  }
+}
