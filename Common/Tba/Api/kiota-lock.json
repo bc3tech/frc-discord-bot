@@ -1,0 +1,31 @@
+{
+  "descriptionHash": "5AEC07DA363E79DFF476E5BECFDF447A2EF13A129AD34D8D2794B7DF7742DF122B6C9E4325B4215F46DB1DD6759D3DB6092DECF9F1A3999F55F28E8E101E0561",
+  "descriptionLocation": "../tba-api.json",
+  "lockFileVersion": "1.0.0",
+  "kiotaVersion": "1.22.2",
+  "clientClassName": "ApiClient",
+  "typeAccessModifier": "Public",
+  "clientNamespaceName": "Common.Tba.Api",
+  "language": "CSharp",
+  "usesBackingStore": false,
+  "excludeBackwardCompatible": false,
+  "includeAdditionalData": true,
+  "disableSSLValidation": false,
+  "serializers": [
+    "none"
+  ],
+  "deserializers": [
+    "none"
+  ],
+  "structuredMimeTypes": [
+    "application/json",
+    "text/plain;q=0.9",
+    "application/x-www-form-urlencoded;q=0.2",
+    "multipart/form-data;q=0.1"
+  ],
+  "includePatterns": [],
+  "excludePatterns": [
+    "bc"
+  ],
+  "disabledValidationRules": []
+}
