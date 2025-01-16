@@ -11,10 +11,8 @@ namespace Common.Tba.Api.Models
     /// A list of alliances, the teams on the alliances, and their score.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class Match_alliances : IAdditionalDataHolder, IParsable
+    public partial class Match_alliances : IParsable
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The blue property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -31,13 +29,6 @@ namespace Common.Tba.Api.Models
 #else
         public global::Common.Tba.Api.Models.Match_alliance Red { get; set; }
 #endif
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Match_alliances"/> and sets the default values.
-        /// </summary>
-        public Match_alliances()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -69,7 +60,6 @@ namespace Common.Tba.Api.Models
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<global::Common.Tba.Api.Models.Match_alliance>("blue", Blue);
             writer.WriteObjectValue<global::Common.Tba.Api.Models.Match_alliance>("red", Red);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

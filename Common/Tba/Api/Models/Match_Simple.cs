@@ -9,13 +9,11 @@ namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class Match_Simple : IAdditionalDataHolder, IParsable
+    public partial class Match_Simple : IParsable
     #pragma warning restore CS1591
     {
         /// <summary>UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of actual match start time.</summary>
         public long? ActualTime { get; set; }
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>A list of alliances, the teams on the alliances, and their score.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -52,13 +50,6 @@ namespace Common.Tba.Api.Models
         public long? Time { get; set; }
         /// <summary>The color (red/blue) of the winning alliance. Will contain an empty string in the event of no winner, or a tie.</summary>
         public global::Common.Tba.Api.Models.Match_Simple_winning_alliance? WinningAlliance { get; set; }
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Match_Simple"/> and sets the default values.
-        /// </summary>
-        public Match_Simple()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -106,7 +97,6 @@ namespace Common.Tba.Api.Models
             writer.WriteIntValue("set_number", SetNumber);
             writer.WriteLongValue("time", Time);
             writer.WriteEnumValue<global::Common.Tba.Api.Models.Match_Simple_winning_alliance>("winning_alliance", WinningAlliance);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

@@ -11,17 +11,8 @@ namespace Common.Tba.Api.Models
     /// Inights for the qualification round of an event
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class Event_Insights_qual : IAdditionalDataHolder, IParsable
+    public partial class Event_Insights_qual : IParsable
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Event_Insights_qual"/> and sets the default values.
-        /// </summary>
-        public Event_Insights_qual()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -49,7 +40,6 @@ namespace Common.Tba.Api.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

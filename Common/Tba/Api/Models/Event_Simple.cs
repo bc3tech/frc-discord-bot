@@ -10,11 +10,9 @@ namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class Event_Simple : IAdditionalDataHolder, IParsable
+    public partial class Event_Simple : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>City, town, village, etc. the event is located in.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -80,13 +78,6 @@ namespace Common.Tba.Api.Models
         /// <summary>Year the event data is for.</summary>
         public int? Year { get; set; }
         /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Event_Simple"/> and sets the default values.
-        /// </summary>
-        public Event_Simple()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
-        /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
         /// <returns>A <see cref="global::Common.Tba.Api.Models.Event_Simple"/></returns>
@@ -135,7 +126,6 @@ namespace Common.Tba.Api.Models
             writer.WriteDateValue("start_date", StartDate);
             writer.WriteStringValue("state_prov", StateProv);
             writer.WriteIntValue("year", Year);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

@@ -11,10 +11,8 @@ namespace Common.Tba.Api.Models
     /// OPR, DPR, and CCWM for teams at the event.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class Event_OPRs : IAdditionalDataHolder, IParsable
+    public partial class Event_OPRs : IParsable
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>A key-value pair with team key (eg `frc254`) as key and CCWM as value.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -39,13 +37,6 @@ namespace Common.Tba.Api.Models
 #else
         public global::Common.Tba.Api.Models.Event_OPRs_oprs Oprs { get; set; }
 #endif
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Event_OPRs"/> and sets the default values.
-        /// </summary>
-        public Event_OPRs()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -79,7 +70,6 @@ namespace Common.Tba.Api.Models
             writer.WriteObjectValue<global::Common.Tba.Api.Models.Event_OPRs_ccwms>("ccwms", Ccwms);
             writer.WriteObjectValue<global::Common.Tba.Api.Models.Event_OPRs_dprs>("dprs", Dprs);
             writer.WriteObjectValue<global::Common.Tba.Api.Models.Event_OPRs_oprs>("oprs", Oprs);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

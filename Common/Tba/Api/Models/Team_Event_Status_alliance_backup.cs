@@ -11,10 +11,8 @@ namespace Common.Tba.Api.Models
     /// Backup status, may be null.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class Team_Event_Status_alliance_backup : IAdditionalDataHolder, IParsable
+    public partial class Team_Event_Status_alliance_backup : IParsable
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>TBA key for the backup team called in.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -31,13 +29,6 @@ namespace Common.Tba.Api.Models
 #else
         public string Out { get; set; }
 #endif
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Team_Event_Status_alliance_backup"/> and sets the default values.
-        /// </summary>
-        public Team_Event_Status_alliance_backup()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -69,7 +60,6 @@ namespace Common.Tba.Api.Models
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("in", In);
             writer.WriteStringValue("out", Out);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

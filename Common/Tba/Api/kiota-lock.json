@@ -9,8 +9,8 @@
   "language": "CSharp",
   "usesBackingStore": false,
   "excludeBackwardCompatible": false,
-  "includeAdditionalData": true,
-  "disableSSLValidation": false,
+  "includeAdditionalData": false,
+  "disableSSLValidation": true,
   "serializers": [
     "Microsoft.Kiota.Serialization.Json.JsonSerializationWriterFactory",
     "Microsoft.Kiota.Serialization.Text.TextSerializationWriterFactory",

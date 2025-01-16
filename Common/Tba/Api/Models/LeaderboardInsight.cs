@@ -9,11 +9,9 @@ namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class LeaderboardInsight : IAdditionalDataHolder, IParsable
+    public partial class LeaderboardInsight : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The data property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -32,13 +30,6 @@ namespace Common.Tba.Api.Models
 #endif
         /// <summary>Year the insight was measured in (year=0 for overall insights).</summary>
         public int? Year { get; set; }
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.LeaderboardInsight"/> and sets the default values.
-        /// </summary>
-        public LeaderboardInsight()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -72,7 +63,6 @@ namespace Common.Tba.Api.Models
             writer.WriteObjectValue<global::Common.Tba.Api.Models.LeaderboardInsight_data>("data", Data);
             writer.WriteStringValue("name", Name);
             writer.WriteIntValue("year", Year);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

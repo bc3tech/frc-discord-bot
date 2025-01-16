@@ -11,17 +11,8 @@ namespace Common.Tba.Api.Event.Item.Teams.Statuses
     /// A key-value pair of `Team_Event_Status` objects with the event key as the key.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class StatusesGetResponse : IAdditionalDataHolder, IParsable
+    public partial class StatusesGetResponse : IParsable
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Event.Item.Teams.Statuses.StatusesGetResponse"/> and sets the default values.
-        /// </summary>
-        public StatusesGetResponse()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -49,7 +40,6 @@ namespace Common.Tba.Api.Event.Item.Teams.Statuses
         public virtual void Serialize(ISerializationWriter writer)
         {
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

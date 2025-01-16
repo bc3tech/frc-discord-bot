@@ -9,11 +9,9 @@ namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class Event_Ranking : IAdditionalDataHolder, IParsable
+    public partial class Event_Ranking : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>List of special TBA-generated values provided in the `extra_stats` array for each item.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -38,13 +36,6 @@ namespace Common.Tba.Api.Models
 #else
         public List<global::Common.Tba.Api.Models.Event_Ranking_sort_order_info> SortOrderInfo { get; set; }
 #endif
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Event_Ranking"/> and sets the default values.
-        /// </summary>
-        public Event_Ranking()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -78,7 +69,6 @@ namespace Common.Tba.Api.Models
             writer.WriteCollectionOfObjectValues<global::Common.Tba.Api.Models.Event_Ranking_extra_stats_info>("extra_stats_info", ExtraStatsInfo);
             writer.WriteCollectionOfObjectValues<global::Common.Tba.Api.Models.Event_Ranking_rankings>("rankings", Rankings);
             writer.WriteCollectionOfObjectValues<global::Common.Tba.Api.Models.Event_Ranking_sort_order_info>("sort_order_info", SortOrderInfo);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

@@ -9,13 +9,11 @@ namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class Match : IAdditionalDataHolder, IParsable
+    public partial class Match : IParsable
     #pragma warning restore CS1591
     {
         /// <summary>UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of actual match start time.</summary>
         public long? ActualTime { get; set; }
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>A list of alliances, the teams on the alliances, and their score.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -71,13 +69,6 @@ namespace Common.Tba.Api.Models
         /// <summary>The color (red/blue) of the winning alliance. Will contain an empty string in the event of no winner, or a tie.</summary>
         public global::Common.Tba.Api.Models.Match_winning_alliance? WinningAlliance { get; set; }
         /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Match"/> and sets the default values.
-        /// </summary>
-        public Match()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
-        /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
         /// <returns>A <see cref="global::Common.Tba.Api.Models.Match"/></returns>
@@ -130,7 +121,6 @@ namespace Common.Tba.Api.Models
             writer.WriteLongValue("time", Time);
             writer.WriteCollectionOfObjectValues<global::Common.Tba.Api.Models.Match_videos>("videos", Videos);
             writer.WriteEnumValue<global::Common.Tba.Api.Models.Match_winning_alliance>("winning_alliance", WinningAlliance);
-            writer.WriteAdditionalData(AdditionalData);
         }
         /// <summary>
         /// Composed type wrapper for classes <see cref="global::Common.Tba.Api.Models.Match_Score_Breakdown_2015"/>, <see cref="global::Common.Tba.Api.Models.Match_Score_Breakdown_2016"/>, <see cref="global::Common.Tba.Api.Models.Match_Score_Breakdown_2017"/>, <see cref="global::Common.Tba.Api.Models.Match_Score_Breakdown_2018"/>, <see cref="global::Common.Tba.Api.Models.Match_Score_Breakdown_2019"/>, <see cref="global::Common.Tba.Api.Models.Match_Score_Breakdown_2020"/>, <see cref="global::Common.Tba.Api.Models.Match_Score_Breakdown_2022"/>, <see cref="global::Common.Tba.Api.Models.Match_Score_Breakdown_2023"/>, <see cref="global::Common.Tba.Api.Models.Match_Score_Breakdown_2024"/>

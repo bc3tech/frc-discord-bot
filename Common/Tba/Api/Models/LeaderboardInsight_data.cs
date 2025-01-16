@@ -9,11 +9,9 @@ namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class LeaderboardInsight_data : IAdditionalDataHolder, IParsable
+    public partial class LeaderboardInsight_data : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>What type of key is used in the rankings; either &apos;team&apos;, &apos;event&apos;, or &apos;match&apos;.</summary>
         public global::Common.Tba.Api.Models.LeaderboardInsight_data_key_type? KeyType { get; set; }
         /// <summary>The rankings property</summary>
@@ -24,13 +22,6 @@ namespace Common.Tba.Api.Models
 #else
         public List<global::Common.Tba.Api.Models.LeaderboardInsight_data_rankings> Rankings { get; set; }
 #endif
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.LeaderboardInsight_data"/> and sets the default values.
-        /// </summary>
-        public LeaderboardInsight_data()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -62,7 +53,6 @@ namespace Common.Tba.Api.Models
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteEnumValue<global::Common.Tba.Api.Models.LeaderboardInsight_data_key_type>("key_type", KeyType);
             writer.WriteCollectionOfObjectValues<global::Common.Tba.Api.Models.LeaderboardInsight_data_rankings>("rankings", Rankings);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

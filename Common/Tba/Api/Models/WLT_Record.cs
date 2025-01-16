@@ -11,23 +11,14 @@ namespace Common.Tba.Api.Models
     /// A Win-Loss-Tie record for a team, or an alliance.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class WLT_Record : IAdditionalDataHolder, IParsable
+    public partial class WLT_Record : IParsable
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Number of losses.</summary>
         public int? Losses { get; set; }
         /// <summary>Number of ties.</summary>
         public int? Ties { get; set; }
         /// <summary>Number of wins.</summary>
         public int? Wins { get; set; }
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.WLT_Record"/> and sets the default values.
-        /// </summary>
-        public WLT_Record()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -61,7 +52,6 @@ namespace Common.Tba.Api.Models
             writer.WriteIntValue("losses", Losses);
             writer.WriteIntValue("ties", Ties);
             writer.WriteIntValue("wins", Wins);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

@@ -11,10 +11,8 @@ namespace Common.Tba.Api.Models
     /// Playoff status for this team, may be null if the team did not make playoffs, or playoffs have not begun.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class Team_Event_Status_playoff : IAdditionalDataHolder, IParsable
+    public partial class Team_Event_Status_playoff : IParsable
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>A Win-Loss-Tie record for a team, or an alliance.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -37,13 +35,6 @@ namespace Common.Tba.Api.Models
 #endif
         /// <summary>Current competition status for the playoffs.</summary>
         public global::Common.Tba.Api.Models.Team_Event_Status_playoff_status? Status { get; set; }
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Team_Event_Status_playoff"/> and sets the default values.
-        /// </summary>
-        public Team_Event_Status_playoff()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -81,7 +72,6 @@ namespace Common.Tba.Api.Models
             writer.WriteIntValue("playoff_average", PlayoffAverage);
             writer.WriteObjectValue<global::Common.Tba.Api.Models.WLT_Record>("record", Record);
             writer.WriteEnumValue<global::Common.Tba.Api.Models.Team_Event_Status_playoff_status>("status", Status);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

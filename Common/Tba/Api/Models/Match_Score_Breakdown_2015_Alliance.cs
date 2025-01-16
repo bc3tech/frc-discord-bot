@@ -9,11 +9,9 @@ namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class Match_Score_Breakdown_2015_Alliance : IAdditionalDataHolder, IParsable
+    public partial class Match_Score_Breakdown_2015_Alliance : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The adjust_points property</summary>
         public int? AdjustPoints { get; set; }
         /// <summary>The auto_points property</summary>
@@ -62,13 +60,6 @@ namespace Common.Tba.Api.Models
         public bool? ToteSet { get; set; }
         /// <summary>The tote_stack property</summary>
         public bool? ToteStack { get; set; }
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Match_Score_Breakdown_2015_Alliance"/> and sets the default values.
-        /// </summary>
-        public Match_Score_Breakdown_2015_Alliance()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -144,7 +135,6 @@ namespace Common.Tba.Api.Models
             writer.WriteIntValue("tote_points", TotePoints);
             writer.WriteBoolValue("tote_set", ToteSet);
             writer.WriteBoolValue("tote_stack", ToteStack);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

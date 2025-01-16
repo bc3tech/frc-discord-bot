@@ -9,11 +9,9 @@ namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class Match_Score_Breakdown_2016_Alliance : IAdditionalDataHolder, IParsable
+    public partial class Match_Score_Breakdown_2016_Alliance : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The adjustPoints property</summary>
         public int? AdjustPoints { get; set; }
         /// <summary>The autoBoulderPoints property</summary>
@@ -133,13 +131,6 @@ namespace Common.Tba.Api.Models
         public string TowerFaceC { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Match_Score_Breakdown_2016_Alliance"/> and sets the default values.
-        /// </summary>
-        public Match_Score_Breakdown_2016_Alliance()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
-        /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
         /// <returns>A <see cref="global::Common.Tba.Api.Models.Match_Score_Breakdown_2016_Alliance"/></returns>
@@ -242,7 +233,6 @@ namespace Common.Tba.Api.Models
             writer.WriteStringValue("towerFaceA", TowerFaceA);
             writer.WriteStringValue("towerFaceB", TowerFaceB);
             writer.WriteStringValue("towerFaceC", TowerFaceC);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

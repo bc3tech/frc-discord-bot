@@ -11,10 +11,8 @@ namespace Common.Tba.Api.Models
     /// See the 2016 FMS API documentation for a description of each value.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class Match_Score_Breakdown_2016 : IAdditionalDataHolder, IParsable
+    public partial class Match_Score_Breakdown_2016 : IParsable
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The blue property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -31,13 +29,6 @@ namespace Common.Tba.Api.Models
 #else
         public global::Common.Tba.Api.Models.Match_Score_Breakdown_2016_Alliance Red { get; set; }
 #endif
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Match_Score_Breakdown_2016"/> and sets the default values.
-        /// </summary>
-        public Match_Score_Breakdown_2016()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -69,7 +60,6 @@ namespace Common.Tba.Api.Models
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<global::Common.Tba.Api.Models.Match_Score_Breakdown_2016_Alliance>("blue", Blue);
             writer.WriteObjectValue<global::Common.Tba.Api.Models.Match_Score_Breakdown_2016_Alliance>("red", Red);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

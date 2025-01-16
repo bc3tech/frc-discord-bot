@@ -9,11 +9,9 @@ namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class LeaderboardInsight_data_rankings : IAdditionalDataHolder, IParsable
+    public partial class LeaderboardInsight_data_rankings : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Team/Event/Match keys that have the corresponding value.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -24,13 +22,6 @@ namespace Common.Tba.Api.Models
 #endif
         /// <summary>Value of the insight that the corresponding team/event/matches have, e.g. number of blue banners, or number of matches played.</summary>
         public double? Value { get; set; }
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.LeaderboardInsight_data_rankings"/> and sets the default values.
-        /// </summary>
-        public LeaderboardInsight_data_rankings()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -62,7 +53,6 @@ namespace Common.Tba.Api.Models
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfPrimitiveValues<string>("keys", Keys);
             writer.WriteDoubleValue("value", Value);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

@@ -9,11 +9,9 @@ namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class District_Ranking_event_points : IAdditionalDataHolder, IParsable
+    public partial class District_Ranking_event_points : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Points awarded for alliance selection.</summary>
         public int? AlliancePoints { get; set; }
         /// <summary>Points awarded for event awards.</summary>
@@ -34,13 +32,6 @@ namespace Common.Tba.Api.Models
         public int? QualPoints { get; set; }
         /// <summary>Total points awarded at this event.</summary>
         public int? Total { get; set; }
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.District_Ranking_event_points"/> and sets the default values.
-        /// </summary>
-        public District_Ranking_event_points()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -82,7 +73,6 @@ namespace Common.Tba.Api.Models
             writer.WriteStringValue("event_key", EventKey);
             writer.WriteIntValue("qual_points", QualPoints);
             writer.WriteIntValue("total", Total);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

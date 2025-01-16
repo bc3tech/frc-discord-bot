@@ -9,11 +9,9 @@ namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class Team_Simple : IAdditionalDataHolder, IParsable
+    public partial class Team_Simple : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>City of team derived from parsing the address registered with FIRST.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -65,13 +63,6 @@ namespace Common.Tba.Api.Models
         /// <summary>Official team number issued by FIRST.</summary>
         public int? TeamNumber { get; set; }
         /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Team_Simple"/> and sets the default values.
-        /// </summary>
-        public Team_Simple()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
-        /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
         /// <returns>A <see cref="global::Common.Tba.Api.Models.Team_Simple"/></returns>
@@ -112,7 +103,6 @@ namespace Common.Tba.Api.Models
             writer.WriteStringValue("nickname", Nickname);
             writer.WriteStringValue("state_prov", StateProv);
             writer.WriteIntValue("team_number", TeamNumber);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

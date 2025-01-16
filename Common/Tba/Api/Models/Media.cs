@@ -11,10 +11,8 @@ namespace Common.Tba.Api.Models
     /// The `Media` object contains a reference for most any media associated with a team or event on TBA.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class Media : IAdditionalDataHolder, IParsable
+    public partial class Media : IParsable
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>If required, a JSON dict of additional media information.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -60,13 +58,6 @@ namespace Common.Tba.Api.Models
         public string ViewUrl { get; set; }
 #endif
         /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Media"/> and sets the default values.
-        /// </summary>
-        public Media()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
-        /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
         /// <returns>A <see cref="global::Common.Tba.Api.Models.Media"/></returns>
@@ -107,7 +98,6 @@ namespace Common.Tba.Api.Models
             writer.WriteCollectionOfPrimitiveValues<string>("team_keys", TeamKeys);
             writer.WriteEnumValue<global::Common.Tba.Api.Models.Media_type>("type", Type);
             writer.WriteStringValue("view_url", ViewUrl);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

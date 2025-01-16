@@ -9,11 +9,9 @@ namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class History : IAdditionalDataHolder, IParsable
+    public partial class History : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The awards property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -30,13 +28,6 @@ namespace Common.Tba.Api.Models
 #else
         public List<global::Common.Tba.Api.Models.Event> Events { get; set; }
 #endif
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.History"/> and sets the default values.
-        /// </summary>
-        public History()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -68,7 +59,6 @@ namespace Common.Tba.Api.Models
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfObjectValues<global::Common.Tba.Api.Models.Award>("awards", Awards);
             writer.WriteCollectionOfObjectValues<global::Common.Tba.Api.Models.Event>("events", Events);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

@@ -11,10 +11,8 @@ namespace Common.Tba.Api.Models
     /// Rank of a team in a district.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class District_Ranking : IAdditionalDataHolder, IParsable
+    public partial class District_Ranking : IParsable
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>List of events that contributed to the point total for the team.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -37,13 +35,6 @@ namespace Common.Tba.Api.Models
 #else
         public string TeamKey { get; set; }
 #endif
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.District_Ranking"/> and sets the default values.
-        /// </summary>
-        public District_Ranking()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -81,7 +72,6 @@ namespace Common.Tba.Api.Models
             writer.WriteIntValue("rank", Rank);
             writer.WriteIntValue("rookie_bonus", RookieBonus);
             writer.WriteStringValue("team_key", TeamKey);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

@@ -9,11 +9,9 @@ namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class API_Status : IAdditionalDataHolder, IParsable
+    public partial class API_Status : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The android property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -44,13 +42,6 @@ namespace Common.Tba.Api.Models
         public bool? IsDatafeedDown { get; set; }
         /// <summary>Maximum FRC season year for valid queries.</summary>
         public int? MaxSeason { get; set; }
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.API_Status"/> and sets the default values.
-        /// </summary>
-        public API_Status()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -90,7 +81,6 @@ namespace Common.Tba.Api.Models
             writer.WriteObjectValue<global::Common.Tba.Api.Models.API_Status_App_Version>("ios", Ios);
             writer.WriteBoolValue("is_datafeed_down", IsDatafeedDown);
             writer.WriteIntValue("max_season", MaxSeason);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

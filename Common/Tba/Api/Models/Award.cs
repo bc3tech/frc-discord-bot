@@ -9,11 +9,9 @@ namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class Award : IAdditionalDataHolder, IParsable
+    public partial class Award : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Type of award given. See https://github.com/the-blue-alliance/the-blue-alliance/blob/master/consts/award_type.py#L6</summary>
         public int? AwardType { get; set; }
         /// <summary>The event_key of the event the award was won at.</summary>
@@ -42,13 +40,6 @@ namespace Common.Tba.Api.Models
 #endif
         /// <summary>The year this award was won.</summary>
         public int? Year { get; set; }
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Award"/> and sets the default values.
-        /// </summary>
-        public Award()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -86,7 +77,6 @@ namespace Common.Tba.Api.Models
             writer.WriteStringValue("name", Name);
             writer.WriteCollectionOfObjectValues<global::Common.Tba.Api.Models.Award_Recipient>("recipient_list", RecipientList);
             writer.WriteIntValue("year", Year);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

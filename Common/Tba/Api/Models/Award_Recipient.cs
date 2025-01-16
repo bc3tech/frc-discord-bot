@@ -11,10 +11,8 @@ namespace Common.Tba.Api.Models
     /// An `Award_Recipient` object represents the team and/or person who received an award at an event.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    public partial class Award_Recipient : IAdditionalDataHolder, IParsable
+    public partial class Award_Recipient : IParsable
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The name of the individual given the award. May be null.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -31,13 +29,6 @@ namespace Common.Tba.Api.Models
 #else
         public string TeamKey { get; set; }
 #endif
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Award_Recipient"/> and sets the default values.
-        /// </summary>
-        public Award_Recipient()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -69,7 +60,6 @@ namespace Common.Tba.Api.Models
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("awardee", Awardee);
             writer.WriteStringValue("team_key", TeamKey);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

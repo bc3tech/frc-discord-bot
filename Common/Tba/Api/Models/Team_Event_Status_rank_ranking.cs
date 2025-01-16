@@ -9,11 +9,9 @@ namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class Team_Event_Status_rank_ranking : IAdditionalDataHolder, IParsable
+    public partial class Team_Event_Status_rank_ranking : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Number of matches the team was disqualified for.</summary>
         public int? Dq { get; set; }
         /// <summary>Number of matches played.</summary>
@@ -46,13 +44,6 @@ namespace Common.Tba.Api.Models
 #else
         public string TeamKey { get; set; }
 #endif
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Team_Event_Status_rank_ranking"/> and sets the default values.
-        /// </summary>
-        public Team_Event_Status_rank_ranking()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -94,7 +85,6 @@ namespace Common.Tba.Api.Models
             writer.WriteObjectValue<global::Common.Tba.Api.Models.WLT_Record>("record", Record);
             writer.WriteCollectionOfPrimitiveValues<double?>("sort_orders", SortOrders);
             writer.WriteStringValue("team_key", TeamKey);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

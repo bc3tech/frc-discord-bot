@@ -9,22 +9,13 @@ namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class API_Status_App_Version : IAdditionalDataHolder, IParsable
+    public partial class API_Status_App_Version : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>Internal use - Latest application version available.</summary>
         public int? LatestAppVersion { get; set; }
         /// <summary>Internal use - Minimum application version required to correctly connect and process data.</summary>
         public int? MinAppVersion { get; set; }
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.API_Status_App_Version"/> and sets the default values.
-        /// </summary>
-        public API_Status_App_Version()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -56,7 +47,6 @@ namespace Common.Tba.Api.Models
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteIntValue("latest_app_version", LatestAppVersion);
             writer.WriteIntValue("min_app_version", MinAppVersion);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }

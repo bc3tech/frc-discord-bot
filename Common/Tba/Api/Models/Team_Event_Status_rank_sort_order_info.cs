@@ -9,11 +9,9 @@ namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    public partial class Team_Event_Status_rank_sort_order_info : IAdditionalDataHolder, IParsable
+    public partial class Team_Event_Status_rank_sort_order_info : IParsable
     #pragma warning restore CS1591
     {
-        /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
-        public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The descriptive name of the value used to sort the ranking.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -24,13 +22,6 @@ namespace Common.Tba.Api.Models
 #endif
         /// <summary>The number of digits of precision used for this value, eg `2` would correspond to a value of `101.11` while `0` would correspond to `101`.</summary>
         public int? Precision { get; set; }
-        /// <summary>
-        /// Instantiates a new <see cref="global::Common.Tba.Api.Models.Team_Event_Status_rank_sort_order_info"/> and sets the default values.
-        /// </summary>
-        public Team_Event_Status_rank_sort_order_info()
-        {
-            AdditionalData = new Dictionary<string, object>();
-        }
         /// <summary>
         /// Creates a new instance of the appropriate class based on discriminator value
         /// </summary>
@@ -62,7 +53,6 @@ namespace Common.Tba.Api.Models
             _ = writer ?? throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("name", Name);
             writer.WriteIntValue("precision", Precision);
-            writer.WriteAdditionalData(AdditionalData);
         }
     }
 }
