@@ -12,6 +12,8 @@ internal static class Constants
 
     public static class Configuration
     {
+        public const string TbaApiKey = nameof(TbaApiKey);
+
         public static class Logging
         {
             public const string _Name = nameof(Logging);
@@ -29,6 +31,7 @@ internal static class Constants
             public const string _Name = nameof(Discord);
             public static readonly string LogLevel = ConfigurationPath.Combine(_Name, nameof(LogLevel));
             public static readonly string Token = ConfigurationPath.Combine(_Name, nameof(Token));
+            public static readonly string PublicKey = ConfigurationPath.Combine(_Name, nameof(PublicKey));
         }
 
         public static class Azure

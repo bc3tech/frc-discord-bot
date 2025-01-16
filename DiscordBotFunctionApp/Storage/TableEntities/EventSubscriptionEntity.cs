@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.TableEntities;
+﻿namespace DiscordBotFunctionApp.Storage.TableEntities;
 
 using Azure;
 using Azure.Data.Tables;
@@ -10,12 +10,13 @@ using System.Globalization;
 using System.Runtime.Serialization;
 using System.Text.Json;
 
-internal record TeamSubscriptionEntity : ITableEntity, ISubscriptionEntity
+internal record EventSubscriptionEntity : ITableEntity, ISubscriptionEntity
 {
     [IgnoreDataMember]
-    public int Team { get => int.Parse(this.PartitionKey, CultureInfo.InvariantCulture); set => this.PartitionKey = value.ToString(CultureInfo.InvariantCulture); }
+    public string Event { get => PartitionKey; set => PartitionKey = value; }
+
     [IgnoreDataMember]
-    public string Event { get => this.RowKey; set => this.RowKey = value; }
+    public int Team { get => int.Parse(RowKey, CultureInfo.InvariantCulture); set => RowKey = value.ToString(CultureInfo.InvariantCulture); }
 
     [IgnoreDataMember]
     public GuildSubscriptions Subscribers { get; set; } = [];
@@ -23,8 +24,8 @@ internal record TeamSubscriptionEntity : ITableEntity, ISubscriptionEntity
     [Obsolete("Only used for serialization", error: true)]
     public string Subscriptions
     {
-        get => JsonSerializer.Serialize(this.Subscribers);
-        set => this.Subscribers = Throws.IfNull(JsonSerializer.Deserialize<GuildSubscriptions>(value));
+        get => JsonSerializer.Serialize(Subscribers);
+        set => Subscribers = Throws.IfNull(JsonSerializer.Deserialize<GuildSubscriptions>(value));
     }
 
     required public string PartitionKey { get; set; }
@@ -32,3 +33,4 @@ internal record TeamSubscriptionEntity : ITableEntity, ISubscriptionEntity
     public DateTimeOffset? Timestamp { get; set; }
     public ETag ETag { get; set; }
 }
+

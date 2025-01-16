@@ -1,11 +1,11 @@
-﻿namespace DiscordBotFunctionApp.TableEntities;
+﻿namespace DiscordBotFunctionApp.Storage.TableEntities;
 using System.Collections.Generic;
 using System.Globalization;
 
 internal class GuildSubscriptions : Dictionary<string, HashSet<ulong>>
 {
-    public IEnumerable<ulong> Guilds => this.Keys.Select(i => DiscordGuildId(i));
-    public ulong DiscordGuildId(string guildId) => ulong.Parse(guildId, CultureInfo.InvariantCulture);
+    public IEnumerable<ulong> Guilds => Keys.Select(DiscordGuildId);
+    public static ulong DiscordGuildId(string guildId) => ulong.Parse(guildId, CultureInfo.InvariantCulture);
 
     public IReadOnlySet<ulong> SubscriptionsForGuild(ulong guildId) => this[guildId.ToString(CultureInfo.InvariantCulture)];
 
@@ -13,7 +13,7 @@ internal class GuildSubscriptions : Dictionary<string, HashSet<ulong>>
     public void AddSubscription(ulong guildId, string subscription) => AddSubscription(guildId.ToString(CultureInfo.InvariantCulture), subscription);
     public void AddSubscription(string guildId, string subscription)
     {
-        this.TryGetValue(guildId, out var subscriptions);
+        TryGetValue(guildId, out var subscriptions);
         this[guildId] = [.. subscriptions ?? [], ulong.Parse(subscription, CultureInfo.InvariantCulture)];
     }
 

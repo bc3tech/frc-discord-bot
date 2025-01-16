@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp;
+﻿namespace DiscordBotFunctionApp.DiscordInterop;
 
 using Azure.Data.Tables;
 
@@ -10,8 +10,8 @@ using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 
-using DiscordBotFunctionApp.Embeds;
-using DiscordBotFunctionApp.TableEntities;
+using DiscordBotFunctionApp;
+using DiscordBotFunctionApp.Storage.TableEntities;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -76,12 +76,12 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
     private async Task ProcessSubscriptionAsync(WebhookMessage message, GuildSubscriptions subscribers, CancellationToken cancellationToken)
     {
-        var embed = MatchScoreEmbed.Create(message.GetDataAs<Common.Tba.Notifications.MatchScore>()!);
+        var embed = MatchScoreEmbed.Create(message.GetDataAs<MatchScore>()!);
 
         foreach (var i in subscribers)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var targetGuild = _discordClient!.GetGuild(subscribers.DiscordGuildId(i.Key));
+            var targetGuild = _discordClient!.GetGuild(GuildSubscriptions.DiscordGuildId(i.Key));
             Debug.Assert(targetGuild is not null);
             logger.LogTrace("Retrieved guild {GuildId} from Discord.", i.Key);
             foreach (var c in i.Value)

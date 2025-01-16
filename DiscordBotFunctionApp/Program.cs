@@ -1,16 +1,12 @@
 namespace DiscordBotFunctionApp;
 using Azure.Core;
-using Azure.Core.Serialization;
 using Azure.Data.Tables;
 using Azure.Identity;
 
-using Common.Extensions;
-
-using Discord;
-using Discord.Commands;
-using Discord.Interactions;
-using Discord.Rest;
-using Discord.WebSocket;
+using DiscordBotFunctionApp.DiscordInterop;
+using DiscordBotFunctionApp.Storage;
+using DiscordBotFunctionApp.Subscription;
+using DiscordBotFunctionApp.TbaInterop;
 
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;
@@ -18,10 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
-
-using Newtonsoft.Json.Serialization;
-
-using System.Text.Json;
+using Microsoft.Kiota.Abstractions.Authentication;
+using Microsoft.Kiota.Http.HttpClientLibrary;
 
 using Throws = Common.Throws;
 
@@ -50,9 +44,6 @@ internal sealed class Program
             })
             .ConfigureServices((context, services) =>
             {
-                services.AddApplicationInsightsTelemetryWorkerService();
-                services.ConfigureFunctionsApplicationInsights();
-
                 var credential = new DefaultAzureCredential(
 #if DEBUG
                     includeInteractiveCredentials: true
@@ -60,19 +51,20 @@ internal sealed class Program
                     );
 
                 services
-                    .AddSingleton(sp =>
-                    {
-                        var discordLogLevel = sp.GetRequiredService<IConfiguration>()[Constants.Configuration.Logging.Discord.LogLevel] ?? "Info";
-                        return new DiscordSocketConfig()
-                        {
-                            LogLevel = Enum.Parse<LogSeverity>(discordLogLevel)
-                        };
-                    })
-                    .AddSingleton<DiscordSocketClient>()
-                    .AddSingleton<DiscordMessageDispatcher>()
+                    .AddApplicationInsightsTelemetryWorkerService()
+                    .ConfigureFunctionsApplicationInsights()
+                    .ConfigureDiscord()
+                    .AddSingleton<EventRepository>()
+                    .AddSingleton<TeamRepository>()
                     .AddSingleton<SubscriptionManager>()
                     .AddSingleton<TokenCredential>(credential)
-                    .AddHostedService<DiscordInitializationService>();
+                    .AddSingleton(sp =>
+                    {
+                        var config = sp.GetRequiredService<IConfiguration>();
+                        var apiKey = Throws.IfNullOrWhiteSpace(config[Constants.Configuration.TbaApiKey]);
+                        return new Common.Tba.Api.ApiClient(new HttpClientRequestAdapter(new ApiKeyAuthenticationProvider(apiKey, "X-TBA-Auth-Key", ApiKeyAuthenticationProvider.KeyLocation.Header)));
+                    })
+                    .AddHostedService<TbaInitializationService>();
 
                 TableServiceClient tsc = Uri.TryCreate(context.Configuration[Constants.Configuration.Azure.Storage.TableEndpoint], UriKind.Absolute, out var tableEndpoint)
                     ? new TableServiceClient(tableEndpoint, credential)

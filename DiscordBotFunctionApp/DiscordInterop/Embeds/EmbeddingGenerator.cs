@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.Embeds;
+﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
 
 using Common.Tba;
 

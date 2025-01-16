@@ -1,7 +1,9 @@
-namespace DiscordBotFunctionApp;
+namespace DiscordBotFunctionApp.TbaInterop;
 
 using Common.Tba;
 using Common.Tba.Notifications;
+
+using DiscordBotFunctionApp.DiscordInterop;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

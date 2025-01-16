@@ -1,52 +1,18 @@
-namespace DiscordBotFunctionApp;
+﻿namespace DiscordBotFunctionApp.Subscription;
 
 using Azure.Data.Tables;
 
-using DiscordBotFunctionApp.TableEntities;
+using DiscordBotFunctionApp;
+using DiscordBotFunctionApp.Storage.TableEntities;
 
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using System.Globalization;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
-internal sealed class SubscribeHandler(ILogger<SubscribeHandler> logger)
-{
-    [Function("subscribe")]
-    public async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequest req, CancellationToken cancellationToken)
-    {
-        logger.LogDebug("Processing subscription request");
-
-        var content = await new StreamReader(req.Body).ReadToEndAsync(cancellationToken).ConfigureAwait(false);
-        logger.LogTrace("{SubscriptionRequestBody}", content);
-
-        var sub = JsonSerializer.Deserialize<SubscriptionRequest>(content);
-        logger.LogTrace("Deserialized request value: {SubscriptionRequest}", sub?.ToString() ?? "NULL");
-
-        if (sub is null)
-        {
-            return new BadRequestObjectResult("Invalid request body.");
-        }
-
-        if (sub.Team is null && sub.Event is null)
-        {
-            return new BadRequestObjectResult("Request must specify either a team or an event.");
-        }
-
-        return new AcceptedResult();
-    }
-}
-
-public record SubscriptionRequest([property: JsonPropertyName("guildId")] ulong GuildId, [property: JsonPropertyName("channelId")] ulong ChannelId, [property: JsonPropertyName("event")] string? Event, [property: JsonPropertyName("team")] uint? Team);
-
-internal class SubscriptionManager([FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptions,
+internal sealed class SubscriptionManager([FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptions,
     [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptions,
     ILogger<SubscriptionManager> logger)
 {
@@ -79,8 +45,7 @@ internal class SubscriptionManager([FromKeyedServices(Constants.ServiceKeys.Tabl
                 logger.LogInformation("'All' subscription already exists for team {SubscriptionTeam}", sub.Team);
             }
         }
-
-        if (sub.Event is not null)
+        else if (sub.Event is not null)
         {
             logger.LogTrace("Adding subscription for event {SubscriptionEvent}", sub.Event);
             var r = await eventSubscriptions.GetEntityIfExistsAsync<EventSubscriptionEntity>(sub.Event, CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
