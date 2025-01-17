@@ -16,7 +16,7 @@ internal record EventSubscriptionEntity : ITableEntity, ISubscriptionEntity
     public string Event { get => PartitionKey; set => PartitionKey = value; }
 
     [IgnoreDataMember]
-    public int Team { get => int.Parse(RowKey, CultureInfo.InvariantCulture); set => RowKey = value.ToString(CultureInfo.InvariantCulture); }
+    public ushort Team { get => ushort.Parse(RowKey, CultureInfo.InvariantCulture); set => RowKey = value.ToString(CultureInfo.InvariantCulture); }
 
     [IgnoreDataMember]
     public GuildSubscriptions Subscribers { get; set; } = [];

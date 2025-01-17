@@ -4,13 +4,13 @@ using Azure.Data.Tables;
 
 using Common.Extensions;
 using Common.Tba;
-using Common.Tba.Notifications;
 
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 
 using DiscordBotFunctionApp;
+using DiscordBotFunctionApp.DiscordInterop.Embeds;
 using DiscordBotFunctionApp.Storage.TableEntities;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -21,8 +21,6 @@ using System;
 using System.Diagnostics;
 using System.Text.Json;
 using System.Threading;
-
-using MatchScoreEmbed = Embeds.MatchScore;
 
 internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptions,
                                         [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptions,
@@ -76,7 +74,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
     private async Task ProcessSubscriptionAsync(WebhookMessage message, GuildSubscriptions subscribers, CancellationToken cancellationToken)
     {
-        var embed = MatchScoreEmbed.Create(message.GetDataAs<MatchScore>()!);
+        var embed = EmbeddingGenerator.CreateEmbedding(message);
 
         foreach (var i in subscribers)
         {
@@ -102,7 +100,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
     {
         HashSet<string> teams = [], events = [];
 
-        foreach (var propertyName in new[] { "team_key", "teams", "team_keys" })
+        foreach (var propertyName in new[] { "team", "team_key", "teams", "team_keys" })
         {
             if (messageData.TryGetPropertyAnywhere(propertyName, out var properties) && properties is not null)
             {

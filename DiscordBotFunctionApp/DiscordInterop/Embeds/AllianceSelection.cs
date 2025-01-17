@@ -12,7 +12,7 @@ internal static class AllianceSelection
     public static Embed Create(Common.Tba.Notifications.AllianceSelection notification, uint? highlightTeam = null)
     {
         return _builder.WithTitle("Alliance Selection Complete")
-            .WithDescription(string.Join("\n\n", notification._event.alliances.Select((alliance, index) =>
+            .WithDescription(string.Join("\n\n", notification.Model.all._event.alliances.Select((alliance, index) =>
 $@"**Alliance {index + 1}**
 {string.Join("\n", alliance.picks
 .Select(t => t.ToTeamNumber())

@@ -9,13 +9,36 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using System.Globalization;
+using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+
+internal record SubscriptionRequest([property: JsonPropertyName("guildId")] ulong GuildId, [property: JsonPropertyName("channelId")] ulong ChannelId, [property: JsonPropertyName("event")] string? Event, [property: JsonPropertyName("team")] uint? Team);
 
 internal sealed class SubscriptionManager([FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptions,
     [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptions,
     ILogger<SubscriptionManager> logger)
 {
+    public async IAsyncEnumerable<(ulong ChannelId, string EventKey, ushort TeamNumber)> GetSubscriptionsForGuildAsync(ulong guildId, [EnumeratorCancellation] CancellationToken cancellationToken)
+    {
+        await foreach (var e in teamSubscriptions.QueryAsync<TeamSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
+        {
+            foreach (var s in e.Subscribers.SubscriptionsForGuild(guildId))
+            {
+                yield return (s, e.Event, e.Team);
+            }
+        }
+
+        await foreach (var e in eventSubscriptions.QueryAsync<EventSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
+        {
+            foreach (var s in e.Subscribers.SubscriptionsForGuild(guildId))
+            {
+                yield return (s, e.Event, e.Team);
+            }
+        }
+    }
+
     public async Task SaveSubscriptionAsync(SubscriptionRequest sub, CancellationToken cancellationToken)
     {
         if (sub.Team is not null)

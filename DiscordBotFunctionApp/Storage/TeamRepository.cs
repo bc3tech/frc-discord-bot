@@ -49,7 +49,7 @@ internal sealed class TeamRepository(ApiClient tbaApiClient, ILogger<TeamReposit
         return _teams;
     }
 
-    public string GetLabelForTeam(uint? teamNumber) => teamNumber.HasValue ? GetLabelForTeam($"frc{teamNumber.Value}") : string.Empty;
+    public string GetLabelForTeam(ushort? teamNumber) => teamNumber.HasValue ? teamNumber.Value is 0 ? "All" : GetLabelForTeam($"frc{teamNumber.Value}") : string.Empty;
 
     public string GetLabelForTeam(string teamKey)
     {

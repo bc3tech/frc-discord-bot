@@ -14,7 +14,7 @@ internal class GuildSubscriptions : Dictionary<string, HashSet<ulong>>
     public void AddSubscription(string guildId, string subscription)
     {
         TryGetValue(guildId, out var subscriptions);
-        this[guildId] = [.. subscriptions ?? [], ulong.Parse(subscription, CultureInfo.InvariantCulture)];
+        this[guildId] = [.. subscriptions ?? [], subscription.Equals("all", StringComparison.OrdinalIgnoreCase) ? 0 : ulong.Parse(subscription, CultureInfo.InvariantCulture)];
     }
 
     //private class GuildSubscriptionsConverter : JsonConverter<GuildSubscriptions>

@@ -14,14 +14,33 @@ using System.Diagnostics;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Resilience", "EA0014:The async method doesn't support cancellation", Justification = "Can't use CTs in command signatures as not compatible with injection model")]
 public class SubscribeCommandModule(IServiceProvider services) : InteractionModuleBase
 {
-    private readonly SubscriptionManager? _subscriptionManager = services.GetRequiredService<SubscriptionManager>();
+    private readonly SubscriptionManager _subscriptionManager = services.GetRequiredService<SubscriptionManager>();
     private readonly EventRepository _eventsRepo = services.GetRequiredService<EventRepository>();
     private readonly TeamRepository _teamsRepo = services.GetRequiredService<TeamRepository>();
 
     [SlashCommand("show", "Shows the current subscriptions")]
     public async Task ShowAsync()
     {
-        await this.RespondAsync("Not yet implemented").ConfigureAwait(false);
+        HashSet<(string, ushort)> currentSubs = [];
+        await foreach (var s in _subscriptionManager.GetSubscriptionsForGuildAsync(this.Context.Interaction.GuildId!.Value, default)
+            .Where(i => i.ChannelId == this.Context.Interaction.ChannelId!.Value))
+        {
+            currentSubs.Add((s.EventKey, s.TeamNumber));
+        }
+
+        if (currentSubs.Count is 0)
+        {
+            await this.RespondAsync("No subscriptions found for this channel.");
+        }
+        else
+        {
+            var groupedSubscriptions = currentSubs.GroupBy(i => i.Item1);
+            // Create a string that starts withe the group key then lists all the group values on subsequent lines
+            // This is a bit more complex than it needs to be because we want to show the team number if it's not 'all'
+            // and we want to show the event key if it's not 'all'
+            var output = groupedSubscriptions.Select(i => $"**{_eventsRepo.GetLabelForEvent(i.Key)}**:\n\t{string.Join("\n\t", i.Select(j => _teamsRepo.GetLabelForTeam(j.Item2)))}");
+            await this.RespondAsync(string.Join("\n\n", output));
+        }
     }
 
     [SlashCommand("create", "Creates a subscription to a team/event for the current channel")]
@@ -29,7 +48,7 @@ public class SubscribeCommandModule(IServiceProvider services) : InteractionModu
         [Summary("event", "Event to subscribe to, 'all' if not specified."), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))]
         string? eventKey=null,
         [Summary("team", "Team to subscribe to, 'all' if not specified."), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))]
-        uint? teamNumber= null)
+        ushort? teamNumber= null)
     {
         if (eventKey is null && teamNumber is null)
         {
@@ -46,15 +65,15 @@ public class SubscribeCommandModule(IServiceProvider services) : InteractionModu
                 await _subscriptionManager.SaveSubscriptionAsync(new SubscriptionRequest(this.Context.Interaction.GuildId!.Value, this.Context.Interaction.ChannelId!.Value, eventKey, teamNumber), default);
                 if (!string.IsNullOrWhiteSpace(eventKey) && teamNumber is not null)
                 {
-                    await this.RespondAsync($"Channel subscription for {_teamsRepo.GetLabelForTeam(teamNumber)} at {_eventsRepo.GetLabelForEvent(eventKey)} created successfully.");
+                    await this.RespondAsync($"This channel is now subscribed to team **{_teamsRepo.GetLabelForTeam(teamNumber)}** at the **{_eventsRepo.GetLabelForEvent(eventKey)}** event.");
                 }
                 else if (!string.IsNullOrWhiteSpace(eventKey))
                 {
-                    await this.RespondAsync($"Channel subscription to {_eventsRepo.GetLabelForEvent(eventKey)} created successfully.");
+                    await this.RespondAsync($"This channel is now subscribed to the **{_eventsRepo.GetLabelForEvent(eventKey)}** event.");
                 }
                 else
                 {
-                    await this.RespondAsync($"Channel subscription to {_teamsRepo.GetLabelForTeam(teamNumber)} created successfully.");
+                    await this.RespondAsync($"This channel is now subscribed to team **{_teamsRepo.GetLabelForTeam(teamNumber)}**.");
                 }
             }
             catch (Exception ex)

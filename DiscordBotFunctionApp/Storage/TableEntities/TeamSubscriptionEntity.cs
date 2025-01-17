@@ -13,7 +13,7 @@ using System.Text.Json;
 internal record TeamSubscriptionEntity : ITableEntity, ISubscriptionEntity
 {
     [IgnoreDataMember]
-    public int Team { get => int.Parse(PartitionKey, CultureInfo.InvariantCulture); set => PartitionKey = value.ToString(CultureInfo.InvariantCulture); }
+    public ushort Team { get => ushort.Parse(PartitionKey, CultureInfo.InvariantCulture); set => PartitionKey = value.ToString(CultureInfo.InvariantCulture); }
     [IgnoreDataMember]
     public string Event { get => RowKey; set => RowKey = value; }
 

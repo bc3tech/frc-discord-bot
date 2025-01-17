@@ -1,12 +1,16 @@
 ﻿namespace Common.Tba.Notifications;
-#nullable disable
+
+using Common.Tba.Api.Models;
+
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Reduce boilerplate by just matching exact JSON body")]
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Reduce boilerplate by just matching exact JSON body")]
-public record AllianceSelection(string event_name, string event_key, AllianceSelectionEvent _event);
+public record AllianceSelection(string event_key, string? team_key, string event_name) : IRequireCombinedSerialization<Event>
+{
+    [DataMember]
+    public Event? Event { get; set; }
 
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Reduce boilerplate by just matching exact JSON body")]
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Reduce boilerplate by just matching exact JSON body")]
-public record AllianceSelectionEvent(string key, string website, bool official, string end_date, string name, string short_name, object facebook_eid, string event_district_string, string venue_address, int event_district, string location, string event_code, int year, object[] webcast, AllianceFormation[] alliances, string event_type_string, string start_date, int event_type);
-
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Reduce boilerplate by just matching exact JSON body")]
-public record AllianceFormation(object[] declines, string[] picks);
+    [JsonIgnore, JsonPropertyName("event")]
+    public Event? Model { get => this.Event; private set => this.Event = value; }
+}
