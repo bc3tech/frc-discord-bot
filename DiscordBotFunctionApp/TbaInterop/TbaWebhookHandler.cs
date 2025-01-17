@@ -27,12 +27,12 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILo
         {
             if (message.MessageType is NotificationType.verification)
             {
-                logger.LogInformation("Received verification message from The Blue Alliance. Key: {VerificationKey}", (await message.GetDataAsAsync<Verification>(cancellationToken))!.verification_key);
+                logger.LogInformation("Received verification message from The Blue Alliance. Key: {VerificationKey}", (await message.GetDataAsAsync<Verification>(cancellationToken).ConfigureAwait(false))!.verification_key);
                 return new OkResult();
             }
             else if (message.MessageType is NotificationType.ping)
             {
-                var pingData = await message.GetDataAsAsync<Ping>(cancellationToken)!;
+                var pingData = await message.GetDataAsAsync<Ping>(cancellationToken).ConfigureAwait(false)!;
                 logger.LogInformation("Received ping message from The Blue Alliance:\nTitle: {PingTitle}\nDescription: {PingDesc}", pingData.title, pingData.desc);
                 return new OkResult();
             }

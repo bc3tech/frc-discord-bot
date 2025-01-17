@@ -17,7 +17,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-internal class AutoCompleteHandlers
+internal sealed class AutoCompleteHandlers
 {
     const ushort MAX_RESULTS = 25;  // Discord spec
     const ushort MAX_LENGTH = 97;   // 100, but we append '...' if it hits this
@@ -25,14 +25,14 @@ internal class AutoCompleteHandlers
     [return: NotNullIfNotNull(nameof(val))]
     static string? Ellipsify(string? val) => val?.Length > MAX_LENGTH ? $"{val.Take(MAX_LENGTH)}..." : val;
 
-    public class EventsAutoCompleteHandler : AutocompleteHandler
+    public sealed class EventsAutoCompleteHandler : AutocompleteHandler
     {
         public async override Task<AutocompletionResult> GenerateSuggestionsAsync(IInteractionContext context, IAutocompleteInteraction autocompleteInteraction, IParameterInfo parameter, IServiceProvider services)
         {
             var userSearchString = autocompleteInteraction.Data.Current.Value as string ?? string.Empty;
             var eventsRepo = services.GetService<EventRepository>();
             Debug.Assert(eventsRepo is not null);
-            var frcEvents = await eventsRepo.GetEventsAsync(default);
+            var frcEvents = await eventsRepo.GetEventsAsync(default).ConfigureAwait(false);
             return AutocompletionResult.FromSuccess(
                 frcEvents.Where(i => i.Key.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
                     || i.Value.Name?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
@@ -46,14 +46,14 @@ internal class AutoCompleteHandlers
         }
     }
 
-    internal class TeamsAutoCompleteHandler : AutocompleteHandler
+    internal sealed class TeamsAutoCompleteHandler : AutocompleteHandler
     {
         public override async Task<AutocompletionResult> GenerateSuggestionsAsync(IInteractionContext context, IAutocompleteInteraction autocompleteInteraction, IParameterInfo parameter, IServiceProvider services)
         {
             var userSearchString = autocompleteInteraction.Data.Current.Value as string ?? string.Empty;
             var teamsRepo = services.GetService<TeamRepository>();
             Debug.Assert(teamsRepo is not null);
-            var frcEvents = await teamsRepo.GetTeamsAsync(default);
+            var frcEvents = await teamsRepo.GetTeamsAsync(default).ConfigureAwait(false);
             return AutocompletionResult.FromSuccess(frcEvents
                 .Where(i => i.Value.Name?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
                     || i.Value.Nickname?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true

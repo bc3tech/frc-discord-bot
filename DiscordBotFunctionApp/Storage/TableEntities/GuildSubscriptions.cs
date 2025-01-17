@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-internal class GuildSubscriptions : Dictionary<string, HashSet<ulong>>
+internal sealed class GuildSubscriptions : Dictionary<string, HashSet<ulong>>
 {
     public IEnumerable<ulong> Guilds => Keys.Select(DiscordGuildId);
     public static ulong DiscordGuildId(string guildId) => ulong.Parse(guildId, CultureInfo.InvariantCulture);

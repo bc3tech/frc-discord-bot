@@ -22,15 +22,15 @@ public class SubscribeCommandModule(IServiceProvider services) : InteractionModu
     public async Task ShowAsync()
     {
         HashSet<(string, ushort)> currentSubs = [];
-        await foreach (var s in _subscriptionManager.GetSubscriptionsForGuildAsync(this.Context.Interaction.GuildId!.Value, default)
+        await foreach (var (channelId, eventKey, teamNumber) in _subscriptionManager.GetSubscriptionsForGuildAsync(this.Context.Interaction.GuildId!.Value, default)
             .Where(i => i.ChannelId == this.Context.Interaction.ChannelId!.Value))
         {
-            currentSubs.Add((s.EventKey, s.TeamNumber));
+            currentSubs.Add((eventKey, teamNumber));
         }
 
         if (currentSubs.Count is 0)
         {
-            await this.RespondAsync("No subscriptions found for this channel.");
+            await this.RespondAsync("No subscriptions found for this channel.").ConfigureAwait(false);
         }
         else
         {
@@ -39,7 +39,7 @@ public class SubscribeCommandModule(IServiceProvider services) : InteractionModu
             // This is a bit more complex than it needs to be because we want to show the team number if it's not 'all'
             // and we want to show the event key if it's not 'all'
             var output = groupedSubscriptions.Select(i => $"**{_eventsRepo.GetLabelForEvent(i.Key)}**:\n\t{string.Join("\n\t", i.Select(j => _teamsRepo.GetLabelForTeam(j.Item2)))}");
-            await this.RespondAsync(string.Join("\n\n", output));
+            await this.RespondAsync(string.Join("\n\n", output)).ConfigureAwait(false);
         }
     }
 
@@ -52,7 +52,7 @@ public class SubscribeCommandModule(IServiceProvider services) : InteractionModu
     {
         if (eventKey is null && teamNumber is null)
         {
-            await this.RespondAsync("At least one of Event or Team is required.", ephemeral: true);
+            await this.RespondAsync("At least one of Event or Team is required.", ephemeral: true).ConfigureAwait(false);
         }
         else
         {
@@ -62,24 +62,24 @@ public class SubscribeCommandModule(IServiceProvider services) : InteractionModu
 
             try
             {
-                await _subscriptionManager.SaveSubscriptionAsync(new SubscriptionRequest(this.Context.Interaction.GuildId!.Value, this.Context.Interaction.ChannelId!.Value, eventKey, teamNumber), default);
+                await _subscriptionManager.SaveSubscriptionAsync(new SubscriptionRequest(this.Context.Interaction.GuildId!.Value, this.Context.Interaction.ChannelId!.Value, eventKey, teamNumber), default).ConfigureAwait(false);
                 if (!string.IsNullOrWhiteSpace(eventKey) && teamNumber is not null)
                 {
-                    await this.RespondAsync($"This channel is now subscribed to team **{_teamsRepo.GetLabelForTeam(teamNumber)}** at the **{_eventsRepo.GetLabelForEvent(eventKey)}** event.");
+                    await this.RespondAsync($"This channel is now subscribed to team **{_teamsRepo.GetLabelForTeam(teamNumber)}** at the **{_eventsRepo.GetLabelForEvent(eventKey)}** event.").ConfigureAwait(false);
                 }
                 else if (!string.IsNullOrWhiteSpace(eventKey))
                 {
-                    await this.RespondAsync($"This channel is now subscribed to the **{_eventsRepo.GetLabelForEvent(eventKey)}** event.");
+                    await this.RespondAsync($"This channel is now subscribed to the **{_eventsRepo.GetLabelForEvent(eventKey)}** event.").ConfigureAwait(false);
                 }
                 else
                 {
-                    await this.RespondAsync($"This channel is now subscribed to team **{_teamsRepo.GetLabelForTeam(teamNumber)}**.");
+                    await this.RespondAsync($"This channel is now subscribed to team **{_teamsRepo.GetLabelForTeam(teamNumber)}**.").ConfigureAwait(false);
                 }
             }
             catch (Exception ex)
             {
                 Debug.Fail(ex.Message);
-                await this.RespondAsync("An error occurred while creating the subscription. Please try again later.", ephemeral: true);
+                await this.RespondAsync("An error occurred while creating the subscription. Please try again later.", ephemeral: true).ConfigureAwait(false);
             }
         }
     }

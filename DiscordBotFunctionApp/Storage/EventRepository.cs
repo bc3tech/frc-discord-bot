@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 internal sealed class EventRepository(ApiClient apiClient, ILogger<EventRepository> logger)
 {
-    private IReadOnlyDictionary<string, Event>? _events;
+    private Dictionary<string, Event>? _events;
 
     public async ValueTask<IReadOnlyDictionary<string, Event>> GetEventsAsync(CancellationToken cancellationToken)
     {
@@ -33,7 +33,7 @@ internal sealed class EventRepository(ApiClient apiClient, ILogger<EventReposito
             {
                 Debug.Fail(ex.Message);
                 logger.LogError(ex, "An error occurred while loading events from the TBA API: {ErrorMessage}", ex.Message);
-                _events = new Dictionary<string, Event>();
+                _events = [];
             }
         }
 

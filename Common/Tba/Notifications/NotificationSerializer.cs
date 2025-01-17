@@ -1,6 +1,7 @@
 ﻿namespace Common.Tba.Notifications;
 
 using Microsoft.Kiota.Abstractions.Serialization;
+using Microsoft.VisualStudio.Threading;
 
 using System.Diagnostics;
 using System.Reflection;
@@ -11,7 +12,7 @@ using System.Text.Json.Serialization;
 public static class NotificationSerializer
 {
     //public static T? Deserialize<T>(JsonElement data) where T : IWebhookNotification
-    public static Task<T?> DeserializeAsync<T>(JsonElement data, CancellationToken cancellationToken) where T : IWebhookNotification => Task.FromResult(JsonSerializer.Deserialize<T>(data.ToString()));
+    public static Task<T?> DeserializeAsync<T>(JsonElement data, CancellationToken cancellationToken) where T : IWebhookNotification => Task.FromResult(JsonSerializer.Deserialize<T>(data.ToString())).WithCancellation(cancellationToken);
     public static Task<T?> DeserializeWithManyAsync<T, TModel>(JsonElement data, CancellationToken cancellationToken) where T : IRequireCombinedSerializations<TModel>
         where TModel : IParsable => DoCombinedDeserializationAsync<T, TModel>(data, cancellationToken);
 
@@ -27,7 +28,7 @@ public static class NotificationSerializer
             var modelProperty = GetModelJsonPropertyName<T>();
             if (modelProperty is not null)
             {
-                modelProperty!.Value.property.SetValue(deserializedObject, await KiotaJsonSerializer.DeserializeAsync<TModel>(data.GetProperty(modelProperty.Value.jsonName).ToString(), cancellationToken));
+                modelProperty!.Value.property.SetValue(deserializedObject, await KiotaJsonSerializer.DeserializeAsync<TModel>(data.GetProperty(modelProperty.Value.jsonName).ToString(), cancellationToken).ConfigureAwait(false));
             }
         }
 
@@ -45,14 +46,9 @@ public static class NotificationSerializer
             Debug.Assert(modelProperty is not null);
             if (modelProperty is not null)
             {
-                if (notification.Model is not null)
-                {
-                    o[modelProperty.Value.jsonName] = await KiotaJsonSerializer.SerializeAsStringAsync(notification.Model, serializeOnlyChangedValues: false, cancellationToken);
-                }
-                else
-                {
-                    o[modelProperty.Value.jsonName] = null;
-                }
+                o[modelProperty.Value.jsonName] = notification.Model is not null
+                    ? (JsonNode)await KiotaJsonSerializer.SerializeAsStringAsync(notification.Model, serializeOnlyChangedValues: false, cancellationToken)
+.ConfigureAwait(false) : null;
             }
 
             return o.ToJsonString();
@@ -65,11 +61,6 @@ public static class NotificationSerializer
     {
         var modelProperty = typeof(T).GetProperty("Model");
         var jsonPropertyNameAttribute = modelProperty?.GetCustomAttributes(typeof(JsonPropertyNameAttribute), inherit: false).FirstOrDefault() as JsonPropertyNameAttribute;
-        if (modelProperty is not null && jsonPropertyNameAttribute is not null)
-        {
-            return (modelProperty, jsonPropertyNameAttribute!.Name);
-        }
-
-        return null;
+        return modelProperty is not null && jsonPropertyNameAttribute is not null ? (modelProperty, jsonPropertyNameAttribute!.Name) : null;
     }
 }

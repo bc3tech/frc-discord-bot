@@ -10,7 +10,9 @@ using System.Diagnostics;
 
 internal sealed class TeamRepository(ApiClient tbaApiClient, ILogger<TeamRepository> logger)
 {
-    private IReadOnlyDictionary<string, Team>? _teams;
+    private Dictionary<string, Team>? _teams;
+
+    public Team? this[string teamKey] => _teams?[teamKey];
 
     public async ValueTask<IReadOnlyDictionary<string, Team>> GetTeamsAsync(CancellationToken cancellationToken)
     {
@@ -42,7 +44,7 @@ internal sealed class TeamRepository(ApiClient tbaApiClient, ILogger<TeamReposit
             {
                 Debug.Fail(ex.Message);
                 logger.LogError(ex, "An error occurred while loading teams from the TBA API: {ErrorMessage}", ex.Message);
-                _teams = new Dictionary<string, Team>();
+                _teams = [];
             }
         }
 

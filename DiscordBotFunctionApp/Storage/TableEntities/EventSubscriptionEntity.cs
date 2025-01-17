@@ -10,7 +10,7 @@ using System.Globalization;
 using System.Runtime.Serialization;
 using System.Text.Json;
 
-internal record EventSubscriptionEntity : ITableEntity, ISubscriptionEntity
+internal sealed record EventSubscriptionEntity : ITableEntity, ISubscriptionEntity
 {
     [IgnoreDataMember]
     public string Event { get => PartitionKey; set => PartitionKey = value; }

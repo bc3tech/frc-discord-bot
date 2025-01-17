@@ -1,21 +1,28 @@
 ﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
 
+using Common.Extensions;
 using Common.Tba;
+using Common.Tba.Notifications;
 
 using Discord;
 
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
 using System;
 
-using Tba = Common.Tba.Notifications;
-
-internal static class EmbeddingGenerator
+internal sealed class EmbeddingGenerator(EmbedBuilderFactory embedBuilder, IServiceProvider services, ILogger<EmbeddingGenerator> logger)
 {
-    public static Embed CreateEmbedding(WebhookMessage tbaWebhookMessage, uint? highlightTeam = null)
+    public async Task<Embed> CreateEmbeddingAsync(WebhookMessage tbaWebhookMessage, ushort? highlightTeam = null, CancellationToken cancellationToken = default)
     {
-        return tbaWebhookMessage.MessageType switch
+        using var scope = logger.CreateMethodScope();
+        var embedCreator = services.GetKeyedService<IEmbedCreator>(tbaWebhookMessage.MessageType.ToInvariantString());
+        if (embedCreator is null)
         {
-            Tba.NotificationType.match_score => MatchScore.Create(tbaWebhookMessage.GetDataAs<Tba.MatchScore>()!, highlightTeam),
-            _ => throw new ArgumentException($"Message type not convertible to Discord embedding: {tbaWebhookMessage.MessageType}")
-        };
+            logger.LogWarning("No embedding creator registered for message type {MessageType}", tbaWebhookMessage.MessageType);
+            return embedBuilder.GetBuilder().Build();
+        }
+
+        return await embedCreator.CreateAsync(tbaWebhookMessage, highlightTeam, cancellationToken).ConfigureAwait(false);
     }
 }

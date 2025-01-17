@@ -1,15 +1,21 @@
 ﻿namespace DiscordBotFunctionApp.DiscordInterop;
 
 using Common.Extensions;
+using Common.Tba.Notifications;
 
 using Discord;
 using Discord.Interactions;
 using Discord.Rest;
 using Discord.WebSocket;
 
+using DiscordBotFunctionApp.DiscordInterop.Embeds;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+
+using AllianceSelection = Embeds.AllianceSelection;
+using MatchScore = Embeds.MatchScore;
 
 internal static class DependencyInjectionExtensions
 {
@@ -26,6 +32,8 @@ internal static class DependencyInjectionExtensions
                 GatewayIntents = GatewayIntents.GuildMessages,
             };
         })
+        .AddSingleton<EmbedBuilderFactory>()
+        .AddSingleton<EmbeddingGenerator>()
         .AddSingleton(sp =>
         {
             var discordLogLevel = sp.GetRequiredService<IConfiguration>()[Constants.Configuration.Logging.Discord.LogLevel] ?? "Info";
@@ -74,6 +82,8 @@ internal static class DependencyInjectionExtensions
 
             return i;
         })
-        .AddHostedService<DiscordInitializationService>();
+        .AddHostedService<DiscordInitializationService>()
+        .AddKeyedSingleton<IEmbedCreator, MatchScore>(MatchScore.TargetType.ToInvariantString())
+        .AddKeyedSingleton<IEmbedCreator, AllianceSelection>(AllianceSelection.TargetType.ToInvariantString());
     }
 }

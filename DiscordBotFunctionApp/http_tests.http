@@ -44,13 +44,13 @@ content-type: application/json
       "videos": [],
       "time_string": "3:18 PM",
       "set_number": 1,
-      "key": "2025wasno_f1m1",
+      "key": "2024orsal_qm5",
       "time": 1397330280,
       "score_breakdown": null,
       "alliances": {
         "blue": {
           "score": 154,
-          "teams": [
+          "team_keys": [
             "frc177",
             "frc230",
             "frc2046"
@@ -58,14 +58,14 @@ content-type: application/json
         },
         "red": {
           "score": 78,
-          "teams": [
+          "team_keys": [
             "frc195",
             "frc558",
             "frc5122"
           ]
         }
       },
-      "event_key": "2025wasno"
+      "event_key": "2024orsal"
     }
   },
   "message_type": "match_score"
