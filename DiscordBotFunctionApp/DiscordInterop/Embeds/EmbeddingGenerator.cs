@@ -10,19 +10,24 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using System;
+using System.Runtime.CompilerServices;
 
 internal sealed class EmbeddingGenerator(EmbedBuilderFactory embedBuilder, IServiceProvider services, ILogger<EmbeddingGenerator> logger)
 {
-    public async Task<Embed> CreateEmbeddingAsync(WebhookMessage tbaWebhookMessage, ushort? highlightTeam = null, CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<Embed> CreateEmbeddingsAsync(WebhookMessage tbaWebhookMessage, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         using var scope = logger.CreateMethodScope();
         var embedCreator = services.GetKeyedService<IEmbedCreator>(tbaWebhookMessage.MessageType.ToInvariantString());
         if (embedCreator is null)
         {
             logger.LogWarning("No embedding creator registered for message type {MessageType}", tbaWebhookMessage.MessageType);
-            return embedBuilder.GetBuilder().Build();
+            yield return embedBuilder.GetBuilder().Build();
+            yield break;
         }
 
-        return await embedCreator.CreateAsync(tbaWebhookMessage, highlightTeam, cancellationToken).ConfigureAwait(false);
+        await foreach (var i in embedCreator.CreateAsync(tbaWebhookMessage, highlightTeam, cancellationToken))
+        {
+            yield return i;
+        }
     }
 }

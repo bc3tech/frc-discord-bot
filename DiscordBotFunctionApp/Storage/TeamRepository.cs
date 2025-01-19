@@ -65,4 +65,12 @@ internal sealed class TeamRepository(ApiClient tbaApiClient, ILogger<TeamReposit
 
         return string.Empty;
     }
+
+    public string GetTeamLabelWithHighlight(string teamKey, ulong? highlightIfIsTeamNumber)
+    {
+        var teamLabel = GetLabelForTeam(teamKey);
+        return highlightIfIsTeamNumber is not null && teamLabel.StartsWith(highlightIfIsTeamNumber.ToString()!, StringComparison.Ordinal)
+            ? $"**{teamLabel}**"
+            : teamLabel;
+    }
 }

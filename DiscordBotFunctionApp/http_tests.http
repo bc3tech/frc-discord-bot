@@ -70,3 +70,153 @@ content-type: application/json
   },
   "message_type": "match_score"
 }
+
+### Send upcoming_match notification
+POST {{base_url}}/tba/webhook
+content-type: application/json
+
+{
+  "message_data": {
+    "event_key": "2024orsal",
+    "match_key": "2024orsal_qm5",
+    "event_name": "New England FRC Region Championship",
+    "team_keys": [
+      "frc195",
+      "frc558",
+      "frc5122",
+      "frc2046",
+      "frc230",
+      "frc4055"
+    ],
+    "scheduled_time": 1397330280,
+    "predicted_time": 1397330280,
+    "webcast": {
+      "type": "twitch",
+      "channel": "nefirst_blue"
+    }
+  },
+  "message_type": "upcoming_match"
+}
+
+### Send alliance_selection notification
+POST {{base_url}}/tba/webhook
+content-type: application/json
+
+{
+  "message_data": {
+    "event_name": "New England FRC Region Championship",
+    "event_key": "2024orsal",
+    "event": {
+      "key": "2024orsal",
+      "website": "http://www.nefirst.org/",
+      "official": true,
+      "end_date": "2014-04-12",
+      "name": "New England FRC Region Championship",
+      "short_name": "New England",
+      "facebook_eid": null,
+      "event_district_string": "New England",
+      "venue_address": "Boston University\nAgganis Arena\nBoston, MA 02215\nUSA",
+      "event_district": 3,
+      "location": "Boston, MA, USA",
+      "event_code": "orsal",
+      "year": 2014,
+      "webcast": [],
+      "alliances": [
+        {
+          "declines": [],
+          "picks": [
+            "frc195",
+            "frc2046",
+            "frc5122"
+          ]
+        },
+        {
+          "declines": ["frc2910"],
+          "picks": [
+            "frc1153",
+            "frc125",
+            "frc4048"
+          ]
+        },
+        {
+          "declines": [],
+          "picks": [
+            "frc230",
+            "frc177",
+            "frc4055"
+          ]
+        },
+        {
+          "declines": [],
+          "picks": [
+            "frc716",
+            "frc78",
+            "frc811"
+          ]
+        },
+        {
+          "declines": [],
+          "picks": [
+            "frc1519",
+            "frc3467",
+            "frc58"
+          ]
+        },
+        {
+          "declines": [],
+          "picks": [
+            "frc131",
+            "frc175",
+            "frc1073"
+          ]
+        },
+        {
+          "declines": [],
+          "picks": [
+            "frc228",
+            "frc3525",
+            "frc2168"
+          ]
+        },
+        {
+          "declines": [],
+          "picks": [
+            "frc172",
+            "frc1058",
+            "frc2067"
+          ]
+        }
+      ],
+      "event_type_string": "District Championship",
+      "start_date": "2014-04-10",
+      "event_type": 2
+    }
+  },
+  "message_type": "alliance_selection"
+}
+
+### Send awards_posted notification
+POST {{base_url}}/tba/webhook
+content-type: application/json
+
+            {
+  "message_data": {
+    "event_key": "2024orsal",
+    "event_name": "New England FRC Region Championship",
+    "awards": [
+      {
+        "event_key": "2024orsal",
+        "award_type": 20,
+        "name": "Regional Chairman's Award",
+        "recipient_list": [
+          {
+            "team_number": 2046,
+            "awardee": null
+          }
+        ],
+        "year": 2014
+      }
+    ]
+  },
+  "message_type": "awards_posted"
+}

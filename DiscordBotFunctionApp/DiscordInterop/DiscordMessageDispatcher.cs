@@ -18,7 +18,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.Threading;
 
 using System;
+using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Security.AccessControl;
 using System.Text.Json;
 using System.Threading;
 
@@ -40,8 +42,8 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
         List<Task> notifications = [];
 
-        await sendNotificationsAsync<TeamSubscriptionEntity>(teamSubscriptions, teamRecordsToFind, notifications, i => i.Item1.ToTeamNumber(), cancellationToken).ConfigureAwait(false);
-        await sendNotificationsAsync<EventSubscriptionEntity>(eventSubscriptions, eventRecordsToFind, notifications, i => i.Item2.ToTeamNumber(), cancellationToken).ConfigureAwait(false);
+        await sendNotificationsAsync<TeamSubscriptionEntity>(teamSubscriptions, teamRecordsToFind, notifications, i => i.Item1 != CommonConstants.ALL ? i.Item1.ToTeamNumber() : null, cancellationToken).ConfigureAwait(false);
+        await sendNotificationsAsync<EventSubscriptionEntity>(eventSubscriptions, eventRecordsToFind, notifications, i => i.Item2 != CommonConstants.ALL ? i.Item2.ToTeamNumber() : null, cancellationToken).ConfigureAwait(false);
 
         logger.LogInformation("Waiting for notifications...");
 
@@ -76,7 +78,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
     private async Task ProcessSubscriptionAsync(WebhookMessage message, GuildSubscriptions subscribers, ushort? teamNumber, CancellationToken cancellationToken)
     {
         using var scope = logger.CreateMethodScope();
-        var embed = await _embedGenerator.CreateEmbeddingAsync(message, teamNumber, cancellationToken: cancellationToken).ConfigureAwait(false);
+        var embeds = _embedGenerator.CreateEmbeddingsAsync(message, teamNumber, cancellationToken: cancellationToken);
 
         foreach (var c in subscribers.SelectMany(i => i.Value))
         {
@@ -87,7 +89,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
             if (targetChannel is IMessageChannel msgChan)
             {
-                await msgChan.SendMessageAsync(embed: embed, options: new RequestOptions { CancelToken = cancellationToken }).ConfigureAwait(false);
+                await msgChan.SendMessageAsync(embeds: await embeds.ToArrayAsync(cancellationToken), options: new RequestOptions { CancelToken = cancellationToken }).ConfigureAwait(false);
             }
             else
             {
@@ -102,7 +104,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
     {
         HashSet<string> teams = [], events = [];
 
-        foreach (var propertyName in new[] { "team", "team_key", "teams", "team_keys" })
+        foreach (var propertyName in new[] { "team", "team_key", "teams", "team_keys", "picks", "declines", "team_number" })
         {
             if (messageData.TryGetPropertyAnywhere(propertyName, out var properties) && properties is not null)
             {
@@ -143,7 +145,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                         }
                     }
                 }
-                else if ((s = elt.GetString()) is not null)
+                else if ((s = elt.ToString()) is not null)
                 {
                     toHashSet.Add(transform?.Invoke(s) ?? s!);
                 }

@@ -4,7 +4,9 @@ using Common.Tba;
 
 using Discord;
 
+using System.Runtime.CompilerServices;
+
 internal interface IEmbedCreator
 {
-    Task<Embed> CreateAsync(WebhookMessage notification, ushort? highlightTeam = null, CancellationToken cancellationToken = default);
+    IAsyncEnumerable<Embed> CreateAsync(WebhookMessage notification, ushort? highlightTeam = null, CancellationToken cancellationToken = default);
 }

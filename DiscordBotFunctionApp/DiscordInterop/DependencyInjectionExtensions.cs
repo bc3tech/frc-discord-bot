@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 
 using AllianceSelection = Embeds.AllianceSelection;
 using MatchScore = Embeds.MatchScore;
+using UpcomingMatch = Embeds.UpcomingMatch;
 
 internal static class DependencyInjectionExtensions
 {
@@ -84,6 +85,8 @@ internal static class DependencyInjectionExtensions
         })
         .AddHostedService<DiscordInitializationService>()
         .AddKeyedSingleton<IEmbedCreator, MatchScore>(MatchScore.TargetType.ToInvariantString())
-        .AddKeyedSingleton<IEmbedCreator, AllianceSelection>(AllianceSelection.TargetType.ToInvariantString());
+        .AddKeyedSingleton<IEmbedCreator, AllianceSelection>(AllianceSelection.TargetType.ToInvariantString())
+        .AddKeyedSingleton<IEmbedCreator, UpcomingMatch>(UpcomingMatch.TargetType.ToInvariantString())
+        .AddKeyedSingleton<IEmbedCreator, Award>(Award.TargetType.ToInvariantString());
     }
 }
