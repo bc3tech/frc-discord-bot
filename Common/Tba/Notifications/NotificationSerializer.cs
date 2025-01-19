@@ -1,7 +1,6 @@
 ﻿namespace Common.Tba.Notifications;
 
 using Microsoft.Kiota.Abstractions.Serialization;
-using Microsoft.VisualStudio.Threading;
 
 using System.Reflection;
 using System.Text.Json;
@@ -9,7 +8,7 @@ using System.Text.Json.Serialization;
 
 public static class NotificationSerializer
 {
-    public static Task<T?> DeserializeAsync<T>(JsonElement data, CancellationToken cancellationToken) where T : IWebhookNotification => Task.FromResult(JsonSerializer.Deserialize<T>(data.ToString())).WithCancellation(cancellationToken);
+    public static Task<T?> DeserializeAsync<T>(JsonElement data, CancellationToken cancellationToken) where T : IWebhookNotification => Task.FromResult(JsonSerializer.Deserialize<T>(data.ToString()));
 
     public static Task<T?> DeserializeWithManyAsync<T, TModel>(JsonElement data, CancellationToken cancellationToken) where T : IRequireCombinedSerializations<TModel>
         where TModel : IParsable => DoCombinedDeserializationAsync<T, TModel>(data, cancellationToken, isCollection: true);

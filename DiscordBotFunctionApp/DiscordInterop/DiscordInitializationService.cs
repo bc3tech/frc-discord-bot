@@ -11,7 +11,6 @@ using DiscordBotFunctionApp;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualStudio.Threading;
 
 using System;
 using System.Reflection;
@@ -39,17 +38,15 @@ internal sealed partial class DiscordInitializationService(DiscordSocketClient c
             return Task.CompletedTask;
         };
         await client.LoginAsync(TokenType.Bot, appConfig[Constants.Configuration.Discord.Token], validateToken: true)
-            .WithCancellation(cancellationToken)
             .ConfigureAwait(false);
 
         _logger.LogDebug("Starting Discord client...");
         await client.StartAsync()
-            .WithCancellation(cancellationToken)
             .ConfigureAwait(false);
         _logger.LogInformation("Discord client started");
 
         _logger.LogDebug("Waiting for client to be Ready");
-        await tsc.Task.WithCancellation(cancellationToken).ConfigureAwait(false);
+        await tsc.Task.ConfigureAwait(false);
 
         _logger.LogInformation("Discord client ready");
         _logger.LogDebug("Currently active guilds:\n{ActiveGuilds}", string.Join($"\n", client.Guilds.Select(g => $"- {g.Name}")));
@@ -111,7 +108,7 @@ internal sealed partial class DiscordInitializationService(DiscordSocketClient c
         _logger.LogInformation("Received message: {MessageName}", msg.Data.Name);
         _logger.LogTrace("Message data: {MessageData}", JsonSerializer.Serialize(msg.Data, _debugSerializerOptions));
 
-        return Task.CompletedTask.WithCancellation(cancellationToken);
+        return Task.CompletedTask;
     }
 
     private static readonly JsonSerializerOptions _debugSerializerOptions = new(JsonSerializerDefaults.Web) { ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve };
@@ -120,6 +117,6 @@ internal sealed partial class DiscordInitializationService(DiscordSocketClient c
     {
         _logger.LogInformation("Received command: {CommandName}", command.Data.Name);
         _logger.LogTrace("Command data: {CommandData}", JsonSerializer.Serialize(command.Data, _debugSerializerOptions));
-        return Task.CompletedTask.WithCancellation(cancellationToken);
+        return Task.CompletedTask;
     }
 }

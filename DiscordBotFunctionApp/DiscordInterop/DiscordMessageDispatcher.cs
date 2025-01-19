@@ -15,12 +15,9 @@ using DiscordBotFunctionApp.Storage.TableEntities;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualStudio.Threading;
 
 using System;
-using System.Collections.Immutable;
 using System.Diagnostics;
-using System.Security.AccessControl;
 using System.Text.Json;
 using System.Threading;
 
@@ -47,7 +44,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
         logger.LogInformation("Waiting for notifications...");
 
-        await Task.WhenAll(notifications).WithCancellation(cancellationToken).ConfigureAwait(false);
+        await Task.WhenAll(notifications).ConfigureAwait(false);
 
         logger.LogInformation("Notifications completed");
 
