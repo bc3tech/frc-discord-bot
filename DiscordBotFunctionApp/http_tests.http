@@ -1,19 +1,25 @@
-@base_url = http://localhost:7240/api
+# @env dev
+# @base_url = http://localhost:7071/api/tba/webhook
+
+@env prod
+@base_url = https://bearmetaldiscordbotfunctionapp.azurewebsites.net/api
+@auth_code = "?code=8tRw-ZrJXGnNuQnS4l6bUMGVmoaQG3veDBU7x6iLOvOXAzFuphdT5Q%3D%3D""
+@webhook_url = https://bearmetaldiscordbotfunctionapp.azurewebsites.net/api/tba/webhook{{auth_code}}
 
 ### Send ping request
-POST {{base_url}}/tba/webhook
+POST {{webhook_url}}
 content-type: application/json
 
 {
   "message_data": {
     "title": "Test Message",
-    "desc": "This is a test message ensuring your device can recieve push messages from The Blue Alliance."
+    "desc": "This is a test message ensuring your device can receive push messages from The Blue Alliance."
   },
   "message_type": "ping"
 }
 
 ### Send verification request
-POST {{base_url}}/tba/webhook
+POST {{webhook_url}}
 content-type: application/json
 
 {
@@ -24,18 +30,18 @@ content-type: application/json
 }
 
 ### Send subscription request
-POST {{base_url}}/subscribe
+POST {{base_url}}/subscribe{{auth_code}}
 content-type: application/json
 
 {
-  "team":5122,
-  "event":"2014necmp",
+  "team": 5122,
+  "event": "2014necmp",
   "guildId": "996567213614055504",
   "channelId": "1328806657303642205"
 }
 
 ### Send match_score notification
-POST {{base_url}}/tba/webhook
+POST {{webhook_url}}
 content-type: application/json
 
 {
@@ -75,7 +81,7 @@ content-type: application/json
 }
 
 ### Send upcoming_match notification
-POST {{base_url}}/tba/webhook
+POST {{webhook_url}}
 content-type: application/json
 
 {
@@ -102,7 +108,7 @@ content-type: application/json
 }
 
 ### Send alliance_selection notification
-POST {{base_url}}/tba/webhook
+POST {{webhook_url}}
 content-type: application/json
 
 {
@@ -199,10 +205,10 @@ content-type: application/json
 }
 
 ### Send awards_posted notification
-POST {{base_url}}/tba/webhook
+POST {{webhook_url}}
 content-type: application/json
 
-            {
+{
   "message_data": {
     "event_key": "2024orsal",
     "event_name": "New England FRC Region Championship",
