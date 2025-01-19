@@ -31,7 +31,6 @@ internal static class Constants
             public const string _Name = nameof(Discord);
             public static readonly string LogLevel = ConfigurationPath.Combine(_Name, nameof(LogLevel));
             public static readonly string Token = ConfigurationPath.Combine(_Name, nameof(Token));
-            public static readonly string PublicKey = ConfigurationPath.Combine(_Name, nameof(PublicKey));
         }
 
         public static class Azure
