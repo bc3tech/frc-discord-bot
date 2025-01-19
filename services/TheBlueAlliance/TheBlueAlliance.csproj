@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="JsonSubTypes" PrivateAssets="all" />
+    <PackageReference Include="Newtonsoft.Json" PrivateAssets="all" />
+    <PackageReference Include="Polly" PrivateAssets="all" />
+    <PackageReference Include="RestSharp" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="NSwagger.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>NSwagger.json</DependentUpon>
+    </Compile>
+    <Compile Update="Swagger.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Swagger.json</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="NSwagger.json">
+      <Generator>NSwagCodeGenerator</Generator>
+      <LastGenOutput>NSwagger.cs</LastGenOutput>
+    </None>
+    <None Update="Swagger.json">
+      <Generator>OpenApiCodeGenerator</Generator>
+      <LastGenOutput>Swagger.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

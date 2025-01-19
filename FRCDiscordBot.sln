@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordBotFunctionApp", "Di
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{E15E491A-E872-91D8-DF7A-CA59C792F064}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBlueAlliance", "services\TheBlueAlliance\TheBlueAlliance.csproj", "{9A57B98F-F35C-4A01-B758-20F6CF8C6221}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIs", "APIs", "{133082A9-3A13-4AD8-9837-77681F7FF6B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,9 +32,16 @@ Global
 		{E15E491A-E872-91D8-DF7A-CA59C792F064}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E15E491A-E872-91D8-DF7A-CA59C792F064}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E15E491A-E872-91D8-DF7A-CA59C792F064}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A57B98F-F35C-4A01-B758-20F6CF8C6221}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A57B98F-F35C-4A01-B758-20F6CF8C6221}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A57B98F-F35C-4A01-B758-20F6CF8C6221}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A57B98F-F35C-4A01-B758-20F6CF8C6221}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9A57B98F-F35C-4A01-B758-20F6CF8C6221} = {133082A9-3A13-4AD8-9837-77681F7FF6B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DE58E923-9058-404E-B0F9-EDA4E1453163}
