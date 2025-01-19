@@ -43,14 +43,16 @@ internal sealed class MatchScore(ApiClient tbaApi, EmbedBuilderFactory builderFa
             yield break;
         }
 
+        var eventStandings = await tbaApi.Event[notification.event_key ?? Throws.IfNullOrWhiteSpace(notification.match.EventKey)].Rankings.GetAsync(cancellationToken: cancellationToken);
+
         var embedding = baseBuilder
             .WithDescription(
 $@"# Scores are in!
 ## {compLevelHeader} - {matchHeader}
 ### {(detailedMatch.WinningAlliance is Match_winning_alliance.Red ? "🏅" : string.Empty)} Red Alliance - {detailedMatch.Alliances!.Red!.Score} (+{detailedMatch.GetAllianceRankingPoints(Match_winning_alliance.Red)})
-{string.Join("\n", detailedMatch.Alliances.Red.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}"))}
+{string.Join("\n", detailedMatch.Alliances.Red.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{eventStandings?.Rankings?.First(i => i.TeamKey == t).Rank})"))}
 ### {(detailedMatch.WinningAlliance is Match_winning_alliance.Blue ? "🏅" : string.Empty)} Blue Alliance - {detailedMatch.Alliances.Blue!.Score} (+{detailedMatch.GetAllianceRankingPoints(Match_winning_alliance.Blue)})
-{string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}"))}
+{string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{eventStandings?.Rankings?.First(i => i.TeamKey == t).Rank})"))}
 
 View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})
 ")

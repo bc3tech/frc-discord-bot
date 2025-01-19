@@ -75,10 +75,10 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         }
     }
 
-    private async Task ProcessSubscriptionAsync(WebhookMessage message, GuildSubscriptions subscribers, ushort? teamNumber, CancellationToken cancellationToken)
+    private async Task ProcessSubscriptionAsync(WebhookMessage message, GuildSubscriptions subscribers, ushort? highlightTeam, CancellationToken cancellationToken)
     {
         using var scope = logger.CreateMethodScope();
-        var embeds = _embedGenerator.CreateEmbeddingsAsync(message, teamNumber, cancellationToken: cancellationToken);
+        var embeds = _embedGenerator.CreateEmbeddingsAsync(message, highlightTeam, cancellationToken: cancellationToken);
 
         foreach (var c in subscribers.SelectMany(i => i.Value))
         {
