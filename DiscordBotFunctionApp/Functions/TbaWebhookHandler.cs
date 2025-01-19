@@ -1,4 +1,4 @@
-namespace DiscordBotFunctionApp.TbaInterop;
+namespace DiscordBotFunctionApp.Functions;
 
 using Common.Tba;
 using Common.Tba.Notifications;
@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILogger<TbaWebhookHandler> logger)
 {
     [Function("TbaWebhookHandler")]
-    public async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "tba/webhook")] HttpRequestData req, CancellationToken cancellationToken)
+    public async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = "tba/webhook")] HttpRequestData req, CancellationToken cancellationToken)
     {
         var bodyContent = await req.ReadAsStringAsync().ConfigureAwait(false);
         if (string.IsNullOrWhiteSpace(bodyContent))

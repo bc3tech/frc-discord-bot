@@ -1,4 +1,4 @@
-namespace DiscordBotFunctionApp;
+namespace DiscordBotFunctionApp.Functions;
 
 using System;
 
