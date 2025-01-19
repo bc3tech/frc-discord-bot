@@ -26,7 +26,7 @@ internal sealed class Program
     private static async Task Main(string[] args)
     {
         var host = new HostBuilder()
-            .ConfigureFunctionsWebApplication()
+            .ConfigureFunctionsWorkerDefaults()
             .ConfigureLogging((context, builder) => builder
                 .AddConfiguration(context.Configuration.GetSection("Logging"))
                 .AddDebug()
@@ -66,7 +66,8 @@ internal sealed class Program
                     })
                     .AddHostedService<TbaInitializationService>();
 
-                TableServiceClient tsc = Uri.TryCreate(context.Configuration[Constants.Configuration.Azure.Storage.TableEndpoint], UriKind.Absolute, out var tableEndpoint)
+                var tableStorageEndpointConfigValue = context.Configuration[Constants.Configuration.Azure.Storage.TableEndpoint];
+                TableServiceClient tsc = !string.IsNullOrWhiteSpace(tableStorageEndpointConfigValue) && Uri.TryCreate(tableStorageEndpointConfigValue, UriKind.Absolute, out var tableEndpoint)
                     ? new TableServiceClient(tableEndpoint, credential)
                     : new TableServiceClient(Throws.IfNullOrWhiteSpace(context.Configuration["AzureWebJobsStorage"]));
                 foreach (var i in context.Configuration.GetSection(Constants.Configuration.Azure.Storage.Tables).Get<IEnumerable<string>>() ?? [])

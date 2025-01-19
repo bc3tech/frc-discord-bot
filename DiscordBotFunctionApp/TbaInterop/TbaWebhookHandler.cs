@@ -5,9 +5,9 @@ using Common.Tba.Notifications;
 
 using DiscordBotFunctionApp.DiscordInterop;
 
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 
 using System.Text.Json;
@@ -16,11 +16,13 @@ using System.Threading.Tasks;
 internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILogger<TbaWebhookHandler> logger)
 {
     [Function("TbaWebhookHandler")]
-    public async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = "tba/webhook")] HttpRequest req, CancellationToken cancellationToken)
+    public async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "tba/webhook")] HttpRequestData req, CancellationToken cancellationToken)
     {
-        string bodyContent;
-        using (var reader = new StreamReader(req.Body))
-            bodyContent = await reader.ReadToEndAsync(cancellationToken).ConfigureAwait(false);
+        var bodyContent = await req.ReadAsStringAsync().ConfigureAwait(false);
+        if (string.IsNullOrWhiteSpace(bodyContent))
+        {
+            return new BadRequestObjectResult("No body content.");
+        }
 
         var message = JsonSerializer.Deserialize<WebhookMessage>(bodyContent);
         if (message is not null)
