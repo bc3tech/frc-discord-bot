@@ -37,7 +37,7 @@ internal sealed class UpcomingMatch(ApiClient tbaApi, EmbedBuilderFactory builde
             yield break;
         }
 
-        var detailedMatch = await tbaApi.Match[notification.match_key].GetAsync(cancellationToken: cancellationToken);
+        var detailedMatch = await tbaApi.Match[notification.match_key].Simple.GetAsync(cancellationToken: cancellationToken);
         if (detailedMatch is null)
         {
             logger.LogWarning("Failed to retrieve detailed match data for {MatchKey}", notification.match_key);

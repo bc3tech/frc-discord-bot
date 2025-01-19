@@ -33,7 +33,9 @@ internal sealed class MatchScore(ApiClient tbaApi, EmbedBuilderFactory builderFa
         var compLevelHeader = $"{Translator.CompLevelToShortString(notification.match!.CompLevel!.ToString()!)} {notification.match.SetNumber}";
         var matchHeader = $"Match {notification.match.MatchNumber}";
 
-        var detailedMatch = await tbaApi.Match[notification.match_key ?? Throws.IfNullOrWhiteSpace(notification.match?.Key)].GetAsync(cancellationToken: cancellationToken);
+        var requestInfo = tbaApi.Match[notification.match_key ?? Throws.IfNullOrWhiteSpace(notification.match?.Key)];
+        var detailedMatch = await requestInfo.GetAsync(cancellationToken: cancellationToken);
+
         if (detailedMatch is null)
         {
             logger.LogWarning("Failed to retrieve detailed match data for {MatchKey}", notification.match_key ?? notification.match?.Key);

@@ -5,12 +5,13 @@ using Microsoft.Kiota.Abstractions.Serialization;
 using System.Collections.Generic;
 using System.IO;
 using System;
+using System.Runtime.CompilerServices;
 namespace Common.Tba.Api.Models
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    #pragma warning disable CS1591
+#pragma warning disable CS1591
     public partial class Match : IParsable
-    #pragma warning restore CS1591
+#pragma warning restore CS1591
     {
         /// <summary>UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of actual match start time.</summary>
         public long? ActualTime { get; set; }
@@ -94,7 +95,8 @@ namespace Common.Tba.Api.Models
                 { "match_number", n => { MatchNumber = n.GetIntValue(); } },
                 { "post_result_time", n => { PostResultTime = n.GetLongValue(); } },
                 { "predicted_time", n => { PredictedTime = n.GetLongValue(); } },
-                { "score_breakdown", n => { ScoreBreakdown = n.GetObjectValue<global::Common.Tba.Api.Models.Match.Match_score_breakdown>(global::Common.Tba.Api.Models.Match.Match_score_breakdown.CreateFromDiscriminatorValue); } },
+                { "score_breakdown", n => { ScoreBreakdown = n.GetObjectValue<global::Common.Tba.Api.Models.Match.Match_score_breakdown>(
+                    p=> global::Common.Tba.Api.Models.Match.Match_score_breakdown.CreateFromDiscriminatorValue(p, $"Match_Score_Breakdown_{this.Key![..4]}")); } },
                 { "set_number", n => { SetNumber = n.GetIntValue(); } },
                 { "time", n => { Time = n.GetLongValue(); } },
                 { "videos", n => { Videos = n.GetCollectionOfObjectValues<global::Common.Tba.Api.Models.Match_videos>(global::Common.Tba.Api.Models.Match_videos.CreateFromDiscriminatorValue)?.AsList(); } },
@@ -205,44 +207,43 @@ namespace Common.Tba.Api.Models
             /// </summary>
             /// <returns>A <see cref="global::Common.Tba.Api.Models.Match.Match_score_breakdown"/></returns>
             /// <param name="parseNode">The parse node to use to read the discriminator value and create the object</param>
-            public static global::Common.Tba.Api.Models.Match.Match_score_breakdown CreateFromDiscriminatorValue(IParseNode parseNode)
+            public static global::Common.Tba.Api.Models.Match.Match_score_breakdown CreateFromDiscriminatorValue(IParseNode parseNode, string mappingValue)
             {
                 _ = parseNode ?? throw new ArgumentNullException(nameof(parseNode));
-                var mappingValue = parseNode.GetChildNode("")?.GetStringValue();
                 var result = new global::Common.Tba.Api.Models.Match.Match_score_breakdown();
-                if("Match_Score_Breakdown_2015".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                if ("Match_Score_Breakdown_2015".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
                 {
                     result.MatchScoreBreakdown2015 = new global::Common.Tba.Api.Models.Match_Score_Breakdown_2015();
                 }
-                else if("Match_Score_Breakdown_2016".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                else if ("Match_Score_Breakdown_2016".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
                 {
                     result.MatchScoreBreakdown2016 = new global::Common.Tba.Api.Models.Match_Score_Breakdown_2016();
                 }
-                else if("Match_Score_Breakdown_2017".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                else if ("Match_Score_Breakdown_2017".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
                 {
                     result.MatchScoreBreakdown2017 = new global::Common.Tba.Api.Models.Match_Score_Breakdown_2017();
                 }
-                else if("Match_Score_Breakdown_2018".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                else if ("Match_Score_Breakdown_2018".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
                 {
                     result.MatchScoreBreakdown2018 = new global::Common.Tba.Api.Models.Match_Score_Breakdown_2018();
                 }
-                else if("Match_Score_Breakdown_2019".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                else if ("Match_Score_Breakdown_2019".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
                 {
                     result.MatchScoreBreakdown2019 = new global::Common.Tba.Api.Models.Match_Score_Breakdown_2019();
                 }
-                else if("Match_Score_Breakdown_2020".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                else if ("Match_Score_Breakdown_2020".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
                 {
                     result.MatchScoreBreakdown2020 = new global::Common.Tba.Api.Models.Match_Score_Breakdown_2020();
                 }
-                else if("Match_Score_Breakdown_2022".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                else if ("Match_Score_Breakdown_2022".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
                 {
                     result.MatchScoreBreakdown2022 = new global::Common.Tba.Api.Models.Match_Score_Breakdown_2022();
                 }
-                else if("Match_Score_Breakdown_2023".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                else if ("Match_Score_Breakdown_2023".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
                 {
                     result.MatchScoreBreakdown2023 = new global::Common.Tba.Api.Models.Match_Score_Breakdown_2023();
                 }
-                else if("Match_Score_Breakdown_2024".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
+                else if ("Match_Score_Breakdown_2024".Equals(mappingValue, StringComparison.OrdinalIgnoreCase))
                 {
                     result.MatchScoreBreakdown2024 = new global::Common.Tba.Api.Models.Match_Score_Breakdown_2024();
                 }
@@ -254,39 +255,39 @@ namespace Common.Tba.Api.Models
             /// <returns>A IDictionary&lt;string, Action&lt;IParseNode&gt;&gt;</returns>
             public virtual IDictionary<string, Action<IParseNode>> GetFieldDeserializers()
             {
-                if(MatchScoreBreakdown2015 != null)
+                if (MatchScoreBreakdown2015 != null)
                 {
                     return MatchScoreBreakdown2015.GetFieldDeserializers();
                 }
-                else if(MatchScoreBreakdown2016 != null)
+                else if (MatchScoreBreakdown2016 != null)
                 {
                     return MatchScoreBreakdown2016.GetFieldDeserializers();
                 }
-                else if(MatchScoreBreakdown2017 != null)
+                else if (MatchScoreBreakdown2017 != null)
                 {
                     return MatchScoreBreakdown2017.GetFieldDeserializers();
                 }
-                else if(MatchScoreBreakdown2018 != null)
+                else if (MatchScoreBreakdown2018 != null)
                 {
                     return MatchScoreBreakdown2018.GetFieldDeserializers();
                 }
-                else if(MatchScoreBreakdown2019 != null)
+                else if (MatchScoreBreakdown2019 != null)
                 {
                     return MatchScoreBreakdown2019.GetFieldDeserializers();
                 }
-                else if(MatchScoreBreakdown2020 != null)
+                else if (MatchScoreBreakdown2020 != null)
                 {
                     return MatchScoreBreakdown2020.GetFieldDeserializers();
                 }
-                else if(MatchScoreBreakdown2022 != null)
+                else if (MatchScoreBreakdown2022 != null)
                 {
                     return MatchScoreBreakdown2022.GetFieldDeserializers();
                 }
-                else if(MatchScoreBreakdown2023 != null)
+                else if (MatchScoreBreakdown2023 != null)
                 {
                     return MatchScoreBreakdown2023.GetFieldDeserializers();
                 }
-                else if(MatchScoreBreakdown2024 != null)
+                else if (MatchScoreBreakdown2024 != null)
                 {
                     return MatchScoreBreakdown2024.GetFieldDeserializers();
                 }
@@ -299,39 +300,39 @@ namespace Common.Tba.Api.Models
             public virtual void Serialize(ISerializationWriter writer)
             {
                 _ = writer ?? throw new ArgumentNullException(nameof(writer));
-                if(MatchScoreBreakdown2015 != null)
+                if (MatchScoreBreakdown2015 != null)
                 {
                     writer.WriteObjectValue<global::Common.Tba.Api.Models.Match_Score_Breakdown_2015>(null, MatchScoreBreakdown2015);
                 }
-                else if(MatchScoreBreakdown2016 != null)
+                else if (MatchScoreBreakdown2016 != null)
                 {
                     writer.WriteObjectValue<global::Common.Tba.Api.Models.Match_Score_Breakdown_2016>(null, MatchScoreBreakdown2016);
                 }
-                else if(MatchScoreBreakdown2017 != null)
+                else if (MatchScoreBreakdown2017 != null)
                 {
                     writer.WriteObjectValue<global::Common.Tba.Api.Models.Match_Score_Breakdown_2017>(null, MatchScoreBreakdown2017);
                 }
-                else if(MatchScoreBreakdown2018 != null)
+                else if (MatchScoreBreakdown2018 != null)
                 {
                     writer.WriteObjectValue<global::Common.Tba.Api.Models.Match_Score_Breakdown_2018>(null, MatchScoreBreakdown2018);
                 }
-                else if(MatchScoreBreakdown2019 != null)
+                else if (MatchScoreBreakdown2019 != null)
                 {
                     writer.WriteObjectValue<global::Common.Tba.Api.Models.Match_Score_Breakdown_2019>(null, MatchScoreBreakdown2019);
                 }
-                else if(MatchScoreBreakdown2020 != null)
+                else if (MatchScoreBreakdown2020 != null)
                 {
                     writer.WriteObjectValue<global::Common.Tba.Api.Models.Match_Score_Breakdown_2020>(null, MatchScoreBreakdown2020);
                 }
-                else if(MatchScoreBreakdown2022 != null)
+                else if (MatchScoreBreakdown2022 != null)
                 {
                     writer.WriteObjectValue<global::Common.Tba.Api.Models.Match_Score_Breakdown_2022>(null, MatchScoreBreakdown2022);
                 }
-                else if(MatchScoreBreakdown2023 != null)
+                else if (MatchScoreBreakdown2023 != null)
                 {
                     writer.WriteObjectValue<global::Common.Tba.Api.Models.Match_Score_Breakdown_2023>(null, MatchScoreBreakdown2023);
                 }
-                else if(MatchScoreBreakdown2024 != null)
+                else if (MatchScoreBreakdown2024 != null)
                 {
                     writer.WriteObjectValue<global::Common.Tba.Api.Models.Match_Score_Breakdown_2024>(null, MatchScoreBreakdown2024);
                 }
