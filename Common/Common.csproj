@@ -7,9 +7,4 @@
     <PackageReference Include="Microsoft.Kiota.Bundle" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="First\" />
-    <Folder Include="Properties\" />
-  </ItemGroup>
-
 </Project>
