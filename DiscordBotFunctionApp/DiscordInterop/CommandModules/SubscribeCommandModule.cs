@@ -39,7 +39,7 @@ public class SubscribeCommandModule(IServiceProvider services) : InteractionModu
             // This is a bit more complex than it needs to be because we want to show the team number if it's not 'all'
             // and we want to show the event key if it's not 'all'
             var output = groupedSubscriptions.Select(i => $"**{_eventsRepo.GetLabelForEvent(i.Key)}**:\n\t{string.Join("\n\t", i.Select(j => _teamsRepo.GetLabelForTeam(j.Item2)))}");
-            await this.RespondAsync(string.Join("\n\n", output)).ConfigureAwait(false);
+            await this.RespondAsync(string.Join("\n\n", output), ephemeral: true).ConfigureAwait(false);
         }
     }
 

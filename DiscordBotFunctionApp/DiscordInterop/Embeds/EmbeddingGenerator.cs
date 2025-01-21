@@ -1,8 +1,6 @@
 ﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
 
 using Common.Extensions;
-using Common.Tba;
-using Common.Tba.Notifications;
 
 using Discord;
 
@@ -11,6 +9,9 @@ using Microsoft.Extensions.Logging;
 
 using System;
 using System.Runtime.CompilerServices;
+
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Api.Notifications;
 
 internal sealed class EmbeddingGenerator(EmbedBuilderFactory embedBuilder, IServiceProvider services, ILogger<EmbeddingGenerator> logger)
 {

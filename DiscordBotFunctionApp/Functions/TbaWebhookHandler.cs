@@ -1,8 +1,5 @@
 namespace DiscordBotFunctionApp.Functions;
 
-using Common.Tba;
-using Common.Tba.Notifications;
-
 using DiscordBotFunctionApp.DiscordInterop;
 
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +9,9 @@ using Microsoft.Extensions.Logging;
 
 using System.Text.Json;
 using System.Threading.Tasks;
+
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Api.Notifications;
 
 internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILogger<TbaWebhookHandler> logger)
 {
@@ -29,12 +29,12 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILo
         {
             if (message.MessageType is NotificationType.verification)
             {
-                logger.LogInformation("Received verification message from The Blue Alliance. Key: {VerificationKey}", (await message.GetDataAsAsync<Verification>(cancellationToken).ConfigureAwait(false))!.verification_key);
+                logger.LogInformation("Received verification message from The Blue Alliance. Key: {VerificationKey}", JsonSerializer.Deserialize<Verification>(message.MessageData)!.verification_key);
                 return new OkResult();
             }
             else if (message.MessageType is NotificationType.ping)
             {
-                var pingData = await message.GetDataAsAsync<Ping>(cancellationToken).ConfigureAwait(false)!;
+                var pingData = JsonSerializer.Deserialize<Ping>(message.MessageData);
                 logger.LogInformation("Received ping message from The Blue Alliance:\nTitle: {PingTitle}\nDescription: {PingDesc}", pingData.title, pingData.desc);
                 return new OkResult();
             }

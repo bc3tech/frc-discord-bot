@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <PackageReference Include="Discord.Net" />
-    <PackageReference Include="Microsoft.Extensions.EnumStrings" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
     <PackageReference Include="Microsoft.Kiota.Bundle" />
   </ItemGroup>

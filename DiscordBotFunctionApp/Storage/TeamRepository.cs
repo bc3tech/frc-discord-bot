@@ -1,14 +1,15 @@
 ﻿namespace DiscordBotFunctionApp.Storage;
 
 using Common.Extensions;
-using Common.Tba.Api;
-using Common.Tba.Api.Models;
 
 using Microsoft.Extensions.Logging;
 
 using System.Diagnostics;
 
-internal sealed class TeamRepository(ApiClient tbaApiClient, ILogger<TeamRepository> logger)
+using TheBlueAlliance.Api.Api;
+using TheBlueAlliance.Api.Model;
+
+internal sealed class TeamRepository(ITeamApi tbaApiClient, ILogger<TeamRepository> logger)
 {
     private Dictionary<string, Team>? _teams;
 
@@ -27,9 +28,8 @@ internal sealed class TeamRepository(ApiClient tbaApiClient, ILogger<TeamReposit
                 do
                 {
                     cancellationToken.ThrowIfCancellationRequested();
-                    var newTeams = await tbaApiClient.Teams[i++].GetAsync(cancellationToken: cancellationToken)
-                        .ConfigureAwait(false);
-                    if (newTeams?.Count is null or 0)
+                    var newTeams = await tbaApiClient.GetTeamsAsync(i++, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    if (newTeams.Count is 0)
                     {
                         break;
                     }

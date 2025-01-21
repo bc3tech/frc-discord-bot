@@ -2,6 +2,7 @@ namespace DiscordBotFunctionApp;
 using Azure.Core;
 using Azure.Data.Tables;
 using Azure.Identity;
+using Azure.Storage.Blobs;
 
 using DiscordBotFunctionApp.DiscordInterop;
 using DiscordBotFunctionApp.Storage;
@@ -14,8 +15,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
-using Microsoft.Kiota.Abstractions.Authentication;
-using Microsoft.Kiota.Http.HttpClientLibrary;
 
 using Throws = Common.Throws;
 
@@ -54,17 +53,11 @@ internal sealed class Program
                     .AddApplicationInsightsTelemetryWorkerService()
                     .ConfigureFunctionsApplicationInsights()
                     .ConfigureDiscord()
+                    .ConfigureTheBlueAllianceApi()
                     .AddSingleton<EventRepository>()
                     .AddSingleton<TeamRepository>()
                     .AddSingleton<SubscriptionManager>()
-                    .AddSingleton<TokenCredential>(credential)
-                    .AddSingleton(sp =>
-                    {
-                        var config = sp.GetRequiredService<IConfiguration>();
-                        var apiKey = Throws.IfNullOrWhiteSpace(config[Constants.Configuration.TbaApiKey]);
-                        return new Common.Tba.Api.ApiClient(new HttpClientRequestAdapter(new ApiKeyAuthenticationProvider(apiKey, "X-TBA-Auth-Key", ApiKeyAuthenticationProvider.KeyLocation.Header)));
-                    })
-                    .AddHostedService<TbaInitializationService>();
+                    .AddSingleton<TokenCredential>(credential);
 
                 var tableStorageEndpointConfigValue = context.Configuration[Constants.Configuration.Azure.Storage.TableEndpoint];
                 TableServiceClient tsc = !string.IsNullOrWhiteSpace(tableStorageEndpointConfigValue) && Uri.TryCreate(tableStorageEndpointConfigValue, UriKind.Absolute, out var tableEndpoint)
@@ -84,6 +77,19 @@ internal sealed class Program
                         return c;
                     });
                 }
+
+                services.AddSingleton(sp =>
+                {
+                    var blobStorageEndpointConfigValue = context.Configuration[Constants.Configuration.Azure.Storage.BlobsEndpoint];
+                    BlobServiceClient bsc = !string.IsNullOrWhiteSpace(blobStorageEndpointConfigValue) && Uri.TryCreate(blobStorageEndpointConfigValue, UriKind.Absolute, out var blobsEndpoint)
+                        ? new BlobServiceClient(blobsEndpoint, credential)
+                        : new BlobServiceClient(Throws.IfNullOrWhiteSpace(context.Configuration["AzureWebJobsStorage"]));
+
+                    var blobContainer = bsc.GetBlobContainerClient("misc");
+                    blobContainer.CreateIfNotExists();
+
+                    return blobContainer;
+                });
             }).Build();
 
         await host.RunAsync().ConfigureAwait(false);

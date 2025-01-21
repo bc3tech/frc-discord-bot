@@ -1,7 +1,6 @@
 ﻿namespace DiscordBotFunctionApp.DiscordInterop;
 
 using Common.Extensions;
-using Common.Tba.Api.Models;
 
 using Discord;
 using Discord.Interactions;
@@ -35,12 +34,12 @@ internal sealed class AutoCompleteHandlers
             var frcEvents = await eventsRepo.GetEventsAsync(default).ConfigureAwait(false);
             return AutocompletionResult.FromSuccess(
                 frcEvents.Where(i => i.Key.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
-                    || i.Value.Name?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
-                    || i.Value.Year?.ToString(CultureInfo.InvariantCulture).Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
-                    || i.Value.City?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
-                    || i.Value.Country?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
-                    || i.Value.StateProv?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
-                    || i.Value.LocationName?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true)
+                    || i.Value.Name.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
+                    || i.Value.Year.ToString(CultureInfo.InvariantCulture).Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
+                    || i.Value.City.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
+                    || i.Value.Country.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
+                    || i.Value.StateProv.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
+                    || i.Value.LocationName.Contains(userSearchString, StringComparison.OrdinalIgnoreCase))
                 .Take(MAX_RESULTS)
                 .Select(i => new AutocompleteResult(Ellipsify(eventsRepo.GetLabelForEvent(i.Key)), i.Key)));
         }
@@ -55,12 +54,12 @@ internal sealed class AutoCompleteHandlers
             Debug.Assert(teamsRepo is not null);
             var frcEvents = await teamsRepo.GetTeamsAsync(default).ConfigureAwait(false);
             return AutocompletionResult.FromSuccess(frcEvents
-                .Where(i => i.Value.Name?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
-                    || i.Value.Nickname?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
-                    || i.Value.TeamNumber?.ToString(CultureInfo.InvariantCulture).Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
-                    || i.Value.City?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
-                    || i.Value.Country?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
-                    || i.Value.StateProv?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true)
+                .Where(i => i.Value.Name.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
+                    || i.Value.Nickname.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
+                    || i.Value.TeamNumber.ToString(CultureInfo.InvariantCulture).Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
+                    || i.Value.City.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
+                    || i.Value.Country.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
+                    || i.Value.StateProv.Contains(userSearchString, StringComparison.OrdinalIgnoreCase))
                 .Take(MAX_RESULTS)
                 .Select(i => new AutocompleteResult(Ellipsify(teamsRepo.GetLabelForTeam(i.Key)), i.Key.ToTeamNumber())));
         }

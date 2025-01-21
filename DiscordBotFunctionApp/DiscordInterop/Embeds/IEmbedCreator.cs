@@ -1,10 +1,8 @@
 ﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
 
-using Common.Tba;
-
 using Discord;
 
-using System.Runtime.CompilerServices;
+using TheBlueAlliance.Api;
 
 internal interface IEmbedCreator
 {

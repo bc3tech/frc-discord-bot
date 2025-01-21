@@ -41,6 +41,7 @@ internal static class Constants
             {
                 public static readonly string _Name = ConfigurationPath.Combine(Azure._Name, nameof(Storage));
                 public static readonly string TableEndpoint = ConfigurationPath.Combine(_Name, nameof(TableEndpoint));
+                public static readonly string BlobsEndpoint = ConfigurationPath.Combine(_Name, nameof(BlobsEndpoint));
                 public static readonly string Tables = ConfigurationPath.Combine(_Name, nameof(Tables));
             }
         }

@@ -3,7 +3,6 @@
 using Azure.Data.Tables;
 
 using Common.Extensions;
-using Common.Tba;
 
 using Discord;
 using Discord.Commands;
@@ -20,6 +19,8 @@ using System;
 using System.Diagnostics;
 using System.Text.Json;
 using System.Threading;
+
+using TheBlueAlliance.Api;
 
 internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptions,
                                         [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptions,

@@ -1,8 +1,6 @@
 ﻿namespace DiscordBotFunctionApp.Storage;
 
 using Common.Extensions;
-using Common.Tba.Api;
-using Common.Tba.Api.Models;
 
 using Microsoft.Extensions.Logging;
 
@@ -10,7 +8,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-internal sealed class EventRepository(ApiClient apiClient, ILogger<EventRepository> logger)
+using TheBlueAlliance.Api.Api;
+using TheBlueAlliance.Api.Model;
+
+internal sealed class EventRepository(IEventApi apiClient, ILogger<EventRepository> logger)
 {
     private Dictionary<string, Event>? _events;
 
@@ -23,11 +24,10 @@ internal sealed class EventRepository(ApiClient apiClient, ILogger<EventReposito
             logger.LogDebug("Loading Events from TBA...");
             try
             {
-                var newEvents = await apiClient.Events[currentYear].GetAsync(cancellationToken: cancellationToken)
-                    .ConfigureAwait(false);
+                var newEvents = await apiClient.GetEventsByYearAsync(currentYear, cancellationToken: cancellationToken).ConfigureAwait(false);
 
-                logger.LogInformation("Loaded {EventCount} events", newEvents?.Count ?? 0);
-                _events = newEvents?.ToDictionary(t => t.Key!) ?? [];
+                logger.LogInformation("Loaded {EventCount} events", newEvents.Count);
+                _events = newEvents.ToDictionary(t => t.Key!);
             }
             catch (Exception ex)
             {

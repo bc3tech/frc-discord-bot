@@ -13,6 +13,7 @@
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 		<PackageReference Include="Azure.Data.Tables" />
+		<PackageReference Include="Azure.Storage.Blobs" />
 		<PackageReference Include="Microsoft.Azure.Functions.Extensions" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" />
@@ -22,7 +23,7 @@
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.ApplicationInsights" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\Common\Common.csproj" />
+	  <ProjectReference Include="..\services\TheBlueAlliance\src\TheBlueAlliance.Api\TheBlueAlliance.Api.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="appsettings.development.json">

@@ -1,12 +1,5 @@
 ﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
 
-using Common;
-using Common.Tba;
-using Common.Tba.Api;
-using Common.Tba.Api.Models;
-using Common.Tba.Extensions;
-using Common.Tba.Notifications;
-
 using Discord;
 
 using DiscordBotFunctionApp.Storage;
@@ -14,15 +7,21 @@ using DiscordBotFunctionApp.Storage;
 using Microsoft.Extensions.Logging;
 
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 
-internal sealed class UpcomingMatch(ApiClient tbaApi, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<UpcomingMatch> logger) : IEmbedCreator
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Api.Api;
+using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api.Notifications;
+
+internal sealed class UpcomingMatch(IMatchApi tbaApi, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<UpcomingMatch> logger) : IEmbedCreator
 {
     public static NotificationType TargetType { get; } = NotificationType.upcoming_match;
 
     public async IAsyncEnumerable<Embed> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var baseBuilder = builderFactory.GetBuilder();
-        var notification = await msg.GetDataAsAsync<Common.Tba.Notifications.UpcomingMatch, Webcast>(cancellationToken).ConfigureAwait(false);
+        var notification = JsonSerializer.Deserialize<TheBlueAlliance.Api.Notifications.UpcomingMatch>(msg.MessageData);
         if (notification is null)
         {
             logger.LogWarning("Failed to deserialize notification data as {NotificationType}", TargetType);
@@ -37,7 +36,7 @@ internal sealed class UpcomingMatch(ApiClient tbaApi, EmbedBuilderFactory builde
             yield break;
         }
 
-        var detailedMatch = await tbaApi.Match[notification.match_key].Simple.GetAsync(cancellationToken: cancellationToken);
+        var detailedMatch = await tbaApi.GetMatchSimpleAsync(notification.match_key, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (detailedMatch is null)
         {
             logger.LogWarning("Failed to retrieve detailed match data for {MatchKey}", notification.match_key);
@@ -45,7 +44,7 @@ internal sealed class UpcomingMatch(ApiClient tbaApi, EmbedBuilderFactory builde
             yield break;
         }
 
-        var compLevelHeader = $"{Translator.CompLevelToShortString(detailedMatch.CompLevel!.ToString()!)} {detailedMatch.SetNumber}";
+        var compLevelHeader = $"{Translator.CompLevelToShortString(detailedMatch.CompLevel.ToInvariantString()!)} {detailedMatch.SetNumber}";
         var matchHeader = $"Match {detailedMatch.MatchNumber}";
 
         var embedding = baseBuilder

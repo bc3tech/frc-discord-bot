@@ -1,10 +1,12 @@
 # @env dev
-# @base_url = http://localhost:7071/api/tba/webhook
+@base_url = http://localhost:7240/api
+# @auth_code = 
 
-@env prod
-@base_url = https://bearmetaldiscordbotfunctionapp.azurewebsites.net/api
-@auth_code = "?code=8tRw-ZrJXGnNuQnS4l6bUMGVmoaQG3veDBU7x6iLOvOXAzFuphdT5Q%3D%3D""
-@webhook_url = https://bearmetaldiscordbotfunctionapp.azurewebsites.net/api/tba/webhook{{auth_code}}
+# @env prod
+# @base_url = https://bearmetaldiscordbotfunctionapp.azurewebsites.net/api
+# @auth_code = "?code=8tRw-ZrJXGnNuQnS4l6bUMGVmoaQG3veDBU7x6iLOvOXAzFuphdT5Q%3D%3D""
+
+@webhook_url = {{base_url}}/tba/webhook
 
 ### Send ping request
 POST {{webhook_url}}

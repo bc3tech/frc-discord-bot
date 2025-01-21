@@ -1,7 +1,6 @@
 ﻿namespace DiscordBotFunctionApp.DiscordInterop;
 
 using Common.Extensions;
-using Common.Tba.Notifications;
 
 using Discord;
 using Discord.Interactions;
@@ -13,6 +12,8 @@ using DiscordBotFunctionApp.DiscordInterop.Embeds;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+
+using TheBlueAlliance.Api.Notifications;
 
 using AllianceSelection = Embeds.AllianceSelection;
 using MatchScore = Embeds.MatchScore;
