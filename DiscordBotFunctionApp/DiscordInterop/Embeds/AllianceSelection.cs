@@ -48,15 +48,6 @@ internal sealed class AllianceSelection(TeamRepository teams, IEventApi tbaClien
             yield break;
         }
 
-        if (alliances[0].Declines is null)
-        {
-            alliances[0].Declines = ["frc2910", "frc360"];
-        }
-        else
-        {
-            alliances[0].Declines!.AddRange(["frc2910", "frc360"]);
-        }
-
         // We have to build this with loops instead of interpolation because we don't want to output **anything** if Declines is empty (not even a line break)
         var descriptionBuilder = new StringBuilder("# Alliance Selection Complete\n");
         for (int i = 0; i < alliances.Count; i++)
