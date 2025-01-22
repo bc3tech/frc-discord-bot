@@ -11,8 +11,6 @@ namespace TheBlueAlliance.Api.Client;
 
 using Common;
 
-using Microsoft.Kiota.Abstractions.Extensions;
-
 using Polly;
 
 using System;
@@ -297,7 +295,7 @@ public partial class ApiClient(IHttpClientFactory clientFactory, HttpClientHandl
         // TODO provide an alternative that allows cookies per request instead of per API client
         if (options.Cookies is not null && options.Cookies.Count > 0)
         {
-            request.Options.AddOrReplace("CookieContainer", options.Cookies);
+            ((IDictionary<string, object?>)request.Options)["CookieContainer"] = options.Cookies;
         }
 
         return request;
