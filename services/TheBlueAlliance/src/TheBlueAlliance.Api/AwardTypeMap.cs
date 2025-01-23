@@ -2,6 +2,8 @@
 
 using Microsoft.Extensions.EnumStrings;
 
+using System.Text.Json.Serialization;
+
 [EnumStrings]
 public enum EventType
 {
@@ -11,6 +13,7 @@ public enum EventType
 }
 
 [EnumStrings]
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum AwardType
 {
     CHAIRMANS = 0,

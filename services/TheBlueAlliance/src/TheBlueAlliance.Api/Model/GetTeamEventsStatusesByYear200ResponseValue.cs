@@ -22,6 +22,7 @@ using System.Text.Json;
 public partial class GetTeamEventsStatusesByYear200ResponseValue : AbstractOpenAPISchema, IValidatableObject
 {
     public override string SchemaType { get; } = AnyOf;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="GetTeamEventsStatusesByYear200ResponseValue" /> class.
     /// </summary>
