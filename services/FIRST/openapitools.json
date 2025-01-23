@@ -1,0 +1,29 @@
+{
+  "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+  "spaces": 2,
+  "generator-cli": {
+    "version": "7.11.0"
+  },
+  "additionalProperties": {
+    "library": "httpclient",
+    "modelPropertySorting": "alphabetical",
+    "netCoreProjectFile": true,
+    "nonPublicApi": true,
+    "nullableReferenceTypes": true,
+    "operationParameterSorting": "alphabetical",
+    "packageName": "FIRST",
+    "returnICollection": true,
+    "targetFramework": "net8.0",
+    "useCollection": true,
+    "useDateTimeOffset": true,
+    "useCPM": true,
+    "useGenericHost": true,
+    "validatable": false
+  },
+  "files": {
+    "Directory.Packages.props.mustache": {
+      "destinationFilename": "Directory.Packages.props",
+      "templateType": "SupportingFiles"
+    }
+  }
+}
