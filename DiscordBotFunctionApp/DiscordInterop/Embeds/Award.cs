@@ -16,7 +16,6 @@ using System.Text.Json;
 
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Model;
 using TheBlueAlliance.Api.Notifications;
 
 internal sealed class Award(IEventApi tbaApi, BlobContainerClient imageBlobs, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<Award> logger) : IEmbedCreator
