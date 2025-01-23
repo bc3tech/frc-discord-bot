@@ -26,4 +26,12 @@ appveyor.yml
 git_push.sh
 README.md
 Statbotics.sln
-src\**\OpenAPIDateConverter.cs
+**/OpenAPIDateConverter*.*
+
+**/V2EventApi*.*
+**/V2MatchApi*.*
+**/V2TeamApi*.*
+**/V2TeamEventApi*.*
+**/V2TeamMatchApi*.*
+**/V2TeamYearApi*.*
+**/V2YearApi*.*

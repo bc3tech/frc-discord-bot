@@ -18,7 +18,9 @@
     "useDateTimeOffset": true,
     "useCPM": true,
     "useGenericHost": true,
-    "validatable": false
+    "validatable": false,
+
+    "supportsFileParameters": false
   },
   "files": {
     "Directory.Packages.props.mustache": {
