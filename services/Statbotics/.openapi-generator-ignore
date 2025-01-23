@@ -25,3 +25,5 @@
 appveyor.yml
 git_push.sh
 README.md
+Statbotics.sln
+src\**\OpenAPIDateConverter.cs
