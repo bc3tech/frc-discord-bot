@@ -21,3 +21,17 @@
 #docs/*.md
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
+
+appveyor.yml
+git_push.sh
+README.md
+FIRST.sln
+**/OpenAPIDateConverter*.*
+
+**/V2EventApi*.*
+**/V2MatchApi*.*
+**/V2TeamApi*.*
+**/V2TeamEventApi*.*
+**/V2TeamMatchApi*.*
+**/V2TeamYearApi*.*
+**/V2YearApi*.*
