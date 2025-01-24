@@ -42,7 +42,7 @@ internal abstract partial class AbstractOpenAPISchema
   /// <summary>
   /// Gets or Sets the actual instance
   /// </summary>
-  public abstract object ActualInstance { get; set; }
+  public abstract object? ActualInstance { get; set; }
   
   /// <summary>
   /// Gets or Sets IsNullable to indicate whether the instance is nullable

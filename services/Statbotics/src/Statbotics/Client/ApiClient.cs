@@ -77,6 +77,7 @@ internal class CustomJsonCodec
   /// </summary>
   /// <param name="response">The HTTP response.</param>
   /// <param name="type">object type.</param>
+  /// <param name="cancellationToken"></param>
   /// <returns>object representation of the JSON string.</returns>
   internal async Task<object?> DeserializeAsync(HttpResponseMessage response, Type type, CancellationToken cancellationToken = default)
   {
@@ -143,11 +144,11 @@ internal class CustomJsonCodec
     }
   }
   
-  public string RootElement { get; set; }
-  public string Namespace { get; set; }
-  public string DateFormat { get; set; }
+  public string? RootElement { get; set; }
+  public string? Namespace { get; set; }
+  public string? DateFormat { get; set; }
   
-  public string ContentType
+  public static string ContentType
   {
     get { return _contentType; }
     set { throw new InvalidOperationException("Not allowed to set content type."); }
@@ -157,11 +158,11 @@ internal class CustomJsonCodec
 /// Provides a default implementation of an Api client (both synchronous and asynchronous implementations),
 /// encapsulating general REST accessor use cases.
 /// </summary>
-internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
+internal sealed partial class ApiClient : ISynchronousClient, IAsynchronousClient
 {
   private readonly string _baseUrl;
   
-  private readonly HttpClientHandler _httpClientHandler;
+  private readonly HttpClientHandler? _httpClientHandler;
   private readonly HttpClient _httpClient;
   
   /// <summary>
@@ -189,7 +190,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
   /// </summary>
   /// <param name="basePath">The target service's base path in URL format.</param>
   /// <exception cref="ArgumentException"></exception>
-  public ApiClient(string basePath)
+  public ApiClient(string? basePath)
   {
     ArgumentException.ThrowIfNullOrEmpty(basePath);
     
@@ -222,7 +223,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
   /// Some configuration settings will not be applied without passing an HttpClientHandler.
   /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
   /// </remarks>
-  public ApiClient(HttpClient client, string basePath, HttpClientHandler? handler = null)
+  public ApiClient(HttpClient client, string? basePath, HttpClientHandler? handler = null)
   {
     ArgumentNullException.ThrowIfNull(client);
     ArgumentException.ThrowIfNullOrEmpty(basePath);
@@ -233,26 +234,13 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
   }
   
   /// Prepares multipart/form-data content
-  static HttpContent PrepareMultipartFormDataContent(RequestOptions options)
+  static MultipartFormDataContent PrepareMultipartFormDataContent(RequestOptions options)
   {
     string boundary = "---------" + Guid.NewGuid().ToString().ToUpperInvariant();
     var multipartContent = new MultipartFormDataContent(boundary);
-    foreach (var formParameter in options.FormParameters)
+    foreach (var formParameter in options.FormParameters.Where(p => p.Value is not null))
     {
-      multipartContent.Add(new StringContent(formParameter.Value), formParameter.Key);
-    }
-    
-    if (options.FileParameters is not null && options.FileParameters.Count > 0)
-    {
-      foreach (var fileParam in options.FileParameters)
-      {
-        foreach (var file in fileParam.Value)
-        {
-          var content = new StreamContent(file.Content);
-          content.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
-          multipartContent.Add(content, fileParam.Key, file.Name);
-        }
-      }
+      multipartContent.Add(new StringContent(formParameter.Value!), formParameter.Key);
     }
     
     return multipartContent;
@@ -276,11 +264,11 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
     ArgumentNullException.ThrowIfNull(options);
     ArgumentNullException.ThrowIfNull(configuration);
     
-    WebRequestPathBuilder builder = new WebRequestPathBuilder(_baseUrl, path);
+    WebRequestPathBuilder builder = new(_baseUrl, path);
     builder.AddPathParameters(options.PathParameters);
     builder.AddQueryParameters(options.QueryParameters);
     
-    HttpRequestMessage request = new HttpRequestMessage(method, builder.GetFullUri());
+    HttpRequestMessage request = new(method, builder.GetFullUri());
     
     if (configuration.UserAgent is not null)
     {
@@ -310,16 +298,16 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
     List<Tuple<HttpContent, string, string>> contentList = new List<Tuple<HttpContent, string, string>>();
     
     string? contentType = null;
-    if (options.HeaderParameters is not null && options.HeaderParameters.TryGetValue("Content-Type", out IList<string>? contentTypes))
+    if (options.HeaderParameters is not null && options.HeaderParameters.TryGetValue("Content-Type", out var contentTypes) && contentTypes is not null)
     {
       contentType = contentTypes.FirstOrDefault();
     }
     
-    if (contentType == "multipart/form-data")
+    if (contentType is "multipart/form-data")
     {
       request.Content = PrepareMultipartFormDataContent(options);
     }
-    else if (contentType == "application/x-www-form-urlencoded")
+    else if (contentType is "application/x-www-form-urlencoded")
     {
       request.Content = new FormUrlEncodedContent(options.FormParameters);
     }
@@ -338,7 +326,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
         else
         {
           var serializer = new CustomJsonCodec(SerializerSettings, configuration);
-          request.Content = new StringContent(serializer.Serialize(options.Data), new UTF8Encoding(), "application/json");
+          request.Content = new StringContent(serializer.Serialize(options.Data), Encoding.UTF8, "application/json");
         }
       }
     }
@@ -346,7 +334,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
     // TODO provide an alternative that allows cookies per request instead of per API client
     if (options.Cookies is not null && options.Cookies.Count > 0)
     {
-      request.Properties["CookieContainer"] = options.Cookies;
+      request.Options.Set(new HttpRequestOptionsKey<List<Cookie>>("CookieContainer"), options.Cookies);
     }
     
     return request;
@@ -355,12 +343,11 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
   partial void InterceptRequest(HttpRequestMessage req);
   partial void InterceptResponse(HttpRequestMessage req, HttpResponseMessage response);
   
-  private async Task<ApiResponse<T>> ToApiResponse<T>(HttpResponseMessage response, object responseData, Uri uri, CancellationToken cancellationToken = default)
+  private async Task<ApiResponse<T>> ToApiResponseAsync<T>(HttpResponseMessage response, T? responseData, Uri? uri, CancellationToken cancellationToken = default)
   {
-    T result = (T) responseData;
     string rawContent = await response.Content.ReadAsStringAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
     
-    var transformed = new ApiResponse<T>(response.StatusCode, new Multimap<string, string>(), result, rawContent)
+    var transformed = new ApiResponse<T>(response.StatusCode, new Multimap<string, string>(), responseData, rawContent)
     {
       ErrorText = response.ReasonPhrase,
       Cookies = []
@@ -386,9 +373,9 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
       }
     }
     
-    if (_httpClientHandler is not null && response is not null)
+    if (_httpClientHandler is not null && response is not null && uri is not null)
     {
-      try 
+      try
       {
         foreach (Cookie cookie in _httpClientHandler.CookieContainer.GetCookies(uri))
         {
@@ -402,6 +389,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
     return transformed;
   }
   
+  [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "VSTHRD002:Avoid problematic synchronous waits", Justification = "YOLO")]
   private ApiResponse<T> Exec<T>(HttpRequestMessage req, IReadableConfiguration configuration) => ExecAsync<T>(req, configuration).GetAwaiter().GetResult();
   
   private async Task<ApiResponse<T>> ExecAsync<T>(HttpRequestMessage req, IReadableConfiguration configuration, CancellationToken cancellationToken = default)
@@ -422,20 +410,31 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
       
       if (configuration.Proxy is not null)
       {
-        if(_httpClientHandler is null) throw new InvalidOperationException("Configuration `Proxy` not supported when the client is explicitly created without an HttpClientHandler, use the proper constructor.");
+        if(_httpClientHandler is null)
+        {
+          throw new InvalidOperationException("Configuration `Proxy` not supported when the client is explicitly created without an HttpClientHandler, use the proper constructor.");
+        }
+        
         _httpClientHandler.Proxy = configuration.Proxy;
       }
       
       if (configuration.ClientCertificates is not null)
       {
-        if(_httpClientHandler is null) throw new InvalidOperationException("Configuration `ClientCertificates` not supported when the client is explicitly created without an HttpClientHandler, use the proper constructor.");
+        if(_httpClientHandler is null)
+        {
+          throw new InvalidOperationException("Configuration `ClientCertificates` not supported when the client is explicitly created without an HttpClientHandler, use the proper constructor.");
+        }
+        
         _httpClientHandler.ClientCertificates.AddRange(configuration.ClientCertificates);
       }
       
-      var cookieContainer = req.Properties.TryGetValue("CookieContainer", out object? value) ? value as List<Cookie> : null;
-      if (cookieContainer is not null)
+      if (req.Options.TryGetValue(new HttpRequestOptionsKey<List<Cookie>>("CookieContainer"), out var cookieContainer) && cookieContainer is not null)
       {
-        if(_httpClientHandler is null) throw new InvalidOperationException("Request property `CookieContainer` not supported when the client is explicitly created without an HttpClientHandler, use the proper constructor.");
+        if(_httpClientHandler is null)
+        {
+          throw new InvalidOperationException("Request property `CookieContainer` not supported when the client is explicitly created without an HttpClientHandler, use the proper constructor.");
+        }
+        
         foreach (var cookie in cookieContainer)
         {
           _httpClientHandler.CookieContainer.Add(cookie);
@@ -449,13 +448,13 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
         {
           var policy = RetryConfiguration.AsyncRetryPolicy;
           var policyResult = await policy.ExecuteAndCaptureAsync(() => _httpClient.SendAsync(req, finalToken)).ConfigureAwait(false);
-          response = (policyResult.Outcome == OutcomeType.Successful) 
-            ? policyResult.Result
-            : new HttpResponseMessage()
-              {
-                ReasonPhrase = policyResult.FinalException.ToString(),
-                RequestMessage = req
-              };
+          response = (policyResult.Outcome == OutcomeType.Successful)
+          ? policyResult.Result
+          : new HttpResponseMessage()
+          {
+            ReasonPhrase = policyResult.FinalException.ToString(),
+            RequestMessage = req
+          };
         }
         else
         {
@@ -464,46 +463,38 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
       
       if (!response.IsSuccessStatusCode)
       {
-        return await ToApiResponse<T>(response, default(T), req.RequestUri).ConfigureAwait(false);
+        return await ToApiResponseAsync<T>(response, default, req.RequestUri, cancellationToken: finalToken).ConfigureAwait(false);
       }
       
-      object? responseData = await deserializer.DeserializeAsync<T>(response, cancellationToken: finalToken).ConfigureAwait(false);
+      T? responseData = await deserializer.DeserializeAsync<T>(response, cancellationToken: finalToken).ConfigureAwait(false);
       
       // if the response type is oneOf/anyOf, call FromJSON to deserialize the data
       if (typeof(Model.AbstractOpenAPISchema).IsAssignableFrom(typeof(T)))
       {
-        responseData = (T) typeof(T).GetMethod("FromJson").Invoke(null, [response.Content]);
+        responseData = (T?) typeof(T).GetMethod("FromJson")?.Invoke(null, [response.Content]);
       }
       else if (typeof(T).Name is "Stream") // for binary response
       {
-        responseData = (T) (object) await response.Content.ReadAsStreamAsync(cancellationToken: finalToken).ConfigureAwait(false);
+        responseData = (T?) (object) await response.Content.ReadAsStreamAsync(cancellationToken: finalToken).ConfigureAwait(false);
       }
       
       InterceptResponse(req, response);
       
-      return await ToApiResponse<T>(response, responseData, req.RequestUri, cancellationToken: finalToken).ConfigureAwait(false);
+      return await ToApiResponseAsync(response, responseData, req.RequestUri, cancellationToken: finalToken).ConfigureAwait(false);
     }
     catch (OperationCanceledException original)
     {
       if (timeoutTokenSource is not null && timeoutTokenSource.IsCancellationRequested)
       {
-        throw new TaskCanceledException($"[{req.Method}] {req.RequestUri} was timeout.",
-        new TimeoutException(original.Message, original));
+        throw new TaskCanceledException($"[{req.Method}] {req.RequestUri} was timeout.", new TimeoutException(original.Message, original));
       }
-
+      
       throw;
     }
     finally
     {
-      if (timeoutTokenSource is not null)
-      {
-        timeoutTokenSource.Dispose();
-      }
-      
-      if (finalTokenSource is not null)
-      {
-        finalTokenSource.Dispose();
-      }
+      timeoutTokenSource?.Dispose();
+      finalTokenSource?.Dispose();
     }
   }
   
@@ -517,7 +508,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
     /// GlobalConfiguration has been done before calling this method.</param>
     /// <param name="cancellationToken">Token that enables callers to cancel the request.</param>
     /// <returns>A Task containing ApiResponse</returns>
-    public Task<ApiResponse<T>> GetAsync<T>(string path, RequestOptions options, IReadableConfiguration configuration = null, System.Threading.CancellationToken cancellationToken = default)
+    public Task<ApiResponse<T>> GetAsync<T>(string path, RequestOptions options, IReadableConfiguration? configuration = null, CancellationToken cancellationToken = default)
     {
       var config = configuration ?? GlobalConfiguration.Instance;
       return ExecAsync<T>(NewRequest(HttpMethod.Get, path, options, config), config, cancellationToken);
@@ -532,7 +523,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
     /// GlobalConfiguration has been done before calling this method.</param>
     /// <param name="cancellationToken">Token that enables callers to cancel the request.</param>
     /// <returns>A Task containing ApiResponse</returns>
-    public Task<ApiResponse<T>> PostAsync<T>(string path, RequestOptions options, IReadableConfiguration configuration = null, System.Threading.CancellationToken cancellationToken = default)
+    public Task<ApiResponse<T>> PostAsync<T>(string path, RequestOptions options, IReadableConfiguration? configuration = null, CancellationToken cancellationToken = default)
     {
       var config = configuration ?? GlobalConfiguration.Instance;
       return ExecAsync<T>(NewRequest(HttpMethod.Post, path, options, config), config, cancellationToken);
@@ -547,7 +538,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
     /// GlobalConfiguration has been done before calling this method.</param>
     /// <param name="cancellationToken">Token that enables callers to cancel the request.</param>
     /// <returns>A Task containing ApiResponse</returns>
-    public Task<ApiResponse<T>> PutAsync<T>(string path, RequestOptions options, IReadableConfiguration configuration = null, System.Threading.CancellationToken cancellationToken = default)
+    public Task<ApiResponse<T>> PutAsync<T>(string path, RequestOptions options, IReadableConfiguration? configuration = null, CancellationToken cancellationToken = default)
     {
       var config = configuration ?? GlobalConfiguration.Instance;
       return ExecAsync<T>(NewRequest(HttpMethod.Put, path, options, config), config, cancellationToken);
@@ -562,7 +553,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
     /// GlobalConfiguration has been done before calling this method.</param>
     /// <param name="cancellationToken">Token that enables callers to cancel the request.</param>
     /// <returns>A Task containing ApiResponse</returns>
-    public Task<ApiResponse<T>> DeleteAsync<T>(string path, RequestOptions options, IReadableConfiguration configuration = null, System.Threading.CancellationToken cancellationToken = default)
+    public Task<ApiResponse<T>> DeleteAsync<T>(string path, RequestOptions options, IReadableConfiguration? configuration = null, CancellationToken cancellationToken = default)
     {
       var config = configuration ?? GlobalConfiguration.Instance;
       return ExecAsync<T>(NewRequest(HttpMethod.Delete, path, options, config), config, cancellationToken);
@@ -577,7 +568,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
     /// GlobalConfiguration has been done before calling this method.</param>
     /// <param name="cancellationToken">Token that enables callers to cancel the request.</param>
     /// <returns>A Task containing ApiResponse</returns>
-    public Task<ApiResponse<T>> HeadAsync<T>(string path, RequestOptions options, IReadableConfiguration configuration = null, System.Threading.CancellationToken cancellationToken = default)
+    public Task<ApiResponse<T>> HeadAsync<T>(string path, RequestOptions options, IReadableConfiguration? configuration = null, CancellationToken cancellationToken = default)
     {
       var config = configuration ?? GlobalConfiguration.Instance;
       return ExecAsync<T>(NewRequest(HttpMethod.Head, path, options, config), config, cancellationToken);
@@ -592,7 +583,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
     /// GlobalConfiguration has been done before calling this method.</param>
     /// <param name="cancellationToken">Token that enables callers to cancel the request.</param>
     /// <returns>A Task containing ApiResponse</returns>
-    public Task<ApiResponse<T>> OptionsAsync<T>(string path, RequestOptions options, IReadableConfiguration configuration = null, System.Threading.CancellationToken cancellationToken = default)
+    public Task<ApiResponse<T>> OptionsAsync<T>(string path, RequestOptions options, IReadableConfiguration? configuration = null, CancellationToken cancellationToken = default)
     {
       var config = configuration ?? GlobalConfiguration.Instance;
       return ExecAsync<T>(NewRequest(HttpMethod.Options, path, options, config), config, cancellationToken);
@@ -607,7 +598,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
     /// GlobalConfiguration has been done before calling this method.</param>
     /// <param name="cancellationToken">Token that enables callers to cancel the request.</param>
     /// <returns>A Task containing ApiResponse</returns>
-    public Task<ApiResponse<T>> PatchAsync<T>(string path, RequestOptions options, IReadableConfiguration configuration = null, System.Threading.CancellationToken cancellationToken = default)
+    public Task<ApiResponse<T>> PatchAsync<T>(string path, RequestOptions options, IReadableConfiguration? configuration = null, CancellationToken cancellationToken = default)
     {
       var config = configuration ?? GlobalConfiguration.Instance;
       return ExecAsync<T>(NewRequest(new HttpMethod("PATCH"), path, options, config), config, cancellationToken);
@@ -623,7 +614,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
   /// <param name="configuration">A per-request configuration object. It is assumed that any merge with
   /// GlobalConfiguration has been done before calling this method.</param>
   /// <returns>A Task containing ApiResponse</returns>
-  public ApiResponse<T> Get<T>(string path, RequestOptions options, IReadableConfiguration configuration = null)
+  public ApiResponse<T> Get<T>(string path, RequestOptions options, IReadableConfiguration? configuration = null)
   {
     var config = configuration ?? GlobalConfiguration.Instance;
     return Exec<T>(NewRequest(HttpMethod.Get, path, options, config), config);
@@ -637,7 +628,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
   /// <param name="configuration">A per-request configuration object. It is assumed that any merge with
   /// GlobalConfiguration has been done before calling this method.</param>
   /// <returns>A Task containing ApiResponse</returns>
-  public ApiResponse<T> Post<T>(string path, RequestOptions options, IReadableConfiguration configuration = null)
+  public ApiResponse<T> Post<T>(string path, RequestOptions options, IReadableConfiguration? configuration = null)
   {
     var config = configuration ?? GlobalConfiguration.Instance;
     return Exec<T>(NewRequest(HttpMethod.Post, path, options, config), config);
@@ -651,7 +642,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
   /// <param name="configuration">A per-request configuration object. It is assumed that any merge with
   /// GlobalConfiguration has been done before calling this method.</param>
   /// <returns>A Task containing ApiResponse</returns>
-  public ApiResponse<T> Put<T>(string path, RequestOptions options, IReadableConfiguration configuration = null)
+  public ApiResponse<T> Put<T>(string path, RequestOptions options, IReadableConfiguration? configuration = null)
   {
     var config = configuration ?? GlobalConfiguration.Instance;
     return Exec<T>(NewRequest(HttpMethod.Put, path, options, config), config);
@@ -665,7 +656,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
   /// <param name="configuration">A per-request configuration object. It is assumed that any merge with
   /// GlobalConfiguration has been done before calling this method.</param>
   /// <returns>A Task containing ApiResponse</returns>
-  public ApiResponse<T> Delete<T>(string path, RequestOptions options, IReadableConfiguration configuration = null)
+  public ApiResponse<T> Delete<T>(string path, RequestOptions options, IReadableConfiguration? configuration = null)
   {
     var config = configuration ?? GlobalConfiguration.Instance;
     return Exec<T>(NewRequest(HttpMethod.Delete, path, options, config), config);
@@ -679,7 +670,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
   /// <param name="configuration">A per-request configuration object. It is assumed that any merge with
   /// GlobalConfiguration has been done before calling this method.</param>
   /// <returns>A Task containing ApiResponse</returns>
-  public ApiResponse<T> Head<T>(string path, RequestOptions options, IReadableConfiguration configuration = null)
+  public ApiResponse<T> Head<T>(string path, RequestOptions options, IReadableConfiguration? configuration = null)
   {
     var config = configuration ?? GlobalConfiguration.Instance;
     return Exec<T>(NewRequest(HttpMethod.Head, path, options, config), config);
@@ -693,7 +684,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
   /// <param name="configuration">A per-request configuration object. It is assumed that any merge with
   /// GlobalConfiguration has been done before calling this method.</param>
   /// <returns>A Task containing ApiResponse</returns>
-  public ApiResponse<T> Options<T>(string path, RequestOptions options, IReadableConfiguration configuration = null)
+  public ApiResponse<T> Options<T>(string path, RequestOptions options, IReadableConfiguration? configuration = null)
   {
     var config = configuration ?? GlobalConfiguration.Instance;
     return Exec<T>(NewRequest(HttpMethod.Options, path, options, config), config);
@@ -707,7 +698,7 @@ internal partial class ApiClient : ISynchronousClient, IAsynchronousClient
   /// <param name="configuration">A per-request configuration object. It is assumed that any merge with
   /// GlobalConfiguration has been done before calling this method.</param>
   /// <returns>A Task containing ApiResponse</returns>
-  public ApiResponse<T> Patch<T>(string path, RequestOptions options, IReadableConfiguration configuration = null)
+  public ApiResponse<T> Patch<T>(string path, RequestOptions options, IReadableConfiguration? configuration = null)
   {
     var config = configuration ?? GlobalConfiguration.Instance;
     return Exec<T>(NewRequest(new HttpMethod("PATCH"), path, options, config), config);

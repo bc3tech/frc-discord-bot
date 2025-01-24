@@ -19,11 +19,11 @@ using System.Collections.Generic;
 /// A customized implementation via partial class may reside in another file and may
 /// be excluded from automatic generation via a .openapi-generator-ignore file.
 /// </remarks>
-internal partial class GlobalConfiguration : Configuration
+internal sealed partial class GlobalConfiguration : Configuration
 {
   #region Private Members
   
-  private static readonly object GlobalConfigSync = new { };
+  private static readonly object GlobalConfigSync = new();
   private static IReadableConfiguration _globalConfiguration;
   
   #endregion Private Members
@@ -31,19 +31,12 @@ internal partial class GlobalConfiguration : Configuration
   #region Constructors
   
   /// <inheritdoc />
-  private GlobalConfiguration()
-  {
-  }
+  private GlobalConfiguration() { }
   
   /// <inheritdoc />
-  public GlobalConfiguration(IDictionary<string, string> defaultHeader, IDictionary<string, string> apiKey, IDictionary<string, string> apiKeyPrefix, string basePath = "http://localhost:3000/api") : base(defaultHeader, apiKey, apiKeyPrefix, basePath)
-  {
-  }
+  public GlobalConfiguration(IDictionary<string, string> defaultHeader, IDictionary<string, string> apiKey, IDictionary<string, string> apiKeyPrefix, string basePath = "http://localhost:3000/api") : base(defaultHeader, apiKey, apiKeyPrefix, basePath) {}
   
-  static GlobalConfiguration()
-  {
-    Instance = new GlobalConfiguration();
-  }
+  static GlobalConfiguration() => _globalConfiguration = new GlobalConfiguration();
   
   #endregion Constructors
   
@@ -53,7 +46,7 @@ internal partial class GlobalConfiguration : Configuration
   /// <value>Configuration.</value>
   public static IReadableConfiguration Instance
   {
-    get { return _globalConfiguration; }
+    get => _globalConfiguration;
     set
     {
       lock (GlobalConfigSync)

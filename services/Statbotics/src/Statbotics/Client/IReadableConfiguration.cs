@@ -24,7 +24,7 @@ public interface IReadableConfiguration
   /// Gets the access token.
   /// </summary>
   /// <value>Access token.</value>
-  string AccessToken { get; }
+  string? AccessToken { get; }
   
   /// <summary>
   /// Gets the API key.
@@ -42,20 +42,13 @@ public interface IReadableConfiguration
   /// Gets the base path.
   /// </summary>
   /// <value>Base path.</value>
-  string BasePath { get; }
+  string? BasePath { get; }
   
   /// <summary>
   /// Gets the date time format.
   /// </summary>
   /// <value>Date time format.</value>
   string DateTimeFormat { get; }
-  
-  /// <summary>
-  /// Gets the default header.
-  /// </summary>
-  /// <value>Default header.</value>
-  [Obsolete("Use DefaultHeaders instead.")]
-  IDictionary<string, string> DefaultHeader { get; }
   
   /// <summary>
   /// Gets the default headers.
@@ -79,7 +72,7 @@ public interface IReadableConfiguration
   /// Gets the proxy.
   /// </summary>
   /// <value>Proxy.</value>
-  WebProxy Proxy { get; }
+  WebProxy? Proxy { get; }
   
   /// <summary>
   /// Gets the user agent.
@@ -91,13 +84,13 @@ public interface IReadableConfiguration
   /// Gets the username.
   /// </summary>
   /// <value>Username.</value>
-  string Username { get; }
+  string? Username { get; }
   
   /// <summary>
   /// Gets the password.
   /// </summary>
   /// <value>Password.</value>
-  string Password { get; }
+  string? Password { get; }
   
   /// <summary>
   /// Determine whether or not the "default credentials" (e.g. the user account under which the current process is running) will be sent along to the server. The default is false.
@@ -115,7 +108,7 @@ public interface IReadableConfiguration
   /// </summary>
   /// <param name="apiKeyIdentifier">API key identifier (authentication scheme).</param>
   /// <returns>API key with prefix.</returns>
-  string GetApiKeyWithPrefix(string apiKeyIdentifier);
+  string? GetApiKeyWithPrefix(string apiKeyIdentifier);
   
   /// <summary>
   /// Gets the Operation server url at the provided index.
@@ -123,17 +116,17 @@ public interface IReadableConfiguration
   /// <param name="operation">Operation server name.</param>
   /// <param name="index">Index of the operation server settings.</param>
   /// <returns></returns>
-  string GetOperationServerUrl(string operation, int index);
+  string? GetOperationServerUrl(string operation, int index);
   
   /// <summary>
   /// Gets certificate collection to be sent with requests.
   /// </summary>
   /// <value>X509 Certificate collection.</value>
-  X509CertificateCollection ClientCertificates { get; }
+  X509CertificateCollection? ClientCertificates { get; }
   
   /// <summary>
   /// Callback function for handling the validation of remote certificates. Useful for certificate pinning and
   /// overriding certificate errors in the scope of a request.
   /// </summary>
-  RemoteCertificateValidationCallback RemoteCertificateValidationCallback { get; }
+  RemoteCertificateValidationCallback? RemoteCertificateValidationCallback { get; }
 }

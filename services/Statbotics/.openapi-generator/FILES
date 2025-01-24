@@ -9,13 +9,6 @@ docs/TeamApi.md
 docs/TeamEventApi.md
 docs/TeamMatchApi.md
 docs/TeamYearApi.md
-docs/V2EventApi.md
-docs/V2MatchApi.md
-docs/V2TeamApi.md
-docs/V2TeamEventApi.md
-docs/V2TeamMatchApi.md
-docs/V2TeamYearApi.md
-docs/V2YearApi.md
 docs/ValidationError.md
 docs/ValidationErrorLocInner.md
 docs/YearApi.md
@@ -27,13 +20,6 @@ src/Statbotics/Api/TeamApi.cs
 src/Statbotics/Api/TeamEventApi.cs
 src/Statbotics/Api/TeamMatchApi.cs
 src/Statbotics/Api/TeamYearApi.cs
-src/Statbotics/Api/V2EventApi.cs
-src/Statbotics/Api/V2MatchApi.cs
-src/Statbotics/Api/V2TeamApi.cs
-src/Statbotics/Api/V2TeamEventApi.cs
-src/Statbotics/Api/V2TeamMatchApi.cs
-src/Statbotics/Api/V2TeamYearApi.cs
-src/Statbotics/Api/V2YearApi.cs
 src/Statbotics/Api/YearApi.cs
 src/Statbotics/Client/ApiClient.cs
 src/Statbotics/Client/ApiException.cs
@@ -48,7 +34,6 @@ src/Statbotics/Client/IAsynchronousClient.cs
 src/Statbotics/Client/IReadableConfiguration.cs
 src/Statbotics/Client/ISynchronousClient.cs
 src/Statbotics/Client/Multimap.cs
-src/Statbotics/Client/OpenAPIDateConverter.cs
 src/Statbotics/Client/RequestOptions.cs
 src/Statbotics/Client/RetryConfiguration.cs
 src/Statbotics/Client/WebRequestPathBuilder.cs

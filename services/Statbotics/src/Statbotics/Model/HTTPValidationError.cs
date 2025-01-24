@@ -19,42 +19,42 @@ using System.Collections.ObjectModel;
 /// </summary>
 internal partial class HTTPValidationError
 {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HTTPValidationError" /> class.
-        /// </summary>
-          /// <param name="detail">detail.</param>
-        public HTTPValidationError(Collection<ValidationError> detail = default)
-        {
-                      this.Detail = detail;
-        }
-        
-              /// <summary>
-              /// Gets or Sets Detail
-              /// </summary>
-                
-                  [JsonPropertyName("detail")]
-                  public Collection<ValidationError> Detail { get; set; }
-                  
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine("class HTTPValidationError {");
-                    sb.Append("  Detail: ").AppendLine(string.Join(", ", Detail));
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
+      /// <summary>
+      /// Initializes a new instance of the <see cref="HTTPValidationError" /> class.
+      /// </summary>
+        /// <param name="detail">detail.</param>
+      public HTTPValidationError(Collection<ValidationError>? detail = default)
+      {
+                    this.Detail = detail;
+      }
+      
+            /// <summary>
+            /// Gets or Sets Detail
+            /// </summary>
               
-              /// <summary>
-              /// Returns the JSON string presentation of the object
-              /// </summary>
-              /// <returns>JSON string presentation of the object</returns>
-              public virtual string ToJson()
-              {
-                return System.Text.Json.JsonSerializer.Serialize(this);
-              }
+                [JsonPropertyName("detail")]
+                public Collection<ValidationError>? Detail { get; set; }
+                
+            /// <summary>
+            /// Returns the string presentation of the object
+            /// </summary>
+            /// <returns>string presentation of the object</returns>
+            public override string ToString()
+            {
+              StringBuilder sb = new StringBuilder();
+              sb.AppendLine("class HTTPValidationError {");
+                  sb.Append("  Detail: ").AppendLine($"{(Detail is null ? "[null]" : string.Join(", ", Detail))}");
+              sb.AppendLine("}");
+              return sb.ToString();
             }
             
+            /// <summary>
+            /// Returns the JSON string presentation of the object
+            /// </summary>
+            /// <returns>JSON string presentation of the object</returns>
+            public string ToJson()
+            {
+              return JsonSerializer.Serialize(this);
+            }
+          }
+          

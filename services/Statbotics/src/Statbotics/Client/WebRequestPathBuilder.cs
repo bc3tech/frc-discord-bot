@@ -25,27 +25,24 @@ class WebRequestPathBuilder
     _path = path;
   }
   
-  public void AddPathParameters(Dictionary<string, string> parameters)
+  public void AddPathParameters(Dictionary<string, string?> parameters)
   {
-    foreach (var parameter in parameters)
+    foreach (var parameter in parameters.Where(p => p.Value is not null))
     {
-      _path = _path.Replace("{" + parameter.Key + "}", Uri.EscapeDataString(parameter.Value));
+      _path = _path.Replace("{" + parameter.Key + "}", Uri.EscapeDataString(parameter.Value!));
     }
   }
   
-  public void AddQueryParameters(Multimap<string, string> parameters)
+  public void AddQueryParameters(Multimap<string, string?> parameters)
   {
-    foreach (var parameter in parameters)
+    foreach (var parameter in parameters.Where(p => p.Value is not null))
     {
-      foreach (var value in parameter.Value)
+      foreach (var value in parameter.Value.Where(p => p is not null))
       {
-        _query = _query + parameter.Key + "=" + Uri.EscapeDataString(value) + "&";
+        _query = _query + parameter.Key + "=" + Uri.EscapeDataString(value!) + "&";
       }
     }
   }
   
-  public string GetFullUri()
-  {
-    return _baseUrl + _path + _query.Substring(0, _query.Length - 1);
-  }
+  public string GetFullUri() => string.Concat(_baseUrl, _path, _query.AsSpan(0, _query.Length - 1));
 }

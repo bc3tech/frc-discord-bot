@@ -26,7 +26,7 @@ public interface IApiResponse
   /// <summary>
   /// The content of this response
   /// </summary>
-  object Content { get; }
+  object? Content { get; }
   
   /// <summary>
   /// Gets or sets the status code (HTTP status code)
@@ -43,7 +43,7 @@ public interface IApiResponse
   /// <summary>
   /// Gets or sets any error text defined by the calling client.
   /// </summary>
-  string ErrorText { get; set; }
+  string? ErrorText { get; set; }
   
   /// <summary>
   /// Gets or sets any cookies passed along on the response.
@@ -53,7 +53,7 @@ public interface IApiResponse
   /// <summary>
   /// The raw content of this response
   /// </summary>
-  string RawContent { get; }
+  string? RawContent { get; }
 }
 
 /// <summary>
@@ -79,38 +79,32 @@ public class ApiResponse<T> : IApiResponse
   /// Gets or sets the data (parsed HTTP body)
   /// </summary>
   /// <value>The data.</value>
-  public T Data { get; }
+  public T? Data { get; }
   
   /// <summary>
   /// Gets or sets any error text defined by the calling client.
   /// </summary>
-  public string ErrorText { get; set; }
+  public string? ErrorText { get; set; }
   
   /// <summary>
   /// Gets or sets any cookies passed along on the response.
   /// </summary>
-  public List<Cookie> Cookies { get; set; }
+  public List<Cookie> Cookies { get; set; } = [];
   
   /// <summary>
   /// The content of this response
   /// </summary>
-  public Type ResponseType
-  {
-    get { return typeof(T); }
-  }
+  public Type ResponseType { get; } = typeof(T);
   
   /// <summary>
   /// The data type of <see cref="Content"/>
   /// </summary>
-  public object Content
-  {
-    get { return Data; }
-  }
+  public object? Content => Data;
   
   /// <summary>
   /// The raw content
   /// </summary>
-  public string RawContent { get; }
+  public string? RawContent { get; }
   
   #endregion Properties
   
@@ -123,7 +117,7 @@ public class ApiResponse<T> : IApiResponse
   /// <param name="headers">HTTP headers.</param>
   /// <param name="data">Data (parsed HTTP body)</param>
   /// <param name="rawContent">Raw content.</param>
-  public ApiResponse(HttpStatusCode statusCode, Multimap<string, string> headers, T data, string rawContent)
+  public ApiResponse(HttpStatusCode statusCode, Multimap<string, string> headers, T? data, string? rawContent)
   {
     StatusCode = statusCode;
     Headers = headers;
@@ -137,9 +131,7 @@ public class ApiResponse<T> : IApiResponse
   /// <param name="statusCode">HTTP status code.</param>
   /// <param name="headers">HTTP headers.</param>
   /// <param name="data">Data (parsed HTTP body)</param>
-  public ApiResponse(HttpStatusCode statusCode, Multimap<string, string> headers, T data) : this(statusCode, headers, data, null)
-  {
-  }
+  public ApiResponse(HttpStatusCode statusCode, Multimap<string, string> headers, T? data) : this(statusCode, headers, data, null) { }
   
   /// <summary>
   /// Initializes a new instance of the <see cref="ApiResponse{T}" /> class.
@@ -147,18 +139,14 @@ public class ApiResponse<T> : IApiResponse
   /// <param name="statusCode">HTTP status code.</param>
   /// <param name="data">Data (parsed HTTP body)</param>
   /// <param name="rawContent">Raw content.</param>
-  public ApiResponse(HttpStatusCode statusCode, T data, string rawContent) : this(statusCode, null, data, rawContent)
-  {
-  }
+  public ApiResponse(HttpStatusCode statusCode, T? data, string? rawContent) : this(statusCode, [], data, rawContent) { }
   
   /// <summary>
   /// Initializes a new instance of the <see cref="ApiResponse{T}" /> class.
   /// </summary>
   /// <param name="statusCode">HTTP status code.</param>
   /// <param name="data">Data (parsed HTTP body)</param>
-  public ApiResponse(HttpStatusCode statusCode, T data) : this(statusCode, data, null)
-  {
-  }
+  public ApiResponse(HttpStatusCode statusCode, T? data) : this(statusCode, data, null) { }
   
   #endregion Constructors
 }

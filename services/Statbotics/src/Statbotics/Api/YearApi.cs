@@ -31,18 +31,18 @@ using Statbotics.Model;
       /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
       /// <param name="year"></param>
       /// <returns>Object</returns>
-      Object ReadYearV3YearYearGet(int year);
-      
-      /// <summary>
-      /// Query a single year
-      /// </summary>
-      /// <remarks>
-      /// Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
-      /// </remarks>
-      /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="year"></param>
-      /// <returns>ApiResponse of Object</returns>
-      ApiResponse<Object> ReadYearV3YearYearGetWithHttpInfo(int year);
+      Object? ReadYearV3YearYearGet(int year);
+        
+        /// <summary>
+        /// Query a single year
+        /// </summary>
+        /// <remarks>
+        /// Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
+        /// </remarks>
+        /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="year"></param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object?> ReadYearV3YearYearGetWithHttpInfo(int year);
       /// <summary>
       /// Query multiple years
       /// </summary>
@@ -52,42 +52,30 @@ using Statbotics.Model;
       /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
       /// <param name="offset">Offset from the first result to return. (optional)</param>
       /// <returns>Collection&lt;Object&gt;</returns>
-      Collection<Object> ReadYearsV3YearsGet(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default);
-      
-      /// <summary>
-      /// Query multiple years
-      /// </summary>
-      /// <remarks>
-      /// 
-      /// </remarks>
-      /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-      /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-      /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-      /// <param name="offset">Offset from the first result to return. (optional)</param>
-      /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
-      ApiResponse<Collection<Object>> ReadYearsV3YearsGetWithHttpInfo(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default);
-    #endregion Synchronous Operations
-  }
-  
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal interface IYearApiAsync : IApiAccessor
-    {
-      #region Asynchronous Operations
+      Collection<Object>? ReadYearsV3YearsGet(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default);
+        
         /// <summary>
-        /// Query a single year
+        /// Query multiple years
         /// </summary>
         /// <remarks>
-        /// Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
+        /// 
         /// </remarks>
         /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="year"></param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> ReadYearV3YearYearGetAsync(int year, CancellationToken cancellationToken = default);
-          
+        /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+        /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+        /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+        /// <param name="offset">Offset from the first result to return. (optional)</param>
+        /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
+        ApiResponse<Collection<Object>?> ReadYearsV3YearsGetWithHttpInfo(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default);
+      #endregion Synchronous Operations
+    }
+    
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal interface IYearApiAsync : IApiAccessor
+      {
+        #region Asynchronous Operations
           /// <summary>
           /// Query a single year
           /// </summary>
@@ -97,23 +85,20 @@ using Statbotics.Model;
           /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="year"></param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of ApiResponse (Object)</returns>
-          System.Threading.Tasks.Task<ApiResponse<Object>> ReadYearV3YearYearGetWithHttpInfoAsync(int year, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// Query multiple years
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-          /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-          /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-          /// <param name="offset">Offset from the first result to return. (optional)</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of Collection&lt;Object&gt;</returns>
-        System.Threading.Tasks.Task<Collection<Object>> ReadYearsV3YearsGetAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default);
-          
+          /// <returns>Task of Object</returns>
+          System.Threading.Tasks.Task<Object?> ReadYearV3YearYearGetAsync(int year, CancellationToken cancellationToken = default);
+            
+            /// <summary>
+            /// Query a single year
+            /// </summary>
+            /// <remarks>
+            /// Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
+            /// </remarks>
+            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="year"></param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of ApiResponse (Object)</returns>
+            System.Threading.Tasks.Task<ApiResponse<Object?>> ReadYearV3YearYearGetWithHttpInfoAsync(int year, CancellationToken cancellationToken = default);
           /// <summary>
           /// Query multiple years
           /// </summary>
@@ -126,270 +111,291 @@ using Statbotics.Model;
             /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
             /// <param name="offset">Offset from the first result to return. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
-          System.Threading.Tasks.Task<ApiResponse<Collection<Object>>> ReadYearsV3YearsGetWithHttpInfoAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default);
-        #endregion Asynchronous Operations
-      }
-    
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal interface IYearApi : IYearApiSync, IYearApiAsync { }
-    
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal partial class YearApi : IYearApi
-    {
-      private ExceptionFactory? _exceptionFactory = (name, response) => null;
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="YearApi"/> class.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <returns></returns>
-      public YearApi() : this((string)null) { }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="YearApi"/> class.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <param name="basePath">The target service's base path in URL format.</param>
-      /// <exception cref="ArgumentException"></exception>
-      /// <returns></returns>
-      public YearApi(string basePath)
-      {
-        this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        new Configuration { BasePath = basePath }
-        );
-        this.ApiClient = new ApiClient(this.Configuration.BasePath);
-        this.Client =  this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="YearApi"/> class using Configuration object.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <param name="configuration">An instance of Configuration.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      public YearApi(Statbotics.Client.Configuration configuration)
-      {
-        ArgumentNullException.ThrowIfNull(configuration);
-        
-        this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        configuration
-        );
-        this.ApiClient = new ApiClient(this.Configuration.BasePath);
-        this.Client = this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="YearApi"/> class.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public YearApi(HttpClient client, HttpClientHandler handler = null) : this(client, (string)null, handler) { }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="YearApi"/> class.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="basePath">The target service's base path in URL format.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <exception cref="ArgumentException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public YearApi(HttpClient client, string basePath, HttpClientHandler handler = null)
-      {
-        ArgumentNullException.ThrowIfNull(client);
-        
-        this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        new Configuration { BasePath = basePath }
-        );
-        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-        this.Client =  this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="YearApi"/> class using Configuration object.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="configuration">An instance of Configuration.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public YearApi(HttpClient client, Configuration configuration, HttpClientHandler handler = null)
-      {
-        ArgumentNullException.ThrowIfNull(configuration);
-        ArgumentNullException.ThrowIfNull(client);
-        
-        this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        configuration
-        );
-        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-        this.Client = this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="YearApi"/> class
-      /// using a Configuration object and client instance.
-      /// </summary>
-      /// <param name="client">The client interface for synchronous API access.</param>
-      /// <param name="asyncClient">The client interface for asynchronous API access.</param>
-      /// <param name="configuration">The configuration object.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      public YearApi(Statbotics.Client.ISynchronousClient client, Statbotics.Client.IAsynchronousClient asyncClient, Statbotics.Client.IReadableConfiguration configuration)
-      {
-        ArgumentNullException.ThrowIfNull(client);
-        
-          ArgumentNullException.ThrowIfNull(asyncClient);
-          
-        ArgumentNullException.ThrowIfNull(configuration);
-        
-        this.Client = client;
-          this.AsynchronousClient = asyncClient;
-        this.Configuration = configuration;
-        this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Holds the ApiClient if created
-      /// </summary>
-      public ApiClient ApiClient { get; set; } = null;
-      
-        /// <summary>
-        /// The client for accessing this underlying API asynchronously.
-        /// </summary>
-        public IAsynchronousClient AsynchronousClient { get; set; }
-      
-      /// <summary>
-      /// The client for accessing this underlying API synchronously.
-      /// </summary>
-      public ISynchronousClient Client { get; set; }
-      
-      /// <summary>
-      /// Gets the base path of the API client.
-      /// </summary>
-      /// <value>The base path</value>
-      public string GetBasePath() => this.Configuration.BasePath;
-      
-      /// <summary>
-      /// Gets or sets the configuration object
-      /// </summary>
-      /// <value>An instance of the Configuration</value>
-      public IReadableConfiguration Configuration { get; set; }
-      
-      /// <summary>
-      /// Provides a factory method hook for the creation of exceptions.
-      /// </summary>
-      public ExceptionFactory ExceptionFactory
-      {
-        get
-        {
-          if (_exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1)
-          {
-            throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.");
-          }
-          
-          return _exceptionFactory;
+          /// <returns>Task of Collection&lt;Object&gt;</returns>
+          System.Threading.Tasks.Task<Collection<Object>?> ReadYearsV3YearsGetAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default);
+            
+            /// <summary>
+            /// Query multiple years
+            /// </summary>
+            /// <remarks>
+            /// 
+            /// </remarks>
+            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+              /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+              /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+              /// <param name="offset">Offset from the first result to return. (optional)</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
+            System.Threading.Tasks.Task<ApiResponse<Collection<Object>?>> ReadYearsV3YearsGetWithHttpInfoAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default);
+          #endregion Asynchronous Operations
         }
-        set { _exceptionFactory = value; }
-      }
       
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal interface IYearApi : IYearApiSync, IYearApiAsync { }
+      
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal sealed partial class YearApi : IYearApi
+      {
+        private ExceptionFactory? _exceptionFactory = (name, response) => null;
+        
         /// <summary>
-        /// Query a single year Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
+        /// Initializes a new instance of the <see cref="YearApi"/> class.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
         /// </summary>
-        /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="year"></param>
-        /// <returns>Object</returns>
-        public Object ReadYearV3YearYearGet(int year)
+        /// <returns></returns>
+        public YearApi() : this(basePath: default) { }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YearApi"/> class.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+        /// </summary>
+        /// <param name="basePath">The target service's base path in URL format.</param>
+        /// <exception cref="ArgumentException"></exception>
+        /// <returns></returns>
+        public YearApi(string? basePath)
         {
-          Statbotics.Client.ApiResponse<Object> localVarResponse = ReadYearV3YearYearGetWithHttpInfo(year);
-            return localVarResponse.Data;
-          }
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          new Configuration { BasePath = basePath }
+          );
+          this.ApiClient = new ApiClient(this.Configuration.BasePath);
+          this.Client =  this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YearApi"/> class using Configuration object.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+        /// </summary>
+        /// <param name="configuration">An instance of Configuration.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        public YearApi(Statbotics.Client.Configuration configuration)
+        {
+          ArgumentNullException.ThrowIfNull(configuration);
           
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          configuration
+          );
+          this.ApiClient = new ApiClient(this.Configuration.BasePath);
+          this.Client = this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YearApi"/> class.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public YearApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YearApi"/> class.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="basePath">The target service's base path in URL format.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public YearApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
+        {
+          ArgumentNullException.ThrowIfNull(client);
+          
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          new Configuration { BasePath = basePath }
+          );
+          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+          this.Client =  this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YearApi"/> class using Configuration object.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="configuration">An instance of Configuration.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public YearApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
+        {
+          ArgumentNullException.ThrowIfNull(configuration);
+          ArgumentNullException.ThrowIfNull(client);
+          
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          configuration
+          );
+          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+          this.Client = this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YearApi"/> class
+        /// using a Configuration object and client instance.
+        /// </summary>
+        /// <param name="client">The client interface for synchronous API access.</param>
+        /// <param name="asyncClient">The client interface for asynchronous API access.</param>
+        /// <param name="configuration">The configuration object.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public YearApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
+        {
+          ArgumentNullException.ThrowIfNull(client);
+          
+            ArgumentNullException.ThrowIfNull(asyncClient);
+            
+          ArgumentNullException.ThrowIfNull(configuration);
+          
+          this.Client = client;
+            this.AsynchronousClient = asyncClient;
+          this.Configuration = configuration;
+          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Holds the ApiClient if created
+        /// </summary>
+        public ApiClient? ApiClient { get; set; }
+        
+          /// <summary>
+          /// The client for accessing this underlying API asynchronously.
+          /// </summary>
+          public IAsynchronousClient AsynchronousClient { get; set; }
+        
+        /// <summary>
+        /// The client for accessing this underlying API synchronously.
+        /// </summary>
+        public ISynchronousClient Client { get; set; }
+        
+        /// <summary>
+        /// Gets the base path of the API client.
+        /// </summary>
+        /// <value>The base path</value>
+        public string? GetBasePath() => this.Configuration.BasePath;
+        
+        /// <summary>
+        /// Gets or sets the configuration object
+        /// </summary>
+        /// <value>An instance of the Configuration</value>
+        public IReadableConfiguration Configuration { get; set; }
+        
+        /// <summary>
+        /// Provides a factory method hook for the creation of exceptions.
+        /// </summary>
+        public ExceptionFactory? ExceptionFactory
+        {
+          get
+          {
+            if (_exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1)
+            {
+              throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.");
+            }
+            
+            return _exceptionFactory;
+          }
+          set => _exceptionFactory = value;
+        }
+        
           /// <summary>
           /// Query a single year Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
           /// </summary>
           /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
           /// <param name="year"></param>
-          /// <returns>ApiResponse of Object</returns>
-          public ApiResponse<Object> ReadYearV3YearYearGetWithHttpInfo(int year)
+          /// <returns>Object</returns>
+          public Object? ReadYearV3YearYearGet(int year)
           {
-            RequestOptions localVarRequestOptions = new RequestOptions();
-            
-            string[] _contentTypes = [
-            ];
-            
-            // to determine the Accept header
-            string[] _accepts = [
-                "application/json"
-            ];
-            
-            var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType is not null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            
-            var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept is not null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            
-                localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-            
-            
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/v3/year/{year}", localVarRequestOptions, this.Configuration);
-            
-            if (this.ExceptionFactory is not null)
-            {
-              Exception _exception = this.ExceptionFactory("ReadYearV3YearYearGet", localVarResponse);
-              if (_exception is not null)
-              {
-                throw _exception;
-              }
+            Statbotics.Client.ApiResponse<Object?> localVarResponse = ReadYearV3YearYearGetWithHttpInfo(year);
+              return localVarResponse.Data;
             }
             
-            return localVarResponse;
-          }
-          
-          /// <summary>
-          /// Query a single year Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
-          /// </summary>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+            /// <summary>
+            /// Query a single year Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
+            /// </summary>
+            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="year"></param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          public async System.Threading.Tasks.Task<Object> ReadYearV3YearYearGetAsync(int year, CancellationToken cancellationToken = default)
+            /// <returns>ApiResponse of Object</returns>
+            public ApiResponse<Object?> ReadYearV3YearYearGetWithHttpInfo(int year)
             {
-              Statbotics.Client.ApiResponse<Object> localVarResponse = await ReadYearV3YearYearGetWithHttpInfoAsync(year, cancellationToken).ConfigureAwait(false);
+              RequestOptions localVarRequestOptions = new RequestOptions();
+              
+              string[] _contentTypes = [
+              ];
+              
+              // to determine the Accept header
+              string[] _accepts = [
+                  "application/json"
+              ];
+              
+              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+              if (localVarContentType is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+              }
+              
+              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+              if (localVarAccept is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+              }
+              
+                  localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+              
+              
+              // make the HTTP request
+              var localVarResponse = this.Client.Get<Object?>("/v3/year/{year}", localVarRequestOptions, this.Configuration);
+              
+              if (this.ExceptionFactory is not null)
+              {
+                var _exception = this.ExceptionFactory("ReadYearV3YearYearGet", localVarResponse);
+                if (_exception is not null)
+                {
+                  throw _exception;
+                }
+              }
+              
+              return localVarResponse;
+            }
+            
+            /// <summary>
+            /// Query a single year Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
+            /// </summary>
+            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="year"></param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of Object</returns>
+            public async System.Threading.Tasks.Task<Object?> ReadYearV3YearYearGetAsync(int year, CancellationToken cancellationToken = default)
+            {
+              Statbotics.Client.ApiResponse<Object?> localVarResponse = await ReadYearV3YearYearGetWithHttpInfoAsync(year, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
               
@@ -400,7 +406,7 @@ using Statbotics.Model;
                 /// <param name="year"></param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<Statbotics.Client.ApiResponse<Object>> ReadYearV3YearYearGetWithHttpInfoAsync(int year, CancellationToken cancellationToken = default)
+              public async System.Threading.Tasks.Task<Statbotics.Client.ApiResponse<Object?>> ReadYearV3YearYearGetWithHttpInfoAsync(int year, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new RequestOptions();
                 
@@ -427,11 +433,11 @@ using Statbotics.Model;
                     localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
                 
                 // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/v3/year/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+                var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/v3/year/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
                 {
-                  Exception _exception = this.ExceptionFactory("ReadYearV3YearYearGet", localVarResponse);
+                  var _exception = this.ExceptionFactory("ReadYearV3YearYearGet", localVarResponse);
                   if (_exception is not null)
                   {
                     throw _exception;
@@ -439,22 +445,7 @@ using Statbotics.Model;
                 }
                 
                 return localVarResponse;
-              }        /// <summary>
-        /// Query multiple years 
-        /// </summary>
-        /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-        /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-        /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-        /// <param name="offset">Offset from the first result to return. (optional)</param>
-        /// <returns>Collection&lt;Object&gt;</returns>
-        public Collection<Object> ReadYearsV3YearsGet(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default)
-        {
-          Statbotics.Client.ApiResponse<Collection<Object>> localVarResponse = ReadYearsV3YearsGetWithHttpInfo(ascending, limit, metric, offset);
-            return localVarResponse.Data;
-          }
-          
-          /// <summary>
+              }          /// <summary>
           /// Query multiple years 
           /// </summary>
           /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
@@ -462,75 +453,96 @@ using Statbotics.Model;
           /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
           /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
           /// <param name="offset">Offset from the first result to return. (optional)</param>
-          /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
-          public ApiResponse<Collection<Object>> ReadYearsV3YearsGetWithHttpInfo(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default)
+          /// <returns>Collection&lt;Object&gt;</returns>
+          public Collection<Object>? ReadYearsV3YearsGet(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default)
           {
-            RequestOptions localVarRequestOptions = new RequestOptions();
-            
-            string[] _contentTypes = [
-            ];
-            
-            // to determine the Accept header
-            string[] _accepts = [
-                "application/json"
-            ];
-            
-            var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType is not null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            
-            var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept is not null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            
-                if (ascending is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "ascending", ascending));
-                }
-                
-                if (limit is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
-                }
-                
-                if (metric is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "metric", metric));
-                }
-                
-                if (offset is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "offset", offset));
-                }
-                
-            
-            
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<Collection<Object>>("/v3/years", localVarRequestOptions, this.Configuration);
-            
-            if (this.ExceptionFactory is not null)
-            {
-              Exception _exception = this.ExceptionFactory("ReadYearsV3YearsGet", localVarResponse);
-              if (_exception is not null)
-              {
-                throw _exception;
-              }
+            Statbotics.Client.ApiResponse<Collection<Object>?> localVarResponse = ReadYearsV3YearsGetWithHttpInfo(ascending, limit, metric, offset);
+              return localVarResponse.Data;
             }
             
-            return localVarResponse;
-          }
-          
-          /// <summary>
-          /// Query multiple years 
-          /// </summary>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+            /// <summary>
+            /// Query multiple years 
+            /// </summary>
+            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
             /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
             /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
             /// <param name="offset">Offset from the first result to return. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Object&gt;</returns>
-          public async System.Threading.Tasks.Task<Collection<Object>> ReadYearsV3YearsGetAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default)
+            /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
+            public ApiResponse<Collection<Object>?> ReadYearsV3YearsGetWithHttpInfo(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default)
             {
-              Statbotics.Client.ApiResponse<Collection<Object>> localVarResponse = await ReadYearsV3YearsGetWithHttpInfoAsync(ascending, limit, metric, offset, cancellationToken).ConfigureAwait(false);
+              RequestOptions localVarRequestOptions = new RequestOptions();
+              
+              string[] _contentTypes = [
+              ];
+              
+              // to determine the Accept header
+              string[] _accepts = [
+                  "application/json"
+              ];
+              
+              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+              if (localVarContentType is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+              }
+              
+              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+              if (localVarAccept is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+              }
+              
+                  if (ascending is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "ascending", ascending));
+                  }
+                  
+                  if (limit is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
+                  }
+                  
+                  if (metric is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "metric", metric));
+                  }
+                  
+                  if (offset is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "offset", offset));
+                  }
+                  
+              
+              
+              // make the HTTP request
+              var localVarResponse = this.Client.Get<Collection<Object>?>("/v3/years", localVarRequestOptions, this.Configuration);
+              
+              if (this.ExceptionFactory is not null)
+              {
+                var _exception = this.ExceptionFactory("ReadYearsV3YearsGet", localVarResponse);
+                if (_exception is not null)
+                {
+                  throw _exception;
+                }
+              }
+              
+              return localVarResponse;
+            }
+            
+            /// <summary>
+            /// Query multiple years 
+            /// </summary>
+            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+              /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+              /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+              /// <param name="offset">Offset from the first result to return. (optional)</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of Collection&lt;Object&gt;</returns>
+            public async System.Threading.Tasks.Task<Collection<Object>?> ReadYearsV3YearsGetAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default)
+            {
+              Statbotics.Client.ApiResponse<Collection<Object>?> localVarResponse = await ReadYearsV3YearsGetWithHttpInfoAsync(ascending, limit, metric, offset, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
               
@@ -544,7 +556,7 @@ using Statbotics.Model;
                 /// <param name="offset">Offset from the first result to return. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
-              public async System.Threading.Tasks.Task<Statbotics.Client.ApiResponse<Collection<Object>>> ReadYearsV3YearsGetWithHttpInfoAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default)
+              public async System.Threading.Tasks.Task<Statbotics.Client.ApiResponse<Collection<Object>?>> ReadYearsV3YearsGetWithHttpInfoAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new RequestOptions();
                 
@@ -590,11 +602,11 @@ using Statbotics.Model;
                     
                 
                 // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Object>>("/v3/years", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Object>?>("/v3/years", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
                 {
-                  Exception _exception = this.ExceptionFactory("ReadYearsV3YearsGet", localVarResponse);
+                  var _exception = this.ExceptionFactory("ReadYearsV3YearsGet", localVarResponse);
                   if (_exception is not null)
                   {
                     throw _exception;

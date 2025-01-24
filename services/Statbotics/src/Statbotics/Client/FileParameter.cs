@@ -40,7 +40,7 @@ public class FileParameter
     {
       Name = fs.Name;
     }
-
+    
     Content = content;
   }
   

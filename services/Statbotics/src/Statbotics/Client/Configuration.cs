@@ -66,45 +66,8 @@ internal class Configuration : IReadableConfiguration
   
   #endregion Static Members
   
-  #region Private Members
-  
-  /// <summary>
-  /// Defines the base path of the target API server.
-  /// Example: http://localhost:3000/v1/
-  /// </summary>
-  private string _basePath;
-  
-  private bool _useDefaultCredentials = false;
-  
-  /// <summary>
-  /// Gets or sets the API key based on the authentication name.
-  /// This is the key and value comprising the "secret" for accessing an API.
-  /// </summary>
-  /// <value>The API key.</value>
-  private IDictionary<string, string> _apiKey;
-  
-  /// <summary>
-  /// Gets or sets the prefix (e.g. Token) of the API key based on the authentication name.
-  /// </summary>
-  /// <value>The prefix of the API key.</value>
-  private IDictionary<string, string> _apiKeyPrefix;
-  
   private string _dateTimeFormat = ISO8601_DATETIME_FORMAT;
   private string _tempFolderPath = Path.GetTempPath();
-    
-    /// <summary>
-    /// Gets or sets the servers defined in the OpenAPI spec.
-    /// </summary>
-    /// <value>The servers</value>
-    private IList<IReadOnlyDictionary<string, object>> _servers;
-  
-  /// <summary>
-  /// Gets or sets the operation servers defined in the OpenAPI spec.
-  /// </summary>
-  /// <value>The operation servers</value>
-  private IReadOnlyDictionary<string, List<IReadOnlyDictionary<string, object>>> _operationServers;
-  
-  #endregion Private Members
   
   #region Constructors
   
@@ -140,35 +103,19 @@ internal class Configuration : IReadableConfiguration
   /// Initializes a new instance of the <see cref="Configuration" /> class
   /// </summary>
   [System.Diagnostics.CodeAnalysis.SuppressMessage("ReSharper", "VirtualMemberCallInConstructor")]
-  public Configuration(
-  IDictionary<string, string> defaultHeaders,
-  IDictionary<string, string> apiKey,
-  IDictionary<string, string> apiKeyPrefix,
-  string basePath = "http://localhost") : this()
+  public Configuration(IDictionary<string, string> defaultHeaders, IDictionary<string, string> apiKey, IDictionary<string, string> apiKeyPrefix, string basePath = "http://localhost") : this()
   {
-    if (string.IsNullOrWhiteSpace(basePath))
-    throw new ArgumentException("The provided basePath is invalid.", "basePath");
+    ArgumentException.ThrowIfNullOrWhiteSpace(basePath);
+    this.BasePath = basePath;
     
     ArgumentNullException.ThrowIfNull(defaultHeaders);
+    this.DefaultHeaders = defaultHeaders;
+    
     ArgumentNullException.ThrowIfNull(apiKey);
+    this.ApiKey = apiKey;
+    
     ArgumentNullException.ThrowIfNull(apiKeyPrefix);
-    
-    BasePath = basePath;
-    
-    foreach (var keyValuePair in defaultHeaders)
-    {
-      DefaultHeaders.Add(keyValuePair);
-    }
-    
-    foreach (var keyValuePair in apiKey)
-    {
-      ApiKey.Add(keyValuePair);
-    }
-    
-    foreach (var keyValuePair in apiKeyPrefix)
-    {
-      ApiKeyPrefix.Add(keyValuePair);
-    }
+    this.ApiKeyPrefix = apiKeyPrefix;
   }
   
   #endregion Constructors
@@ -178,36 +125,12 @@ internal class Configuration : IReadableConfiguration
   /// <summary>
   /// Gets or sets the base path for API access.
   /// </summary>
-  public virtual string BasePath
-  {
-    get { return _basePath; }
-    set { _basePath = value; }
-  }
+  public virtual string? BasePath { get; set; }
   
   /// <summary>
   /// Determine whether or not the "default credentials" (e.g. the user account under which the current process is running) will be sent along to the server. The default is false.
   /// </summary>
-  public virtual bool UseDefaultCredentials
-  {
-    get { return _useDefaultCredentials; }
-    set { _useDefaultCredentials = value; }
-  }
-  
-  /// <summary>
-  /// Gets or sets the default header.
-  /// </summary>
-  [Obsolete("Use DefaultHeaders instead.")]
-  public virtual IDictionary<string, string> DefaultHeader
-  {
-    get
-    {
-      return DefaultHeaders;
-    }
-    set
-    {
-      DefaultHeaders = value;
-    }
-  }
+  public virtual bool UseDefaultCredentials { get; set; }
   
   /// <summary>
   /// Gets or sets the default headers.
@@ -235,37 +158,35 @@ internal class Configuration : IReadableConfiguration
   /// Gets or sets the username (HTTP basic authentication).
   /// </summary>
   /// <value>The username.</value>
-  public virtual string Username { get; set; }
+  public virtual string? Username { get; set; }
   
   /// <summary>
   /// Gets or sets the password (HTTP basic authentication).
   /// </summary>
   /// <value>The password.</value>
-  public virtual string Password { get; set; }
+  public virtual string? Password { get; set; }
   
   /// <summary>
   /// Gets the API key with prefix.
   /// </summary>
   /// <param name="apiKeyIdentifier">API key identifier (authentication scheme).</param>
   /// <returns>API key with prefix.</returns>
-  public string GetApiKeyWithPrefix(string apiKeyIdentifier)
+  public string? GetApiKeyWithPrefix(string apiKeyIdentifier)
   {
-    string apiKeyValue;
-    ApiKey.TryGetValue(apiKeyIdentifier, out apiKeyValue);
-    string apiKeyPrefix;
-    if (ApiKeyPrefix.TryGetValue(apiKeyIdentifier, out apiKeyPrefix))
+    if (ApiKey.TryGetValue(apiKeyIdentifier, out var apiKeyValue) && apiKeyValue is not null
+      && ApiKeyPrefix.TryGetValue(apiKeyIdentifier, out var apiKeyPrefix) && apiKeyPrefix is not null)
     {
       return apiKeyPrefix + " " + apiKeyValue;
     }
     
-    return apiKeyValue;
+    return null;
   }
   
   /// <summary>
   /// Gets or sets certificate collection to be sent with requests.
   /// </summary>
   /// <value>X509 Certificate collection.</value>
-  public X509CertificateCollection ClientCertificates { get; set; }
+  public X509CertificateCollection? ClientCertificates { get; set; }
   
   /// <summary>
   /// Gets or sets the access token for OAuth2 authentication.
@@ -273,7 +194,7 @@ internal class Configuration : IReadableConfiguration
   /// This helper property simplifies code generation.
   /// </summary>
   /// <value>The access token.</value>
-  public virtual string AccessToken { get; set; }
+  public virtual string? AccessToken { get; set; }
   
   /// <summary>
   /// Gets or sets the temporary folder path to store the files downloaded from the server.
@@ -281,8 +202,7 @@ internal class Configuration : IReadableConfiguration
   /// <value>Folder path.</value>
   public virtual string TempFolderPath
   {
-    get { return _tempFolderPath; }
-    
+    get => _tempFolderPath;
     set
     {
       if (string.IsNullOrEmpty(value))
@@ -319,7 +239,7 @@ internal class Configuration : IReadableConfiguration
   /// <value>The DateTimeFormat string</value>
   public virtual string DateTimeFormat
   {
-    get { return _dateTimeFormat; }
+    get => _dateTimeFormat;
     set
     {
       if (string.IsNullOrEmpty(value))
@@ -351,73 +271,25 @@ internal class Configuration : IReadableConfiguration
   /// </remarks>
   /// </summary>
   /// <value>The prefix of the API key.</value>
-  public virtual IDictionary<string, string> ApiKeyPrefix
-  {
-    get { return _apiKeyPrefix; }
-    set
-    {
-      if (value is null)
-      {
-        throw new InvalidOperationException("ApiKeyPrefix collection may not be null.");
-      }
-      
-      _apiKeyPrefix = value;
-    }
-  }
+  public virtual IDictionary<string, string> ApiKeyPrefix { get; set; }
   
   /// <summary>
   /// Gets or sets the API key based on the authentication name.
   /// </summary>
   /// <value>The API key.</value>
-  public virtual IDictionary<string, string> ApiKey
-  {
-    get { return _apiKey; }
-    set
-    {
-      if (value is null)
-      {
-        throw new InvalidOperationException("ApiKey collection may not be null.");
-      }
-      
-      _apiKey = value;
-    }
-  }
+  public virtual IDictionary<string, string> ApiKey { get; set; }
     
     /// <summary>
     /// Gets or sets the servers.
     /// </summary>
     /// <value>The servers.</value>
-    public virtual IList<IReadOnlyDictionary<string, object>> Servers
-    {
-      get { return _servers; }
-      set
-      {
-        if (value is null)
-        {
-          throw new InvalidOperationException("Servers may not be null.");
-        }
-        
-        _servers = value;
-      }
-    }
+    public virtual IList<IReadOnlyDictionary<string, object>> Servers { get; set; }
     
     /// <summary>
     /// Gets or sets the operation servers.
     /// </summary>
     /// <value>The operation servers.</value>
-    public virtual IReadOnlyDictionary<string, List<IReadOnlyDictionary<string, object>>> OperationServers
-    {
-      get { return _operationServers; }
-      set
-      {
-        if (value is null)
-        {
-          throw new InvalidOperationException("Operation servers may not be null.");
-        }
-        
-        _operationServers = value;
-      }
-    }
+    public virtual IReadOnlyDictionary<string, List<IReadOnlyDictionary<string, object>>> OperationServers { get; set; }
     
     /// <summary>
     /// Returns URL based on server settings without providing values
@@ -433,7 +305,7 @@ internal class Configuration : IReadableConfiguration
     /// <param name="index">Array index of the server settings.</param>
     /// <param name="inputVariables">Dictionary of the variables and the corresponding values.</param>
     /// <return>The server URL.</return>
-    public string GetServerUrl(int index, Dictionary<string, string> inputVariables) => GetServerUrl(Servers, index, inputVariables);
+    public string GetServerUrl(int index, Dictionary<string, string>? inputVariables) => GetServerUrl(Servers, index, inputVariables);
     
     /// <summary>
     /// Returns URL based on operation server settings.
@@ -441,7 +313,7 @@ internal class Configuration : IReadableConfiguration
     /// <param name="operation">Operation associated with the request path.</param>
     /// <param name="index">Array index of the server settings.</param>
     /// <return>The operation server URL.</return>
-    public string GetOperationServerUrl(string operation, int index) => GetOperationServerUrl(operation, index, null);
+    public string? GetOperationServerUrl(string operation, int index) => GetOperationServerUrl(operation, index, null);
     
     /// <summary>
     /// Returns URL based on operation server settings.
@@ -450,7 +322,7 @@ internal class Configuration : IReadableConfiguration
     /// <param name="index">Array index of the server settings.</param>
     /// <param name="inputVariables">Dictionary of the variables and the corresponding values.</param>
     /// <return>The operation server URL.</return>
-    public string GetOperationServerUrl(string operation, int index, Dictionary<string, string> inputVariables)
+    public string? GetOperationServerUrl(string operation, int index, Dictionary<string, string>? inputVariables)
     {
       if (operation is not null && OperationServers.TryGetValue(operation, out var operationServer))
       {
@@ -467,7 +339,7 @@ internal class Configuration : IReadableConfiguration
     /// <param name="index">Array index of the server settings.</param>
     /// <param name="inputVariables">Dictionary of the variables and the corresponding values.</param>
     /// <return>The server URL.</return>
-    private string GetServerUrl(IList<IReadOnlyDictionary<string, object>> servers, int index, Dictionary<string, string> inputVariables)
+    private static string GetServerUrl(IList<IReadOnlyDictionary<string, object>> servers, int index, Dictionary<string, string>? inputVariables)
     {
       if (index < 0 || index >= servers.Count)
       {
@@ -511,7 +383,7 @@ internal class Configuration : IReadableConfiguration
   /// <summary>
   /// Gets and Sets the RemoteCertificateValidationCallback
   /// </summary>
-  public RemoteCertificateValidationCallback RemoteCertificateValidationCallback { get; set; }
+  public RemoteCertificateValidationCallback? RemoteCertificateValidationCallback { get; set; }
   
   #endregion Properties
   
@@ -555,11 +427,15 @@ internal class Configuration : IReadableConfiguration
   /// <param name="first">First configuration.</param>
   /// <param name="second">Second configuration.</param>
   /// <return>Merged configuration.</return>
-  public static IReadableConfiguration MergeConfigurations(IReadableConfiguration first, IReadableConfiguration second)
+  public static IReadableConfiguration MergeConfigurations(IReadableConfiguration? first, IReadableConfiguration? second)
   {
     if (second is null)
     {
       return first ?? GlobalConfiguration.Instance;
+    }
+    else if (first is null)
+    {
+        return second;
     }
     
     Dictionary<string, string> apiKey = first.ApiKey.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
@@ -586,15 +462,15 @@ internal class Configuration : IReadableConfiguration
       ApiKey = apiKey,
       ApiKeyPrefix = apiKeyPrefix,
       DefaultHeaders = defaultHeaders,
-      BasePath = second.BasePath ?? first.BasePath,
+      BasePath = string.IsNullOrWhiteSpace(second.BasePath) ? first.BasePath : second.BasePath,
       Timeout = second.Timeout,
       Proxy = second.Proxy ?? first.Proxy,
-      UserAgent = second.UserAgent ?? first.UserAgent,
+      UserAgent = string.IsNullOrWhiteSpace(second.UserAgent) ? first.UserAgent : second.UserAgent,
       Username = second.Username ?? first.Username,
       Password = second.Password ?? first.Password,
       AccessToken = second.AccessToken ?? first.AccessToken,
-      TempFolderPath = second.TempFolderPath ?? first.TempFolderPath,
-      DateTimeFormat = second.DateTimeFormat ?? first.DateTimeFormat,
+      TempFolderPath = string.IsNullOrWhiteSpace(second.TempFolderPath) ? first.TempFolderPath : second.TempFolderPath,
+      DateTimeFormat = string.IsNullOrWhiteSpace(second.DateTimeFormat) ? first.DateTimeFormat : second.DateTimeFormat,
       ClientCertificates = second.ClientCertificates ?? first.ClientCertificates,
       UseDefaultCredentials = second.UseDefaultCredentials,
       RemoteCertificateValidationCallback = second.RemoteCertificateValidationCallback ?? first.RemoteCertificateValidationCallback,

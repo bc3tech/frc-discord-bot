@@ -18,7 +18,7 @@ using System.Collections.ObjectModel;
   /// ValidationErrorLocInner
   /// </summary>
   
-    internal partial class ValidationErrorLocInner : AbstractOpenAPISchema
+    internal sealed partial class ValidationErrorLocInner : AbstractOpenAPISchema
     {
       public override string SchemaType { get; } = AnyOf;
       
@@ -27,7 +27,7 @@ using System.Collections.ObjectModel;
             /// with the <see cref="string" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of string.</param>
-            public ValidationErrorLocInner(string actualInstance)
+            public ValidationErrorLocInner(string? actualInstance)
             {
               this.ActualInstance = actualInstance ?? throw new ArgumentException("Invalid instance found. Must not be null.");
             }
@@ -36,36 +36,40 @@ using System.Collections.ObjectModel;
             /// with the <see cref="int" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of int.</param>
-            public ValidationErrorLocInner(int actualInstance)
+            public ValidationErrorLocInner(int? actualInstance)
             {
               this.ActualInstance = actualInstance;
             }
       
-      private object _actualInstance;
+      private object? _actualInstance;
       
       /// <summary>
       /// Gets or Sets ActualInstance
       /// </summary>
-      public override object ActualInstance
+      public override object? ActualInstance
       {
-        get
-        {
-          return _actualInstance;
-        }
+        get => _actualInstance;
         set
         {
-            if (value.GetType() == typeof(int))
-              {
-                this._actualInstance = value;
-              }
-            else if (value.GetType() == typeof(string))
-              {
-                this._actualInstance = value;
-              }
+            if (value is null)
+            {
+              this._actualInstance = null;
+            }
             else
             {
-              throw new ArgumentException("Invalid instance found. Must be the following types: int, string");
-            }
+              if (value.GetType() == typeof(int))
+                {
+                  this._actualInstance = value;
+                }
+              else if (value.GetType() == typeof(string))
+                {
+                  this._actualInstance = value;
+                }
+              else
+              {
+                throw new ArgumentException("Invalid instance found. Must be the following types: int, string");
+              }
+              }
           }
         }
               
@@ -74,20 +78,14 @@ using System.Collections.ObjectModel;
               /// the InvalidClassException will be thrown
               /// </summary>
               /// <returns>An instance of string</returns>
-              public string GetString()
-              {
-                return (string)this.ActualInstance;
-              }
+              public string? GetString() => (string?)this.ActualInstance;
               
               /// <summary>
               /// Get the actual instance of `int`. If the actual instance is not `int`,
               /// the InvalidClassException will be thrown
               /// </summary>
               /// <returns>An instance of int</returns>
-              public int GetInt()
-              {
-                return (int)this.ActualInstance;
-              }
+              public int? GetInt() => (int?)this.ActualInstance;
         
         /// <summary>
         /// Returns the string presentation of the object
@@ -106,19 +104,16 @@ using System.Collections.ObjectModel;
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public override string ToJson()
-        {
-          return JsonSerializer.Serialize(this.ActualInstance, ValidationErrorLocInner.SerializerSettings);
-        }
+        public override string ToJson() => JsonSerializer.Serialize(this.ActualInstance, ValidationErrorLocInner.SerializerSettings);
         
         /// <summary>
         /// Converts the JSON string into an instance of ValidationErrorLocInner
         /// </summary>
         /// <param name="jsonString">JSON string</param>
         /// <returns>An instance of ValidationErrorLocInner</returns>
-        public static ValidationErrorLocInner FromJson(string jsonString)
+        public static ValidationErrorLocInner? FromJson(string jsonString)
         {
-          ValidationErrorLocInner newValidationErrorLocInner = null;
+          ValidationErrorLocInner? newValidationErrorLocInner = null;
           
           if (string.IsNullOrEmpty(jsonString))
           {

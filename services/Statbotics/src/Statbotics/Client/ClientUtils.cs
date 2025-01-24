@@ -42,11 +42,11 @@ public static partial class ClientUtils
   /// <param name="name">Key name.</param>
   /// <param name="value">Value object.</param>
   /// <returns>A multimap of keys with 1..n associated values.</returns>
-  public static Multimap<string, string> ParameterToMultiMap(string collectionFormat, string name, object value)
+  public static Multimap<string, string?> ParameterToMultiMap(string collectionFormat, string name, object value)
   {
-    var parameters = new Multimap<string, string>();
+    var parameters = new Multimap<string, string?>();
     
-    if (value is ICollection collection && collectionFormat == "multi")
+    if (value is ICollection collection && collectionFormat is "multi")
     {
       foreach (var item in collection)
       {
@@ -55,7 +55,8 @@ public static partial class ClientUtils
     }
     else if (value is IDictionary dictionary)
     {
-      if(collectionFormat == "deepObject") {
+      if (collectionFormat is "deepObject") 
+      {
         foreach (DictionaryEntry entry in dictionary)
         {
           parameters.Add(name + "[" + entry.Key + "]", ParameterToString(entry.Value));
@@ -65,7 +66,7 @@ public static partial class ClientUtils
       {
         foreach (DictionaryEntry entry in dictionary)
         {
-          parameters.Add(entry.Key.ToString(), ParameterToString(entry.Value));
+          parameters.Add(entry.Key.ToString()!, ParameterToString(entry.Value));
         }
       }
     }
@@ -85,8 +86,13 @@ public static partial class ClientUtils
   /// <param name="obj">The parameter (header, path, query, form).</param>
   /// <param name="configuration">An optional configuration instance, providing formatting options used in processing.</param>
   /// <returns>Formatted string.</returns>
-  public static string ParameterToString(object obj, IReadableConfiguration configuration = null)
+  public static string? ParameterToString(object? obj, IReadableConfiguration? configuration = null)
   {
+    if (obj is null)
+    {
+      return null;
+    }
+    
     if (obj is DateTime dateTime)
     {
       // Return a formatted date string - Can be customized with Configuration.DateTimeFormat
@@ -129,7 +135,7 @@ public static partial class ClientUtils
   /// </summary>
   /// <param name="obj">The object to serialize.</param>
   /// <returns>Serialized string.</returns>
-  public static string Serialize(object obj) => obj is not null ? System.Text.Json.JsonSerializer.Serialize(obj) : null;
+  public static string? Serialize(object obj) => obj is not null ? System.Text.Json.JsonSerializer.Serialize(obj) : null;
   
   /// <summary>
   /// Encode string in base64 format.
@@ -145,11 +151,9 @@ public static partial class ClientUtils
   /// <returns>Byte array</returns>
   public static byte[] ReadAsBytes(Stream inputStream)
   {
-    using (var ms = new MemoryStream())
-    {
-      inputStream.CopyTo(ms);
-      return ms.ToArray();
-    }
+    var ms = new MemoryStream();
+    inputStream.CopyTo(ms);
+    return ms.ToArray();
   }
   
   /// <summary>
@@ -159,7 +163,7 @@ public static partial class ClientUtils
   /// </summary>
   /// <param name="contentTypes">The Content-Type array to select from.</param>
   /// <returns>The Content-Type header to use.</returns>
-  public static string SelectHeaderContentType(string[] contentTypes)
+  public static string? SelectHeaderContentType(string[] contentTypes)
   {
     if (contentTypes.Length is 0)
     {
@@ -184,7 +188,7 @@ public static partial class ClientUtils
   /// </summary>
   /// <param name="accepts">The accepts array to select from.</param>
   /// <returns>The Accept header to use.</returns>
-  public static string SelectHeaderAccept(string[] accepts)
+  public static string? SelectHeaderAccept(string[] accepts)
   {
     if (accepts.Length is 0)
     {
@@ -226,7 +230,7 @@ public static partial class ClientUtils
       return false;
     }
     
-    return JsonRegex.IsMatch(mime) || mime.Equals("application/json-patch+json");
+    return JsonRegex.IsMatch(mime) || mime.Equals("application/json-patch+json", StringComparison.Ordinal);
   }
   
   /// <summary>
@@ -249,7 +253,7 @@ public static partial class ClientUtils
   /// </summary>
   /// <param name="enumVal"></param>
   /// <returns>EnumMember value as string otherwise null</returns>
-  private static string GetEnumMemberAttrValue(object enumVal)
+  private static string? GetEnumMemberAttrValue(object enumVal)
   {
     ArgumentNullException.ThrowIfNull(enumVal);
     
