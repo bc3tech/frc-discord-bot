@@ -23,6 +23,7 @@ public partial class Media
   /// String type of the media element.
   /// </summary>
     /// <value>String type of the media element.</value>
+  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
   public enum TypeEnum
   {
         /// <summary>

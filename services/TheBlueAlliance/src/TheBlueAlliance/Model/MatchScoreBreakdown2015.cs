@@ -22,6 +22,7 @@ public partial class MatchScoreBreakdown2015
           /// <summary>
   /// Defines Coopertition
   /// </summary>
+  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
   public enum CoopertitionEnum
   {
         /// <summary>

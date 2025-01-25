@@ -23,6 +23,7 @@ public partial class MatchSimple
   /// The competition level the match was played at.
   /// </summary>
     /// <value>The competition level the match was played at.</value>
+  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
   public enum CompLevelEnum
   {
         /// <summary>
@@ -119,6 +120,7 @@ public partial class MatchSimple
   /// The color (red/blue) of the winning alliance. Will contain an empty string in the event of no winner, or a tie.
   /// </summary>
     /// <value>The color (red/blue) of the winning alliance. Will contain an empty string in the event of no winner, or a tie.</value>
+  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
   public enum WinningAllianceEnum
   {
         /// <summary>

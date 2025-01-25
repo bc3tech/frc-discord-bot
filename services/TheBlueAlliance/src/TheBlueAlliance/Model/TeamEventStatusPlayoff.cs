@@ -23,6 +23,7 @@ public partial class TeamEventStatusPlayoff
   /// The highest playoff level the team reached.
   /// </summary>
     /// <value>The highest playoff level the team reached.</value>
+  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
   public enum LevelEnum
   {
         /// <summary>
@@ -119,6 +120,7 @@ public partial class TeamEventStatusPlayoff
   /// Current competition status for the playoffs.
   /// </summary>
     /// <value>Current competition status for the playoffs.</value>
+  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
   public enum StatusEnum
   {
         /// <summary>

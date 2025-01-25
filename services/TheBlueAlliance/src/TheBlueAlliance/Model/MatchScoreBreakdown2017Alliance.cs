@@ -22,6 +22,7 @@ public partial class MatchScoreBreakdown2017Alliance
           /// <summary>
   /// Defines Robot1Auto
   /// </summary>
+  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
   public enum Robot1AutoEnum
   {
         /// <summary>
@@ -100,6 +101,7 @@ public partial class MatchScoreBreakdown2017Alliance
           /// <summary>
   /// Defines Robot2Auto
   /// </summary>
+  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
   public enum Robot2AutoEnum
   {
         /// <summary>
@@ -178,6 +180,7 @@ public partial class MatchScoreBreakdown2017Alliance
           /// <summary>
   /// Defines Robot3Auto
   /// </summary>
+  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
   public enum Robot3AutoEnum
   {
         /// <summary>
