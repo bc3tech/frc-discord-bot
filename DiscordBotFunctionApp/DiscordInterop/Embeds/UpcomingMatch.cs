@@ -10,8 +10,6 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Model;
 using TheBlueAlliance.Api.Notifications;
 
 internal sealed class UpcomingMatch(IMatchApi tbaApi, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<UpcomingMatch> logger) : IEmbedCreator

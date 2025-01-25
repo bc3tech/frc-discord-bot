@@ -14,7 +14,6 @@ using System.Text;
 using System.Text.Json;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Api.Api;
 using TheBlueAlliance.Api.Notifications;
 
 internal sealed class AllianceSelection(TeamRepository teams, IEventApi tbaClient, EmbedBuilderFactory builderFactory, ILogger<AllianceSelection> logger) : IEmbedCreator

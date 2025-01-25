@@ -15,7 +15,6 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Api.Api;
 using TheBlueAlliance.Api.Notifications;
 
 internal sealed class Award(IEventApi tbaApi, BlobContainerClient imageBlobs, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<Award> logger) : IEmbedCreator
@@ -70,7 +69,7 @@ internal sealed class Award(IEventApi tbaApi, BlobContainerClient imageBlobs, Em
                 .WithDescription(
     $@"# Award!
 ## {latestAward.Name}
-### {(latestAward.RecipientList.Length > 1 ? "Recipients" : "Recipient")}
+### {(latestAward.RecipientList.Count > 1 ? "Recipients" : "Recipient")}
 {string.Join("\n", latestAward.RecipientList!
         .Select(t => $"- {teams.GetTeamLabelWithHighlight(t.TeamKey, highlightTeam)}{(!string.IsNullOrWhiteSpace(t.Awardee) ? $" [{t.Awardee}]" : string.Empty)}"))}
 

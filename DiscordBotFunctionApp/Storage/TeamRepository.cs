@@ -6,8 +6,8 @@ using Microsoft.Extensions.Logging;
 
 using System.Diagnostics;
 
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Model;
 
 internal sealed class TeamRepository(ITeamApi tbaApiClient, ILogger<TeamRepository> logger)
 {

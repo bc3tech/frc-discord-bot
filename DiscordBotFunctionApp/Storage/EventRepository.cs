@@ -8,8 +8,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Model;
 
 internal sealed class EventRepository(IEventApi apiClient, ILogger<EventRepository> logger)
 {

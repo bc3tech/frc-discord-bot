@@ -6,8 +6,8 @@ using Common;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
 
 internal static class DependencyInjectionExtensions
 {
