@@ -37,25 +37,25 @@ using FIRST.Client;
       /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
       /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
       /// <returns>Object</returns>
-      Object SeasonMatchesEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default);
-      
-      /// <summary>
-      /// Event Match Results
-      /// </summary>
-      /// <remarks>
-      /// The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
-      /// </remarks>
-      /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
-      /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-      /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-      /// <param name="ifModifiedSince"> (optional)</param>
-      /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-      /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
-      /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
-      /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-      /// <returns>ApiResponse of Object</returns>
-      ApiResponse<Object> SeasonMatchesEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default);
+      Object? SeasonMatchesEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default);
+        
+        /// <summary>
+        /// Event Match Results
+        /// </summary>
+        /// <remarks>
+        /// The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
+        /// </remarks>
+        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
+        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+        /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+        /// <param name="ifModifiedSince"> (optional)</param>
+        /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+        /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
+        /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
+        /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object?> SeasonMatchesEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default);
       /// <summary>
       /// Score Details
       /// </summary>
@@ -71,52 +71,33 @@ using FIRST.Client;
       /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
       /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
       /// <returns>Object</returns>
-      Object SeasonScoresEventCodeTournamentLevelGet(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default);
-      
-      /// <summary>
-      /// Score Details
-      /// </summary>
-      /// <remarks>
-      /// The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
-      /// </remarks>
-      /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
-      /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-      /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
-      /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-      /// <param name="ifModifiedSince"> (optional)</param>
-      /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-      /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
-      /// <returns>ApiResponse of Object</returns>
-      ApiResponse<Object> SeasonScoresEventCodeTournamentLevelGetWithHttpInfo(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default);
-    #endregion Synchronous Operations
-  }
-  
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal interface IMatchResultsApiAsync : IApiAccessor
-    {
-      #region Asynchronous Operations
+      Object? SeasonScoresEventCodeTournamentLevelGet(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default);
+        
         /// <summary>
-        /// Event Match Results
+        /// Score Details
         /// </summary>
         /// <remarks>
-        /// The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
+        /// The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
         /// </remarks>
         /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-          /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
-          /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
-          /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> SeasonMatchesEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
-          
+        /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
+        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+        /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
+        /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+        /// <param name="ifModifiedSince"> (optional)</param>
+        /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+        /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object?> SeasonScoresEventCodeTournamentLevelGetWithHttpInfo(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default);
+      #endregion Synchronous Operations
+    }
+    
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal interface IMatchResultsApiAsync : IApiAccessor
+      {
+        #region Asynchronous Operations
           /// <summary>
           /// Event Match Results
           /// </summary>
@@ -133,26 +114,27 @@ using FIRST.Client;
             /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
             /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of ApiResponse (Object)</returns>
-          System.Threading.Tasks.Task<ApiResponse<Object>> SeasonMatchesEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// Score Details
-        /// </summary>
-        /// <remarks>
-        /// The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
-          /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-          /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> SeasonScoresEventCodeTournamentLevelGetAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default);
-          
+          /// <returns>Task of Object</returns>
+          System.Threading.Tasks.Task<Object?> SeasonMatchesEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
+            
+            /// <summary>
+            /// Event Match Results
+            /// </summary>
+            /// <remarks>
+            /// The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
+            /// </remarks>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+              /// <param name="ifModifiedSince"> (optional)</param>
+              /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+              /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
+              /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
+              /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of ApiResponse (Object)</returns>
+            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonMatchesEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// Score Details
           /// </summary>
@@ -168,225 +150,221 @@ using FIRST.Client;
             /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
             /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of ApiResponse (Object)</returns>
-          System.Threading.Tasks.Task<ApiResponse<Object>> SeasonScoresEventCodeTournamentLevelGetWithHttpInfoAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default);
-        #endregion Asynchronous Operations
-      }
-    
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal interface IMatchResultsApi : IMatchResultsApiSync, IMatchResultsApiAsync { }
-    
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal partial class MatchResultsApi : IMatchResultsApi
-    {
-      private ExceptionFactory? _exceptionFactory = (name, response) => null;
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MatchResultsApi"/> class.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <returns></returns>
-      public MatchResultsApi() : this((string)null) { }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MatchResultsApi"/> class.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <param name="basePath">The target service's base path in URL format.</param>
-      /// <exception cref="ArgumentException"></exception>
-      /// <returns></returns>
-      public MatchResultsApi(string basePath)
-      {
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        new Configuration { BasePath = basePath }
-        );
-        this.ApiClient = new ApiClient(this.Configuration.BasePath);
-        this.Client =  this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MatchResultsApi"/> class using Configuration object.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <param name="configuration">An instance of Configuration.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      public MatchResultsApi(FIRST.Client.Configuration configuration)
-      {
-        ArgumentNullException.ThrowIfNull(configuration);
-        
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        configuration
-        );
-        this.ApiClient = new ApiClient(this.Configuration.BasePath);
-        this.Client = this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MatchResultsApi"/> class.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public MatchResultsApi(HttpClient client, HttpClientHandler handler = null) : this(client, (string)null, handler) { }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MatchResultsApi"/> class.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="basePath">The target service's base path in URL format.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <exception cref="ArgumentException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public MatchResultsApi(HttpClient client, string basePath, HttpClientHandler handler = null)
-      {
-        ArgumentNullException.ThrowIfNull(client);
-        
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        new Configuration { BasePath = basePath }
-        );
-        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-        this.Client =  this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MatchResultsApi"/> class using Configuration object.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="configuration">An instance of Configuration.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public MatchResultsApi(HttpClient client, Configuration configuration, HttpClientHandler handler = null)
-      {
-        ArgumentNullException.ThrowIfNull(configuration);
-        ArgumentNullException.ThrowIfNull(client);
-        
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        configuration
-        );
-        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-        this.Client = this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MatchResultsApi"/> class
-      /// using a Configuration object and client instance.
-      /// </summary>
-      /// <param name="client">The client interface for synchronous API access.</param>
-      /// <param name="asyncClient">The client interface for asynchronous API access.</param>
-      /// <param name="configuration">The configuration object.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      public MatchResultsApi(FIRST.Client.ISynchronousClient client, FIRST.Client.IAsynchronousClient asyncClient, FIRST.Client.IReadableConfiguration configuration)
-      {
-        ArgumentNullException.ThrowIfNull(client);
-        
-          ArgumentNullException.ThrowIfNull(asyncClient);
-          
-        ArgumentNullException.ThrowIfNull(configuration);
-        
-        this.Client = client;
-          this.AsynchronousClient = asyncClient;
-        this.Configuration = configuration;
-        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Holds the ApiClient if created
-      /// </summary>
-      public ApiClient ApiClient { get; set; } = null;
-      
-        /// <summary>
-        /// The client for accessing this underlying API asynchronously.
-        /// </summary>
-        public IAsynchronousClient AsynchronousClient { get; set; }
-      
-      /// <summary>
-      /// The client for accessing this underlying API synchronously.
-      /// </summary>
-      public ISynchronousClient Client { get; set; }
-      
-      /// <summary>
-      /// Gets the base path of the API client.
-      /// </summary>
-      /// <value>The base path</value>
-      public string GetBasePath() => this.Configuration.BasePath;
-      
-      /// <summary>
-      /// Gets or sets the configuration object
-      /// </summary>
-      /// <value>An instance of the Configuration</value>
-      public IReadableConfiguration Configuration { get; set; }
-      
-      /// <summary>
-      /// Provides a factory method hook for the creation of exceptions.
-      /// </summary>
-      public ExceptionFactory ExceptionFactory
-      {
-        get
-        {
-          if (_exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1)
-          {
-            throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.");
-          }
-          
-          return _exceptionFactory;
+          /// <returns>Task of Object</returns>
+          System.Threading.Tasks.Task<Object?> SeasonScoresEventCodeTournamentLevelGetAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default);
+            
+            /// <summary>
+            /// Score Details
+            /// </summary>
+            /// <remarks>
+            /// The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
+            /// </remarks>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
+              /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+              /// <param name="ifModifiedSince"> (optional)</param>
+              /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+              /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of ApiResponse (Object)</returns>
+            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonScoresEventCodeTournamentLevelGetWithHttpInfoAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default);
+          #endregion Asynchronous Operations
         }
-        set { _exceptionFactory = value; }
-      }
       
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal interface IMatchResultsApi : IMatchResultsApiSync, IMatchResultsApiAsync { }
+      
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal sealed partial class MatchResultsApi : IMatchResultsApi
+      {
+        private ExceptionFactory? _exceptionFactory = (name, response) => null;
+        
         /// <summary>
-        /// Event Match Results The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
+        /// Initializes a new instance of the <see cref="MatchResultsApi"/> class.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
         /// </summary>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-        /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
-        /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
-        /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-        /// <returns>Object</returns>
-        public Object SeasonMatchesEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
+        /// <returns></returns>
+        public MatchResultsApi() : this(basePath: default) { }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatchResultsApi"/> class.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+        /// </summary>
+        /// <param name="basePath">The target service's base path in URL format.</param>
+        /// <exception cref="ArgumentException"></exception>
+        /// <returns></returns>
+        public MatchResultsApi(string? basePath)
         {
-          FIRST.Client.ApiResponse<Object> localVarResponse = SeasonMatchesEventCodeGetWithHttpInfo(eventCode, season, end, ifModifiedSince, matchNumber, start, teamNumber, tournamentLevel);
-            return localVarResponse.Data;
-          }
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          new Configuration { BasePath = basePath }
+          );
+          this.ApiClient = new ApiClient(this.Configuration.BasePath);
+          this.Client =  this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatchResultsApi"/> class using Configuration object.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+        /// </summary>
+        /// <param name="configuration">An instance of Configuration.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        public MatchResultsApi(FIRST.Client.Configuration configuration)
+        {
+          ArgumentNullException.ThrowIfNull(configuration);
           
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          configuration
+          );
+          this.ApiClient = new ApiClient(this.Configuration.BasePath);
+          this.Client = this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatchResultsApi"/> class.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public MatchResultsApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatchResultsApi"/> class.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="basePath">The target service's base path in URL format.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public MatchResultsApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
+        {
+          ArgumentNullException.ThrowIfNull(client);
+          
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          new Configuration { BasePath = basePath }
+          );
+          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+          this.Client =  this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatchResultsApi"/> class using Configuration object.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="configuration">An instance of Configuration.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public MatchResultsApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
+        {
+          ArgumentNullException.ThrowIfNull(configuration);
+          ArgumentNullException.ThrowIfNull(client);
+          
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          configuration
+          );
+          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+          this.Client = this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatchResultsApi"/> class
+        /// using a Configuration object and client instance.
+        /// </summary>
+        /// <param name="client">The client interface for synchronous API access.</param>
+        /// <param name="asyncClient">The client interface for asynchronous API access.</param>
+        /// <param name="configuration">The configuration object.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public MatchResultsApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
+        {
+          ArgumentNullException.ThrowIfNull(client);
+          
+            ArgumentNullException.ThrowIfNull(asyncClient);
+            
+          ArgumentNullException.ThrowIfNull(configuration);
+          
+          this.Client = client;
+            this.AsynchronousClient = asyncClient;
+          this.Configuration = configuration;
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Holds the ApiClient if created
+        /// </summary>
+        public ApiClient? ApiClient { get; set; }
+        
+          /// <summary>
+          /// The client for accessing this underlying API asynchronously.
+          /// </summary>
+          public IAsynchronousClient AsynchronousClient { get; set; }
+        
+        /// <summary>
+        /// The client for accessing this underlying API synchronously.
+        /// </summary>
+        public ISynchronousClient Client { get; set; }
+        
+        /// <summary>
+        /// Gets the base path of the API client.
+        /// </summary>
+        /// <value>The base path</value>
+        public string? GetBasePath() => this.Configuration.BasePath;
+        
+        /// <summary>
+        /// Gets or sets the configuration object
+        /// </summary>
+        /// <value>An instance of the Configuration</value>
+        public IReadableConfiguration Configuration { get; set; }
+        
+        /// <summary>
+        /// Provides a factory method hook for the creation of exceptions.
+        /// </summary>
+        public ExceptionFactory? ExceptionFactory
+        {
+          get
+          {
+            return _exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1
+            ? throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.")
+            : _exceptionFactory;
+          }
+          set => _exceptionFactory = value;
+        }
+        
           /// <summary>
           /// Event Match Results The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
           /// </summary>
@@ -399,97 +377,17 @@ using FIRST.Client;
           /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
           /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
           /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-          /// <returns>ApiResponse of Object</returns>
-          public ApiResponse<Object> SeasonMatchesEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
+          /// <returns>Object</returns>
+          public Object? SeasonMatchesEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
           {
-                  // verify the required parameter 'eventCode' is set
-                  if (eventCode is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'eventCode' when calling MatchResultsApi->SeasonMatchesEventCodeGet");
-                  }
-                  
-                  // verify the required parameter 'season' is set
-                  if (season is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'season' when calling MatchResultsApi->SeasonMatchesEventCodeGet");
-                  }
-                  
-            RequestOptions localVarRequestOptions = new RequestOptions();
-            
-            string[] _contentTypes = [
-            ];
-            
-            // to determine the Accept header
-            string[] _accepts = [
-                "application/json"
-            ];
-            
-            var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType is not null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            
-            var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept is not null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            
-                localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
-                localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-                if (end is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "end", end));
-                }
-                
-                if (matchNumber is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "matchNumber", matchNumber));
-                }
-                
-                if (start is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "start", start));
-                }
-                
-                if (teamNumber is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
-                }
-                
-                if (tournamentLevel is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "tournamentLevel", tournamentLevel));
-                }
-                
-                if (ifModifiedSince is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
-                }
-                
-            
-              // authentication (basicAuth) required
-                // http basic authentication required
-                if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
-                }
-                
-            
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/{season}/matches/{eventCode}", localVarRequestOptions, this.Configuration);
-            
-            if (this.ExceptionFactory is not null)
-            {
-              Exception _exception = this.ExceptionFactory("SeasonMatchesEventCodeGet", localVarResponse);
-              if (_exception is not null)
-              {
-                throw _exception;
-              }
+            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonMatchesEventCodeGetWithHttpInfo(eventCode, season, end, ifModifiedSince, matchNumber, start, teamNumber, tournamentLevel);
+              return localVarResponse.Data;
             }
             
-            return localVarResponse;
-          }
-          
-          /// <summary>
-          /// Event Match Results The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+            /// <summary>
+            /// Event Match Results The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
@@ -498,11 +396,116 @@ using FIRST.Client;
             /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
             /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
             /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          public async System.Threading.Tasks.Task<Object> SeasonMatchesEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
+            /// <returns>ApiResponse of Object</returns>
+            public ApiResponse<Object?> SeasonMatchesEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
             {
-              FIRST.Client.ApiResponse<Object> localVarResponse = await SeasonMatchesEventCodeGetWithHttpInfoAsync(eventCode, season, end, ifModifiedSince, matchNumber, start, teamNumber, tournamentLevel, cancellationToken).ConfigureAwait(false);
+                    // verify the required parameter 'eventCode' is set
+                    if (eventCode is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'eventCode' when calling MatchResultsApi->SeasonMatchesEventCodeGet");
+                    }
+                    
+                    // verify the required parameter 'season' is set
+                    if (season is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'season' when calling MatchResultsApi->SeasonMatchesEventCodeGet");
+                    }
+                    
+              RequestOptions localVarRequestOptions = new();
+              
+              string[] _contentTypes = [
+              ];
+              
+              // to determine the Accept header
+              string[] _accepts = [
+                  "application/json"
+              ];
+              
+              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+              if (localVarContentType is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+              }
+              
+              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+              if (localVarAccept is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+              }
+              
+                  localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
+                  localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
+                  if (end is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "end", end));
+                  }
+                  
+                  if (matchNumber is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "matchNumber", matchNumber));
+                  }
+                  
+                  if (start is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "start", start));
+                  }
+                  
+                  if (teamNumber is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
+                  }
+                  
+                  if (tournamentLevel is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "tournamentLevel", tournamentLevel));
+                  }
+                  
+                  if (ifModifiedSince is not null)
+                  {
+                    localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
+                  }
+                  
+              
+                // authentication (basicAuth) required
+                  // http basic authentication required
+                  if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                  {
+                    localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
+                  }
+                  
+              
+              // make the HTTP request
+              var localVarResponse = this.Client.Get<Object?>("/{season}/matches/{eventCode}", localVarRequestOptions, this.Configuration);
+              
+              if (this.ExceptionFactory is not null)
+              {
+                var _exception = this.ExceptionFactory("SeasonMatchesEventCodeGet", localVarResponse);
+                if (_exception is not null)
+                {
+                  throw _exception;
+                }
+              }
+              
+              return localVarResponse;
+            }
+            
+            /// <summary>
+            /// Event Match Results The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+              /// <param name="ifModifiedSince"> (optional)</param>
+              /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+              /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
+              /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
+              /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of Object</returns>
+            public async System.Threading.Tasks.Task<Object?> SeasonMatchesEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
+            {
+              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonMatchesEventCodeGetWithHttpInfoAsync(eventCode, season, end, ifModifiedSince, matchNumber, start, teamNumber, tournamentLevel, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
               
@@ -520,7 +523,7 @@ using FIRST.Client;
                 /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object>> SeasonMatchesEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
+              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonMatchesEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)
@@ -534,7 +537,7 @@ using FIRST.Client;
                         throw new ApiException(400, "Missing required parameter 'season' when calling MatchResultsApi->SeasonMatchesEventCodeGet");
                       }
                       
-                RequestOptions localVarRequestOptions = new RequestOptions();
+                RequestOptions localVarRequestOptions = new();
                 
                 string[] _contentTypes = [
                 ];
@@ -591,17 +594,18 @@ using FIRST.Client;
                 
                   // authentication (basicAuth) required
                       // http basic authentication required
-                      if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+                      if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                      
                       {
                         localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
                       }
                       
                 // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/{season}/matches/{eventCode}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+                var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/{season}/matches/{eventCode}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
                 {
-                  Exception _exception = this.ExceptionFactory("SeasonMatchesEventCodeGet", localVarResponse);
+                  var _exception = this.ExceptionFactory("SeasonMatchesEventCodeGet", localVarResponse);
                   if (_exception is not null)
                   {
                     throw _exception;
@@ -609,25 +613,7 @@ using FIRST.Client;
                 }
                 
                 return localVarResponse;
-              }        /// <summary>
-        /// Score Details The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
-        /// </summary>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
-        /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-        /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
-        /// <returns>Object</returns>
-        public Object SeasonScoresEventCodeTournamentLevelGet(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default)
-        {
-          FIRST.Client.ApiResponse<Object> localVarResponse = SeasonScoresEventCodeTournamentLevelGetWithHttpInfo(eventCode, season, tournamentLevel, end, ifModifiedSince, matchNumber, start);
-            return localVarResponse.Data;
-          }
-          
-          /// <summary>
+              }          /// <summary>
           /// Score Details The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
           /// </summary>
           /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
@@ -638,95 +624,17 @@ using FIRST.Client;
           /// <param name="ifModifiedSince"> (optional)</param>
           /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
           /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
-          /// <returns>ApiResponse of Object</returns>
-          public ApiResponse<Object> SeasonScoresEventCodeTournamentLevelGetWithHttpInfo(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default)
+          /// <returns>Object</returns>
+          public Object? SeasonScoresEventCodeTournamentLevelGet(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default)
           {
-                  // verify the required parameter 'eventCode' is set
-                  if (eventCode is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'eventCode' when calling MatchResultsApi->SeasonScoresEventCodeTournamentLevelGet");
-                  }
-                  
-                  // verify the required parameter 'season' is set
-                  if (season is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'season' when calling MatchResultsApi->SeasonScoresEventCodeTournamentLevelGet");
-                  }
-                  
-                  // verify the required parameter 'tournamentLevel' is set
-                  if (tournamentLevel is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'tournamentLevel' when calling MatchResultsApi->SeasonScoresEventCodeTournamentLevelGet");
-                  }
-                  
-            RequestOptions localVarRequestOptions = new RequestOptions();
-            
-            string[] _contentTypes = [
-            ];
-            
-            // to determine the Accept header
-            string[] _accepts = [
-                "application/json",
-                "text/plain"
-            ];
-            
-            var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType is not null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            
-            var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept is not null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            
-                localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
-                localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-                localVarRequestOptions.PathParameters.Add("tournamentLevel", ClientUtils.ParameterToString(tournamentLevel)); // path parameter
-                if (end is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "end", end));
-                }
-                
-                if (matchNumber is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "matchNumber", matchNumber));
-                }
-                
-                if (start is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "start", start));
-                }
-                
-                if (ifModifiedSince is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
-                }
-                
-            
-              // authentication (basicAuth) required
-                // http basic authentication required
-                if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
-                }
-                
-            
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/{season}/scores/{eventCode}/{tournamentLevel}", localVarRequestOptions, this.Configuration);
-            
-            if (this.ExceptionFactory is not null)
-            {
-              Exception _exception = this.ExceptionFactory("SeasonScoresEventCodeTournamentLevelGet", localVarResponse);
-              if (_exception is not null)
-              {
-                throw _exception;
-              }
+            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonScoresEventCodeTournamentLevelGetWithHttpInfo(eventCode, season, tournamentLevel, end, ifModifiedSince, matchNumber, start);
+              return localVarResponse.Data;
             }
             
-            return localVarResponse;
-          }
-          
-          /// <summary>
-          /// Score Details The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+            /// <summary>
+            /// Score Details The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
@@ -734,11 +642,113 @@ using FIRST.Client;
             /// <param name="ifModifiedSince"> (optional)</param>
             /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
             /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          public async System.Threading.Tasks.Task<Object> SeasonScoresEventCodeTournamentLevelGetAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default)
+            /// <returns>ApiResponse of Object</returns>
+            public ApiResponse<Object?> SeasonScoresEventCodeTournamentLevelGetWithHttpInfo(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default)
             {
-              FIRST.Client.ApiResponse<Object> localVarResponse = await SeasonScoresEventCodeTournamentLevelGetWithHttpInfoAsync(eventCode, season, tournamentLevel, end, ifModifiedSince, matchNumber, start, cancellationToken).ConfigureAwait(false);
+                    // verify the required parameter 'eventCode' is set
+                    if (eventCode is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'eventCode' when calling MatchResultsApi->SeasonScoresEventCodeTournamentLevelGet");
+                    }
+                    
+                    // verify the required parameter 'season' is set
+                    if (season is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'season' when calling MatchResultsApi->SeasonScoresEventCodeTournamentLevelGet");
+                    }
+                    
+                    // verify the required parameter 'tournamentLevel' is set
+                    if (tournamentLevel is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'tournamentLevel' when calling MatchResultsApi->SeasonScoresEventCodeTournamentLevelGet");
+                    }
+                    
+              RequestOptions localVarRequestOptions = new();
+              
+              string[] _contentTypes = [
+              ];
+              
+              // to determine the Accept header
+              string[] _accepts = [
+                  "application/json",
+                  "text/plain"
+              ];
+              
+              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+              if (localVarContentType is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+              }
+              
+              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+              if (localVarAccept is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+              }
+              
+                  localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
+                  localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
+                  localVarRequestOptions.PathParameters.Add("tournamentLevel", ClientUtils.ParameterToString(tournamentLevel)); // path parameter
+                  if (end is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "end", end));
+                  }
+                  
+                  if (matchNumber is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "matchNumber", matchNumber));
+                  }
+                  
+                  if (start is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "start", start));
+                  }
+                  
+                  if (ifModifiedSince is not null)
+                  {
+                    localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
+                  }
+                  
+              
+                // authentication (basicAuth) required
+                  // http basic authentication required
+                  if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                  {
+                    localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
+                  }
+                  
+              
+              // make the HTTP request
+              var localVarResponse = this.Client.Get<Object?>("/{season}/scores/{eventCode}/{tournamentLevel}", localVarRequestOptions, this.Configuration);
+              
+              if (this.ExceptionFactory is not null)
+              {
+                var _exception = this.ExceptionFactory("SeasonScoresEventCodeTournamentLevelGet", localVarResponse);
+                if (_exception is not null)
+                {
+                  throw _exception;
+                }
+              }
+              
+              return localVarResponse;
+            }
+            
+            /// <summary>
+            /// Score Details The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
+              /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+              /// <param name="ifModifiedSince"> (optional)</param>
+              /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+              /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of Object</returns>
+            public async System.Threading.Tasks.Task<Object?> SeasonScoresEventCodeTournamentLevelGetAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default)
+            {
+              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonScoresEventCodeTournamentLevelGetWithHttpInfoAsync(eventCode, season, tournamentLevel, end, ifModifiedSince, matchNumber, start, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
               
@@ -755,7 +765,7 @@ using FIRST.Client;
                 /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object>> SeasonScoresEventCodeTournamentLevelGetWithHttpInfoAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default)
+              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonScoresEventCodeTournamentLevelGetWithHttpInfoAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)
@@ -775,7 +785,7 @@ using FIRST.Client;
                         throw new ApiException(400, "Missing required parameter 'tournamentLevel' when calling MatchResultsApi->SeasonScoresEventCodeTournamentLevelGet");
                       }
                       
-                RequestOptions localVarRequestOptions = new RequestOptions();
+                RequestOptions localVarRequestOptions = new();
                 
                 string[] _contentTypes = [
                 ];
@@ -824,17 +834,18 @@ using FIRST.Client;
                 
                   // authentication (basicAuth) required
                       // http basic authentication required
-                      if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+                      if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                      
                       {
                         localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
                       }
                       
                 // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/{season}/scores/{eventCode}/{tournamentLevel}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+                var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/{season}/scores/{eventCode}/{tournamentLevel}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
                 {
-                  Exception _exception = this.ExceptionFactory("SeasonScoresEventCodeTournamentLevelGet", localVarResponse);
+                  var _exception = this.ExceptionFactory("SeasonScoresEventCodeTournamentLevelGet", localVarResponse);
                   if (_exception is not null)
                   {
                     throw _exception;

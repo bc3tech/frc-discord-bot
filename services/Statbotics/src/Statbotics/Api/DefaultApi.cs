@@ -292,12 +292,9 @@ using Statbotics.Client;
         {
           get
           {
-            if (_exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1)
-            {
-              throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.");
-            }
-            
-            return _exceptionFactory;
+            return _exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1
+            ? throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.")
+            : _exceptionFactory;
           }
           set => _exceptionFactory = value;
         }
@@ -320,7 +317,7 @@ using Statbotics.Client;
             /// <returns>ApiResponse of Object</returns>
             public ApiResponse<Object?> ReadRootV2GetWithHttpInfo()
             {
-              RequestOptions localVarRequestOptions = new RequestOptions();
+              RequestOptions localVarRequestOptions = new();
               
               string[] _contentTypes = [
               ];
@@ -379,7 +376,7 @@ using Statbotics.Client;
               /// <returns>Task of ApiResponse (Object)</returns>
               public async System.Threading.Tasks.Task<Statbotics.Client.ApiResponse<Object?>> ReadRootV2GetWithHttpInfoAsync(CancellationToken cancellationToken = default)
               {
-                RequestOptions localVarRequestOptions = new RequestOptions();
+                RequestOptions localVarRequestOptions = new();
                 
                 string[] _contentTypes = [
                 ];
@@ -433,7 +430,7 @@ using Statbotics.Client;
             /// <returns>ApiResponse of Object</returns>
             public ApiResponse<Object?> ReadRootV3GetWithHttpInfo()
             {
-              RequestOptions localVarRequestOptions = new RequestOptions();
+              RequestOptions localVarRequestOptions = new();
               
               string[] _contentTypes = [
               ];
@@ -492,7 +489,7 @@ using Statbotics.Client;
               /// <returns>Task of ApiResponse (Object)</returns>
               public async System.Threading.Tasks.Task<Statbotics.Client.ApiResponse<Object?>> ReadRootV3GetWithHttpInfoAsync(CancellationToken cancellationToken = default)
               {
-                RequestOptions localVarRequestOptions = new RequestOptions();
+                RequestOptions localVarRequestOptions = new();
                 
                 string[] _contentTypes = [
                 ];

@@ -32,7 +32,7 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>> where TKe
   /// <summary>
   /// Empty Constructor.
   /// </summary>
-  public Multimap() => _dictionary = new Dictionary<TKey, IList<TValue>>();
+  public Multimap() => _dictionary = [];
   
   /// <summary>
   /// Constructor with comparer.
@@ -146,8 +146,7 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>> where TKe
       }
       else
       {
-        list = new List<TValue>(value);
-        if (!TryAdd(key, list))
+        if (!TryAdd(key, []))
         {
           throw new InvalidOperationException("Could not add values to Multimap.");
         }
@@ -179,7 +178,7 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>> where TKe
   ///     This parameter is passed uninitialized.</param>
   /// <returns> true if the object that implements Multimap contains
   ///     an item with the specified key; otherwise, false.</returns>
-  public bool TryGetValue(TKey key, out IList<TValue> value) => _dictionary.TryGetValue(key, out value);
+  public bool TryGetValue(TKey key, [System.Diagnostics.CodeAnalysis.MaybeNullWhen(false)] out IList<TValue> value) => _dictionary.TryGetValue(key, out value);
   
   /// <summary>
   /// Gets or sets the item with the specified key.

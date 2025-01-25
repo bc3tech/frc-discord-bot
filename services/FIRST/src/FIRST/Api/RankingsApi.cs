@@ -35,23 +35,23 @@ using FIRST.Client;
       /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
       /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
       /// <returns>Object</returns>
-      Object SeasonRankingsDistrictGet(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default);
-      
-      /// <summary>
-      /// District Rankings
-      /// </summary>
-      /// <remarks>
-      /// The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
-      /// </remarks>
-      /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-      /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-      /// <param name="ifModifiedSince"> (optional)</param>
-      /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-      /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-      /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-      /// <returns>ApiResponse of Object</returns>
-      ApiResponse<Object> SeasonRankingsDistrictGetWithHttpInfo(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default);
+      Object? SeasonRankingsDistrictGet(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default);
+        
+        /// <summary>
+        /// District Rankings
+        /// </summary>
+        /// <remarks>
+        /// The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
+        /// </remarks>
+        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+        /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+        /// <param name="ifModifiedSince"> (optional)</param>
+        /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+        /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+        /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object?> SeasonRankingsDistrictGetWithHttpInfo(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default);
       /// <summary>
       /// Event Rankings
       /// </summary>
@@ -65,48 +65,31 @@ using FIRST.Client;
       /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
       /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
       /// <returns>Object</returns>
-      Object SeasonRankingsEventCodeGet(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default);
-      
-      /// <summary>
-      /// Event Rankings
-      /// </summary>
-      /// <remarks>
-      /// The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
-      /// </remarks>
-      /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
-      /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-      /// <param name="ifModifiedSince"> (optional)</param>
-      /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-      /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-      /// <returns>ApiResponse of Object</returns>
-      ApiResponse<Object> SeasonRankingsEventCodeGetWithHttpInfo(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default);
-    #endregion Synchronous Operations
-  }
-  
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal interface IRankingsApiAsync : IApiAccessor
-    {
-      #region Asynchronous Operations
+      Object? SeasonRankingsEventCodeGet(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default);
+        
         /// <summary>
-        /// District Rankings
+        /// Event Rankings
         /// </summary>
         /// <remarks>
-        /// The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
+        /// The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
         /// </remarks>
         /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-          /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-          /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> SeasonRankingsDistrictGetAsync(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default);
-          
+        /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
+        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+        /// <param name="ifModifiedSince"> (optional)</param>
+        /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+        /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object?> SeasonRankingsEventCodeGetWithHttpInfo(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default);
+      #endregion Synchronous Operations
+    }
+    
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal interface IRankingsApiAsync : IApiAccessor
+      {
+        #region Asynchronous Operations
           /// <summary>
           /// District Rankings
           /// </summary>
@@ -121,24 +104,25 @@ using FIRST.Client;
             /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
             /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of ApiResponse (Object)</returns>
-          System.Threading.Tasks.Task<ApiResponse<Object>> SeasonRankingsDistrictGetWithHttpInfoAsync(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// Event Rankings
-        /// </summary>
-        /// <remarks>
-        /// The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-          /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> SeasonRankingsEventCodeGetAsync(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default);
-          
+          /// <returns>Task of Object</returns>
+          System.Threading.Tasks.Task<Object?> SeasonRankingsDistrictGetAsync(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default);
+            
+            /// <summary>
+            /// District Rankings
+            /// </summary>
+            /// <remarks>
+            /// The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
+            /// </remarks>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+              /// <param name="ifModifiedSince"> (optional)</param>
+              /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+              /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+              /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of ApiResponse (Object)</returns>
+            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonRankingsDistrictGetWithHttpInfoAsync(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// Event Rankings
           /// </summary>
@@ -152,223 +136,219 @@ using FIRST.Client;
             /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
             /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of ApiResponse (Object)</returns>
-          System.Threading.Tasks.Task<ApiResponse<Object>> SeasonRankingsEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default);
-        #endregion Asynchronous Operations
-      }
-    
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal interface IRankingsApi : IRankingsApiSync, IRankingsApiAsync { }
-    
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal partial class RankingsApi : IRankingsApi
-    {
-      private ExceptionFactory? _exceptionFactory = (name, response) => null;
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="RankingsApi"/> class.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <returns></returns>
-      public RankingsApi() : this((string)null) { }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="RankingsApi"/> class.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <param name="basePath">The target service's base path in URL format.</param>
-      /// <exception cref="ArgumentException"></exception>
-      /// <returns></returns>
-      public RankingsApi(string basePath)
-      {
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        new Configuration { BasePath = basePath }
-        );
-        this.ApiClient = new ApiClient(this.Configuration.BasePath);
-        this.Client =  this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="RankingsApi"/> class using Configuration object.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <param name="configuration">An instance of Configuration.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      public RankingsApi(FIRST.Client.Configuration configuration)
-      {
-        ArgumentNullException.ThrowIfNull(configuration);
-        
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        configuration
-        );
-        this.ApiClient = new ApiClient(this.Configuration.BasePath);
-        this.Client = this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="RankingsApi"/> class.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public RankingsApi(HttpClient client, HttpClientHandler handler = null) : this(client, (string)null, handler) { }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="RankingsApi"/> class.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="basePath">The target service's base path in URL format.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <exception cref="ArgumentException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public RankingsApi(HttpClient client, string basePath, HttpClientHandler handler = null)
-      {
-        ArgumentNullException.ThrowIfNull(client);
-        
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        new Configuration { BasePath = basePath }
-        );
-        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-        this.Client =  this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="RankingsApi"/> class using Configuration object.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="configuration">An instance of Configuration.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public RankingsApi(HttpClient client, Configuration configuration, HttpClientHandler handler = null)
-      {
-        ArgumentNullException.ThrowIfNull(configuration);
-        ArgumentNullException.ThrowIfNull(client);
-        
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        configuration
-        );
-        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-        this.Client = this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="RankingsApi"/> class
-      /// using a Configuration object and client instance.
-      /// </summary>
-      /// <param name="client">The client interface for synchronous API access.</param>
-      /// <param name="asyncClient">The client interface for asynchronous API access.</param>
-      /// <param name="configuration">The configuration object.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      public RankingsApi(FIRST.Client.ISynchronousClient client, FIRST.Client.IAsynchronousClient asyncClient, FIRST.Client.IReadableConfiguration configuration)
-      {
-        ArgumentNullException.ThrowIfNull(client);
-        
-          ArgumentNullException.ThrowIfNull(asyncClient);
-          
-        ArgumentNullException.ThrowIfNull(configuration);
-        
-        this.Client = client;
-          this.AsynchronousClient = asyncClient;
-        this.Configuration = configuration;
-        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Holds the ApiClient if created
-      /// </summary>
-      public ApiClient ApiClient { get; set; } = null;
-      
-        /// <summary>
-        /// The client for accessing this underlying API asynchronously.
-        /// </summary>
-        public IAsynchronousClient AsynchronousClient { get; set; }
-      
-      /// <summary>
-      /// The client for accessing this underlying API synchronously.
-      /// </summary>
-      public ISynchronousClient Client { get; set; }
-      
-      /// <summary>
-      /// Gets the base path of the API client.
-      /// </summary>
-      /// <value>The base path</value>
-      public string GetBasePath() => this.Configuration.BasePath;
-      
-      /// <summary>
-      /// Gets or sets the configuration object
-      /// </summary>
-      /// <value>An instance of the Configuration</value>
-      public IReadableConfiguration Configuration { get; set; }
-      
-      /// <summary>
-      /// Provides a factory method hook for the creation of exceptions.
-      /// </summary>
-      public ExceptionFactory ExceptionFactory
-      {
-        get
-        {
-          if (_exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1)
-          {
-            throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.");
-          }
-          
-          return _exceptionFactory;
+          /// <returns>Task of Object</returns>
+          System.Threading.Tasks.Task<Object?> SeasonRankingsEventCodeGetAsync(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default);
+            
+            /// <summary>
+            /// Event Rankings
+            /// </summary>
+            /// <remarks>
+            /// The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
+            /// </remarks>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="ifModifiedSince"> (optional)</param>
+              /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+              /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of ApiResponse (Object)</returns>
+            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonRankingsEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default);
+          #endregion Asynchronous Operations
         }
-        set { _exceptionFactory = value; }
-      }
       
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal interface IRankingsApi : IRankingsApiSync, IRankingsApiAsync { }
+      
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal sealed partial class RankingsApi : IRankingsApi
+      {
+        private ExceptionFactory? _exceptionFactory = (name, response) => null;
+        
         /// <summary>
-        /// District Rankings The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
+        /// Initializes a new instance of the <see cref="RankingsApi"/> class.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
         /// </summary>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-        /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-        /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-        /// <returns>Object</returns>
-        public Object SeasonRankingsDistrictGet(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default)
+        /// <returns></returns>
+        public RankingsApi() : this(basePath: default) { }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RankingsApi"/> class.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+        /// </summary>
+        /// <param name="basePath">The target service's base path in URL format.</param>
+        /// <exception cref="ArgumentException"></exception>
+        /// <returns></returns>
+        public RankingsApi(string? basePath)
         {
-          FIRST.Client.ApiResponse<Object> localVarResponse = SeasonRankingsDistrictGetWithHttpInfo(season, districtCode, ifModifiedSince, page, teamNumber, top);
-            return localVarResponse.Data;
-          }
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          new Configuration { BasePath = basePath }
+          );
+          this.ApiClient = new ApiClient(this.Configuration.BasePath);
+          this.Client =  this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RankingsApi"/> class using Configuration object.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+        /// </summary>
+        /// <param name="configuration">An instance of Configuration.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        public RankingsApi(FIRST.Client.Configuration configuration)
+        {
+          ArgumentNullException.ThrowIfNull(configuration);
           
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          configuration
+          );
+          this.ApiClient = new ApiClient(this.Configuration.BasePath);
+          this.Client = this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RankingsApi"/> class.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public RankingsApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RankingsApi"/> class.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="basePath">The target service's base path in URL format.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public RankingsApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
+        {
+          ArgumentNullException.ThrowIfNull(client);
+          
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          new Configuration { BasePath = basePath }
+          );
+          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+          this.Client =  this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RankingsApi"/> class using Configuration object.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="configuration">An instance of Configuration.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public RankingsApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
+        {
+          ArgumentNullException.ThrowIfNull(configuration);
+          ArgumentNullException.ThrowIfNull(client);
+          
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          configuration
+          );
+          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+          this.Client = this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RankingsApi"/> class
+        /// using a Configuration object and client instance.
+        /// </summary>
+        /// <param name="client">The client interface for synchronous API access.</param>
+        /// <param name="asyncClient">The client interface for asynchronous API access.</param>
+        /// <param name="configuration">The configuration object.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public RankingsApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
+        {
+          ArgumentNullException.ThrowIfNull(client);
+          
+            ArgumentNullException.ThrowIfNull(asyncClient);
+            
+          ArgumentNullException.ThrowIfNull(configuration);
+          
+          this.Client = client;
+            this.AsynchronousClient = asyncClient;
+          this.Configuration = configuration;
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Holds the ApiClient if created
+        /// </summary>
+        public ApiClient? ApiClient { get; set; }
+        
+          /// <summary>
+          /// The client for accessing this underlying API asynchronously.
+          /// </summary>
+          public IAsynchronousClient AsynchronousClient { get; set; }
+        
+        /// <summary>
+        /// The client for accessing this underlying API synchronously.
+        /// </summary>
+        public ISynchronousClient Client { get; set; }
+        
+        /// <summary>
+        /// Gets the base path of the API client.
+        /// </summary>
+        /// <value>The base path</value>
+        public string? GetBasePath() => this.Configuration.BasePath;
+        
+        /// <summary>
+        /// Gets or sets the configuration object
+        /// </summary>
+        /// <value>An instance of the Configuration</value>
+        public IReadableConfiguration Configuration { get; set; }
+        
+        /// <summary>
+        /// Provides a factory method hook for the creation of exceptions.
+        /// </summary>
+        public ExceptionFactory? ExceptionFactory
+        {
+          get
+          {
+            return _exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1
+            ? throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.")
+            : _exceptionFactory;
+          }
+          set => _exceptionFactory = value;
+        }
+        
           /// <summary>
           /// District Rankings The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
           /// </summary>
@@ -379,96 +359,119 @@ using FIRST.Client;
           /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
           /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
           /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-          /// <returns>ApiResponse of Object</returns>
-          public ApiResponse<Object> SeasonRankingsDistrictGetWithHttpInfo(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default)
+          /// <returns>Object</returns>
+          public Object? SeasonRankingsDistrictGet(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default)
           {
-                  // verify the required parameter 'season' is set
-                  if (season is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'season' when calling RankingsApi->SeasonRankingsDistrictGet");
-                  }
-                  
-            RequestOptions localVarRequestOptions = new RequestOptions();
-            
-            string[] _contentTypes = [
-            ];
-            
-            // to determine the Accept header
-            string[] _accepts = [
-                "application/json"
-            ];
-            
-            var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType is not null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            
-            var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept is not null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            
-                localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-                if (districtCode is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "districtCode", districtCode));
-                }
-                
-                if (page is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "page", page));
-                }
-                
-                if (teamNumber is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
-                }
-                
-                if (top is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "top", top));
-                }
-                
-                if (ifModifiedSince is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
-                }
-                
-            
-              // authentication (basicAuth) required
-                // http basic authentication required
-                if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
-                }
-                
-            
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/{season}/rankings/district", localVarRequestOptions, this.Configuration);
-            
-            if (this.ExceptionFactory is not null)
-            {
-              Exception _exception = this.ExceptionFactory("SeasonRankingsDistrictGet", localVarResponse);
-              if (_exception is not null)
-              {
-                throw _exception;
-              }
+            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonRankingsDistrictGetWithHttpInfo(season, districtCode, ifModifiedSince, page, teamNumber, top);
+              return localVarResponse.Data;
             }
             
-            return localVarResponse;
-          }
-          
-          /// <summary>
-          /// District Rankings The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+            /// <summary>
+            /// District Rankings The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
             /// <param name="ifModifiedSince"> (optional)</param>
             /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
             /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
             /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          public async System.Threading.Tasks.Task<Object> SeasonRankingsDistrictGetAsync(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default)
+            /// <returns>ApiResponse of Object</returns>
+            public ApiResponse<Object?> SeasonRankingsDistrictGetWithHttpInfo(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default)
             {
-              FIRST.Client.ApiResponse<Object> localVarResponse = await SeasonRankingsDistrictGetWithHttpInfoAsync(season, districtCode, ifModifiedSince, page, teamNumber, top, cancellationToken).ConfigureAwait(false);
+                    // verify the required parameter 'season' is set
+                    if (season is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'season' when calling RankingsApi->SeasonRankingsDistrictGet");
+                    }
+                    
+              RequestOptions localVarRequestOptions = new();
+              
+              string[] _contentTypes = [
+              ];
+              
+              // to determine the Accept header
+              string[] _accepts = [
+                  "application/json"
+              ];
+              
+              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+              if (localVarContentType is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+              }
+              
+              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+              if (localVarAccept is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+              }
+              
+                  localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
+                  if (districtCode is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "districtCode", districtCode));
+                  }
+                  
+                  if (page is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "page", page));
+                  }
+                  
+                  if (teamNumber is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
+                  }
+                  
+                  if (top is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "top", top));
+                  }
+                  
+                  if (ifModifiedSince is not null)
+                  {
+                    localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
+                  }
+                  
+              
+                // authentication (basicAuth) required
+                  // http basic authentication required
+                  if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                  {
+                    localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
+                  }
+                  
+              
+              // make the HTTP request
+              var localVarResponse = this.Client.Get<Object?>("/{season}/rankings/district", localVarRequestOptions, this.Configuration);
+              
+              if (this.ExceptionFactory is not null)
+              {
+                var _exception = this.ExceptionFactory("SeasonRankingsDistrictGet", localVarResponse);
+                if (_exception is not null)
+                {
+                  throw _exception;
+                }
+              }
+              
+              return localVarResponse;
+            }
+            
+            /// <summary>
+            /// District Rankings The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+              /// <param name="ifModifiedSince"> (optional)</param>
+              /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+              /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+              /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of Object</returns>
+            public async System.Threading.Tasks.Task<Object?> SeasonRankingsDistrictGetAsync(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default)
+            {
+              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonRankingsDistrictGetWithHttpInfoAsync(season, districtCode, ifModifiedSince, page, teamNumber, top, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
               
@@ -484,7 +487,7 @@ using FIRST.Client;
                 /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object>> SeasonRankingsDistrictGetWithHttpInfoAsync(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default)
+              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonRankingsDistrictGetWithHttpInfoAsync(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -492,7 +495,7 @@ using FIRST.Client;
                         throw new ApiException(400, "Missing required parameter 'season' when calling RankingsApi->SeasonRankingsDistrictGet");
                       }
                       
-                RequestOptions localVarRequestOptions = new RequestOptions();
+                RequestOptions localVarRequestOptions = new();
                 
                 string[] _contentTypes = [
                 ];
@@ -543,17 +546,18 @@ using FIRST.Client;
                 
                   // authentication (basicAuth) required
                       // http basic authentication required
-                      if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+                      if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                      
                       {
                         localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
                       }
                       
                 // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/{season}/rankings/district", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+                var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/{season}/rankings/district", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
                 {
-                  Exception _exception = this.ExceptionFactory("SeasonRankingsDistrictGet", localVarResponse);
+                  var _exception = this.ExceptionFactory("SeasonRankingsDistrictGet", localVarResponse);
                   if (_exception is not null)
                   {
                     throw _exception;
@@ -561,23 +565,7 @@ using FIRST.Client;
                 }
                 
                 return localVarResponse;
-              }        /// <summary>
-        /// Event Rankings The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
-        /// </summary>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-        /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-        /// <returns>Object</returns>
-        public Object SeasonRankingsEventCodeGet(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default)
-        {
-          FIRST.Client.ApiResponse<Object> localVarResponse = SeasonRankingsEventCodeGetWithHttpInfo(eventCode, season, ifModifiedSince, teamNumber, top);
-            return localVarResponse.Data;
-          }
-          
-          /// <summary>
+              }          /// <summary>
           /// Event Rankings The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
           /// </summary>
           /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
@@ -586,92 +574,114 @@ using FIRST.Client;
           /// <param name="ifModifiedSince"> (optional)</param>
           /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
           /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-          /// <returns>ApiResponse of Object</returns>
-          public ApiResponse<Object> SeasonRankingsEventCodeGetWithHttpInfo(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default)
+          /// <returns>Object</returns>
+          public Object? SeasonRankingsEventCodeGet(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default)
           {
-                  // verify the required parameter 'eventCode' is set
-                  if (eventCode is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'eventCode' when calling RankingsApi->SeasonRankingsEventCodeGet");
-                  }
-                  
-                  // verify the required parameter 'season' is set
-                  if (season is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'season' when calling RankingsApi->SeasonRankingsEventCodeGet");
-                  }
-                  
-            RequestOptions localVarRequestOptions = new RequestOptions();
-            
-            string[] _contentTypes = [
-            ];
-            
-            // to determine the Accept header
-            string[] _accepts = [
-                "application/json"
-            ];
-            
-            var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType is not null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            
-            var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept is not null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            
-                localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
-                localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-                if (teamNumber is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
-                }
-                
-                if (top is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "top", top));
-                }
-                
-                if (ifModifiedSince is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
-                }
-                
-            
-              // authentication (basicAuth) required
-                // http basic authentication required
-                if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
-                }
-                
-            
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/{season}/rankings/{eventCode}", localVarRequestOptions, this.Configuration);
-            
-            if (this.ExceptionFactory is not null)
-            {
-              Exception _exception = this.ExceptionFactory("SeasonRankingsEventCodeGet", localVarResponse);
-              if (_exception is not null)
-              {
-                throw _exception;
-              }
+            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonRankingsEventCodeGetWithHttpInfo(eventCode, season, ifModifiedSince, teamNumber, top);
+              return localVarResponse.Data;
             }
             
-            return localVarResponse;
-          }
-          
-          /// <summary>
-          /// Event Rankings The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+            /// <summary>
+            /// Event Rankings The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="ifModifiedSince"> (optional)</param>
             /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
             /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          public async System.Threading.Tasks.Task<Object> SeasonRankingsEventCodeGetAsync(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default)
+            /// <returns>ApiResponse of Object</returns>
+            public ApiResponse<Object?> SeasonRankingsEventCodeGetWithHttpInfo(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default)
             {
-              FIRST.Client.ApiResponse<Object> localVarResponse = await SeasonRankingsEventCodeGetWithHttpInfoAsync(eventCode, season, ifModifiedSince, teamNumber, top, cancellationToken).ConfigureAwait(false);
+                    // verify the required parameter 'eventCode' is set
+                    if (eventCode is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'eventCode' when calling RankingsApi->SeasonRankingsEventCodeGet");
+                    }
+                    
+                    // verify the required parameter 'season' is set
+                    if (season is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'season' when calling RankingsApi->SeasonRankingsEventCodeGet");
+                    }
+                    
+              RequestOptions localVarRequestOptions = new();
+              
+              string[] _contentTypes = [
+              ];
+              
+              // to determine the Accept header
+              string[] _accepts = [
+                  "application/json"
+              ];
+              
+              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+              if (localVarContentType is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+              }
+              
+              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+              if (localVarAccept is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+              }
+              
+                  localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
+                  localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
+                  if (teamNumber is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
+                  }
+                  
+                  if (top is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "top", top));
+                  }
+                  
+                  if (ifModifiedSince is not null)
+                  {
+                    localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
+                  }
+                  
+              
+                // authentication (basicAuth) required
+                  // http basic authentication required
+                  if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                  {
+                    localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
+                  }
+                  
+              
+              // make the HTTP request
+              var localVarResponse = this.Client.Get<Object?>("/{season}/rankings/{eventCode}", localVarRequestOptions, this.Configuration);
+              
+              if (this.ExceptionFactory is not null)
+              {
+                var _exception = this.ExceptionFactory("SeasonRankingsEventCodeGet", localVarResponse);
+                if (_exception is not null)
+                {
+                  throw _exception;
+                }
+              }
+              
+              return localVarResponse;
+            }
+            
+            /// <summary>
+            /// Event Rankings The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="ifModifiedSince"> (optional)</param>
+              /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+              /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of Object</returns>
+            public async System.Threading.Tasks.Task<Object?> SeasonRankingsEventCodeGetAsync(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default)
+            {
+              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonRankingsEventCodeGetWithHttpInfoAsync(eventCode, season, ifModifiedSince, teamNumber, top, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
               
@@ -686,7 +696,7 @@ using FIRST.Client;
                 /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object>> SeasonRankingsEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default)
+              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonRankingsEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)
@@ -700,7 +710,7 @@ using FIRST.Client;
                         throw new ApiException(400, "Missing required parameter 'season' when calling RankingsApi->SeasonRankingsEventCodeGet");
                       }
                       
-                RequestOptions localVarRequestOptions = new RequestOptions();
+                RequestOptions localVarRequestOptions = new();
                 
                 string[] _contentTypes = [
                 ];
@@ -742,17 +752,18 @@ using FIRST.Client;
                 
                   // authentication (basicAuth) required
                       // http basic authentication required
-                      if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+                      if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                      
                       {
                         localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
                       }
                       
                 // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/{season}/rankings/{eventCode}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+                var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/{season}/rankings/{eventCode}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
                 {
-                  Exception _exception = this.ExceptionFactory("SeasonRankingsEventCodeGet", localVarResponse);
+                  var _exception = this.ExceptionFactory("SeasonRankingsEventCodeGet", localVarResponse);
                   if (_exception is not null)
                   {
                     throw _exception;

@@ -5,7 +5,6 @@
     "version": "7.11.0"
   },
   "additionalProperties": {
-    "library": "httpclient",
     "modelPropertySorting": "alphabetical",
     "netCoreProjectFile": true,
     "nonPublicApi": true,
@@ -25,6 +24,10 @@
   "files": {
     "Directory.Packages.props.mustache": {
       "destinationFilename": "Directory.Packages.props",
+      "templateType": "SupportingFiles"
+    },
+    "AssemblyInfo.mustache": {
+      "destinationFilename": "src/FIRST/Properties/AssemblyInfo.cs",
       "templateType": "SupportingFiles"
     }
   }

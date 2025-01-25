@@ -30,18 +30,18 @@ using FIRST.Client;
       /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
       /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
       /// <returns>Object</returns>
-      Object SeasonRankingsDistrictAllianceSelectionCalculationGet(string season);
-      
-      /// <summary>
-      /// Alliance Selection Points
-      /// </summary>
-      /// <remarks>
-      /// Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-      /// </remarks>
-      /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-      /// <returns>ApiResponse of Object</returns>
-      ApiResponse<Object> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfo(string season);
+      Object? SeasonRankingsDistrictAllianceSelectionCalculationGet(string season);
+        
+        /// <summary>
+        /// Alliance Selection Points
+        /// </summary>
+        /// <remarks>
+        /// Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+        /// </remarks>
+        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object?> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfo(string season);
       /// <summary>
       /// Playoff Advancement Points
       /// </summary>
@@ -51,18 +51,18 @@ using FIRST.Client;
       /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
       /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
       /// <returns>Object</returns>
-      Object SeasonRankingsDistrictPlayoffAdvancementCalculationGet(string season);
-      
-      /// <summary>
-      /// Playoff Advancement Points
-      /// </summary>
-      /// <remarks>
-      /// Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
-      /// </remarks>
-      /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-      /// <returns>ApiResponse of Object</returns>
-      ApiResponse<Object> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfo(string season);
+      Object? SeasonRankingsDistrictPlayoffAdvancementCalculationGet(string season);
+        
+        /// <summary>
+        /// Playoff Advancement Points
+        /// </summary>
+        /// <remarks>
+        /// Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
+        /// </remarks>
+        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object?> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfo(string season);
       /// <summary>
       /// Qual Performance Points
       /// </summary>
@@ -72,39 +72,27 @@ using FIRST.Client;
       /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
       /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
       /// <returns>Object</returns>
-      Object SeasonRankingsDistrictQualPerformanceCalculationGet(string season);
-      
-      /// <summary>
-      /// Qual Performance Points
-      /// </summary>
-      /// <remarks>
-      /// Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-      /// </remarks>
-      /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-      /// <returns>ApiResponse of Object</returns>
-      ApiResponse<Object> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfo(string season);
-    #endregion Synchronous Operations
-  }
-  
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal interface IRankingsDistrictRankingCalculationApiAsync : IApiAccessor
-    {
-      #region Asynchronous Operations
+      Object? SeasonRankingsDistrictQualPerformanceCalculationGet(string season);
+        
         /// <summary>
-        /// Alliance Selection Points
+        /// Qual Performance Points
         /// </summary>
         /// <remarks>
-        /// Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+        /// Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
         /// </remarks>
         /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> SeasonRankingsDistrictAllianceSelectionCalculationGetAsync(string season, CancellationToken cancellationToken = default);
-          
+        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object?> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfo(string season);
+      #endregion Synchronous Operations
+    }
+    
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal interface IRankingsDistrictRankingCalculationApiAsync : IApiAccessor
+      {
+        #region Asynchronous Operations
           /// <summary>
           /// Alliance Selection Points
           /// </summary>
@@ -114,20 +102,20 @@ using FIRST.Client;
           /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of ApiResponse (Object)</returns>
-          System.Threading.Tasks.Task<ApiResponse<Object>> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// Playoff Advancement Points
-        /// </summary>
-        /// <remarks>
-        /// Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> SeasonRankingsDistrictPlayoffAdvancementCalculationGetAsync(string season, CancellationToken cancellationToken = default);
-          
+          /// <returns>Task of Object</returns>
+          System.Threading.Tasks.Task<Object?> SeasonRankingsDistrictAllianceSelectionCalculationGetAsync(string season, CancellationToken cancellationToken = default);
+            
+            /// <summary>
+            /// Alliance Selection Points
+            /// </summary>
+            /// <remarks>
+            /// Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+            /// </remarks>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of ApiResponse (Object)</returns>
+            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
           /// <summary>
           /// Playoff Advancement Points
           /// </summary>
@@ -137,20 +125,20 @@ using FIRST.Client;
           /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of ApiResponse (Object)</returns>
-          System.Threading.Tasks.Task<ApiResponse<Object>> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// Qual Performance Points
-        /// </summary>
-        /// <remarks>
-        /// Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> SeasonRankingsDistrictQualPerformanceCalculationGetAsync(string season, CancellationToken cancellationToken = default);
-          
+          /// <returns>Task of Object</returns>
+          System.Threading.Tasks.Task<Object?> SeasonRankingsDistrictPlayoffAdvancementCalculationGetAsync(string season, CancellationToken cancellationToken = default);
+            
+            /// <summary>
+            /// Playoff Advancement Points
+            /// </summary>
+            /// <remarks>
+            /// Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
+            /// </remarks>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of ApiResponse (Object)</returns>
+            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
           /// <summary>
           /// Qual Performance Points
           /// </summary>
@@ -160,277 +148,292 @@ using FIRST.Client;
           /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of ApiResponse (Object)</returns>
-          System.Threading.Tasks.Task<ApiResponse<Object>> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
-        #endregion Asynchronous Operations
-      }
-    
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal interface IRankingsDistrictRankingCalculationApi : IRankingsDistrictRankingCalculationApiSync, IRankingsDistrictRankingCalculationApiAsync { }
-    
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal partial class RankingsDistrictRankingCalculationApi : IRankingsDistrictRankingCalculationApi
-    {
-      private ExceptionFactory? _exceptionFactory = (name, response) => null;
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="RankingsDistrictRankingCalculationApi"/> class.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <returns></returns>
-      public RankingsDistrictRankingCalculationApi() : this((string)null) { }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="RankingsDistrictRankingCalculationApi"/> class.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <param name="basePath">The target service's base path in URL format.</param>
-      /// <exception cref="ArgumentException"></exception>
-      /// <returns></returns>
-      public RankingsDistrictRankingCalculationApi(string basePath)
-      {
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        new Configuration { BasePath = basePath }
-        );
-        this.ApiClient = new ApiClient(this.Configuration.BasePath);
-        this.Client =  this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="RankingsDistrictRankingCalculationApi"/> class using Configuration object.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <param name="configuration">An instance of Configuration.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      public RankingsDistrictRankingCalculationApi(FIRST.Client.Configuration configuration)
-      {
-        ArgumentNullException.ThrowIfNull(configuration);
-        
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        configuration
-        );
-        this.ApiClient = new ApiClient(this.Configuration.BasePath);
-        this.Client = this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="RankingsDistrictRankingCalculationApi"/> class.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public RankingsDistrictRankingCalculationApi(HttpClient client, HttpClientHandler handler = null) : this(client, (string)null, handler) { }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="RankingsDistrictRankingCalculationApi"/> class.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="basePath">The target service's base path in URL format.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <exception cref="ArgumentException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public RankingsDistrictRankingCalculationApi(HttpClient client, string basePath, HttpClientHandler handler = null)
-      {
-        ArgumentNullException.ThrowIfNull(client);
-        
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        new Configuration { BasePath = basePath }
-        );
-        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-        this.Client =  this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="RankingsDistrictRankingCalculationApi"/> class using Configuration object.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="configuration">An instance of Configuration.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public RankingsDistrictRankingCalculationApi(HttpClient client, Configuration configuration, HttpClientHandler handler = null)
-      {
-        ArgumentNullException.ThrowIfNull(configuration);
-        ArgumentNullException.ThrowIfNull(client);
-        
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        configuration
-        );
-        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-        this.Client = this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="RankingsDistrictRankingCalculationApi"/> class
-      /// using a Configuration object and client instance.
-      /// </summary>
-      /// <param name="client">The client interface for synchronous API access.</param>
-      /// <param name="asyncClient">The client interface for asynchronous API access.</param>
-      /// <param name="configuration">The configuration object.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      public RankingsDistrictRankingCalculationApi(FIRST.Client.ISynchronousClient client, FIRST.Client.IAsynchronousClient asyncClient, FIRST.Client.IReadableConfiguration configuration)
-      {
-        ArgumentNullException.ThrowIfNull(client);
-        
-          ArgumentNullException.ThrowIfNull(asyncClient);
-          
-        ArgumentNullException.ThrowIfNull(configuration);
-        
-        this.Client = client;
-          this.AsynchronousClient = asyncClient;
-        this.Configuration = configuration;
-        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Holds the ApiClient if created
-      /// </summary>
-      public ApiClient ApiClient { get; set; } = null;
-      
-        /// <summary>
-        /// The client for accessing this underlying API asynchronously.
-        /// </summary>
-        public IAsynchronousClient AsynchronousClient { get; set; }
-      
-      /// <summary>
-      /// The client for accessing this underlying API synchronously.
-      /// </summary>
-      public ISynchronousClient Client { get; set; }
-      
-      /// <summary>
-      /// Gets the base path of the API client.
-      /// </summary>
-      /// <value>The base path</value>
-      public string GetBasePath() => this.Configuration.BasePath;
-      
-      /// <summary>
-      /// Gets or sets the configuration object
-      /// </summary>
-      /// <value>An instance of the Configuration</value>
-      public IReadableConfiguration Configuration { get; set; }
-      
-      /// <summary>
-      /// Provides a factory method hook for the creation of exceptions.
-      /// </summary>
-      public ExceptionFactory ExceptionFactory
-      {
-        get
-        {
-          if (_exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1)
-          {
-            throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.");
-          }
-          
-          return _exceptionFactory;
+          /// <returns>Task of Object</returns>
+          System.Threading.Tasks.Task<Object?> SeasonRankingsDistrictQualPerformanceCalculationGetAsync(string season, CancellationToken cancellationToken = default);
+            
+            /// <summary>
+            /// Qual Performance Points
+            /// </summary>
+            /// <remarks>
+            /// Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+            /// </remarks>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of ApiResponse (Object)</returns>
+            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
+          #endregion Asynchronous Operations
         }
-        set { _exceptionFactory = value; }
-      }
       
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal interface IRankingsDistrictRankingCalculationApi : IRankingsDistrictRankingCalculationApiSync, IRankingsDistrictRankingCalculationApiAsync { }
+      
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal sealed partial class RankingsDistrictRankingCalculationApi : IRankingsDistrictRankingCalculationApi
+      {
+        private ExceptionFactory? _exceptionFactory = (name, response) => null;
+        
         /// <summary>
-        /// Alliance Selection Points Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+        /// Initializes a new instance of the <see cref="RankingsDistrictRankingCalculationApi"/> class.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
         /// </summary>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <returns>Object</returns>
-        public Object SeasonRankingsDistrictAllianceSelectionCalculationGet(string season)
+        /// <returns></returns>
+        public RankingsDistrictRankingCalculationApi() : this(basePath: default) { }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RankingsDistrictRankingCalculationApi"/> class.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+        /// </summary>
+        /// <param name="basePath">The target service's base path in URL format.</param>
+        /// <exception cref="ArgumentException"></exception>
+        /// <returns></returns>
+        public RankingsDistrictRankingCalculationApi(string? basePath)
         {
-          FIRST.Client.ApiResponse<Object> localVarResponse = SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfo(season);
-            return localVarResponse.Data;
-          }
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          new Configuration { BasePath = basePath }
+          );
+          this.ApiClient = new ApiClient(this.Configuration.BasePath);
+          this.Client =  this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RankingsDistrictRankingCalculationApi"/> class using Configuration object.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+        /// </summary>
+        /// <param name="configuration">An instance of Configuration.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        public RankingsDistrictRankingCalculationApi(FIRST.Client.Configuration configuration)
+        {
+          ArgumentNullException.ThrowIfNull(configuration);
           
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          configuration
+          );
+          this.ApiClient = new ApiClient(this.Configuration.BasePath);
+          this.Client = this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RankingsDistrictRankingCalculationApi"/> class.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public RankingsDistrictRankingCalculationApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RankingsDistrictRankingCalculationApi"/> class.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="basePath">The target service's base path in URL format.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public RankingsDistrictRankingCalculationApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
+        {
+          ArgumentNullException.ThrowIfNull(client);
+          
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          new Configuration { BasePath = basePath }
+          );
+          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+          this.Client =  this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RankingsDistrictRankingCalculationApi"/> class using Configuration object.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="configuration">An instance of Configuration.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public RankingsDistrictRankingCalculationApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
+        {
+          ArgumentNullException.ThrowIfNull(configuration);
+          ArgumentNullException.ThrowIfNull(client);
+          
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          configuration
+          );
+          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+          this.Client = this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RankingsDistrictRankingCalculationApi"/> class
+        /// using a Configuration object and client instance.
+        /// </summary>
+        /// <param name="client">The client interface for synchronous API access.</param>
+        /// <param name="asyncClient">The client interface for asynchronous API access.</param>
+        /// <param name="configuration">The configuration object.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public RankingsDistrictRankingCalculationApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
+        {
+          ArgumentNullException.ThrowIfNull(client);
+          
+            ArgumentNullException.ThrowIfNull(asyncClient);
+            
+          ArgumentNullException.ThrowIfNull(configuration);
+          
+          this.Client = client;
+            this.AsynchronousClient = asyncClient;
+          this.Configuration = configuration;
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Holds the ApiClient if created
+        /// </summary>
+        public ApiClient? ApiClient { get; set; }
+        
+          /// <summary>
+          /// The client for accessing this underlying API asynchronously.
+          /// </summary>
+          public IAsynchronousClient AsynchronousClient { get; set; }
+        
+        /// <summary>
+        /// The client for accessing this underlying API synchronously.
+        /// </summary>
+        public ISynchronousClient Client { get; set; }
+        
+        /// <summary>
+        /// Gets the base path of the API client.
+        /// </summary>
+        /// <value>The base path</value>
+        public string? GetBasePath() => this.Configuration.BasePath;
+        
+        /// <summary>
+        /// Gets or sets the configuration object
+        /// </summary>
+        /// <value>An instance of the Configuration</value>
+        public IReadableConfiguration Configuration { get; set; }
+        
+        /// <summary>
+        /// Provides a factory method hook for the creation of exceptions.
+        /// </summary>
+        public ExceptionFactory? ExceptionFactory
+        {
+          get
+          {
+            return _exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1
+            ? throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.")
+            : _exceptionFactory;
+          }
+          set => _exceptionFactory = value;
+        }
+        
           /// <summary>
           /// Alliance Selection Points Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
           /// </summary>
           /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
           /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <returns>ApiResponse of Object</returns>
-          public ApiResponse<Object> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfo(string season)
+          /// <returns>Object</returns>
+          public Object? SeasonRankingsDistrictAllianceSelectionCalculationGet(string season)
           {
-                  // verify the required parameter 'season' is set
-                  if (season is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'season' when calling RankingsDistrictRankingCalculationApi->SeasonRankingsDistrictAllianceSelectionCalculationGet");
-                  }
-                  
-            RequestOptions localVarRequestOptions = new RequestOptions();
-            
-            string[] _contentTypes = [
-            ];
-            
-            // to determine the Accept header
-            string[] _accepts = [
-                "application/json"
-            ];
-            
-            var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType is not null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            
-            var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept is not null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            
-                localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-            
-              // authentication (noauthAuth) required
-            
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/{season}/rankings/district/allianceSelectionCalculation", localVarRequestOptions, this.Configuration);
-            
-            if (this.ExceptionFactory is not null)
-            {
-              Exception _exception = this.ExceptionFactory("SeasonRankingsDistrictAllianceSelectionCalculationGet", localVarResponse);
-              if (_exception is not null)
-              {
-                throw _exception;
-              }
+            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfo(season);
+              return localVarResponse.Data;
             }
             
-            return localVarResponse;
-          }
-          
-          /// <summary>
-          /// Alliance Selection Points Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+            /// <summary>
+            /// Alliance Selection Points Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          public async System.Threading.Tasks.Task<Object> SeasonRankingsDistrictAllianceSelectionCalculationGetAsync(string season, CancellationToken cancellationToken = default)
+            /// <returns>ApiResponse of Object</returns>
+            public ApiResponse<Object?> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfo(string season)
             {
-              FIRST.Client.ApiResponse<Object> localVarResponse = await SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfoAsync(season, cancellationToken).ConfigureAwait(false);
+                    // verify the required parameter 'season' is set
+                    if (season is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'season' when calling RankingsDistrictRankingCalculationApi->SeasonRankingsDistrictAllianceSelectionCalculationGet");
+                    }
+                    
+              RequestOptions localVarRequestOptions = new();
+              
+              string[] _contentTypes = [
+              ];
+              
+              // to determine the Accept header
+              string[] _accepts = [
+                  "application/json"
+              ];
+              
+              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+              if (localVarContentType is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+              }
+              
+              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+              if (localVarAccept is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+              }
+              
+                  localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
+              
+                // authentication (noauthAuth) required
+              
+              // make the HTTP request
+              var localVarResponse = this.Client.Get<Object?>("/{season}/rankings/district/allianceSelectionCalculation", localVarRequestOptions, this.Configuration);
+              
+              if (this.ExceptionFactory is not null)
+              {
+                var _exception = this.ExceptionFactory("SeasonRankingsDistrictAllianceSelectionCalculationGet", localVarResponse);
+                if (_exception is not null)
+                {
+                  throw _exception;
+                }
+              }
+              
+              return localVarResponse;
+            }
+            
+            /// <summary>
+            /// Alliance Selection Points Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of Object</returns>
+            public async System.Threading.Tasks.Task<Object?> SeasonRankingsDistrictAllianceSelectionCalculationGetAsync(string season, CancellationToken cancellationToken = default)
+            {
+              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfoAsync(season, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
               
@@ -441,7 +444,7 @@ using FIRST.Client;
                 /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object>> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
+              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -449,7 +452,7 @@ using FIRST.Client;
                         throw new ApiException(400, "Missing required parameter 'season' when calling RankingsDistrictRankingCalculationApi->SeasonRankingsDistrictAllianceSelectionCalculationGet");
                       }
                       
-                RequestOptions localVarRequestOptions = new RequestOptions();
+                RequestOptions localVarRequestOptions = new();
                 
                 string[] _contentTypes = [
                 ];
@@ -475,11 +478,11 @@ using FIRST.Client;
                 
                   // authentication (noauthAuth) required
                 // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/{season}/rankings/district/allianceSelectionCalculation", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+                var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/{season}/rankings/district/allianceSelectionCalculation", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
                 {
-                  Exception _exception = this.ExceptionFactory("SeasonRankingsDistrictAllianceSelectionCalculationGet", localVarResponse);
+                  var _exception = this.ExceptionFactory("SeasonRankingsDistrictAllianceSelectionCalculationGet", localVarResponse);
                   if (_exception is not null)
                   {
                     throw _exception;
@@ -487,77 +490,83 @@ using FIRST.Client;
                 }
                 
                 return localVarResponse;
-              }        /// <summary>
-        /// Playoff Advancement Points Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
-        /// </summary>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <returns>Object</returns>
-        public Object SeasonRankingsDistrictPlayoffAdvancementCalculationGet(string season)
-        {
-          FIRST.Client.ApiResponse<Object> localVarResponse = SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfo(season);
-            return localVarResponse.Data;
-          }
-          
-          /// <summary>
+              }          /// <summary>
           /// Playoff Advancement Points Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
           /// </summary>
           /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
           /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <returns>ApiResponse of Object</returns>
-          public ApiResponse<Object> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfo(string season)
+          /// <returns>Object</returns>
+          public Object? SeasonRankingsDistrictPlayoffAdvancementCalculationGet(string season)
           {
-                  // verify the required parameter 'season' is set
-                  if (season is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'season' when calling RankingsDistrictRankingCalculationApi->SeasonRankingsDistrictPlayoffAdvancementCalculationGet");
-                  }
-                  
-            RequestOptions localVarRequestOptions = new RequestOptions();
-            
-            string[] _contentTypes = [
-            ];
-            
-            // to determine the Accept header
-            string[] _accepts = [
-                "application/json"
-            ];
-            
-            var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType is not null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            
-            var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept is not null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            
-                localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-            
-              // authentication (noauthAuth) required
-            
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/{season}/rankings/district/playoffAdvancementCalculation", localVarRequestOptions, this.Configuration);
-            
-            if (this.ExceptionFactory is not null)
-            {
-              Exception _exception = this.ExceptionFactory("SeasonRankingsDistrictPlayoffAdvancementCalculationGet", localVarResponse);
-              if (_exception is not null)
-              {
-                throw _exception;
-              }
+            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfo(season);
+              return localVarResponse.Data;
             }
             
-            return localVarResponse;
-          }
-          
-          /// <summary>
-          /// Playoff Advancement Points Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+            /// <summary>
+            /// Playoff Advancement Points Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          public async System.Threading.Tasks.Task<Object> SeasonRankingsDistrictPlayoffAdvancementCalculationGetAsync(string season, CancellationToken cancellationToken = default)
+            /// <returns>ApiResponse of Object</returns>
+            public ApiResponse<Object?> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfo(string season)
             {
-              FIRST.Client.ApiResponse<Object> localVarResponse = await SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfoAsync(season, cancellationToken).ConfigureAwait(false);
+                    // verify the required parameter 'season' is set
+                    if (season is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'season' when calling RankingsDistrictRankingCalculationApi->SeasonRankingsDistrictPlayoffAdvancementCalculationGet");
+                    }
+                    
+              RequestOptions localVarRequestOptions = new();
+              
+              string[] _contentTypes = [
+              ];
+              
+              // to determine the Accept header
+              string[] _accepts = [
+                  "application/json"
+              ];
+              
+              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+              if (localVarContentType is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+              }
+              
+              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+              if (localVarAccept is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+              }
+              
+                  localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
+              
+                // authentication (noauthAuth) required
+              
+              // make the HTTP request
+              var localVarResponse = this.Client.Get<Object?>("/{season}/rankings/district/playoffAdvancementCalculation", localVarRequestOptions, this.Configuration);
+              
+              if (this.ExceptionFactory is not null)
+              {
+                var _exception = this.ExceptionFactory("SeasonRankingsDistrictPlayoffAdvancementCalculationGet", localVarResponse);
+                if (_exception is not null)
+                {
+                  throw _exception;
+                }
+              }
+              
+              return localVarResponse;
+            }
+            
+            /// <summary>
+            /// Playoff Advancement Points Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of Object</returns>
+            public async System.Threading.Tasks.Task<Object?> SeasonRankingsDistrictPlayoffAdvancementCalculationGetAsync(string season, CancellationToken cancellationToken = default)
+            {
+              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfoAsync(season, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
               
@@ -568,7 +577,7 @@ using FIRST.Client;
                 /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object>> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
+              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -576,7 +585,7 @@ using FIRST.Client;
                         throw new ApiException(400, "Missing required parameter 'season' when calling RankingsDistrictRankingCalculationApi->SeasonRankingsDistrictPlayoffAdvancementCalculationGet");
                       }
                       
-                RequestOptions localVarRequestOptions = new RequestOptions();
+                RequestOptions localVarRequestOptions = new();
                 
                 string[] _contentTypes = [
                 ];
@@ -602,11 +611,11 @@ using FIRST.Client;
                 
                   // authentication (noauthAuth) required
                 // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/{season}/rankings/district/playoffAdvancementCalculation", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+                var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/{season}/rankings/district/playoffAdvancementCalculation", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
                 {
-                  Exception _exception = this.ExceptionFactory("SeasonRankingsDistrictPlayoffAdvancementCalculationGet", localVarResponse);
+                  var _exception = this.ExceptionFactory("SeasonRankingsDistrictPlayoffAdvancementCalculationGet", localVarResponse);
                   if (_exception is not null)
                   {
                     throw _exception;
@@ -614,77 +623,83 @@ using FIRST.Client;
                 }
                 
                 return localVarResponse;
-              }        /// <summary>
-        /// Qual Performance Points Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-        /// </summary>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <returns>Object</returns>
-        public Object SeasonRankingsDistrictQualPerformanceCalculationGet(string season)
-        {
-          FIRST.Client.ApiResponse<Object> localVarResponse = SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfo(season);
-            return localVarResponse.Data;
-          }
-          
-          /// <summary>
+              }          /// <summary>
           /// Qual Performance Points Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
           /// </summary>
           /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
           /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <returns>ApiResponse of Object</returns>
-          public ApiResponse<Object> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfo(string season)
+          /// <returns>Object</returns>
+          public Object? SeasonRankingsDistrictQualPerformanceCalculationGet(string season)
           {
-                  // verify the required parameter 'season' is set
-                  if (season is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'season' when calling RankingsDistrictRankingCalculationApi->SeasonRankingsDistrictQualPerformanceCalculationGet");
-                  }
-                  
-            RequestOptions localVarRequestOptions = new RequestOptions();
-            
-            string[] _contentTypes = [
-            ];
-            
-            // to determine the Accept header
-            string[] _accepts = [
-                "application/json"
-            ];
-            
-            var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType is not null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            
-            var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept is not null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            
-                localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-            
-              // authentication (noauthAuth) required
-            
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/{season}/rankings/district/qualPerformanceCalculation", localVarRequestOptions, this.Configuration);
-            
-            if (this.ExceptionFactory is not null)
-            {
-              Exception _exception = this.ExceptionFactory("SeasonRankingsDistrictQualPerformanceCalculationGet", localVarResponse);
-              if (_exception is not null)
-              {
-                throw _exception;
-              }
+            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfo(season);
+              return localVarResponse.Data;
             }
             
-            return localVarResponse;
-          }
-          
-          /// <summary>
-          /// Qual Performance Points Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+            /// <summary>
+            /// Qual Performance Points Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          public async System.Threading.Tasks.Task<Object> SeasonRankingsDistrictQualPerformanceCalculationGetAsync(string season, CancellationToken cancellationToken = default)
+            /// <returns>ApiResponse of Object</returns>
+            public ApiResponse<Object?> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfo(string season)
             {
-              FIRST.Client.ApiResponse<Object> localVarResponse = await SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfoAsync(season, cancellationToken).ConfigureAwait(false);
+                    // verify the required parameter 'season' is set
+                    if (season is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'season' when calling RankingsDistrictRankingCalculationApi->SeasonRankingsDistrictQualPerformanceCalculationGet");
+                    }
+                    
+              RequestOptions localVarRequestOptions = new();
+              
+              string[] _contentTypes = [
+              ];
+              
+              // to determine the Accept header
+              string[] _accepts = [
+                  "application/json"
+              ];
+              
+              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+              if (localVarContentType is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+              }
+              
+              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+              if (localVarAccept is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+              }
+              
+                  localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
+              
+                // authentication (noauthAuth) required
+              
+              // make the HTTP request
+              var localVarResponse = this.Client.Get<Object?>("/{season}/rankings/district/qualPerformanceCalculation", localVarRequestOptions, this.Configuration);
+              
+              if (this.ExceptionFactory is not null)
+              {
+                var _exception = this.ExceptionFactory("SeasonRankingsDistrictQualPerformanceCalculationGet", localVarResponse);
+                if (_exception is not null)
+                {
+                  throw _exception;
+                }
+              }
+              
+              return localVarResponse;
+            }
+            
+            /// <summary>
+            /// Qual Performance Points Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of Object</returns>
+            public async System.Threading.Tasks.Task<Object?> SeasonRankingsDistrictQualPerformanceCalculationGetAsync(string season, CancellationToken cancellationToken = default)
+            {
+              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfoAsync(season, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
               
@@ -695,7 +710,7 @@ using FIRST.Client;
                 /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object>> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
+              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -703,7 +718,7 @@ using FIRST.Client;
                         throw new ApiException(400, "Missing required parameter 'season' when calling RankingsDistrictRankingCalculationApi->SeasonRankingsDistrictQualPerformanceCalculationGet");
                       }
                       
-                RequestOptions localVarRequestOptions = new RequestOptions();
+                RequestOptions localVarRequestOptions = new();
                 
                 string[] _contentTypes = [
                 ];
@@ -729,11 +744,11 @@ using FIRST.Client;
                 
                   // authentication (noauthAuth) required
                 // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/{season}/rankings/district/qualPerformanceCalculation", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+                var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/{season}/rankings/district/qualPerformanceCalculation", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
                 {
-                  Exception _exception = this.ExceptionFactory("SeasonRankingsDistrictQualPerformanceCalculationGet", localVarResponse);
+                  var _exception = this.ExceptionFactory("SeasonRankingsDistrictQualPerformanceCalculationGet", localVarResponse);
                   if (_exception is not null)
                   {
                     throw _exception;

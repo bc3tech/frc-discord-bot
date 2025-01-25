@@ -1,4 +1,4 @@
-# TheBlueAlliance.Api.Api.TBAApi
+# TheBlueAlliance.Api.TBAApi
 
 All URIs are relative to *https://www.thebluealliance.com/api/v3*
 
@@ -19,12 +19,13 @@ Returns API status, and TBA status information.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetStatusExample
     {
         public static void Main()
@@ -105,5 +106,5 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 

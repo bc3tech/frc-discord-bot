@@ -1,4 +1,4 @@
-# TheBlueAlliance.Api.Model.MatchScoreBreakdown
+# TheBlueAlliance.Model.MatchScoreBreakdown
 Score breakdown for auto, teleop, etc. points. Varies from year to year. May be null.
 
 ## Properties
@@ -6,9 +6,9 @@ Score breakdown for auto, teleop, etc. points. Varies from year to year. May be 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Blue** | [**MatchScoreBreakdown2024Alliance**](MatchScoreBreakdown2024Alliance.md) |  | 
-**Red** | [**MatchScoreBreakdown2024Alliance**](MatchScoreBreakdown2024Alliance.md) |  | 
 **Coopertition** | **string** |  | 
 **CoopertitionPoints** | **int** |  | 
+**Red** | [**MatchScoreBreakdown2024Alliance**](MatchScoreBreakdown2024Alliance.md) |  | 
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

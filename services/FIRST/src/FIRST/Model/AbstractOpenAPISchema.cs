@@ -42,12 +42,12 @@ internal abstract partial class AbstractOpenAPISchema
   /// <summary>
   /// Gets or Sets the actual instance
   /// </summary>
-  public abstract object ActualInstance { get; set; }
+  public abstract object? ActualInstance { get; set; }
   
   /// <summary>
   /// Gets or Sets IsNullable to indicate whether the instance is nullable
   /// </summary>
-  public bool IsNullable { get; }
+  public virtual bool IsNullable { get; }
   
   protected const string OneOf = "oneOf";
   protected const string AnyOf = "anyOf";

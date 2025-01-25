@@ -12,7 +12,7 @@
     using System.Text;
     using System.Text.Json;
     using System.Text.Json.Serialization;
-using System.Collections.ObjectModel;
+  using System.Collections.ObjectModel;
     
       /// <summary>
   /// ValidationErrorLocInner
@@ -51,101 +51,89 @@ using System.Collections.ObjectModel;
         get => _actualInstance;
         set
         {
-            if (value is null)
-            {
-              this._actualInstance = null;
-            }
-            else
-            {
-              if (value.GetType() == typeof(int))
-                {
-                  this._actualInstance = value;
-                }
-              else if (value.GetType() == typeof(string))
-                {
-                  this._actualInstance = value;
-                }
-              else
-              {
-                throw new ArgumentException("Invalid instance found. Must be the following types: int, string");
-              }
-              }
-          }
-        }
-              
-              /// <summary>
-              /// Get the actual instance of `string`. If the actual instance is not `string`,
-              /// the InvalidClassException will be thrown
-              /// </summary>
-              /// <returns>An instance of string</returns>
-              public string? GetString() => (string?)this.ActualInstance;
-              
-              /// <summary>
-              /// Get the actual instance of `int`. If the actual instance is not `int`,
-              /// the InvalidClassException will be thrown
-              /// </summary>
-              /// <returns>An instance of int</returns>
-              public int? GetInt() => (int?)this.ActualInstance;
-        
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>string presentation of the object</returns>
-        public override string ToString()
-        {
-          var sb = new StringBuilder();
-          sb.AppendLine("class ValidationErrorLocInner {");
-          sb.Append("  ActualInstance: ").Append(this.ActualInstance).AppendLine();
-          sb.AppendLine("}");
-          return sb.ToString();
-        }
-        
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public override string ToJson() => JsonSerializer.Serialize(this.ActualInstance, ValidationErrorLocInner.SerializerSettings);
-        
-        /// <summary>
-        /// Converts the JSON string into an instance of ValidationErrorLocInner
-        /// </summary>
-        /// <param name="jsonString">JSON string</param>
-        /// <returns>An instance of ValidationErrorLocInner</returns>
-        public static ValidationErrorLocInner? FromJson(string jsonString)
-        {
-          ValidationErrorLocInner? newValidationErrorLocInner = null;
-          
-          if (string.IsNullOrEmpty(jsonString))
-          {
-            return newValidationErrorLocInner;
-          }
-            
-            try
-            {
-              newValidationErrorLocInner = new ValidationErrorLocInner(JsonSerializer.Deserialize<int>(jsonString, ValidationErrorLocInner.SerializerSettings));
-              // deserialization is considered successful at this point if no exception has been thrown.
-              return newValidationErrorLocInner;
-            }
-            catch (Exception exception)
-            {
-              // deserialization failed, try the next one
-              System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into int: {1}", jsonString, exception.ToString()));
-            }
-            
-            try
-            {
-              newValidationErrorLocInner = new ValidationErrorLocInner(JsonSerializer.Deserialize<string>(jsonString, ValidationErrorLocInner.SerializerSettings));
-              // deserialization is considered successful at this point if no exception has been thrown.
-              return newValidationErrorLocInner;
-            }
-            catch (Exception exception)
-            {
-              // deserialization failed, try the next one
-              System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into string: {1}", jsonString, exception.ToString()));
-            }
-          
-          // no match found, throw an exception
-          throw new InvalidDataException("The JSON string `" + jsonString + "` cannot be deserialized into any schema defined.");
-        }
+          this._actualInstance = value switch
+          { 
+          null => null,
+            int _ => value,
+            string _ => value,
+          _ => throw new ArgumentException("Invalid instance found. Must be the following types: int, string"),
+        };
       }
+    }
+          
+          /// <summary>
+          /// Get the actual instance of `string`. If the actual instance is not `string`,
+          /// the InvalidClassException will be thrown
+          /// </summary>
+          /// <returns>An instance of string</returns>
+          public string? GetString() => (string?)this.ActualInstance;
+          
+          /// <summary>
+          /// Get the actual instance of `int`. If the actual instance is not `int`,
+          /// the InvalidClassException will be thrown
+          /// </summary>
+          /// <returns>An instance of int</returns>
+          public int? GetInt() => (int?)this.ActualInstance;
+    
+    /// <summary>
+    /// Returns the string presentation of the object
+    /// </summary>
+    /// <returns>string presentation of the object</returns>
+    public override string ToString()
+    {
+      var sb = new StringBuilder();
+      sb.AppendLine("class ValidationErrorLocInner {");
+      sb.Append("  ActualInstance: ").Append(this.ActualInstance).AppendLine();
+      sb.AppendLine("}");
+      return sb.ToString();
+    }
+    
+    /// <summary>
+    /// Returns the JSON string presentation of the object
+    /// </summary>
+    /// <returns>JSON string presentation of the object</returns>
+    public override string ToJson() => JsonSerializer.Serialize(this.ActualInstance, ValidationErrorLocInner.SerializerSettings);
+    
+    /// <summary>
+    /// Converts the JSON string into an instance of ValidationErrorLocInner
+    /// </summary>
+    /// <param name="jsonString">JSON string</param>
+    /// <returns>An instance of ValidationErrorLocInner</returns>
+    public static ValidationErrorLocInner? FromJson(string jsonString)
+    {
+      ValidationErrorLocInner? newValidationErrorLocInner = null;
+      
+      if (string.IsNullOrEmpty(jsonString))
+      {
+        return newValidationErrorLocInner;
+      }
+        
+        try
+        {
+          newValidationErrorLocInner = new ValidationErrorLocInner(JsonSerializer.Deserialize<int>(jsonString, ValidationErrorLocInner.SerializerSettings));
+          // deserialization is considered successful at this point if no exception has been thrown.
+          return newValidationErrorLocInner;
+        }
+        catch (Exception exception)
+        {
+          // deserialization failed, try the next one
+          System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into int: {1}", jsonString, exception.ToString()));
+        }
+        
+        try
+        {
+          newValidationErrorLocInner = new ValidationErrorLocInner(JsonSerializer.Deserialize<string>(jsonString, ValidationErrorLocInner.SerializerSettings));
+          // deserialization is considered successful at this point if no exception has been thrown.
+          return newValidationErrorLocInner;
+        }
+        catch (Exception exception)
+        {
+          // deserialization failed, try the next one
+          System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into string: {1}", jsonString, exception.ToString()));
+        }
+      
+      // no match found, throw an exception
+      throw new InvalidDataException("The JSON string `" + jsonString + "` cannot be deserialized into any schema defined.");
+    }
+  }
 

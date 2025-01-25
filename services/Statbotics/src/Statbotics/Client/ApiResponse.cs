@@ -59,7 +59,7 @@ public interface IApiResponse
 /// <summary>
 /// API Response
 /// </summary>
-public class ApiResponse<T> : IApiResponse
+public class ApiResponse<T>(HttpStatusCode statusCode, Multimap<string, string> headers, T? data, string? rawContent) : IApiResponse
 {
   #region Properties
   
@@ -67,19 +67,19 @@ public class ApiResponse<T> : IApiResponse
   /// Gets or sets the status code (HTTP status code)
   /// </summary>
   /// <value>The status code.</value>
-  public HttpStatusCode StatusCode { get; }
+  public HttpStatusCode StatusCode { get; } = statusCode;
   
   /// <summary>
   /// Gets or sets the HTTP headers
   /// </summary>
   /// <value>HTTP headers</value>
-  public Multimap<string, string> Headers { get; }
+  public Multimap<string, string> Headers { get; } = headers;
   
   /// <summary>
   /// Gets or sets the data (parsed HTTP body)
   /// </summary>
   /// <value>The data.</value>
-  public T? Data { get; }
+  public T? Data { get; } = data;
   
   /// <summary>
   /// Gets or sets any error text defined by the calling client.
@@ -104,26 +104,11 @@ public class ApiResponse<T> : IApiResponse
   /// <summary>
   /// The raw content
   /// </summary>
-  public string? RawContent { get; }
+  public string? RawContent { get; } = rawContent;
   
   #endregion Properties
   
   #region Constructors
-  
-  /// <summary>
-  /// Initializes a new instance of the <see cref="ApiResponse{T}" /> class.
-  /// </summary>
-  /// <param name="statusCode">HTTP status code.</param>
-  /// <param name="headers">HTTP headers.</param>
-  /// <param name="data">Data (parsed HTTP body)</param>
-  /// <param name="rawContent">Raw content.</param>
-  public ApiResponse(HttpStatusCode statusCode, Multimap<string, string> headers, T? data, string? rawContent)
-  {
-    StatusCode = statusCode;
-    Headers = headers;
-    Data = data;
-    RawContent = rawContent;
-  }
   
   /// <summary>
   /// Initializes a new instance of the <see cref="ApiResponse{T}" /> class.

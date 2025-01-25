@@ -30,7 +30,7 @@ public static partial class ClientUtils
   /// <returns>Filename</returns>
   public static string SanitizeFilename(string filename)
   {
-    Match match = Regex.Match(filename, @".*[/\\](.*)$");
+    Match match = FilenameDetector().Match(filename);
     return match.Success ? match.Groups[1].Value : filename;
   }
   
@@ -42,11 +42,11 @@ public static partial class ClientUtils
   /// <param name="name">Key name.</param>
   /// <param name="value">Value object.</param>
   /// <returns>A multimap of keys with 1..n associated values.</returns>
-  public static Multimap<string, string> ParameterToMultiMap(string collectionFormat, string name, object value)
+  public static Multimap<string, string?> ParameterToMultiMap(string collectionFormat, string name, object value)
   {
-    var parameters = new Multimap<string, string>();
+    var parameters = new Multimap<string, string?>();
     
-    if (value is ICollection collection && collectionFormat == "multi")
+    if (value is ICollection collection && collectionFormat is "multi")
     {
       foreach (var item in collection)
       {
@@ -55,7 +55,8 @@ public static partial class ClientUtils
     }
     else if (value is IDictionary dictionary)
     {
-      if(collectionFormat == "deepObject") {
+      if (collectionFormat is "deepObject")
+      {
         foreach (DictionaryEntry entry in dictionary)
         {
           parameters.Add(name + "[" + entry.Key + "]", ParameterToString(entry.Value));
@@ -65,7 +66,7 @@ public static partial class ClientUtils
       {
         foreach (DictionaryEntry entry in dictionary)
         {
-          parameters.Add(entry.Key.ToString(), ParameterToString(entry.Value));
+          parameters.Add(entry.Key.ToString()!, ParameterToString(entry.Value));
         }
       }
     }
@@ -85,43 +86,26 @@ public static partial class ClientUtils
   /// <param name="obj">The parameter (header, path, query, form).</param>
   /// <param name="configuration">An optional configuration instance, providing formatting options used in processing.</param>
   /// <returns>Formatted string.</returns>
-  public static string ParameterToString(object obj, IReadableConfiguration configuration = null)
+  public static string? ParameterToString(object? obj, IReadableConfiguration? configuration = null)
   {
-    if (obj is DateTime dateTime)
+    return obj switch
     {
+      null => null,
       // Return a formatted date string - Can be customized with Configuration.DateTimeFormat
       // Defaults to an ISO 8601, using the known as a Round-trip date/time pattern ("o")
       // https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx#Anchor_8
       // For example: 2009-06-15T13:45:30.0000000
-      return dateTime.ToString((configuration ?? GlobalConfiguration.Instance).DateTimeFormat);
-    }
-    
-    if (obj is DateTimeOffset dateTimeOffset)
-    {
+      DateTime dateTime => dateTime.ToString((configuration ?? GlobalConfiguration.Instance).DateTimeFormat),
       // Return a formatted date string - Can be customized with Configuration.DateTimeFormat
       // Defaults to an ISO 8601, using the known as a Round-trip date/time pattern ("o")
       // https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx#Anchor_8
       // For example: 2009-06-15T13:45:30.0000000
-      return dateTimeOffset.ToString((configuration ?? GlobalConfiguration.Instance).DateTimeFormat);
-    }
-    
-    if (obj is bool boolean)
-    {
-      return boolean ? "true" : "false";
-    }
-    
-    if (obj is ICollection collection)
-    {
-      var paramStrings = from object item in collection select ParameterToString(item, configuration);
-      return string.Join(",", paramStrings);
-    }
-    
-    if (obj is Enum && HasEnumMemberAttrValue(obj))
-    {
-      return GetEnumMemberAttrValue(obj);
-    }
-    
-    return Convert.ToString(obj, CultureInfo.InvariantCulture);
+      DateTimeOffset dateTimeOffset => dateTimeOffset.ToString((configuration ?? GlobalConfiguration.Instance).DateTimeFormat),
+      bool boolean => boolean ? "true" : "false",
+      ICollection collection => string.Join(",", from object item in collection select ParameterToString(item, configuration)),
+      Enum when HasEnumMemberAttrValue(obj) => GetEnumMemberAttrValue(obj),
+      _ => Convert.ToString(obj, CultureInfo.InvariantCulture)
+    };
   }
   
   /// <summary>
@@ -129,7 +113,7 @@ public static partial class ClientUtils
   /// </summary>
   /// <param name="obj">The object to serialize.</param>
   /// <returns>Serialized string.</returns>
-  public static string Serialize(object obj) => obj is not null ? System.Text.Json.JsonSerializer.Serialize(obj) : null;
+  public static string? Serialize(object obj) => obj is not null ? System.Text.Json.JsonSerializer.Serialize(obj) : null;
   
   /// <summary>
   /// Encode string in base64 format.
@@ -145,11 +129,9 @@ public static partial class ClientUtils
   /// <returns>Byte array</returns>
   public static byte[] ReadAsBytes(Stream inputStream)
   {
-    using (var ms = new MemoryStream())
-    {
-      inputStream.CopyTo(ms);
-      return ms.ToArray();
-    }
+    var ms = new MemoryStream();
+    inputStream.CopyTo(ms);
+    return ms.ToArray();
   }
   
   /// <summary>
@@ -159,7 +141,7 @@ public static partial class ClientUtils
   /// </summary>
   /// <param name="contentTypes">The Content-Type array to select from.</param>
   /// <returns>The Content-Type header to use.</returns>
-  public static string SelectHeaderContentType(string[] contentTypes)
+  public static string? SelectHeaderContentType(string[] contentTypes)
   {
     if (contentTypes.Length is 0)
     {
@@ -184,19 +166,15 @@ public static partial class ClientUtils
   /// </summary>
   /// <param name="accepts">The accepts array to select from.</param>
   /// <returns>The Accept header to use.</returns>
-  public static string SelectHeaderAccept(string[] accepts)
+  public static string? SelectHeaderAccept(string[] accepts)
   {
-    if (accepts.Length is 0)
+    return accepts.Length switch
     {
-      return null;
-    }
-    
-    if (accepts.Contains(ApplicationJsonContentType, StringComparer.OrdinalIgnoreCase))
-    {
-      return ApplicationJsonContentType;
-    }
-    
-    return string.Join(",", accepts);
+      0 => null,
+      _ => accepts.Contains(ApplicationJsonContentType, StringComparer.OrdinalIgnoreCase)
+        ? ApplicationJsonContentType
+        : string.Join(",", accepts)
+    };
   }
   
   private const string ApplicationJsonContentType = "application/json";
@@ -219,15 +197,7 @@ public static partial class ClientUtils
   /// </summary>
   /// <param name="mime">MIME</param>
   /// <returns>Returns True if MIME type is json.</returns>
-  public static bool IsJsonMime(string mime)
-  {
-    if (string.IsNullOrWhiteSpace(mime))
-    {
-      return false;
-    }
-    
-    return JsonRegex.IsMatch(mime) || mime.Equals("application/json-patch+json");
-  }
+  public static bool IsJsonMime(string mime) => !string.IsNullOrWhiteSpace(mime) && (JsonRegex.IsMatch(mime) || mime.Equals("application/json-patch+json", StringComparison.Ordinal));
   
   /// <summary>
   /// Is the Enum decorated with EnumMember Attribute
@@ -241,7 +211,7 @@ public static partial class ClientUtils
     var enumType = enumVal.GetType();
     var memInfo = enumType.GetMember(enumVal.ToString() ?? throw new InvalidOperationException());
     var attr = memInfo.FirstOrDefault()?.GetCustomAttributes(false).OfType<EnumMemberAttribute>().FirstOrDefault();
-    return (attr is not null);
+    return attr is not null;
   }
   
   /// <summary>
@@ -249,7 +219,7 @@ public static partial class ClientUtils
   /// </summary>
   /// <param name="enumVal"></param>
   /// <returns>EnumMember value as string otherwise null</returns>
-  private static string GetEnumMemberAttrValue(object enumVal)
+  private static string? GetEnumMemberAttrValue(object enumVal)
   {
     ArgumentNullException.ThrowIfNull(enumVal);
     
@@ -258,4 +228,7 @@ public static partial class ClientUtils
     var attr = memInfo.FirstOrDefault()?.GetCustomAttributes(false).OfType<EnumMemberAttribute>().FirstOrDefault();
     return attr?.Value;
   }
+  
+  [GeneratedRegex(@".*[/\\](.*)$")]
+  private static partial Regex FilenameDetector();
 }

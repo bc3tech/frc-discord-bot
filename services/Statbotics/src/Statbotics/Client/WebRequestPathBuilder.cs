@@ -14,17 +14,12 @@ using System.Collections.Generic;
 /// <summary>
 /// A URI builder
 /// </summary>
-class WebRequestPathBuilder
+internal sealed class WebRequestPathBuilder(string baseUrl, string path)
 {
-  private string _baseUrl;
-  private string _path;
+  private readonly string _baseUrl = baseUrl;
+  private string _path = path;
   private string _query = "?";
-  public WebRequestPathBuilder(string baseUrl, string path)
-  {
-    _baseUrl = baseUrl;
-    _path = path;
-  }
-  
+
   public void AddPathParameters(Dictionary<string, string?> parameters)
   {
     foreach (var parameter in parameters.Where(p => p.Value is not null))

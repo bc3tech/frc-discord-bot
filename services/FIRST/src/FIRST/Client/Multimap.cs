@@ -18,7 +18,8 @@ using System.Collections.Generic;
 /// </summary>
 /// <typeparam name="TKey">The type of the key</typeparam>
 /// <typeparam name="TValue">The type of the value associated with the key.</typeparam>
-public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>>
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1710:Identifiers should have correct suffix", Justification = "No")]
+public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>> where TKey : notnull
 {
   #region Private Fields
   
@@ -31,19 +32,13 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>>
   /// <summary>
   /// Empty Constructor.
   /// </summary>
-  public Multimap()
-  {
-    _dictionary = new Dictionary<TKey, IList<TValue>>();
-  }
+  public Multimap() => _dictionary = [];
   
   /// <summary>
   /// Constructor with comparer.
   /// </summary>
   /// <param name="comparer"></param>
-  public Multimap(IEqualityComparer<TKey> comparer)
-  {
-    _dictionary = new Dictionary<TKey, IList<TValue>>(comparer);
-  }
+  public Multimap(IEqualityComparer<TKey> comparer) => _dictionary = new Dictionary<TKey, IList<TValue>>(comparer);
   
   #endregion Constructors
   
@@ -53,19 +48,13 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>>
   /// To get the enumerator.
   /// </summary>
   /// <returns>Enumerator</returns>
-  public IEnumerator<KeyValuePair<TKey, IList<TValue>>> GetEnumerator()
-  {
-    return _dictionary.GetEnumerator();
-  }
+  public IEnumerator<KeyValuePair<TKey, IList<TValue>>> GetEnumerator() => _dictionary.GetEnumerator();
   
   /// <summary>
   /// To get the enumerator.
   /// </summary>
   /// <returns>Enumerator</returns>
-  IEnumerator IEnumerable.GetEnumerator()
-  {
-    return _dictionary.GetEnumerator();
-  }
+  IEnumerator IEnumerable.GetEnumerator() => _dictionary.GetEnumerator();
   
   #endregion Enumerators
   
@@ -77,7 +66,9 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>>
   public void Add(KeyValuePair<TKey, IList<TValue>> item)
   {
     if (!TryAdd(item.Key, item.Value))
-    throw new InvalidOperationException("Could not add values to Multimap.");
+    {
+      throw new InvalidOperationException("Could not add values to Multimap.");
+    }
   }
   
   /// <summary>
@@ -89,17 +80,16 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>>
     foreach (var item in multimap)
     {
       if (!TryAdd(item.Key, item.Value))
-      throw new InvalidOperationException("Could not add values to Multimap.");
+      {
+        throw new InvalidOperationException("Could not add values to Multimap.");
+      }
     }
   }
   
   /// <summary>
   /// Clear Multimap
   /// </summary>
-  public void Clear()
-  {
-    _dictionary.Clear();
-  }
+  public void Clear() => _dictionary.Clear();
   
   /// <summary>
   /// Determines whether Multimap contains the specified item.
@@ -107,10 +97,7 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>>
   /// <param name="item">Key value pair</param>
   /// <exception cref="NotImplementedException">Method needs to be implemented</exception>
   /// <returns>true if the Multimap contains the item; otherwise, false.</returns>
-  public bool Contains(KeyValuePair<TKey, IList<TValue>> item)
-  {
-    throw new NotImplementedException();
-  }
+  public bool Contains(KeyValuePair<TKey, IList<TValue>> item) => throw new NotImplementedException();
   
   /// <summary>
   ///  Copy items of the Multimap to an array,
@@ -120,10 +107,7 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>>
   ///     from Multimap. The array must have zero-based indexing.</param>
   /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
   /// <exception cref="NotImplementedException">Method needs to be implemented</exception>
-  public void CopyTo(KeyValuePair<TKey, IList<TValue>>[] array, int arrayIndex)
-  {
-    throw new NotImplementedException();
-  }
+  public void CopyTo(KeyValuePair<TKey, IList<TValue>>[] array, int arrayIndex) => throw new NotImplementedException();
   
   /// <summary>
   /// Removes the specified item from the Multimap.
@@ -131,10 +115,7 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>>
   /// <param name="item">Key value pair</param>
   /// <returns>true if the item is successfully removed; otherwise, false.</returns>
   /// <exception cref="NotImplementedException">Method needs to be implemented</exception>
-  public bool Remove(KeyValuePair<TKey, IList<TValue>> item)
-  {
-    throw new NotImplementedException();
-  }
+  public bool Remove(KeyValuePair<TKey, IList<TValue>> item) => throw new NotImplementedException();
   
   /// <summary>
   /// Gets the number of items contained in the Multimap.
@@ -158,13 +139,17 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>>
     {
       if (_dictionary.TryGetValue(key, out var list))
       {
-        foreach (var k in value) list.Add(k);
+        foreach (var k in value)
+        {
+          list.Add(k);
+        }
       }
       else
       {
-        list = new List<TValue>(value);
-        if (!TryAdd(key, list))
-        throw new InvalidOperationException("Could not add values to Multimap.");
+        if (!TryAdd(key, []))
+        {
+          throw new InvalidOperationException("Could not add values to Multimap.");
+        }
       }
     }
   }
@@ -175,20 +160,14 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>>
   /// <param name="key">The key to locate in the Multimap.</param>
   /// <returns>true if the Multimap contains an item with
   ///     the key; otherwise, false.</returns>
-  public bool ContainsKey(TKey key)
-  {
-    return _dictionary.ContainsKey(key);
-  }
+  public bool ContainsKey(TKey key) => _dictionary.ContainsKey(key);
   
   /// <summary>
   /// Removes item with the specified key from the Multimap.
   /// </summary>
   /// <param name="key">The key to locate in the Multimap.</param>
   /// <returns>true if the item is successfully removed; otherwise, false.</returns>
-  public bool Remove(TKey key)
-  {
-    return TryRemove(key, out var _);
-  }
+  public bool Remove(TKey key) => TryRemove(key, out var _);
   
   /// <summary>
   /// Gets the value associated with the specified key.
@@ -199,10 +178,7 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>>
   ///     This parameter is passed uninitialized.</param>
   /// <returns> true if the object that implements Multimap contains
   ///     an item with the specified key; otherwise, false.</returns>
-  public bool TryGetValue(TKey key, out IList<TValue> value)
-  {
-    return _dictionary.TryGetValue(key, out value);
-  }
+  public bool TryGetValue(TKey key, [System.Diagnostics.CodeAnalysis.MaybeNullWhen(false)] out IList<TValue> value) => _dictionary.TryGetValue(key, out value);
   
   /// <summary>
   /// Gets or sets the item with the specified key.
@@ -232,10 +208,7 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>>
   /// <param name="array">The one-dimensional System.Array that is the destination of the items copied
   ///     from Multimap. The System.Array must have zero-based indexing.</param>
   /// <param name="index">The zero-based index in array at which copying begins.</param>
-  public void CopyTo(Array array, int index)
-  {
-    ((ICollection)_dictionary).CopyTo(array, index);
-  }
+  public void CopyTo(Array array, int index) => ((ICollection)_dictionary).CopyTo(array, index);
   
   /// <summary>
   /// Adds an item with the provided key and value to the Multimap.
@@ -243,7 +216,7 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>>
   /// <param name="key">The object to use as the key of the item to add.</param>
   /// <param name="value">The object to use as the value of the item to add.</param>
   /// <exception cref="InvalidOperationException">Thrown when couldn't add value to Multimap.</exception>
-  public void Add(TKey key, TValue value)
+  public void Add(TKey key, TValue? value)
   {
     if (value is not null)
     {
@@ -253,9 +226,10 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>>
       }
       else
       {
-        list = new List<TValue> { value };
-        if (!TryAdd(key, list))
-        throw new InvalidOperationException("Could not add value to Multimap.");
+        if (!TryAdd(key, []))
+        {
+          throw new InvalidOperationException("Could not add value to Multimap.");
+        }
       }
     }
   }
@@ -267,7 +241,7 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>>
   /**
   * Helper method to encapsulate generator differences between dictionary types.
   */
-  private bool TryRemove(TKey key, out IList<TValue> value)
+  private bool TryRemove(TKey key, out IList<TValue>? value)
   {
     _dictionary.TryGetValue(key, out value);
     return _dictionary.Remove(key);

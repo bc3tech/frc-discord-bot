@@ -343,12 +343,9 @@ using Statbotics.Model;
         {
           get
           {
-            if (_exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1)
-            {
-              throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.");
-            }
-            
-            return _exceptionFactory;
+            return _exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1
+            ? throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.")
+            : _exceptionFactory;
           }
           set => _exceptionFactory = value;
         }
@@ -379,7 +376,7 @@ using Statbotics.Model;
                       throw new ApiException(400, "Missing required parameter 'match' when calling MatchApi->ReadMatchV3MatchMatchGet");
                     }
                     
-              RequestOptions localVarRequestOptions = new RequestOptions();
+              RequestOptions localVarRequestOptions = new();
               
               string[] _contentTypes = [
               ];
@@ -447,7 +444,7 @@ using Statbotics.Model;
                         throw new ApiException(400, "Missing required parameter 'match' when calling MatchApi->ReadMatchV3MatchMatchGet");
                       }
                       
-                RequestOptions localVarRequestOptions = new RequestOptions();
+                RequestOptions localVarRequestOptions = new();
                 
                 string[] _contentTypes = [
                 ];
@@ -522,7 +519,7 @@ using Statbotics.Model;
             /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
             public ApiResponse<Collection<Object>?> ReadMatchesV3MatchesGetWithHttpInfo(bool? ascending = default, bool? elim = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default)
             {
-              RequestOptions localVarRequestOptions = new RequestOptions();
+              RequestOptions localVarRequestOptions = new();
               
               string[] _contentTypes = [
               ];
@@ -651,7 +648,7 @@ using Statbotics.Model;
               /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
               public async System.Threading.Tasks.Task<Statbotics.Client.ApiResponse<Collection<Object>?>> ReadMatchesV3MatchesGetWithHttpInfoAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
               {
-                RequestOptions localVarRequestOptions = new RequestOptions();
+                RequestOptions localVarRequestOptions = new();
                 
                 string[] _contentTypes = [
                 ];

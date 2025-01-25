@@ -48,20 +48,14 @@ internal class Configuration : IReadableConfiguration
   public static readonly ExceptionFactory DefaultExceptionFactory = (methodName, response) =>
   {
     var status = (int)response.StatusCode;
-    if (status >= 400)
+    return status switch
     {
-      return new ApiException(status,
+      >= 400 => new ApiException(status,
       string.Format("Error calling {0}: {1}", methodName, response.RawContent),
-      response.RawContent, response.Headers);
-    }
-      
-      if (status is 0)
-      {
-        return new ApiException(status,
-        string.Format("Error calling {0}: {1}", methodName, response.ErrorText), response.ErrorText);
-      }
-    
-    return null;
+      response.RawContent, response.Headers),
+        0 => new ApiException(status, string.Format("Error calling {0}: {1}", methodName, response.ErrorText), response.ErrorText),
+      _ => null
+    };
   };
   
   #endregion Static Members
@@ -173,13 +167,9 @@ internal class Configuration : IReadableConfiguration
   /// <returns>API key with prefix.</returns>
   public string? GetApiKeyWithPrefix(string apiKeyIdentifier)
   {
-    if (ApiKey.TryGetValue(apiKeyIdentifier, out var apiKeyValue) && apiKeyValue is not null
-      && ApiKeyPrefix.TryGetValue(apiKeyIdentifier, out var apiKeyPrefix) && apiKeyPrefix is not null)
-    {
-      return apiKeyPrefix + " " + apiKeyValue;
-    }
-    
-    return null;
+    return ApiKey.TryGetValue(apiKeyIdentifier, out var apiKeyValue) && apiKeyValue is not null && ApiKeyPrefix.TryGetValue(apiKeyIdentifier, out var apiKeyPrefix) && apiKeyPrefix is not null
+    ? apiKeyPrefix + " " + apiKeyValue
+    : null;
   }
   
   /// <summary>
@@ -208,23 +198,17 @@ internal class Configuration : IReadableConfiguration
       if (string.IsNullOrEmpty(value))
       {
         _tempFolderPath = Path.GetTempPath();
-        return;
-      }
-      
-      // create the directory if it does not exist
-      if (!Directory.Exists(value))
-      {
-        Directory.CreateDirectory(value);
-      }
-      
-      // check if the path contains directory separator at the end
-      if (value[value.Length - 1] == Path.DirectorySeparatorChar)
-      {
-        _tempFolderPath = value;
       }
       else
       {
-        _tempFolderPath = value + Path.DirectorySeparatorChar;
+        // create the directory if it does not exist
+        if (!Directory.Exists(value))
+        {
+          Directory.CreateDirectory(value);
+        }
+        
+        // check if the path contains directory separator at the end
+        _tempFolderPath = value[^1] == Path.DirectorySeparatorChar ? value : value + Path.DirectorySeparatorChar;
       }
     }
   }
@@ -324,12 +308,11 @@ internal class Configuration : IReadableConfiguration
     /// <return>The operation server URL.</return>
     public string? GetOperationServerUrl(string operation, int index, Dictionary<string, string>? inputVariables)
     {
-      if (operation is not null && OperationServers.TryGetValue(operation, out var operationServer))
+      return operation switch
       {
-        return GetServerUrl(operationServer, index, inputVariables);
-      }
-      
-      return null;
+        not null when OperationServers.TryGetValue(operation, out var operationServer) => GetServerUrl(operationServer, index, inputVariables),
+        _ => null
+      };
     }
     
     /// <summary>
@@ -346,7 +329,7 @@ internal class Configuration : IReadableConfiguration
         throw new InvalidOperationException($"Invalid index {index} when selecting the server. Must be less than {servers.Count}.");
       }
       
-      inputVariables ??= new Dictionary<string, string>();
+      inputVariables ??= [];
       
       IReadOnlyDictionary<string, object> server = servers[index];
       string url = (string)server["url"];
@@ -356,7 +339,7 @@ internal class Configuration : IReadableConfiguration
         // go through each variable and assign a value
         foreach (KeyValuePair<string, object> variable in (IReadOnlyDictionary<string, object>)server["variables"])
         {
-          IReadOnlyDictionary<string, object> serverVariables = (IReadOnlyDictionary<string, object>)(variable.Value);
+          IReadOnlyDictionary<string, object> serverVariables = (IReadOnlyDictionary<string, object>)variable.Value;
           
           if (inputVariables.ContainsKey(variable.Key))
           {
@@ -435,7 +418,7 @@ internal class Configuration : IReadableConfiguration
     }
     else if (first is null)
     {
-        return second;
+      return second;
     }
     
     Dictionary<string, string> apiKey = first.ApiKey.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);

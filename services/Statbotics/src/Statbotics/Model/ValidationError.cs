@@ -12,7 +12,7 @@
     using System.Text;
     using System.Text.Json;
     using System.Text.Json.Serialization;
-using System.Collections.ObjectModel;
+  using System.Collections.ObjectModel;
     
     /// <summary>
 /// ValidationError
@@ -32,7 +32,7 @@ internal partial class ValidationError
         /// <param name="loc">loc (required).</param>
         /// <param name="msg">msg (required).</param>
         /// <param name="type">type (required).</param>
-      public ValidationError(Collection<ValidationErrorLocInner>? loc = default, string? msg = default, string? type = default)
+      public ValidationError(Collection<ValidationErrorLocInner> loc, string msg, string type)
       {
                     // to ensure "loc" is required (not null)
                     ArgumentNullException.ThrowIfNull(loc);
@@ -50,21 +50,21 @@ internal partial class ValidationError
             /// </summary>
               [JsonRequired]
                 [JsonPropertyName("loc")]
-                public Collection<ValidationErrorLocInner>? Loc { get; set; }
+                public Collection<ValidationErrorLocInner> Loc { get; set; }
                 
             /// <summary>
             /// Gets or Sets Msg
             /// </summary>
               [JsonRequired]
                 [JsonPropertyName("msg")]
-                public string? Msg { get; set; }
+                public string Msg { get; set; }
                 
             /// <summary>
             /// Gets or Sets Type
             /// </summary>
               [JsonRequired]
                 [JsonPropertyName("type")]
-                public string? Type { get; set; }
+                public string Type { get; set; }
                 
             /// <summary>
             /// Returns the string presentation of the object
@@ -72,11 +72,11 @@ internal partial class ValidationError
             /// <returns>string presentation of the object</returns>
             public override string ToString()
             {
-              StringBuilder sb = new StringBuilder();
+              StringBuilder sb = new();
               sb.AppendLine("class ValidationError {");
                   sb.Append("  Loc: ").AppendLine($"{(Loc is null ? "[null]" : string.Join(", ", Loc))}");
-                  sb.Append("  Msg: ").AppendLine($"{ Msg ?? "[null]" }");
-                  sb.Append("  Type: ").AppendLine($"{ Type ?? "[null]" }");
+                  sb.Append("  Msg: ").AppendLine($"{ Msg }");
+                  sb.Append("  Type: ").AppendLine($"{ Type }");
               sb.AppendLine("}");
               return sb.ToString();
             }

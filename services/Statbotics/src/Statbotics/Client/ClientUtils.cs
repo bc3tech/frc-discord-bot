@@ -30,7 +30,7 @@ public static partial class ClientUtils
   /// <returns>Filename</returns>
   public static string SanitizeFilename(string filename)
   {
-    Match match = Regex.Match(filename, @".*[/\\](.*)$");
+    Match match = FilenameDetector().Match(filename);
     return match.Success ? match.Groups[1].Value : filename;
   }
   
@@ -55,7 +55,7 @@ public static partial class ClientUtils
     }
     else if (value is IDictionary dictionary)
     {
-      if (collectionFormat is "deepObject") 
+      if (collectionFormat is "deepObject")
       {
         foreach (DictionaryEntry entry in dictionary)
         {
@@ -88,46 +88,24 @@ public static partial class ClientUtils
   /// <returns>Formatted string.</returns>
   public static string? ParameterToString(object? obj, IReadableConfiguration? configuration = null)
   {
-    if (obj is null)
+    return obj switch
     {
-      return null;
-    }
-    
-    if (obj is DateTime dateTime)
-    {
+      null => null,
       // Return a formatted date string - Can be customized with Configuration.DateTimeFormat
       // Defaults to an ISO 8601, using the known as a Round-trip date/time pattern ("o")
       // https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx#Anchor_8
       // For example: 2009-06-15T13:45:30.0000000
-      return dateTime.ToString((configuration ?? GlobalConfiguration.Instance).DateTimeFormat);
-    }
-    
-    if (obj is DateTimeOffset dateTimeOffset)
-    {
+      DateTime dateTime => dateTime.ToString((configuration ?? GlobalConfiguration.Instance).DateTimeFormat),
       // Return a formatted date string - Can be customized with Configuration.DateTimeFormat
       // Defaults to an ISO 8601, using the known as a Round-trip date/time pattern ("o")
       // https://msdn.microsoft.com/en-us/library/az4se3k1(v=vs.110).aspx#Anchor_8
       // For example: 2009-06-15T13:45:30.0000000
-      return dateTimeOffset.ToString((configuration ?? GlobalConfiguration.Instance).DateTimeFormat);
-    }
-    
-    if (obj is bool boolean)
-    {
-      return boolean ? "true" : "false";
-    }
-    
-    if (obj is ICollection collection)
-    {
-      var paramStrings = from object item in collection select ParameterToString(item, configuration);
-      return string.Join(",", paramStrings);
-    }
-    
-    if (obj is Enum && HasEnumMemberAttrValue(obj))
-    {
-      return GetEnumMemberAttrValue(obj);
-    }
-    
-    return Convert.ToString(obj, CultureInfo.InvariantCulture);
+      DateTimeOffset dateTimeOffset => dateTimeOffset.ToString((configuration ?? GlobalConfiguration.Instance).DateTimeFormat),
+      bool boolean => boolean ? "true" : "false",
+      ICollection collection => string.Join(",", from object item in collection select ParameterToString(item, configuration)),
+      Enum when HasEnumMemberAttrValue(obj) => GetEnumMemberAttrValue(obj),
+      _ => Convert.ToString(obj, CultureInfo.InvariantCulture)
+    };
   }
   
   /// <summary>
@@ -190,17 +168,13 @@ public static partial class ClientUtils
   /// <returns>The Accept header to use.</returns>
   public static string? SelectHeaderAccept(string[] accepts)
   {
-    if (accepts.Length is 0)
+    return accepts.Length switch
     {
-      return null;
-    }
-    
-    if (accepts.Contains(ApplicationJsonContentType, StringComparer.OrdinalIgnoreCase))
-    {
-      return ApplicationJsonContentType;
-    }
-    
-    return string.Join(",", accepts);
+      0 => null,
+      _ => accepts.Contains(ApplicationJsonContentType, StringComparer.OrdinalIgnoreCase)
+        ? ApplicationJsonContentType
+        : string.Join(",", accepts)
+    };
   }
   
   private const string ApplicationJsonContentType = "application/json";
@@ -223,15 +197,7 @@ public static partial class ClientUtils
   /// </summary>
   /// <param name="mime">MIME</param>
   /// <returns>Returns True if MIME type is json.</returns>
-  public static bool IsJsonMime(string mime)
-  {
-    if (string.IsNullOrWhiteSpace(mime))
-    {
-      return false;
-    }
-    
-    return JsonRegex.IsMatch(mime) || mime.Equals("application/json-patch+json", StringComparison.Ordinal);
-  }
+  public static bool IsJsonMime(string mime) => !string.IsNullOrWhiteSpace(mime) && (JsonRegex.IsMatch(mime) || mime.Equals("application/json-patch+json", StringComparison.Ordinal));
   
   /// <summary>
   /// Is the Enum decorated with EnumMember Attribute
@@ -245,7 +211,7 @@ public static partial class ClientUtils
     var enumType = enumVal.GetType();
     var memInfo = enumType.GetMember(enumVal.ToString() ?? throw new InvalidOperationException());
     var attr = memInfo.FirstOrDefault()?.GetCustomAttributes(false).OfType<EnumMemberAttribute>().FirstOrDefault();
-    return (attr is not null);
+    return attr is not null;
   }
   
   /// <summary>
@@ -262,4 +228,7 @@ public static partial class ClientUtils
     var attr = memInfo.FirstOrDefault()?.GetCustomAttributes(false).OfType<EnumMemberAttribute>().FirstOrDefault();
     return attr?.Value;
   }
+  
+  [GeneratedRegex(@".*[/\\](.*)$")]
+  private static partial Regex FilenameDetector();
 }

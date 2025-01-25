@@ -12,7 +12,7 @@
     using System.Text;
     using System.Text.Json;
     using System.Text.Json.Serialization;
-using System.Collections.ObjectModel;
+  using System.Collections.ObjectModel;
     
     /// <summary>
 /// HTTPValidationError
@@ -41,7 +41,7 @@ internal partial class HTTPValidationError
             /// <returns>string presentation of the object</returns>
             public override string ToString()
             {
-              StringBuilder sb = new StringBuilder();
+              StringBuilder sb = new();
               sb.AppendLine("class HTTPValidationError {");
                   sb.Append("  Detail: ").AppendLine($"{(Detail is null ? "[null]" : string.Join(", ", Detail))}");
               sb.AppendLine("}");

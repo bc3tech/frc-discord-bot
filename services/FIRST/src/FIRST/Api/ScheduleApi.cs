@@ -36,33 +36,8 @@ using FIRST.Client;
       /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
       /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
       /// <returns>Object</returns>
-      Object SeasonScheduleEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default);
-      
-      /// <summary>
-      /// Event Schedule
-      /// </summary>
-      /// <remarks>
-      /// The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
-      /// </remarks>
-      /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
-      /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-      /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-      /// <param name="ifModifiedSince"> (optional)</param>
-      /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
-      /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
-      /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-      /// <returns>ApiResponse of Object</returns>
-      ApiResponse<Object> SeasonScheduleEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default);
-    #endregion Synchronous Operations
-  }
-  
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal interface IScheduleApiAsync : IApiAccessor
-    {
-      #region Asynchronous Operations
+      Object? SeasonScheduleEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default);
+        
         /// <summary>
         /// Event Schedule
         /// </summary>
@@ -70,17 +45,24 @@ using FIRST.Client;
         /// The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
         /// </remarks>
         /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
-          /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
-          /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> SeasonScheduleEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
-          
+        /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
+        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+        /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+        /// <param name="ifModifiedSince"> (optional)</param>
+        /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
+        /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
+        /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object?> SeasonScheduleEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default);
+      #endregion Synchronous Operations
+    }
+    
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal interface IScheduleApiAsync : IApiAccessor
+      {
+        #region Asynchronous Operations
           /// <summary>
           /// Event Schedule
           /// </summary>
@@ -96,224 +78,221 @@ using FIRST.Client;
             /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
             /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of ApiResponse (Object)</returns>
-          System.Threading.Tasks.Task<ApiResponse<Object>> SeasonScheduleEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
-        #endregion Asynchronous Operations
-      }
-    
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal interface IScheduleApi : IScheduleApiSync, IScheduleApiAsync { }
-    
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal partial class ScheduleApi : IScheduleApi
-    {
-      private ExceptionFactory? _exceptionFactory = (name, response) => null;
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="ScheduleApi"/> class.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <returns></returns>
-      public ScheduleApi() : this((string)null) { }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="ScheduleApi"/> class.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <param name="basePath">The target service's base path in URL format.</param>
-      /// <exception cref="ArgumentException"></exception>
-      /// <returns></returns>
-      public ScheduleApi(string basePath)
-      {
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        new Configuration { BasePath = basePath }
-        );
-        this.ApiClient = new ApiClient(this.Configuration.BasePath);
-        this.Client =  this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="ScheduleApi"/> class using Configuration object.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <param name="configuration">An instance of Configuration.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      public ScheduleApi(FIRST.Client.Configuration configuration)
-      {
-        ArgumentNullException.ThrowIfNull(configuration);
-        
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        configuration
-        );
-        this.ApiClient = new ApiClient(this.Configuration.BasePath);
-        this.Client = this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="ScheduleApi"/> class.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public ScheduleApi(HttpClient client, HttpClientHandler handler = null) : this(client, (string)null, handler) { }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="ScheduleApi"/> class.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="basePath">The target service's base path in URL format.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <exception cref="ArgumentException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public ScheduleApi(HttpClient client, string basePath, HttpClientHandler handler = null)
-      {
-        ArgumentNullException.ThrowIfNull(client);
-        
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        new Configuration { BasePath = basePath }
-        );
-        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-        this.Client =  this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="ScheduleApi"/> class using Configuration object.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="configuration">An instance of Configuration.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public ScheduleApi(HttpClient client, Configuration configuration, HttpClientHandler handler = null)
-      {
-        ArgumentNullException.ThrowIfNull(configuration);
-        ArgumentNullException.ThrowIfNull(client);
-        
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        configuration
-        );
-        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-        this.Client = this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="ScheduleApi"/> class
-      /// using a Configuration object and client instance.
-      /// </summary>
-      /// <param name="client">The client interface for synchronous API access.</param>
-      /// <param name="asyncClient">The client interface for asynchronous API access.</param>
-      /// <param name="configuration">The configuration object.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      public ScheduleApi(FIRST.Client.ISynchronousClient client, FIRST.Client.IAsynchronousClient asyncClient, FIRST.Client.IReadableConfiguration configuration)
-      {
-        ArgumentNullException.ThrowIfNull(client);
-        
-          ArgumentNullException.ThrowIfNull(asyncClient);
-          
-        ArgumentNullException.ThrowIfNull(configuration);
-        
-        this.Client = client;
-          this.AsynchronousClient = asyncClient;
-        this.Configuration = configuration;
-        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Holds the ApiClient if created
-      /// </summary>
-      public ApiClient ApiClient { get; set; } = null;
-      
-        /// <summary>
-        /// The client for accessing this underlying API asynchronously.
-        /// </summary>
-        public IAsynchronousClient AsynchronousClient { get; set; }
-      
-      /// <summary>
-      /// The client for accessing this underlying API synchronously.
-      /// </summary>
-      public ISynchronousClient Client { get; set; }
-      
-      /// <summary>
-      /// Gets the base path of the API client.
-      /// </summary>
-      /// <value>The base path</value>
-      public string GetBasePath() => this.Configuration.BasePath;
-      
-      /// <summary>
-      /// Gets or sets the configuration object
-      /// </summary>
-      /// <value>An instance of the Configuration</value>
-      public IReadableConfiguration Configuration { get; set; }
-      
-      /// <summary>
-      /// Provides a factory method hook for the creation of exceptions.
-      /// </summary>
-      public ExceptionFactory ExceptionFactory
-      {
-        get
-        {
-          if (_exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1)
-          {
-            throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.");
-          }
-          
-          return _exceptionFactory;
+          /// <returns>Task of Object</returns>
+          System.Threading.Tasks.Task<Object?> SeasonScheduleEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
+            
+            /// <summary>
+            /// Event Schedule
+            /// </summary>
+            /// <remarks>
+            /// The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
+            /// </remarks>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+              /// <param name="ifModifiedSince"> (optional)</param>
+              /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
+              /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
+              /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of ApiResponse (Object)</returns>
+            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonScheduleEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
+          #endregion Asynchronous Operations
         }
-        set { _exceptionFactory = value; }
-      }
       
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal interface IScheduleApi : IScheduleApiSync, IScheduleApiAsync { }
+      
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal sealed partial class ScheduleApi : IScheduleApi
+      {
+        private ExceptionFactory? _exceptionFactory = (name, response) => null;
+        
         /// <summary>
-        /// Event Schedule The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
+        /// Initializes a new instance of the <see cref="ScheduleApi"/> class.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
         /// </summary>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
-        /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
-        /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-        /// <returns>Object</returns>
-        public Object SeasonScheduleEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
+        /// <returns></returns>
+        public ScheduleApi() : this(basePath: default) { }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ScheduleApi"/> class.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+        /// </summary>
+        /// <param name="basePath">The target service's base path in URL format.</param>
+        /// <exception cref="ArgumentException"></exception>
+        /// <returns></returns>
+        public ScheduleApi(string? basePath)
         {
-          FIRST.Client.ApiResponse<Object> localVarResponse = SeasonScheduleEventCodeGetWithHttpInfo(eventCode, season, end, ifModifiedSince, start, teamNumber, tournamentLevel);
-            return localVarResponse.Data;
-          }
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          new Configuration { BasePath = basePath }
+          );
+          this.ApiClient = new ApiClient(this.Configuration.BasePath);
+          this.Client =  this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ScheduleApi"/> class using Configuration object.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+        /// </summary>
+        /// <param name="configuration">An instance of Configuration.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        public ScheduleApi(FIRST.Client.Configuration configuration)
+        {
+          ArgumentNullException.ThrowIfNull(configuration);
           
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          configuration
+          );
+          this.ApiClient = new ApiClient(this.Configuration.BasePath);
+          this.Client = this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ScheduleApi"/> class.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public ScheduleApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ScheduleApi"/> class.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="basePath">The target service's base path in URL format.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public ScheduleApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
+        {
+          ArgumentNullException.ThrowIfNull(client);
+          
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          new Configuration { BasePath = basePath }
+          );
+          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+          this.Client =  this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ScheduleApi"/> class using Configuration object.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="configuration">An instance of Configuration.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public ScheduleApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
+        {
+          ArgumentNullException.ThrowIfNull(configuration);
+          ArgumentNullException.ThrowIfNull(client);
+          
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          configuration
+          );
+          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+          this.Client = this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ScheduleApi"/> class
+        /// using a Configuration object and client instance.
+        /// </summary>
+        /// <param name="client">The client interface for synchronous API access.</param>
+        /// <param name="asyncClient">The client interface for asynchronous API access.</param>
+        /// <param name="configuration">The configuration object.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public ScheduleApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
+        {
+          ArgumentNullException.ThrowIfNull(client);
+          
+            ArgumentNullException.ThrowIfNull(asyncClient);
+            
+          ArgumentNullException.ThrowIfNull(configuration);
+          
+          this.Client = client;
+            this.AsynchronousClient = asyncClient;
+          this.Configuration = configuration;
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Holds the ApiClient if created
+        /// </summary>
+        public ApiClient? ApiClient { get; set; }
+        
+          /// <summary>
+          /// The client for accessing this underlying API asynchronously.
+          /// </summary>
+          public IAsynchronousClient AsynchronousClient { get; set; }
+        
+        /// <summary>
+        /// The client for accessing this underlying API synchronously.
+        /// </summary>
+        public ISynchronousClient Client { get; set; }
+        
+        /// <summary>
+        /// Gets the base path of the API client.
+        /// </summary>
+        /// <value>The base path</value>
+        public string? GetBasePath() => this.Configuration.BasePath;
+        
+        /// <summary>
+        /// Gets or sets the configuration object
+        /// </summary>
+        /// <value>An instance of the Configuration</value>
+        public IReadableConfiguration Configuration { get; set; }
+        
+        /// <summary>
+        /// Provides a factory method hook for the creation of exceptions.
+        /// </summary>
+        public ExceptionFactory? ExceptionFactory
+        {
+          get
+          {
+            return _exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1
+            ? throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.")
+            : _exceptionFactory;
+          }
+          set => _exceptionFactory = value;
+        }
+        
           /// <summary>
           /// Event Schedule The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
           /// </summary>
@@ -325,92 +304,17 @@ using FIRST.Client;
           /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
           /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
           /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-          /// <returns>ApiResponse of Object</returns>
-          public ApiResponse<Object> SeasonScheduleEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
+          /// <returns>Object</returns>
+          public Object? SeasonScheduleEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
           {
-                  // verify the required parameter 'eventCode' is set
-                  if (eventCode is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'eventCode' when calling ScheduleApi->SeasonScheduleEventCodeGet");
-                  }
-                  
-                  // verify the required parameter 'season' is set
-                  if (season is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'season' when calling ScheduleApi->SeasonScheduleEventCodeGet");
-                  }
-                  
-            RequestOptions localVarRequestOptions = new RequestOptions();
-            
-            string[] _contentTypes = [
-            ];
-            
-            // to determine the Accept header
-            string[] _accepts = [
-                "application/json"
-            ];
-            
-            var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType is not null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            
-            var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept is not null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            
-                localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
-                localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-                if (end is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "end", end));
-                }
-                
-                if (start is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "start", start));
-                }
-                
-                if (teamNumber is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
-                }
-                
-                if (tournamentLevel is not null)
-                {
-                    localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "tournamentLevel", tournamentLevel));
-                }
-                
-                if (ifModifiedSince is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
-                }
-                
-            
-              // authentication (basicAuth) required
-                // http basic authentication required
-                if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
-                }
-                
-            
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/{season}/schedule/{eventCode}", localVarRequestOptions, this.Configuration);
-            
-            if (this.ExceptionFactory is not null)
-            {
-              Exception _exception = this.ExceptionFactory("SeasonScheduleEventCodeGet", localVarResponse);
-              if (_exception is not null)
-              {
-                throw _exception;
-              }
+            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonScheduleEventCodeGetWithHttpInfo(eventCode, season, end, ifModifiedSince, start, teamNumber, tournamentLevel);
+              return localVarResponse.Data;
             }
             
-            return localVarResponse;
-          }
-          
-          /// <summary>
-          /// Event Schedule The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+            /// <summary>
+            /// Event Schedule The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
@@ -418,11 +322,110 @@ using FIRST.Client;
             /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
             /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
             /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          public async System.Threading.Tasks.Task<Object> SeasonScheduleEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
+            /// <returns>ApiResponse of Object</returns>
+            public ApiResponse<Object?> SeasonScheduleEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
             {
-              FIRST.Client.ApiResponse<Object> localVarResponse = await SeasonScheduleEventCodeGetWithHttpInfoAsync(eventCode, season, end, ifModifiedSince, start, teamNumber, tournamentLevel, cancellationToken).ConfigureAwait(false);
+                    // verify the required parameter 'eventCode' is set
+                    if (eventCode is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'eventCode' when calling ScheduleApi->SeasonScheduleEventCodeGet");
+                    }
+                    
+                    // verify the required parameter 'season' is set
+                    if (season is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'season' when calling ScheduleApi->SeasonScheduleEventCodeGet");
+                    }
+                    
+              RequestOptions localVarRequestOptions = new();
+              
+              string[] _contentTypes = [
+              ];
+              
+              // to determine the Accept header
+              string[] _accepts = [
+                  "application/json"
+              ];
+              
+              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+              if (localVarContentType is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+              }
+              
+              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+              if (localVarAccept is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+              }
+              
+                  localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
+                  localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
+                  if (end is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "end", end));
+                  }
+                  
+                  if (start is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "start", start));
+                  }
+                  
+                  if (teamNumber is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
+                  }
+                  
+                  if (tournamentLevel is not null)
+                  {
+                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "tournamentLevel", tournamentLevel));
+                  }
+                  
+                  if (ifModifiedSince is not null)
+                  {
+                    localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
+                  }
+                  
+              
+                // authentication (basicAuth) required
+                  // http basic authentication required
+                  if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                  {
+                    localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
+                  }
+                  
+              
+              // make the HTTP request
+              var localVarResponse = this.Client.Get<Object?>("/{season}/schedule/{eventCode}", localVarRequestOptions, this.Configuration);
+              
+              if (this.ExceptionFactory is not null)
+              {
+                var _exception = this.ExceptionFactory("SeasonScheduleEventCodeGet", localVarResponse);
+                if (_exception is not null)
+                {
+                  throw _exception;
+                }
+              }
+              
+              return localVarResponse;
+            }
+            
+            /// <summary>
+            /// Event Schedule The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+              /// <param name="ifModifiedSince"> (optional)</param>
+              /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
+              /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
+              /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of Object</returns>
+            public async System.Threading.Tasks.Task<Object?> SeasonScheduleEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
+            {
+              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonScheduleEventCodeGetWithHttpInfoAsync(eventCode, season, end, ifModifiedSince, start, teamNumber, tournamentLevel, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
               
@@ -439,7 +442,7 @@ using FIRST.Client;
                 /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object>> SeasonScheduleEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
+              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonScheduleEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)
@@ -453,7 +456,7 @@ using FIRST.Client;
                         throw new ApiException(400, "Missing required parameter 'season' when calling ScheduleApi->SeasonScheduleEventCodeGet");
                       }
                       
-                RequestOptions localVarRequestOptions = new RequestOptions();
+                RequestOptions localVarRequestOptions = new();
                 
                 string[] _contentTypes = [
                 ];
@@ -505,17 +508,18 @@ using FIRST.Client;
                 
                   // authentication (basicAuth) required
                       // http basic authentication required
-                      if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+                      if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                      
                       {
                         localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
                       }
                       
                 // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/{season}/schedule/{eventCode}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+                var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/{season}/schedule/{eventCode}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
                 {
-                  Exception _exception = this.ExceptionFactory("SeasonScheduleEventCodeGet", localVarResponse);
+                  var _exception = this.ExceptionFactory("SeasonScheduleEventCodeGet", localVarResponse);
                   if (_exception is not null)
                   {
                     throw _exception;

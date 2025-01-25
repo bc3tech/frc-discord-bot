@@ -32,20 +32,20 @@ using FIRST.Client;
       /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
       /// <param name="ifModifiedSince"> (optional)</param>
       /// <returns>Object</returns>
-      Object SeasonAwardsEventEventCodeGet(string eventCode, string season, string? ifModifiedSince = default);
-      
-      /// <summary>
-      /// Event Awards
-      /// </summary>
-      /// <remarks>
-      /// The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-      /// </remarks>
-      /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-      /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-      /// <param name="ifModifiedSince"> (optional)</param>
-      /// <returns>ApiResponse of Object</returns>
-      ApiResponse<Object> SeasonAwardsEventEventCodeGetWithHttpInfo(string eventCode, string season, string? ifModifiedSince = default);
+      Object? SeasonAwardsEventEventCodeGet(string eventCode, string season, string? ifModifiedSince = default);
+        
+        /// <summary>
+        /// Event Awards
+        /// </summary>
+        /// <remarks>
+        /// The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+        /// </remarks>
+        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+        /// <param name="ifModifiedSince"> (optional)</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object?> SeasonAwardsEventEventCodeGetWithHttpInfo(string eventCode, string season, string? ifModifiedSince = default);
       /// <summary>
       /// Event Team Awards
       /// </summary>
@@ -57,20 +57,20 @@ using FIRST.Client;
       /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
       /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
       /// <returns>Object</returns>
-      Object SeasonAwardsEventteamEventCodeTeamNumberGet(string eventCode, string season, string teamNumber);
-      
-      /// <summary>
-      /// Event Team Awards
-      /// </summary>
-      /// <remarks>
-      /// The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-      /// </remarks>
-      /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-      /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-      /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-      /// <returns>ApiResponse of Object</returns>
-      ApiResponse<Object> SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfo(string eventCode, string season, string teamNumber);
+      Object? SeasonAwardsEventteamEventCodeTeamNumberGet(string eventCode, string season, string teamNumber);
+        
+        /// <summary>
+        /// Event Team Awards
+        /// </summary>
+        /// <remarks>
+        /// The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+        /// </remarks>
+        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+        /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+        /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object?> SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfo(string eventCode, string season, string teamNumber);
       /// <summary>
       /// Awards Listings
       /// </summary>
@@ -81,19 +81,19 @@ using FIRST.Client;
       /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
       /// <param name="ifModifiedSince"> (optional)</param>
       /// <returns>Object</returns>
-      Object SeasonAwardsListGet(string season, string? ifModifiedSince = default);
-      
-      /// <summary>
-      /// Awards Listings
-      /// </summary>
-      /// <remarks>
-      /// The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
-      /// </remarks>
-      /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-      /// <param name="ifModifiedSince"> (optional)</param>
-      /// <returns>ApiResponse of Object</returns>
-      ApiResponse<Object> SeasonAwardsListGetWithHttpInfo(string season, string? ifModifiedSince = default);
+      Object? SeasonAwardsListGet(string season, string? ifModifiedSince = default);
+        
+        /// <summary>
+        /// Awards Listings
+        /// </summary>
+        /// <remarks>
+        /// The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
+        /// </remarks>
+        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+        /// <param name="ifModifiedSince"> (optional)</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object?> SeasonAwardsListGetWithHttpInfo(string season, string? ifModifiedSince = default);
       /// <summary>
       /// Team Awards
       /// </summary>
@@ -104,42 +104,28 @@ using FIRST.Client;
       /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
       /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
       /// <returns>Object</returns>
-      Object SeasonAwardsTeamTeamNumberGet(string season, string teamNumber);
-      
-      /// <summary>
-      /// Team Awards
-      /// </summary>
-      /// <remarks>
-      /// The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-      /// </remarks>
-      /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-      /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-      /// <returns>ApiResponse of Object</returns>
-      ApiResponse<Object> SeasonAwardsTeamTeamNumberGetWithHttpInfo(string season, string teamNumber);
-    #endregion Synchronous Operations
-  }
-  
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal interface IAwardsApiAsync : IApiAccessor
-    {
-      #region Asynchronous Operations
+      Object? SeasonAwardsTeamTeamNumberGet(string season, string teamNumber);
+        
         /// <summary>
-        /// Event Awards
+        /// Team Awards
         /// </summary>
         /// <remarks>
-        /// The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+        /// The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
         /// </remarks>
         /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> SeasonAwardsEventEventCodeGetAsync(string eventCode, string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
-          
+        /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+        /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+        /// <returns>ApiResponse of Object</returns>
+        ApiResponse<Object?> SeasonAwardsTeamTeamNumberGetWithHttpInfo(string season, string teamNumber);
+      #endregion Synchronous Operations
+    }
+    
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal interface IAwardsApiAsync : IApiAccessor
+      {
+        #region Asynchronous Operations
           /// <summary>
           /// Event Awards
           /// </summary>
@@ -151,22 +137,22 @@ using FIRST.Client;
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="ifModifiedSince"> (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of ApiResponse (Object)</returns>
-          System.Threading.Tasks.Task<ApiResponse<Object>> SeasonAwardsEventEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// Event Team Awards
-        /// </summary>
-        /// <remarks>
-        /// The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> SeasonAwardsEventteamEventCodeTeamNumberGetAsync(string eventCode, string season, string teamNumber, CancellationToken cancellationToken = default);
-          
+          /// <returns>Task of Object</returns>
+          System.Threading.Tasks.Task<Object?> SeasonAwardsEventEventCodeGetAsync(string eventCode, string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
+            
+            /// <summary>
+            /// Event Awards
+            /// </summary>
+            /// <remarks>
+            /// The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+            /// </remarks>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="ifModifiedSince"> (optional)</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of ApiResponse (Object)</returns>
+            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonAwardsEventEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// Event Team Awards
           /// </summary>
@@ -178,21 +164,22 @@ using FIRST.Client;
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of ApiResponse (Object)</returns>
-          System.Threading.Tasks.Task<ApiResponse<Object>> SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfoAsync(string eventCode, string season, string teamNumber, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// Awards Listings
-        /// </summary>
-        /// <remarks>
-        /// The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> SeasonAwardsListGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
-          
+          /// <returns>Task of Object</returns>
+          System.Threading.Tasks.Task<Object?> SeasonAwardsEventteamEventCodeTeamNumberGetAsync(string eventCode, string season, string teamNumber, CancellationToken cancellationToken = default);
+            
+            /// <summary>
+            /// Event Team Awards
+            /// </summary>
+            /// <remarks>
+            /// The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+            /// </remarks>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of ApiResponse (Object)</returns>
+            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfoAsync(string eventCode, string season, string teamNumber, CancellationToken cancellationToken = default);
           /// <summary>
           /// Awards Listings
           /// </summary>
@@ -203,21 +190,21 @@ using FIRST.Client;
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="ifModifiedSince"> (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of ApiResponse (Object)</returns>
-          System.Threading.Tasks.Task<ApiResponse<Object>> SeasonAwardsListGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// Team Awards
-        /// </summary>
-        /// <remarks>
-        /// The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of Object</returns>
-        System.Threading.Tasks.Task<Object> SeasonAwardsTeamTeamNumberGetAsync(string season, string teamNumber, CancellationToken cancellationToken = default);
-          
+          /// <returns>Task of Object</returns>
+          System.Threading.Tasks.Task<Object?> SeasonAwardsListGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
+            
+            /// <summary>
+            /// Awards Listings
+            /// </summary>
+            /// <remarks>
+            /// The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
+            /// </remarks>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="ifModifiedSince"> (optional)</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of ApiResponse (Object)</returns>
+            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonAwardsListGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// Team Awards
           /// </summary>
@@ -228,220 +215,216 @@ using FIRST.Client;
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of ApiResponse (Object)</returns>
-          System.Threading.Tasks.Task<ApiResponse<Object>> SeasonAwardsTeamTeamNumberGetWithHttpInfoAsync(string season, string teamNumber, CancellationToken cancellationToken = default);
-        #endregion Asynchronous Operations
-      }
-    
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal interface IAwardsApi : IAwardsApiSync, IAwardsApiAsync { }
-    
-    /// <summary>
-    /// Represents a collection of functions to interact with the API endpoints
-    /// </summary>
-    internal partial class AwardsApi : IAwardsApi
-    {
-      private ExceptionFactory? _exceptionFactory = (name, response) => null;
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="AwardsApi"/> class.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <returns></returns>
-      public AwardsApi() : this((string)null) { }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="AwardsApi"/> class.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <param name="basePath">The target service's base path in URL format.</param>
-      /// <exception cref="ArgumentException"></exception>
-      /// <returns></returns>
-      public AwardsApi(string basePath)
-      {
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        new Configuration { BasePath = basePath }
-        );
-        this.ApiClient = new ApiClient(this.Configuration.BasePath);
-        this.Client =  this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="AwardsApi"/> class using Configuration object.
-      /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-      /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-      /// </summary>
-      /// <param name="configuration">An instance of Configuration.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      public AwardsApi(FIRST.Client.Configuration configuration)
-      {
-        ArgumentNullException.ThrowIfNull(configuration);
-        
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        configuration
-        );
-        this.ApiClient = new ApiClient(this.Configuration.BasePath);
-        this.Client = this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="AwardsApi"/> class.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public AwardsApi(HttpClient client, HttpClientHandler handler = null) : this(client, (string)null, handler) { }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="AwardsApi"/> class.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="basePath">The target service's base path in URL format.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <exception cref="ArgumentException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public AwardsApi(HttpClient client, string basePath, HttpClientHandler handler = null)
-      {
-        ArgumentNullException.ThrowIfNull(client);
-        
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        new Configuration { BasePath = basePath }
-        );
-        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-        this.Client =  this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="AwardsApi"/> class using Configuration object.
-      /// </summary>
-      /// <param name="client">An instance of HttpClient.</param>
-      /// <param name="configuration">An instance of Configuration.</param>
-      /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      /// <returns></returns>
-      /// <remarks>
-      /// Some configuration settings will not be applied without passing an HttpClientHandler.
-      /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-      /// </remarks>
-      public AwardsApi(HttpClient client, Configuration configuration, HttpClientHandler handler = null)
-      {
-        ArgumentNullException.ThrowIfNull(configuration);
-        ArgumentNullException.ThrowIfNull(client);
-        
-        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-        GlobalConfiguration.Instance,
-        configuration
-        );
-        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-        this.Client = this.ApiClient;
-          this.AsynchronousClient = this.ApiClient;
-        ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Initializes a new instance of the <see cref="AwardsApi"/> class
-      /// using a Configuration object and client instance.
-      /// </summary>
-      /// <param name="client">The client interface for synchronous API access.</param>
-      /// <param name="asyncClient">The client interface for asynchronous API access.</param>
-      /// <param name="configuration">The configuration object.</param>
-      /// <exception cref="ArgumentNullException"></exception>
-      public AwardsApi(FIRST.Client.ISynchronousClient client, FIRST.Client.IAsynchronousClient asyncClient, FIRST.Client.IReadableConfiguration configuration)
-      {
-        ArgumentNullException.ThrowIfNull(client);
-        
-          ArgumentNullException.ThrowIfNull(asyncClient);
-          
-        ArgumentNullException.ThrowIfNull(configuration);
-        
-        this.Client = client;
-          this.AsynchronousClient = asyncClient;
-        this.Configuration = configuration;
-        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-      }
-      
-      /// <summary>
-      /// Holds the ApiClient if created
-      /// </summary>
-      public ApiClient ApiClient { get; set; } = null;
-      
-        /// <summary>
-        /// The client for accessing this underlying API asynchronously.
-        /// </summary>
-        public IAsynchronousClient AsynchronousClient { get; set; }
-      
-      /// <summary>
-      /// The client for accessing this underlying API synchronously.
-      /// </summary>
-      public ISynchronousClient Client { get; set; }
-      
-      /// <summary>
-      /// Gets the base path of the API client.
-      /// </summary>
-      /// <value>The base path</value>
-      public string GetBasePath() => this.Configuration.BasePath;
-      
-      /// <summary>
-      /// Gets or sets the configuration object
-      /// </summary>
-      /// <value>An instance of the Configuration</value>
-      public IReadableConfiguration Configuration { get; set; }
-      
-      /// <summary>
-      /// Provides a factory method hook for the creation of exceptions.
-      /// </summary>
-      public ExceptionFactory ExceptionFactory
-      {
-        get
-        {
-          if (_exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1)
-          {
-            throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.");
-          }
-          
-          return _exceptionFactory;
+          /// <returns>Task of Object</returns>
+          System.Threading.Tasks.Task<Object?> SeasonAwardsTeamTeamNumberGetAsync(string season, string teamNumber, CancellationToken cancellationToken = default);
+            
+            /// <summary>
+            /// Team Awards
+            /// </summary>
+            /// <remarks>
+            /// The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+            /// </remarks>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of ApiResponse (Object)</returns>
+            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonAwardsTeamTeamNumberGetWithHttpInfoAsync(string season, string teamNumber, CancellationToken cancellationToken = default);
+          #endregion Asynchronous Operations
         }
-        set { _exceptionFactory = value; }
-      }
       
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal interface IAwardsApi : IAwardsApiSync, IAwardsApiAsync { }
+      
+      /// <summary>
+      /// Represents a collection of functions to interact with the API endpoints
+      /// </summary>
+      internal sealed partial class AwardsApi : IAwardsApi
+      {
+        private ExceptionFactory? _exceptionFactory = (name, response) => null;
+        
         /// <summary>
-        /// Event Awards The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+        /// Initializes a new instance of the <see cref="AwardsApi"/> class.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
         /// </summary>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <returns>Object</returns>
-        public Object SeasonAwardsEventEventCodeGet(string eventCode, string season, string? ifModifiedSince = default)
+        /// <returns></returns>
+        public AwardsApi() : this(basePath: default) { }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwardsApi"/> class.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+        /// </summary>
+        /// <param name="basePath">The target service's base path in URL format.</param>
+        /// <exception cref="ArgumentException"></exception>
+        /// <returns></returns>
+        public AwardsApi(string? basePath)
         {
-          FIRST.Client.ApiResponse<Object> localVarResponse = SeasonAwardsEventEventCodeGetWithHttpInfo(eventCode, season, ifModifiedSince);
-            return localVarResponse.Data;
-          }
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          new Configuration { BasePath = basePath }
+          );
+          this.ApiClient = new ApiClient(this.Configuration.BasePath);
+          this.Client =  this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwardsApi"/> class using Configuration object.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+        /// </summary>
+        /// <param name="configuration">An instance of Configuration.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        public AwardsApi(FIRST.Client.Configuration configuration)
+        {
+          ArgumentNullException.ThrowIfNull(configuration);
           
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          configuration
+          );
+          this.ApiClient = new ApiClient(this.Configuration.BasePath);
+          this.Client = this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwardsApi"/> class.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public AwardsApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwardsApi"/> class.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="basePath">The target service's base path in URL format.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public AwardsApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
+        {
+          ArgumentNullException.ThrowIfNull(client);
+          
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          new Configuration { BasePath = basePath }
+          );
+          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+          this.Client =  this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwardsApi"/> class using Configuration object.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="configuration">An instance of Configuration.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public AwardsApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
+        {
+          ArgumentNullException.ThrowIfNull(configuration);
+          ArgumentNullException.ThrowIfNull(client);
+          
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
+          GlobalConfiguration.Instance,
+          configuration
+          );
+          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+          this.Client = this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwardsApi"/> class
+        /// using a Configuration object and client instance.
+        /// </summary>
+        /// <param name="client">The client interface for synchronous API access.</param>
+        /// <param name="asyncClient">The client interface for asynchronous API access.</param>
+        /// <param name="configuration">The configuration object.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public AwardsApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
+        {
+          ArgumentNullException.ThrowIfNull(client);
+          
+            ArgumentNullException.ThrowIfNull(asyncClient);
+            
+          ArgumentNullException.ThrowIfNull(configuration);
+          
+          this.Client = client;
+            this.AsynchronousClient = asyncClient;
+          this.Configuration = configuration;
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+        }
+        
+        /// <summary>
+        /// Holds the ApiClient if created
+        /// </summary>
+        public ApiClient? ApiClient { get; set; }
+        
+          /// <summary>
+          /// The client for accessing this underlying API asynchronously.
+          /// </summary>
+          public IAsynchronousClient AsynchronousClient { get; set; }
+        
+        /// <summary>
+        /// The client for accessing this underlying API synchronously.
+        /// </summary>
+        public ISynchronousClient Client { get; set; }
+        
+        /// <summary>
+        /// Gets the base path of the API client.
+        /// </summary>
+        /// <value>The base path</value>
+        public string? GetBasePath() => this.Configuration.BasePath;
+        
+        /// <summary>
+        /// Gets or sets the configuration object
+        /// </summary>
+        /// <value>An instance of the Configuration</value>
+        public IReadableConfiguration Configuration { get; set; }
+        
+        /// <summary>
+        /// Provides a factory method hook for the creation of exceptions.
+        /// </summary>
+        public ExceptionFactory? ExceptionFactory
+        {
+          get
+          {
+            return _exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1
+            ? throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.")
+            : _exceptionFactory;
+          }
+          set => _exceptionFactory = value;
+        }
+        
           /// <summary>
           /// Event Awards The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
           /// </summary>
@@ -449,80 +432,100 @@ using FIRST.Client;
           /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
           /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
           /// <param name="ifModifiedSince"> (optional)</param>
-          /// <returns>ApiResponse of Object</returns>
-          public ApiResponse<Object> SeasonAwardsEventEventCodeGetWithHttpInfo(string eventCode, string season, string? ifModifiedSince = default)
+          /// <returns>Object</returns>
+          public Object? SeasonAwardsEventEventCodeGet(string eventCode, string season, string? ifModifiedSince = default)
           {
-                  // verify the required parameter 'eventCode' is set
-                  if (eventCode is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'eventCode' when calling AwardsApi->SeasonAwardsEventEventCodeGet");
-                  }
-                  
-                  // verify the required parameter 'season' is set
-                  if (season is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'season' when calling AwardsApi->SeasonAwardsEventEventCodeGet");
-                  }
-                  
-            RequestOptions localVarRequestOptions = new RequestOptions();
-            
-            string[] _contentTypes = [
-            ];
-            
-            // to determine the Accept header
-            string[] _accepts = [
-                "application/json"
-            ];
-            
-            var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType is not null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            
-            var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept is not null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            
-                localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
-                localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-                if (ifModifiedSince is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
-                }
-                
-            
-              // authentication (basicAuth) required
-                // http basic authentication required
-                if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
-                }
-                
-            
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/{season}/awards/event/{eventCode}", localVarRequestOptions, this.Configuration);
-            
-            if (this.ExceptionFactory is not null)
-            {
-              Exception _exception = this.ExceptionFactory("SeasonAwardsEventEventCodeGet", localVarResponse);
-              if (_exception is not null)
-              {
-                throw _exception;
-              }
+            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonAwardsEventEventCodeGetWithHttpInfo(eventCode, season, ifModifiedSince);
+              return localVarResponse.Data;
             }
             
-            return localVarResponse;
-          }
-          
-          /// <summary>
-          /// Event Awards The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+            /// <summary>
+            /// Event Awards The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          public async System.Threading.Tasks.Task<Object> SeasonAwardsEventEventCodeGetAsync(string eventCode, string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+            /// <returns>ApiResponse of Object</returns>
+            public ApiResponse<Object?> SeasonAwardsEventEventCodeGetWithHttpInfo(string eventCode, string season, string? ifModifiedSince = default)
             {
-              FIRST.Client.ApiResponse<Object> localVarResponse = await SeasonAwardsEventEventCodeGetWithHttpInfoAsync(eventCode, season, ifModifiedSince, cancellationToken).ConfigureAwait(false);
+                    // verify the required parameter 'eventCode' is set
+                    if (eventCode is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'eventCode' when calling AwardsApi->SeasonAwardsEventEventCodeGet");
+                    }
+                    
+                    // verify the required parameter 'season' is set
+                    if (season is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'season' when calling AwardsApi->SeasonAwardsEventEventCodeGet");
+                    }
+                    
+              RequestOptions localVarRequestOptions = new();
+              
+              string[] _contentTypes = [
+              ];
+              
+              // to determine the Accept header
+              string[] _accepts = [
+                  "application/json"
+              ];
+              
+              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+              if (localVarContentType is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+              }
+              
+              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+              if (localVarAccept is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+              }
+              
+                  localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
+                  localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
+                  if (ifModifiedSince is not null)
+                  {
+                    localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
+                  }
+                  
+              
+                // authentication (basicAuth) required
+                  // http basic authentication required
+                  if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                  {
+                    localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
+                  }
+                  
+              
+              // make the HTTP request
+              var localVarResponse = this.Client.Get<Object?>("/{season}/awards/event/{eventCode}", localVarRequestOptions, this.Configuration);
+              
+              if (this.ExceptionFactory is not null)
+              {
+                var _exception = this.ExceptionFactory("SeasonAwardsEventEventCodeGet", localVarResponse);
+                if (_exception is not null)
+                {
+                  throw _exception;
+                }
+              }
+              
+              return localVarResponse;
+            }
+            
+            /// <summary>
+            /// Event Awards The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="ifModifiedSince"> (optional)</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of Object</returns>
+            public async System.Threading.Tasks.Task<Object?> SeasonAwardsEventEventCodeGetAsync(string eventCode, string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+            {
+              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonAwardsEventEventCodeGetWithHttpInfoAsync(eventCode, season, ifModifiedSince, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
               
@@ -535,7 +538,7 @@ using FIRST.Client;
                 /// <param name="ifModifiedSince"> (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object>> SeasonAwardsEventEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonAwardsEventEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)
@@ -549,7 +552,7 @@ using FIRST.Client;
                         throw new ApiException(400, "Missing required parameter 'season' when calling AwardsApi->SeasonAwardsEventEventCodeGet");
                       }
                       
-                RequestOptions localVarRequestOptions = new RequestOptions();
+                RequestOptions localVarRequestOptions = new();
                 
                 string[] _contentTypes = [
                 ];
@@ -581,17 +584,18 @@ using FIRST.Client;
                 
                   // authentication (basicAuth) required
                       // http basic authentication required
-                      if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+                      if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                      
                       {
                         localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
                       }
                       
                 // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/{season}/awards/event/{eventCode}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+                var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/{season}/awards/event/{eventCode}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
                 {
-                  Exception _exception = this.ExceptionFactory("SeasonAwardsEventEventCodeGet", localVarResponse);
+                  var _exception = this.ExceptionFactory("SeasonAwardsEventEventCodeGet", localVarResponse);
                   if (_exception is not null)
                   {
                     throw _exception;
@@ -599,103 +603,109 @@ using FIRST.Client;
                 }
                 
                 return localVarResponse;
-              }        /// <summary>
-        /// Event Team Awards The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-        /// </summary>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-        /// <returns>Object</returns>
-        public Object SeasonAwardsEventteamEventCodeTeamNumberGet(string eventCode, string season, string teamNumber)
-        {
-          FIRST.Client.ApiResponse<Object> localVarResponse = SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfo(eventCode, season, teamNumber);
-            return localVarResponse.Data;
-          }
-          
-          /// <summary>
+              }          /// <summary>
           /// Event Team Awards The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
           /// </summary>
           /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
           /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
           /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
           /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-          /// <returns>ApiResponse of Object</returns>
-          public ApiResponse<Object> SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfo(string eventCode, string season, string teamNumber)
+          /// <returns>Object</returns>
+          public Object? SeasonAwardsEventteamEventCodeTeamNumberGet(string eventCode, string season, string teamNumber)
           {
-                  // verify the required parameter 'eventCode' is set
-                  if (eventCode is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'eventCode' when calling AwardsApi->SeasonAwardsEventteamEventCodeTeamNumberGet");
-                  }
-                  
-                  // verify the required parameter 'season' is set
-                  if (season is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'season' when calling AwardsApi->SeasonAwardsEventteamEventCodeTeamNumberGet");
-                  }
-                  
-                  // verify the required parameter 'teamNumber' is set
-                  if (teamNumber is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'teamNumber' when calling AwardsApi->SeasonAwardsEventteamEventCodeTeamNumberGet");
-                  }
-                  
-            RequestOptions localVarRequestOptions = new RequestOptions();
-            
-            string[] _contentTypes = [
-            ];
-            
-            // to determine the Accept header
-            string[] _accepts = [
-                "application/json"
-            ];
-            
-            var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType is not null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            
-            var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept is not null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            
-                localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
-                localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-                localVarRequestOptions.PathParameters.Add("teamNumber", ClientUtils.ParameterToString(teamNumber)); // path parameter
-            
-              // authentication (basicAuth) required
-                // http basic authentication required
-                if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
-                }
-                
-            
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/{season}/awards/eventteam/{eventCode}/{teamNumber}", localVarRequestOptions, this.Configuration);
-            
-            if (this.ExceptionFactory is not null)
-            {
-              Exception _exception = this.ExceptionFactory("SeasonAwardsEventteamEventCodeTeamNumberGet", localVarResponse);
-              if (_exception is not null)
-              {
-                throw _exception;
-              }
+            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfo(eventCode, season, teamNumber);
+              return localVarResponse.Data;
             }
             
-            return localVarResponse;
-          }
-          
-          /// <summary>
-          /// Event Team Awards The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+            /// <summary>
+            /// Event Team Awards The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          public async System.Threading.Tasks.Task<Object> SeasonAwardsEventteamEventCodeTeamNumberGetAsync(string eventCode, string season, string teamNumber, CancellationToken cancellationToken = default)
+            /// <returns>ApiResponse of Object</returns>
+            public ApiResponse<Object?> SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfo(string eventCode, string season, string teamNumber)
             {
-              FIRST.Client.ApiResponse<Object> localVarResponse = await SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfoAsync(eventCode, season, teamNumber, cancellationToken).ConfigureAwait(false);
+                    // verify the required parameter 'eventCode' is set
+                    if (eventCode is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'eventCode' when calling AwardsApi->SeasonAwardsEventteamEventCodeTeamNumberGet");
+                    }
+                    
+                    // verify the required parameter 'season' is set
+                    if (season is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'season' when calling AwardsApi->SeasonAwardsEventteamEventCodeTeamNumberGet");
+                    }
+                    
+                    // verify the required parameter 'teamNumber' is set
+                    if (teamNumber is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'teamNumber' when calling AwardsApi->SeasonAwardsEventteamEventCodeTeamNumberGet");
+                    }
+                    
+              RequestOptions localVarRequestOptions = new();
+              
+              string[] _contentTypes = [
+              ];
+              
+              // to determine the Accept header
+              string[] _accepts = [
+                  "application/json"
+              ];
+              
+              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+              if (localVarContentType is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+              }
+              
+              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+              if (localVarAccept is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+              }
+              
+                  localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
+                  localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
+                  localVarRequestOptions.PathParameters.Add("teamNumber", ClientUtils.ParameterToString(teamNumber)); // path parameter
+              
+                // authentication (basicAuth) required
+                  // http basic authentication required
+                  if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                  {
+                    localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
+                  }
+                  
+              
+              // make the HTTP request
+              var localVarResponse = this.Client.Get<Object?>("/{season}/awards/eventteam/{eventCode}/{teamNumber}", localVarRequestOptions, this.Configuration);
+              
+              if (this.ExceptionFactory is not null)
+              {
+                var _exception = this.ExceptionFactory("SeasonAwardsEventteamEventCodeTeamNumberGet", localVarResponse);
+                if (_exception is not null)
+                {
+                  throw _exception;
+                }
+              }
+              
+              return localVarResponse;
+            }
+            
+            /// <summary>
+            /// Event Team Awards The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of Object</returns>
+            public async System.Threading.Tasks.Task<Object?> SeasonAwardsEventteamEventCodeTeamNumberGetAsync(string eventCode, string season, string teamNumber, CancellationToken cancellationToken = default)
+            {
+              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfoAsync(eventCode, season, teamNumber, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
               
@@ -708,7 +718,7 @@ using FIRST.Client;
                 /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object>> SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfoAsync(string eventCode, string season, string teamNumber, CancellationToken cancellationToken = default)
+              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfoAsync(string eventCode, string season, string teamNumber, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)
@@ -728,7 +738,7 @@ using FIRST.Client;
                         throw new ApiException(400, "Missing required parameter 'teamNumber' when calling AwardsApi->SeasonAwardsEventteamEventCodeTeamNumberGet");
                       }
                       
-                RequestOptions localVarRequestOptions = new RequestOptions();
+                RequestOptions localVarRequestOptions = new();
                 
                 string[] _contentTypes = [
                 ];
@@ -756,17 +766,18 @@ using FIRST.Client;
                 
                   // authentication (basicAuth) required
                       // http basic authentication required
-                      if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+                      if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                      
                       {
                         localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
                       }
                       
                 // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/{season}/awards/eventteam/{eventCode}/{teamNumber}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+                var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/{season}/awards/eventteam/{eventCode}/{teamNumber}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
                 {
-                  Exception _exception = this.ExceptionFactory("SeasonAwardsEventteamEventCodeTeamNumberGet", localVarResponse);
+                  var _exception = this.ExceptionFactory("SeasonAwardsEventteamEventCodeTeamNumberGet", localVarResponse);
                   if (_exception is not null)
                   {
                     throw _exception;
@@ -774,91 +785,97 @@ using FIRST.Client;
                 }
                 
                 return localVarResponse;
-              }        /// <summary>
-        /// Awards Listings The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
-        /// </summary>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <returns>Object</returns>
-        public Object SeasonAwardsListGet(string season, string? ifModifiedSince = default)
-        {
-          FIRST.Client.ApiResponse<Object> localVarResponse = SeasonAwardsListGetWithHttpInfo(season, ifModifiedSince);
-            return localVarResponse.Data;
-          }
-          
-          /// <summary>
+              }          /// <summary>
           /// Awards Listings The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
           /// </summary>
           /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
           /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
           /// <param name="ifModifiedSince"> (optional)</param>
-          /// <returns>ApiResponse of Object</returns>
-          public ApiResponse<Object> SeasonAwardsListGetWithHttpInfo(string season, string? ifModifiedSince = default)
+          /// <returns>Object</returns>
+          public Object? SeasonAwardsListGet(string season, string? ifModifiedSince = default)
           {
-                  // verify the required parameter 'season' is set
-                  if (season is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'season' when calling AwardsApi->SeasonAwardsListGet");
-                  }
-                  
-            RequestOptions localVarRequestOptions = new RequestOptions();
-            
-            string[] _contentTypes = [
-            ];
-            
-            // to determine the Accept header
-            string[] _accepts = [
-                "application/json"
-            ];
-            
-            var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType is not null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            
-            var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept is not null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            
-                localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-                if (ifModifiedSince is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
-                }
-                
-            
-              // authentication (basicAuth) required
-                // http basic authentication required
-                if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
-                }
-                
-            
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/{season}/awards/list", localVarRequestOptions, this.Configuration);
-            
-            if (this.ExceptionFactory is not null)
-            {
-              Exception _exception = this.ExceptionFactory("SeasonAwardsListGet", localVarResponse);
-              if (_exception is not null)
-              {
-                throw _exception;
-              }
+            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonAwardsListGetWithHttpInfo(season, ifModifiedSince);
+              return localVarResponse.Data;
             }
             
-            return localVarResponse;
-          }
-          
-          /// <summary>
-          /// Awards Listings The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+            /// <summary>
+            /// Awards Listings The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          public async System.Threading.Tasks.Task<Object> SeasonAwardsListGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+            /// <returns>ApiResponse of Object</returns>
+            public ApiResponse<Object?> SeasonAwardsListGetWithHttpInfo(string season, string? ifModifiedSince = default)
             {
-              FIRST.Client.ApiResponse<Object> localVarResponse = await SeasonAwardsListGetWithHttpInfoAsync(season, ifModifiedSince, cancellationToken).ConfigureAwait(false);
+                    // verify the required parameter 'season' is set
+                    if (season is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'season' when calling AwardsApi->SeasonAwardsListGet");
+                    }
+                    
+              RequestOptions localVarRequestOptions = new();
+              
+              string[] _contentTypes = [
+              ];
+              
+              // to determine the Accept header
+              string[] _accepts = [
+                  "application/json"
+              ];
+              
+              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+              if (localVarContentType is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+              }
+              
+              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+              if (localVarAccept is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+              }
+              
+                  localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
+                  if (ifModifiedSince is not null)
+                  {
+                    localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
+                  }
+                  
+              
+                // authentication (basicAuth) required
+                  // http basic authentication required
+                  if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                  {
+                    localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
+                  }
+                  
+              
+              // make the HTTP request
+              var localVarResponse = this.Client.Get<Object?>("/{season}/awards/list", localVarRequestOptions, this.Configuration);
+              
+              if (this.ExceptionFactory is not null)
+              {
+                var _exception = this.ExceptionFactory("SeasonAwardsListGet", localVarResponse);
+                if (_exception is not null)
+                {
+                  throw _exception;
+                }
+              }
+              
+              return localVarResponse;
+            }
+            
+            /// <summary>
+            /// Awards Listings The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="ifModifiedSince"> (optional)</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of Object</returns>
+            public async System.Threading.Tasks.Task<Object?> SeasonAwardsListGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+            {
+              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonAwardsListGetWithHttpInfoAsync(season, ifModifiedSince, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
               
@@ -870,7 +887,7 @@ using FIRST.Client;
                 /// <param name="ifModifiedSince"> (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object>> SeasonAwardsListGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonAwardsListGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -878,7 +895,7 @@ using FIRST.Client;
                         throw new ApiException(400, "Missing required parameter 'season' when calling AwardsApi->SeasonAwardsListGet");
                       }
                       
-                RequestOptions localVarRequestOptions = new RequestOptions();
+                RequestOptions localVarRequestOptions = new();
                 
                 string[] _contentTypes = [
                 ];
@@ -909,17 +926,18 @@ using FIRST.Client;
                 
                   // authentication (basicAuth) required
                       // http basic authentication required
-                      if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+                      if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                      
                       {
                         localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
                       }
                       
                 // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/{season}/awards/list", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+                var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/{season}/awards/list", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
                 {
-                  Exception _exception = this.ExceptionFactory("SeasonAwardsListGet", localVarResponse);
+                  var _exception = this.ExceptionFactory("SeasonAwardsListGet", localVarResponse);
                   if (_exception is not null)
                   {
                     throw _exception;
@@ -927,93 +945,99 @@ using FIRST.Client;
                 }
                 
                 return localVarResponse;
-              }        /// <summary>
-        /// Team Awards The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-        /// </summary>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-        /// <returns>Object</returns>
-        public Object SeasonAwardsTeamTeamNumberGet(string season, string teamNumber)
-        {
-          FIRST.Client.ApiResponse<Object> localVarResponse = SeasonAwardsTeamTeamNumberGetWithHttpInfo(season, teamNumber);
-            return localVarResponse.Data;
-          }
-          
-          /// <summary>
+              }          /// <summary>
           /// Team Awards The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
           /// </summary>
           /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
           /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
           /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-          /// <returns>ApiResponse of Object</returns>
-          public ApiResponse<Object> SeasonAwardsTeamTeamNumberGetWithHttpInfo(string season, string teamNumber)
+          /// <returns>Object</returns>
+          public Object? SeasonAwardsTeamTeamNumberGet(string season, string teamNumber)
           {
-                  // verify the required parameter 'season' is set
-                  if (season is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'season' when calling AwardsApi->SeasonAwardsTeamTeamNumberGet");
-                  }
-                  
-                  // verify the required parameter 'teamNumber' is set
-                  if (teamNumber is null)
-                  {
-                    throw new ApiException(400, "Missing required parameter 'teamNumber' when calling AwardsApi->SeasonAwardsTeamTeamNumberGet");
-                  }
-                  
-            RequestOptions localVarRequestOptions = new RequestOptions();
-            
-            string[] _contentTypes = [
-            ];
-            
-            // to determine the Accept header
-            string[] _accepts = [
-                "application/json"
-            ];
-            
-            var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType is not null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            
-            var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept is not null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            
-                localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-                localVarRequestOptions.PathParameters.Add("teamNumber", ClientUtils.ParameterToString(teamNumber)); // path parameter
-            
-              // authentication (basicAuth) required
-                // http basic authentication required
-                if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
-                }
-                
-            
-            // make the HTTP request
-            var localVarResponse = this.Client.Get<Object>("/{season}/awards/team/{teamNumber}", localVarRequestOptions, this.Configuration);
-            
-            if (this.ExceptionFactory is not null)
-            {
-              Exception _exception = this.ExceptionFactory("SeasonAwardsTeamTeamNumberGet", localVarResponse);
-              if (_exception is not null)
-              {
-                throw _exception;
-              }
+            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonAwardsTeamTeamNumberGetWithHttpInfo(season, teamNumber);
+              return localVarResponse.Data;
             }
             
-            return localVarResponse;
-          }
-          
-          /// <summary>
-          /// Team Awards The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+            /// <summary>
+            /// Team Awards The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          public async System.Threading.Tasks.Task<Object> SeasonAwardsTeamTeamNumberGetAsync(string season, string teamNumber, CancellationToken cancellationToken = default)
+            /// <returns>ApiResponse of Object</returns>
+            public ApiResponse<Object?> SeasonAwardsTeamTeamNumberGetWithHttpInfo(string season, string teamNumber)
             {
-              FIRST.Client.ApiResponse<Object> localVarResponse = await SeasonAwardsTeamTeamNumberGetWithHttpInfoAsync(season, teamNumber, cancellationToken).ConfigureAwait(false);
+                    // verify the required parameter 'season' is set
+                    if (season is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'season' when calling AwardsApi->SeasonAwardsTeamTeamNumberGet");
+                    }
+                    
+                    // verify the required parameter 'teamNumber' is set
+                    if (teamNumber is null)
+                    {
+                      throw new ApiException(400, "Missing required parameter 'teamNumber' when calling AwardsApi->SeasonAwardsTeamTeamNumberGet");
+                    }
+                    
+              RequestOptions localVarRequestOptions = new();
+              
+              string[] _contentTypes = [
+              ];
+              
+              // to determine the Accept header
+              string[] _accepts = [
+                  "application/json"
+              ];
+              
+              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+              if (localVarContentType is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+              }
+              
+              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+              if (localVarAccept is not null)
+              {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+              }
+              
+                  localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
+                  localVarRequestOptions.PathParameters.Add("teamNumber", ClientUtils.ParameterToString(teamNumber)); // path parameter
+              
+                // authentication (basicAuth) required
+                  // http basic authentication required
+                  if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                  {
+                    localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
+                  }
+                  
+              
+              // make the HTTP request
+              var localVarResponse = this.Client.Get<Object?>("/{season}/awards/team/{teamNumber}", localVarRequestOptions, this.Configuration);
+              
+              if (this.ExceptionFactory is not null)
+              {
+                var _exception = this.ExceptionFactory("SeasonAwardsTeamTeamNumberGet", localVarResponse);
+                if (_exception is not null)
+                {
+                  throw _exception;
+                }
+              }
+              
+              return localVarResponse;
+            }
+            
+            /// <summary>
+            /// Team Awards The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+            /// </summary>
+            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
+              /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+              /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+            /// <returns>Task of Object</returns>
+            public async System.Threading.Tasks.Task<Object?> SeasonAwardsTeamTeamNumberGetAsync(string season, string teamNumber, CancellationToken cancellationToken = default)
+            {
+              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonAwardsTeamTeamNumberGetWithHttpInfoAsync(season, teamNumber, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
               
@@ -1025,7 +1049,7 @@ using FIRST.Client;
                 /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object>> SeasonAwardsTeamTeamNumberGetWithHttpInfoAsync(string season, string teamNumber, CancellationToken cancellationToken = default)
+              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonAwardsTeamTeamNumberGetWithHttpInfoAsync(string season, string teamNumber, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -1039,7 +1063,7 @@ using FIRST.Client;
                         throw new ApiException(400, "Missing required parameter 'teamNumber' when calling AwardsApi->SeasonAwardsTeamTeamNumberGet");
                       }
                       
-                RequestOptions localVarRequestOptions = new RequestOptions();
+                RequestOptions localVarRequestOptions = new();
                 
                 string[] _contentTypes = [
                 ];
@@ -1066,17 +1090,18 @@ using FIRST.Client;
                 
                   // authentication (basicAuth) required
                       // http basic authentication required
-                      if (!string.IsNullOrEmpty(this.Configuration.Username) || !string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+                      if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+                      
                       {
                         localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
                       }
                       
                 // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Object>("/{season}/awards/team/{teamNumber}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+                var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/{season}/awards/team/{teamNumber}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
                 {
-                  Exception _exception = this.ExceptionFactory("SeasonAwardsTeamTeamNumberGet", localVarResponse);
+                  var _exception = this.ExceptionFactory("SeasonAwardsTeamTeamNumberGet", localVarResponse);
                   if (_exception is not null)
                   {
                     throw _exception;

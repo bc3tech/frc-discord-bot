@@ -1,4 +1,4 @@
-# TheBlueAlliance.Api.Api.EventApi
+# TheBlueAlliance.Api.EventApi
 
 All URIs are relative to *https://www.thebluealliance.com/api/v3*
 
@@ -45,7 +45,7 @@ All URIs are relative to *https://www.thebluealliance.com/api/v3*
 
 <a id="getdistrictawards"></a>
 # **GetDistrictAwards**
-> List&lt;Award&gt; GetDistrictAwards (string districtKey, string? ifNoneMatch = null)
+> Collection&lt;Award&gt; GetDistrictAwards (string districtKey, string? ifNoneMatch = null)
 
 
 
@@ -56,12 +56,13 @@ Gets a list of awards in the given district.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetDistrictAwardsExample
     {
         public static void Main()
@@ -82,7 +83,7 @@ namespace Example
 
             try
             {
-                List<Award> result = apiInstance.GetDistrictAwards(districtKey, ifNoneMatch);
+                Collection<Award> result = apiInstance.GetDistrictAwards(districtKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -102,7 +103,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<Award>> response = apiInstance.GetDistrictAwardsWithHttpInfo(districtKey, ifNoneMatch);
+    ApiResponse<Collection<Award>> response = apiInstance.GetDistrictAwardsWithHttpInfo(districtKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -124,7 +125,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;Award&gt;**](Award.md)
+[**Collection&lt;Award&gt;**](Award.md)
 
 ### Authorization
 
@@ -144,11 +145,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getdistrictevents"></a>
 # **GetDistrictEvents**
-> List&lt;Event&gt; GetDistrictEvents (string districtKey, string? ifNoneMatch = null)
+> Collection&lt;Event&gt; GetDistrictEvents (string districtKey, string? ifNoneMatch = null)
 
 
 
@@ -159,12 +160,13 @@ Gets a list of events in the given district.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetDistrictEventsExample
     {
         public static void Main()
@@ -185,7 +187,7 @@ namespace Example
 
             try
             {
-                List<Event> result = apiInstance.GetDistrictEvents(districtKey, ifNoneMatch);
+                Collection<Event> result = apiInstance.GetDistrictEvents(districtKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -205,7 +207,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<Event>> response = apiInstance.GetDistrictEventsWithHttpInfo(districtKey, ifNoneMatch);
+    ApiResponse<Collection<Event>> response = apiInstance.GetDistrictEventsWithHttpInfo(districtKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -227,7 +229,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;Event&gt;**](Event.md)
+[**Collection&lt;Event&gt;**](Event.md)
 
 ### Authorization
 
@@ -247,11 +249,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getdistricteventskeys"></a>
 # **GetDistrictEventsKeys**
-> List&lt;string&gt; GetDistrictEventsKeys (string districtKey, string? ifNoneMatch = null)
+> Collection&lt;string&gt; GetDistrictEventsKeys (string districtKey, string? ifNoneMatch = null)
 
 
 
@@ -262,12 +264,13 @@ Gets a list of event keys for events in the given district.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetDistrictEventsKeysExample
     {
         public static void Main()
@@ -288,7 +291,7 @@ namespace Example
 
             try
             {
-                List<string> result = apiInstance.GetDistrictEventsKeys(districtKey, ifNoneMatch);
+                Collection<string> result = apiInstance.GetDistrictEventsKeys(districtKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -308,7 +311,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<string>> response = apiInstance.GetDistrictEventsKeysWithHttpInfo(districtKey, ifNoneMatch);
+    ApiResponse<Collection<string>> response = apiInstance.GetDistrictEventsKeysWithHttpInfo(districtKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -330,7 +333,7 @@ catch (ApiException e)
 
 ### Return type
 
-**List<string>**
+**Collection<string>**
 
 ### Authorization
 
@@ -350,11 +353,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getdistricteventssimple"></a>
 # **GetDistrictEventsSimple**
-> List&lt;EventSimple&gt; GetDistrictEventsSimple (string districtKey, string? ifNoneMatch = null)
+> Collection&lt;EventSimple&gt; GetDistrictEventsSimple (string districtKey, string? ifNoneMatch = null)
 
 
 
@@ -365,12 +368,13 @@ Gets a short-form list of events in the given district.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetDistrictEventsSimpleExample
     {
         public static void Main()
@@ -391,7 +395,7 @@ namespace Example
 
             try
             {
-                List<EventSimple> result = apiInstance.GetDistrictEventsSimple(districtKey, ifNoneMatch);
+                Collection<EventSimple> result = apiInstance.GetDistrictEventsSimple(districtKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -411,7 +415,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<EventSimple>> response = apiInstance.GetDistrictEventsSimpleWithHttpInfo(districtKey, ifNoneMatch);
+    ApiResponse<Collection<EventSimple>> response = apiInstance.GetDistrictEventsSimpleWithHttpInfo(districtKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -433,7 +437,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;EventSimple&gt;**](EventSimple.md)
+[**Collection&lt;EventSimple&gt;**](EventSimple.md)
 
 ### Authorization
 
@@ -453,7 +457,7 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getevent"></a>
 # **GetEvent**
@@ -468,12 +472,13 @@ Gets an Event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventExample
     {
         public static void Main()
@@ -556,11 +561,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventalliances"></a>
 # **GetEventAlliances**
-> List&lt;EliminationAlliance&gt; GetEventAlliances (string eventKey, string? ifNoneMatch = null)
+> Collection&lt;EliminationAlliance&gt; GetEventAlliances (string eventKey, string? ifNoneMatch = null)
 
 
 
@@ -571,12 +576,13 @@ Gets a list of Elimination Alliances for the given Event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventAlliancesExample
     {
         public static void Main()
@@ -597,7 +603,7 @@ namespace Example
 
             try
             {
-                List<EliminationAlliance> result = apiInstance.GetEventAlliances(eventKey, ifNoneMatch);
+                Collection<EliminationAlliance> result = apiInstance.GetEventAlliances(eventKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -617,7 +623,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<EliminationAlliance>> response = apiInstance.GetEventAlliancesWithHttpInfo(eventKey, ifNoneMatch);
+    ApiResponse<Collection<EliminationAlliance>> response = apiInstance.GetEventAlliancesWithHttpInfo(eventKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -639,7 +645,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;EliminationAlliance&gt;**](EliminationAlliance.md)
+[**Collection&lt;EliminationAlliance&gt;**](EliminationAlliance.md)
 
 ### Authorization
 
@@ -659,11 +665,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventawards"></a>
 # **GetEventAwards**
-> List&lt;Award&gt; GetEventAwards (string eventKey, string? ifNoneMatch = null)
+> Collection&lt;Award&gt; GetEventAwards (string eventKey, string? ifNoneMatch = null)
 
 
 
@@ -674,12 +680,13 @@ Gets a list of awards from the given event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventAwardsExample
     {
         public static void Main()
@@ -700,7 +707,7 @@ namespace Example
 
             try
             {
-                List<Award> result = apiInstance.GetEventAwards(eventKey, ifNoneMatch);
+                Collection<Award> result = apiInstance.GetEventAwards(eventKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -720,7 +727,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<Award>> response = apiInstance.GetEventAwardsWithHttpInfo(eventKey, ifNoneMatch);
+    ApiResponse<Collection<Award>> response = apiInstance.GetEventAwardsWithHttpInfo(eventKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -742,7 +749,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;Award&gt;**](Award.md)
+[**Collection&lt;Award&gt;**](Award.md)
 
 ### Authorization
 
@@ -762,7 +769,7 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventcoprs"></a>
 # **GetEventCOPRs**
@@ -777,12 +784,13 @@ Gets a set of Event Component OPRs for the given Event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventCOPRsExample
     {
         public static void Main()
@@ -865,7 +873,7 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventdistrictpoints"></a>
 # **GetEventDistrictPoints**
@@ -880,12 +888,13 @@ Gets a list of team rankings for the Event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventDistrictPointsExample
     {
         public static void Main()
@@ -968,7 +977,7 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventinsights"></a>
 # **GetEventInsights**
@@ -983,12 +992,13 @@ Gets a set of Event-specific insights for the given Event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventInsightsExample
     {
         public static void Main()
@@ -1071,11 +1081,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventmatchtimeseries"></a>
 # **GetEventMatchTimeseries**
-> List&lt;string&gt; GetEventMatchTimeseries (string eventKey, string? ifNoneMatch = null)
+> Collection&lt;string&gt; GetEventMatchTimeseries (string eventKey, string? ifNoneMatch = null)
 
 
 
@@ -1086,12 +1096,13 @@ Gets an array of Match Keys for the given event key that have timeseries data. R
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventMatchTimeseriesExample
     {
         public static void Main()
@@ -1112,7 +1123,7 @@ namespace Example
 
             try
             {
-                List<string> result = apiInstance.GetEventMatchTimeseries(eventKey, ifNoneMatch);
+                Collection<string> result = apiInstance.GetEventMatchTimeseries(eventKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -1132,7 +1143,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<string>> response = apiInstance.GetEventMatchTimeseriesWithHttpInfo(eventKey, ifNoneMatch);
+    ApiResponse<Collection<string>> response = apiInstance.GetEventMatchTimeseriesWithHttpInfo(eventKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -1154,7 +1165,7 @@ catch (ApiException e)
 
 ### Return type
 
-**List<string>**
+**Collection<string>**
 
 ### Authorization
 
@@ -1174,11 +1185,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventmatches"></a>
 # **GetEventMatches**
-> List&lt;Match&gt; GetEventMatches (string eventKey, string? ifNoneMatch = null)
+> Collection&lt;Match&gt; GetEventMatches (string eventKey, string? ifNoneMatch = null)
 
 
 
@@ -1189,12 +1200,13 @@ Gets a list of matches for the given event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventMatchesExample
     {
         public static void Main()
@@ -1215,7 +1227,7 @@ namespace Example
 
             try
             {
-                List<Match> result = apiInstance.GetEventMatches(eventKey, ifNoneMatch);
+                Collection<Match> result = apiInstance.GetEventMatches(eventKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -1235,7 +1247,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<Match>> response = apiInstance.GetEventMatchesWithHttpInfo(eventKey, ifNoneMatch);
+    ApiResponse<Collection<Match>> response = apiInstance.GetEventMatchesWithHttpInfo(eventKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -1257,7 +1269,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;Match&gt;**](Match.md)
+[**Collection&lt;Match&gt;**](Match.md)
 
 ### Authorization
 
@@ -1277,11 +1289,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventmatcheskeys"></a>
 # **GetEventMatchesKeys**
-> List&lt;string&gt; GetEventMatchesKeys (string eventKey, string? ifNoneMatch = null)
+> Collection&lt;string&gt; GetEventMatchesKeys (string eventKey, string? ifNoneMatch = null)
 
 
 
@@ -1292,12 +1304,13 @@ Gets a list of match keys for the given event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventMatchesKeysExample
     {
         public static void Main()
@@ -1318,7 +1331,7 @@ namespace Example
 
             try
             {
-                List<string> result = apiInstance.GetEventMatchesKeys(eventKey, ifNoneMatch);
+                Collection<string> result = apiInstance.GetEventMatchesKeys(eventKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -1338,7 +1351,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<string>> response = apiInstance.GetEventMatchesKeysWithHttpInfo(eventKey, ifNoneMatch);
+    ApiResponse<Collection<string>> response = apiInstance.GetEventMatchesKeysWithHttpInfo(eventKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -1360,7 +1373,7 @@ catch (ApiException e)
 
 ### Return type
 
-**List<string>**
+**Collection<string>**
 
 ### Authorization
 
@@ -1380,11 +1393,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventmatchessimple"></a>
 # **GetEventMatchesSimple**
-> List&lt;MatchSimple&gt; GetEventMatchesSimple (string eventKey, string? ifNoneMatch = null)
+> Collection&lt;MatchSimple&gt; GetEventMatchesSimple (string eventKey, string? ifNoneMatch = null)
 
 
 
@@ -1395,12 +1408,13 @@ Gets a short-form list of matches for the given event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventMatchesSimpleExample
     {
         public static void Main()
@@ -1421,7 +1435,7 @@ namespace Example
 
             try
             {
-                List<MatchSimple> result = apiInstance.GetEventMatchesSimple(eventKey, ifNoneMatch);
+                Collection<MatchSimple> result = apiInstance.GetEventMatchesSimple(eventKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -1441,7 +1455,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<MatchSimple>> response = apiInstance.GetEventMatchesSimpleWithHttpInfo(eventKey, ifNoneMatch);
+    ApiResponse<Collection<MatchSimple>> response = apiInstance.GetEventMatchesSimpleWithHttpInfo(eventKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -1463,7 +1477,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;MatchSimple&gt;**](MatchSimple.md)
+[**Collection&lt;MatchSimple&gt;**](MatchSimple.md)
 
 ### Authorization
 
@@ -1483,7 +1497,7 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventoprs"></a>
 # **GetEventOPRs**
@@ -1498,12 +1512,13 @@ Gets a set of Event OPRs (including OPR, DPR, and CCWM) for the given Event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventOPRsExample
     {
         public static void Main()
@@ -1586,7 +1601,7 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventpredictions"></a>
 # **GetEventPredictions**
@@ -1601,12 +1616,13 @@ Gets information on TBA-generated predictions for the given Event. Contains year
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventPredictionsExample
     {
         public static void Main()
@@ -1689,7 +1705,7 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventrankings"></a>
 # **GetEventRankings**
@@ -1704,12 +1720,13 @@ Gets a list of team rankings for the Event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventRankingsExample
     {
         public static void Main()
@@ -1792,7 +1809,7 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventsimple"></a>
 # **GetEventSimple**
@@ -1807,12 +1824,13 @@ Gets a short-form Event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventSimpleExample
     {
         public static void Main()
@@ -1895,11 +1913,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventteammedia"></a>
 # **GetEventTeamMedia**
-> List&lt;Media&gt; GetEventTeamMedia (string eventKey, string? ifNoneMatch = null)
+> Collection&lt;Media&gt; GetEventTeamMedia (string eventKey, string? ifNoneMatch = null)
 
 
 
@@ -1910,12 +1928,13 @@ Gets a list of media objects that correspond to teams at this event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventTeamMediaExample
     {
         public static void Main()
@@ -1936,7 +1955,7 @@ namespace Example
 
             try
             {
-                List<Media> result = apiInstance.GetEventTeamMedia(eventKey, ifNoneMatch);
+                Collection<Media> result = apiInstance.GetEventTeamMedia(eventKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -1956,7 +1975,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<Media>> response = apiInstance.GetEventTeamMediaWithHttpInfo(eventKey, ifNoneMatch);
+    ApiResponse<Collection<Media>> response = apiInstance.GetEventTeamMediaWithHttpInfo(eventKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -1978,7 +1997,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;Media&gt;**](Media.md)
+[**Collection&lt;Media&gt;**](Media.md)
 
 ### Authorization
 
@@ -1998,11 +2017,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventteams"></a>
 # **GetEventTeams**
-> List&lt;Team&gt; GetEventTeams (string eventKey, string? ifNoneMatch = null)
+> Collection&lt;Team&gt; GetEventTeams (string eventKey, string? ifNoneMatch = null)
 
 
 
@@ -2013,12 +2032,13 @@ Gets a list of `Team` objects that competed in the given event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventTeamsExample
     {
         public static void Main()
@@ -2039,7 +2059,7 @@ namespace Example
 
             try
             {
-                List<Team> result = apiInstance.GetEventTeams(eventKey, ifNoneMatch);
+                Collection<Team> result = apiInstance.GetEventTeams(eventKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -2059,7 +2079,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<Team>> response = apiInstance.GetEventTeamsWithHttpInfo(eventKey, ifNoneMatch);
+    ApiResponse<Collection<Team>> response = apiInstance.GetEventTeamsWithHttpInfo(eventKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -2081,7 +2101,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;Team&gt;**](Team.md)
+[**Collection&lt;Team&gt;**](Team.md)
 
 ### Authorization
 
@@ -2101,11 +2121,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventteamskeys"></a>
 # **GetEventTeamsKeys**
-> List&lt;string&gt; GetEventTeamsKeys (string eventKey, string? ifNoneMatch = null)
+> Collection&lt;string&gt; GetEventTeamsKeys (string eventKey, string? ifNoneMatch = null)
 
 
 
@@ -2116,12 +2136,13 @@ Gets a list of `Team` keys that competed in the given event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventTeamsKeysExample
     {
         public static void Main()
@@ -2142,7 +2163,7 @@ namespace Example
 
             try
             {
-                List<string> result = apiInstance.GetEventTeamsKeys(eventKey, ifNoneMatch);
+                Collection<string> result = apiInstance.GetEventTeamsKeys(eventKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -2162,7 +2183,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<string>> response = apiInstance.GetEventTeamsKeysWithHttpInfo(eventKey, ifNoneMatch);
+    ApiResponse<Collection<string>> response = apiInstance.GetEventTeamsKeysWithHttpInfo(eventKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -2184,7 +2205,7 @@ catch (ApiException e)
 
 ### Return type
 
-**List<string>**
+**Collection<string>**
 
 ### Authorization
 
@@ -2204,11 +2225,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventteamssimple"></a>
 # **GetEventTeamsSimple**
-> List&lt;TeamSimple&gt; GetEventTeamsSimple (string eventKey, string? ifNoneMatch = null)
+> Collection&lt;TeamSimple&gt; GetEventTeamsSimple (string eventKey, string? ifNoneMatch = null)
 
 
 
@@ -2219,12 +2240,13 @@ Gets a short-form list of `Team` objects that competed in the given event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventTeamsSimpleExample
     {
         public static void Main()
@@ -2245,7 +2267,7 @@ namespace Example
 
             try
             {
-                List<TeamSimple> result = apiInstance.GetEventTeamsSimple(eventKey, ifNoneMatch);
+                Collection<TeamSimple> result = apiInstance.GetEventTeamsSimple(eventKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -2265,7 +2287,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<TeamSimple>> response = apiInstance.GetEventTeamsSimpleWithHttpInfo(eventKey, ifNoneMatch);
+    ApiResponse<Collection<TeamSimple>> response = apiInstance.GetEventTeamsSimpleWithHttpInfo(eventKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -2287,7 +2309,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;TeamSimple&gt;**](TeamSimple.md)
+[**Collection&lt;TeamSimple&gt;**](TeamSimple.md)
 
 ### Authorization
 
@@ -2307,7 +2329,7 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventteamsstatuses"></a>
 # **GetEventTeamsStatuses**
@@ -2322,12 +2344,13 @@ Gets a key-value list of the event statuses for teams competing at the given eve
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventTeamsStatusesExample
     {
         public static void Main()
@@ -2410,11 +2433,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventsbyyear"></a>
 # **GetEventsByYear**
-> List&lt;Event&gt; GetEventsByYear (int year, string? ifNoneMatch = null)
+> Collection&lt;Event&gt; GetEventsByYear (int year, string? ifNoneMatch = null)
 
 
 
@@ -2425,12 +2448,13 @@ Gets a list of events in the given year.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventsByYearExample
     {
         public static void Main()
@@ -2451,7 +2475,7 @@ namespace Example
 
             try
             {
-                List<Event> result = apiInstance.GetEventsByYear(year, ifNoneMatch);
+                Collection<Event> result = apiInstance.GetEventsByYear(year, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -2471,7 +2495,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<Event>> response = apiInstance.GetEventsByYearWithHttpInfo(year, ifNoneMatch);
+    ApiResponse<Collection<Event>> response = apiInstance.GetEventsByYearWithHttpInfo(year, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -2493,7 +2517,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;Event&gt;**](Event.md)
+[**Collection&lt;Event&gt;**](Event.md)
 
 ### Authorization
 
@@ -2513,11 +2537,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventsbyyearkeys"></a>
 # **GetEventsByYearKeys**
-> List&lt;string&gt; GetEventsByYearKeys (int year, string? ifNoneMatch = null)
+> Collection&lt;string&gt; GetEventsByYearKeys (int year, string? ifNoneMatch = null)
 
 
 
@@ -2528,12 +2552,13 @@ Gets a list of event keys in the given year.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventsByYearKeysExample
     {
         public static void Main()
@@ -2554,7 +2579,7 @@ namespace Example
 
             try
             {
-                List<string> result = apiInstance.GetEventsByYearKeys(year, ifNoneMatch);
+                Collection<string> result = apiInstance.GetEventsByYearKeys(year, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -2574,7 +2599,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<string>> response = apiInstance.GetEventsByYearKeysWithHttpInfo(year, ifNoneMatch);
+    ApiResponse<Collection<string>> response = apiInstance.GetEventsByYearKeysWithHttpInfo(year, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -2596,7 +2621,7 @@ catch (ApiException e)
 
 ### Return type
 
-**List<string>**
+**Collection<string>**
 
 ### Authorization
 
@@ -2616,11 +2641,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventsbyyearsimple"></a>
 # **GetEventsByYearSimple**
-> List&lt;EventSimple&gt; GetEventsByYearSimple (int year, string? ifNoneMatch = null)
+> Collection&lt;EventSimple&gt; GetEventsByYearSimple (int year, string? ifNoneMatch = null)
 
 
 
@@ -2631,12 +2656,13 @@ Gets a short-form list of events in the given year.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventsByYearSimpleExample
     {
         public static void Main()
@@ -2657,7 +2683,7 @@ namespace Example
 
             try
             {
-                List<EventSimple> result = apiInstance.GetEventsByYearSimple(year, ifNoneMatch);
+                Collection<EventSimple> result = apiInstance.GetEventsByYearSimple(year, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -2677,7 +2703,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<EventSimple>> response = apiInstance.GetEventsByYearSimpleWithHttpInfo(year, ifNoneMatch);
+    ApiResponse<Collection<EventSimple>> response = apiInstance.GetEventsByYearSimpleWithHttpInfo(year, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -2699,7 +2725,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;EventSimple&gt;**](EventSimple.md)
+[**Collection&lt;EventSimple&gt;**](EventSimple.md)
 
 ### Authorization
 
@@ -2719,11 +2745,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getteameventawards"></a>
 # **GetTeamEventAwards**
-> List&lt;Award&gt; GetTeamEventAwards (string teamKey, string eventKey, string? ifNoneMatch = null)
+> Collection&lt;Award&gt; GetTeamEventAwards (string eventKey, string teamKey, string? ifNoneMatch = null)
 
 
 
@@ -2734,12 +2760,13 @@ Gets a list of awards the given team won at the given event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetTeamEventAwardsExample
     {
         public static void Main()
@@ -2755,13 +2782,13 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new EventApi(httpClient, config, httpClientHandler);
-            var teamKey = "teamKey_example";  // string | TBA Team Key, eg `frc254`
             var eventKey = "eventKey_example";  // string | TBA Event Key, eg `2016nytr`
+            var teamKey = "teamKey_example";  // string | TBA Team Key, eg `frc254`
             var ifNoneMatch = "ifNoneMatch_example";  // string? | Value of the `ETag` header in the most recently cached response by the client. (optional) 
 
             try
             {
-                List<Award> result = apiInstance.GetTeamEventAwards(teamKey, eventKey, ifNoneMatch);
+                Collection<Award> result = apiInstance.GetTeamEventAwards(eventKey, teamKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -2781,7 +2808,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<Award>> response = apiInstance.GetTeamEventAwardsWithHttpInfo(teamKey, eventKey, ifNoneMatch);
+    ApiResponse<Collection<Award>> response = apiInstance.GetTeamEventAwardsWithHttpInfo(eventKey, teamKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -2798,13 +2825,13 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **teamKey** | **string** | TBA Team Key, eg &#x60;frc254&#x60; |  |
 | **eventKey** | **string** | TBA Event Key, eg &#x60;2016nytr&#x60; |  |
+| **teamKey** | **string** | TBA Team Key, eg &#x60;frc254&#x60; |  |
 | **ifNoneMatch** | **string?** | Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. | [optional]  |
 
 ### Return type
 
-[**List&lt;Award&gt;**](Award.md)
+[**Collection&lt;Award&gt;**](Award.md)
 
 ### Authorization
 
@@ -2824,11 +2851,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getteameventmatches"></a>
 # **GetTeamEventMatches**
-> List&lt;Match&gt; GetTeamEventMatches (string teamKey, string eventKey, string? ifNoneMatch = null)
+> Collection&lt;Match&gt; GetTeamEventMatches (string eventKey, string teamKey, string? ifNoneMatch = null)
 
 
 
@@ -2839,12 +2866,13 @@ Gets a list of matches for the given team and event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetTeamEventMatchesExample
     {
         public static void Main()
@@ -2860,13 +2888,13 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new EventApi(httpClient, config, httpClientHandler);
-            var teamKey = "teamKey_example";  // string | TBA Team Key, eg `frc254`
             var eventKey = "eventKey_example";  // string | TBA Event Key, eg `2016nytr`
+            var teamKey = "teamKey_example";  // string | TBA Team Key, eg `frc254`
             var ifNoneMatch = "ifNoneMatch_example";  // string? | Value of the `ETag` header in the most recently cached response by the client. (optional) 
 
             try
             {
-                List<Match> result = apiInstance.GetTeamEventMatches(teamKey, eventKey, ifNoneMatch);
+                Collection<Match> result = apiInstance.GetTeamEventMatches(eventKey, teamKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -2886,7 +2914,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<Match>> response = apiInstance.GetTeamEventMatchesWithHttpInfo(teamKey, eventKey, ifNoneMatch);
+    ApiResponse<Collection<Match>> response = apiInstance.GetTeamEventMatchesWithHttpInfo(eventKey, teamKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -2903,13 +2931,13 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **teamKey** | **string** | TBA Team Key, eg &#x60;frc254&#x60; |  |
 | **eventKey** | **string** | TBA Event Key, eg &#x60;2016nytr&#x60; |  |
+| **teamKey** | **string** | TBA Team Key, eg &#x60;frc254&#x60; |  |
 | **ifNoneMatch** | **string?** | Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. | [optional]  |
 
 ### Return type
 
-[**List&lt;Match&gt;**](Match.md)
+[**Collection&lt;Match&gt;**](Match.md)
 
 ### Authorization
 
@@ -2929,11 +2957,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getteameventmatcheskeys"></a>
 # **GetTeamEventMatchesKeys**
-> List&lt;string&gt; GetTeamEventMatchesKeys (string teamKey, string eventKey, string? ifNoneMatch = null)
+> Collection&lt;string&gt; GetTeamEventMatchesKeys (string eventKey, string teamKey, string? ifNoneMatch = null)
 
 
 
@@ -2944,12 +2972,13 @@ Gets a list of match keys for matches for the given team and event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetTeamEventMatchesKeysExample
     {
         public static void Main()
@@ -2965,13 +2994,13 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new EventApi(httpClient, config, httpClientHandler);
-            var teamKey = "teamKey_example";  // string | TBA Team Key, eg `frc254`
             var eventKey = "eventKey_example";  // string | TBA Event Key, eg `2016nytr`
+            var teamKey = "teamKey_example";  // string | TBA Team Key, eg `frc254`
             var ifNoneMatch = "ifNoneMatch_example";  // string? | Value of the `ETag` header in the most recently cached response by the client. (optional) 
 
             try
             {
-                List<string> result = apiInstance.GetTeamEventMatchesKeys(teamKey, eventKey, ifNoneMatch);
+                Collection<string> result = apiInstance.GetTeamEventMatchesKeys(eventKey, teamKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -2991,7 +3020,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<string>> response = apiInstance.GetTeamEventMatchesKeysWithHttpInfo(teamKey, eventKey, ifNoneMatch);
+    ApiResponse<Collection<string>> response = apiInstance.GetTeamEventMatchesKeysWithHttpInfo(eventKey, teamKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -3008,13 +3037,13 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **teamKey** | **string** | TBA Team Key, eg &#x60;frc254&#x60; |  |
 | **eventKey** | **string** | TBA Event Key, eg &#x60;2016nytr&#x60; |  |
+| **teamKey** | **string** | TBA Team Key, eg &#x60;frc254&#x60; |  |
 | **ifNoneMatch** | **string?** | Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. | [optional]  |
 
 ### Return type
 
-**List<string>**
+**Collection<string>**
 
 ### Authorization
 
@@ -3034,11 +3063,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getteameventmatchessimple"></a>
 # **GetTeamEventMatchesSimple**
-> List&lt;Match&gt; GetTeamEventMatchesSimple (string teamKey, string eventKey, string? ifNoneMatch = null)
+> Collection&lt;Match&gt; GetTeamEventMatchesSimple (string eventKey, string teamKey, string? ifNoneMatch = null)
 
 
 
@@ -3049,12 +3078,13 @@ Gets a short-form list of matches for the given team and event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetTeamEventMatchesSimpleExample
     {
         public static void Main()
@@ -3070,13 +3100,13 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new EventApi(httpClient, config, httpClientHandler);
-            var teamKey = "teamKey_example";  // string | TBA Team Key, eg `frc254`
             var eventKey = "eventKey_example";  // string | TBA Event Key, eg `2016nytr`
+            var teamKey = "teamKey_example";  // string | TBA Team Key, eg `frc254`
             var ifNoneMatch = "ifNoneMatch_example";  // string? | Value of the `ETag` header in the most recently cached response by the client. (optional) 
 
             try
             {
-                List<Match> result = apiInstance.GetTeamEventMatchesSimple(teamKey, eventKey, ifNoneMatch);
+                Collection<Match> result = apiInstance.GetTeamEventMatchesSimple(eventKey, teamKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -3096,7 +3126,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<Match>> response = apiInstance.GetTeamEventMatchesSimpleWithHttpInfo(teamKey, eventKey, ifNoneMatch);
+    ApiResponse<Collection<Match>> response = apiInstance.GetTeamEventMatchesSimpleWithHttpInfo(eventKey, teamKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -3113,13 +3143,13 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **teamKey** | **string** | TBA Team Key, eg &#x60;frc254&#x60; |  |
 | **eventKey** | **string** | TBA Event Key, eg &#x60;2016nytr&#x60; |  |
+| **teamKey** | **string** | TBA Team Key, eg &#x60;frc254&#x60; |  |
 | **ifNoneMatch** | **string?** | Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. | [optional]  |
 
 ### Return type
 
-[**List&lt;Match&gt;**](Match.md)
+[**Collection&lt;Match&gt;**](Match.md)
 
 ### Authorization
 
@@ -3139,11 +3169,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getteameventstatus"></a>
 # **GetTeamEventStatus**
-> TeamEventStatus GetTeamEventStatus (string teamKey, string eventKey, string? ifNoneMatch = null)
+> TeamEventStatus GetTeamEventStatus (string eventKey, string teamKey, string? ifNoneMatch = null)
 
 
 
@@ -3154,12 +3184,13 @@ Gets the competition rank and status of the team at the given event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetTeamEventStatusExample
     {
         public static void Main()
@@ -3175,13 +3206,13 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new EventApi(httpClient, config, httpClientHandler);
-            var teamKey = "teamKey_example";  // string | TBA Team Key, eg `frc254`
             var eventKey = "eventKey_example";  // string | TBA Event Key, eg `2016nytr`
+            var teamKey = "teamKey_example";  // string | TBA Team Key, eg `frc254`
             var ifNoneMatch = "ifNoneMatch_example";  // string? | Value of the `ETag` header in the most recently cached response by the client. (optional) 
 
             try
             {
-                TeamEventStatus result = apiInstance.GetTeamEventStatus(teamKey, eventKey, ifNoneMatch);
+                TeamEventStatus result = apiInstance.GetTeamEventStatus(eventKey, teamKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -3201,7 +3232,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<TeamEventStatus> response = apiInstance.GetTeamEventStatusWithHttpInfo(teamKey, eventKey, ifNoneMatch);
+    ApiResponse<TeamEventStatus> response = apiInstance.GetTeamEventStatusWithHttpInfo(eventKey, teamKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -3218,8 +3249,8 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **teamKey** | **string** | TBA Team Key, eg &#x60;frc254&#x60; |  |
 | **eventKey** | **string** | TBA Event Key, eg &#x60;2016nytr&#x60; |  |
+| **teamKey** | **string** | TBA Team Key, eg &#x60;frc254&#x60; |  |
 | **ifNoneMatch** | **string?** | Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. | [optional]  |
 
 ### Return type
@@ -3244,11 +3275,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getteamevents"></a>
 # **GetTeamEvents**
-> List&lt;Event&gt; GetTeamEvents (string teamKey, string? ifNoneMatch = null)
+> Collection&lt;Event&gt; GetTeamEvents (string teamKey, string? ifNoneMatch = null)
 
 
 
@@ -3259,12 +3290,13 @@ Gets a list of all events this team has competed at.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetTeamEventsExample
     {
         public static void Main()
@@ -3285,7 +3317,7 @@ namespace Example
 
             try
             {
-                List<Event> result = apiInstance.GetTeamEvents(teamKey, ifNoneMatch);
+                Collection<Event> result = apiInstance.GetTeamEvents(teamKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -3305,7 +3337,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<Event>> response = apiInstance.GetTeamEventsWithHttpInfo(teamKey, ifNoneMatch);
+    ApiResponse<Collection<Event>> response = apiInstance.GetTeamEventsWithHttpInfo(teamKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -3327,7 +3359,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;Event&gt;**](Event.md)
+[**Collection&lt;Event&gt;**](Event.md)
 
 ### Authorization
 
@@ -3347,11 +3379,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getteameventsbyyear"></a>
 # **GetTeamEventsByYear**
-> List&lt;Event&gt; GetTeamEventsByYear (string teamKey, int year, string? ifNoneMatch = null)
+> Collection&lt;Event&gt; GetTeamEventsByYear (string teamKey, int year, string? ifNoneMatch = null)
 
 
 
@@ -3362,12 +3394,13 @@ Gets a list of events this team has competed at in the given year.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetTeamEventsByYearExample
     {
         public static void Main()
@@ -3389,7 +3422,7 @@ namespace Example
 
             try
             {
-                List<Event> result = apiInstance.GetTeamEventsByYear(teamKey, year, ifNoneMatch);
+                Collection<Event> result = apiInstance.GetTeamEventsByYear(teamKey, year, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -3409,7 +3442,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<Event>> response = apiInstance.GetTeamEventsByYearWithHttpInfo(teamKey, year, ifNoneMatch);
+    ApiResponse<Collection<Event>> response = apiInstance.GetTeamEventsByYearWithHttpInfo(teamKey, year, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -3432,7 +3465,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;Event&gt;**](Event.md)
+[**Collection&lt;Event&gt;**](Event.md)
 
 ### Authorization
 
@@ -3452,11 +3485,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getteameventsbyyearkeys"></a>
 # **GetTeamEventsByYearKeys**
-> List&lt;string&gt; GetTeamEventsByYearKeys (string teamKey, int year, string? ifNoneMatch = null)
+> Collection&lt;string&gt; GetTeamEventsByYearKeys (string teamKey, int year, string? ifNoneMatch = null)
 
 
 
@@ -3467,12 +3500,13 @@ Gets a list of the event keys for events this team has competed at in the given 
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetTeamEventsByYearKeysExample
     {
         public static void Main()
@@ -3494,7 +3528,7 @@ namespace Example
 
             try
             {
-                List<string> result = apiInstance.GetTeamEventsByYearKeys(teamKey, year, ifNoneMatch);
+                Collection<string> result = apiInstance.GetTeamEventsByYearKeys(teamKey, year, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -3514,7 +3548,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<string>> response = apiInstance.GetTeamEventsByYearKeysWithHttpInfo(teamKey, year, ifNoneMatch);
+    ApiResponse<Collection<string>> response = apiInstance.GetTeamEventsByYearKeysWithHttpInfo(teamKey, year, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -3537,7 +3571,7 @@ catch (ApiException e)
 
 ### Return type
 
-**List<string>**
+**Collection<string>**
 
 ### Authorization
 
@@ -3557,11 +3591,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getteameventsbyyearsimple"></a>
 # **GetTeamEventsByYearSimple**
-> List&lt;EventSimple&gt; GetTeamEventsByYearSimple (string teamKey, int year, string? ifNoneMatch = null)
+> Collection&lt;EventSimple&gt; GetTeamEventsByYearSimple (string teamKey, int year, string? ifNoneMatch = null)
 
 
 
@@ -3572,12 +3606,13 @@ Gets a short-form list of events this team has competed at in the given year.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetTeamEventsByYearSimpleExample
     {
         public static void Main()
@@ -3599,7 +3634,7 @@ namespace Example
 
             try
             {
-                List<EventSimple> result = apiInstance.GetTeamEventsByYearSimple(teamKey, year, ifNoneMatch);
+                Collection<EventSimple> result = apiInstance.GetTeamEventsByYearSimple(teamKey, year, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -3619,7 +3654,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<EventSimple>> response = apiInstance.GetTeamEventsByYearSimpleWithHttpInfo(teamKey, year, ifNoneMatch);
+    ApiResponse<Collection<EventSimple>> response = apiInstance.GetTeamEventsByYearSimpleWithHttpInfo(teamKey, year, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -3642,7 +3677,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;EventSimple&gt;**](EventSimple.md)
+[**Collection&lt;EventSimple&gt;**](EventSimple.md)
 
 ### Authorization
 
@@ -3662,11 +3697,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getteameventskeys"></a>
 # **GetTeamEventsKeys**
-> List&lt;string&gt; GetTeamEventsKeys (string teamKey, string? ifNoneMatch = null)
+> Collection&lt;string&gt; GetTeamEventsKeys (string teamKey, string? ifNoneMatch = null)
 
 
 
@@ -3677,12 +3712,13 @@ Gets a list of the event keys for all events this team has competed at.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetTeamEventsKeysExample
     {
         public static void Main()
@@ -3703,7 +3739,7 @@ namespace Example
 
             try
             {
-                List<string> result = apiInstance.GetTeamEventsKeys(teamKey, ifNoneMatch);
+                Collection<string> result = apiInstance.GetTeamEventsKeys(teamKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -3723,7 +3759,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<string>> response = apiInstance.GetTeamEventsKeysWithHttpInfo(teamKey, ifNoneMatch);
+    ApiResponse<Collection<string>> response = apiInstance.GetTeamEventsKeysWithHttpInfo(teamKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -3745,7 +3781,7 @@ catch (ApiException e)
 
 ### Return type
 
-**List<string>**
+**Collection<string>**
 
 ### Authorization
 
@@ -3765,11 +3801,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getteameventssimple"></a>
 # **GetTeamEventsSimple**
-> List&lt;EventSimple&gt; GetTeamEventsSimple (string teamKey, string? ifNoneMatch = null)
+> Collection&lt;EventSimple&gt; GetTeamEventsSimple (string teamKey, string? ifNoneMatch = null)
 
 
 
@@ -3780,12 +3816,13 @@ Gets a short-form list of all events this team has competed at.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetTeamEventsSimpleExample
     {
         public static void Main()
@@ -3806,7 +3843,7 @@ namespace Example
 
             try
             {
-                List<EventSimple> result = apiInstance.GetTeamEventsSimple(teamKey, ifNoneMatch);
+                Collection<EventSimple> result = apiInstance.GetTeamEventsSimple(teamKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -3826,7 +3863,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<EventSimple>> response = apiInstance.GetTeamEventsSimpleWithHttpInfo(teamKey, ifNoneMatch);
+    ApiResponse<Collection<EventSimple>> response = apiInstance.GetTeamEventsSimpleWithHttpInfo(teamKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -3848,7 +3885,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;EventSimple&gt;**](EventSimple.md)
+[**Collection&lt;EventSimple&gt;**](EventSimple.md)
 
 ### Authorization
 
@@ -3868,7 +3905,7 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getteameventsstatusesbyyear"></a>
 # **GetTeamEventsStatusesByYear**
@@ -3883,12 +3920,13 @@ Gets a key-value list of the event statuses for events this team has competed at
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetTeamEventsStatusesByYearExample
     {
         public static void Main()
@@ -3973,5 +4011,5 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 

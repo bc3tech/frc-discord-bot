@@ -1,4 +1,4 @@
-# TheBlueAlliance.Api.Api.DistrictApi
+# TheBlueAlliance.Api.DistrictApi
 
 All URIs are relative to *https://www.thebluealliance.com/api/v3*
 
@@ -19,7 +19,7 @@ All URIs are relative to *https://www.thebluealliance.com/api/v3*
 
 <a id="getdistrictawards"></a>
 # **GetDistrictAwards**
-> List&lt;Award&gt; GetDistrictAwards (string districtKey, string? ifNoneMatch = null)
+> Collection&lt;Award&gt; GetDistrictAwards (string districtKey, string? ifNoneMatch = null)
 
 
 
@@ -30,12 +30,13 @@ Gets a list of awards in the given district.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetDistrictAwardsExample
     {
         public static void Main()
@@ -56,7 +57,7 @@ namespace Example
 
             try
             {
-                List<Award> result = apiInstance.GetDistrictAwards(districtKey, ifNoneMatch);
+                Collection<Award> result = apiInstance.GetDistrictAwards(districtKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -76,7 +77,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<Award>> response = apiInstance.GetDistrictAwardsWithHttpInfo(districtKey, ifNoneMatch);
+    ApiResponse<Collection<Award>> response = apiInstance.GetDistrictAwardsWithHttpInfo(districtKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -98,7 +99,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;Award&gt;**](Award.md)
+[**Collection&lt;Award&gt;**](Award.md)
 
 ### Authorization
 
@@ -118,11 +119,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getdistrictevents"></a>
 # **GetDistrictEvents**
-> List&lt;Event&gt; GetDistrictEvents (string districtKey, string? ifNoneMatch = null)
+> Collection&lt;Event&gt; GetDistrictEvents (string districtKey, string? ifNoneMatch = null)
 
 
 
@@ -133,12 +134,13 @@ Gets a list of events in the given district.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetDistrictEventsExample
     {
         public static void Main()
@@ -159,7 +161,7 @@ namespace Example
 
             try
             {
-                List<Event> result = apiInstance.GetDistrictEvents(districtKey, ifNoneMatch);
+                Collection<Event> result = apiInstance.GetDistrictEvents(districtKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -179,7 +181,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<Event>> response = apiInstance.GetDistrictEventsWithHttpInfo(districtKey, ifNoneMatch);
+    ApiResponse<Collection<Event>> response = apiInstance.GetDistrictEventsWithHttpInfo(districtKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -201,7 +203,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;Event&gt;**](Event.md)
+[**Collection&lt;Event&gt;**](Event.md)
 
 ### Authorization
 
@@ -221,11 +223,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getdistricteventskeys"></a>
 # **GetDistrictEventsKeys**
-> List&lt;string&gt; GetDistrictEventsKeys (string districtKey, string? ifNoneMatch = null)
+> Collection&lt;string&gt; GetDistrictEventsKeys (string districtKey, string? ifNoneMatch = null)
 
 
 
@@ -236,12 +238,13 @@ Gets a list of event keys for events in the given district.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetDistrictEventsKeysExample
     {
         public static void Main()
@@ -262,7 +265,7 @@ namespace Example
 
             try
             {
-                List<string> result = apiInstance.GetDistrictEventsKeys(districtKey, ifNoneMatch);
+                Collection<string> result = apiInstance.GetDistrictEventsKeys(districtKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -282,7 +285,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<string>> response = apiInstance.GetDistrictEventsKeysWithHttpInfo(districtKey, ifNoneMatch);
+    ApiResponse<Collection<string>> response = apiInstance.GetDistrictEventsKeysWithHttpInfo(districtKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -304,7 +307,7 @@ catch (ApiException e)
 
 ### Return type
 
-**List<string>**
+**Collection<string>**
 
 ### Authorization
 
@@ -324,11 +327,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getdistricteventssimple"></a>
 # **GetDistrictEventsSimple**
-> List&lt;EventSimple&gt; GetDistrictEventsSimple (string districtKey, string? ifNoneMatch = null)
+> Collection&lt;EventSimple&gt; GetDistrictEventsSimple (string districtKey, string? ifNoneMatch = null)
 
 
 
@@ -339,12 +342,13 @@ Gets a short-form list of events in the given district.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetDistrictEventsSimpleExample
     {
         public static void Main()
@@ -365,7 +369,7 @@ namespace Example
 
             try
             {
-                List<EventSimple> result = apiInstance.GetDistrictEventsSimple(districtKey, ifNoneMatch);
+                Collection<EventSimple> result = apiInstance.GetDistrictEventsSimple(districtKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -385,7 +389,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<EventSimple>> response = apiInstance.GetDistrictEventsSimpleWithHttpInfo(districtKey, ifNoneMatch);
+    ApiResponse<Collection<EventSimple>> response = apiInstance.GetDistrictEventsSimpleWithHttpInfo(districtKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -407,7 +411,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;EventSimple&gt;**](EventSimple.md)
+[**Collection&lt;EventSimple&gt;**](EventSimple.md)
 
 ### Authorization
 
@@ -427,11 +431,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getdistricthistory"></a>
 # **GetDistrictHistory**
-> List&lt;DistrictList&gt; GetDistrictHistory (string districtAbbreviation, string? ifNoneMatch = null)
+> Collection&lt;DistrictList&gt; GetDistrictHistory (string districtAbbreviation, string? ifNoneMatch = null)
 
 
 
@@ -442,12 +446,13 @@ Gets a list of District objects with the given district abbreviation. This accou
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetDistrictHistoryExample
     {
         public static void Main()
@@ -468,7 +473,7 @@ namespace Example
 
             try
             {
-                List<DistrictList> result = apiInstance.GetDistrictHistory(districtAbbreviation, ifNoneMatch);
+                Collection<DistrictList> result = apiInstance.GetDistrictHistory(districtAbbreviation, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -488,7 +493,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<DistrictList>> response = apiInstance.GetDistrictHistoryWithHttpInfo(districtAbbreviation, ifNoneMatch);
+    ApiResponse<Collection<DistrictList>> response = apiInstance.GetDistrictHistoryWithHttpInfo(districtAbbreviation, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -510,7 +515,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;DistrictList&gt;**](DistrictList.md)
+[**Collection&lt;DistrictList&gt;**](DistrictList.md)
 
 ### Authorization
 
@@ -530,11 +535,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getdistrictrankings"></a>
 # **GetDistrictRankings**
-> List&lt;DistrictRanking&gt; GetDistrictRankings (string districtKey, string? ifNoneMatch = null)
+> Collection&lt;DistrictRanking&gt; GetDistrictRankings (string districtKey, string? ifNoneMatch = null)
 
 
 
@@ -545,12 +550,13 @@ Gets a list of team district rankings for the given district.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetDistrictRankingsExample
     {
         public static void Main()
@@ -571,7 +577,7 @@ namespace Example
 
             try
             {
-                List<DistrictRanking> result = apiInstance.GetDistrictRankings(districtKey, ifNoneMatch);
+                Collection<DistrictRanking> result = apiInstance.GetDistrictRankings(districtKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -591,7 +597,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<DistrictRanking>> response = apiInstance.GetDistrictRankingsWithHttpInfo(districtKey, ifNoneMatch);
+    ApiResponse<Collection<DistrictRanking>> response = apiInstance.GetDistrictRankingsWithHttpInfo(districtKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -613,7 +619,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;DistrictRanking&gt;**](DistrictRanking.md)
+[**Collection&lt;DistrictRanking&gt;**](DistrictRanking.md)
 
 ### Authorization
 
@@ -633,11 +639,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getdistrictteams"></a>
 # **GetDistrictTeams**
-> List&lt;Team&gt; GetDistrictTeams (string districtKey, string? ifNoneMatch = null)
+> Collection&lt;Team&gt; GetDistrictTeams (string districtKey, string? ifNoneMatch = null)
 
 
 
@@ -648,12 +654,13 @@ Gets a list of `Team` objects that competed in events in the given district.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetDistrictTeamsExample
     {
         public static void Main()
@@ -674,7 +681,7 @@ namespace Example
 
             try
             {
-                List<Team> result = apiInstance.GetDistrictTeams(districtKey, ifNoneMatch);
+                Collection<Team> result = apiInstance.GetDistrictTeams(districtKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -694,7 +701,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<Team>> response = apiInstance.GetDistrictTeamsWithHttpInfo(districtKey, ifNoneMatch);
+    ApiResponse<Collection<Team>> response = apiInstance.GetDistrictTeamsWithHttpInfo(districtKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -716,7 +723,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;Team&gt;**](Team.md)
+[**Collection&lt;Team&gt;**](Team.md)
 
 ### Authorization
 
@@ -736,11 +743,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getdistrictteamskeys"></a>
 # **GetDistrictTeamsKeys**
-> List&lt;string&gt; GetDistrictTeamsKeys (string districtKey, string? ifNoneMatch = null)
+> Collection&lt;string&gt; GetDistrictTeamsKeys (string districtKey, string? ifNoneMatch = null)
 
 
 
@@ -751,12 +758,13 @@ Gets a list of `Team` objects that competed in events in the given district.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetDistrictTeamsKeysExample
     {
         public static void Main()
@@ -777,7 +785,7 @@ namespace Example
 
             try
             {
-                List<string> result = apiInstance.GetDistrictTeamsKeys(districtKey, ifNoneMatch);
+                Collection<string> result = apiInstance.GetDistrictTeamsKeys(districtKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -797,7 +805,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<string>> response = apiInstance.GetDistrictTeamsKeysWithHttpInfo(districtKey, ifNoneMatch);
+    ApiResponse<Collection<string>> response = apiInstance.GetDistrictTeamsKeysWithHttpInfo(districtKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -819,7 +827,7 @@ catch (ApiException e)
 
 ### Return type
 
-**List<string>**
+**Collection<string>**
 
 ### Authorization
 
@@ -839,11 +847,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getdistrictteamssimple"></a>
 # **GetDistrictTeamsSimple**
-> List&lt;TeamSimple&gt; GetDistrictTeamsSimple (string districtKey, string? ifNoneMatch = null)
+> Collection&lt;TeamSimple&gt; GetDistrictTeamsSimple (string districtKey, string? ifNoneMatch = null)
 
 
 
@@ -854,12 +862,13 @@ Gets a short-form list of `Team` objects that competed in events in the given di
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetDistrictTeamsSimpleExample
     {
         public static void Main()
@@ -880,7 +889,7 @@ namespace Example
 
             try
             {
-                List<TeamSimple> result = apiInstance.GetDistrictTeamsSimple(districtKey, ifNoneMatch);
+                Collection<TeamSimple> result = apiInstance.GetDistrictTeamsSimple(districtKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -900,7 +909,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<TeamSimple>> response = apiInstance.GetDistrictTeamsSimpleWithHttpInfo(districtKey, ifNoneMatch);
+    ApiResponse<Collection<TeamSimple>> response = apiInstance.GetDistrictTeamsSimpleWithHttpInfo(districtKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -922,7 +931,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;TeamSimple&gt;**](TeamSimple.md)
+[**Collection&lt;TeamSimple&gt;**](TeamSimple.md)
 
 ### Authorization
 
@@ -942,11 +951,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getdistrictsbyyear"></a>
 # **GetDistrictsByYear**
-> List&lt;DistrictList&gt; GetDistrictsByYear (int year, string? ifNoneMatch = null)
+> Collection&lt;DistrictList&gt; GetDistrictsByYear (int year, string? ifNoneMatch = null)
 
 
 
@@ -957,12 +966,13 @@ Gets a list of districts and their corresponding district key, for the given yea
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetDistrictsByYearExample
     {
         public static void Main()
@@ -983,7 +993,7 @@ namespace Example
 
             try
             {
-                List<DistrictList> result = apiInstance.GetDistrictsByYear(year, ifNoneMatch);
+                Collection<DistrictList> result = apiInstance.GetDistrictsByYear(year, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -1003,7 +1013,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<DistrictList>> response = apiInstance.GetDistrictsByYearWithHttpInfo(year, ifNoneMatch);
+    ApiResponse<Collection<DistrictList>> response = apiInstance.GetDistrictsByYearWithHttpInfo(year, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -1025,7 +1035,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;DistrictList&gt;**](DistrictList.md)
+[**Collection&lt;DistrictList&gt;**](DistrictList.md)
 
 ### Authorization
 
@@ -1045,7 +1055,7 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="geteventdistrictpoints"></a>
 # **GetEventDistrictPoints**
@@ -1060,12 +1070,13 @@ Gets a list of team rankings for the Event.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetEventDistrictPointsExample
     {
         public static void Main()
@@ -1148,11 +1159,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getteamdistricts"></a>
 # **GetTeamDistricts**
-> List&lt;DistrictList&gt; GetTeamDistricts (string teamKey, string? ifNoneMatch = null)
+> Collection&lt;DistrictList&gt; GetTeamDistricts (string teamKey, string? ifNoneMatch = null)
 
 
 
@@ -1163,12 +1174,13 @@ Gets an array of districts representing each year the team was in a district. Wi
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetTeamDistrictsExample
     {
         public static void Main()
@@ -1189,7 +1201,7 @@ namespace Example
 
             try
             {
-                List<DistrictList> result = apiInstance.GetTeamDistricts(teamKey, ifNoneMatch);
+                Collection<DistrictList> result = apiInstance.GetTeamDistricts(teamKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -1209,7 +1221,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<DistrictList>> response = apiInstance.GetTeamDistrictsWithHttpInfo(teamKey, ifNoneMatch);
+    ApiResponse<Collection<DistrictList>> response = apiInstance.GetTeamDistrictsWithHttpInfo(teamKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -1231,7 +1243,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;DistrictList&gt;**](DistrictList.md)
+[**Collection&lt;DistrictList&gt;**](DistrictList.md)
 
 ### Authorization
 
@@ -1251,5 +1263,5 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 

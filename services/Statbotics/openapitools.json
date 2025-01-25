@@ -4,28 +4,10 @@
   "generator-cli": {
     "version": "7.11.0"
   },
-  "additionalProperties": {
-    "library": "httpclient",
-    "modelPropertySorting": "alphabetical",
-    "netCoreProjectFile": true,
-    "nonPublicApi": true,
-    "nullableReferenceTypes": true,
-    "operationParameterSorting": "alphabetical",
-    "packageName": "Statbotics",
-    "returnICollection": true,
-    "targetFramework": "net8.0",
-    "useCollection": true,
-    "useDateTimeOffset": true,
-    "useCPM": true,
-    "useGenericHost": true,
-    "validatable": false,
-
-    "supportsFileParameters": false
-  },
-  "files": {
-    "Directory.Packages.props.mustache": {
-      "destinationFilename": "Directory.Packages.props",
-      "templateType": "SupportingFiles"
+  "supportingFiles": [
+    {
+      "templateFile": "Directory.Build.props.mustache",
+      "destinationFilename": "Directory.Build.props"
     }
-  }
+  ]
 }

@@ -1,4 +1,4 @@
-# TheBlueAlliance.Api.Api.InsightApi
+# TheBlueAlliance.Api.InsightApi
 
 All URIs are relative to *https://www.thebluealliance.com/api/v3*
 
@@ -9,7 +9,7 @@ All URIs are relative to *https://www.thebluealliance.com/api/v3*
 
 <a id="getinsightsleaderboardsyear"></a>
 # **GetInsightsLeaderboardsYear**
-> List&lt;LeaderboardInsight&gt; GetInsightsLeaderboardsYear (int year, string? ifNoneMatch = null)
+> Collection&lt;LeaderboardInsight&gt; GetInsightsLeaderboardsYear (int year, string? ifNoneMatch = null)
 
 
 
@@ -20,12 +20,13 @@ Gets a list of `LeaderboardInsight` objects from a specific year. Use year=0 for
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetInsightsLeaderboardsYearExample
     {
         public static void Main()
@@ -46,7 +47,7 @@ namespace Example
 
             try
             {
-                List<LeaderboardInsight> result = apiInstance.GetInsightsLeaderboardsYear(year, ifNoneMatch);
+                Collection<LeaderboardInsight> result = apiInstance.GetInsightsLeaderboardsYear(year, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -66,7 +67,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<LeaderboardInsight>> response = apiInstance.GetInsightsLeaderboardsYearWithHttpInfo(year, ifNoneMatch);
+    ApiResponse<Collection<LeaderboardInsight>> response = apiInstance.GetInsightsLeaderboardsYearWithHttpInfo(year, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -88,7 +89,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;LeaderboardInsight&gt;**](LeaderboardInsight.md)
+[**Collection&lt;LeaderboardInsight&gt;**](LeaderboardInsight.md)
 
 ### Authorization
 
@@ -108,11 +109,11 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getinsightsnotablesyear"></a>
 # **GetInsightsNotablesYear**
-> List&lt;NotablesInsight&gt; GetInsightsNotablesYear (int year, string? ifNoneMatch = null)
+> Collection&lt;NotablesInsight&gt; GetInsightsNotablesYear (int year, string? ifNoneMatch = null)
 
 
 
@@ -123,12 +124,13 @@ Gets a list of `NotablesInsight` objects from a specific year. Use year=0 for ov
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using TheBlueAlliance.Api.Api;
-using TheBlueAlliance.Api.Client;
-using TheBlueAlliance.Api.Model;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 namespace Example
-{
+
+
     public class GetInsightsNotablesYearExample
     {
         public static void Main()
@@ -149,7 +151,7 @@ namespace Example
 
             try
             {
-                List<NotablesInsight> result = apiInstance.GetInsightsNotablesYear(year, ifNoneMatch);
+                Collection<NotablesInsight> result = apiInstance.GetInsightsNotablesYear(year, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -169,7 +171,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<List<NotablesInsight>> response = apiInstance.GetInsightsNotablesYearWithHttpInfo(year, ifNoneMatch);
+    ApiResponse<Collection<NotablesInsight>> response = apiInstance.GetInsightsNotablesYearWithHttpInfo(year, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -191,7 +193,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**List&lt;NotablesInsight&gt;**](NotablesInsight.md)
+[**Collection&lt;NotablesInsight&gt;**](NotablesInsight.md)
 
 ### Authorization
 
@@ -211,5 +213,5 @@ catch (ApiException e)
 | **401** | Authorization information is missing or invalid. |  -  |
 | **404** | Not Found |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 

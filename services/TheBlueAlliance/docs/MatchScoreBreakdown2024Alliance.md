@@ -1,4 +1,4 @@
-# TheBlueAlliance.Api.Model.MatchScoreBreakdown2024Alliance
+# TheBlueAlliance.Model.MatchScoreBreakdown2024Alliance
 
 ## Properties
 
@@ -57,5 +57,5 @@ Name | Type | Description | Notes
 **TrapStageLeft** | **bool** |  | [optional] 
 **TrapStageRight** | **bool** |  | [optional] 
 
-[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+[[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

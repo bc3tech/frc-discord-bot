@@ -26,7 +26,7 @@ using System.Net.Http.Headers;
 /// <summary>
 /// To Serialize/Deserialize JSON using our custom logic, but only when ContentType is JSON.
 /// </summary>
-internal class CustomJsonCodec
+internal sealed partial class CustomJsonCodec
 {
   private readonly IReadableConfiguration _configuration;
   private static readonly string _contentType = "application/json";
@@ -81,7 +81,7 @@ internal class CustomJsonCodec
   /// <returns>object representation of the JSON string.</returns>
   internal async Task<object?> DeserializeAsync(HttpResponseMessage response, Type type, CancellationToken cancellationToken = default)
   {
-    IList<string> headers = response.Headers.Select(x => x.Key + "=" + x.Value).ToList();
+    IList<string> headers = [.. response.Headers.Select(x => x.Key + "=" + x.Value)];
     
     if (type == typeof(byte[])) // return byte array
     {
@@ -103,7 +103,7 @@ internal class CustomJsonCodec
         var filePath = string.IsNullOrEmpty(_configuration.TempFolderPath)
         ? Path.GetTempPath()
         : _configuration.TempFolderPath;
-        var regex = new Regex(@"Content-Disposition=.*filename=['""]?([^'""\s]+)['""]?$");
+        var regex = FilenameContentDetector();
         foreach (var header in headers)
         {
           cancellationToken.ThrowIfCancellationRequested();
@@ -153,6 +153,9 @@ internal class CustomJsonCodec
     get { return _contentType; }
     set { throw new InvalidOperationException("Not allowed to set content type."); }
   }
+  
+  [GeneratedRegex(@"Content-Disposition=.*filename=['""]?([^'""\s]+)['""]?$")]
+  private static partial Regex FilenameContentDetector();
 }
 /// <summary>
 /// Provides a default implementation of an Api client (both synchronous and asynchronous implementations),
@@ -295,7 +298,7 @@ internal sealed partial class ApiClient : ISynchronousClient, IAsynchronousClien
       }
     }
     
-    List<Tuple<HttpContent, string, string>> contentList = new List<Tuple<HttpContent, string, string>>();
+    List<Tuple<HttpContent, string, string>> contentList = [];
     
     string? contentType = null;
     if (options.HeaderParameters is not null && options.HeaderParameters.TryGetValue("Content-Type", out var contentTypes) && contentTypes is not null)
@@ -317,7 +320,7 @@ internal sealed partial class ApiClient : ISynchronousClient, IAsynchronousClien
       {
         if (options.Data is FileParameter fp)
         {
-          contentType = contentType ?? "application/octet-stream";
+          contentType ??= "application/octet-stream";
           
           var streamContent = new StreamContent(fp.Content);
           streamContent.Headers.ContentType = new MediaTypeHeaderValue(contentType);
