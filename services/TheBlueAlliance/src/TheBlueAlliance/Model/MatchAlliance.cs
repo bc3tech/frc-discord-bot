@@ -17,7 +17,7 @@
     /// <summary>
 /// MatchAlliance
 /// </summary>
-internal partial class MatchAlliance
+public partial class MatchAlliance
 {
             // yup
             /// <summary>

@@ -17,7 +17,7 @@
     /// <summary>
 /// See the 2022 FMS API documentation for a description of each value. https://frc-api-docs.firstinspires.org
 /// </summary>
-internal partial class MatchScoreBreakdown2022
+public partial class MatchScoreBreakdown2022
 {
             // yup
             /// <summary>

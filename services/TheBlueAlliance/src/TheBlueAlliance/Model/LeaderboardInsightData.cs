@@ -17,13 +17,13 @@
     /// <summary>
 /// LeaderboardInsightData
 /// </summary>
-internal partial class LeaderboardInsightData
+public partial class LeaderboardInsightData
 {
           /// <summary>
   /// What type of key is used in the rankings; either &#39;team&#39;, &#39;event&#39;, or &#39;match&#39;.
   /// </summary>
     /// <value>What type of key is used in the rankings; either &#39;team&#39;, &#39;event&#39;, or &#39;match&#39;.</value>
-  internal enum KeyTypeEnum
+  public enum KeyTypeEnum
   {
         /// <summary>
         /// Enum Team for value: team

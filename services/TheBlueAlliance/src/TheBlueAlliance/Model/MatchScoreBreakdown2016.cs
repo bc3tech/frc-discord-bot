@@ -17,7 +17,7 @@
     /// <summary>
 /// See the 2016 FMS API documentation for a description of each value.
 /// </summary>
-internal partial class MatchScoreBreakdown2016
+public partial class MatchScoreBreakdown2016
 {
             // yup
             /// <summary>

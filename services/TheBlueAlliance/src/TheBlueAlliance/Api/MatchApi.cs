@@ -19,7 +19,7 @@ using TheBlueAlliance.Model;
   /// <summary>
   /// Represents a collection of functions to interact with the API endpoints
   /// </summary>
-  internal interface IMatchApiSync : IApiAccessor
+  public interface IMatchApiSync : IApiAccessor
   {
     #region Synchronous Operations
       /// <summary>
@@ -362,7 +362,7 @@ using TheBlueAlliance.Model;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IMatchApiAsync : IApiAccessor
+      public interface IMatchApiAsync : IApiAccessor
       {
         #region Asynchronous Operations
           /// <summary>
@@ -733,12 +733,12 @@ using TheBlueAlliance.Model;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IMatchApi : IMatchApiSync, IMatchApiAsync { }
+      public interface IMatchApi : IMatchApiSync, IMatchApiAsync { }
       
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal sealed partial class MatchApi : IMatchApi
+      public sealed partial class MatchApi : IMatchApi
       {
         private ExceptionFactory? _exceptionFactory = (name, response) => null;
         

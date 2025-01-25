@@ -17,12 +17,12 @@
     /// <summary>
 /// MatchScoreBreakdown2023AllianceLinksInner
 /// </summary>
-internal partial class MatchScoreBreakdown2023AllianceLinksInner
+public partial class MatchScoreBreakdown2023AllianceLinksInner
 {
             /// <summary>
   /// Defines Nodes
   /// </summary>
-  internal enum NodesEnum
+  public enum NodesEnum
   {
         /// <summary>
         /// Enum None for value: None
@@ -93,7 +93,7 @@ internal partial class MatchScoreBreakdown2023AllianceLinksInner
           /// <summary>
   /// Defines Row
   /// </summary>
-  internal enum RowEnum
+  public enum RowEnum
   {
         /// <summary>
         /// Enum Bottom for value: Bottom

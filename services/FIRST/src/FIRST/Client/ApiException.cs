@@ -14,7 +14,7 @@ using System;
 /// <summary>
 /// API Exception
 /// </summary>
-internal sealed class ApiException : Exception
+public sealed class ApiException : Exception
 {
   /// <summary>
   /// Gets or sets the error code (HTTP status code)

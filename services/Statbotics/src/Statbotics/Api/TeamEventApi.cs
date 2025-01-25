@@ -19,7 +19,7 @@ using Statbotics.Model;
   /// <summary>
   /// Represents a collection of functions to interact with the API endpoints
   /// </summary>
-  internal interface ITeamEventApiSync : IApiAccessor
+  public interface ITeamEventApiSync : IApiAccessor
   {
     #region Synchronous Operations
       /// <summary>
@@ -96,7 +96,7 @@ using Statbotics.Model;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface ITeamEventApiAsync : IApiAccessor
+      public interface ITeamEventApiAsync : IApiAccessor
       {
         #region Asynchronous Operations
           /// <summary>
@@ -177,12 +177,12 @@ using Statbotics.Model;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface ITeamEventApi : ITeamEventApiSync, ITeamEventApiAsync { }
+      public interface ITeamEventApi : ITeamEventApiSync, ITeamEventApiAsync { }
       
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal sealed partial class TeamEventApi : ITeamEventApi
+      public sealed partial class TeamEventApi : ITeamEventApi
       {
         private ExceptionFactory? _exceptionFactory = (name, response) => null;
         

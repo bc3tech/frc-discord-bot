@@ -17,7 +17,7 @@
     /// <summary>
 /// An &#x60;Award_Recipient&#x60; object represents the team and/or person who received an award at an event.
 /// </summary>
-internal partial class AwardRecipient
+public partial class AwardRecipient
 {
             // yup
             /// <summary>

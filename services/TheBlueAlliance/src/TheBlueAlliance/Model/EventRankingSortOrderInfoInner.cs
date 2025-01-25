@@ -17,7 +17,7 @@
     /// <summary>
 /// EventRankingSortOrderInfoInner
 /// </summary>
-internal partial class EventRankingSortOrderInfoInner
+public partial class EventRankingSortOrderInfoInner
 {
             // yup
             /// <summary>

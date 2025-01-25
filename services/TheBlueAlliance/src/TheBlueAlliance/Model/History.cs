@@ -17,7 +17,7 @@
     /// <summary>
 /// History
 /// </summary>
-internal partial class History
+public partial class History
 {
             // yup
             /// <summary>

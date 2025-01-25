@@ -19,7 +19,7 @@ using System.Collections.Generic;
 /// A customized implementation via partial class may reside in another file and may
 /// be excluded from automatic generation via a .openapi-generator-ignore file.
 /// </remarks>
-internal sealed partial class GlobalConfiguration : Configuration
+public sealed partial class GlobalConfiguration : Configuration
 {
   #region Private Members
   

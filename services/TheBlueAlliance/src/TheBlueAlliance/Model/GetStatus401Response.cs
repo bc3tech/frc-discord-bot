@@ -17,7 +17,7 @@
     /// <summary>
 /// GetStatus401Response
 /// </summary>
-internal partial class GetStatus401Response
+public partial class GetStatus401Response
 {
             // yup
             /// <summary>

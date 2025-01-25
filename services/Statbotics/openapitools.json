@@ -4,10 +4,31 @@
   "generator-cli": {
     "version": "7.11.0"
   },
-  "supportingFiles": [
-    {
-      "templateFile": "Directory.Build.props.mustache",
-      "destinationFilename": "Directory.Build.props"
+  "additionalProperties": {
+    "modelPropertySorting": "alphabetical",
+    "netCoreProjectFile": true,
+    "nonPublicApi": false,
+    "nullableReferenceTypes": true,
+    "operationParameterSorting": "alphabetical",
+    "packageName": "Statbotics",
+    "returnICollection": true,
+    "targetFramework": "net8.0",
+    "useCollection": true,
+    "useDateTimeOffset": true,
+    "useCPM": true,
+    "useGenericHost": true,
+    "validatable": false,
+
+    "supportsFileParameters": false
+  },
+  "files": {
+    "Directory.Packages.props.mustache": {
+      "destinationFilename": "Directory.Packages.props",
+      "templateType": "SupportingFiles"
+    },
+    "AssemblyInfo.mustache": {
+      "destinationFilename": "src/FIRST/Properties/AssemblyInfo.cs",
+      "templateType": "SupportingFiles"
     }
-  ]
+  }
 }

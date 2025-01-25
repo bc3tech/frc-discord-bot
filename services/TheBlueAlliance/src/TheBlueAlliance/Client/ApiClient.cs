@@ -161,7 +161,7 @@ internal sealed partial class CustomJsonCodec
 /// Provides a default implementation of an Api client (both synchronous and asynchronous implementations),
 /// encapsulating general REST accessor use cases.
 /// </summary>
-internal sealed partial class ApiClient : ISynchronousClient, IAsynchronousClient
+public sealed partial class ApiClient : ISynchronousClient, IAsynchronousClient
 {
   private readonly string _baseUrl;
   

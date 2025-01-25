@@ -17,7 +17,7 @@
     /// <summary>
 /// APIStatusAppVersion
 /// </summary>
-internal partial class APIStatusAppVersion
+public partial class APIStatusAppVersion
 {
             // yup
             /// <summary>

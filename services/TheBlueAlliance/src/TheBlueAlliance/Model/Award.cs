@@ -17,7 +17,7 @@
     /// <summary>
 /// Award
 /// </summary>
-internal partial class Award
+public partial class Award
 {
             // yup
             /// <summary>

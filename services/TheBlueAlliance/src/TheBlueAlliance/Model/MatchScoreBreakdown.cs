@@ -19,7 +19,7 @@
   /// Score breakdown for auto, teleop, etc. points. Varies from year to year. May be null.
   /// </summary>
   
-    internal sealed partial class MatchScoreBreakdown : AbstractOpenAPISchema
+    public sealed partial class MatchScoreBreakdown : AbstractOpenAPISchema
     {
       public override string SchemaType { get; } = OneOf;
       public override bool IsNullable { get; } = true;

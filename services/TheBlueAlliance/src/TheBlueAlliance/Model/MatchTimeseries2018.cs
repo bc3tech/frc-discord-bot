@@ -17,7 +17,7 @@
     /// <summary>
 /// Timeseries data for the 2018 game *FIRST* POWER UP. *WARNING:* This is *not* official data, and is subject to a significant possibility of error, or missing data. Do not rely on this data for any purpose. In fact, pretend we made it up. *WARNING:* This model is currently under active development and may change at any time, including in breaking ways.
 /// </summary>
-internal partial class MatchTimeseries2018
+public partial class MatchTimeseries2018
 {
       /// <summary>
       /// Initializes a new instance of the <see cref="MatchTimeseries2018" /> class.

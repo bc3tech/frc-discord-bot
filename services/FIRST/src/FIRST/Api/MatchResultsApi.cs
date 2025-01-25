@@ -18,7 +18,7 @@ using FIRST.Client;
   /// <summary>
   /// Represents a collection of functions to interact with the API endpoints
   /// </summary>
-  internal interface IMatchResultsApiSync : IApiAccessor
+  public interface IMatchResultsApiSync : IApiAccessor
   {
     #region Synchronous Operations
       /// <summary>
@@ -95,7 +95,7 @@ using FIRST.Client;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IMatchResultsApiAsync : IApiAccessor
+      public interface IMatchResultsApiAsync : IApiAccessor
       {
         #region Asynchronous Operations
           /// <summary>
@@ -176,12 +176,12 @@ using FIRST.Client;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IMatchResultsApi : IMatchResultsApiSync, IMatchResultsApiAsync { }
+      public interface IMatchResultsApi : IMatchResultsApiSync, IMatchResultsApiAsync { }
       
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal sealed partial class MatchResultsApi : IMatchResultsApi
+      public sealed partial class MatchResultsApi : IMatchResultsApi
       {
         private ExceptionFactory? _exceptionFactory = (name, response) => null;
         

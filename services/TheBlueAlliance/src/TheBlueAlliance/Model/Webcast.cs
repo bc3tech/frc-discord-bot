@@ -17,13 +17,13 @@
     /// <summary>
 /// Webcast
 /// </summary>
-internal partial class Webcast
+public partial class Webcast
 {
           /// <summary>
   /// Type of webcast, typically descriptive of the streaming provider.
   /// </summary>
     /// <value>Type of webcast, typically descriptive of the streaming provider.</value>
-  internal enum TypeEnum
+  public enum TypeEnum
   {
         /// <summary>
         /// Enum Youtube for value: youtube

@@ -17,7 +17,7 @@
     /// <summary>
 /// LeaderboardInsightDataRankingsInner
 /// </summary>
-internal partial class LeaderboardInsightDataRankingsInner
+public partial class LeaderboardInsightDataRankingsInner
 {
             // yup
             /// <summary>

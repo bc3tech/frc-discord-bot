@@ -17,7 +17,7 @@
     /// <summary>
 /// TeamEventStatusRank
 /// </summary>
-internal partial class TeamEventStatusRank
+public partial class TeamEventStatusRank
 {
       /// <summary>
       /// Initializes a new instance of the <see cref="TeamEventStatusRank" /> class.

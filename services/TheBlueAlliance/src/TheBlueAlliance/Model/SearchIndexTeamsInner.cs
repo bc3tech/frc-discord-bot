@@ -17,7 +17,7 @@
     /// <summary>
 /// SearchIndexTeamsInner
 /// </summary>
-internal partial class SearchIndexTeamsInner
+public partial class SearchIndexTeamsInner
 {
             // yup
             /// <summary>

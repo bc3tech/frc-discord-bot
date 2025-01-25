@@ -17,7 +17,7 @@
     /// <summary>
 /// TeamRobot
 /// </summary>
-internal partial class TeamRobot
+public partial class TeamRobot
 {
             // yup
             /// <summary>

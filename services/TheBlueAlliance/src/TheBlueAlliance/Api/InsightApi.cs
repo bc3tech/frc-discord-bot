@@ -19,7 +19,7 @@ using TheBlueAlliance.Model;
   /// <summary>
   /// Represents a collection of functions to interact with the API endpoints
   /// </summary>
-  internal interface IInsightApiSync : IApiAccessor
+  public interface IInsightApiSync : IApiAccessor
   {
     #region Synchronous Operations
       /// <summary>
@@ -74,7 +74,7 @@ using TheBlueAlliance.Model;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IInsightApiAsync : IApiAccessor
+      public interface IInsightApiAsync : IApiAccessor
       {
         #region Asynchronous Operations
           /// <summary>
@@ -133,12 +133,12 @@ using TheBlueAlliance.Model;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IInsightApi : IInsightApiSync, IInsightApiAsync { }
+      public interface IInsightApi : IInsightApiSync, IInsightApiAsync { }
       
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal sealed partial class InsightApi : IInsightApi
+      public sealed partial class InsightApi : IInsightApi
       {
         private ExceptionFactory? _exceptionFactory = (name, response) => null;
         

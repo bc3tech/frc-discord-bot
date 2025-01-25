@@ -1,4 +1,4 @@
-# Org.OpenAPITools.Api.MatchApi
+# Statbotics.Api.MatchApi
 
 All URIs are relative to *http://localhost*
 
@@ -20,9 +20,9 @@ Returns a single Match object. Requires a match key, e.g. `2019ncwak_f1m1`.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Org.OpenAPITools.Api;
-using Org.OpenAPITools.Client;
-using Org.OpenAPITools.Model;
+using Statbotics.Api;
+using Statbotics.Client;
+using Statbotics.Model;
 
 namespace Example
 
@@ -102,11 +102,11 @@ No authorization required
 | **200** | Successful Response |  -  |
 | **422** | Validation Error |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="readmatchesv3matchesget"></a>
 # **ReadMatchesV3MatchesGet**
-> List&lt;Object&gt; ReadMatchesV3MatchesGet (string? team = null, int? year = null, string? varEvent = null, int? week = null, bool? elim = null, bool? offseason = null, string? metric = null, bool? ascending = null, int? limit = null, int? offset = null)
+> Collection&lt;Object&gt; ReadMatchesV3MatchesGet (bool? ascending = null, bool? elim = null, int? limit = null, string? metric = null, bool? offseason = null, int? offset = null, string? team = null, string? varEvent = null, int? week = null, int? year = null)
 
 Query multiple matches
 
@@ -117,9 +117,9 @@ Returns up to 1000 matches at a time. Specify limit and offset to page through r
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Org.OpenAPITools.Api;
-using Org.OpenAPITools.Client;
-using Org.OpenAPITools.Model;
+using Statbotics.Api;
+using Statbotics.Client;
+using Statbotics.Model;
 
 namespace Example
 
@@ -134,21 +134,21 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new MatchApi(httpClient, config, httpClientHandler);
+            var ascending = true;  // bool? | Whether to sort the returned values in ascending order. Default is ascending (optional) 
+            var elim = true;  // bool? | Whether the match is an elimination match. (optional) 
+            var limit = 56;  // int? | Maximum number of events to return. Default is 1000. (optional) 
+            var metric = "metric_example";  // string? | How to sort the returned values. Any column in the table is valid. (optional) 
+            var offseason = true;  // bool? | Whether the event is an offseason event. (optional) 
+            var offset = 56;  // int? | Offset from the first result to return. (optional) 
             var team = "team_example";  // string? | Team number (no prefix), e.g. `5511`. (optional) 
-            var year = 56;  // int? | Four-digit year (optional) 
             var varEvent = "varEvent_example";  // string? | Event key, e.g. `2019ncwak`. (optional) 
             var week = 56;  // int? | Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional) 
-            var elim = true;  // bool? | Whether the match is an elimination match. (optional) 
-            var offseason = true;  // bool? | Whether the event is an offseason event. (optional) 
-            var metric = "metric_example";  // string? | How to sort the returned values. Any column in the table is valid. (optional) 
-            var ascending = true;  // bool? | Whether to sort the returned values in ascending order. Default is ascending (optional) 
-            var limit = 56;  // int? | Maximum number of events to return. Default is 1000. (optional) 
-            var offset = 56;  // int? | Offset from the first result to return. (optional) 
+            var year = 56;  // int? | Four-digit year (optional) 
 
             try
             {
                 // Query multiple matches
-                List<Object> result = apiInstance.ReadMatchesV3MatchesGet(team, year, varEvent, week, elim, offseason, metric, ascending, limit, offset);
+                Collection<Object> result = apiInstance.ReadMatchesV3MatchesGet(ascending, elim, limit, metric, offseason, offset, team, varEvent, week, year);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -169,7 +169,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Query multiple matches
-    ApiResponse<List<Object>> response = apiInstance.ReadMatchesV3MatchesGetWithHttpInfo(team, year, varEvent, week, elim, offseason, metric, ascending, limit, offset);
+    ApiResponse<Collection<Object>> response = apiInstance.ReadMatchesV3MatchesGetWithHttpInfo(ascending, elim, limit, metric, offseason, offset, team, varEvent, week, year);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -186,20 +186,20 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
+| **ascending** | **bool?** | Whether to sort the returned values in ascending order. Default is ascending | [optional]  |
+| **elim** | **bool?** | Whether the match is an elimination match. | [optional]  |
+| **limit** | **int?** | Maximum number of events to return. Default is 1000. | [optional]  |
+| **metric** | **string?** | How to sort the returned values. Any column in the table is valid. | [optional]  |
+| **offseason** | **bool?** | Whether the event is an offseason event. | [optional]  |
+| **offset** | **int?** | Offset from the first result to return. | [optional]  |
 | **team** | **string?** | Team number (no prefix), e.g. &#x60;5511&#x60;. | [optional]  |
-| **year** | **int?** | Four-digit year | [optional]  |
 | **varEvent** | **string?** | Event key, e.g. &#x60;2019ncwak&#x60;. | [optional]  |
 | **week** | **int?** | Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. | [optional]  |
-| **elim** | **bool?** | Whether the match is an elimination match. | [optional]  |
-| **offseason** | **bool?** | Whether the event is an offseason event. | [optional]  |
-| **metric** | **string?** | How to sort the returned values. Any column in the table is valid. | [optional]  |
-| **ascending** | **bool?** | Whether to sort the returned values in ascending order. Default is ascending | [optional]  |
-| **limit** | **int?** | Maximum number of events to return. Default is 1000. | [optional]  |
-| **offset** | **int?** | Offset from the first result to return. | [optional]  |
+| **year** | **int?** | Four-digit year | [optional]  |
 
 ### Return type
 
-**List<Object>**
+**Collection<Object>**
 
 ### Authorization
 
@@ -217,5 +217,5 @@ No authorization required
 | **200** | Successful Response |  -  |
 | **422** | Validation Error |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 

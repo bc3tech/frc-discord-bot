@@ -17,7 +17,7 @@
     /// <summary>
 /// See the 2018 FMS API documentation for a description of each value. https://frcevents2.docs.apiary.io/#/reference/match-results/score-details
 /// </summary>
-internal partial class MatchScoreBreakdown2018
+public partial class MatchScoreBreakdown2018
 {
             // yup
             /// <summary>

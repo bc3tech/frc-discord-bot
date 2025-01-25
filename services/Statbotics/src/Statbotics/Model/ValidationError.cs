@@ -17,7 +17,7 @@
     /// <summary>
 /// ValidationError
 /// </summary>
-internal partial class ValidationError
+public partial class ValidationError
 {
             // yup
             /// <summary>
@@ -26,20 +26,23 @@ internal partial class ValidationError
             [JsonConstructor]
             protected ValidationError() { 
           }
+          
       /// <summary>
       /// Initializes a new instance of the <see cref="ValidationError" /> class.
       /// </summary>
-        /// <param name="loc">loc (required).</param>
-        /// <param name="msg">msg (required).</param>
-        /// <param name="type">type (required).</param>
+          /// <param name="loc">loc (required).</param>
+          /// <param name="msg">msg (required).</param>
+          /// <param name="type">type (required).</param>
       public ValidationError(Collection<ValidationErrorLocInner> loc, string msg, string type)
       {
                     // to ensure "loc" is required (not null)
                     ArgumentNullException.ThrowIfNull(loc);
                     this.Loc = loc;
+                      
                     // to ensure "msg" is required (not null)
                     ArgumentNullException.ThrowIfNull(msg);
                     this.Msg = msg;
+                      
                     // to ensure "type" is required (not null)
                     ArgumentNullException.ThrowIfNull(type);
                     this.Type = type;

@@ -17,13 +17,13 @@
     /// <summary>
 /// The &#x60;Media&#x60; object contains a reference for most any media associated with a team or event on TBA.
 /// </summary>
-internal partial class Media
+public partial class Media
 {
           /// <summary>
   /// String type of the media element.
   /// </summary>
     /// <value>String type of the media element.</value>
-  internal enum TypeEnum
+  public enum TypeEnum
   {
         /// <summary>
         /// Enum Youtube for value: youtube

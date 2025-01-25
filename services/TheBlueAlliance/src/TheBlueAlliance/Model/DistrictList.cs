@@ -17,7 +17,7 @@
     /// <summary>
 /// DistrictList
 /// </summary>
-internal partial class DistrictList
+public partial class DistrictList
 {
             // yup
             /// <summary>

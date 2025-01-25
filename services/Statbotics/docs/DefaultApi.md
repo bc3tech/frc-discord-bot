@@ -1,4 +1,4 @@
-# Org.OpenAPITools.Api.DefaultApi
+# Statbotics.Api.DefaultApi
 
 All URIs are relative to *http://localhost*
 
@@ -18,9 +18,9 @@ Read Root
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Org.OpenAPITools.Api;
-using Org.OpenAPITools.Client;
-using Org.OpenAPITools.Model;
+using Statbotics.Api;
+using Statbotics.Client;
+using Statbotics.Model;
 
 namespace Example
 
@@ -94,7 +94,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="readrootv3get"></a>
 # **ReadRootV3Get**
@@ -107,9 +107,9 @@ Read Root
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Org.OpenAPITools.Api;
-using Org.OpenAPITools.Client;
-using Org.OpenAPITools.Model;
+using Statbotics.Api;
+using Statbotics.Client;
+using Statbotics.Model;
 
 namespace Example
 
@@ -183,5 +183,5 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Successful Response |  -  |
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 

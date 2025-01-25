@@ -17,7 +17,7 @@
     /// <summary>
 /// A year-specific event insight object expressed as a JSON string, separated in to &#x60;qual&#x60; and &#x60;playoff&#x60; fields. See also Event_Insights_2016, Event_Insights_2017, etc.
 /// </summary>
-internal partial class EventInsights
+public partial class EventInsights
 {
       /// <summary>
       /// Initializes a new instance of the <see cref="EventInsights" /> class.

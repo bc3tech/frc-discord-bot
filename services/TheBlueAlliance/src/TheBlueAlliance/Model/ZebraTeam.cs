@@ -17,7 +17,7 @@
     /// <summary>
 /// ZebraTeam
 /// </summary>
-internal partial class ZebraTeam
+public partial class ZebraTeam
 {
             // yup
             /// <summary>

@@ -17,7 +17,7 @@
     /// <summary>
 /// Insights for FIRST STEAMWORKS qualification and elimination matches.
 /// </summary>
-internal partial class EventInsights2017
+public partial class EventInsights2017
 {
             // yup
             /// <summary>

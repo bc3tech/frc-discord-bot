@@ -17,13 +17,13 @@
     /// <summary>
 /// MatchSimple
 /// </summary>
-internal partial class MatchSimple
+public partial class MatchSimple
 {
           /// <summary>
   /// The competition level the match was played at.
   /// </summary>
     /// <value>The competition level the match was played at.</value>
-  internal enum CompLevelEnum
+  public enum CompLevelEnum
   {
         /// <summary>
         /// Enum Qm for value: qm
@@ -119,7 +119,7 @@ internal partial class MatchSimple
   /// The color (red/blue) of the winning alliance. Will contain an empty string in the event of no winner, or a tie.
   /// </summary>
     /// <value>The color (red/blue) of the winning alliance. Will contain an empty string in the event of no winner, or a tie.</value>
-  internal enum WinningAllianceEnum
+  public enum WinningAllianceEnum
   {
         /// <summary>
         /// Enum Red for value: red

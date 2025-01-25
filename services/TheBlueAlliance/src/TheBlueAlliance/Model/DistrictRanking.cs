@@ -17,7 +17,7 @@
     /// <summary>
 /// Rank of a team in a district.
 /// </summary>
-internal partial class DistrictRanking
+public partial class DistrictRanking
 {
             // yup
             /// <summary>

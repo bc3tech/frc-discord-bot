@@ -17,7 +17,7 @@
     /// <summary>
 /// See the 2023 FMS API documentation for a description of each value. https://frc-api-docs.firstinspires.org
 /// </summary>
-internal partial class MatchScoreBreakdown2023
+public partial class MatchScoreBreakdown2023
 {
             // yup
             /// <summary>

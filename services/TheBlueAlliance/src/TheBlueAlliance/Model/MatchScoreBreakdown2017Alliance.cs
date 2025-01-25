@@ -17,12 +17,12 @@
     /// <summary>
 /// MatchScoreBreakdown2017Alliance
 /// </summary>
-internal partial class MatchScoreBreakdown2017Alliance
+public partial class MatchScoreBreakdown2017Alliance
 {
           /// <summary>
   /// Defines Robot1Auto
   /// </summary>
-  internal enum Robot1AutoEnum
+  public enum Robot1AutoEnum
   {
         /// <summary>
         /// Enum Unknown for value: Unknown
@@ -100,7 +100,7 @@ internal partial class MatchScoreBreakdown2017Alliance
           /// <summary>
   /// Defines Robot2Auto
   /// </summary>
-  internal enum Robot2AutoEnum
+  public enum Robot2AutoEnum
   {
         /// <summary>
         /// Enum Unknown for value: Unknown
@@ -178,7 +178,7 @@ internal partial class MatchScoreBreakdown2017Alliance
           /// <summary>
   /// Defines Robot3Auto
   /// </summary>
-  internal enum Robot3AutoEnum
+  public enum Robot3AutoEnum
   {
         /// <summary>
         /// Enum Unknown for value: Unknown

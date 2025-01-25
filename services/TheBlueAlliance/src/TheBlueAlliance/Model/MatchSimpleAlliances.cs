@@ -17,7 +17,7 @@
     /// <summary>
 /// A list of alliances, the teams on the alliances, and their score.
 /// </summary>
-internal partial class MatchSimpleAlliances
+public partial class MatchSimpleAlliances
 {
             // yup
             /// <summary>

@@ -17,7 +17,7 @@
     /// <summary>
 /// DistrictRankingEventPointsInner
 /// </summary>
-internal partial class DistrictRankingEventPointsInner
+public partial class DistrictRankingEventPointsInner
 {
             // yup
             /// <summary>

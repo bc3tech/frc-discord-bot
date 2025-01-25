@@ -23,7 +23,8 @@
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.ApplicationInsights" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\services\TheBlueAlliance\src\TheBlueAlliance.Api\TheBlueAlliance.Api.csproj" />
+	  <ProjectReference Include="..\Common\Common.csproj" />
+	  <ProjectReference Include="..\services\TheBlueAlliance\src\TheBlueAlliance\TheBlueAlliance.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="appsettings.development.json">

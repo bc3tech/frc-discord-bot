@@ -19,7 +19,7 @@ using TheBlueAlliance.Model;
   /// <summary>
   /// Represents a collection of functions to interact with the API endpoints
   /// </summary>
-  internal interface IDistrictApiSync : IApiAccessor
+  public interface IDistrictApiSync : IApiAccessor
   {
     #region Synchronous Operations
       /// <summary>
@@ -304,7 +304,7 @@ using TheBlueAlliance.Model;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IDistrictApiAsync : IApiAccessor
+      public interface IDistrictApiAsync : IApiAccessor
       {
         #region Asynchronous Operations
           /// <summary>
@@ -613,12 +613,12 @@ using TheBlueAlliance.Model;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IDistrictApi : IDistrictApiSync, IDistrictApiAsync { }
+      public interface IDistrictApi : IDistrictApiSync, IDistrictApiAsync { }
       
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal sealed partial class DistrictApi : IDistrictApi
+      public sealed partial class DistrictApi : IDistrictApi
       {
         private ExceptionFactory? _exceptionFactory = (name, response) => null;
         

@@ -17,12 +17,12 @@
     /// <summary>
 /// MatchScoreBreakdown2022Alliance
 /// </summary>
-internal partial class MatchScoreBreakdown2022Alliance
+public partial class MatchScoreBreakdown2022Alliance
 {
           /// <summary>
   /// Defines EndgameRobot1
   /// </summary>
-  internal enum EndgameRobot1Enum
+  public enum EndgameRobot1Enum
   {
         /// <summary>
         /// Enum Traversal for value: Traversal
@@ -116,7 +116,7 @@ internal partial class MatchScoreBreakdown2022Alliance
           /// <summary>
   /// Defines EndgameRobot2
   /// </summary>
-  internal enum EndgameRobot2Enum
+  public enum EndgameRobot2Enum
   {
         /// <summary>
         /// Enum Traversal for value: Traversal
@@ -210,7 +210,7 @@ internal partial class MatchScoreBreakdown2022Alliance
           /// <summary>
   /// Defines EndgameRobot3
   /// </summary>
-  internal enum EndgameRobot3Enum
+  public enum EndgameRobot3Enum
   {
         /// <summary>
         /// Enum Traversal for value: Traversal
@@ -304,7 +304,7 @@ internal partial class MatchScoreBreakdown2022Alliance
           /// <summary>
   /// Defines TaxiRobot1
   /// </summary>
-  internal enum TaxiRobot1Enum
+  public enum TaxiRobot1Enum
   {
         /// <summary>
         /// Enum Yes for value: Yes
@@ -374,7 +374,7 @@ internal partial class MatchScoreBreakdown2022Alliance
           /// <summary>
   /// Defines TaxiRobot2
   /// </summary>
-  internal enum TaxiRobot2Enum
+  public enum TaxiRobot2Enum
   {
         /// <summary>
         /// Enum Yes for value: Yes
@@ -444,7 +444,7 @@ internal partial class MatchScoreBreakdown2022Alliance
           /// <summary>
   /// Defines TaxiRobot3
   /// </summary>
-  internal enum TaxiRobot3Enum
+  public enum TaxiRobot3Enum
   {
         /// <summary>
         /// Enum Yes for value: Yes

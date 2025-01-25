@@ -17,7 +17,7 @@
     /// <summary>
 /// MatchScoreBreakdown2024Alliance
 /// </summary>
-internal partial class MatchScoreBreakdown2024Alliance
+public partial class MatchScoreBreakdown2024Alliance
 {
       /// <summary>
       /// Initializes a new instance of the <see cref="MatchScoreBreakdown2024Alliance" /> class.

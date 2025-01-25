@@ -18,7 +18,7 @@ using FIRST.Client;
   /// <summary>
   /// Represents a collection of functions to interact with the API endpoints
   /// </summary>
-  internal interface IRankingsApiSync : IApiAccessor
+  public interface IRankingsApiSync : IApiAccessor
   {
     #region Synchronous Operations
       /// <summary>
@@ -87,7 +87,7 @@ using FIRST.Client;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IRankingsApiAsync : IApiAccessor
+      public interface IRankingsApiAsync : IApiAccessor
       {
         #region Asynchronous Operations
           /// <summary>
@@ -160,12 +160,12 @@ using FIRST.Client;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IRankingsApi : IRankingsApiSync, IRankingsApiAsync { }
+      public interface IRankingsApi : IRankingsApiSync, IRankingsApiAsync { }
       
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal sealed partial class RankingsApi : IRankingsApi
+      public sealed partial class RankingsApi : IRankingsApi
       {
         private ExceptionFactory? _exceptionFactory = (name, response) => null;
         

@@ -17,7 +17,7 @@
     /// <summary>
 /// ZebraAlliances
 /// </summary>
-internal partial class ZebraAlliances
+public partial class ZebraAlliances
 {
       /// <summary>
       /// Initializes a new instance of the <see cref="ZebraAlliances" /> class.

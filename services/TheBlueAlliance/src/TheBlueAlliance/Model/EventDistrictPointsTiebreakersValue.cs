@@ -17,7 +17,7 @@
     /// <summary>
 /// EventDistrictPointsTiebreakersValue
 /// </summary>
-internal partial class EventDistrictPointsTiebreakersValue
+public partial class EventDistrictPointsTiebreakersValue
 {
       /// <summary>
       /// Initializes a new instance of the <see cref="EventDistrictPointsTiebreakersValue" /> class.

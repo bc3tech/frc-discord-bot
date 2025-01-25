@@ -16,7 +16,7 @@ using System.Text.Json.Serialization;
 /// <summary>
 ///  Abstract base class for oneOf, anyOf schemas in the OpenAPI specification
 /// </summary>
-internal abstract partial class AbstractOpenAPISchema
+public abstract partial class AbstractOpenAPISchema
 {
   /// <summary>
   ///  Custom JSON serializer
@@ -47,7 +47,7 @@ internal abstract partial class AbstractOpenAPISchema
   /// <summary>
   /// Gets or Sets IsNullable to indicate whether the instance is nullable
   /// </summary>
-  public bool IsNullable { get; }
+  public virtual bool IsNullable { get; }
   
   protected const string OneOf = "oneOf";
   protected const string AnyOf = "anyOf";

@@ -17,7 +17,7 @@
     /// <summary>
 /// EliminationAlliance
 /// </summary>
-internal partial class EliminationAlliance
+public partial class EliminationAlliance
 {
             // yup
             /// <summary>

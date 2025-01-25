@@ -17,7 +17,7 @@
     /// <summary>
 /// Zebra
 /// </summary>
-internal partial class Zebra
+public partial class Zebra
 {
             // yup
             /// <summary>

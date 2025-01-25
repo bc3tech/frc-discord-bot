@@ -17,12 +17,12 @@
     /// <summary>
 /// MatchScoreBreakdown2023AllianceAutoCommunity
 /// </summary>
-internal partial class MatchScoreBreakdown2023AllianceAutoCommunity
+public partial class MatchScoreBreakdown2023AllianceAutoCommunity
 {
             /// <summary>
   /// Defines B
   /// </summary>
-  internal enum BEnum
+  public enum BEnum
   {
         /// <summary>
         /// Enum None for value: None
@@ -93,7 +93,7 @@ internal partial class MatchScoreBreakdown2023AllianceAutoCommunity
             /// <summary>
   /// Defines M
   /// </summary>
-  internal enum MEnum
+  public enum MEnum
   {
         /// <summary>
         /// Enum None for value: None
@@ -164,7 +164,7 @@ internal partial class MatchScoreBreakdown2023AllianceAutoCommunity
             /// <summary>
   /// Defines T
   /// </summary>
-  internal enum TEnum
+  public enum TEnum
   {
         /// <summary>
         /// Enum None for value: None

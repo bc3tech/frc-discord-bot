@@ -18,7 +18,7 @@ using FIRST.Client;
   /// <summary>
   /// Represents a collection of functions to interact with the API endpoints
   /// </summary>
-  internal interface IScheduleApiSync : IApiAccessor
+  public interface IScheduleApiSync : IApiAccessor
   {
     #region Synchronous Operations
       /// <summary>
@@ -60,7 +60,7 @@ using FIRST.Client;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IScheduleApiAsync : IApiAccessor
+      public interface IScheduleApiAsync : IApiAccessor
       {
         #region Asynchronous Operations
           /// <summary>
@@ -104,12 +104,12 @@ using FIRST.Client;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IScheduleApi : IScheduleApiSync, IScheduleApiAsync { }
+      public interface IScheduleApi : IScheduleApiSync, IScheduleApiAsync { }
       
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal sealed partial class ScheduleApi : IScheduleApi
+      public sealed partial class ScheduleApi : IScheduleApi
       {
         private ExceptionFactory? _exceptionFactory = (name, response) => null;
         

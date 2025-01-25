@@ -19,7 +19,7 @@ using Statbotics.Model;
   /// <summary>
   /// Represents a collection of functions to interact with the API endpoints
   /// </summary>
-  internal interface ITeamYearApiSync : IApiAccessor
+  public interface ITeamYearApiSync : IApiAccessor
   {
     #region Synchronous Operations
       /// <summary>
@@ -90,7 +90,7 @@ using Statbotics.Model;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface ITeamYearApiAsync : IApiAccessor
+      public interface ITeamYearApiAsync : IApiAccessor
       {
         #region Asynchronous Operations
           /// <summary>
@@ -165,12 +165,12 @@ using Statbotics.Model;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface ITeamYearApi : ITeamYearApiSync, ITeamYearApiAsync { }
+      public interface ITeamYearApi : ITeamYearApiSync, ITeamYearApiAsync { }
       
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal sealed partial class TeamYearApi : ITeamYearApi
+      public sealed partial class TeamYearApi : ITeamYearApi
       {
         private ExceptionFactory? _exceptionFactory = (name, response) => null;
         

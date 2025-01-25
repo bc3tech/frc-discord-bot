@@ -17,12 +17,12 @@
     /// <summary>
 /// MatchScoreBreakdown2023Alliance
 /// </summary>
-internal partial class MatchScoreBreakdown2023Alliance
+public partial class MatchScoreBreakdown2023Alliance
 {
           /// <summary>
   /// Defines AutoBridgeState
   /// </summary>
-  internal enum AutoBridgeStateEnum
+  public enum AutoBridgeStateEnum
   {
         /// <summary>
         /// Enum NotLevel for value: NotLevel
@@ -92,7 +92,7 @@ internal partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines AutoChargeStationRobot1
   /// </summary>
-  internal enum AutoChargeStationRobot1Enum
+  public enum AutoChargeStationRobot1Enum
   {
         /// <summary>
         /// Enum None for value: None
@@ -162,7 +162,7 @@ internal partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines AutoChargeStationRobot2
   /// </summary>
-  internal enum AutoChargeStationRobot2Enum
+  public enum AutoChargeStationRobot2Enum
   {
         /// <summary>
         /// Enum None for value: None
@@ -232,7 +232,7 @@ internal partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines AutoChargeStationRobot3
   /// </summary>
-  internal enum AutoChargeStationRobot3Enum
+  public enum AutoChargeStationRobot3Enum
   {
         /// <summary>
         /// Enum None for value: None
@@ -302,7 +302,7 @@ internal partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines EndGameBridgeState
   /// </summary>
-  internal enum EndGameBridgeStateEnum
+  public enum EndGameBridgeStateEnum
   {
         /// <summary>
         /// Enum NotLevel for value: NotLevel
@@ -372,7 +372,7 @@ internal partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines EndGameChargeStationRobot1
   /// </summary>
-  internal enum EndGameChargeStationRobot1Enum
+  public enum EndGameChargeStationRobot1Enum
   {
         /// <summary>
         /// Enum None for value: None
@@ -442,7 +442,7 @@ internal partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines EndGameChargeStationRobot2
   /// </summary>
-  internal enum EndGameChargeStationRobot2Enum
+  public enum EndGameChargeStationRobot2Enum
   {
         /// <summary>
         /// Enum None for value: None
@@ -512,7 +512,7 @@ internal partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines EndGameChargeStationRobot3
   /// </summary>
-  internal enum EndGameChargeStationRobot3Enum
+  public enum EndGameChargeStationRobot3Enum
   {
         /// <summary>
         /// Enum None for value: None
@@ -582,7 +582,7 @@ internal partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines MobilityRobot1
   /// </summary>
-  internal enum MobilityRobot1Enum
+  public enum MobilityRobot1Enum
   {
         /// <summary>
         /// Enum Yes for value: Yes
@@ -652,7 +652,7 @@ internal partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines MobilityRobot2
   /// </summary>
-  internal enum MobilityRobot2Enum
+  public enum MobilityRobot2Enum
   {
         /// <summary>
         /// Enum Yes for value: Yes
@@ -722,7 +722,7 @@ internal partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines MobilityRobot3
   /// </summary>
-  internal enum MobilityRobot3Enum
+  public enum MobilityRobot3Enum
   {
         /// <summary>
         /// Enum Yes for value: Yes

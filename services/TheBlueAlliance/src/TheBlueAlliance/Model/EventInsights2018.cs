@@ -17,7 +17,7 @@
     /// <summary>
 /// Insights for FIRST Power Up qualification and elimination matches.
 /// </summary>
-internal partial class EventInsights2018
+public partial class EventInsights2018
 {
             // yup
             /// <summary>

@@ -17,7 +17,7 @@
     /// <summary>
 /// Backup status, may be null.
 /// </summary>
-internal partial class TeamEventStatusAllianceBackup
+public partial class TeamEventStatusAllianceBackup
 {
       /// <summary>
       /// Initializes a new instance of the <see cref="TeamEventStatusAllianceBackup" /> class.

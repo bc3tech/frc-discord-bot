@@ -17,7 +17,7 @@
     /// <summary>
 /// Insights for FIRST Stronghold qualification and elimination matches.
 /// </summary>
-internal partial class EventInsights2016
+public partial class EventInsights2016
 {
             // yup
             /// <summary>

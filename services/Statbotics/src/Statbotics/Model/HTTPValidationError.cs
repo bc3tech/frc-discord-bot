@@ -17,12 +17,12 @@
     /// <summary>
 /// HTTPValidationError
 /// </summary>
-internal partial class HTTPValidationError
+public partial class HTTPValidationError
 {
       /// <summary>
       /// Initializes a new instance of the <see cref="HTTPValidationError" /> class.
       /// </summary>
-        /// <param name="detail">detail.</param>
+          /// <param name="detail">detail.</param>
       public HTTPValidationError(Collection<ValidationError>? detail = default)
       {
                     this.Detail = detail;

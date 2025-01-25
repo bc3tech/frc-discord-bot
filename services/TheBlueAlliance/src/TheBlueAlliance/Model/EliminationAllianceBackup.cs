@@ -17,7 +17,7 @@
     /// <summary>
 /// Backup team called in, may be null.
 /// </summary>
-internal partial class EliminationAllianceBackup
+public partial class EliminationAllianceBackup
 {
             // yup
             /// <summary>

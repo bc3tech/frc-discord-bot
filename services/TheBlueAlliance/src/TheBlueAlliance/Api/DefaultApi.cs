@@ -19,7 +19,7 @@ using TheBlueAlliance.Model;
   /// <summary>
   /// Represents a collection of functions to interact with the API endpoints
   /// </summary>
-  internal interface IDefaultApiSync : IApiAccessor
+  public interface IDefaultApiSync : IApiAccessor
   {
     #region Synchronous Operations
       /// <summary>
@@ -49,7 +49,7 @@ using TheBlueAlliance.Model;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IDefaultApiAsync : IApiAccessor
+      public interface IDefaultApiAsync : IApiAccessor
       {
         #region Asynchronous Operations
           /// <summary>
@@ -81,12 +81,12 @@ using TheBlueAlliance.Model;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IDefaultApi : IDefaultApiSync, IDefaultApiAsync { }
+      public interface IDefaultApi : IDefaultApiSync, IDefaultApiAsync { }
       
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal sealed partial class DefaultApi : IDefaultApi
+      public sealed partial class DefaultApi : IDefaultApi
       {
         private ExceptionFactory? _exceptionFactory = (name, response) => null;
         

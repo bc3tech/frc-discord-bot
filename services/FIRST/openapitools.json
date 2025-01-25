@@ -7,7 +7,7 @@
   "additionalProperties": {
     "modelPropertySorting": "alphabetical",
     "netCoreProjectFile": true,
-    "nonPublicApi": true,
+    "nonPublicApi": false,
     "nullableReferenceTypes": true,
     "operationParameterSorting": "alphabetical",
     "packageName": "FIRST",

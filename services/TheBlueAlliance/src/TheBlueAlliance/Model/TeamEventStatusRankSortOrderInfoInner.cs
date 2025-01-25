@@ -17,7 +17,7 @@
     /// <summary>
 /// TeamEventStatusRankSortOrderInfoInner
 /// </summary>
-internal partial class TeamEventStatusRankSortOrderInfoInner
+public partial class TeamEventStatusRankSortOrderInfoInner
 {
       /// <summary>
       /// Initializes a new instance of the <see cref="TeamEventStatusRankSortOrderInfoInner" /> class.

@@ -18,7 +18,7 @@ using FIRST.Client;
   /// <summary>
   /// Represents a collection of functions to interact with the API endpoints
   /// </summary>
-  internal interface IAllianceSelectionApiSync : IApiAccessor
+  public interface IAllianceSelectionApiSync : IApiAccessor
   {
     #region Synchronous Operations
       /// <summary>
@@ -50,7 +50,7 @@ using FIRST.Client;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IAllianceSelectionApiAsync : IApiAccessor
+      public interface IAllianceSelectionApiAsync : IApiAccessor
       {
         #region Asynchronous Operations
           /// <summary>
@@ -84,12 +84,12 @@ using FIRST.Client;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IAllianceSelectionApi : IAllianceSelectionApiSync, IAllianceSelectionApiAsync { }
+      public interface IAllianceSelectionApi : IAllianceSelectionApiSync, IAllianceSelectionApiAsync { }
       
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal sealed partial class AllianceSelectionApi : IAllianceSelectionApi
+      public sealed partial class AllianceSelectionApi : IAllianceSelectionApi
       {
         private ExceptionFactory? _exceptionFactory = (name, response) => null;
         

@@ -17,7 +17,7 @@
     /// <summary>
 /// EventSimple
 /// </summary>
-internal partial class EventSimple
+public partial class EventSimple
 {
             // yup
             /// <summary>

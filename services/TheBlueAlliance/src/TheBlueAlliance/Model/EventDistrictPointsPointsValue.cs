@@ -17,7 +17,7 @@
     /// <summary>
 /// EventDistrictPointsPointsValue
 /// </summary>
-internal partial class EventDistrictPointsPointsValue
+public partial class EventDistrictPointsPointsValue
 {
             // yup
             /// <summary>

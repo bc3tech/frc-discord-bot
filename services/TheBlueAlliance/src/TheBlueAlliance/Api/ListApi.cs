@@ -19,7 +19,7 @@ using TheBlueAlliance.Model;
   /// <summary>
   /// Represents a collection of functions to interact with the API endpoints
   /// </summary>
-  internal interface IListApiSync : IApiAccessor
+  public interface IListApiSync : IApiAccessor
   {
     #region Synchronous Operations
       /// <summary>
@@ -588,7 +588,7 @@ using TheBlueAlliance.Model;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IListApiAsync : IApiAccessor
+      public interface IListApiAsync : IApiAccessor
       {
         #region Asynchronous Operations
           /// <summary>
@@ -1205,12 +1205,12 @@ using TheBlueAlliance.Model;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IListApi : IListApiSync, IListApiAsync { }
+      public interface IListApi : IListApiSync, IListApiAsync { }
       
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal sealed partial class ListApi : IListApi
+      public sealed partial class ListApi : IListApi
       {
         private ExceptionFactory? _exceptionFactory = (name, response) => null;
         

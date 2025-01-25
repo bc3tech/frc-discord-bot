@@ -17,7 +17,7 @@
     /// <summary>
 /// LeaderboardInsight
 /// </summary>
-internal partial class LeaderboardInsight
+public partial class LeaderboardInsight
 {
             // yup
             /// <summary>

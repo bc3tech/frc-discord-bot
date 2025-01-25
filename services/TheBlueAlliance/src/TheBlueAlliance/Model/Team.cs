@@ -17,7 +17,7 @@
     /// <summary>
 /// Team
 /// </summary>
-internal partial class Team
+public partial class Team
 {
             // yup
             /// <summary>

@@ -17,7 +17,7 @@
     /// <summary>
 /// NotablesInsightDataEntriesInner
 /// </summary>
-internal partial class NotablesInsightDataEntriesInner
+public partial class NotablesInsightDataEntriesInner
 {
             // yup
             /// <summary>

@@ -17,7 +17,7 @@
     /// <summary>
 /// SearchIndexEventsInner
 /// </summary>
-internal partial class SearchIndexEventsInner
+public partial class SearchIndexEventsInner
 {
             // yup
             /// <summary>

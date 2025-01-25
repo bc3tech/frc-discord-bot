@@ -17,7 +17,7 @@
     /// <summary>
 /// MatchVideosInner
 /// </summary>
-internal partial class MatchVideosInner
+public partial class MatchVideosInner
 {
             // yup
             /// <summary>

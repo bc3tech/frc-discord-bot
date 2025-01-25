@@ -17,7 +17,7 @@
     /// <summary>
 /// TeamSimple
 /// </summary>
-internal partial class TeamSimple
+public partial class TeamSimple
 {
             // yup
             /// <summary>

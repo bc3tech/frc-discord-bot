@@ -18,7 +18,7 @@
   /// GetTeamEventsStatusesByYear200ResponseValue
   /// </summary>
   
-    internal sealed partial class GetTeamEventsStatusesByYear200ResponseValue : AbstractOpenAPISchema
+    public sealed partial class GetTeamEventsStatusesByYear200ResponseValue : AbstractOpenAPISchema
     {
       public override string SchemaType { get; } = AnyOf;
       public override bool IsNullable { get; } = true;

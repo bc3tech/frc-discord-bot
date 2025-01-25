@@ -18,7 +18,7 @@ using FIRST.Client;
   /// <summary>
   /// Represents a collection of functions to interact with the API endpoints
   /// </summary>
-  internal interface ISeasonDataApiSync : IApiAccessor
+  public interface ISeasonDataApiSync : IApiAccessor
   {
     #region Synchronous Operations
       /// <summary>
@@ -170,7 +170,7 @@ using FIRST.Client;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface ISeasonDataApiAsync : IApiAccessor
+      public interface ISeasonDataApiAsync : IApiAccessor
       {
         #region Asynchronous Operations
           /// <summary>
@@ -332,12 +332,12 @@ using FIRST.Client;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface ISeasonDataApi : ISeasonDataApiSync, ISeasonDataApiAsync { }
+      public interface ISeasonDataApi : ISeasonDataApiSync, ISeasonDataApiAsync { }
       
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal sealed partial class SeasonDataApi : ISeasonDataApi
+      public sealed partial class SeasonDataApi : ISeasonDataApi
       {
         private ExceptionFactory? _exceptionFactory = (name, response) => null;
         

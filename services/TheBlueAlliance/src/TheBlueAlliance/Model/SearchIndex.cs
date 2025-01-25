@@ -17,7 +17,7 @@
     /// <summary>
 /// SearchIndex
 /// </summary>
-internal partial class SearchIndex
+public partial class SearchIndex
 {
             // yup
             /// <summary>

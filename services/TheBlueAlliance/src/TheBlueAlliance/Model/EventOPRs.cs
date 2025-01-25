@@ -17,7 +17,7 @@
     /// <summary>
 /// OPR, DPR, and CCWM for teams at the event.
 /// </summary>
-internal partial class EventOPRs
+public partial class EventOPRs
 {
       /// <summary>
       /// Initializes a new instance of the <see cref="EventOPRs" /> class.

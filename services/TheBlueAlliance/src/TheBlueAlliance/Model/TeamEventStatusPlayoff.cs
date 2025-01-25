@@ -17,13 +17,13 @@
     /// <summary>
 /// Playoff status for this team, may be null if the team did not make playoffs, or playoffs have not begun.
 /// </summary>
-internal partial class TeamEventStatusPlayoff
+public partial class TeamEventStatusPlayoff
 {
           /// <summary>
   /// The highest playoff level the team reached.
   /// </summary>
     /// <value>The highest playoff level the team reached.</value>
-  internal enum LevelEnum
+  public enum LevelEnum
   {
         /// <summary>
         /// Enum Qm for value: qm
@@ -119,7 +119,7 @@ internal partial class TeamEventStatusPlayoff
   /// Current competition status for the playoffs.
   /// </summary>
     /// <value>Current competition status for the playoffs.</value>
-  internal enum StatusEnum
+  public enum StatusEnum
   {
         /// <summary>
         /// Enum Won for value: won

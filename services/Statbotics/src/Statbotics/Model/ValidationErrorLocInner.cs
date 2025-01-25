@@ -18,7 +18,7 @@
   /// ValidationErrorLocInner
   /// </summary>
   
-    internal sealed partial class ValidationErrorLocInner : AbstractOpenAPISchema
+    public sealed partial class ValidationErrorLocInner : AbstractOpenAPISchema
     {
       public override string SchemaType { get; } = AnyOf;
       
@@ -29,7 +29,7 @@
             /// <param name="actualInstance">An instance of string.</param>
             public ValidationErrorLocInner(string? actualInstance)
             {
-              this.ActualInstance = actualInstance ?? throw new ArgumentException("Invalid instance found. Must not be null.");
+              this.ActualInstance = actualInstance == default ? throw new ArgumentException("Invalid instance found. Must not be null.") : actualInstance;
             }
             /// <summary>
             /// Initializes a new instance of the <see cref="ValidationErrorLocInner" /> class
@@ -38,25 +38,24 @@
             /// <param name="actualInstance">An instance of int.</param>
             public ValidationErrorLocInner(int? actualInstance)
             {
-              this.ActualInstance = actualInstance;
+              this.ActualInstance = actualInstance == default ? throw new ArgumentException("Invalid instance found. Must not be null.") : actualInstance;
             }
       
-      private object? _actualInstance;
+      private object _actualInstance;
       
       /// <summary>
       /// Gets or Sets ActualInstance
       /// </summary>
-      public override object? ActualInstance
+      public override object ActualInstance
       {
         get => _actualInstance;
         set
         {
           this._actualInstance = value switch
           { 
-          null => null,
             int _ => value,
             string _ => value,
-          _ => throw new ArgumentException("Invalid instance found. Must be the following types: int, string"),
+          _ => throw new ArgumentException("Invalid instance found. Must be the following types: [int, string]")
         };
       }
     }
@@ -101,7 +100,7 @@
     /// <returns>An instance of ValidationErrorLocInner</returns>
     public static ValidationErrorLocInner? FromJson(string jsonString)
     {
-      ValidationErrorLocInner? newValidationErrorLocInner = null;
+      ValidationErrorLocInner? newValidationErrorLocInner = default;
       
       if (string.IsNullOrEmpty(jsonString))
       {
@@ -111,6 +110,7 @@
         try
         {
           newValidationErrorLocInner = new ValidationErrorLocInner(JsonSerializer.Deserialize<int>(jsonString, ValidationErrorLocInner.SerializerSettings));
+          
           // deserialization is considered successful at this point if no exception has been thrown.
           return newValidationErrorLocInner;
         }
@@ -123,6 +123,7 @@
         try
         {
           newValidationErrorLocInner = new ValidationErrorLocInner(JsonSerializer.Deserialize<string>(jsonString, ValidationErrorLocInner.SerializerSettings));
+          
           // deserialization is considered successful at this point if no exception has been thrown.
           return newValidationErrorLocInner;
         }

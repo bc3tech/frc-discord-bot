@@ -18,7 +18,7 @@ using FIRST.Client;
   /// <summary>
   /// Represents a collection of functions to interact with the API endpoints
   /// </summary>
-  internal interface IAwardsApiSync : IApiAccessor
+  public interface IAwardsApiSync : IApiAccessor
   {
     #region Synchronous Operations
       /// <summary>
@@ -123,7 +123,7 @@ using FIRST.Client;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IAwardsApiAsync : IApiAccessor
+      public interface IAwardsApiAsync : IApiAccessor
       {
         #region Asynchronous Operations
           /// <summary>
@@ -236,12 +236,12 @@ using FIRST.Client;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IAwardsApi : IAwardsApiSync, IAwardsApiAsync { }
+      public interface IAwardsApi : IAwardsApiSync, IAwardsApiAsync { }
       
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal sealed partial class AwardsApi : IAwardsApi
+      public sealed partial class AwardsApi : IAwardsApi
       {
         private ExceptionFactory? _exceptionFactory = (name, response) => null;
         

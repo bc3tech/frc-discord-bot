@@ -17,7 +17,7 @@
     /// <summary>
 /// A Win-Loss-Tie record for a team, or an alliance.
 /// </summary>
-internal partial class WLTRecord
+public partial class WLTRecord
 {
             // yup
             /// <summary>

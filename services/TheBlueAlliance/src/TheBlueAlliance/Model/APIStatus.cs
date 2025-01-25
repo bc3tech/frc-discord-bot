@@ -17,7 +17,7 @@
     /// <summary>
 /// APIStatus
 /// </summary>
-internal partial class APIStatus
+public partial class APIStatus
 {
             // yup
             /// <summary>

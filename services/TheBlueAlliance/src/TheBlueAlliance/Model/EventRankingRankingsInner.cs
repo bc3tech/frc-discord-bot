@@ -17,7 +17,7 @@
     /// <summary>
 /// EventRankingRankingsInner
 /// </summary>
-internal partial class EventRankingRankingsInner
+public partial class EventRankingRankingsInner
 {
             // yup
             /// <summary>

@@ -17,12 +17,12 @@
     /// <summary>
 /// See the 2015 FMS API documentation for a description of each value
 /// </summary>
-internal partial class MatchScoreBreakdown2015
+public partial class MatchScoreBreakdown2015
 {
           /// <summary>
   /// Defines Coopertition
   /// </summary>
-  internal enum CoopertitionEnum
+  public enum CoopertitionEnum
   {
         /// <summary>
         /// Enum None for value: None

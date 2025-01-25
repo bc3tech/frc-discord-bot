@@ -17,7 +17,7 @@
     /// <summary>
 /// EliminationAllianceStatus
 /// </summary>
-internal partial class EliminationAllianceStatus
+public partial class EliminationAllianceStatus
 {
       /// <summary>
       /// Initializes a new instance of the <see cref="EliminationAllianceStatus" /> class.

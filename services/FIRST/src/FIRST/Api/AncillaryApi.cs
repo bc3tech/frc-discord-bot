@@ -18,7 +18,7 @@ using FIRST.Client;
   /// <summary>
   /// Represents a collection of functions to interact with the API endpoints
   /// </summary>
-  internal interface IAncillaryApiSync : IApiAccessor
+  public interface IAncillaryApiSync : IApiAccessor
   {
     #region Synchronous Operations
       /// <summary>
@@ -46,7 +46,7 @@ using FIRST.Client;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IAncillaryApiAsync : IApiAccessor
+      public interface IAncillaryApiAsync : IApiAccessor
       {
         #region Asynchronous Operations
           /// <summary>
@@ -76,12 +76,12 @@ using FIRST.Client;
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal interface IAncillaryApi : IAncillaryApiSync, IAncillaryApiAsync { }
+      public interface IAncillaryApi : IAncillaryApiSync, IAncillaryApiAsync { }
       
       /// <summary>
       /// Represents a collection of functions to interact with the API endpoints
       /// </summary>
-      internal sealed partial class AncillaryApi : IAncillaryApi
+      public sealed partial class AncillaryApi : IAncillaryApi
       {
         private ExceptionFactory? _exceptionFactory = (name, response) => null;
         

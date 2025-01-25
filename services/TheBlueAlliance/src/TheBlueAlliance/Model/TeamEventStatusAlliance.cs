@@ -17,7 +17,7 @@
     /// <summary>
 /// TeamEventStatusAlliance
 /// </summary>
-internal partial class TeamEventStatusAlliance
+public partial class TeamEventStatusAlliance
 {
             // yup
             /// <summary>
