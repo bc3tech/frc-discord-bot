@@ -40,7 +40,7 @@ internal sealed class AllianceSelection(TeamRepository teams, IEventApi tbaClien
         }
 
         var alliances = await tbaClient.GetEventAlliancesAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
-        if (alliances.Count is 0)
+        if (alliances?.Count is 0)
         {
             logger.LogWarning("Failed to retrieve alliance selection data for {EventKey}", eventKey);
             yield return baseBuilder.Build();
@@ -49,7 +49,7 @@ internal sealed class AllianceSelection(TeamRepository teams, IEventApi tbaClien
 
         // We have to build this with loops instead of interpolation because we don't want to output **anything** if Declines is empty (not even a line break)
         var descriptionBuilder = new StringBuilder("# Alliance Selection Complete\n");
-        for (int i = 0; i < alliances.Count; i++)
+        for (int i = 0; i < alliances?.Count; i++)
         {
             var alliance = alliances[i];
             descriptionBuilder.AppendLine($"## Alliance {i + 1}");
