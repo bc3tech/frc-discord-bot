@@ -14,7 +14,7 @@ internal static class DependencyInjectionExtensions
     public static IServiceCollection ConfigureTheBlueAllianceApi(this IServiceCollection services)
     {
         services
-            .AddHttpClient(ApiClient.HttpClientKey, c => c.BaseAddress = new("https://www.thebluealliance.com/api/v3"));
+            .AddHttpClient(DiscordBotFunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient, c => c.BaseAddress = new("https://www.thebluealliance.com/api/v3"));
         return services.AddSingleton(sp =>
                     {
                         var config = sp.GetRequiredService<IConfiguration>();
