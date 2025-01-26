@@ -11,6 +11,7 @@ using System.Text.Json;
 
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Api.Notifications;
+using TheBlueAlliance.Model.MatchSimpleExtensions;
 
 internal sealed class UpcomingMatch(IMatchApi tbaApi, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<UpcomingMatch> logger) : IEmbedCreator
 {

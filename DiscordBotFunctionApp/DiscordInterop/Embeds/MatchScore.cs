@@ -12,8 +12,10 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Api.Extensions;
 using TheBlueAlliance.Api.Notifications;
 using TheBlueAlliance.Model;
+using TheBlueAlliance.Model.MatchExtensions;
 
 internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<MatchScore> logger) : IEmbedCreator
 {
