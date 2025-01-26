@@ -22,7 +22,8 @@ public partial class MatchScoreBreakdown2022Alliance
           /// <summary>
   /// Defines EndgameRobot1
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum EndgameRobot1Enum
   {
         /// <summary>
@@ -117,7 +118,8 @@ public partial class MatchScoreBreakdown2022Alliance
           /// <summary>
   /// Defines EndgameRobot2
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum EndgameRobot2Enum
   {
         /// <summary>
@@ -212,7 +214,8 @@ public partial class MatchScoreBreakdown2022Alliance
           /// <summary>
   /// Defines EndgameRobot3
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum EndgameRobot3Enum
   {
         /// <summary>
@@ -307,7 +310,8 @@ public partial class MatchScoreBreakdown2022Alliance
           /// <summary>
   /// Defines TaxiRobot1
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum TaxiRobot1Enum
   {
         /// <summary>
@@ -378,7 +382,8 @@ public partial class MatchScoreBreakdown2022Alliance
           /// <summary>
   /// Defines TaxiRobot2
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum TaxiRobot2Enum
   {
         /// <summary>
@@ -449,7 +454,8 @@ public partial class MatchScoreBreakdown2022Alliance
           /// <summary>
   /// Defines TaxiRobot3
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum TaxiRobot3Enum
   {
         /// <summary>

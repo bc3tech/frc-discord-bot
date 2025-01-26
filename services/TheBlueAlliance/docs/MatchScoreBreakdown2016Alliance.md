@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 **TeleopDefensesBreached** | **bool** |  | [optional] 
 **TeleopPoints** | **int** |  | [optional] 
 **TeleopScalePoints** | **int** |  | [optional] 
-**TeleopTowerCaptured** | **int** |  | [optional] 
+**TeleopTowerCaptured** | **bool** |  | [optional] 
 **TotalPoints** | **int** |  | [optional] 
 **TowerEndStrength** | **int** |  | [optional] 
 **TowerFaceA** | **string** |  | [optional] 

@@ -4,7 +4,7 @@ using Microsoft.Extensions.EnumStrings;
 
 using System.Text.Json.Serialization;
 
-[EnumStrings]
+[EnumStrings(ExtensionNamespace = "TheBlueAlliance.Api.EventTypeExtensions")]
 public enum EventType
 {
     CMP_FINALS,

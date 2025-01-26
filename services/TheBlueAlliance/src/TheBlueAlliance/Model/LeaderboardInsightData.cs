@@ -23,7 +23,8 @@ public partial class LeaderboardInsightData
   /// What type of key is used in the rankings; either &#39;team&#39;, &#39;event&#39;, or &#39;match&#39;.
   /// </summary>
     /// <value>What type of key is used in the rankings; either &#39;team&#39;, &#39;event&#39;, or &#39;match&#39;.</value>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.LeaderboardInsightDataExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum KeyTypeEnum
   {
         /// <summary>

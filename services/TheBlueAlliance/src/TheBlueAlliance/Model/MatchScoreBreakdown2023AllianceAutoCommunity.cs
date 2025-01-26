@@ -22,7 +22,8 @@ public partial class MatchScoreBreakdown2023AllianceAutoCommunity
             /// <summary>
   /// Defines B
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceAutoCommunityExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum BEnum
   {
         /// <summary>
@@ -94,7 +95,8 @@ public partial class MatchScoreBreakdown2023AllianceAutoCommunity
             /// <summary>
   /// Defines M
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceAutoCommunityExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum MEnum
   {
         /// <summary>
@@ -166,7 +168,8 @@ public partial class MatchScoreBreakdown2023AllianceAutoCommunity
             /// <summary>
   /// Defines T
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceAutoCommunityExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum TEnum
   {
         /// <summary>

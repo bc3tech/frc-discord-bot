@@ -22,7 +22,8 @@ public partial class MatchScoreBreakdown2015
           /// <summary>
   /// Defines Coopertition
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2015Extensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum CoopertitionEnum
   {
         /// <summary>

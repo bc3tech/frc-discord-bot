@@ -22,7 +22,8 @@ public partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines AutoBridgeState
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum AutoBridgeStateEnum
   {
         /// <summary>
@@ -93,7 +94,8 @@ public partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines AutoChargeStationRobot1
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum AutoChargeStationRobot1Enum
   {
         /// <summary>
@@ -164,7 +166,8 @@ public partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines AutoChargeStationRobot2
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum AutoChargeStationRobot2Enum
   {
         /// <summary>
@@ -235,7 +238,8 @@ public partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines AutoChargeStationRobot3
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum AutoChargeStationRobot3Enum
   {
         /// <summary>
@@ -306,7 +310,8 @@ public partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines EndGameBridgeState
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum EndGameBridgeStateEnum
   {
         /// <summary>
@@ -377,7 +382,8 @@ public partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines EndGameChargeStationRobot1
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum EndGameChargeStationRobot1Enum
   {
         /// <summary>
@@ -448,7 +454,8 @@ public partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines EndGameChargeStationRobot2
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum EndGameChargeStationRobot2Enum
   {
         /// <summary>
@@ -519,7 +526,8 @@ public partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines EndGameChargeStationRobot3
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum EndGameChargeStationRobot3Enum
   {
         /// <summary>
@@ -590,7 +598,8 @@ public partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines MobilityRobot1
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum MobilityRobot1Enum
   {
         /// <summary>
@@ -661,7 +670,8 @@ public partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines MobilityRobot2
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum MobilityRobot2Enum
   {
         /// <summary>
@@ -732,7 +742,8 @@ public partial class MatchScoreBreakdown2023Alliance
           /// <summary>
   /// Defines MobilityRobot3
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum MobilityRobot3Enum
   {
         /// <summary>

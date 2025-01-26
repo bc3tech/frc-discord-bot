@@ -22,7 +22,8 @@ public partial class MatchScoreBreakdown2016Alliance
           /// <summary>
   /// Defines Robot1Auto
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2016AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum Robot1AutoEnum
   {
         /// <summary>
@@ -101,7 +102,8 @@ public partial class MatchScoreBreakdown2016Alliance
           /// <summary>
   /// Defines Robot2Auto
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2016AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum Robot2AutoEnum
   {
         /// <summary>
@@ -180,7 +182,8 @@ public partial class MatchScoreBreakdown2016Alliance
           /// <summary>
   /// Defines Robot3Auto
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2016AllianceExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum Robot3AutoEnum
   {
         /// <summary>
@@ -297,7 +300,7 @@ public partial class MatchScoreBreakdown2016Alliance
           /// <param name="towerFaceA">towerFaceA.</param>
           /// <param name="towerFaceB">towerFaceB.</param>
           /// <param name="towerFaceC">towerFaceC.</param>
-      public MatchScoreBreakdown2016Alliance(int? adjustPoints = default, int? autoBoulderPoints = default, int? autoBouldersHigh = default, int? autoBouldersLow = default, int? autoCrossingPoints = default, int? autoPoints = default, int? autoReachPoints = default, int? breachPoints = default, int? capturePoints = default, int? foulCount = default, int? foulPoints = default, int? position1crossings = default, string? position2 = default, int? position2crossings = default, string? position3 = default, int? position3crossings = default, string? position4 = default, int? position4crossings = default, string? position5 = default, int? position5crossings = default, Robot1AutoEnum? robot1Auto = default, Robot2AutoEnum? robot2Auto = default, Robot3AutoEnum? robot3Auto = default, int? techFoulCount = default, int? teleopBoulderPoints = default, int? teleopBouldersHigh = default, int? teleopBouldersLow = default, int? teleopChallengePoints = default, int? teleopCrossingPoints = default, bool? teleopDefensesBreached = default, int? teleopPoints = default, int? teleopScalePoints = default, int? teleopTowerCaptured = default, int? totalPoints = default, int? towerEndStrength = default, string? towerFaceA = default, string? towerFaceB = default, string? towerFaceC = default)
+      public MatchScoreBreakdown2016Alliance(int? adjustPoints = default, int? autoBoulderPoints = default, int? autoBouldersHigh = default, int? autoBouldersLow = default, int? autoCrossingPoints = default, int? autoPoints = default, int? autoReachPoints = default, int? breachPoints = default, int? capturePoints = default, int? foulCount = default, int? foulPoints = default, int? position1crossings = default, string? position2 = default, int? position2crossings = default, string? position3 = default, int? position3crossings = default, string? position4 = default, int? position4crossings = default, string? position5 = default, int? position5crossings = default, Robot1AutoEnum? robot1Auto = default, Robot2AutoEnum? robot2Auto = default, Robot3AutoEnum? robot3Auto = default, int? techFoulCount = default, int? teleopBoulderPoints = default, int? teleopBouldersHigh = default, int? teleopBouldersLow = default, int? teleopChallengePoints = default, int? teleopCrossingPoints = default, bool? teleopDefensesBreached = default, int? teleopPoints = default, int? teleopScalePoints = default, bool? teleopTowerCaptured = default, int? totalPoints = default, int? towerEndStrength = default, string? towerFaceA = default, string? towerFaceB = default, string? towerFaceC = default)
       {
                     this.AdjustPoints = adjustPoints;
                     this.AutoBoulderPoints = autoBoulderPoints;
@@ -547,7 +550,7 @@ public partial class MatchScoreBreakdown2016Alliance
             /// </summary>
               
                 [JsonPropertyName("teleopTowerCaptured")]
-                public int? TeleopTowerCaptured { get; set; }
+                public bool? TeleopTowerCaptured { get; set; }
                 
             /// <summary>
             /// Gets or Sets TotalPoints

@@ -23,7 +23,8 @@ public partial class Webcast
   /// Type of webcast, typically descriptive of the streaming provider.
   /// </summary>
     /// <value>Type of webcast, typically descriptive of the streaming provider.</value>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.WebcastExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum TypeEnum
   {
         /// <summary>

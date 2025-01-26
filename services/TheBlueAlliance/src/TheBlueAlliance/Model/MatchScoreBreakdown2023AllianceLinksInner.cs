@@ -22,7 +22,8 @@ public partial class MatchScoreBreakdown2023AllianceLinksInner
             /// <summary>
   /// Defines Nodes
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceLinksInnerExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum NodesEnum
   {
         /// <summary>
@@ -94,7 +95,8 @@ public partial class MatchScoreBreakdown2023AllianceLinksInner
           /// <summary>
   /// Defines Row
   /// </summary>
-  [Microsoft.Extensions.EnumStrings.EnumStrings, JsonConverter(typeof(JsonStringEnumConverter))]
+  [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceLinksInnerExtensions", ExtensionClassModifiers ="public static")]
+  [JsonConverter(typeof(JsonStringEnumConverter))]
   public enum RowEnum
   {
         /// <summary>
