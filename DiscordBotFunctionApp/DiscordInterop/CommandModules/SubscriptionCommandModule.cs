@@ -10,9 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 
 [Group("subscription", "Manages subscriptions to FRC events and teams")]
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "EA0004:Make types declared in an executable internal", Justification = "Must be public to work with Discord.Net")]
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Resilience", "EA0014:The async method doesn't support cancellation", Justification = "Can't use CTs in command signatures as not compatible with injection model")]
-public class SubscribeCommandModule(IServiceProvider services) : InteractionModuleBase
+public class SubscriptionCommandModule(IServiceProvider services) : InteractionModuleBase
 {
     private readonly SubscriptionManager _subscriptionManager = services.GetRequiredService<SubscriptionManager>();
     private readonly EventRepository _eventsRepo = services.GetRequiredService<EventRepository>();
