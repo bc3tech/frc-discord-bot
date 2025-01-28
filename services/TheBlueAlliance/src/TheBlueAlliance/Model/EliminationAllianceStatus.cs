@@ -17,84 +17,85 @@
     /// <summary>
 /// EliminationAllianceStatus
 /// </summary>
-public partial class EliminationAllianceStatus
-{
-      /// <summary>
-      /// Initializes a new instance of the <see cref="EliminationAllianceStatus" /> class.
-      /// </summary>
-          /// <param name="currentLevelRecord">currentLevelRecord.</param>
-          /// <param name="level">level.</param>
-          /// <param name="playoffAverage">playoffAverage.</param>
-          /// <param name="record">record.</param>
-          /// <param name="status">status.</param>
-      public EliminationAllianceStatus(WLTRecord? currentLevelRecord = default, string? level = default, double? playoffAverage = default, WLTRecord? record = default, string? status = default)
-      {
-                    this.CurrentLevelRecord = currentLevelRecord;
-                    this.Level = level;
-                    this.PlayoffAverage = playoffAverage;
-                    this.Record = record;
-                    this.Status = status;
-      }
-      
-            /// <summary>
-            /// Gets or Sets CurrentLevelRecord
-            /// </summary>
-              
-                [JsonPropertyName("current_level_record")]
-                public WLTRecord? CurrentLevelRecord { get; set; }
+
+  public partial class EliminationAllianceStatus
+  {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EliminationAllianceStatus" /> class.
+        /// </summary>
+            /// <param name="currentLevelRecord">currentLevelRecord.</param>
+            /// <param name="level">level.</param>
+            /// <param name="playoffAverage">playoffAverage.</param>
+            /// <param name="record">record.</param>
+            /// <param name="status">status.</param>
+        public EliminationAllianceStatus(WLTRecord? currentLevelRecord = default, string? level = default, double? playoffAverage = default, WLTRecord? record = default, string? status = default)
+        {
+                      this.CurrentLevelRecord = currentLevelRecord;
+                      this.Level = level;
+                      this.PlayoffAverage = playoffAverage;
+                      this.Record = record;
+                      this.Status = status;
+        }
+        
+              /// <summary>
+              /// Gets or Sets CurrentLevelRecord
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets Level
-            /// </summary>
-              
-                [JsonPropertyName("level")]
-                public string? Level { get; set; }
+                  [JsonPropertyName("current_level_record")]
+                  public WLTRecord? CurrentLevelRecord { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Level
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets PlayoffAverage
-            /// </summary>
-              
-                [JsonPropertyName("playoff_average")]
-                public double? PlayoffAverage { get; set; }
+                  [JsonPropertyName("level")]
+                  public string? Level { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets PlayoffAverage
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets Record
-            /// </summary>
-              
-                [JsonPropertyName("record")]
-                public WLTRecord? Record { get; set; }
+                  [JsonPropertyName("playoff_average")]
+                  public double? PlayoffAverage { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Record
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets Status
-            /// </summary>
-              
-                [JsonPropertyName("status")]
-                public string? Status { get; set; }
+                  [JsonPropertyName("record")]
+                  public WLTRecord? Record { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Status
+              /// </summary>
                 
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class EliminationAllianceStatus {");
-                  sb.Append("  CurrentLevelRecord: ").AppendLine($"{ CurrentLevelRecord?.ToString() ?? "[null]" }");
-                  sb.Append("  Level: ").AppendLine($"{ Level?.ToString() ?? "[null]" }");
-                  sb.Append("  PlayoffAverage: ").AppendLine($"{ PlayoffAverage?.ToString() ?? "[null]" }");
-                  sb.Append("  Record: ").AppendLine($"{ Record?.ToString() ?? "[null]" }");
-                  sb.Append("  Status: ").AppendLine($"{ Status?.ToString() ?? "[null]" }");
-              sb.AppendLine("}");
-              return sb.ToString();
+                  [JsonPropertyName("status")]
+                  public string? Status { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class EliminationAllianceStatus {");
+                    sb.Append("  CurrentLevelRecord: ").AppendLine($"{ CurrentLevelRecord?.ToString() ?? "[null]" }");
+                    sb.Append("  Level: ").AppendLine($"{ Level?.ToString() ?? "[null]" }");
+                    sb.Append("  PlayoffAverage: ").AppendLine($"{ PlayoffAverage?.ToString() ?? "[null]" }");
+                    sb.Append("  Record: ").AppendLine($"{ Record?.ToString() ?? "[null]" }");
+                    sb.Append("  Status: ").AppendLine($"{ Status?.ToString() ?? "[null]" }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
-            }
-          }
-          

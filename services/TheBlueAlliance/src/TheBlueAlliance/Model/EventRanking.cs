@@ -17,83 +17,84 @@
     /// <summary>
 /// EventRanking
 /// </summary>
-public partial class EventRanking
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="EventRanking" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected EventRanking() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="EventRanking" /> class.
-      /// </summary>
-          /// <param name="extraStatsInfo">List of special TBA-generated values provided in the &#x60;extra_stats&#x60; array for each item. (required).</param>
-          /// <param name="rankings">List of rankings at the event. (required).</param>
-          /// <param name="sortOrderInfo">List of year-specific values provided in the &#x60;sort_orders&#x60; array for each team. (required).</param>
-      public EventRanking(Collection<EventRankingExtraStatsInfoInner> extraStatsInfo, Collection<EventRankingRankingsInner> rankings, Collection<EventRankingSortOrderInfoInner> sortOrderInfo)
-      {
-                    // to ensure "extraStatsInfo" is required (not null)
-                    ArgumentNullException.ThrowIfNull(extraStatsInfo);
-                    this.ExtraStatsInfo = extraStatsInfo;
-                      
-                    // to ensure "rankings" is required (not null)
-                    ArgumentNullException.ThrowIfNull(rankings);
-                    this.Rankings = rankings;
-                      
-                    // to ensure "sortOrderInfo" is required (not null)
-                    ArgumentNullException.ThrowIfNull(sortOrderInfo);
-                    this.SortOrderInfo = sortOrderInfo;
-      }
-      
-            /// <summary>
-            /// List of special TBA-generated values provided in the &#x60;extra_stats&#x60; array for each item.
-            /// </summary>
-            /// <value>List of special TBA-generated values provided in the &#x60;extra_stats&#x60; array for each item.</value>
-              [JsonRequired]
-                [JsonPropertyName("extra_stats_info")]
-                public Collection<EventRankingExtraStatsInfoInner> ExtraStatsInfo { get; set; }
-                
-            /// <summary>
-            /// List of rankings at the event.
-            /// </summary>
-            /// <value>List of rankings at the event.</value>
-              [JsonRequired]
-                [JsonPropertyName("rankings")]
-                public Collection<EventRankingRankingsInner> Rankings { get; set; }
-                
-            /// <summary>
-            /// List of year-specific values provided in the &#x60;sort_orders&#x60; array for each team.
-            /// </summary>
-            /// <value>List of year-specific values provided in the &#x60;sort_orders&#x60; array for each team.</value>
-              [JsonRequired]
-                [JsonPropertyName("sort_order_info")]
-                public Collection<EventRankingSortOrderInfoInner> SortOrderInfo { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class EventRanking {");
-                  sb.Append("  ExtraStatsInfo: ").AppendLine($"{(ExtraStatsInfo is null ? "[null]" : string.Join(", ", ExtraStatsInfo))}");
-                  sb.Append("  Rankings: ").AppendLine($"{(Rankings is null ? "[null]" : string.Join(", ", Rankings))}");
-                  sb.Append("  SortOrderInfo: ").AppendLine($"{(SortOrderInfo is null ? "[null]" : string.Join(", ", SortOrderInfo))}");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class EventRanking
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="EventRanking" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected EventRanking() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventRanking" /> class.
+        /// </summary>
+            /// <param name="extraStatsInfo">List of special TBA-generated values provided in the &#x60;extra_stats&#x60; array for each item. (required).</param>
+            /// <param name="rankings">List of rankings at the event. (required).</param>
+            /// <param name="sortOrderInfo">List of year-specific values provided in the &#x60;sort_orders&#x60; array for each team. (required).</param>
+        public EventRanking(Collection<EventRankingExtraStatsInfoInner> extraStatsInfo, Collection<EventRankingRankingsInner> rankings, Collection<EventRankingSortOrderInfoInner> sortOrderInfo)
+        {
+                      // to ensure "extraStatsInfo" is required (not null)
+                      ArgumentNullException.ThrowIfNull(extraStatsInfo);
+                      this.ExtraStatsInfo = extraStatsInfo;
+                        
+                      // to ensure "rankings" is required (not null)
+                      ArgumentNullException.ThrowIfNull(rankings);
+                      this.Rankings = rankings;
+                        
+                      // to ensure "sortOrderInfo" is required (not null)
+                      ArgumentNullException.ThrowIfNull(sortOrderInfo);
+                      this.SortOrderInfo = sortOrderInfo;
+        }
+        
+              /// <summary>
+              /// List of special TBA-generated values provided in the &#x60;extra_stats&#x60; array for each item.
+              /// </summary>
+              /// <value>List of special TBA-generated values provided in the &#x60;extra_stats&#x60; array for each item.</value>
+                [JsonRequired]
+                  [JsonPropertyName("extra_stats_info")]
+                  public Collection<EventRankingExtraStatsInfoInner> ExtraStatsInfo { get; set; }
+                  
+              /// <summary>
+              /// List of rankings at the event.
+              /// </summary>
+              /// <value>List of rankings at the event.</value>
+                [JsonRequired]
+                  [JsonPropertyName("rankings")]
+                  public Collection<EventRankingRankingsInner> Rankings { get; set; }
+                  
+              /// <summary>
+              /// List of year-specific values provided in the &#x60;sort_orders&#x60; array for each team.
+              /// </summary>
+              /// <value>List of year-specific values provided in the &#x60;sort_orders&#x60; array for each team.</value>
+                [JsonRequired]
+                  [JsonPropertyName("sort_order_info")]
+                  public Collection<EventRankingSortOrderInfoInner> SortOrderInfo { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class EventRanking {");
+                    sb.Append("  ExtraStatsInfo: ").AppendLine($"{(ExtraStatsInfo is null ? "[null]" : string.Join(", ", ExtraStatsInfo))}");
+                    sb.Append("  Rankings: ").AppendLine($"{(Rankings is null ? "[null]" : string.Join(", ", Rankings))}");
+                    sb.Append("  SortOrderInfo: ").AppendLine($"{(SortOrderInfo is null ? "[null]" : string.Join(", ", SortOrderInfo))}");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

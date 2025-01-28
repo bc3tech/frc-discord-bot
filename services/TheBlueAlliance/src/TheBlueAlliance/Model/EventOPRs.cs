@@ -17,67 +17,68 @@
     /// <summary>
 /// OPR, DPR, and CCWM for teams at the event.
 /// </summary>
-public partial class EventOPRs
-{
-      /// <summary>
-      /// Initializes a new instance of the <see cref="EventOPRs" /> class.
-      /// </summary>
-          /// <param name="ccwms">A key-value pair with team key (eg &#x60;frc254&#x60;) as key and CCWM as value.</param>
-          /// <param name="dprs">A key-value pair with team key (eg &#x60;frc254&#x60;) as key and DPR as value.</param>
-          /// <param name="oprs">A key-value pair with team key (eg &#x60;frc254&#x60;) as key and OPR as value.</param>
-      public EventOPRs(Dictionary<string, float>? ccwms = default, Dictionary<string, float>? dprs = default, Dictionary<string, float>? oprs = default)
-      {
-                    this.Ccwms = ccwms;
-                    this.Dprs = dprs;
-                    this.Oprs = oprs;
-      }
-      
-            /// <summary>
-            /// A key-value pair with team key (eg &#x60;frc254&#x60;) as key and CCWM as value.
-            /// </summary>
-            /// <value>A key-value pair with team key (eg &#x60;frc254&#x60;) as key and CCWM as value.</value>
-              
-                [JsonPropertyName("ccwms")]
-                public Dictionary<string, float>? Ccwms { get; set; }
+
+  public partial class EventOPRs
+  {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventOPRs" /> class.
+        /// </summary>
+            /// <param name="ccwms">A key-value pair with team key (eg &#x60;frc254&#x60;) as key and CCWM as value.</param>
+            /// <param name="dprs">A key-value pair with team key (eg &#x60;frc254&#x60;) as key and DPR as value.</param>
+            /// <param name="oprs">A key-value pair with team key (eg &#x60;frc254&#x60;) as key and OPR as value.</param>
+        public EventOPRs(Dictionary<string, float>? ccwms = default, Dictionary<string, float>? dprs = default, Dictionary<string, float>? oprs = default)
+        {
+                      this.Ccwms = ccwms;
+                      this.Dprs = dprs;
+                      this.Oprs = oprs;
+        }
+        
+              /// <summary>
+              /// A key-value pair with team key (eg &#x60;frc254&#x60;) as key and CCWM as value.
+              /// </summary>
+              /// <value>A key-value pair with team key (eg &#x60;frc254&#x60;) as key and CCWM as value.</value>
                 
-            /// <summary>
-            /// A key-value pair with team key (eg &#x60;frc254&#x60;) as key and DPR as value.
-            /// </summary>
-            /// <value>A key-value pair with team key (eg &#x60;frc254&#x60;) as key and DPR as value.</value>
-              
-                [JsonPropertyName("dprs")]
-                public Dictionary<string, float>? Dprs { get; set; }
+                  [JsonPropertyName("ccwms")]
+                  public Dictionary<string, float>? Ccwms { get; set; }
+                  
+              /// <summary>
+              /// A key-value pair with team key (eg &#x60;frc254&#x60;) as key and DPR as value.
+              /// </summary>
+              /// <value>A key-value pair with team key (eg &#x60;frc254&#x60;) as key and DPR as value.</value>
                 
-            /// <summary>
-            /// A key-value pair with team key (eg &#x60;frc254&#x60;) as key and OPR as value.
-            /// </summary>
-            /// <value>A key-value pair with team key (eg &#x60;frc254&#x60;) as key and OPR as value.</value>
-              
-                [JsonPropertyName("oprs")]
-                public Dictionary<string, float>? Oprs { get; set; }
+                  [JsonPropertyName("dprs")]
+                  public Dictionary<string, float>? Dprs { get; set; }
+                  
+              /// <summary>
+              /// A key-value pair with team key (eg &#x60;frc254&#x60;) as key and OPR as value.
+              /// </summary>
+              /// <value>A key-value pair with team key (eg &#x60;frc254&#x60;) as key and OPR as value.</value>
                 
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class EventOPRs {");
-                  sb.Append("  Ccwms: ").AppendLine($"{ Ccwms?.ToString() ?? "[null]" }");
-                  sb.Append("  Dprs: ").AppendLine($"{ Dprs?.ToString() ?? "[null]" }");
-                  sb.Append("  Oprs: ").AppendLine($"{ Oprs?.ToString() ?? "[null]" }");
-              sb.AppendLine("}");
-              return sb.ToString();
+                  [JsonPropertyName("oprs")]
+                  public Dictionary<string, float>? Oprs { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class EventOPRs {");
+                    sb.Append("  Ccwms: ").AppendLine($"{ Ccwms?.ToString() ?? "[null]" }");
+                    sb.Append("  Dprs: ").AppendLine($"{ Dprs?.ToString() ?? "[null]" }");
+                    sb.Append("  Oprs: ").AppendLine($"{ Oprs?.ToString() ?? "[null]" }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
-            }
-          }
-          

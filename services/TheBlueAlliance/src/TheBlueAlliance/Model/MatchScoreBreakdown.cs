@@ -34,92 +34,64 @@
             /// with the <see cref="MatchScoreBreakdown2015" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2015.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2015? actualInstance)
-            {
-              this.ActualInstance = actualInstance;
-            }
+            public MatchScoreBreakdown(MatchScoreBreakdown2015 actualInstance) => this.ActualInstance = actualInstance;
             
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class
             /// with the <see cref="MatchScoreBreakdown2016" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2016.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2016? actualInstance)
-            {
-              this.ActualInstance = actualInstance;
-            }
+            public MatchScoreBreakdown(MatchScoreBreakdown2016 actualInstance) => this.ActualInstance = actualInstance;
             
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class
             /// with the <see cref="MatchScoreBreakdown2017" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2017.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2017? actualInstance)
-            {
-              this.ActualInstance = actualInstance;
-            }
+            public MatchScoreBreakdown(MatchScoreBreakdown2017 actualInstance) => this.ActualInstance = actualInstance;
             
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class
             /// with the <see cref="MatchScoreBreakdown2018" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2018.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2018? actualInstance)
-            {
-              this.ActualInstance = actualInstance;
-            }
+            public MatchScoreBreakdown(MatchScoreBreakdown2018 actualInstance) => this.ActualInstance = actualInstance;
             
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class
             /// with the <see cref="MatchScoreBreakdown2019" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2019.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2019? actualInstance)
-            {
-              this.ActualInstance = actualInstance;
-            }
+            public MatchScoreBreakdown(MatchScoreBreakdown2019 actualInstance) => this.ActualInstance = actualInstance;
             
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class
             /// with the <see cref="MatchScoreBreakdown2020" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2020.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2020? actualInstance)
-            {
-              this.ActualInstance = actualInstance;
-            }
+            public MatchScoreBreakdown(MatchScoreBreakdown2020 actualInstance) => this.ActualInstance = actualInstance;
             
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class
             /// with the <see cref="MatchScoreBreakdown2022" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2022.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2022? actualInstance)
-            {
-              this.ActualInstance = actualInstance;
-            }
+            public MatchScoreBreakdown(MatchScoreBreakdown2022 actualInstance) => this.ActualInstance = actualInstance;
             
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class
             /// with the <see cref="MatchScoreBreakdown2023" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2023.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2023? actualInstance)
-            {
-              this.ActualInstance = actualInstance;
-            }
+            public MatchScoreBreakdown(MatchScoreBreakdown2023 actualInstance) => this.ActualInstance = actualInstance;
             
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class
             /// with the <see cref="MatchScoreBreakdown2024" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2024.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2024? actualInstance)
-            {
-              this.ActualInstance = actualInstance;
-            }
+            public MatchScoreBreakdown(MatchScoreBreakdown2024 actualInstance) => this.ActualInstance = actualInstance;
             
-      
       private object? _actualInstance;
       
       /// <summary>
@@ -130,7 +102,7 @@
         get => _actualInstance;
         set
         {
-          this._actualInstance = value switch
+          _actualInstance = value switch
           { 
           null => null,
             MatchScoreBreakdown2015 _ => value,
@@ -467,5 +439,6 @@
         > 1 => throw new InvalidDataException("The JSON string `" + jsonString + "` incorrectly matches more than one schema (should be exactly one match): " + matchedTypes),
         _ => newMatchScoreBreakdown
       };
-    }}
+    }
+}
 

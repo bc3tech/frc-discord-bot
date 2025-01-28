@@ -17,56 +17,57 @@
     /// <summary>
 /// ZebraAlliances
 /// </summary>
-public partial class ZebraAlliances
-{
-      /// <summary>
-      /// Initializes a new instance of the <see cref="ZebraAlliances" /> class.
-      /// </summary>
-          /// <param name="blue">Zebra data for teams on the blue alliance</param>
-          /// <param name="red">Zebra MotionWorks data for teams on the red alliance</param>
-      public ZebraAlliances(Collection<ZebraTeam>? blue = default, Collection<ZebraTeam>? red = default)
-      {
-                    this.Blue = blue;
-                    this.Red = red;
-      }
-      
-            /// <summary>
-            /// Zebra data for teams on the blue alliance
-            /// </summary>
-            /// <value>Zebra data for teams on the blue alliance</value>
-              
-                [JsonPropertyName("blue")]
-                public Collection<ZebraTeam>? Blue { get; set; }
+
+  public partial class ZebraAlliances
+  {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ZebraAlliances" /> class.
+        /// </summary>
+            /// <param name="blue">Zebra data for teams on the blue alliance</param>
+            /// <param name="red">Zebra MotionWorks data for teams on the red alliance</param>
+        public ZebraAlliances(Collection<ZebraTeam>? blue = default, Collection<ZebraTeam>? red = default)
+        {
+                      this.Blue = blue;
+                      this.Red = red;
+        }
+        
+              /// <summary>
+              /// Zebra data for teams on the blue alliance
+              /// </summary>
+              /// <value>Zebra data for teams on the blue alliance</value>
                 
-            /// <summary>
-            /// Zebra MotionWorks data for teams on the red alliance
-            /// </summary>
-            /// <value>Zebra MotionWorks data for teams on the red alliance</value>
-              
-                [JsonPropertyName("red")]
-                public Collection<ZebraTeam>? Red { get; set; }
+                  [JsonPropertyName("blue")]
+                  public Collection<ZebraTeam>? Blue { get; set; }
+                  
+              /// <summary>
+              /// Zebra MotionWorks data for teams on the red alliance
+              /// </summary>
+              /// <value>Zebra MotionWorks data for teams on the red alliance</value>
                 
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class ZebraAlliances {");
-                  sb.Append("  Blue: ").AppendLine($"{(Blue is null ? "[null]" : string.Join(", ", Blue))}");
-                  sb.Append("  Red: ").AppendLine($"{(Red is null ? "[null]" : string.Join(", ", Red))}");
-              sb.AppendLine("}");
-              return sb.ToString();
+                  [JsonPropertyName("red")]
+                  public Collection<ZebraTeam>? Red { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class ZebraAlliances {");
+                    sb.Append("  Blue: ").AppendLine($"{(Blue is null ? "[null]" : string.Join(", ", Blue))}");
+                    sb.Append("  Red: ").AppendLine($"{(Red is null ? "[null]" : string.Join(", ", Red))}");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
-            }
-          }
-          

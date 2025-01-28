@@ -17,9 +17,10 @@
     /// <summary>
 /// See the 2015 FMS API documentation for a description of each value
 /// </summary>
-public partial class MatchScoreBreakdown2015
-{
-          /// <summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class MatchScoreBreakdown2015
+  {
+            /// <summary>
   /// Defines Coopertition
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2015Extensions", ExtensionClassModifiers ="public static")]
@@ -92,85 +93,85 @@ public partial class MatchScoreBreakdown2015
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets Coopertition
-      /// </summary>
-        [JsonRequired]
-          [JsonPropertyName("coopertition")]
-          public CoopertitionEnum Coopertition { get; set; }
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="MatchScoreBreakdown2015" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected MatchScoreBreakdown2015() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MatchScoreBreakdown2015" /> class.
-      /// </summary>
-          /// <param name="blue">blue (required).</param>
-          /// <param name="coopertition">coopertition (required).</param>
-          /// <param name="coopertitionPoints">coopertitionPoints (required).</param>
-          /// <param name="red">red (required).</param>
-      public MatchScoreBreakdown2015(MatchScoreBreakdown2015Alliance blue, CoopertitionEnum coopertition, int coopertitionPoints, MatchScoreBreakdown2015Alliance red)
-      {
-                    // to ensure "blue" is required (not null)
-                    ArgumentNullException.ThrowIfNull(blue);
-                    this.Blue = blue;
-                      
-                    this.Coopertition = coopertition;
-                    this.CoopertitionPoints = coopertitionPoints;
-                    // to ensure "red" is required (not null)
-                    ArgumentNullException.ThrowIfNull(red);
-                    this.Red = red;
-      }
-      
-            /// <summary>
-            /// Gets or Sets Blue
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("blue")]
-                public MatchScoreBreakdown2015Alliance Blue { get; set; }
-                
-            /// <summary>
-            /// Gets or Sets CoopertitionPoints
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("coopertition_points")]
-                public int CoopertitionPoints { get; set; }
-                
-            /// <summary>
-            /// Gets or Sets Red
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("red")]
-                public MatchScoreBreakdown2015Alliance Red { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class MatchScoreBreakdown2015 {");
-                  sb.Append("  Blue: ").AppendLine($"{ Blue }");
-                  sb.Append("  Coopertition: ").AppendLine($"{ Coopertition }");
-                  sb.Append("  CoopertitionPoints: ").AppendLine($"{ CoopertitionPoints }");
-                  sb.Append("  Red: ").AppendLine($"{ Red }");
-              sb.AppendLine("}");
-              return sb.ToString();
+        
+        /// <summary>
+        /// Gets or Sets Coopertition
+        /// </summary>
+          [JsonRequired]
+            [JsonPropertyName("coopertition")]
+            public CoopertitionEnum Coopertition { get; set; }
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="MatchScoreBreakdown2015" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected MatchScoreBreakdown2015() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatchScoreBreakdown2015" /> class.
+        /// </summary>
+            /// <param name="blue">blue (required).</param>
+            /// <param name="coopertition">coopertition (required).</param>
+            /// <param name="coopertitionPoints">coopertitionPoints (required).</param>
+            /// <param name="red">red (required).</param>
+        public MatchScoreBreakdown2015(MatchScoreBreakdown2015Alliance blue, CoopertitionEnum coopertition, int coopertitionPoints, MatchScoreBreakdown2015Alliance red)
+        {
+                      // to ensure "blue" is required (not null)
+                      ArgumentNullException.ThrowIfNull(blue);
+                      this.Blue = blue;
+                        
+                      this.Coopertition = coopertition;
+                      this.CoopertitionPoints = coopertitionPoints;
+                      // to ensure "red" is required (not null)
+                      ArgumentNullException.ThrowIfNull(red);
+                      this.Red = red;
+        }
+        
+              /// <summary>
+              /// Gets or Sets Blue
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("blue")]
+                  public MatchScoreBreakdown2015Alliance Blue { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets CoopertitionPoints
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("coopertition_points")]
+                  public int CoopertitionPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Red
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("red")]
+                  public MatchScoreBreakdown2015Alliance Red { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class MatchScoreBreakdown2015 {");
+                    sb.Append("  Blue: ").AppendLine($"{ Blue }");
+                    sb.Append("  Coopertition: ").AppendLine($"{ Coopertition }");
+                    sb.Append("  CoopertitionPoints: ").AppendLine($"{ CoopertitionPoints }");
+                    sb.Append("  Red: ").AppendLine($"{ Red }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

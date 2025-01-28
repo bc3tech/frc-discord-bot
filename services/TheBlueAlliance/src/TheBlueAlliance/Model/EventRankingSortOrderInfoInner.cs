@@ -17,67 +17,68 @@
     /// <summary>
 /// EventRankingSortOrderInfoInner
 /// </summary>
-public partial class EventRankingSortOrderInfoInner
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="EventRankingSortOrderInfoInner" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected EventRankingSortOrderInfoInner() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="EventRankingSortOrderInfoInner" /> class.
-      /// </summary>
-          /// <param name="name">Name of the field used in the &#x60;sort_order&#x60; array. (required).</param>
-          /// <param name="precision">Integer expressing the number of digits of precision in the number provided in &#x60;sort_orders&#x60;. (required).</param>
-      public EventRankingSortOrderInfoInner(string name, int precision)
-      {
-                    // to ensure "name" is required (not null)
-                    ArgumentNullException.ThrowIfNull(name);
-                    this.Name = name;
-                      
-                    this.Precision = precision;
-      }
-      
-            /// <summary>
-            /// Name of the field used in the &#x60;sort_order&#x60; array.
-            /// </summary>
-            /// <value>Name of the field used in the &#x60;sort_order&#x60; array.</value>
-              [JsonRequired]
-                [JsonPropertyName("name")]
-                public string Name { get; set; }
-                
-            /// <summary>
-            /// Integer expressing the number of digits of precision in the number provided in &#x60;sort_orders&#x60;.
-            /// </summary>
-            /// <value>Integer expressing the number of digits of precision in the number provided in &#x60;sort_orders&#x60;.</value>
-              [JsonRequired]
-                [JsonPropertyName("precision")]
-                public int Precision { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class EventRankingSortOrderInfoInner {");
-                  sb.Append("  Name: ").AppendLine($"{ Name }");
-                  sb.Append("  Precision: ").AppendLine($"{ Precision }");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class EventRankingSortOrderInfoInner
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="EventRankingSortOrderInfoInner" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected EventRankingSortOrderInfoInner() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventRankingSortOrderInfoInner" /> class.
+        /// </summary>
+            /// <param name="name">Name of the field used in the &#x60;sort_order&#x60; array. (required).</param>
+            /// <param name="precision">Integer expressing the number of digits of precision in the number provided in &#x60;sort_orders&#x60;. (required).</param>
+        public EventRankingSortOrderInfoInner(string name, int precision)
+        {
+                      // to ensure "name" is required (not null)
+                      ArgumentNullException.ThrowIfNull(name);
+                      this.Name = name;
+                        
+                      this.Precision = precision;
+        }
+        
+              /// <summary>
+              /// Name of the field used in the &#x60;sort_order&#x60; array.
+              /// </summary>
+              /// <value>Name of the field used in the &#x60;sort_order&#x60; array.</value>
+                [JsonRequired]
+                  [JsonPropertyName("name")]
+                  public string Name { get; set; }
+                  
+              /// <summary>
+              /// Integer expressing the number of digits of precision in the number provided in &#x60;sort_orders&#x60;.
+              /// </summary>
+              /// <value>Integer expressing the number of digits of precision in the number provided in &#x60;sort_orders&#x60;.</value>
+                [JsonRequired]
+                  [JsonPropertyName("precision")]
+                  public int Precision { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class EventRankingSortOrderInfoInner {");
+                    sb.Append("  Name: ").AppendLine($"{ Name }");
+                    sb.Append("  Precision: ").AppendLine($"{ Precision }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

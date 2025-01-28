@@ -17,54 +17,55 @@
     /// <summary>
 /// EventDistrictPointsTiebreakersValue
 /// </summary>
-public partial class EventDistrictPointsTiebreakersValue
-{
-      /// <summary>
-      /// Initializes a new instance of the <see cref="EventDistrictPointsTiebreakersValue" /> class.
-      /// </summary>
-          /// <param name="highestQualScores">highestQualScores.</param>
-          /// <param name="qualWins">qualWins.</param>
-      public EventDistrictPointsTiebreakersValue(Collection<int>? highestQualScores = default, int? qualWins = default)
-      {
-                    this.HighestQualScores = highestQualScores;
-                    this.QualWins = qualWins;
-      }
-      
-            /// <summary>
-            /// Gets or Sets HighestQualScores
-            /// </summary>
-              
-                [JsonPropertyName("highest_qual_scores")]
-                public Collection<int>? HighestQualScores { get; set; }
+
+  public partial class EventDistrictPointsTiebreakersValue
+  {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventDistrictPointsTiebreakersValue" /> class.
+        /// </summary>
+            /// <param name="highestQualScores">highestQualScores.</param>
+            /// <param name="qualWins">qualWins.</param>
+        public EventDistrictPointsTiebreakersValue(Collection<int>? highestQualScores = default, int? qualWins = default)
+        {
+                      this.HighestQualScores = highestQualScores;
+                      this.QualWins = qualWins;
+        }
+        
+              /// <summary>
+              /// Gets or Sets HighestQualScores
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets QualWins
-            /// </summary>
-              
-                [JsonPropertyName("qual_wins")]
-                public int? QualWins { get; set; }
+                  [JsonPropertyName("highest_qual_scores")]
+                  public Collection<int>? HighestQualScores { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets QualWins
+              /// </summary>
                 
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class EventDistrictPointsTiebreakersValue {");
-                  sb.Append("  HighestQualScores: ").AppendLine($"{(HighestQualScores is null ? "[null]" : string.Join(", ", HighestQualScores))}");
-                  sb.Append("  QualWins: ").AppendLine($"{ QualWins?.ToString() ?? "[null]" }");
-              sb.AppendLine("}");
-              return sb.ToString();
+                  [JsonPropertyName("qual_wins")]
+                  public int? QualWins { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class EventDistrictPointsTiebreakersValue {");
+                    sb.Append("  HighestQualScores: ").AppendLine($"{(HighestQualScores is null ? "[null]" : string.Join(", ", HighestQualScores))}");
+                    sb.Append("  QualWins: ").AppendLine($"{ QualWins?.ToString() ?? "[null]" }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
-            }
-          }
-          

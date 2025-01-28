@@ -17,76 +17,77 @@
     /// <summary>
 /// TeamEventStatusRank
 /// </summary>
-public partial class TeamEventStatusRank
-{
-      /// <summary>
-      /// Initializes a new instance of the <see cref="TeamEventStatusRank" /> class.
-      /// </summary>
-          /// <param name="numTeams">Number of teams ranked.</param>
-          /// <param name="ranking">ranking.</param>
-          /// <param name="sortOrderInfo">Ordered list of names corresponding to the elements of the &#x60;sort_orders&#x60; array.</param>
-          /// <param name="status">status.</param>
-      public TeamEventStatusRank(int? numTeams = default, TeamEventStatusRankRanking? ranking = default, Collection<TeamEventStatusRankSortOrderInfoInner>? sortOrderInfo = default, string? status = default)
-      {
-                    this.NumTeams = numTeams;
-                    this.Ranking = ranking;
-                    this.SortOrderInfo = sortOrderInfo;
-                    this.Status = status;
-      }
-      
-            /// <summary>
-            /// Number of teams ranked.
-            /// </summary>
-            /// <value>Number of teams ranked.</value>
-              
-                [JsonPropertyName("num_teams")]
-                public int? NumTeams { get; set; }
+
+  public partial class TeamEventStatusRank
+  {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TeamEventStatusRank" /> class.
+        /// </summary>
+            /// <param name="numTeams">Number of teams ranked.</param>
+            /// <param name="ranking">ranking.</param>
+            /// <param name="sortOrderInfo">Ordered list of names corresponding to the elements of the &#x60;sort_orders&#x60; array.</param>
+            /// <param name="status">status.</param>
+        public TeamEventStatusRank(int? numTeams = default, TeamEventStatusRankRanking? ranking = default, Collection<TeamEventStatusRankSortOrderInfoInner>? sortOrderInfo = default, string? status = default)
+        {
+                      this.NumTeams = numTeams;
+                      this.Ranking = ranking;
+                      this.SortOrderInfo = sortOrderInfo;
+                      this.Status = status;
+        }
+        
+              /// <summary>
+              /// Number of teams ranked.
+              /// </summary>
+              /// <value>Number of teams ranked.</value>
                 
-            /// <summary>
-            /// Gets or Sets Ranking
-            /// </summary>
-              
-                [JsonPropertyName("ranking")]
-                public TeamEventStatusRankRanking? Ranking { get; set; }
+                  [JsonPropertyName("num_teams")]
+                  public int? NumTeams { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Ranking
+              /// </summary>
                 
-            /// <summary>
-            /// Ordered list of names corresponding to the elements of the &#x60;sort_orders&#x60; array.
-            /// </summary>
-            /// <value>Ordered list of names corresponding to the elements of the &#x60;sort_orders&#x60; array.</value>
-              
-                [JsonPropertyName("sort_order_info")]
-                public Collection<TeamEventStatusRankSortOrderInfoInner>? SortOrderInfo { get; set; }
+                  [JsonPropertyName("ranking")]
+                  public TeamEventStatusRankRanking? Ranking { get; set; }
+                  
+              /// <summary>
+              /// Ordered list of names corresponding to the elements of the &#x60;sort_orders&#x60; array.
+              /// </summary>
+              /// <value>Ordered list of names corresponding to the elements of the &#x60;sort_orders&#x60; array.</value>
                 
-            /// <summary>
-            /// Gets or Sets Status
-            /// </summary>
-              
-                [JsonPropertyName("status")]
-                public string? Status { get; set; }
+                  [JsonPropertyName("sort_order_info")]
+                  public Collection<TeamEventStatusRankSortOrderInfoInner>? SortOrderInfo { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Status
+              /// </summary>
                 
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class TeamEventStatusRank {");
-                  sb.Append("  NumTeams: ").AppendLine($"{ NumTeams?.ToString() ?? "[null]" }");
-                  sb.Append("  Ranking: ").AppendLine($"{ Ranking?.ToString() ?? "[null]" }");
-                  sb.Append("  SortOrderInfo: ").AppendLine($"{(SortOrderInfo is null ? "[null]" : string.Join(", ", SortOrderInfo))}");
-                  sb.Append("  Status: ").AppendLine($"{ Status?.ToString() ?? "[null]" }");
-              sb.AppendLine("}");
-              return sb.ToString();
+                  [JsonPropertyName("status")]
+                  public string? Status { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class TeamEventStatusRank {");
+                    sb.Append("  NumTeams: ").AppendLine($"{ NumTeams?.ToString() ?? "[null]" }");
+                    sb.Append("  Ranking: ").AppendLine($"{ Ranking?.ToString() ?? "[null]" }");
+                    sb.Append("  SortOrderInfo: ").AppendLine($"{(SortOrderInfo is null ? "[null]" : string.Join(", ", SortOrderInfo))}");
+                    sb.Append("  Status: ").AppendLine($"{ Status?.ToString() ?? "[null]" }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
-            }
-          }
-          

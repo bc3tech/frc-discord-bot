@@ -17,9 +17,10 @@
     /// <summary>
 /// Playoff status for this team, may be null if the team did not make playoffs, or playoffs have not begun.
 /// </summary>
-public partial class TeamEventStatusPlayoff
-{
-          /// <summary>
+
+  public partial class TeamEventStatusPlayoff
+  {
+            /// <summary>
   /// The highest playoff level the team reached.
   /// </summary>
     /// <value>The highest playoff level the team reached.</value>
@@ -109,15 +110,15 @@ public partial class TeamEventStatusPlayoff
         };
     }
 
-      
-      /// <summary>
-      /// The highest playoff level the team reached.
-      /// </summary>
-        /// <value>The highest playoff level the team reached.</value>
         
-          [JsonPropertyName("level")]
-          public LevelEnum? Level { get; set; }
-          /// <summary>
+        /// <summary>
+        /// The highest playoff level the team reached.
+        /// </summary>
+          /// <value>The highest playoff level the team reached.</value>
+          
+            [JsonPropertyName("level")]
+            public LevelEnum? Level { get; set; }
+            /// <summary>
   /// Current competition status for the playoffs.
   /// </summary>
     /// <value>Current competition status for the playoffs.</value>
@@ -191,77 +192,77 @@ public partial class TeamEventStatusPlayoff
         };
     }
 
-      
-      /// <summary>
-      /// Current competition status for the playoffs.
-      /// </summary>
-        /// <value>Current competition status for the playoffs.</value>
         
-          [JsonPropertyName("status")]
-          public StatusEnum? Status { get; set; }
-      /// <summary>
-      /// Initializes a new instance of the <see cref="TeamEventStatusPlayoff" /> class.
-      /// </summary>
-          /// <param name="currentLevelRecord">currentLevelRecord.</param>
-          /// <param name="level">The highest playoff level the team reached.</param>
-          /// <param name="playoffAverage">The average match score during playoffs. Year specific. May be null if not relevant for a given year.</param>
-          /// <param name="record">record.</param>
-          /// <param name="status">Current competition status for the playoffs.</param>
-      public TeamEventStatusPlayoff(WLTRecord? currentLevelRecord = default, LevelEnum? level = default, int? playoffAverage = default, WLTRecord? record = default, StatusEnum? status = default)
-      {
-                    this.CurrentLevelRecord = currentLevelRecord;
-                    this.Level = level;
-                    this.PlayoffAverage = playoffAverage;
-                    this.Record = record;
-                    this.Status = status;
-      }
-      
-            /// <summary>
-            /// Gets or Sets CurrentLevelRecord
-            /// </summary>
-              
-                [JsonPropertyName("current_level_record")]
-                public WLTRecord? CurrentLevelRecord { get; set; }
+        /// <summary>
+        /// Current competition status for the playoffs.
+        /// </summary>
+          /// <value>Current competition status for the playoffs.</value>
+          
+            [JsonPropertyName("status")]
+            public StatusEnum? Status { get; set; }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TeamEventStatusPlayoff" /> class.
+        /// </summary>
+            /// <param name="currentLevelRecord">currentLevelRecord.</param>
+            /// <param name="level">The highest playoff level the team reached.</param>
+            /// <param name="playoffAverage">The average match score during playoffs. Year specific. May be null if not relevant for a given year.</param>
+            /// <param name="record">record.</param>
+            /// <param name="status">Current competition status for the playoffs.</param>
+        public TeamEventStatusPlayoff(WLTRecord? currentLevelRecord = default, LevelEnum? level = default, int? playoffAverage = default, WLTRecord? record = default, StatusEnum? status = default)
+        {
+                      this.CurrentLevelRecord = currentLevelRecord;
+                      this.Level = level;
+                      this.PlayoffAverage = playoffAverage;
+                      this.Record = record;
+                      this.Status = status;
+        }
+        
+              /// <summary>
+              /// Gets or Sets CurrentLevelRecord
+              /// </summary>
                 
-            /// <summary>
-            /// The average match score during playoffs. Year specific. May be null if not relevant for a given year.
-            /// </summary>
-            /// <value>The average match score during playoffs. Year specific. May be null if not relevant for a given year.</value>
-              
-                [JsonPropertyName("playoff_average")]
-                public int? PlayoffAverage { get; set; }
+                  [JsonPropertyName("current_level_record")]
+                  public WLTRecord? CurrentLevelRecord { get; set; }
+                  
+              /// <summary>
+              /// The average match score during playoffs. Year specific. May be null if not relevant for a given year.
+              /// </summary>
+              /// <value>The average match score during playoffs. Year specific. May be null if not relevant for a given year.</value>
                 
-            /// <summary>
-            /// Gets or Sets Record
-            /// </summary>
-              
-                [JsonPropertyName("record")]
-                public WLTRecord? Record { get; set; }
+                  [JsonPropertyName("playoff_average")]
+                  public int? PlayoffAverage { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Record
+              /// </summary>
                 
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class TeamEventStatusPlayoff {");
-                  sb.Append("  CurrentLevelRecord: ").AppendLine($"{ CurrentLevelRecord?.ToString() ?? "[null]" }");
-                  sb.Append("  Level: ").AppendLine($"{ Level?.ToString() ?? "[null]" }");
-                  sb.Append("  PlayoffAverage: ").AppendLine($"{ PlayoffAverage?.ToString() ?? "[null]" }");
-                  sb.Append("  Record: ").AppendLine($"{ Record?.ToString() ?? "[null]" }");
-                  sb.Append("  Status: ").AppendLine($"{ Status?.ToString() ?? "[null]" }");
-              sb.AppendLine("}");
-              return sb.ToString();
+                  [JsonPropertyName("record")]
+                  public WLTRecord? Record { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class TeamEventStatusPlayoff {");
+                    sb.Append("  CurrentLevelRecord: ").AppendLine($"{ CurrentLevelRecord?.ToString() ?? "[null]" }");
+                    sb.Append("  Level: ").AppendLine($"{ Level?.ToString() ?? "[null]" }");
+                    sb.Append("  PlayoffAverage: ").AppendLine($"{ PlayoffAverage?.ToString() ?? "[null]" }");
+                    sb.Append("  Record: ").AppendLine($"{ Record?.ToString() ?? "[null]" }");
+                    sb.Append("  Status: ").AppendLine($"{ Status?.ToString() ?? "[null]" }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
-            }
-          }
-          

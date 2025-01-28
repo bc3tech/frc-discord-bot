@@ -17,9 +17,10 @@
     /// <summary>
 /// MatchScoreBreakdown2023Alliance
 /// </summary>
-public partial class MatchScoreBreakdown2023Alliance
-{
-          /// <summary>
+
+  public partial class MatchScoreBreakdown2023Alliance
+  {
+            /// <summary>
   /// Defines AutoBridgeState
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
@@ -84,14 +85,14 @@ public partial class MatchScoreBreakdown2023Alliance
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets AutoBridgeState
-      /// </summary>
         
-          [JsonPropertyName("autoBridgeState")]
-          public AutoBridgeStateEnum? AutoBridgeState { get; set; }
-          /// <summary>
+        /// <summary>
+        /// Gets or Sets AutoBridgeState
+        /// </summary>
+          
+            [JsonPropertyName("autoBridgeState")]
+            public AutoBridgeStateEnum? AutoBridgeState { get; set; }
+            /// <summary>
   /// Defines AutoChargeStationRobot1
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
@@ -156,14 +157,14 @@ public partial class MatchScoreBreakdown2023Alliance
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets AutoChargeStationRobot1
-      /// </summary>
         
-          [JsonPropertyName("autoChargeStationRobot1")]
-          public AutoChargeStationRobot1Enum? AutoChargeStationRobot1 { get; set; }
-          /// <summary>
+        /// <summary>
+        /// Gets or Sets AutoChargeStationRobot1
+        /// </summary>
+          
+            [JsonPropertyName("autoChargeStationRobot1")]
+            public AutoChargeStationRobot1Enum? AutoChargeStationRobot1 { get; set; }
+            /// <summary>
   /// Defines AutoChargeStationRobot2
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
@@ -228,14 +229,14 @@ public partial class MatchScoreBreakdown2023Alliance
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets AutoChargeStationRobot2
-      /// </summary>
         
-          [JsonPropertyName("autoChargeStationRobot2")]
-          public AutoChargeStationRobot2Enum? AutoChargeStationRobot2 { get; set; }
-          /// <summary>
+        /// <summary>
+        /// Gets or Sets AutoChargeStationRobot2
+        /// </summary>
+          
+            [JsonPropertyName("autoChargeStationRobot2")]
+            public AutoChargeStationRobot2Enum? AutoChargeStationRobot2 { get; set; }
+            /// <summary>
   /// Defines AutoChargeStationRobot3
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
@@ -300,14 +301,14 @@ public partial class MatchScoreBreakdown2023Alliance
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets AutoChargeStationRobot3
-      /// </summary>
         
-          [JsonPropertyName("autoChargeStationRobot3")]
-          public AutoChargeStationRobot3Enum? AutoChargeStationRobot3 { get; set; }
-          /// <summary>
+        /// <summary>
+        /// Gets or Sets AutoChargeStationRobot3
+        /// </summary>
+          
+            [JsonPropertyName("autoChargeStationRobot3")]
+            public AutoChargeStationRobot3Enum? AutoChargeStationRobot3 { get; set; }
+            /// <summary>
   /// Defines EndGameBridgeState
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
@@ -372,14 +373,14 @@ public partial class MatchScoreBreakdown2023Alliance
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets EndGameBridgeState
-      /// </summary>
         
-          [JsonPropertyName("endGameBridgeState")]
-          public EndGameBridgeStateEnum? EndGameBridgeState { get; set; }
-          /// <summary>
+        /// <summary>
+        /// Gets or Sets EndGameBridgeState
+        /// </summary>
+          
+            [JsonPropertyName("endGameBridgeState")]
+            public EndGameBridgeStateEnum? EndGameBridgeState { get; set; }
+            /// <summary>
   /// Defines EndGameChargeStationRobot1
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
@@ -444,14 +445,14 @@ public partial class MatchScoreBreakdown2023Alliance
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets EndGameChargeStationRobot1
-      /// </summary>
         
-          [JsonPropertyName("endGameChargeStationRobot1")]
-          public EndGameChargeStationRobot1Enum? EndGameChargeStationRobot1 { get; set; }
-          /// <summary>
+        /// <summary>
+        /// Gets or Sets EndGameChargeStationRobot1
+        /// </summary>
+          
+            [JsonPropertyName("endGameChargeStationRobot1")]
+            public EndGameChargeStationRobot1Enum? EndGameChargeStationRobot1 { get; set; }
+            /// <summary>
   /// Defines EndGameChargeStationRobot2
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
@@ -516,14 +517,14 @@ public partial class MatchScoreBreakdown2023Alliance
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets EndGameChargeStationRobot2
-      /// </summary>
         
-          [JsonPropertyName("endGameChargeStationRobot2")]
-          public EndGameChargeStationRobot2Enum? EndGameChargeStationRobot2 { get; set; }
-          /// <summary>
+        /// <summary>
+        /// Gets or Sets EndGameChargeStationRobot2
+        /// </summary>
+          
+            [JsonPropertyName("endGameChargeStationRobot2")]
+            public EndGameChargeStationRobot2Enum? EndGameChargeStationRobot2 { get; set; }
+            /// <summary>
   /// Defines EndGameChargeStationRobot3
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
@@ -588,14 +589,14 @@ public partial class MatchScoreBreakdown2023Alliance
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets EndGameChargeStationRobot3
-      /// </summary>
         
-          [JsonPropertyName("endGameChargeStationRobot3")]
-          public EndGameChargeStationRobot3Enum? EndGameChargeStationRobot3 { get; set; }
-          /// <summary>
+        /// <summary>
+        /// Gets or Sets EndGameChargeStationRobot3
+        /// </summary>
+          
+            [JsonPropertyName("endGameChargeStationRobot3")]
+            public EndGameChargeStationRobot3Enum? EndGameChargeStationRobot3 { get; set; }
+            /// <summary>
   /// Defines MobilityRobot1
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
@@ -660,14 +661,14 @@ public partial class MatchScoreBreakdown2023Alliance
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets MobilityRobot1
-      /// </summary>
         
-          [JsonPropertyName("mobilityRobot1")]
-          public MobilityRobot1Enum? MobilityRobot1 { get; set; }
-          /// <summary>
+        /// <summary>
+        /// Gets or Sets MobilityRobot1
+        /// </summary>
+          
+            [JsonPropertyName("mobilityRobot1")]
+            public MobilityRobot1Enum? MobilityRobot1 { get; set; }
+            /// <summary>
   /// Defines MobilityRobot2
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
@@ -732,14 +733,14 @@ public partial class MatchScoreBreakdown2023Alliance
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets MobilityRobot2
-      /// </summary>
         
-          [JsonPropertyName("mobilityRobot2")]
-          public MobilityRobot2Enum? MobilityRobot2 { get; set; }
-          /// <summary>
+        /// <summary>
+        /// Gets or Sets MobilityRobot2
+        /// </summary>
+          
+            [JsonPropertyName("mobilityRobot2")]
+            public MobilityRobot2Enum? MobilityRobot2 { get; set; }
+            /// <summary>
   /// Defines MobilityRobot3
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
@@ -804,342 +805,342 @@ public partial class MatchScoreBreakdown2023Alliance
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets MobilityRobot3
-      /// </summary>
         
-          [JsonPropertyName("mobilityRobot3")]
-          public MobilityRobot3Enum? MobilityRobot3 { get; set; }
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MatchScoreBreakdown2023Alliance" /> class.
-      /// </summary>
-          /// <param name="activationBonusAchieved">activationBonusAchieved.</param>
-          /// <param name="adjustPoints">adjustPoints.</param>
-          /// <param name="autoBridgeState">autoBridgeState.</param>
-          /// <param name="autoChargeStationPoints">autoChargeStationPoints.</param>
-          /// <param name="autoChargeStationRobot1">autoChargeStationRobot1.</param>
-          /// <param name="autoChargeStationRobot2">autoChargeStationRobot2.</param>
-          /// <param name="autoChargeStationRobot3">autoChargeStationRobot3.</param>
-          /// <param name="autoCommunity">autoCommunity.</param>
-          /// <param name="autoDocked">autoDocked.</param>
-          /// <param name="autoGamePieceCount">autoGamePieceCount.</param>
-          /// <param name="autoGamePiecePoints">autoGamePiecePoints.</param>
-          /// <param name="autoMobilityPoints">autoMobilityPoints.</param>
-          /// <param name="autoPoints">autoPoints.</param>
-          /// <param name="coopGamePieceCount">coopGamePieceCount.</param>
-          /// <param name="coopertitionCriteriaMet">coopertitionCriteriaMet.</param>
-          /// <param name="endGameBridgeState">endGameBridgeState.</param>
-          /// <param name="endGameChargeStationPoints">endGameChargeStationPoints.</param>
-          /// <param name="endGameChargeStationRobot1">endGameChargeStationRobot1.</param>
-          /// <param name="endGameChargeStationRobot2">endGameChargeStationRobot2.</param>
-          /// <param name="endGameChargeStationRobot3">endGameChargeStationRobot3.</param>
-          /// <param name="endGameParkPoints">endGameParkPoints.</param>
-          /// <param name="extraGamePieceCount">extraGamePieceCount.</param>
-          /// <param name="foulCount">foulCount.</param>
-          /// <param name="foulPoints">foulPoints.</param>
-          /// <param name="linkPoints">linkPoints.</param>
-          /// <param name="links">links.</param>
-          /// <param name="mobilityRobot1">mobilityRobot1.</param>
-          /// <param name="mobilityRobot2">mobilityRobot2.</param>
-          /// <param name="mobilityRobot3">mobilityRobot3.</param>
-          /// <param name="rp">rp.</param>
-          /// <param name="sustainabilityBonusAchieved">sustainabilityBonusAchieved.</param>
-          /// <param name="techFoulCount">techFoulCount.</param>
-          /// <param name="teleopCommunity">teleopCommunity.</param>
-          /// <param name="teleopGamePieceCount">teleopGamePieceCount.</param>
-          /// <param name="teleopGamePiecePoints">teleopGamePiecePoints.</param>
-          /// <param name="teleopPoints">teleopPoints.</param>
-          /// <param name="totalChargeStationPoints">totalChargeStationPoints.</param>
-          /// <param name="totalPoints">totalPoints.</param>
-      public MatchScoreBreakdown2023Alliance(bool? activationBonusAchieved = default, int? adjustPoints = default, AutoBridgeStateEnum? autoBridgeState = default, int? autoChargeStationPoints = default, AutoChargeStationRobot1Enum? autoChargeStationRobot1 = default, AutoChargeStationRobot2Enum? autoChargeStationRobot2 = default, AutoChargeStationRobot3Enum? autoChargeStationRobot3 = default, MatchScoreBreakdown2023AllianceAutoCommunity? autoCommunity = default, bool? autoDocked = default, int? autoGamePieceCount = default, int? autoGamePiecePoints = default, int? autoMobilityPoints = default, int? autoPoints = default, int? coopGamePieceCount = default, bool? coopertitionCriteriaMet = default, EndGameBridgeStateEnum? endGameBridgeState = default, int? endGameChargeStationPoints = default, EndGameChargeStationRobot1Enum? endGameChargeStationRobot1 = default, EndGameChargeStationRobot2Enum? endGameChargeStationRobot2 = default, EndGameChargeStationRobot3Enum? endGameChargeStationRobot3 = default, int? endGameParkPoints = default, int? extraGamePieceCount = default, int? foulCount = default, int? foulPoints = default, int? linkPoints = default, Collection<MatchScoreBreakdown2023AllianceLinksInner>? links = default, MobilityRobot1Enum? mobilityRobot1 = default, MobilityRobot2Enum? mobilityRobot2 = default, MobilityRobot3Enum? mobilityRobot3 = default, int? rp = default, bool? sustainabilityBonusAchieved = default, int? techFoulCount = default, MatchScoreBreakdown2023AllianceAutoCommunity? teleopCommunity = default, int? teleopGamePieceCount = default, int? teleopGamePiecePoints = default, int? teleopPoints = default, int? totalChargeStationPoints = default, int? totalPoints = default)
-      {
-                    this.ActivationBonusAchieved = activationBonusAchieved;
-                    this.AdjustPoints = adjustPoints;
-                    this.AutoBridgeState = autoBridgeState;
-                    this.AutoChargeStationPoints = autoChargeStationPoints;
-                    this.AutoChargeStationRobot1 = autoChargeStationRobot1;
-                    this.AutoChargeStationRobot2 = autoChargeStationRobot2;
-                    this.AutoChargeStationRobot3 = autoChargeStationRobot3;
-                    this.AutoCommunity = autoCommunity;
-                    this.AutoDocked = autoDocked;
-                    this.AutoGamePieceCount = autoGamePieceCount;
-                    this.AutoGamePiecePoints = autoGamePiecePoints;
-                    this.AutoMobilityPoints = autoMobilityPoints;
-                    this.AutoPoints = autoPoints;
-                    this.CoopGamePieceCount = coopGamePieceCount;
-                    this.CoopertitionCriteriaMet = coopertitionCriteriaMet;
-                    this.EndGameBridgeState = endGameBridgeState;
-                    this.EndGameChargeStationPoints = endGameChargeStationPoints;
-                    this.EndGameChargeStationRobot1 = endGameChargeStationRobot1;
-                    this.EndGameChargeStationRobot2 = endGameChargeStationRobot2;
-                    this.EndGameChargeStationRobot3 = endGameChargeStationRobot3;
-                    this.EndGameParkPoints = endGameParkPoints;
-                    this.ExtraGamePieceCount = extraGamePieceCount;
-                    this.FoulCount = foulCount;
-                    this.FoulPoints = foulPoints;
-                    this.LinkPoints = linkPoints;
-                    this.Links = links;
-                    this.MobilityRobot1 = mobilityRobot1;
-                    this.MobilityRobot2 = mobilityRobot2;
-                    this.MobilityRobot3 = mobilityRobot3;
-                    this.Rp = rp;
-                    this.SustainabilityBonusAchieved = sustainabilityBonusAchieved;
-                    this.TechFoulCount = techFoulCount;
-                    this.TeleopCommunity = teleopCommunity;
-                    this.TeleopGamePieceCount = teleopGamePieceCount;
-                    this.TeleopGamePiecePoints = teleopGamePiecePoints;
-                    this.TeleopPoints = teleopPoints;
-                    this.TotalChargeStationPoints = totalChargeStationPoints;
-                    this.TotalPoints = totalPoints;
-      }
-      
-            /// <summary>
-            /// Gets or Sets ActivationBonusAchieved
-            /// </summary>
-              
-                [JsonPropertyName("activationBonusAchieved")]
-                public bool? ActivationBonusAchieved { get; set; }
+        /// <summary>
+        /// Gets or Sets MobilityRobot3
+        /// </summary>
+          
+            [JsonPropertyName("mobilityRobot3")]
+            public MobilityRobot3Enum? MobilityRobot3 { get; set; }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatchScoreBreakdown2023Alliance" /> class.
+        /// </summary>
+            /// <param name="activationBonusAchieved">activationBonusAchieved.</param>
+            /// <param name="adjustPoints">adjustPoints.</param>
+            /// <param name="autoBridgeState">autoBridgeState.</param>
+            /// <param name="autoChargeStationPoints">autoChargeStationPoints.</param>
+            /// <param name="autoChargeStationRobot1">autoChargeStationRobot1.</param>
+            /// <param name="autoChargeStationRobot2">autoChargeStationRobot2.</param>
+            /// <param name="autoChargeStationRobot3">autoChargeStationRobot3.</param>
+            /// <param name="autoCommunity">autoCommunity.</param>
+            /// <param name="autoDocked">autoDocked.</param>
+            /// <param name="autoGamePieceCount">autoGamePieceCount.</param>
+            /// <param name="autoGamePiecePoints">autoGamePiecePoints.</param>
+            /// <param name="autoMobilityPoints">autoMobilityPoints.</param>
+            /// <param name="autoPoints">autoPoints.</param>
+            /// <param name="coopGamePieceCount">coopGamePieceCount.</param>
+            /// <param name="coopertitionCriteriaMet">coopertitionCriteriaMet.</param>
+            /// <param name="endGameBridgeState">endGameBridgeState.</param>
+            /// <param name="endGameChargeStationPoints">endGameChargeStationPoints.</param>
+            /// <param name="endGameChargeStationRobot1">endGameChargeStationRobot1.</param>
+            /// <param name="endGameChargeStationRobot2">endGameChargeStationRobot2.</param>
+            /// <param name="endGameChargeStationRobot3">endGameChargeStationRobot3.</param>
+            /// <param name="endGameParkPoints">endGameParkPoints.</param>
+            /// <param name="extraGamePieceCount">extraGamePieceCount.</param>
+            /// <param name="foulCount">foulCount.</param>
+            /// <param name="foulPoints">foulPoints.</param>
+            /// <param name="linkPoints">linkPoints.</param>
+            /// <param name="links">links.</param>
+            /// <param name="mobilityRobot1">mobilityRobot1.</param>
+            /// <param name="mobilityRobot2">mobilityRobot2.</param>
+            /// <param name="mobilityRobot3">mobilityRobot3.</param>
+            /// <param name="rp">rp.</param>
+            /// <param name="sustainabilityBonusAchieved">sustainabilityBonusAchieved.</param>
+            /// <param name="techFoulCount">techFoulCount.</param>
+            /// <param name="teleopCommunity">teleopCommunity.</param>
+            /// <param name="teleopGamePieceCount">teleopGamePieceCount.</param>
+            /// <param name="teleopGamePiecePoints">teleopGamePiecePoints.</param>
+            /// <param name="teleopPoints">teleopPoints.</param>
+            /// <param name="totalChargeStationPoints">totalChargeStationPoints.</param>
+            /// <param name="totalPoints">totalPoints.</param>
+        public MatchScoreBreakdown2023Alliance(bool? activationBonusAchieved = default, int? adjustPoints = default, AutoBridgeStateEnum? autoBridgeState = default, int? autoChargeStationPoints = default, AutoChargeStationRobot1Enum? autoChargeStationRobot1 = default, AutoChargeStationRobot2Enum? autoChargeStationRobot2 = default, AutoChargeStationRobot3Enum? autoChargeStationRobot3 = default, MatchScoreBreakdown2023AllianceAutoCommunity? autoCommunity = default, bool? autoDocked = default, int? autoGamePieceCount = default, int? autoGamePiecePoints = default, int? autoMobilityPoints = default, int? autoPoints = default, int? coopGamePieceCount = default, bool? coopertitionCriteriaMet = default, EndGameBridgeStateEnum? endGameBridgeState = default, int? endGameChargeStationPoints = default, EndGameChargeStationRobot1Enum? endGameChargeStationRobot1 = default, EndGameChargeStationRobot2Enum? endGameChargeStationRobot2 = default, EndGameChargeStationRobot3Enum? endGameChargeStationRobot3 = default, int? endGameParkPoints = default, int? extraGamePieceCount = default, int? foulCount = default, int? foulPoints = default, int? linkPoints = default, Collection<MatchScoreBreakdown2023AllianceLinksInner>? links = default, MobilityRobot1Enum? mobilityRobot1 = default, MobilityRobot2Enum? mobilityRobot2 = default, MobilityRobot3Enum? mobilityRobot3 = default, int? rp = default, bool? sustainabilityBonusAchieved = default, int? techFoulCount = default, MatchScoreBreakdown2023AllianceAutoCommunity? teleopCommunity = default, int? teleopGamePieceCount = default, int? teleopGamePiecePoints = default, int? teleopPoints = default, int? totalChargeStationPoints = default, int? totalPoints = default)
+        {
+                      this.ActivationBonusAchieved = activationBonusAchieved;
+                      this.AdjustPoints = adjustPoints;
+                      this.AutoBridgeState = autoBridgeState;
+                      this.AutoChargeStationPoints = autoChargeStationPoints;
+                      this.AutoChargeStationRobot1 = autoChargeStationRobot1;
+                      this.AutoChargeStationRobot2 = autoChargeStationRobot2;
+                      this.AutoChargeStationRobot3 = autoChargeStationRobot3;
+                      this.AutoCommunity = autoCommunity;
+                      this.AutoDocked = autoDocked;
+                      this.AutoGamePieceCount = autoGamePieceCount;
+                      this.AutoGamePiecePoints = autoGamePiecePoints;
+                      this.AutoMobilityPoints = autoMobilityPoints;
+                      this.AutoPoints = autoPoints;
+                      this.CoopGamePieceCount = coopGamePieceCount;
+                      this.CoopertitionCriteriaMet = coopertitionCriteriaMet;
+                      this.EndGameBridgeState = endGameBridgeState;
+                      this.EndGameChargeStationPoints = endGameChargeStationPoints;
+                      this.EndGameChargeStationRobot1 = endGameChargeStationRobot1;
+                      this.EndGameChargeStationRobot2 = endGameChargeStationRobot2;
+                      this.EndGameChargeStationRobot3 = endGameChargeStationRobot3;
+                      this.EndGameParkPoints = endGameParkPoints;
+                      this.ExtraGamePieceCount = extraGamePieceCount;
+                      this.FoulCount = foulCount;
+                      this.FoulPoints = foulPoints;
+                      this.LinkPoints = linkPoints;
+                      this.Links = links;
+                      this.MobilityRobot1 = mobilityRobot1;
+                      this.MobilityRobot2 = mobilityRobot2;
+                      this.MobilityRobot3 = mobilityRobot3;
+                      this.Rp = rp;
+                      this.SustainabilityBonusAchieved = sustainabilityBonusAchieved;
+                      this.TechFoulCount = techFoulCount;
+                      this.TeleopCommunity = teleopCommunity;
+                      this.TeleopGamePieceCount = teleopGamePieceCount;
+                      this.TeleopGamePiecePoints = teleopGamePiecePoints;
+                      this.TeleopPoints = teleopPoints;
+                      this.TotalChargeStationPoints = totalChargeStationPoints;
+                      this.TotalPoints = totalPoints;
+        }
+        
+              /// <summary>
+              /// Gets or Sets ActivationBonusAchieved
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AdjustPoints
-            /// </summary>
-              
-                [JsonPropertyName("adjustPoints")]
-                public int? AdjustPoints { get; set; }
+                  [JsonPropertyName("activationBonusAchieved")]
+                  public bool? ActivationBonusAchieved { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AdjustPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoChargeStationPoints
-            /// </summary>
-              
-                [JsonPropertyName("autoChargeStationPoints")]
-                public int? AutoChargeStationPoints { get; set; }
+                  [JsonPropertyName("adjustPoints")]
+                  public int? AdjustPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoChargeStationPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoCommunity
-            /// </summary>
-              
-                [JsonPropertyName("autoCommunity")]
-                public MatchScoreBreakdown2023AllianceAutoCommunity? AutoCommunity { get; set; }
+                  [JsonPropertyName("autoChargeStationPoints")]
+                  public int? AutoChargeStationPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoCommunity
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoDocked
-            /// </summary>
-              
-                [JsonPropertyName("autoDocked")]
-                public bool? AutoDocked { get; set; }
+                  [JsonPropertyName("autoCommunity")]
+                  public MatchScoreBreakdown2023AllianceAutoCommunity? AutoCommunity { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoDocked
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoGamePieceCount
-            /// </summary>
-              
-                [JsonPropertyName("autoGamePieceCount")]
-                public int? AutoGamePieceCount { get; set; }
+                  [JsonPropertyName("autoDocked")]
+                  public bool? AutoDocked { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoGamePieceCount
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoGamePiecePoints
-            /// </summary>
-              
-                [JsonPropertyName("autoGamePiecePoints")]
-                public int? AutoGamePiecePoints { get; set; }
+                  [JsonPropertyName("autoGamePieceCount")]
+                  public int? AutoGamePieceCount { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoGamePiecePoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoMobilityPoints
-            /// </summary>
-              
-                [JsonPropertyName("autoMobilityPoints")]
-                public int? AutoMobilityPoints { get; set; }
+                  [JsonPropertyName("autoGamePiecePoints")]
+                  public int? AutoGamePiecePoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoMobilityPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoPoints
-            /// </summary>
-              
-                [JsonPropertyName("autoPoints")]
-                public int? AutoPoints { get; set; }
+                  [JsonPropertyName("autoMobilityPoints")]
+                  public int? AutoMobilityPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets CoopGamePieceCount
-            /// </summary>
-              
-                [JsonPropertyName("coopGamePieceCount")]
-                public int? CoopGamePieceCount { get; set; }
+                  [JsonPropertyName("autoPoints")]
+                  public int? AutoPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets CoopGamePieceCount
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets CoopertitionCriteriaMet
-            /// </summary>
-              
-                [JsonPropertyName("coopertitionCriteriaMet")]
-                public bool? CoopertitionCriteriaMet { get; set; }
+                  [JsonPropertyName("coopGamePieceCount")]
+                  public int? CoopGamePieceCount { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets CoopertitionCriteriaMet
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets EndGameChargeStationPoints
-            /// </summary>
-              
-                [JsonPropertyName("endGameChargeStationPoints")]
-                public int? EndGameChargeStationPoints { get; set; }
+                  [JsonPropertyName("coopertitionCriteriaMet")]
+                  public bool? CoopertitionCriteriaMet { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets EndGameChargeStationPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets EndGameParkPoints
-            /// </summary>
-              
-                [JsonPropertyName("endGameParkPoints")]
-                public int? EndGameParkPoints { get; set; }
+                  [JsonPropertyName("endGameChargeStationPoints")]
+                  public int? EndGameChargeStationPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets EndGameParkPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets ExtraGamePieceCount
-            /// </summary>
-              
-                [JsonPropertyName("extraGamePieceCount")]
-                public int? ExtraGamePieceCount { get; set; }
+                  [JsonPropertyName("endGameParkPoints")]
+                  public int? EndGameParkPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets ExtraGamePieceCount
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets FoulCount
-            /// </summary>
-              
-                [JsonPropertyName("foulCount")]
-                public int? FoulCount { get; set; }
+                  [JsonPropertyName("extraGamePieceCount")]
+                  public int? ExtraGamePieceCount { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets FoulCount
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets FoulPoints
-            /// </summary>
-              
-                [JsonPropertyName("foulPoints")]
-                public int? FoulPoints { get; set; }
+                  [JsonPropertyName("foulCount")]
+                  public int? FoulCount { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets FoulPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets LinkPoints
-            /// </summary>
-              
-                [JsonPropertyName("linkPoints")]
-                public int? LinkPoints { get; set; }
+                  [JsonPropertyName("foulPoints")]
+                  public int? FoulPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets LinkPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets Links
-            /// </summary>
-              
-                [JsonPropertyName("links")]
-                public Collection<MatchScoreBreakdown2023AllianceLinksInner>? Links { get; set; }
+                  [JsonPropertyName("linkPoints")]
+                  public int? LinkPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Links
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets Rp
-            /// </summary>
-              
-                [JsonPropertyName("rp")]
-                public int? Rp { get; set; }
+                  [JsonPropertyName("links")]
+                  public Collection<MatchScoreBreakdown2023AllianceLinksInner>? Links { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Rp
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets SustainabilityBonusAchieved
-            /// </summary>
-              
-                [JsonPropertyName("sustainabilityBonusAchieved")]
-                public bool? SustainabilityBonusAchieved { get; set; }
+                  [JsonPropertyName("rp")]
+                  public int? Rp { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets SustainabilityBonusAchieved
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TechFoulCount
-            /// </summary>
-              
-                [JsonPropertyName("techFoulCount")]
-                public int? TechFoulCount { get; set; }
+                  [JsonPropertyName("sustainabilityBonusAchieved")]
+                  public bool? SustainabilityBonusAchieved { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TechFoulCount
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TeleopCommunity
-            /// </summary>
-              
-                [JsonPropertyName("teleopCommunity")]
-                public MatchScoreBreakdown2023AllianceAutoCommunity? TeleopCommunity { get; set; }
+                  [JsonPropertyName("techFoulCount")]
+                  public int? TechFoulCount { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TeleopCommunity
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TeleopGamePieceCount
-            /// </summary>
-              
-                [JsonPropertyName("teleopGamePieceCount")]
-                public int? TeleopGamePieceCount { get; set; }
+                  [JsonPropertyName("teleopCommunity")]
+                  public MatchScoreBreakdown2023AllianceAutoCommunity? TeleopCommunity { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TeleopGamePieceCount
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TeleopGamePiecePoints
-            /// </summary>
-              
-                [JsonPropertyName("teleopGamePiecePoints")]
-                public int? TeleopGamePiecePoints { get; set; }
+                  [JsonPropertyName("teleopGamePieceCount")]
+                  public int? TeleopGamePieceCount { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TeleopGamePiecePoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TeleopPoints
-            /// </summary>
-              
-                [JsonPropertyName("teleopPoints")]
-                public int? TeleopPoints { get; set; }
+                  [JsonPropertyName("teleopGamePiecePoints")]
+                  public int? TeleopGamePiecePoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TeleopPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TotalChargeStationPoints
-            /// </summary>
-              
-                [JsonPropertyName("totalChargeStationPoints")]
-                public int? TotalChargeStationPoints { get; set; }
+                  [JsonPropertyName("teleopPoints")]
+                  public int? TeleopPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TotalChargeStationPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TotalPoints
-            /// </summary>
-              
-                [JsonPropertyName("totalPoints")]
-                public int? TotalPoints { get; set; }
+                  [JsonPropertyName("totalChargeStationPoints")]
+                  public int? TotalChargeStationPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TotalPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class MatchScoreBreakdown2023Alliance {");
-                  sb.Append("  ActivationBonusAchieved: ").AppendLine($"{ ActivationBonusAchieved?.ToString() ?? "[null]" }");
-                  sb.Append("  AdjustPoints: ").AppendLine($"{ AdjustPoints?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoBridgeState: ").AppendLine($"{ AutoBridgeState?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoChargeStationPoints: ").AppendLine($"{ AutoChargeStationPoints?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoChargeStationRobot1: ").AppendLine($"{ AutoChargeStationRobot1?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoChargeStationRobot2: ").AppendLine($"{ AutoChargeStationRobot2?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoChargeStationRobot3: ").AppendLine($"{ AutoChargeStationRobot3?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoCommunity: ").AppendLine($"{ AutoCommunity?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoDocked: ").AppendLine($"{ AutoDocked?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoGamePieceCount: ").AppendLine($"{ AutoGamePieceCount?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoGamePiecePoints: ").AppendLine($"{ AutoGamePiecePoints?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoMobilityPoints: ").AppendLine($"{ AutoMobilityPoints?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoPoints: ").AppendLine($"{ AutoPoints?.ToString() ?? "[null]" }");
-                  sb.Append("  CoopGamePieceCount: ").AppendLine($"{ CoopGamePieceCount?.ToString() ?? "[null]" }");
-                  sb.Append("  CoopertitionCriteriaMet: ").AppendLine($"{ CoopertitionCriteriaMet?.ToString() ?? "[null]" }");
-                  sb.Append("  EndGameBridgeState: ").AppendLine($"{ EndGameBridgeState?.ToString() ?? "[null]" }");
-                  sb.Append("  EndGameChargeStationPoints: ").AppendLine($"{ EndGameChargeStationPoints?.ToString() ?? "[null]" }");
-                  sb.Append("  EndGameChargeStationRobot1: ").AppendLine($"{ EndGameChargeStationRobot1?.ToString() ?? "[null]" }");
-                  sb.Append("  EndGameChargeStationRobot2: ").AppendLine($"{ EndGameChargeStationRobot2?.ToString() ?? "[null]" }");
-                  sb.Append("  EndGameChargeStationRobot3: ").AppendLine($"{ EndGameChargeStationRobot3?.ToString() ?? "[null]" }");
-                  sb.Append("  EndGameParkPoints: ").AppendLine($"{ EndGameParkPoints?.ToString() ?? "[null]" }");
-                  sb.Append("  ExtraGamePieceCount: ").AppendLine($"{ ExtraGamePieceCount?.ToString() ?? "[null]" }");
-                  sb.Append("  FoulCount: ").AppendLine($"{ FoulCount?.ToString() ?? "[null]" }");
-                  sb.Append("  FoulPoints: ").AppendLine($"{ FoulPoints?.ToString() ?? "[null]" }");
-                  sb.Append("  LinkPoints: ").AppendLine($"{ LinkPoints?.ToString() ?? "[null]" }");
-                  sb.Append("  Links: ").AppendLine($"{(Links is null ? "[null]" : string.Join(", ", Links))}");
-                  sb.Append("  MobilityRobot1: ").AppendLine($"{ MobilityRobot1?.ToString() ?? "[null]" }");
-                  sb.Append("  MobilityRobot2: ").AppendLine($"{ MobilityRobot2?.ToString() ?? "[null]" }");
-                  sb.Append("  MobilityRobot3: ").AppendLine($"{ MobilityRobot3?.ToString() ?? "[null]" }");
-                  sb.Append("  Rp: ").AppendLine($"{ Rp?.ToString() ?? "[null]" }");
-                  sb.Append("  SustainabilityBonusAchieved: ").AppendLine($"{ SustainabilityBonusAchieved?.ToString() ?? "[null]" }");
-                  sb.Append("  TechFoulCount: ").AppendLine($"{ TechFoulCount?.ToString() ?? "[null]" }");
-                  sb.Append("  TeleopCommunity: ").AppendLine($"{ TeleopCommunity?.ToString() ?? "[null]" }");
-                  sb.Append("  TeleopGamePieceCount: ").AppendLine($"{ TeleopGamePieceCount?.ToString() ?? "[null]" }");
-                  sb.Append("  TeleopGamePiecePoints: ").AppendLine($"{ TeleopGamePiecePoints?.ToString() ?? "[null]" }");
-                  sb.Append("  TeleopPoints: ").AppendLine($"{ TeleopPoints?.ToString() ?? "[null]" }");
-                  sb.Append("  TotalChargeStationPoints: ").AppendLine($"{ TotalChargeStationPoints?.ToString() ?? "[null]" }");
-                  sb.Append("  TotalPoints: ").AppendLine($"{ TotalPoints?.ToString() ?? "[null]" }");
-              sb.AppendLine("}");
-              return sb.ToString();
+                  [JsonPropertyName("totalPoints")]
+                  public int? TotalPoints { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class MatchScoreBreakdown2023Alliance {");
+                    sb.Append("  ActivationBonusAchieved: ").AppendLine($"{ ActivationBonusAchieved?.ToString() ?? "[null]" }");
+                    sb.Append("  AdjustPoints: ").AppendLine($"{ AdjustPoints?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoBridgeState: ").AppendLine($"{ AutoBridgeState?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoChargeStationPoints: ").AppendLine($"{ AutoChargeStationPoints?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoChargeStationRobot1: ").AppendLine($"{ AutoChargeStationRobot1?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoChargeStationRobot2: ").AppendLine($"{ AutoChargeStationRobot2?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoChargeStationRobot3: ").AppendLine($"{ AutoChargeStationRobot3?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoCommunity: ").AppendLine($"{ AutoCommunity?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoDocked: ").AppendLine($"{ AutoDocked?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoGamePieceCount: ").AppendLine($"{ AutoGamePieceCount?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoGamePiecePoints: ").AppendLine($"{ AutoGamePiecePoints?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoMobilityPoints: ").AppendLine($"{ AutoMobilityPoints?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoPoints: ").AppendLine($"{ AutoPoints?.ToString() ?? "[null]" }");
+                    sb.Append("  CoopGamePieceCount: ").AppendLine($"{ CoopGamePieceCount?.ToString() ?? "[null]" }");
+                    sb.Append("  CoopertitionCriteriaMet: ").AppendLine($"{ CoopertitionCriteriaMet?.ToString() ?? "[null]" }");
+                    sb.Append("  EndGameBridgeState: ").AppendLine($"{ EndGameBridgeState?.ToString() ?? "[null]" }");
+                    sb.Append("  EndGameChargeStationPoints: ").AppendLine($"{ EndGameChargeStationPoints?.ToString() ?? "[null]" }");
+                    sb.Append("  EndGameChargeStationRobot1: ").AppendLine($"{ EndGameChargeStationRobot1?.ToString() ?? "[null]" }");
+                    sb.Append("  EndGameChargeStationRobot2: ").AppendLine($"{ EndGameChargeStationRobot2?.ToString() ?? "[null]" }");
+                    sb.Append("  EndGameChargeStationRobot3: ").AppendLine($"{ EndGameChargeStationRobot3?.ToString() ?? "[null]" }");
+                    sb.Append("  EndGameParkPoints: ").AppendLine($"{ EndGameParkPoints?.ToString() ?? "[null]" }");
+                    sb.Append("  ExtraGamePieceCount: ").AppendLine($"{ ExtraGamePieceCount?.ToString() ?? "[null]" }");
+                    sb.Append("  FoulCount: ").AppendLine($"{ FoulCount?.ToString() ?? "[null]" }");
+                    sb.Append("  FoulPoints: ").AppendLine($"{ FoulPoints?.ToString() ?? "[null]" }");
+                    sb.Append("  LinkPoints: ").AppendLine($"{ LinkPoints?.ToString() ?? "[null]" }");
+                    sb.Append("  Links: ").AppendLine($"{(Links is null ? "[null]" : string.Join(", ", Links))}");
+                    sb.Append("  MobilityRobot1: ").AppendLine($"{ MobilityRobot1?.ToString() ?? "[null]" }");
+                    sb.Append("  MobilityRobot2: ").AppendLine($"{ MobilityRobot2?.ToString() ?? "[null]" }");
+                    sb.Append("  MobilityRobot3: ").AppendLine($"{ MobilityRobot3?.ToString() ?? "[null]" }");
+                    sb.Append("  Rp: ").AppendLine($"{ Rp?.ToString() ?? "[null]" }");
+                    sb.Append("  SustainabilityBonusAchieved: ").AppendLine($"{ SustainabilityBonusAchieved?.ToString() ?? "[null]" }");
+                    sb.Append("  TechFoulCount: ").AppendLine($"{ TechFoulCount?.ToString() ?? "[null]" }");
+                    sb.Append("  TeleopCommunity: ").AppendLine($"{ TeleopCommunity?.ToString() ?? "[null]" }");
+                    sb.Append("  TeleopGamePieceCount: ").AppendLine($"{ TeleopGamePieceCount?.ToString() ?? "[null]" }");
+                    sb.Append("  TeleopGamePiecePoints: ").AppendLine($"{ TeleopGamePiecePoints?.ToString() ?? "[null]" }");
+                    sb.Append("  TeleopPoints: ").AppendLine($"{ TeleopPoints?.ToString() ?? "[null]" }");
+                    sb.Append("  TotalChargeStationPoints: ").AppendLine($"{ TotalChargeStationPoints?.ToString() ?? "[null]" }");
+                    sb.Append("  TotalPoints: ").AppendLine($"{ TotalPoints?.ToString() ?? "[null]" }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
-            }
-          }
-          

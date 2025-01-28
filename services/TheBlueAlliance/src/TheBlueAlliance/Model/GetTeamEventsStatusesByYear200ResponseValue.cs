@@ -33,11 +33,8 @@
             /// with the <see cref="TeamEventStatus" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of TeamEventStatus.</param>
-            public GetTeamEventsStatusesByYear200ResponseValue(TeamEventStatus? actualInstance)
-            {
-              this.ActualInstance = actualInstance == default ? throw new ArgumentException("Invalid instance found. Must not be null.") : actualInstance;
-            }
-      
+            public GetTeamEventsStatusesByYear200ResponseValue(TeamEventStatus actualInstance) => this.ActualInstance = actualInstance;
+            
       private object? _actualInstance;
       
       /// <summary>
@@ -48,7 +45,7 @@
         get => _actualInstance;
         set
         {
-          this._actualInstance = value switch
+          _actualInstance = value switch
           { 
           null => null,
             TeamEventStatus _ => value,

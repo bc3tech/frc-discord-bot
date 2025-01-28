@@ -17,67 +17,68 @@
     /// <summary>
 /// SearchIndexEventsInner
 /// </summary>
-public partial class SearchIndexEventsInner
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="SearchIndexEventsInner" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected SearchIndexEventsInner() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="SearchIndexEventsInner" /> class.
-      /// </summary>
-          /// <param name="key">key (required).</param>
-          /// <param name="name">name (required).</param>
-      public SearchIndexEventsInner(string key, string name)
-      {
-                    // to ensure "key" is required (not null)
-                    ArgumentNullException.ThrowIfNull(key);
-                    this.Key = key;
-                      
-                    // to ensure "name" is required (not null)
-                    ArgumentNullException.ThrowIfNull(name);
-                    this.Name = name;
-      }
-      
-            /// <summary>
-            /// Gets or Sets Key
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("key")]
-                public string Key { get; set; }
-                
-            /// <summary>
-            /// Gets or Sets Name
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("name")]
-                public string Name { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class SearchIndexEventsInner {");
-                  sb.Append("  Key: ").AppendLine($"{ Key }");
-                  sb.Append("  Name: ").AppendLine($"{ Name }");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class SearchIndexEventsInner
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="SearchIndexEventsInner" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected SearchIndexEventsInner() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SearchIndexEventsInner" /> class.
+        /// </summary>
+            /// <param name="key">key (required).</param>
+            /// <param name="name">name (required).</param>
+        public SearchIndexEventsInner(string key, string name)
+        {
+                      // to ensure "key" is required (not null)
+                      ArgumentNullException.ThrowIfNull(key);
+                      this.Key = key;
+                        
+                      // to ensure "name" is required (not null)
+                      ArgumentNullException.ThrowIfNull(name);
+                      this.Name = name;
+        }
+        
+              /// <summary>
+              /// Gets or Sets Key
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("key")]
+                  public string Key { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Name
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("name")]
+                  public string Name { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class SearchIndexEventsInner {");
+                    sb.Append("  Key: ").AppendLine($"{ Key }");
+                    sb.Append("  Name: ").AppendLine($"{ Name }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

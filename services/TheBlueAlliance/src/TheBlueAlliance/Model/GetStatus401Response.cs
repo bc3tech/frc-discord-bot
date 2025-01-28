@@ -17,55 +17,56 @@
     /// <summary>
 /// GetStatus401Response
 /// </summary>
-public partial class GetStatus401Response
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="GetStatus401Response" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected GetStatus401Response() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="GetStatus401Response" /> class.
-      /// </summary>
-          /// <param name="error">Authorization error description. (required).</param>
-      public GetStatus401Response(string error)
-      {
-                    // to ensure "error" is required (not null)
-                    ArgumentNullException.ThrowIfNull(error);
-                    this.Error = error;
-      }
-      
-            /// <summary>
-            /// Authorization error description.
-            /// </summary>
-            /// <value>Authorization error description.</value>
-              [JsonRequired]
-                [JsonPropertyName("Error")]
-                public string Error { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class GetStatus401Response {");
-                  sb.Append("  Error: ").AppendLine($"{ Error }");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class GetStatus401Response
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="GetStatus401Response" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected GetStatus401Response() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetStatus401Response" /> class.
+        /// </summary>
+            /// <param name="error">Authorization error description. (required).</param>
+        public GetStatus401Response(string error)
+        {
+                      // to ensure "error" is required (not null)
+                      ArgumentNullException.ThrowIfNull(error);
+                      this.Error = error;
+        }
+        
+              /// <summary>
+              /// Authorization error description.
+              /// </summary>
+              /// <value>Authorization error description.</value>
+                [JsonRequired]
+                  [JsonPropertyName("Error")]
+                  public string Error { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class GetStatus401Response {");
+                    sb.Append("  Error: ").AppendLine($"{ Error }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

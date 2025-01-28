@@ -17,75 +17,76 @@
     /// <summary>
 /// A Win-Loss-Tie record for a team, or an alliance.
 /// </summary>
-public partial class WLTRecord
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="WLTRecord" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected WLTRecord() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="WLTRecord" /> class.
-      /// </summary>
-          /// <param name="losses">Number of losses. (required).</param>
-          /// <param name="ties">Number of ties. (required).</param>
-          /// <param name="wins">Number of wins. (required).</param>
-      public WLTRecord(int losses, int ties, int wins)
-      {
-                    this.Losses = losses;
-                    this.Ties = ties;
-                    this.Wins = wins;
-      }
-      
-            /// <summary>
-            /// Number of losses.
-            /// </summary>
-            /// <value>Number of losses.</value>
-              [JsonRequired]
-                [JsonPropertyName("losses")]
-                public int Losses { get; set; }
-                
-            /// <summary>
-            /// Number of ties.
-            /// </summary>
-            /// <value>Number of ties.</value>
-              [JsonRequired]
-                [JsonPropertyName("ties")]
-                public int Ties { get; set; }
-                
-            /// <summary>
-            /// Number of wins.
-            /// </summary>
-            /// <value>Number of wins.</value>
-              [JsonRequired]
-                [JsonPropertyName("wins")]
-                public int Wins { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class WLTRecord {");
-                  sb.Append("  Losses: ").AppendLine($"{ Losses }");
-                  sb.Append("  Ties: ").AppendLine($"{ Ties }");
-                  sb.Append("  Wins: ").AppendLine($"{ Wins }");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class WLTRecord
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="WLTRecord" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected WLTRecord() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WLTRecord" /> class.
+        /// </summary>
+            /// <param name="losses">Number of losses. (required).</param>
+            /// <param name="ties">Number of ties. (required).</param>
+            /// <param name="wins">Number of wins. (required).</param>
+        public WLTRecord(int losses, int ties, int wins)
+        {
+                      this.Losses = losses;
+                      this.Ties = ties;
+                      this.Wins = wins;
+        }
+        
+              /// <summary>
+              /// Number of losses.
+              /// </summary>
+              /// <value>Number of losses.</value>
+                [JsonRequired]
+                  [JsonPropertyName("losses")]
+                  public int Losses { get; set; }
+                  
+              /// <summary>
+              /// Number of ties.
+              /// </summary>
+              /// <value>Number of ties.</value>
+                [JsonRequired]
+                  [JsonPropertyName("ties")]
+                  public int Ties { get; set; }
+                  
+              /// <summary>
+              /// Number of wins.
+              /// </summary>
+              /// <value>Number of wins.</value>
+                [JsonRequired]
+                  [JsonPropertyName("wins")]
+                  public int Wins { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class WLTRecord {");
+                    sb.Append("  Losses: ").AppendLine($"{ Losses }");
+                    sb.Append("  Ties: ").AppendLine($"{ Ties }");
+                    sb.Append("  Wins: ").AppendLine($"{ Wins }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

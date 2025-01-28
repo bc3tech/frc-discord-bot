@@ -17,9 +17,10 @@
     /// <summary>
 /// MatchScoreBreakdown2023AllianceAutoCommunity
 /// </summary>
-public partial class MatchScoreBreakdown2023AllianceAutoCommunity
-{
-            /// <summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class MatchScoreBreakdown2023AllianceAutoCommunity
+  {
+              /// <summary>
   /// Defines B
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceAutoCommunityExtensions", ExtensionClassModifiers ="public static")]
@@ -92,7 +93,7 @@ public partial class MatchScoreBreakdown2023AllianceAutoCommunity
         };
     }
 
-            /// <summary>
+              /// <summary>
   /// Defines M
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceAutoCommunityExtensions", ExtensionClassModifiers ="public static")]
@@ -165,7 +166,7 @@ public partial class MatchScoreBreakdown2023AllianceAutoCommunity
         };
     }
 
-            /// <summary>
+              /// <summary>
   /// Defines T
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceAutoCommunityExtensions", ExtensionClassModifiers ="public static")]
@@ -238,78 +239,78 @@ public partial class MatchScoreBreakdown2023AllianceAutoCommunity
         };
     }
 
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="MatchScoreBreakdown2023AllianceAutoCommunity" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected MatchScoreBreakdown2023AllianceAutoCommunity() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MatchScoreBreakdown2023AllianceAutoCommunity" /> class.
-      /// </summary>
-          /// <param name="b">b (required).</param>
-          /// <param name="m">m (required).</param>
-          /// <param name="t">t (required).</param>
-      public MatchScoreBreakdown2023AllianceAutoCommunity(Collection<BEnum> b, Collection<MEnum> m, Collection<TEnum> t)
-      {
-                    // to ensure "b" is required (not null)
-                    ArgumentNullException.ThrowIfNull(b);
-                    this.B = b;
-                      
-                    // to ensure "m" is required (not null)
-                    ArgumentNullException.ThrowIfNull(m);
-                    this.M = m;
-                      
-                    // to ensure "t" is required (not null)
-                    ArgumentNullException.ThrowIfNull(t);
-                    this.T = t;
-      }
-      
-            /// <summary>
-            /// Gets or Sets B
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("B")]
-                public Collection<MatchScoreBreakdown2023AllianceAutoCommunity.BEnum> B { get; set; }
-                
-            /// <summary>
-            /// Gets or Sets M
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("M")]
-                public Collection<MatchScoreBreakdown2023AllianceAutoCommunity.MEnum> M { get; set; }
-                
-            /// <summary>
-            /// Gets or Sets T
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("T")]
-                public Collection<MatchScoreBreakdown2023AllianceAutoCommunity.TEnum> T { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class MatchScoreBreakdown2023AllianceAutoCommunity {");
-                  sb.Append("  B: ").AppendLine($"{(B is null ? "[null]" : string.Join(", ", B))}");
-                  sb.Append("  M: ").AppendLine($"{(M is null ? "[null]" : string.Join(", ", M))}");
-                  sb.Append("  T: ").AppendLine($"{(T is null ? "[null]" : string.Join(", ", T))}");
-              sb.AppendLine("}");
-              return sb.ToString();
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="MatchScoreBreakdown2023AllianceAutoCommunity" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected MatchScoreBreakdown2023AllianceAutoCommunity() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatchScoreBreakdown2023AllianceAutoCommunity" /> class.
+        /// </summary>
+            /// <param name="b">b (required).</param>
+            /// <param name="m">m (required).</param>
+            /// <param name="t">t (required).</param>
+        public MatchScoreBreakdown2023AllianceAutoCommunity(Collection<BEnum> b, Collection<MEnum> m, Collection<TEnum> t)
+        {
+                      // to ensure "b" is required (not null)
+                      ArgumentNullException.ThrowIfNull(b);
+                      this.B = b;
+                        
+                      // to ensure "m" is required (not null)
+                      ArgumentNullException.ThrowIfNull(m);
+                      this.M = m;
+                        
+                      // to ensure "t" is required (not null)
+                      ArgumentNullException.ThrowIfNull(t);
+                      this.T = t;
+        }
+        
+              /// <summary>
+              /// Gets or Sets B
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("B")]
+                  public Collection<MatchScoreBreakdown2023AllianceAutoCommunity.BEnum> B { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets M
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("M")]
+                  public Collection<MatchScoreBreakdown2023AllianceAutoCommunity.MEnum> M { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets T
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("T")]
+                  public Collection<MatchScoreBreakdown2023AllianceAutoCommunity.TEnum> T { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class MatchScoreBreakdown2023AllianceAutoCommunity {");
+                    sb.Append("  B: ").AppendLine($"{(B is null ? "[null]" : string.Join(", ", B))}");
+                    sb.Append("  M: ").AppendLine($"{(M is null ? "[null]" : string.Join(", ", M))}");
+                    sb.Append("  T: ").AppendLine($"{(T is null ? "[null]" : string.Join(", ", T))}");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

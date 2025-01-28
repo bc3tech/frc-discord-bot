@@ -17,54 +17,55 @@
     /// <summary>
 /// NotablesInsightData
 /// </summary>
-public partial class NotablesInsightData
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="NotablesInsightData" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected NotablesInsightData() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="NotablesInsightData" /> class.
-      /// </summary>
-          /// <param name="entries">entries (required).</param>
-      public NotablesInsightData(Collection<NotablesInsightDataEntriesInner> entries)
-      {
-                    // to ensure "entries" is required (not null)
-                    ArgumentNullException.ThrowIfNull(entries);
-                    this.Entries = entries;
-      }
-      
-            /// <summary>
-            /// Gets or Sets Entries
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("entries")]
-                public Collection<NotablesInsightDataEntriesInner> Entries { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class NotablesInsightData {");
-                  sb.Append("  Entries: ").AppendLine($"{(Entries is null ? "[null]" : string.Join(", ", Entries))}");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class NotablesInsightData
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="NotablesInsightData" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected NotablesInsightData() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NotablesInsightData" /> class.
+        /// </summary>
+            /// <param name="entries">entries (required).</param>
+        public NotablesInsightData(Collection<NotablesInsightDataEntriesInner> entries)
+        {
+                      // to ensure "entries" is required (not null)
+                      ArgumentNullException.ThrowIfNull(entries);
+                      this.Entries = entries;
+        }
+        
+              /// <summary>
+              /// Gets or Sets Entries
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("entries")]
+                  public Collection<NotablesInsightDataEntriesInner> Entries { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class NotablesInsightData {");
+                    sb.Append("  Entries: ").AppendLine($"{(Entries is null ? "[null]" : string.Join(", ", Entries))}");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

@@ -17,64 +17,65 @@
     /// <summary>
 /// APIStatusAppVersion
 /// </summary>
-public partial class APIStatusAppVersion
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="APIStatusAppVersion" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected APIStatusAppVersion() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="APIStatusAppVersion" /> class.
-      /// </summary>
-          /// <param name="latestAppVersion">Internal use - Latest application version available. (required).</param>
-          /// <param name="minAppVersion">Internal use - Minimum application version required to correctly connect and process data. (required).</param>
-      public APIStatusAppVersion(int latestAppVersion, int minAppVersion)
-      {
-                    this.LatestAppVersion = latestAppVersion;
-                    this.MinAppVersion = minAppVersion;
-      }
-      
-            /// <summary>
-            /// Internal use - Latest application version available.
-            /// </summary>
-            /// <value>Internal use - Latest application version available.</value>
-              [JsonRequired]
-                [JsonPropertyName("latest_app_version")]
-                public int LatestAppVersion { get; set; }
-                
-            /// <summary>
-            /// Internal use - Minimum application version required to correctly connect and process data.
-            /// </summary>
-            /// <value>Internal use - Minimum application version required to correctly connect and process data.</value>
-              [JsonRequired]
-                [JsonPropertyName("min_app_version")]
-                public int MinAppVersion { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class APIStatusAppVersion {");
-                  sb.Append("  LatestAppVersion: ").AppendLine($"{ LatestAppVersion }");
-                  sb.Append("  MinAppVersion: ").AppendLine($"{ MinAppVersion }");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class APIStatusAppVersion
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="APIStatusAppVersion" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected APIStatusAppVersion() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="APIStatusAppVersion" /> class.
+        /// </summary>
+            /// <param name="latestAppVersion">Internal use - Latest application version available. (required).</param>
+            /// <param name="minAppVersion">Internal use - Minimum application version required to correctly connect and process data. (required).</param>
+        public APIStatusAppVersion(int latestAppVersion, int minAppVersion)
+        {
+                      this.LatestAppVersion = latestAppVersion;
+                      this.MinAppVersion = minAppVersion;
+        }
+        
+              /// <summary>
+              /// Internal use - Latest application version available.
+              /// </summary>
+              /// <value>Internal use - Latest application version available.</value>
+                [JsonRequired]
+                  [JsonPropertyName("latest_app_version")]
+                  public int LatestAppVersion { get; set; }
+                  
+              /// <summary>
+              /// Internal use - Minimum application version required to correctly connect and process data.
+              /// </summary>
+              /// <value>Internal use - Minimum application version required to correctly connect and process data.</value>
+                [JsonRequired]
+                  [JsonPropertyName("min_app_version")]
+                  public int MinAppVersion { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class APIStatusAppVersion {");
+                    sb.Append("  LatestAppVersion: ").AppendLine($"{ LatestAppVersion }");
+                    sb.Append("  MinAppVersion: ").AppendLine($"{ MinAppVersion }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

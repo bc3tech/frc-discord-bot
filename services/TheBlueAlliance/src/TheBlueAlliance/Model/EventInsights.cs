@@ -17,56 +17,57 @@
     /// <summary>
 /// A year-specific event insight object expressed as a JSON string, separated in to &#x60;qual&#x60; and &#x60;playoff&#x60; fields. See also Event_Insights_2016, Event_Insights_2017, etc.
 /// </summary>
-public partial class EventInsights
-{
-      /// <summary>
-      /// Initializes a new instance of the <see cref="EventInsights" /> class.
-      /// </summary>
-          /// <param name="playoff">Insights for the playoff round of an event</param>
-          /// <param name="qual">Inights for the qualification round of an event</param>
-      public EventInsights(Object? playoff = default, Object? qual = default)
-      {
-                    this.Playoff = playoff;
-                    this.Qual = qual;
-      }
-      
-            /// <summary>
-            /// Insights for the playoff round of an event
-            /// </summary>
-            /// <value>Insights for the playoff round of an event</value>
-              
-                [JsonPropertyName("playoff")]
-                public Object? Playoff { get; set; }
+
+  public partial class EventInsights
+  {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventInsights" /> class.
+        /// </summary>
+            /// <param name="playoff">Insights for the playoff round of an event</param>
+            /// <param name="qual">Inights for the qualification round of an event</param>
+        public EventInsights(Object? playoff = default, Object? qual = default)
+        {
+                      this.Playoff = playoff;
+                      this.Qual = qual;
+        }
+        
+              /// <summary>
+              /// Insights for the playoff round of an event
+              /// </summary>
+              /// <value>Insights for the playoff round of an event</value>
                 
-            /// <summary>
-            /// Inights for the qualification round of an event
-            /// </summary>
-            /// <value>Inights for the qualification round of an event</value>
-              
-                [JsonPropertyName("qual")]
-                public Object? Qual { get; set; }
+                  [JsonPropertyName("playoff")]
+                  public Object? Playoff { get; set; }
+                  
+              /// <summary>
+              /// Inights for the qualification round of an event
+              /// </summary>
+              /// <value>Inights for the qualification round of an event</value>
                 
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class EventInsights {");
-                  sb.Append("  Playoff: ").AppendLine($"{ Playoff?.ToString() ?? "[null]" }");
-                  sb.Append("  Qual: ").AppendLine($"{ Qual?.ToString() ?? "[null]" }");
-              sb.AppendLine("}");
-              return sb.ToString();
+                  [JsonPropertyName("qual")]
+                  public Object? Qual { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class EventInsights {");
+                    sb.Append("  Playoff: ").AppendLine($"{ Playoff?.ToString() ?? "[null]" }");
+                    sb.Append("  Qual: ").AppendLine($"{ Qual?.ToString() ?? "[null]" }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
-            }
-          }
-          

@@ -17,95 +17,96 @@
     /// <summary>
 /// DistrictList
 /// </summary>
-public partial class DistrictList
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="DistrictList" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected DistrictList() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="DistrictList" /> class.
-      /// </summary>
-          /// <param name="abbreviation">The short identifier for the district. (required).</param>
-          /// <param name="displayName">The long name for the district. (required).</param>
-          /// <param name="key">Key for this district, e.g. &#x60;2016ne&#x60;. (required).</param>
-          /// <param name="year">Year this district participated. (required).</param>
-      public DistrictList(string abbreviation, string displayName, string key, int year)
-      {
-                    // to ensure "abbreviation" is required (not null)
-                    ArgumentNullException.ThrowIfNull(abbreviation);
-                    this.Abbreviation = abbreviation;
-                      
-                    // to ensure "displayName" is required (not null)
-                    ArgumentNullException.ThrowIfNull(displayName);
-                    this.DisplayName = displayName;
-                      
-                    // to ensure "key" is required (not null)
-                    ArgumentNullException.ThrowIfNull(key);
-                    this.Key = key;
-                      
-                    this.Year = year;
-      }
-      
-            /// <summary>
-            /// The short identifier for the district.
-            /// </summary>
-            /// <value>The short identifier for the district.</value>
-              [JsonRequired]
-                [JsonPropertyName("abbreviation")]
-                public string Abbreviation { get; set; }
-                
-            /// <summary>
-            /// The long name for the district.
-            /// </summary>
-            /// <value>The long name for the district.</value>
-              [JsonRequired]
-                [JsonPropertyName("display_name")]
-                public string DisplayName { get; set; }
-                
-            /// <summary>
-            /// Key for this district, e.g. &#x60;2016ne&#x60;.
-            /// </summary>
-            /// <value>Key for this district, e.g. &#x60;2016ne&#x60;.</value>
-              [JsonRequired]
-                [JsonPropertyName("key")]
-                public string Key { get; set; }
-                
-            /// <summary>
-            /// Year this district participated.
-            /// </summary>
-            /// <value>Year this district participated.</value>
-              [JsonRequired]
-                [JsonPropertyName("year")]
-                public int Year { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class DistrictList {");
-                  sb.Append("  Abbreviation: ").AppendLine($"{ Abbreviation }");
-                  sb.Append("  DisplayName: ").AppendLine($"{ DisplayName }");
-                  sb.Append("  Key: ").AppendLine($"{ Key }");
-                  sb.Append("  Year: ").AppendLine($"{ Year }");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class DistrictList
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="DistrictList" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected DistrictList() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DistrictList" /> class.
+        /// </summary>
+            /// <param name="abbreviation">The short identifier for the district. (required).</param>
+            /// <param name="displayName">The long name for the district. (required).</param>
+            /// <param name="key">Key for this district, e.g. &#x60;2016ne&#x60;. (required).</param>
+            /// <param name="year">Year this district participated. (required).</param>
+        public DistrictList(string abbreviation, string displayName, string key, int year)
+        {
+                      // to ensure "abbreviation" is required (not null)
+                      ArgumentNullException.ThrowIfNull(abbreviation);
+                      this.Abbreviation = abbreviation;
+                        
+                      // to ensure "displayName" is required (not null)
+                      ArgumentNullException.ThrowIfNull(displayName);
+                      this.DisplayName = displayName;
+                        
+                      // to ensure "key" is required (not null)
+                      ArgumentNullException.ThrowIfNull(key);
+                      this.Key = key;
+                        
+                      this.Year = year;
+        }
+        
+              /// <summary>
+              /// The short identifier for the district.
+              /// </summary>
+              /// <value>The short identifier for the district.</value>
+                [JsonRequired]
+                  [JsonPropertyName("abbreviation")]
+                  public string Abbreviation { get; set; }
+                  
+              /// <summary>
+              /// The long name for the district.
+              /// </summary>
+              /// <value>The long name for the district.</value>
+                [JsonRequired]
+                  [JsonPropertyName("display_name")]
+                  public string DisplayName { get; set; }
+                  
+              /// <summary>
+              /// Key for this district, e.g. &#x60;2016ne&#x60;.
+              /// </summary>
+              /// <value>Key for this district, e.g. &#x60;2016ne&#x60;.</value>
+                [JsonRequired]
+                  [JsonPropertyName("key")]
+                  public string Key { get; set; }
+                  
+              /// <summary>
+              /// Year this district participated.
+              /// </summary>
+              /// <value>Year this district participated.</value>
+                [JsonRequired]
+                  [JsonPropertyName("year")]
+                  public int Year { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class DistrictList {");
+                    sb.Append("  Abbreviation: ").AppendLine($"{ Abbreviation }");
+                    sb.Append("  DisplayName: ").AppendLine($"{ DisplayName }");
+                    sb.Append("  Key: ").AppendLine($"{ Key }");
+                    sb.Append("  Year: ").AppendLine($"{ Year }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

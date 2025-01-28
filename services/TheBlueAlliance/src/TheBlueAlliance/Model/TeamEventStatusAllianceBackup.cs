@@ -17,56 +17,57 @@
     /// <summary>
 /// Backup status, may be null.
 /// </summary>
-public partial class TeamEventStatusAllianceBackup
-{
-      /// <summary>
-      /// Initializes a new instance of the <see cref="TeamEventStatusAllianceBackup" /> class.
-      /// </summary>
-          /// <param name="varIn">TBA key for the backup team called in.</param>
-          /// <param name="varOut">TBA key for the team replaced by the backup.</param>
-      public TeamEventStatusAllianceBackup(string? varIn = default, string? varOut = default)
-      {
-                    this.In = varIn;
-                    this.Out = varOut;
-      }
-      
-            /// <summary>
-            /// TBA key for the backup team called in.
-            /// </summary>
-            /// <value>TBA key for the backup team called in.</value>
-              
-                [JsonPropertyName("in")]
-                public string? In { get; set; }
+
+  public partial class TeamEventStatusAllianceBackup
+  {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TeamEventStatusAllianceBackup" /> class.
+        /// </summary>
+            /// <param name="varIn">TBA key for the backup team called in.</param>
+            /// <param name="varOut">TBA key for the team replaced by the backup.</param>
+        public TeamEventStatusAllianceBackup(string? varIn = default, string? varOut = default)
+        {
+                      this.In = varIn;
+                      this.Out = varOut;
+        }
+        
+              /// <summary>
+              /// TBA key for the backup team called in.
+              /// </summary>
+              /// <value>TBA key for the backup team called in.</value>
                 
-            /// <summary>
-            /// TBA key for the team replaced by the backup.
-            /// </summary>
-            /// <value>TBA key for the team replaced by the backup.</value>
-              
-                [JsonPropertyName("out")]
-                public string? Out { get; set; }
+                  [JsonPropertyName("in")]
+                  public string? In { get; set; }
+                  
+              /// <summary>
+              /// TBA key for the team replaced by the backup.
+              /// </summary>
+              /// <value>TBA key for the team replaced by the backup.</value>
                 
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class TeamEventStatusAllianceBackup {");
-                  sb.Append("  In: ").AppendLine($"{ In?.ToString() ?? "[null]" }");
-                  sb.Append("  Out: ").AppendLine($"{ Out?.ToString() ?? "[null]" }");
-              sb.AppendLine("}");
-              return sb.ToString();
+                  [JsonPropertyName("out")]
+                  public string? Out { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class TeamEventStatusAllianceBackup {");
+                    sb.Append("  In: ").AppendLine($"{ In?.ToString() ?? "[null]" }");
+                    sb.Append("  Out: ").AppendLine($"{ Out?.ToString() ?? "[null]" }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
-            }
-          }
-          

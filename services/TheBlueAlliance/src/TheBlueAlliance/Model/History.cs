@@ -17,67 +17,68 @@
     /// <summary>
 /// History
 /// </summary>
-public partial class History
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="History" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected History() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="History" /> class.
-      /// </summary>
-          /// <param name="awards">awards (required).</param>
-          /// <param name="events">events (required).</param>
-      public History(Collection<Award> awards, Collection<Event> events)
-      {
-                    // to ensure "awards" is required (not null)
-                    ArgumentNullException.ThrowIfNull(awards);
-                    this.Awards = awards;
-                      
-                    // to ensure "events" is required (not null)
-                    ArgumentNullException.ThrowIfNull(events);
-                    this.Events = events;
-      }
-      
-            /// <summary>
-            /// Gets or Sets Awards
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("awards")]
-                public Collection<Award> Awards { get; set; }
-                
-            /// <summary>
-            /// Gets or Sets Events
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("events")]
-                public Collection<Event> Events { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class History {");
-                  sb.Append("  Awards: ").AppendLine($"{(Awards is null ? "[null]" : string.Join(", ", Awards))}");
-                  sb.Append("  Events: ").AppendLine($"{(Events is null ? "[null]" : string.Join(", ", Events))}");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class History
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="History" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected History() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="History" /> class.
+        /// </summary>
+            /// <param name="awards">awards (required).</param>
+            /// <param name="events">events (required).</param>
+        public History(Collection<Award> awards, Collection<Event> events)
+        {
+                      // to ensure "awards" is required (not null)
+                      ArgumentNullException.ThrowIfNull(awards);
+                      this.Awards = awards;
+                        
+                      // to ensure "events" is required (not null)
+                      ArgumentNullException.ThrowIfNull(events);
+                      this.Events = events;
+        }
+        
+              /// <summary>
+              /// Gets or Sets Awards
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("awards")]
+                  public Collection<Award> Awards { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Events
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("events")]
+                  public Collection<Event> Events { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class History {");
+                    sb.Append("  Awards: ").AppendLine($"{(Awards is null ? "[null]" : string.Join(", ", Awards))}");
+                    sb.Append("  Events: ").AppendLine($"{(Events is null ? "[null]" : string.Join(", ", Events))}");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

@@ -17,67 +17,68 @@
     /// <summary>
 /// LeaderboardInsightDataRankingsInner
 /// </summary>
-public partial class LeaderboardInsightDataRankingsInner
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="LeaderboardInsightDataRankingsInner" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected LeaderboardInsightDataRankingsInner() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="LeaderboardInsightDataRankingsInner" /> class.
-      /// </summary>
-          /// <param name="keys">Team/Event/Match keys that have the corresponding value. (required).</param>
-          /// <param name="value">Value of the insight that the corresponding team/event/matches have, e.g. number of blue banners, or number of matches played. (required).</param>
-      public LeaderboardInsightDataRankingsInner(Collection<string> keys, decimal value)
-      {
-                    // to ensure "keys" is required (not null)
-                    ArgumentNullException.ThrowIfNull(keys);
-                    this.Keys = keys;
-                      
-                    this.Value = value;
-      }
-      
-            /// <summary>
-            /// Team/Event/Match keys that have the corresponding value.
-            /// </summary>
-            /// <value>Team/Event/Match keys that have the corresponding value.</value>
-              [JsonRequired]
-                [JsonPropertyName("keys")]
-                public Collection<string> Keys { get; set; }
-                
-            /// <summary>
-            /// Value of the insight that the corresponding team/event/matches have, e.g. number of blue banners, or number of matches played.
-            /// </summary>
-            /// <value>Value of the insight that the corresponding team/event/matches have, e.g. number of blue banners, or number of matches played.</value>
-              [JsonRequired]
-                [JsonPropertyName("value")]
-                public decimal Value { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class LeaderboardInsightDataRankingsInner {");
-                  sb.Append("  Keys: ").AppendLine($"{(Keys is null ? "[null]" : string.Join(", ", Keys))}");
-                  sb.Append("  Value: ").AppendLine($"{ Value }");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class LeaderboardInsightDataRankingsInner
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="LeaderboardInsightDataRankingsInner" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected LeaderboardInsightDataRankingsInner() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LeaderboardInsightDataRankingsInner" /> class.
+        /// </summary>
+            /// <param name="keys">Team/Event/Match keys that have the corresponding value. (required).</param>
+            /// <param name="value">Value of the insight that the corresponding team/event/matches have, e.g. number of blue banners, or number of matches played. (required).</param>
+        public LeaderboardInsightDataRankingsInner(Collection<string> keys, decimal value)
+        {
+                      // to ensure "keys" is required (not null)
+                      ArgumentNullException.ThrowIfNull(keys);
+                      this.Keys = keys;
+                        
+                      this.Value = value;
+        }
+        
+              /// <summary>
+              /// Team/Event/Match keys that have the corresponding value.
+              /// </summary>
+              /// <value>Team/Event/Match keys that have the corresponding value.</value>
+                [JsonRequired]
+                  [JsonPropertyName("keys")]
+                  public Collection<string> Keys { get; set; }
+                  
+              /// <summary>
+              /// Value of the insight that the corresponding team/event/matches have, e.g. number of blue banners, or number of matches played.
+              /// </summary>
+              /// <value>Value of the insight that the corresponding team/event/matches have, e.g. number of blue banners, or number of matches played.</value>
+                [JsonRequired]
+                  [JsonPropertyName("value")]
+                  public decimal Value { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class LeaderboardInsightDataRankingsInner {");
+                    sb.Append("  Keys: ").AppendLine($"{(Keys is null ? "[null]" : string.Join(", ", Keys))}");
+                    sb.Append("  Value: ").AppendLine($"{ Value }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

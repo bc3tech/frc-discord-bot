@@ -17,97 +17,98 @@
     /// <summary>
 /// EventDistrictPointsPointsValue
 /// </summary>
-public partial class EventDistrictPointsPointsValue
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="EventDistrictPointsPointsValue" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected EventDistrictPointsPointsValue() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="EventDistrictPointsPointsValue" /> class.
-      /// </summary>
-          /// <param name="alliancePoints">Points awarded for alliance selection (required).</param>
-          /// <param name="awardPoints">Points awarded for event awards. (required).</param>
-          /// <param name="elimPoints">Points awarded for elimination match performance. (required).</param>
-          /// <param name="qualPoints">Points awarded for qualification match performance. (required).</param>
-          /// <param name="total">Total points awarded at this event. (required).</param>
-      public EventDistrictPointsPointsValue(int alliancePoints, int awardPoints, int elimPoints, int qualPoints, int total)
-      {
-                    this.AlliancePoints = alliancePoints;
-                    this.AwardPoints = awardPoints;
-                    this.ElimPoints = elimPoints;
-                    this.QualPoints = qualPoints;
-                    this.Total = total;
-      }
-      
-            /// <summary>
-            /// Points awarded for alliance selection
-            /// </summary>
-            /// <value>Points awarded for alliance selection</value>
-              [JsonRequired]
-                [JsonPropertyName("alliance_points")]
-                public int AlliancePoints { get; set; }
-                
-            /// <summary>
-            /// Points awarded for event awards.
-            /// </summary>
-            /// <value>Points awarded for event awards.</value>
-              [JsonRequired]
-                [JsonPropertyName("award_points")]
-                public int AwardPoints { get; set; }
-                
-            /// <summary>
-            /// Points awarded for elimination match performance.
-            /// </summary>
-            /// <value>Points awarded for elimination match performance.</value>
-              [JsonRequired]
-                [JsonPropertyName("elim_points")]
-                public int ElimPoints { get; set; }
-                
-            /// <summary>
-            /// Points awarded for qualification match performance.
-            /// </summary>
-            /// <value>Points awarded for qualification match performance.</value>
-              [JsonRequired]
-                [JsonPropertyName("qual_points")]
-                public int QualPoints { get; set; }
-                
-            /// <summary>
-            /// Total points awarded at this event.
-            /// </summary>
-            /// <value>Total points awarded at this event.</value>
-              [JsonRequired]
-                [JsonPropertyName("total")]
-                public int Total { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class EventDistrictPointsPointsValue {");
-                  sb.Append("  AlliancePoints: ").AppendLine($"{ AlliancePoints }");
-                  sb.Append("  AwardPoints: ").AppendLine($"{ AwardPoints }");
-                  sb.Append("  ElimPoints: ").AppendLine($"{ ElimPoints }");
-                  sb.Append("  QualPoints: ").AppendLine($"{ QualPoints }");
-                  sb.Append("  Total: ").AppendLine($"{ Total }");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class EventDistrictPointsPointsValue
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="EventDistrictPointsPointsValue" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected EventDistrictPointsPointsValue() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventDistrictPointsPointsValue" /> class.
+        /// </summary>
+            /// <param name="alliancePoints">Points awarded for alliance selection (required).</param>
+            /// <param name="awardPoints">Points awarded for event awards. (required).</param>
+            /// <param name="elimPoints">Points awarded for elimination match performance. (required).</param>
+            /// <param name="qualPoints">Points awarded for qualification match performance. (required).</param>
+            /// <param name="total">Total points awarded at this event. (required).</param>
+        public EventDistrictPointsPointsValue(int alliancePoints, int awardPoints, int elimPoints, int qualPoints, int total)
+        {
+                      this.AlliancePoints = alliancePoints;
+                      this.AwardPoints = awardPoints;
+                      this.ElimPoints = elimPoints;
+                      this.QualPoints = qualPoints;
+                      this.Total = total;
+        }
+        
+              /// <summary>
+              /// Points awarded for alliance selection
+              /// </summary>
+              /// <value>Points awarded for alliance selection</value>
+                [JsonRequired]
+                  [JsonPropertyName("alliance_points")]
+                  public int AlliancePoints { get; set; }
+                  
+              /// <summary>
+              /// Points awarded for event awards.
+              /// </summary>
+              /// <value>Points awarded for event awards.</value>
+                [JsonRequired]
+                  [JsonPropertyName("award_points")]
+                  public int AwardPoints { get; set; }
+                  
+              /// <summary>
+              /// Points awarded for elimination match performance.
+              /// </summary>
+              /// <value>Points awarded for elimination match performance.</value>
+                [JsonRequired]
+                  [JsonPropertyName("elim_points")]
+                  public int ElimPoints { get; set; }
+                  
+              /// <summary>
+              /// Points awarded for qualification match performance.
+              /// </summary>
+              /// <value>Points awarded for qualification match performance.</value>
+                [JsonRequired]
+                  [JsonPropertyName("qual_points")]
+                  public int QualPoints { get; set; }
+                  
+              /// <summary>
+              /// Total points awarded at this event.
+              /// </summary>
+              /// <value>Total points awarded at this event.</value>
+                [JsonRequired]
+                  [JsonPropertyName("total")]
+                  public int Total { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class EventDistrictPointsPointsValue {");
+                    sb.Append("  AlliancePoints: ").AppendLine($"{ AlliancePoints }");
+                    sb.Append("  AwardPoints: ").AppendLine($"{ AwardPoints }");
+                    sb.Append("  ElimPoints: ").AppendLine($"{ ElimPoints }");
+                    sb.Append("  QualPoints: ").AppendLine($"{ QualPoints }");
+                    sb.Append("  Total: ").AppendLine($"{ Total }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

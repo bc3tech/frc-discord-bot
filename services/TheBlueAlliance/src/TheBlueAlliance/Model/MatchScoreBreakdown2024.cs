@@ -17,67 +17,68 @@
     /// <summary>
 /// See the 2024 FMS API documentation for a description of each value. https://frc-api-docs.firstinspires.org
 /// </summary>
-public partial class MatchScoreBreakdown2024
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="MatchScoreBreakdown2024" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected MatchScoreBreakdown2024() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MatchScoreBreakdown2024" /> class.
-      /// </summary>
-          /// <param name="blue">blue (required).</param>
-          /// <param name="red">red (required).</param>
-      public MatchScoreBreakdown2024(MatchScoreBreakdown2024Alliance blue, MatchScoreBreakdown2024Alliance red)
-      {
-                    // to ensure "blue" is required (not null)
-                    ArgumentNullException.ThrowIfNull(blue);
-                    this.Blue = blue;
-                      
-                    // to ensure "red" is required (not null)
-                    ArgumentNullException.ThrowIfNull(red);
-                    this.Red = red;
-      }
-      
-            /// <summary>
-            /// Gets or Sets Blue
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("blue")]
-                public MatchScoreBreakdown2024Alliance Blue { get; set; }
-                
-            /// <summary>
-            /// Gets or Sets Red
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("red")]
-                public MatchScoreBreakdown2024Alliance Red { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class MatchScoreBreakdown2024 {");
-                  sb.Append("  Blue: ").AppendLine($"{ Blue }");
-                  sb.Append("  Red: ").AppendLine($"{ Red }");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class MatchScoreBreakdown2024
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="MatchScoreBreakdown2024" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected MatchScoreBreakdown2024() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatchScoreBreakdown2024" /> class.
+        /// </summary>
+            /// <param name="blue">blue (required).</param>
+            /// <param name="red">red (required).</param>
+        public MatchScoreBreakdown2024(MatchScoreBreakdown2024Alliance blue, MatchScoreBreakdown2024Alliance red)
+        {
+                      // to ensure "blue" is required (not null)
+                      ArgumentNullException.ThrowIfNull(blue);
+                      this.Blue = blue;
+                        
+                      // to ensure "red" is required (not null)
+                      ArgumentNullException.ThrowIfNull(red);
+                      this.Red = red;
+        }
+        
+              /// <summary>
+              /// Gets or Sets Blue
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("blue")]
+                  public MatchScoreBreakdown2024Alliance Blue { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Red
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("red")]
+                  public MatchScoreBreakdown2024Alliance Red { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class MatchScoreBreakdown2024 {");
+                    sb.Append("  Blue: ").AppendLine($"{ Blue }");
+                    sb.Append("  Red: ").AppendLine($"{ Red }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

@@ -17,68 +17,69 @@
     /// <summary>
 /// NotablesInsightDataEntriesInner
 /// </summary>
-public partial class NotablesInsightDataEntriesInner
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="NotablesInsightDataEntriesInner" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected NotablesInsightDataEntriesInner() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="NotablesInsightDataEntriesInner" /> class.
-      /// </summary>
-          /// <param name="context">A list of events this team achieved the notable at. This type may change over time. (required).</param>
-          /// <param name="teamKey">teamKey (required).</param>
-      public NotablesInsightDataEntriesInner(Collection<string> context, string teamKey)
-      {
-                    // to ensure "context" is required (not null)
-                    ArgumentNullException.ThrowIfNull(context);
-                    this.Context = context;
-                      
-                    // to ensure "teamKey" is required (not null)
-                    ArgumentNullException.ThrowIfNull(teamKey);
-                    this.TeamKey = teamKey;
-      }
-      
-            /// <summary>
-            /// A list of events this team achieved the notable at. This type may change over time.
-            /// </summary>
-            /// <value>A list of events this team achieved the notable at. This type may change over time.</value>
-              [JsonRequired]
-                [JsonPropertyName("context")]
-                public Collection<string> Context { get; set; }
-                
-            /// <summary>
-            /// Gets or Sets TeamKey
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("team_key")]
-                public string TeamKey { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class NotablesInsightDataEntriesInner {");
-                  sb.Append("  Context: ").AppendLine($"{(Context is null ? "[null]" : string.Join(", ", Context))}");
-                  sb.Append("  TeamKey: ").AppendLine($"{ TeamKey }");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class NotablesInsightDataEntriesInner
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="NotablesInsightDataEntriesInner" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected NotablesInsightDataEntriesInner() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NotablesInsightDataEntriesInner" /> class.
+        /// </summary>
+            /// <param name="context">A list of events this team achieved the notable at. This type may change over time. (required).</param>
+            /// <param name="teamKey">teamKey (required).</param>
+        public NotablesInsightDataEntriesInner(Collection<string> context, string teamKey)
+        {
+                      // to ensure "context" is required (not null)
+                      ArgumentNullException.ThrowIfNull(context);
+                      this.Context = context;
+                        
+                      // to ensure "teamKey" is required (not null)
+                      ArgumentNullException.ThrowIfNull(teamKey);
+                      this.TeamKey = teamKey;
+        }
+        
+              /// <summary>
+              /// A list of events this team achieved the notable at. This type may change over time.
+              /// </summary>
+              /// <value>A list of events this team achieved the notable at. This type may change over time.</value>
+                [JsonRequired]
+                  [JsonPropertyName("context")]
+                  public Collection<string> Context { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TeamKey
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("team_key")]
+                  public string TeamKey { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class NotablesInsightDataEntriesInner {");
+                    sb.Append("  Context: ").AppendLine($"{(Context is null ? "[null]" : string.Join(", ", Context))}");
+                    sb.Append("  TeamKey: ").AppendLine($"{ TeamKey }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

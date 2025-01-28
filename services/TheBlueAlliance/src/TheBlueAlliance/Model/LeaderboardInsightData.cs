@@ -17,9 +17,10 @@
     /// <summary>
 /// LeaderboardInsightData
 /// </summary>
-public partial class LeaderboardInsightData
-{
-          /// <summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class LeaderboardInsightData
+  {
+            /// <summary>
   /// What type of key is used in the rankings; either &#39;team&#39;, &#39;event&#39;, or &#39;match&#39;.
   /// </summary>
     /// <value>What type of key is used in the rankings; either &#39;team&#39;, &#39;event&#39;, or &#39;match&#39;.</value>
@@ -93,63 +94,63 @@ public partial class LeaderboardInsightData
         };
     }
 
-      
-      /// <summary>
-      /// What type of key is used in the rankings; either &#39;team&#39;, &#39;event&#39;, or &#39;match&#39;.
-      /// </summary>
-        /// <value>What type of key is used in the rankings; either &#39;team&#39;, &#39;event&#39;, or &#39;match&#39;.</value>
-        [JsonRequired]
-          [JsonPropertyName("key_type")]
-          public KeyTypeEnum KeyType { get; set; }
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="LeaderboardInsightData" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected LeaderboardInsightData() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="LeaderboardInsightData" /> class.
-      /// </summary>
-          /// <param name="keyType">What type of key is used in the rankings; either &#39;team&#39;, &#39;event&#39;, or &#39;match&#39;. (required).</param>
-          /// <param name="rankings">rankings (required).</param>
-      public LeaderboardInsightData(KeyTypeEnum keyType, Collection<LeaderboardInsightDataRankingsInner> rankings)
-      {
-                    this.KeyType = keyType;
-                    // to ensure "rankings" is required (not null)
-                    ArgumentNullException.ThrowIfNull(rankings);
-                    this.Rankings = rankings;
-      }
-      
-            /// <summary>
-            /// Gets or Sets Rankings
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("rankings")]
-                public Collection<LeaderboardInsightDataRankingsInner> Rankings { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class LeaderboardInsightData {");
-                  sb.Append("  KeyType: ").AppendLine($"{ KeyType }");
-                  sb.Append("  Rankings: ").AppendLine($"{(Rankings is null ? "[null]" : string.Join(", ", Rankings))}");
-              sb.AppendLine("}");
-              return sb.ToString();
+        
+        /// <summary>
+        /// What type of key is used in the rankings; either &#39;team&#39;, &#39;event&#39;, or &#39;match&#39;.
+        /// </summary>
+          /// <value>What type of key is used in the rankings; either &#39;team&#39;, &#39;event&#39;, or &#39;match&#39;.</value>
+          [JsonRequired]
+            [JsonPropertyName("key_type")]
+            public KeyTypeEnum KeyType { get; set; }
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="LeaderboardInsightData" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected LeaderboardInsightData() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LeaderboardInsightData" /> class.
+        /// </summary>
+            /// <param name="keyType">What type of key is used in the rankings; either &#39;team&#39;, &#39;event&#39;, or &#39;match&#39;. (required).</param>
+            /// <param name="rankings">rankings (required).</param>
+        public LeaderboardInsightData(KeyTypeEnum keyType, Collection<LeaderboardInsightDataRankingsInner> rankings)
+        {
+                      this.KeyType = keyType;
+                      // to ensure "rankings" is required (not null)
+                      ArgumentNullException.ThrowIfNull(rankings);
+                      this.Rankings = rankings;
+        }
+        
+              /// <summary>
+              /// Gets or Sets Rankings
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("rankings")]
+                  public Collection<LeaderboardInsightDataRankingsInner> Rankings { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class LeaderboardInsightData {");
+                    sb.Append("  KeyType: ").AppendLine($"{ KeyType }");
+                    sb.Append("  Rankings: ").AppendLine($"{(Rankings is null ? "[null]" : string.Join(", ", Rankings))}");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

@@ -17,9 +17,10 @@
     /// <summary>
 /// MatchSimple
 /// </summary>
-public partial class MatchSimple
-{
-          /// <summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class MatchSimple
+  {
+            /// <summary>
   /// The competition level the match was played at.
   /// </summary>
     /// <value>The competition level the match was played at.</value>
@@ -109,15 +110,15 @@ public partial class MatchSimple
         };
     }
 
-      
-      /// <summary>
-      /// The competition level the match was played at.
-      /// </summary>
-        /// <value>The competition level the match was played at.</value>
-        [JsonRequired]
-          [JsonPropertyName("comp_level")]
-          public CompLevelEnum CompLevel { get; set; }
-          /// <summary>
+        
+        /// <summary>
+        /// The competition level the match was played at.
+        /// </summary>
+          /// <value>The competition level the match was played at.</value>
+          [JsonRequired]
+            [JsonPropertyName("comp_level")]
+            public CompLevelEnum CompLevel { get; set; }
+            /// <summary>
   /// The color (red/blue) of the winning alliance. Will contain an empty string in the event of no winner, or a tie.
   /// </summary>
     /// <value>The color (red/blue) of the winning alliance. Will contain an empty string in the event of no winner, or a tie.</value>
@@ -191,159 +192,159 @@ public partial class MatchSimple
         };
     }
 
-      
-      /// <summary>
-      /// The color (red/blue) of the winning alliance. Will contain an empty string in the event of no winner, or a tie.
-      /// </summary>
-        /// <value>The color (red/blue) of the winning alliance. Will contain an empty string in the event of no winner, or a tie.</value>
-        [JsonRequired]
-          [JsonPropertyName("winning_alliance")]
-          public WinningAllianceEnum WinningAlliance { get; set; }
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="MatchSimple" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected MatchSimple() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MatchSimple" /> class.
-      /// </summary>
-          /// <param name="actualTime">UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of actual match start time. (required).</param>
-          /// <param name="alliances">alliances (required).</param>
-          /// <param name="compLevel">The competition level the match was played at. (required).</param>
-          /// <param name="eventKey">Event key of the event the match was played at. (required).</param>
-          /// <param name="key">TBA match key with the format &#x60;yyyy[EVENT_CODE]_[COMP_LEVEL]m[MATCH_NUMBER]&#x60;, where &#x60;yyyy&#x60; is the year, and &#x60;EVENT_CODE&#x60; is the event code of the event, &#x60;COMP_LEVEL&#x60; is (qm, ef, qf, sf, f), and &#x60;MATCH_NUMBER&#x60; is the match number in the competition level. A set number may append the competition level if more than one match in required per set. (required).</param>
-          /// <param name="matchNumber">The match number of the match in the competition level. (required).</param>
-          /// <param name="predictedTime">UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of the TBA predicted match start time. (required).</param>
-          /// <param name="setNumber">The set number in a series of matches where more than one match is required in the match series. (required).</param>
-          /// <param name="time">UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of the scheduled match time, as taken from the published schedule. (required).</param>
-          /// <param name="winningAlliance">The color (red/blue) of the winning alliance. Will contain an empty string in the event of no winner, or a tie. (required).</param>
-      public MatchSimple(long? actualTime, MatchSimpleAlliances alliances, CompLevelEnum compLevel, string eventKey, string key, int matchNumber, long? predictedTime, int setNumber, long? time, WinningAllianceEnum winningAlliance)
-      {
-                    // to ensure "actualTime" is required (not null)
-                    ArgumentNullException.ThrowIfNull(actualTime);
-                    this.ActualTime = actualTime;
-                      
-                    // to ensure "alliances" is required (not null)
-                    ArgumentNullException.ThrowIfNull(alliances);
-                    this.Alliances = alliances;
-                      
-                    this.CompLevel = compLevel;
-                    // to ensure "eventKey" is required (not null)
-                    ArgumentNullException.ThrowIfNull(eventKey);
-                    this.EventKey = eventKey;
-                      
-                    // to ensure "key" is required (not null)
-                    ArgumentNullException.ThrowIfNull(key);
-                    this.Key = key;
-                      
-                    this.MatchNumber = matchNumber;
-                    // to ensure "predictedTime" is required (not null)
-                    ArgumentNullException.ThrowIfNull(predictedTime);
-                    this.PredictedTime = predictedTime;
-                      
-                    this.SetNumber = setNumber;
-                    // to ensure "time" is required (not null)
-                    ArgumentNullException.ThrowIfNull(time);
-                    this.Time = time;
-                      
-                    this.WinningAlliance = winningAlliance;
-      }
-      
-            /// <summary>
-            /// UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of actual match start time.
-            /// </summary>
-            /// <value>UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of actual match start time.</value>
-              [JsonRequired]
-                [JsonPropertyName("actual_time")]
-                public long? ActualTime { get; set; }
-                
-            /// <summary>
-            /// Gets or Sets Alliances
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("alliances")]
-                public MatchSimpleAlliances Alliances { get; set; }
-                
-            /// <summary>
-            /// Event key of the event the match was played at.
-            /// </summary>
-            /// <value>Event key of the event the match was played at.</value>
-              [JsonRequired]
-                [JsonPropertyName("event_key")]
-                public string EventKey { get; set; }
-                
-            /// <summary>
-            /// TBA match key with the format &#x60;yyyy[EVENT_CODE]_[COMP_LEVEL]m[MATCH_NUMBER]&#x60;, where &#x60;yyyy&#x60; is the year, and &#x60;EVENT_CODE&#x60; is the event code of the event, &#x60;COMP_LEVEL&#x60; is (qm, ef, qf, sf, f), and &#x60;MATCH_NUMBER&#x60; is the match number in the competition level. A set number may append the competition level if more than one match in required per set.
-            /// </summary>
-            /// <value>TBA match key with the format &#x60;yyyy[EVENT_CODE]_[COMP_LEVEL]m[MATCH_NUMBER]&#x60;, where &#x60;yyyy&#x60; is the year, and &#x60;EVENT_CODE&#x60; is the event code of the event, &#x60;COMP_LEVEL&#x60; is (qm, ef, qf, sf, f), and &#x60;MATCH_NUMBER&#x60; is the match number in the competition level. A set number may append the competition level if more than one match in required per set.</value>
-              [JsonRequired]
-                [JsonPropertyName("key")]
-                public string Key { get; set; }
-                
-            /// <summary>
-            /// The match number of the match in the competition level.
-            /// </summary>
-            /// <value>The match number of the match in the competition level.</value>
-              [JsonRequired]
-                [JsonPropertyName("match_number")]
-                public int MatchNumber { get; set; }
-                
-            /// <summary>
-            /// UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of the TBA predicted match start time.
-            /// </summary>
-            /// <value>UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of the TBA predicted match start time.</value>
-              [JsonRequired]
-                [JsonPropertyName("predicted_time")]
-                public long? PredictedTime { get; set; }
-                
-            /// <summary>
-            /// The set number in a series of matches where more than one match is required in the match series.
-            /// </summary>
-            /// <value>The set number in a series of matches where more than one match is required in the match series.</value>
-              [JsonRequired]
-                [JsonPropertyName("set_number")]
-                public int SetNumber { get; set; }
-                
-            /// <summary>
-            /// UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of the scheduled match time, as taken from the published schedule.
-            /// </summary>
-            /// <value>UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of the scheduled match time, as taken from the published schedule.</value>
-              [JsonRequired]
-                [JsonPropertyName("time")]
-                public long? Time { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class MatchSimple {");
-                  sb.Append("  ActualTime: ").AppendLine($"{ ActualTime }");
-                  sb.Append("  Alliances: ").AppendLine($"{ Alliances }");
-                  sb.Append("  CompLevel: ").AppendLine($"{ CompLevel }");
-                  sb.Append("  EventKey: ").AppendLine($"{ EventKey }");
-                  sb.Append("  Key: ").AppendLine($"{ Key }");
-                  sb.Append("  MatchNumber: ").AppendLine($"{ MatchNumber }");
-                  sb.Append("  PredictedTime: ").AppendLine($"{ PredictedTime }");
-                  sb.Append("  SetNumber: ").AppendLine($"{ SetNumber }");
-                  sb.Append("  Time: ").AppendLine($"{ Time }");
-                  sb.Append("  WinningAlliance: ").AppendLine($"{ WinningAlliance }");
-              sb.AppendLine("}");
-              return sb.ToString();
+        
+        /// <summary>
+        /// The color (red/blue) of the winning alliance. Will contain an empty string in the event of no winner, or a tie.
+        /// </summary>
+          /// <value>The color (red/blue) of the winning alliance. Will contain an empty string in the event of no winner, or a tie.</value>
+          [JsonRequired]
+            [JsonPropertyName("winning_alliance")]
+            public WinningAllianceEnum WinningAlliance { get; set; }
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="MatchSimple" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected MatchSimple() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatchSimple" /> class.
+        /// </summary>
+            /// <param name="actualTime">UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of actual match start time. (required).</param>
+            /// <param name="alliances">alliances (required).</param>
+            /// <param name="compLevel">The competition level the match was played at. (required).</param>
+            /// <param name="eventKey">Event key of the event the match was played at. (required).</param>
+            /// <param name="key">TBA match key with the format &#x60;yyyy[EVENT_CODE]_[COMP_LEVEL]m[MATCH_NUMBER]&#x60;, where &#x60;yyyy&#x60; is the year, and &#x60;EVENT_CODE&#x60; is the event code of the event, &#x60;COMP_LEVEL&#x60; is (qm, ef, qf, sf, f), and &#x60;MATCH_NUMBER&#x60; is the match number in the competition level. A set number may append the competition level if more than one match in required per set. (required).</param>
+            /// <param name="matchNumber">The match number of the match in the competition level. (required).</param>
+            /// <param name="predictedTime">UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of the TBA predicted match start time. (required).</param>
+            /// <param name="setNumber">The set number in a series of matches where more than one match is required in the match series. (required).</param>
+            /// <param name="time">UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of the scheduled match time, as taken from the published schedule. (required).</param>
+            /// <param name="winningAlliance">The color (red/blue) of the winning alliance. Will contain an empty string in the event of no winner, or a tie. (required).</param>
+        public MatchSimple(long? actualTime, MatchSimpleAlliances alliances, CompLevelEnum compLevel, string eventKey, string key, int matchNumber, long? predictedTime, int setNumber, long? time, WinningAllianceEnum winningAlliance)
+        {
+                      // to ensure "actualTime" is required (not null)
+                      ArgumentNullException.ThrowIfNull(actualTime);
+                      this.ActualTime = actualTime;
+                        
+                      // to ensure "alliances" is required (not null)
+                      ArgumentNullException.ThrowIfNull(alliances);
+                      this.Alliances = alliances;
+                        
+                      this.CompLevel = compLevel;
+                      // to ensure "eventKey" is required (not null)
+                      ArgumentNullException.ThrowIfNull(eventKey);
+                      this.EventKey = eventKey;
+                        
+                      // to ensure "key" is required (not null)
+                      ArgumentNullException.ThrowIfNull(key);
+                      this.Key = key;
+                        
+                      this.MatchNumber = matchNumber;
+                      // to ensure "predictedTime" is required (not null)
+                      ArgumentNullException.ThrowIfNull(predictedTime);
+                      this.PredictedTime = predictedTime;
+                        
+                      this.SetNumber = setNumber;
+                      // to ensure "time" is required (not null)
+                      ArgumentNullException.ThrowIfNull(time);
+                      this.Time = time;
+                        
+                      this.WinningAlliance = winningAlliance;
+        }
+        
+              /// <summary>
+              /// UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of actual match start time.
+              /// </summary>
+              /// <value>UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of actual match start time.</value>
+                [JsonRequired]
+                  [JsonPropertyName("actual_time")]
+                  public long? ActualTime { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Alliances
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("alliances")]
+                  public MatchSimpleAlliances Alliances { get; set; }
+                  
+              /// <summary>
+              /// Event key of the event the match was played at.
+              /// </summary>
+              /// <value>Event key of the event the match was played at.</value>
+                [JsonRequired]
+                  [JsonPropertyName("event_key")]
+                  public string EventKey { get; set; }
+                  
+              /// <summary>
+              /// TBA match key with the format &#x60;yyyy[EVENT_CODE]_[COMP_LEVEL]m[MATCH_NUMBER]&#x60;, where &#x60;yyyy&#x60; is the year, and &#x60;EVENT_CODE&#x60; is the event code of the event, &#x60;COMP_LEVEL&#x60; is (qm, ef, qf, sf, f), and &#x60;MATCH_NUMBER&#x60; is the match number in the competition level. A set number may append the competition level if more than one match in required per set.
+              /// </summary>
+              /// <value>TBA match key with the format &#x60;yyyy[EVENT_CODE]_[COMP_LEVEL]m[MATCH_NUMBER]&#x60;, where &#x60;yyyy&#x60; is the year, and &#x60;EVENT_CODE&#x60; is the event code of the event, &#x60;COMP_LEVEL&#x60; is (qm, ef, qf, sf, f), and &#x60;MATCH_NUMBER&#x60; is the match number in the competition level. A set number may append the competition level if more than one match in required per set.</value>
+                [JsonRequired]
+                  [JsonPropertyName("key")]
+                  public string Key { get; set; }
+                  
+              /// <summary>
+              /// The match number of the match in the competition level.
+              /// </summary>
+              /// <value>The match number of the match in the competition level.</value>
+                [JsonRequired]
+                  [JsonPropertyName("match_number")]
+                  public int MatchNumber { get; set; }
+                  
+              /// <summary>
+              /// UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of the TBA predicted match start time.
+              /// </summary>
+              /// <value>UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of the TBA predicted match start time.</value>
+                [JsonRequired]
+                  [JsonPropertyName("predicted_time")]
+                  public long? PredictedTime { get; set; }
+                  
+              /// <summary>
+              /// The set number in a series of matches where more than one match is required in the match series.
+              /// </summary>
+              /// <value>The set number in a series of matches where more than one match is required in the match series.</value>
+                [JsonRequired]
+                  [JsonPropertyName("set_number")]
+                  public int SetNumber { get; set; }
+                  
+              /// <summary>
+              /// UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of the scheduled match time, as taken from the published schedule.
+              /// </summary>
+              /// <value>UNIX timestamp (seconds since 1-Jan-1970 00:00:00) of the scheduled match time, as taken from the published schedule.</value>
+                [JsonRequired]
+                  [JsonPropertyName("time")]
+                  public long? Time { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class MatchSimple {");
+                    sb.Append("  ActualTime: ").AppendLine($"{ ActualTime }");
+                    sb.Append("  Alliances: ").AppendLine($"{ Alliances }");
+                    sb.Append("  CompLevel: ").AppendLine($"{ CompLevel }");
+                    sb.Append("  EventKey: ").AppendLine($"{ EventKey }");
+                    sb.Append("  Key: ").AppendLine($"{ Key }");
+                    sb.Append("  MatchNumber: ").AppendLine($"{ MatchNumber }");
+                    sb.Append("  PredictedTime: ").AppendLine($"{ PredictedTime }");
+                    sb.Append("  SetNumber: ").AppendLine($"{ SetNumber }");
+                    sb.Append("  Time: ").AppendLine($"{ Time }");
+                    sb.Append("  WinningAlliance: ").AppendLine($"{ WinningAlliance }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

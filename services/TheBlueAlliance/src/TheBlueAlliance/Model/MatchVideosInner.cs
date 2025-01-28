@@ -17,69 +17,70 @@
     /// <summary>
 /// MatchVideosInner
 /// </summary>
-public partial class MatchVideosInner
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="MatchVideosInner" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected MatchVideosInner() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MatchVideosInner" /> class.
-      /// </summary>
-          /// <param name="key">Unique key representing this video (required).</param>
-          /// <param name="type">Can be one of &#39;youtube&#39; or &#39;tba&#39; (required).</param>
-      public MatchVideosInner(string key, string type)
-      {
-                    // to ensure "key" is required (not null)
-                    ArgumentNullException.ThrowIfNull(key);
-                    this.Key = key;
-                      
-                    // to ensure "type" is required (not null)
-                    ArgumentNullException.ThrowIfNull(type);
-                    this.Type = type;
-      }
-      
-            /// <summary>
-            /// Unique key representing this video
-            /// </summary>
-            /// <value>Unique key representing this video</value>
-              [JsonRequired]
-                [JsonPropertyName("key")]
-                public string Key { get; set; }
-                
-            /// <summary>
-            /// Can be one of &#39;youtube&#39; or &#39;tba&#39;
-            /// </summary>
-            /// <value>Can be one of &#39;youtube&#39; or &#39;tba&#39;</value>
-              [JsonRequired]
-                [JsonPropertyName("type")]
-                public string Type { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class MatchVideosInner {");
-                  sb.Append("  Key: ").AppendLine($"{ Key }");
-                  sb.Append("  Type: ").AppendLine($"{ Type }");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class MatchVideosInner
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="MatchVideosInner" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected MatchVideosInner() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatchVideosInner" /> class.
+        /// </summary>
+            /// <param name="key">Unique key representing this video (required).</param>
+            /// <param name="type">Can be one of &#39;youtube&#39; or &#39;tba&#39; (required).</param>
+        public MatchVideosInner(string key, string type)
+        {
+                      // to ensure "key" is required (not null)
+                      ArgumentNullException.ThrowIfNull(key);
+                      this.Key = key;
+                        
+                      // to ensure "type" is required (not null)
+                      ArgumentNullException.ThrowIfNull(type);
+                      this.Type = type;
+        }
+        
+              /// <summary>
+              /// Unique key representing this video
+              /// </summary>
+              /// <value>Unique key representing this video</value>
+                [JsonRequired]
+                  [JsonPropertyName("key")]
+                  public string Key { get; set; }
+                  
+              /// <summary>
+              /// Can be one of &#39;youtube&#39; or &#39;tba&#39;
+              /// </summary>
+              /// <value>Can be one of &#39;youtube&#39; or &#39;tba&#39;</value>
+                [JsonRequired]
+                  [JsonPropertyName("type")]
+                  public string Type { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class MatchVideosInner {");
+                    sb.Append("  Key: ").AppendLine($"{ Key }");
+                    sb.Append("  Type: ").AppendLine($"{ Type }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

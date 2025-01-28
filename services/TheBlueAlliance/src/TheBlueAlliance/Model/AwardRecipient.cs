@@ -17,69 +17,70 @@
     /// <summary>
 /// An &#x60;Award_Recipient&#x60; object represents the team and/or person who received an award at an event.
 /// </summary>
-public partial class AwardRecipient
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="AwardRecipient" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected AwardRecipient() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="AwardRecipient" /> class.
-      /// </summary>
-          /// <param name="awardee">The name of the individual given the award. May be null. (required).</param>
-          /// <param name="teamKey">The TBA team key for the team that was given the award. May be null. (required).</param>
-      public AwardRecipient(string awardee, string teamKey)
-      {
-                    // to ensure "awardee" is required (not null)
-                    ArgumentNullException.ThrowIfNull(awardee);
-                    this.Awardee = awardee;
-                      
-                    // to ensure "teamKey" is required (not null)
-                    ArgumentNullException.ThrowIfNull(teamKey);
-                    this.TeamKey = teamKey;
-      }
-      
-            /// <summary>
-            /// The name of the individual given the award. May be null.
-            /// </summary>
-            /// <value>The name of the individual given the award. May be null.</value>
-              [JsonRequired]
-                [JsonPropertyName("awardee")]
-                public string Awardee { get; set; }
-                
-            /// <summary>
-            /// The TBA team key for the team that was given the award. May be null.
-            /// </summary>
-            /// <value>The TBA team key for the team that was given the award. May be null.</value>
-              [JsonRequired]
-                [JsonPropertyName("team_key")]
-                public string TeamKey { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class AwardRecipient {");
-                  sb.Append("  Awardee: ").AppendLine($"{ Awardee }");
-                  sb.Append("  TeamKey: ").AppendLine($"{ TeamKey }");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class AwardRecipient
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="AwardRecipient" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected AwardRecipient() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AwardRecipient" /> class.
+        /// </summary>
+            /// <param name="awardee">The name of the individual given the award. May be null. (required).</param>
+            /// <param name="teamKey">The TBA team key for the team that was given the award. May be null. (required).</param>
+        public AwardRecipient(string awardee, string teamKey)
+        {
+                      // to ensure "awardee" is required (not null)
+                      ArgumentNullException.ThrowIfNull(awardee);
+                      this.Awardee = awardee;
+                        
+                      // to ensure "teamKey" is required (not null)
+                      ArgumentNullException.ThrowIfNull(teamKey);
+                      this.TeamKey = teamKey;
+        }
+        
+              /// <summary>
+              /// The name of the individual given the award. May be null.
+              /// </summary>
+              /// <value>The name of the individual given the award. May be null.</value>
+                [JsonRequired]
+                  [JsonPropertyName("awardee")]
+                  public string Awardee { get; set; }
+                  
+              /// <summary>
+              /// The TBA team key for the team that was given the award. May be null.
+              /// </summary>
+              /// <value>The TBA team key for the team that was given the award. May be null.</value>
+                [JsonRequired]
+                  [JsonPropertyName("team_key")]
+                  public string TeamKey { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class AwardRecipient {");
+                    sb.Append("  Awardee: ").AppendLine($"{ Awardee }");
+                    sb.Append("  TeamKey: ").AppendLine($"{ TeamKey }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

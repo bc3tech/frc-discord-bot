@@ -17,9 +17,10 @@
     /// <summary>
 /// The &#x60;Media&#x60; object contains a reference for most any media associated with a team or event on TBA.
 /// </summary>
-public partial class Media
-{
-          /// <summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class Media
+  {
+            /// <summary>
   /// String type of the media element.
   /// </summary>
     /// <value>String type of the media element.</value>
@@ -181,123 +182,123 @@ public partial class Media
         };
     }
 
-      
-      /// <summary>
-      /// String type of the media element.
-      /// </summary>
-        /// <value>String type of the media element.</value>
-        [JsonRequired]
-          [JsonPropertyName("type")]
-          public TypeEnum Type { get; set; }
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="Media" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected Media() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="Media" /> class.
-      /// </summary>
-          /// <param name="details">If required, a JSON dict of additional media information.</param>
-          /// <param name="directUrl">Direct URL to the media.</param>
-          /// <param name="foreignKey">The key used to identify this media on the media site. (required).</param>
-          /// <param name="preferred">True if the media is of high quality.</param>
-          /// <param name="teamKeys">List of teams that this media belongs to. Most likely length 1. (required).</param>
-          /// <param name="type">String type of the media element. (required).</param>
-          /// <param name="viewUrl">The URL that leads to the full web page for the media, if one exists.</param>
-      public Media(string foreignKey, Collection<string> teamKeys, TypeEnum type, Dictionary<string, Object>? details = default, string? directUrl = default, bool? preferred = default, string? viewUrl = default)
-      {
-                    this.Details = details;
-                    this.DirectUrl = directUrl;
-                    // to ensure "foreignKey" is required (not null)
-                    ArgumentNullException.ThrowIfNull(foreignKey);
-                    this.ForeignKey = foreignKey;
-                      
-                    this.Preferred = preferred;
-                    // to ensure "teamKeys" is required (not null)
-                    ArgumentNullException.ThrowIfNull(teamKeys);
-                    this.TeamKeys = teamKeys;
-                      
-                    this.Type = type;
-                    this.ViewUrl = viewUrl;
-      }
-      
-            /// <summary>
-            /// If required, a JSON dict of additional media information.
-            /// </summary>
-            /// <value>If required, a JSON dict of additional media information.</value>
-              
-                [JsonPropertyName("details")]
-                public Dictionary<string, Object>? Details { get; set; }
-                
-            /// <summary>
-            /// Direct URL to the media.
-            /// </summary>
-            /// <value>Direct URL to the media.</value>
-              
-                [JsonPropertyName("direct_url")]
-                public string? DirectUrl { get; set; }
-                
-            /// <summary>
-            /// The key used to identify this media on the media site.
-            /// </summary>
-            /// <value>The key used to identify this media on the media site.</value>
-              [JsonRequired]
-                [JsonPropertyName("foreign_key")]
-                public string ForeignKey { get; set; }
-                
-            /// <summary>
-            /// True if the media is of high quality.
-            /// </summary>
-            /// <value>True if the media is of high quality.</value>
-              
-                [JsonPropertyName("preferred")]
-                public bool? Preferred { get; set; }
-                
-            /// <summary>
-            /// List of teams that this media belongs to. Most likely length 1.
-            /// </summary>
-            /// <value>List of teams that this media belongs to. Most likely length 1.</value>
-              [JsonRequired]
-                [JsonPropertyName("team_keys")]
-                public Collection<string> TeamKeys { get; set; }
-                
-            /// <summary>
-            /// The URL that leads to the full web page for the media, if one exists.
-            /// </summary>
-            /// <value>The URL that leads to the full web page for the media, if one exists.</value>
-              
-                [JsonPropertyName("view_url")]
-                public string? ViewUrl { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class Media {");
-                  sb.Append("  Details: ").AppendLine($"{ Details?.ToString() ?? "[null]" }");
-                  sb.Append("  DirectUrl: ").AppendLine($"{ DirectUrl?.ToString() ?? "[null]" }");
-                  sb.Append("  ForeignKey: ").AppendLine($"{ ForeignKey }");
-                  sb.Append("  Preferred: ").AppendLine($"{ Preferred?.ToString() ?? "[null]" }");
-                  sb.Append("  TeamKeys: ").AppendLine($"{(TeamKeys is null ? "[null]" : string.Join(", ", TeamKeys))}");
-                  sb.Append("  Type: ").AppendLine($"{ Type }");
-                  sb.Append("  ViewUrl: ").AppendLine($"{ ViewUrl?.ToString() ?? "[null]" }");
-              sb.AppendLine("}");
-              return sb.ToString();
+        
+        /// <summary>
+        /// String type of the media element.
+        /// </summary>
+          /// <value>String type of the media element.</value>
+          [JsonRequired]
+            [JsonPropertyName("type")]
+            public TypeEnum Type { get; set; }
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="Media" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected Media() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Media" /> class.
+        /// </summary>
+            /// <param name="details">If required, a JSON dict of additional media information.</param>
+            /// <param name="directUrl">Direct URL to the media.</param>
+            /// <param name="foreignKey">The key used to identify this media on the media site. (required).</param>
+            /// <param name="preferred">True if the media is of high quality.</param>
+            /// <param name="teamKeys">List of teams that this media belongs to. Most likely length 1. (required).</param>
+            /// <param name="type">String type of the media element. (required).</param>
+            /// <param name="viewUrl">The URL that leads to the full web page for the media, if one exists.</param>
+        public Media(string foreignKey, Collection<string> teamKeys, TypeEnum type, Dictionary<string, Object>? details = default, string? directUrl = default, bool? preferred = default, string? viewUrl = default)
+        {
+                      this.Details = details;
+                      this.DirectUrl = directUrl;
+                      // to ensure "foreignKey" is required (not null)
+                      ArgumentNullException.ThrowIfNull(foreignKey);
+                      this.ForeignKey = foreignKey;
+                        
+                      this.Preferred = preferred;
+                      // to ensure "teamKeys" is required (not null)
+                      ArgumentNullException.ThrowIfNull(teamKeys);
+                      this.TeamKeys = teamKeys;
+                        
+                      this.Type = type;
+                      this.ViewUrl = viewUrl;
+        }
+        
+              /// <summary>
+              /// If required, a JSON dict of additional media information.
+              /// </summary>
+              /// <value>If required, a JSON dict of additional media information.</value>
+                
+                  [JsonPropertyName("details")]
+                  public Dictionary<string, Object>? Details { get; set; }
+                  
+              /// <summary>
+              /// Direct URL to the media.
+              /// </summary>
+              /// <value>Direct URL to the media.</value>
+                
+                  [JsonPropertyName("direct_url")]
+                  public string? DirectUrl { get; set; }
+                  
+              /// <summary>
+              /// The key used to identify this media on the media site.
+              /// </summary>
+              /// <value>The key used to identify this media on the media site.</value>
+                [JsonRequired]
+                  [JsonPropertyName("foreign_key")]
+                  public string ForeignKey { get; set; }
+                  
+              /// <summary>
+              /// True if the media is of high quality.
+              /// </summary>
+              /// <value>True if the media is of high quality.</value>
+                
+                  [JsonPropertyName("preferred")]
+                  public bool? Preferred { get; set; }
+                  
+              /// <summary>
+              /// List of teams that this media belongs to. Most likely length 1.
+              /// </summary>
+              /// <value>List of teams that this media belongs to. Most likely length 1.</value>
+                [JsonRequired]
+                  [JsonPropertyName("team_keys")]
+                  public Collection<string> TeamKeys { get; set; }
+                  
+              /// <summary>
+              /// The URL that leads to the full web page for the media, if one exists.
+              /// </summary>
+              /// <value>The URL that leads to the full web page for the media, if one exists.</value>
+                
+                  [JsonPropertyName("view_url")]
+                  public string? ViewUrl { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class Media {");
+                    sb.Append("  Details: ").AppendLine($"{ Details?.ToString() ?? "[null]" }");
+                    sb.Append("  DirectUrl: ").AppendLine($"{ DirectUrl?.ToString() ?? "[null]" }");
+                    sb.Append("  ForeignKey: ").AppendLine($"{ ForeignKey }");
+                    sb.Append("  Preferred: ").AppendLine($"{ Preferred?.ToString() ?? "[null]" }");
+                    sb.Append("  TeamKeys: ").AppendLine($"{(TeamKeys is null ? "[null]" : string.Join(", ", TeamKeys))}");
+                    sb.Append("  Type: ").AppendLine($"{ Type }");
+                    sb.Append("  ViewUrl: ").AppendLine($"{ ViewUrl?.ToString() ?? "[null]" }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

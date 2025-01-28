@@ -17,67 +17,68 @@
     /// <summary>
 /// A list of alliances, the teams on the alliances, and their score.
 /// </summary>
-public partial class MatchSimpleAlliances
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="MatchSimpleAlliances" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected MatchSimpleAlliances() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MatchSimpleAlliances" /> class.
-      /// </summary>
-          /// <param name="blue">blue (required).</param>
-          /// <param name="red">red (required).</param>
-      public MatchSimpleAlliances(MatchAlliance blue, MatchAlliance red)
-      {
-                    // to ensure "blue" is required (not null)
-                    ArgumentNullException.ThrowIfNull(blue);
-                    this.Blue = blue;
-                      
-                    // to ensure "red" is required (not null)
-                    ArgumentNullException.ThrowIfNull(red);
-                    this.Red = red;
-      }
-      
-            /// <summary>
-            /// Gets or Sets Blue
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("blue")]
-                public MatchAlliance Blue { get; set; }
-                
-            /// <summary>
-            /// Gets or Sets Red
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("red")]
-                public MatchAlliance Red { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class MatchSimpleAlliances {");
-                  sb.Append("  Blue: ").AppendLine($"{ Blue }");
-                  sb.Append("  Red: ").AppendLine($"{ Red }");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class MatchSimpleAlliances
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="MatchSimpleAlliances" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected MatchSimpleAlliances() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatchSimpleAlliances" /> class.
+        /// </summary>
+            /// <param name="blue">blue (required).</param>
+            /// <param name="red">red (required).</param>
+        public MatchSimpleAlliances(MatchAlliance blue, MatchAlliance red)
+        {
+                      // to ensure "blue" is required (not null)
+                      ArgumentNullException.ThrowIfNull(blue);
+                      this.Blue = blue;
+                        
+                      // to ensure "red" is required (not null)
+                      ArgumentNullException.ThrowIfNull(red);
+                      this.Red = red;
+        }
+        
+              /// <summary>
+              /// Gets or Sets Blue
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("blue")]
+                  public MatchAlliance Blue { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Red
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("red")]
+                  public MatchAlliance Red { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class MatchSimpleAlliances {");
+                    sb.Append("  Blue: ").AppendLine($"{ Blue }");
+                    sb.Append("  Red: ").AppendLine($"{ Red }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

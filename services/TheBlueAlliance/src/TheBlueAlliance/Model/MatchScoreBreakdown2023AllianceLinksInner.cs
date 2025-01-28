@@ -17,9 +17,10 @@
     /// <summary>
 /// MatchScoreBreakdown2023AllianceLinksInner
 /// </summary>
-public partial class MatchScoreBreakdown2023AllianceLinksInner
-{
-            /// <summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class MatchScoreBreakdown2023AllianceLinksInner
+  {
+              /// <summary>
   /// Defines Nodes
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceLinksInnerExtensions", ExtensionClassModifiers ="public static")]
@@ -92,7 +93,7 @@ public partial class MatchScoreBreakdown2023AllianceLinksInner
         };
     }
 
-          /// <summary>
+            /// <summary>
   /// Defines Row
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceLinksInnerExtensions", ExtensionClassModifiers ="public static")]
@@ -165,63 +166,63 @@ public partial class MatchScoreBreakdown2023AllianceLinksInner
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets Row
-      /// </summary>
-        [JsonRequired]
-          [JsonPropertyName("row")]
-          public RowEnum Row { get; set; }
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="MatchScoreBreakdown2023AllianceLinksInner" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected MatchScoreBreakdown2023AllianceLinksInner() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MatchScoreBreakdown2023AllianceLinksInner" /> class.
-      /// </summary>
-          /// <param name="nodes">nodes (required).</param>
-          /// <param name="row">row (required).</param>
-      public MatchScoreBreakdown2023AllianceLinksInner(Collection<NodesEnum> nodes, RowEnum row)
-      {
-                    // to ensure "nodes" is required (not null)
-                    ArgumentNullException.ThrowIfNull(nodes);
-                    this.Nodes = nodes;
-                      
-                    this.Row = row;
-      }
-      
-            /// <summary>
-            /// Gets or Sets Nodes
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("nodes")]
-                public Collection<MatchScoreBreakdown2023AllianceLinksInner.NodesEnum> Nodes { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class MatchScoreBreakdown2023AllianceLinksInner {");
-                  sb.Append("  Nodes: ").AppendLine($"{(Nodes is null ? "[null]" : string.Join(", ", Nodes))}");
-                  sb.Append("  Row: ").AppendLine($"{ Row }");
-              sb.AppendLine("}");
-              return sb.ToString();
+        
+        /// <summary>
+        /// Gets or Sets Row
+        /// </summary>
+          [JsonRequired]
+            [JsonPropertyName("row")]
+            public RowEnum Row { get; set; }
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="MatchScoreBreakdown2023AllianceLinksInner" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected MatchScoreBreakdown2023AllianceLinksInner() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatchScoreBreakdown2023AllianceLinksInner" /> class.
+        /// </summary>
+            /// <param name="nodes">nodes (required).</param>
+            /// <param name="row">row (required).</param>
+        public MatchScoreBreakdown2023AllianceLinksInner(Collection<NodesEnum> nodes, RowEnum row)
+        {
+                      // to ensure "nodes" is required (not null)
+                      ArgumentNullException.ThrowIfNull(nodes);
+                      this.Nodes = nodes;
+                        
+                      this.Row = row;
+        }
+        
+              /// <summary>
+              /// Gets or Sets Nodes
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("nodes")]
+                  public Collection<MatchScoreBreakdown2023AllianceLinksInner.NodesEnum> Nodes { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class MatchScoreBreakdown2023AllianceLinksInner {");
+                    sb.Append("  Nodes: ").AppendLine($"{(Nodes is null ? "[null]" : string.Join(", ", Nodes))}");
+                    sb.Append("  Row: ").AppendLine($"{ Row }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

@@ -17,93 +17,94 @@
     /// <summary>
 /// MatchAlliance
 /// </summary>
-public partial class MatchAlliance
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="MatchAlliance" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected MatchAlliance() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MatchAlliance" /> class.
-      /// </summary>
-          /// <param name="dqTeamKeys">TBA team keys (eg &#x60;frc254&#x60;) of any disqualified teams. (required).</param>
-          /// <param name="score">Score for this alliance. Will be null or -1 for an unplayed match. (required).</param>
-          /// <param name="surrogateTeamKeys">TBA team keys (eg &#x60;frc254&#x60;) of any teams playing as a surrogate. (required).</param>
-          /// <param name="teamKeys">teamKeys (required).</param>
-      public MatchAlliance(Collection<string> dqTeamKeys, int score, Collection<string> surrogateTeamKeys, Collection<string> teamKeys)
-      {
-                    // to ensure "dqTeamKeys" is required (not null)
-                    ArgumentNullException.ThrowIfNull(dqTeamKeys);
-                    this.DqTeamKeys = dqTeamKeys;
-                      
-                    this.Score = score;
-                    // to ensure "surrogateTeamKeys" is required (not null)
-                    ArgumentNullException.ThrowIfNull(surrogateTeamKeys);
-                    this.SurrogateTeamKeys = surrogateTeamKeys;
-                      
-                    // to ensure "teamKeys" is required (not null)
-                    ArgumentNullException.ThrowIfNull(teamKeys);
-                    this.TeamKeys = teamKeys;
-      }
-      
-            /// <summary>
-            /// TBA team keys (eg &#x60;frc254&#x60;) of any disqualified teams.
-            /// </summary>
-            /// <value>TBA team keys (eg &#x60;frc254&#x60;) of any disqualified teams.</value>
-              [JsonRequired]
-                [JsonPropertyName("dq_team_keys")]
-                public Collection<string> DqTeamKeys { get; set; }
-                
-            /// <summary>
-            /// Score for this alliance. Will be null or -1 for an unplayed match.
-            /// </summary>
-            /// <value>Score for this alliance. Will be null or -1 for an unplayed match.</value>
-              [JsonRequired]
-                [JsonPropertyName("score")]
-                public int Score { get; set; }
-                
-            /// <summary>
-            /// TBA team keys (eg &#x60;frc254&#x60;) of any teams playing as a surrogate.
-            /// </summary>
-            /// <value>TBA team keys (eg &#x60;frc254&#x60;) of any teams playing as a surrogate.</value>
-              [JsonRequired]
-                [JsonPropertyName("surrogate_team_keys")]
-                public Collection<string> SurrogateTeamKeys { get; set; }
-                
-            /// <summary>
-            /// Gets or Sets TeamKeys
-            /// </summary>
-              [JsonRequired]
-                [JsonPropertyName("team_keys")]
-                public Collection<string> TeamKeys { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class MatchAlliance {");
-                  sb.Append("  DqTeamKeys: ").AppendLine($"{(DqTeamKeys is null ? "[null]" : string.Join(", ", DqTeamKeys))}");
-                  sb.Append("  Score: ").AppendLine($"{ Score }");
-                  sb.Append("  SurrogateTeamKeys: ").AppendLine($"{(SurrogateTeamKeys is null ? "[null]" : string.Join(", ", SurrogateTeamKeys))}");
-                  sb.Append("  TeamKeys: ").AppendLine($"{(TeamKeys is null ? "[null]" : string.Join(", ", TeamKeys))}");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class MatchAlliance
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="MatchAlliance" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected MatchAlliance() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatchAlliance" /> class.
+        /// </summary>
+            /// <param name="dqTeamKeys">TBA team keys (eg &#x60;frc254&#x60;) of any disqualified teams. (required).</param>
+            /// <param name="score">Score for this alliance. Will be null or -1 for an unplayed match. (required).</param>
+            /// <param name="surrogateTeamKeys">TBA team keys (eg &#x60;frc254&#x60;) of any teams playing as a surrogate. (required).</param>
+            /// <param name="teamKeys">teamKeys (required).</param>
+        public MatchAlliance(Collection<string> dqTeamKeys, int score, Collection<string> surrogateTeamKeys, Collection<string> teamKeys)
+        {
+                      // to ensure "dqTeamKeys" is required (not null)
+                      ArgumentNullException.ThrowIfNull(dqTeamKeys);
+                      this.DqTeamKeys = dqTeamKeys;
+                        
+                      this.Score = score;
+                      // to ensure "surrogateTeamKeys" is required (not null)
+                      ArgumentNullException.ThrowIfNull(surrogateTeamKeys);
+                      this.SurrogateTeamKeys = surrogateTeamKeys;
+                        
+                      // to ensure "teamKeys" is required (not null)
+                      ArgumentNullException.ThrowIfNull(teamKeys);
+                      this.TeamKeys = teamKeys;
+        }
+        
+              /// <summary>
+              /// TBA team keys (eg &#x60;frc254&#x60;) of any disqualified teams.
+              /// </summary>
+              /// <value>TBA team keys (eg &#x60;frc254&#x60;) of any disqualified teams.</value>
+                [JsonRequired]
+                  [JsonPropertyName("dq_team_keys")]
+                  public Collection<string> DqTeamKeys { get; set; }
+                  
+              /// <summary>
+              /// Score for this alliance. Will be null or -1 for an unplayed match.
+              /// </summary>
+              /// <value>Score for this alliance. Will be null or -1 for an unplayed match.</value>
+                [JsonRequired]
+                  [JsonPropertyName("score")]
+                  public int Score { get; set; }
+                  
+              /// <summary>
+              /// TBA team keys (eg &#x60;frc254&#x60;) of any teams playing as a surrogate.
+              /// </summary>
+              /// <value>TBA team keys (eg &#x60;frc254&#x60;) of any teams playing as a surrogate.</value>
+                [JsonRequired]
+                  [JsonPropertyName("surrogate_team_keys")]
+                  public Collection<string> SurrogateTeamKeys { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TeamKeys
+              /// </summary>
+                [JsonRequired]
+                  [JsonPropertyName("team_keys")]
+                  public Collection<string> TeamKeys { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class MatchAlliance {");
+                    sb.Append("  DqTeamKeys: ").AppendLine($"{(DqTeamKeys is null ? "[null]" : string.Join(", ", DqTeamKeys))}");
+                    sb.Append("  Score: ").AppendLine($"{ Score }");
+                    sb.Append("  SurrogateTeamKeys: ").AppendLine($"{(SurrogateTeamKeys is null ? "[null]" : string.Join(", ", SurrogateTeamKeys))}");
+                    sb.Append("  TeamKeys: ").AppendLine($"{(TeamKeys is null ? "[null]" : string.Join(", ", TeamKeys))}");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

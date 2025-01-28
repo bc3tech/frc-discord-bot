@@ -17,56 +17,57 @@
     /// <summary>
 /// TeamEventStatusRankSortOrderInfoInner
 /// </summary>
-public partial class TeamEventStatusRankSortOrderInfoInner
-{
-      /// <summary>
-      /// Initializes a new instance of the <see cref="TeamEventStatusRankSortOrderInfoInner" /> class.
-      /// </summary>
-          /// <param name="name">The descriptive name of the value used to sort the ranking.</param>
-          /// <param name="precision">The number of digits of precision used for this value, eg &#x60;2&#x60; would correspond to a value of &#x60;101.11&#x60; while &#x60;0&#x60; would correspond to &#x60;101&#x60;.</param>
-      public TeamEventStatusRankSortOrderInfoInner(string? name = default, int? precision = default)
-      {
-                    this.Name = name;
-                    this.Precision = precision;
-      }
-      
-            /// <summary>
-            /// The descriptive name of the value used to sort the ranking.
-            /// </summary>
-            /// <value>The descriptive name of the value used to sort the ranking.</value>
-              
-                [JsonPropertyName("name")]
-                public string? Name { get; set; }
+
+  public partial class TeamEventStatusRankSortOrderInfoInner
+  {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TeamEventStatusRankSortOrderInfoInner" /> class.
+        /// </summary>
+            /// <param name="name">The descriptive name of the value used to sort the ranking.</param>
+            /// <param name="precision">The number of digits of precision used for this value, eg &#x60;2&#x60; would correspond to a value of &#x60;101.11&#x60; while &#x60;0&#x60; would correspond to &#x60;101&#x60;.</param>
+        public TeamEventStatusRankSortOrderInfoInner(string? name = default, int? precision = default)
+        {
+                      this.Name = name;
+                      this.Precision = precision;
+        }
+        
+              /// <summary>
+              /// The descriptive name of the value used to sort the ranking.
+              /// </summary>
+              /// <value>The descriptive name of the value used to sort the ranking.</value>
                 
-            /// <summary>
-            /// The number of digits of precision used for this value, eg &#x60;2&#x60; would correspond to a value of &#x60;101.11&#x60; while &#x60;0&#x60; would correspond to &#x60;101&#x60;.
-            /// </summary>
-            /// <value>The number of digits of precision used for this value, eg &#x60;2&#x60; would correspond to a value of &#x60;101.11&#x60; while &#x60;0&#x60; would correspond to &#x60;101&#x60;.</value>
-              
-                [JsonPropertyName("precision")]
-                public int? Precision { get; set; }
+                  [JsonPropertyName("name")]
+                  public string? Name { get; set; }
+                  
+              /// <summary>
+              /// The number of digits of precision used for this value, eg &#x60;2&#x60; would correspond to a value of &#x60;101.11&#x60; while &#x60;0&#x60; would correspond to &#x60;101&#x60;.
+              /// </summary>
+              /// <value>The number of digits of precision used for this value, eg &#x60;2&#x60; would correspond to a value of &#x60;101.11&#x60; while &#x60;0&#x60; would correspond to &#x60;101&#x60;.</value>
                 
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class TeamEventStatusRankSortOrderInfoInner {");
-                  sb.Append("  Name: ").AppendLine($"{ Name?.ToString() ?? "[null]" }");
-                  sb.Append("  Precision: ").AppendLine($"{ Precision?.ToString() ?? "[null]" }");
-              sb.AppendLine("}");
-              return sb.ToString();
+                  [JsonPropertyName("precision")]
+                  public int? Precision { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class TeamEventStatusRankSortOrderInfoInner {");
+                    sb.Append("  Name: ").AppendLine($"{ Name?.ToString() ?? "[null]" }");
+                    sb.Append("  Precision: ").AppendLine($"{ Precision?.ToString() ?? "[null]" }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
-            }
-          }
-          

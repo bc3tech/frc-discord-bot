@@ -17,101 +17,102 @@
     /// <summary>
 /// EliminationAlliance
 /// </summary>
-public partial class EliminationAlliance
-{
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="EliminationAlliance" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected EliminationAlliance() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="EliminationAlliance" /> class.
-      /// </summary>
-          /// <param name="backup">backup.</param>
-          /// <param name="declines">List of teams that declined the alliance. (required).</param>
-          /// <param name="name">Alliance name, may be null.</param>
-          /// <param name="picks">List of team keys picked for the alliance. First pick is captain. (required).</param>
-          /// <param name="status">status.</param>
-      public EliminationAlliance(Collection<string> declines, Collection<string> picks, EliminationAllianceBackup? backup = default, string? name = default, EliminationAllianceStatus? status = default)
-      {
-                    this.Backup = backup;
-                    // to ensure "declines" is required (not null)
-                    ArgumentNullException.ThrowIfNull(declines);
-                    this.Declines = declines;
-                      
-                    this.Name = name;
-                    // to ensure "picks" is required (not null)
-                    ArgumentNullException.ThrowIfNull(picks);
-                    this.Picks = picks;
-                      
-                    this.Status = status;
-      }
-      
-            /// <summary>
-            /// Gets or Sets Backup
-            /// </summary>
-              
-                [JsonPropertyName("backup")]
-                public EliminationAllianceBackup? Backup { get; set; }
-                
-            /// <summary>
-            /// List of teams that declined the alliance.
-            /// </summary>
-            /// <value>List of teams that declined the alliance.</value>
-              [JsonRequired]
-                [JsonPropertyName("declines")]
-                public Collection<string> Declines { get; set; }
-                
-            /// <summary>
-            /// Alliance name, may be null.
-            /// </summary>
-            /// <value>Alliance name, may be null.</value>
-              
-                [JsonPropertyName("name")]
-                public string? Name { get; set; }
-                
-            /// <summary>
-            /// List of team keys picked for the alliance. First pick is captain.
-            /// </summary>
-            /// <value>List of team keys picked for the alliance. First pick is captain.</value>
-              [JsonRequired]
-                [JsonPropertyName("picks")]
-                public Collection<string> Picks { get; set; }
-                
-            /// <summary>
-            /// Gets or Sets Status
-            /// </summary>
-              
-                [JsonPropertyName("status")]
-                public EliminationAllianceStatus? Status { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class EliminationAlliance {");
-                  sb.Append("  Backup: ").AppendLine($"{ Backup?.ToString() ?? "[null]" }");
-                  sb.Append("  Declines: ").AppendLine($"{(Declines is null ? "[null]" : string.Join(", ", Declines))}");
-                  sb.Append("  Name: ").AppendLine($"{ Name?.ToString() ?? "[null]" }");
-                  sb.Append("  Picks: ").AppendLine($"{(Picks is null ? "[null]" : string.Join(", ", Picks))}");
-                  sb.Append("  Status: ").AppendLine($"{ Status?.ToString() ?? "[null]" }");
-              sb.AppendLine("}");
-              return sb.ToString();
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class EliminationAlliance
+  {
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="EliminationAlliance" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected EliminationAlliance() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EliminationAlliance" /> class.
+        /// </summary>
+            /// <param name="backup">backup.</param>
+            /// <param name="declines">List of teams that declined the alliance. (required).</param>
+            /// <param name="name">Alliance name, may be null.</param>
+            /// <param name="picks">List of team keys picked for the alliance. First pick is captain. (required).</param>
+            /// <param name="status">status.</param>
+        public EliminationAlliance(Collection<string> declines, Collection<string> picks, EliminationAllianceBackup? backup = default, string? name = default, EliminationAllianceStatus? status = default)
+        {
+                      this.Backup = backup;
+                      // to ensure "declines" is required (not null)
+                      ArgumentNullException.ThrowIfNull(declines);
+                      this.Declines = declines;
+                        
+                      this.Name = name;
+                      // to ensure "picks" is required (not null)
+                      ArgumentNullException.ThrowIfNull(picks);
+                      this.Picks = picks;
+                        
+                      this.Status = status;
+        }
+        
+              /// <summary>
+              /// Gets or Sets Backup
+              /// </summary>
+                
+                  [JsonPropertyName("backup")]
+                  public EliminationAllianceBackup? Backup { get; set; }
+                  
+              /// <summary>
+              /// List of teams that declined the alliance.
+              /// </summary>
+              /// <value>List of teams that declined the alliance.</value>
+                [JsonRequired]
+                  [JsonPropertyName("declines")]
+                  public Collection<string> Declines { get; set; }
+                  
+              /// <summary>
+              /// Alliance name, may be null.
+              /// </summary>
+              /// <value>Alliance name, may be null.</value>
+                
+                  [JsonPropertyName("name")]
+                  public string? Name { get; set; }
+                  
+              /// <summary>
+              /// List of team keys picked for the alliance. First pick is captain.
+              /// </summary>
+              /// <value>List of team keys picked for the alliance. First pick is captain.</value>
+                [JsonRequired]
+                  [JsonPropertyName("picks")]
+                  public Collection<string> Picks { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Status
+              /// </summary>
+                
+                  [JsonPropertyName("status")]
+                  public EliminationAllianceStatus? Status { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class EliminationAlliance {");
+                    sb.Append("  Backup: ").AppendLine($"{ Backup?.ToString() ?? "[null]" }");
+                    sb.Append("  Declines: ").AppendLine($"{(Declines is null ? "[null]" : string.Join(", ", Declines))}");
+                    sb.Append("  Name: ").AppendLine($"{ Name?.ToString() ?? "[null]" }");
+                    sb.Append("  Picks: ").AppendLine($"{(Picks is null ? "[null]" : string.Join(", ", Picks))}");
+                    sb.Append("  Status: ").AppendLine($"{ Status?.ToString() ?? "[null]" }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.

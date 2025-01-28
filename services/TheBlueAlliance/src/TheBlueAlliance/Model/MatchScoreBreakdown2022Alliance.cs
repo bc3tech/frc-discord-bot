@@ -17,9 +17,10 @@
     /// <summary>
 /// MatchScoreBreakdown2022Alliance
 /// </summary>
-public partial class MatchScoreBreakdown2022Alliance
-{
-          /// <summary>
+
+  public partial class MatchScoreBreakdown2022Alliance
+  {
+            /// <summary>
   /// Defines EndgameRobot1
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
@@ -108,14 +109,14 @@ public partial class MatchScoreBreakdown2022Alliance
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets EndgameRobot1
-      /// </summary>
         
-          [JsonPropertyName("endgameRobot1")]
-          public EndgameRobot1Enum? EndgameRobot1 { get; set; }
-          /// <summary>
+        /// <summary>
+        /// Gets or Sets EndgameRobot1
+        /// </summary>
+          
+            [JsonPropertyName("endgameRobot1")]
+            public EndgameRobot1Enum? EndgameRobot1 { get; set; }
+            /// <summary>
   /// Defines EndgameRobot2
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
@@ -204,14 +205,14 @@ public partial class MatchScoreBreakdown2022Alliance
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets EndgameRobot2
-      /// </summary>
         
-          [JsonPropertyName("endgameRobot2")]
-          public EndgameRobot2Enum? EndgameRobot2 { get; set; }
-          /// <summary>
+        /// <summary>
+        /// Gets or Sets EndgameRobot2
+        /// </summary>
+          
+            [JsonPropertyName("endgameRobot2")]
+            public EndgameRobot2Enum? EndgameRobot2 { get; set; }
+            /// <summary>
   /// Defines EndgameRobot3
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
@@ -300,14 +301,14 @@ public partial class MatchScoreBreakdown2022Alliance
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets EndgameRobot3
-      /// </summary>
         
-          [JsonPropertyName("endgameRobot3")]
-          public EndgameRobot3Enum? EndgameRobot3 { get; set; }
-          /// <summary>
+        /// <summary>
+        /// Gets or Sets EndgameRobot3
+        /// </summary>
+          
+            [JsonPropertyName("endgameRobot3")]
+            public EndgameRobot3Enum? EndgameRobot3 { get; set; }
+            /// <summary>
   /// Defines TaxiRobot1
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
@@ -372,14 +373,14 @@ public partial class MatchScoreBreakdown2022Alliance
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets TaxiRobot1
-      /// </summary>
         
-          [JsonPropertyName("taxiRobot1")]
-          public TaxiRobot1Enum? TaxiRobot1 { get; set; }
-          /// <summary>
+        /// <summary>
+        /// Gets or Sets TaxiRobot1
+        /// </summary>
+          
+            [JsonPropertyName("taxiRobot1")]
+            public TaxiRobot1Enum? TaxiRobot1 { get; set; }
+            /// <summary>
   /// Defines TaxiRobot2
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
@@ -444,14 +445,14 @@ public partial class MatchScoreBreakdown2022Alliance
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets TaxiRobot2
-      /// </summary>
         
-          [JsonPropertyName("taxiRobot2")]
-          public TaxiRobot2Enum? TaxiRobot2 { get; set; }
-          /// <summary>
+        /// <summary>
+        /// Gets or Sets TaxiRobot2
+        /// </summary>
+          
+            [JsonPropertyName("taxiRobot2")]
+            public TaxiRobot2Enum? TaxiRobot2 { get; set; }
+            /// <summary>
   /// Defines TaxiRobot3
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
@@ -516,397 +517,397 @@ public partial class MatchScoreBreakdown2022Alliance
         };
     }
 
-      
-      /// <summary>
-      /// Gets or Sets TaxiRobot3
-      /// </summary>
         
-          [JsonPropertyName("taxiRobot3")]
-          public TaxiRobot3Enum? TaxiRobot3 { get; set; }
-      /// <summary>
-      /// Initializes a new instance of the <see cref="MatchScoreBreakdown2022Alliance" /> class.
-      /// </summary>
-          /// <param name="adjustPoints">adjustPoints.</param>
-          /// <param name="autoCargoLowerBlue">autoCargoLowerBlue.</param>
-          /// <param name="autoCargoLowerFar">autoCargoLowerFar.</param>
-          /// <param name="autoCargoLowerNear">autoCargoLowerNear.</param>
-          /// <param name="autoCargoLowerRed">autoCargoLowerRed.</param>
-          /// <param name="autoCargoPoints">autoCargoPoints.</param>
-          /// <param name="autoCargoTotal">autoCargoTotal.</param>
-          /// <param name="autoCargoUpperBlue">autoCargoUpperBlue.</param>
-          /// <param name="autoCargoUpperFar">autoCargoUpperFar.</param>
-          /// <param name="autoCargoUpperNear">autoCargoUpperNear.</param>
-          /// <param name="autoCargoUpperRed">autoCargoUpperRed.</param>
-          /// <param name="autoPoints">autoPoints.</param>
-          /// <param name="autoTaxiPoints">autoTaxiPoints.</param>
-          /// <param name="cargoBonusRankingPoint">cargoBonusRankingPoint.</param>
-          /// <param name="endgamePoints">endgamePoints.</param>
-          /// <param name="endgameRobot1">endgameRobot1.</param>
-          /// <param name="endgameRobot2">endgameRobot2.</param>
-          /// <param name="endgameRobot3">endgameRobot3.</param>
-          /// <param name="foulCount">foulCount.</param>
-          /// <param name="foulPoints">foulPoints.</param>
-          /// <param name="hangarBonusRankingPoint">hangarBonusRankingPoint.</param>
-          /// <param name="matchCargoTotal">matchCargoTotal.</param>
-          /// <param name="quintetAchieved">quintetAchieved.</param>
-          /// <param name="rp">rp.</param>
-          /// <param name="taxiRobot1">taxiRobot1.</param>
-          /// <param name="taxiRobot2">taxiRobot2.</param>
-          /// <param name="taxiRobot3">taxiRobot3.</param>
-          /// <param name="techFoulCount">techFoulCount.</param>
-          /// <param name="teleopCargoLowerBlue">teleopCargoLowerBlue.</param>
-          /// <param name="teleopCargoLowerFar">teleopCargoLowerFar.</param>
-          /// <param name="teleopCargoLowerNear">teleopCargoLowerNear.</param>
-          /// <param name="teleopCargoLowerRed">teleopCargoLowerRed.</param>
-          /// <param name="teleopCargoPoints">teleopCargoPoints.</param>
-          /// <param name="teleopCargoTotal">teleopCargoTotal.</param>
-          /// <param name="teleopCargoUpperBlue">teleopCargoUpperBlue.</param>
-          /// <param name="teleopCargoUpperFar">teleopCargoUpperFar.</param>
-          /// <param name="teleopCargoUpperNear">teleopCargoUpperNear.</param>
-          /// <param name="teleopCargoUpperRed">teleopCargoUpperRed.</param>
-          /// <param name="teleopPoints">teleopPoints.</param>
-          /// <param name="totalPoints">totalPoints.</param>
-      public MatchScoreBreakdown2022Alliance(int? adjustPoints = default, int? autoCargoLowerBlue = default, int? autoCargoLowerFar = default, int? autoCargoLowerNear = default, int? autoCargoLowerRed = default, int? autoCargoPoints = default, int? autoCargoTotal = default, int? autoCargoUpperBlue = default, int? autoCargoUpperFar = default, int? autoCargoUpperNear = default, int? autoCargoUpperRed = default, int? autoPoints = default, int? autoTaxiPoints = default, bool? cargoBonusRankingPoint = default, int? endgamePoints = default, EndgameRobot1Enum? endgameRobot1 = default, EndgameRobot2Enum? endgameRobot2 = default, EndgameRobot3Enum? endgameRobot3 = default, int? foulCount = default, int? foulPoints = default, bool? hangarBonusRankingPoint = default, int? matchCargoTotal = default, bool? quintetAchieved = default, int? rp = default, TaxiRobot1Enum? taxiRobot1 = default, TaxiRobot2Enum? taxiRobot2 = default, TaxiRobot3Enum? taxiRobot3 = default, int? techFoulCount = default, int? teleopCargoLowerBlue = default, int? teleopCargoLowerFar = default, int? teleopCargoLowerNear = default, int? teleopCargoLowerRed = default, int? teleopCargoPoints = default, int? teleopCargoTotal = default, int? teleopCargoUpperBlue = default, int? teleopCargoUpperFar = default, int? teleopCargoUpperNear = default, int? teleopCargoUpperRed = default, int? teleopPoints = default, int? totalPoints = default)
-      {
-                    this.AdjustPoints = adjustPoints;
-                    this.AutoCargoLowerBlue = autoCargoLowerBlue;
-                    this.AutoCargoLowerFar = autoCargoLowerFar;
-                    this.AutoCargoLowerNear = autoCargoLowerNear;
-                    this.AutoCargoLowerRed = autoCargoLowerRed;
-                    this.AutoCargoPoints = autoCargoPoints;
-                    this.AutoCargoTotal = autoCargoTotal;
-                    this.AutoCargoUpperBlue = autoCargoUpperBlue;
-                    this.AutoCargoUpperFar = autoCargoUpperFar;
-                    this.AutoCargoUpperNear = autoCargoUpperNear;
-                    this.AutoCargoUpperRed = autoCargoUpperRed;
-                    this.AutoPoints = autoPoints;
-                    this.AutoTaxiPoints = autoTaxiPoints;
-                    this.CargoBonusRankingPoint = cargoBonusRankingPoint;
-                    this.EndgamePoints = endgamePoints;
-                    this.EndgameRobot1 = endgameRobot1;
-                    this.EndgameRobot2 = endgameRobot2;
-                    this.EndgameRobot3 = endgameRobot3;
-                    this.FoulCount = foulCount;
-                    this.FoulPoints = foulPoints;
-                    this.HangarBonusRankingPoint = hangarBonusRankingPoint;
-                    this.MatchCargoTotal = matchCargoTotal;
-                    this.QuintetAchieved = quintetAchieved;
-                    this.Rp = rp;
-                    this.TaxiRobot1 = taxiRobot1;
-                    this.TaxiRobot2 = taxiRobot2;
-                    this.TaxiRobot3 = taxiRobot3;
-                    this.TechFoulCount = techFoulCount;
-                    this.TeleopCargoLowerBlue = teleopCargoLowerBlue;
-                    this.TeleopCargoLowerFar = teleopCargoLowerFar;
-                    this.TeleopCargoLowerNear = teleopCargoLowerNear;
-                    this.TeleopCargoLowerRed = teleopCargoLowerRed;
-                    this.TeleopCargoPoints = teleopCargoPoints;
-                    this.TeleopCargoTotal = teleopCargoTotal;
-                    this.TeleopCargoUpperBlue = teleopCargoUpperBlue;
-                    this.TeleopCargoUpperFar = teleopCargoUpperFar;
-                    this.TeleopCargoUpperNear = teleopCargoUpperNear;
-                    this.TeleopCargoUpperRed = teleopCargoUpperRed;
-                    this.TeleopPoints = teleopPoints;
-                    this.TotalPoints = totalPoints;
-      }
-      
-            /// <summary>
-            /// Gets or Sets AdjustPoints
-            /// </summary>
-              
-                [JsonPropertyName("adjustPoints")]
-                public int? AdjustPoints { get; set; }
+        /// <summary>
+        /// Gets or Sets TaxiRobot3
+        /// </summary>
+          
+            [JsonPropertyName("taxiRobot3")]
+            public TaxiRobot3Enum? TaxiRobot3 { get; set; }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MatchScoreBreakdown2022Alliance" /> class.
+        /// </summary>
+            /// <param name="adjustPoints">adjustPoints.</param>
+            /// <param name="autoCargoLowerBlue">autoCargoLowerBlue.</param>
+            /// <param name="autoCargoLowerFar">autoCargoLowerFar.</param>
+            /// <param name="autoCargoLowerNear">autoCargoLowerNear.</param>
+            /// <param name="autoCargoLowerRed">autoCargoLowerRed.</param>
+            /// <param name="autoCargoPoints">autoCargoPoints.</param>
+            /// <param name="autoCargoTotal">autoCargoTotal.</param>
+            /// <param name="autoCargoUpperBlue">autoCargoUpperBlue.</param>
+            /// <param name="autoCargoUpperFar">autoCargoUpperFar.</param>
+            /// <param name="autoCargoUpperNear">autoCargoUpperNear.</param>
+            /// <param name="autoCargoUpperRed">autoCargoUpperRed.</param>
+            /// <param name="autoPoints">autoPoints.</param>
+            /// <param name="autoTaxiPoints">autoTaxiPoints.</param>
+            /// <param name="cargoBonusRankingPoint">cargoBonusRankingPoint.</param>
+            /// <param name="endgamePoints">endgamePoints.</param>
+            /// <param name="endgameRobot1">endgameRobot1.</param>
+            /// <param name="endgameRobot2">endgameRobot2.</param>
+            /// <param name="endgameRobot3">endgameRobot3.</param>
+            /// <param name="foulCount">foulCount.</param>
+            /// <param name="foulPoints">foulPoints.</param>
+            /// <param name="hangarBonusRankingPoint">hangarBonusRankingPoint.</param>
+            /// <param name="matchCargoTotal">matchCargoTotal.</param>
+            /// <param name="quintetAchieved">quintetAchieved.</param>
+            /// <param name="rp">rp.</param>
+            /// <param name="taxiRobot1">taxiRobot1.</param>
+            /// <param name="taxiRobot2">taxiRobot2.</param>
+            /// <param name="taxiRobot3">taxiRobot3.</param>
+            /// <param name="techFoulCount">techFoulCount.</param>
+            /// <param name="teleopCargoLowerBlue">teleopCargoLowerBlue.</param>
+            /// <param name="teleopCargoLowerFar">teleopCargoLowerFar.</param>
+            /// <param name="teleopCargoLowerNear">teleopCargoLowerNear.</param>
+            /// <param name="teleopCargoLowerRed">teleopCargoLowerRed.</param>
+            /// <param name="teleopCargoPoints">teleopCargoPoints.</param>
+            /// <param name="teleopCargoTotal">teleopCargoTotal.</param>
+            /// <param name="teleopCargoUpperBlue">teleopCargoUpperBlue.</param>
+            /// <param name="teleopCargoUpperFar">teleopCargoUpperFar.</param>
+            /// <param name="teleopCargoUpperNear">teleopCargoUpperNear.</param>
+            /// <param name="teleopCargoUpperRed">teleopCargoUpperRed.</param>
+            /// <param name="teleopPoints">teleopPoints.</param>
+            /// <param name="totalPoints">totalPoints.</param>
+        public MatchScoreBreakdown2022Alliance(int? adjustPoints = default, int? autoCargoLowerBlue = default, int? autoCargoLowerFar = default, int? autoCargoLowerNear = default, int? autoCargoLowerRed = default, int? autoCargoPoints = default, int? autoCargoTotal = default, int? autoCargoUpperBlue = default, int? autoCargoUpperFar = default, int? autoCargoUpperNear = default, int? autoCargoUpperRed = default, int? autoPoints = default, int? autoTaxiPoints = default, bool? cargoBonusRankingPoint = default, int? endgamePoints = default, EndgameRobot1Enum? endgameRobot1 = default, EndgameRobot2Enum? endgameRobot2 = default, EndgameRobot3Enum? endgameRobot3 = default, int? foulCount = default, int? foulPoints = default, bool? hangarBonusRankingPoint = default, int? matchCargoTotal = default, bool? quintetAchieved = default, int? rp = default, TaxiRobot1Enum? taxiRobot1 = default, TaxiRobot2Enum? taxiRobot2 = default, TaxiRobot3Enum? taxiRobot3 = default, int? techFoulCount = default, int? teleopCargoLowerBlue = default, int? teleopCargoLowerFar = default, int? teleopCargoLowerNear = default, int? teleopCargoLowerRed = default, int? teleopCargoPoints = default, int? teleopCargoTotal = default, int? teleopCargoUpperBlue = default, int? teleopCargoUpperFar = default, int? teleopCargoUpperNear = default, int? teleopCargoUpperRed = default, int? teleopPoints = default, int? totalPoints = default)
+        {
+                      this.AdjustPoints = adjustPoints;
+                      this.AutoCargoLowerBlue = autoCargoLowerBlue;
+                      this.AutoCargoLowerFar = autoCargoLowerFar;
+                      this.AutoCargoLowerNear = autoCargoLowerNear;
+                      this.AutoCargoLowerRed = autoCargoLowerRed;
+                      this.AutoCargoPoints = autoCargoPoints;
+                      this.AutoCargoTotal = autoCargoTotal;
+                      this.AutoCargoUpperBlue = autoCargoUpperBlue;
+                      this.AutoCargoUpperFar = autoCargoUpperFar;
+                      this.AutoCargoUpperNear = autoCargoUpperNear;
+                      this.AutoCargoUpperRed = autoCargoUpperRed;
+                      this.AutoPoints = autoPoints;
+                      this.AutoTaxiPoints = autoTaxiPoints;
+                      this.CargoBonusRankingPoint = cargoBonusRankingPoint;
+                      this.EndgamePoints = endgamePoints;
+                      this.EndgameRobot1 = endgameRobot1;
+                      this.EndgameRobot2 = endgameRobot2;
+                      this.EndgameRobot3 = endgameRobot3;
+                      this.FoulCount = foulCount;
+                      this.FoulPoints = foulPoints;
+                      this.HangarBonusRankingPoint = hangarBonusRankingPoint;
+                      this.MatchCargoTotal = matchCargoTotal;
+                      this.QuintetAchieved = quintetAchieved;
+                      this.Rp = rp;
+                      this.TaxiRobot1 = taxiRobot1;
+                      this.TaxiRobot2 = taxiRobot2;
+                      this.TaxiRobot3 = taxiRobot3;
+                      this.TechFoulCount = techFoulCount;
+                      this.TeleopCargoLowerBlue = teleopCargoLowerBlue;
+                      this.TeleopCargoLowerFar = teleopCargoLowerFar;
+                      this.TeleopCargoLowerNear = teleopCargoLowerNear;
+                      this.TeleopCargoLowerRed = teleopCargoLowerRed;
+                      this.TeleopCargoPoints = teleopCargoPoints;
+                      this.TeleopCargoTotal = teleopCargoTotal;
+                      this.TeleopCargoUpperBlue = teleopCargoUpperBlue;
+                      this.TeleopCargoUpperFar = teleopCargoUpperFar;
+                      this.TeleopCargoUpperNear = teleopCargoUpperNear;
+                      this.TeleopCargoUpperRed = teleopCargoUpperRed;
+                      this.TeleopPoints = teleopPoints;
+                      this.TotalPoints = totalPoints;
+        }
+        
+              /// <summary>
+              /// Gets or Sets AdjustPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoCargoLowerBlue
-            /// </summary>
-              
-                [JsonPropertyName("autoCargoLowerBlue")]
-                public int? AutoCargoLowerBlue { get; set; }
+                  [JsonPropertyName("adjustPoints")]
+                  public int? AdjustPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoCargoLowerBlue
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoCargoLowerFar
-            /// </summary>
-              
-                [JsonPropertyName("autoCargoLowerFar")]
-                public int? AutoCargoLowerFar { get; set; }
+                  [JsonPropertyName("autoCargoLowerBlue")]
+                  public int? AutoCargoLowerBlue { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoCargoLowerFar
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoCargoLowerNear
-            /// </summary>
-              
-                [JsonPropertyName("autoCargoLowerNear")]
-                public int? AutoCargoLowerNear { get; set; }
+                  [JsonPropertyName("autoCargoLowerFar")]
+                  public int? AutoCargoLowerFar { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoCargoLowerNear
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoCargoLowerRed
-            /// </summary>
-              
-                [JsonPropertyName("autoCargoLowerRed")]
-                public int? AutoCargoLowerRed { get; set; }
+                  [JsonPropertyName("autoCargoLowerNear")]
+                  public int? AutoCargoLowerNear { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoCargoLowerRed
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoCargoPoints
-            /// </summary>
-              
-                [JsonPropertyName("autoCargoPoints")]
-                public int? AutoCargoPoints { get; set; }
+                  [JsonPropertyName("autoCargoLowerRed")]
+                  public int? AutoCargoLowerRed { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoCargoPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoCargoTotal
-            /// </summary>
-              
-                [JsonPropertyName("autoCargoTotal")]
-                public int? AutoCargoTotal { get; set; }
+                  [JsonPropertyName("autoCargoPoints")]
+                  public int? AutoCargoPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoCargoTotal
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoCargoUpperBlue
-            /// </summary>
-              
-                [JsonPropertyName("autoCargoUpperBlue")]
-                public int? AutoCargoUpperBlue { get; set; }
+                  [JsonPropertyName("autoCargoTotal")]
+                  public int? AutoCargoTotal { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoCargoUpperBlue
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoCargoUpperFar
-            /// </summary>
-              
-                [JsonPropertyName("autoCargoUpperFar")]
-                public int? AutoCargoUpperFar { get; set; }
+                  [JsonPropertyName("autoCargoUpperBlue")]
+                  public int? AutoCargoUpperBlue { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoCargoUpperFar
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoCargoUpperNear
-            /// </summary>
-              
-                [JsonPropertyName("autoCargoUpperNear")]
-                public int? AutoCargoUpperNear { get; set; }
+                  [JsonPropertyName("autoCargoUpperFar")]
+                  public int? AutoCargoUpperFar { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoCargoUpperNear
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoCargoUpperRed
-            /// </summary>
-              
-                [JsonPropertyName("autoCargoUpperRed")]
-                public int? AutoCargoUpperRed { get; set; }
+                  [JsonPropertyName("autoCargoUpperNear")]
+                  public int? AutoCargoUpperNear { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoCargoUpperRed
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoPoints
-            /// </summary>
-              
-                [JsonPropertyName("autoPoints")]
-                public int? AutoPoints { get; set; }
+                  [JsonPropertyName("autoCargoUpperRed")]
+                  public int? AutoCargoUpperRed { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets AutoTaxiPoints
-            /// </summary>
-              
-                [JsonPropertyName("autoTaxiPoints")]
-                public int? AutoTaxiPoints { get; set; }
+                  [JsonPropertyName("autoPoints")]
+                  public int? AutoPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets AutoTaxiPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets CargoBonusRankingPoint
-            /// </summary>
-              
-                [JsonPropertyName("cargoBonusRankingPoint")]
-                public bool? CargoBonusRankingPoint { get; set; }
+                  [JsonPropertyName("autoTaxiPoints")]
+                  public int? AutoTaxiPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets CargoBonusRankingPoint
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets EndgamePoints
-            /// </summary>
-              
-                [JsonPropertyName("endgamePoints")]
-                public int? EndgamePoints { get; set; }
+                  [JsonPropertyName("cargoBonusRankingPoint")]
+                  public bool? CargoBonusRankingPoint { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets EndgamePoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets FoulCount
-            /// </summary>
-              
-                [JsonPropertyName("foulCount")]
-                public int? FoulCount { get; set; }
+                  [JsonPropertyName("endgamePoints")]
+                  public int? EndgamePoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets FoulCount
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets FoulPoints
-            /// </summary>
-              
-                [JsonPropertyName("foulPoints")]
-                public int? FoulPoints { get; set; }
+                  [JsonPropertyName("foulCount")]
+                  public int? FoulCount { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets FoulPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets HangarBonusRankingPoint
-            /// </summary>
-              
-                [JsonPropertyName("hangarBonusRankingPoint")]
-                public bool? HangarBonusRankingPoint { get; set; }
+                  [JsonPropertyName("foulPoints")]
+                  public int? FoulPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets HangarBonusRankingPoint
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets MatchCargoTotal
-            /// </summary>
-              
-                [JsonPropertyName("matchCargoTotal")]
-                public int? MatchCargoTotal { get; set; }
+                  [JsonPropertyName("hangarBonusRankingPoint")]
+                  public bool? HangarBonusRankingPoint { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets MatchCargoTotal
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets QuintetAchieved
-            /// </summary>
-              
-                [JsonPropertyName("quintetAchieved")]
-                public bool? QuintetAchieved { get; set; }
+                  [JsonPropertyName("matchCargoTotal")]
+                  public int? MatchCargoTotal { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets QuintetAchieved
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets Rp
-            /// </summary>
-              
-                [JsonPropertyName("rp")]
-                public int? Rp { get; set; }
+                  [JsonPropertyName("quintetAchieved")]
+                  public bool? QuintetAchieved { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Rp
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TechFoulCount
-            /// </summary>
-              
-                [JsonPropertyName("techFoulCount")]
-                public int? TechFoulCount { get; set; }
+                  [JsonPropertyName("rp")]
+                  public int? Rp { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TechFoulCount
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TeleopCargoLowerBlue
-            /// </summary>
-              
-                [JsonPropertyName("teleopCargoLowerBlue")]
-                public int? TeleopCargoLowerBlue { get; set; }
+                  [JsonPropertyName("techFoulCount")]
+                  public int? TechFoulCount { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TeleopCargoLowerBlue
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TeleopCargoLowerFar
-            /// </summary>
-              
-                [JsonPropertyName("teleopCargoLowerFar")]
-                public int? TeleopCargoLowerFar { get; set; }
+                  [JsonPropertyName("teleopCargoLowerBlue")]
+                  public int? TeleopCargoLowerBlue { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TeleopCargoLowerFar
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TeleopCargoLowerNear
-            /// </summary>
-              
-                [JsonPropertyName("teleopCargoLowerNear")]
-                public int? TeleopCargoLowerNear { get; set; }
+                  [JsonPropertyName("teleopCargoLowerFar")]
+                  public int? TeleopCargoLowerFar { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TeleopCargoLowerNear
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TeleopCargoLowerRed
-            /// </summary>
-              
-                [JsonPropertyName("teleopCargoLowerRed")]
-                public int? TeleopCargoLowerRed { get; set; }
+                  [JsonPropertyName("teleopCargoLowerNear")]
+                  public int? TeleopCargoLowerNear { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TeleopCargoLowerRed
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TeleopCargoPoints
-            /// </summary>
-              
-                [JsonPropertyName("teleopCargoPoints")]
-                public int? TeleopCargoPoints { get; set; }
+                  [JsonPropertyName("teleopCargoLowerRed")]
+                  public int? TeleopCargoLowerRed { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TeleopCargoPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TeleopCargoTotal
-            /// </summary>
-              
-                [JsonPropertyName("teleopCargoTotal")]
-                public int? TeleopCargoTotal { get; set; }
+                  [JsonPropertyName("teleopCargoPoints")]
+                  public int? TeleopCargoPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TeleopCargoTotal
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TeleopCargoUpperBlue
-            /// </summary>
-              
-                [JsonPropertyName("teleopCargoUpperBlue")]
-                public int? TeleopCargoUpperBlue { get; set; }
+                  [JsonPropertyName("teleopCargoTotal")]
+                  public int? TeleopCargoTotal { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TeleopCargoUpperBlue
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TeleopCargoUpperFar
-            /// </summary>
-              
-                [JsonPropertyName("teleopCargoUpperFar")]
-                public int? TeleopCargoUpperFar { get; set; }
+                  [JsonPropertyName("teleopCargoUpperBlue")]
+                  public int? TeleopCargoUpperBlue { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TeleopCargoUpperFar
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TeleopCargoUpperNear
-            /// </summary>
-              
-                [JsonPropertyName("teleopCargoUpperNear")]
-                public int? TeleopCargoUpperNear { get; set; }
+                  [JsonPropertyName("teleopCargoUpperFar")]
+                  public int? TeleopCargoUpperFar { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TeleopCargoUpperNear
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TeleopCargoUpperRed
-            /// </summary>
-              
-                [JsonPropertyName("teleopCargoUpperRed")]
-                public int? TeleopCargoUpperRed { get; set; }
+                  [JsonPropertyName("teleopCargoUpperNear")]
+                  public int? TeleopCargoUpperNear { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TeleopCargoUpperRed
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TeleopPoints
-            /// </summary>
-              
-                [JsonPropertyName("teleopPoints")]
-                public int? TeleopPoints { get; set; }
+                  [JsonPropertyName("teleopCargoUpperRed")]
+                  public int? TeleopCargoUpperRed { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TeleopPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Gets or Sets TotalPoints
-            /// </summary>
-              
-                [JsonPropertyName("totalPoints")]
-                public int? TotalPoints { get; set; }
+                  [JsonPropertyName("teleopPoints")]
+                  public int? TeleopPoints { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets TotalPoints
+              /// </summary>
                 
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class MatchScoreBreakdown2022Alliance {");
-                  sb.Append("  AdjustPoints: ").AppendLine($"{ AdjustPoints?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoCargoLowerBlue: ").AppendLine($"{ AutoCargoLowerBlue?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoCargoLowerFar: ").AppendLine($"{ AutoCargoLowerFar?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoCargoLowerNear: ").AppendLine($"{ AutoCargoLowerNear?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoCargoLowerRed: ").AppendLine($"{ AutoCargoLowerRed?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoCargoPoints: ").AppendLine($"{ AutoCargoPoints?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoCargoTotal: ").AppendLine($"{ AutoCargoTotal?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoCargoUpperBlue: ").AppendLine($"{ AutoCargoUpperBlue?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoCargoUpperFar: ").AppendLine($"{ AutoCargoUpperFar?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoCargoUpperNear: ").AppendLine($"{ AutoCargoUpperNear?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoCargoUpperRed: ").AppendLine($"{ AutoCargoUpperRed?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoPoints: ").AppendLine($"{ AutoPoints?.ToString() ?? "[null]" }");
-                  sb.Append("  AutoTaxiPoints: ").AppendLine($"{ AutoTaxiPoints?.ToString() ?? "[null]" }");
-                  sb.Append("  CargoBonusRankingPoint: ").AppendLine($"{ CargoBonusRankingPoint?.ToString() ?? "[null]" }");
-                  sb.Append("  EndgamePoints: ").AppendLine($"{ EndgamePoints?.ToString() ?? "[null]" }");
-                  sb.Append("  EndgameRobot1: ").AppendLine($"{ EndgameRobot1?.ToString() ?? "[null]" }");
-                  sb.Append("  EndgameRobot2: ").AppendLine($"{ EndgameRobot2?.ToString() ?? "[null]" }");
-                  sb.Append("  EndgameRobot3: ").AppendLine($"{ EndgameRobot3?.ToString() ?? "[null]" }");
-                  sb.Append("  FoulCount: ").AppendLine($"{ FoulCount?.ToString() ?? "[null]" }");
-                  sb.Append("  FoulPoints: ").AppendLine($"{ FoulPoints?.ToString() ?? "[null]" }");
-                  sb.Append("  HangarBonusRankingPoint: ").AppendLine($"{ HangarBonusRankingPoint?.ToString() ?? "[null]" }");
-                  sb.Append("  MatchCargoTotal: ").AppendLine($"{ MatchCargoTotal?.ToString() ?? "[null]" }");
-                  sb.Append("  QuintetAchieved: ").AppendLine($"{ QuintetAchieved?.ToString() ?? "[null]" }");
-                  sb.Append("  Rp: ").AppendLine($"{ Rp?.ToString() ?? "[null]" }");
-                  sb.Append("  TaxiRobot1: ").AppendLine($"{ TaxiRobot1?.ToString() ?? "[null]" }");
-                  sb.Append("  TaxiRobot2: ").AppendLine($"{ TaxiRobot2?.ToString() ?? "[null]" }");
-                  sb.Append("  TaxiRobot3: ").AppendLine($"{ TaxiRobot3?.ToString() ?? "[null]" }");
-                  sb.Append("  TechFoulCount: ").AppendLine($"{ TechFoulCount?.ToString() ?? "[null]" }");
-                  sb.Append("  TeleopCargoLowerBlue: ").AppendLine($"{ TeleopCargoLowerBlue?.ToString() ?? "[null]" }");
-                  sb.Append("  TeleopCargoLowerFar: ").AppendLine($"{ TeleopCargoLowerFar?.ToString() ?? "[null]" }");
-                  sb.Append("  TeleopCargoLowerNear: ").AppendLine($"{ TeleopCargoLowerNear?.ToString() ?? "[null]" }");
-                  sb.Append("  TeleopCargoLowerRed: ").AppendLine($"{ TeleopCargoLowerRed?.ToString() ?? "[null]" }");
-                  sb.Append("  TeleopCargoPoints: ").AppendLine($"{ TeleopCargoPoints?.ToString() ?? "[null]" }");
-                  sb.Append("  TeleopCargoTotal: ").AppendLine($"{ TeleopCargoTotal?.ToString() ?? "[null]" }");
-                  sb.Append("  TeleopCargoUpperBlue: ").AppendLine($"{ TeleopCargoUpperBlue?.ToString() ?? "[null]" }");
-                  sb.Append("  TeleopCargoUpperFar: ").AppendLine($"{ TeleopCargoUpperFar?.ToString() ?? "[null]" }");
-                  sb.Append("  TeleopCargoUpperNear: ").AppendLine($"{ TeleopCargoUpperNear?.ToString() ?? "[null]" }");
-                  sb.Append("  TeleopCargoUpperRed: ").AppendLine($"{ TeleopCargoUpperRed?.ToString() ?? "[null]" }");
-                  sb.Append("  TeleopPoints: ").AppendLine($"{ TeleopPoints?.ToString() ?? "[null]" }");
-                  sb.Append("  TotalPoints: ").AppendLine($"{ TotalPoints?.ToString() ?? "[null]" }");
-              sb.AppendLine("}");
-              return sb.ToString();
+                  [JsonPropertyName("totalPoints")]
+                  public int? TotalPoints { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class MatchScoreBreakdown2022Alliance {");
+                    sb.Append("  AdjustPoints: ").AppendLine($"{ AdjustPoints?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoCargoLowerBlue: ").AppendLine($"{ AutoCargoLowerBlue?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoCargoLowerFar: ").AppendLine($"{ AutoCargoLowerFar?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoCargoLowerNear: ").AppendLine($"{ AutoCargoLowerNear?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoCargoLowerRed: ").AppendLine($"{ AutoCargoLowerRed?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoCargoPoints: ").AppendLine($"{ AutoCargoPoints?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoCargoTotal: ").AppendLine($"{ AutoCargoTotal?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoCargoUpperBlue: ").AppendLine($"{ AutoCargoUpperBlue?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoCargoUpperFar: ").AppendLine($"{ AutoCargoUpperFar?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoCargoUpperNear: ").AppendLine($"{ AutoCargoUpperNear?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoCargoUpperRed: ").AppendLine($"{ AutoCargoUpperRed?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoPoints: ").AppendLine($"{ AutoPoints?.ToString() ?? "[null]" }");
+                    sb.Append("  AutoTaxiPoints: ").AppendLine($"{ AutoTaxiPoints?.ToString() ?? "[null]" }");
+                    sb.Append("  CargoBonusRankingPoint: ").AppendLine($"{ CargoBonusRankingPoint?.ToString() ?? "[null]" }");
+                    sb.Append("  EndgamePoints: ").AppendLine($"{ EndgamePoints?.ToString() ?? "[null]" }");
+                    sb.Append("  EndgameRobot1: ").AppendLine($"{ EndgameRobot1?.ToString() ?? "[null]" }");
+                    sb.Append("  EndgameRobot2: ").AppendLine($"{ EndgameRobot2?.ToString() ?? "[null]" }");
+                    sb.Append("  EndgameRobot3: ").AppendLine($"{ EndgameRobot3?.ToString() ?? "[null]" }");
+                    sb.Append("  FoulCount: ").AppendLine($"{ FoulCount?.ToString() ?? "[null]" }");
+                    sb.Append("  FoulPoints: ").AppendLine($"{ FoulPoints?.ToString() ?? "[null]" }");
+                    sb.Append("  HangarBonusRankingPoint: ").AppendLine($"{ HangarBonusRankingPoint?.ToString() ?? "[null]" }");
+                    sb.Append("  MatchCargoTotal: ").AppendLine($"{ MatchCargoTotal?.ToString() ?? "[null]" }");
+                    sb.Append("  QuintetAchieved: ").AppendLine($"{ QuintetAchieved?.ToString() ?? "[null]" }");
+                    sb.Append("  Rp: ").AppendLine($"{ Rp?.ToString() ?? "[null]" }");
+                    sb.Append("  TaxiRobot1: ").AppendLine($"{ TaxiRobot1?.ToString() ?? "[null]" }");
+                    sb.Append("  TaxiRobot2: ").AppendLine($"{ TaxiRobot2?.ToString() ?? "[null]" }");
+                    sb.Append("  TaxiRobot3: ").AppendLine($"{ TaxiRobot3?.ToString() ?? "[null]" }");
+                    sb.Append("  TechFoulCount: ").AppendLine($"{ TechFoulCount?.ToString() ?? "[null]" }");
+                    sb.Append("  TeleopCargoLowerBlue: ").AppendLine($"{ TeleopCargoLowerBlue?.ToString() ?? "[null]" }");
+                    sb.Append("  TeleopCargoLowerFar: ").AppendLine($"{ TeleopCargoLowerFar?.ToString() ?? "[null]" }");
+                    sb.Append("  TeleopCargoLowerNear: ").AppendLine($"{ TeleopCargoLowerNear?.ToString() ?? "[null]" }");
+                    sb.Append("  TeleopCargoLowerRed: ").AppendLine($"{ TeleopCargoLowerRed?.ToString() ?? "[null]" }");
+                    sb.Append("  TeleopCargoPoints: ").AppendLine($"{ TeleopCargoPoints?.ToString() ?? "[null]" }");
+                    sb.Append("  TeleopCargoTotal: ").AppendLine($"{ TeleopCargoTotal?.ToString() ?? "[null]" }");
+                    sb.Append("  TeleopCargoUpperBlue: ").AppendLine($"{ TeleopCargoUpperBlue?.ToString() ?? "[null]" }");
+                    sb.Append("  TeleopCargoUpperFar: ").AppendLine($"{ TeleopCargoUpperFar?.ToString() ?? "[null]" }");
+                    sb.Append("  TeleopCargoUpperNear: ").AppendLine($"{ TeleopCargoUpperNear?.ToString() ?? "[null]" }");
+                    sb.Append("  TeleopCargoUpperRed: ").AppendLine($"{ TeleopCargoUpperRed?.ToString() ?? "[null]" }");
+                    sb.Append("  TeleopPoints: ").AppendLine($"{ TeleopPoints?.ToString() ?? "[null]" }");
+                    sb.Append("  TotalPoints: ").AppendLine($"{ TotalPoints?.ToString() ?? "[null]" }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
-            }
-          }
-          

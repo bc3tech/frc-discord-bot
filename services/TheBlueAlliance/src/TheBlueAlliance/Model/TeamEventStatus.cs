@@ -17,119 +17,120 @@
     /// <summary>
 /// TeamEventStatus
 /// </summary>
-public partial class TeamEventStatus
-{
-      /// <summary>
-      /// Initializes a new instance of the <see cref="TeamEventStatus" /> class.
-      /// </summary>
-          /// <param name="alliance">alliance.</param>
-          /// <param name="allianceStatusStr">An HTML formatted string suitable for display to the user containing the team&#39;s alliance pick status.</param>
-          /// <param name="lastMatchKey">TBA match key for the last match the team played in at this event, or null.</param>
-          /// <param name="nextMatchKey">TBA match key for the next match the team is scheduled to play in at this event, or null.</param>
-          /// <param name="overallStatusStr">An HTML formatted string suitable for display to the user containing the team&#39;s overall status summary of the event.</param>
-          /// <param name="playoff">playoff.</param>
-          /// <param name="playoffStatusStr">An HTML formatter string suitable for display to the user containing the team&#39;s playoff status.</param>
-          /// <param name="qual">qual.</param>
-      public TeamEventStatus(TeamEventStatusAlliance? alliance = default, string? allianceStatusStr = default, string? lastMatchKey = default, string? nextMatchKey = default, string? overallStatusStr = default, TeamEventStatusPlayoff? playoff = default, string? playoffStatusStr = default, TeamEventStatusRank? qual = default)
-      {
-                    this.Alliance = alliance;
-                    this.AllianceStatusStr = allianceStatusStr;
-                    this.LastMatchKey = lastMatchKey;
-                    this.NextMatchKey = nextMatchKey;
-                    this.OverallStatusStr = overallStatusStr;
-                    this.Playoff = playoff;
-                    this.PlayoffStatusStr = playoffStatusStr;
-                    this.Qual = qual;
-      }
-      
-            /// <summary>
-            /// Gets or Sets Alliance
-            /// </summary>
-              
-                [JsonPropertyName("alliance")]
-                public TeamEventStatusAlliance? Alliance { get; set; }
+
+  public partial class TeamEventStatus
+  {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TeamEventStatus" /> class.
+        /// </summary>
+            /// <param name="alliance">alliance.</param>
+            /// <param name="allianceStatusStr">An HTML formatted string suitable for display to the user containing the team&#39;s alliance pick status.</param>
+            /// <param name="lastMatchKey">TBA match key for the last match the team played in at this event, or null.</param>
+            /// <param name="nextMatchKey">TBA match key for the next match the team is scheduled to play in at this event, or null.</param>
+            /// <param name="overallStatusStr">An HTML formatted string suitable for display to the user containing the team&#39;s overall status summary of the event.</param>
+            /// <param name="playoff">playoff.</param>
+            /// <param name="playoffStatusStr">An HTML formatter string suitable for display to the user containing the team&#39;s playoff status.</param>
+            /// <param name="qual">qual.</param>
+        public TeamEventStatus(TeamEventStatusAlliance? alliance = default, string? allianceStatusStr = default, string? lastMatchKey = default, string? nextMatchKey = default, string? overallStatusStr = default, TeamEventStatusPlayoff? playoff = default, string? playoffStatusStr = default, TeamEventStatusRank? qual = default)
+        {
+                      this.Alliance = alliance;
+                      this.AllianceStatusStr = allianceStatusStr;
+                      this.LastMatchKey = lastMatchKey;
+                      this.NextMatchKey = nextMatchKey;
+                      this.OverallStatusStr = overallStatusStr;
+                      this.Playoff = playoff;
+                      this.PlayoffStatusStr = playoffStatusStr;
+                      this.Qual = qual;
+        }
+        
+              /// <summary>
+              /// Gets or Sets Alliance
+              /// </summary>
                 
-            /// <summary>
-            /// An HTML formatted string suitable for display to the user containing the team&#39;s alliance pick status.
-            /// </summary>
-            /// <value>An HTML formatted string suitable for display to the user containing the team&#39;s alliance pick status.</value>
-              
-                [JsonPropertyName("alliance_status_str")]
-                public string? AllianceStatusStr { get; set; }
+                  [JsonPropertyName("alliance")]
+                  public TeamEventStatusAlliance? Alliance { get; set; }
+                  
+              /// <summary>
+              /// An HTML formatted string suitable for display to the user containing the team&#39;s alliance pick status.
+              /// </summary>
+              /// <value>An HTML formatted string suitable for display to the user containing the team&#39;s alliance pick status.</value>
                 
-            /// <summary>
-            /// TBA match key for the last match the team played in at this event, or null.
-            /// </summary>
-            /// <value>TBA match key for the last match the team played in at this event, or null.</value>
-              
-                [JsonPropertyName("last_match_key")]
-                public string? LastMatchKey { get; set; }
+                  [JsonPropertyName("alliance_status_str")]
+                  public string? AllianceStatusStr { get; set; }
+                  
+              /// <summary>
+              /// TBA match key for the last match the team played in at this event, or null.
+              /// </summary>
+              /// <value>TBA match key for the last match the team played in at this event, or null.</value>
                 
-            /// <summary>
-            /// TBA match key for the next match the team is scheduled to play in at this event, or null.
-            /// </summary>
-            /// <value>TBA match key for the next match the team is scheduled to play in at this event, or null.</value>
-              
-                [JsonPropertyName("next_match_key")]
-                public string? NextMatchKey { get; set; }
+                  [JsonPropertyName("last_match_key")]
+                  public string? LastMatchKey { get; set; }
+                  
+              /// <summary>
+              /// TBA match key for the next match the team is scheduled to play in at this event, or null.
+              /// </summary>
+              /// <value>TBA match key for the next match the team is scheduled to play in at this event, or null.</value>
                 
-            /// <summary>
-            /// An HTML formatted string suitable for display to the user containing the team&#39;s overall status summary of the event.
-            /// </summary>
-            /// <value>An HTML formatted string suitable for display to the user containing the team&#39;s overall status summary of the event.</value>
-              
-                [JsonPropertyName("overall_status_str")]
-                public string? OverallStatusStr { get; set; }
+                  [JsonPropertyName("next_match_key")]
+                  public string? NextMatchKey { get; set; }
+                  
+              /// <summary>
+              /// An HTML formatted string suitable for display to the user containing the team&#39;s overall status summary of the event.
+              /// </summary>
+              /// <value>An HTML formatted string suitable for display to the user containing the team&#39;s overall status summary of the event.</value>
                 
-            /// <summary>
-            /// Gets or Sets Playoff
-            /// </summary>
-              
-                [JsonPropertyName("playoff")]
-                public TeamEventStatusPlayoff? Playoff { get; set; }
+                  [JsonPropertyName("overall_status_str")]
+                  public string? OverallStatusStr { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Playoff
+              /// </summary>
                 
-            /// <summary>
-            /// An HTML formatter string suitable for display to the user containing the team&#39;s playoff status.
-            /// </summary>
-            /// <value>An HTML formatter string suitable for display to the user containing the team&#39;s playoff status.</value>
-              
-                [JsonPropertyName("playoff_status_str")]
-                public string? PlayoffStatusStr { get; set; }
+                  [JsonPropertyName("playoff")]
+                  public TeamEventStatusPlayoff? Playoff { get; set; }
+                  
+              /// <summary>
+              /// An HTML formatter string suitable for display to the user containing the team&#39;s playoff status.
+              /// </summary>
+              /// <value>An HTML formatter string suitable for display to the user containing the team&#39;s playoff status.</value>
                 
-            /// <summary>
-            /// Gets or Sets Qual
-            /// </summary>
-              
-                [JsonPropertyName("qual")]
-                public TeamEventStatusRank? Qual { get; set; }
+                  [JsonPropertyName("playoff_status_str")]
+                  public string? PlayoffStatusStr { get; set; }
+                  
+              /// <summary>
+              /// Gets or Sets Qual
+              /// </summary>
                 
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class TeamEventStatus {");
-                  sb.Append("  Alliance: ").AppendLine($"{ Alliance?.ToString() ?? "[null]" }");
-                  sb.Append("  AllianceStatusStr: ").AppendLine($"{ AllianceStatusStr?.ToString() ?? "[null]" }");
-                  sb.Append("  LastMatchKey: ").AppendLine($"{ LastMatchKey?.ToString() ?? "[null]" }");
-                  sb.Append("  NextMatchKey: ").AppendLine($"{ NextMatchKey?.ToString() ?? "[null]" }");
-                  sb.Append("  OverallStatusStr: ").AppendLine($"{ OverallStatusStr?.ToString() ?? "[null]" }");
-                  sb.Append("  Playoff: ").AppendLine($"{ Playoff?.ToString() ?? "[null]" }");
-                  sb.Append("  PlayoffStatusStr: ").AppendLine($"{ PlayoffStatusStr?.ToString() ?? "[null]" }");
-                  sb.Append("  Qual: ").AppendLine($"{ Qual?.ToString() ?? "[null]" }");
-              sb.AppendLine("}");
-              return sb.ToString();
+                  [JsonPropertyName("qual")]
+                  public TeamEventStatusRank? Qual { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class TeamEventStatus {");
+                    sb.Append("  Alliance: ").AppendLine($"{ Alliance?.ToString() ?? "[null]" }");
+                    sb.Append("  AllianceStatusStr: ").AppendLine($"{ AllianceStatusStr?.ToString() ?? "[null]" }");
+                    sb.Append("  LastMatchKey: ").AppendLine($"{ LastMatchKey?.ToString() ?? "[null]" }");
+                    sb.Append("  NextMatchKey: ").AppendLine($"{ NextMatchKey?.ToString() ?? "[null]" }");
+                    sb.Append("  OverallStatusStr: ").AppendLine($"{ OverallStatusStr?.ToString() ?? "[null]" }");
+                    sb.Append("  Playoff: ").AppendLine($"{ Playoff?.ToString() ?? "[null]" }");
+                    sb.Append("  PlayoffStatusStr: ").AppendLine($"{ PlayoffStatusStr?.ToString() ?? "[null]" }");
+                    sb.Append("  Qual: ").AppendLine($"{ Qual?.ToString() ?? "[null]" }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
-            }
-          }
-          

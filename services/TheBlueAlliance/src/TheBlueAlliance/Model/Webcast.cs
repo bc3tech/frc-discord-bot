@@ -17,9 +17,10 @@
     /// <summary>
 /// Webcast
 /// </summary>
-public partial class Webcast
-{
-          /// <summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+  public partial class Webcast
+  {
+            /// <summary>
   /// Type of webcast, typically descriptive of the streaming provider.
   /// </summary>
     /// <value>Type of webcast, typically descriptive of the streaming provider.</value>
@@ -165,87 +166,87 @@ public partial class Webcast
         };
     }
 
-      
-      /// <summary>
-      /// Type of webcast, typically descriptive of the streaming provider.
-      /// </summary>
-        /// <value>Type of webcast, typically descriptive of the streaming provider.</value>
-        [JsonRequired]
-          [JsonPropertyName("type")]
-          public TypeEnum Type { get; set; }
-            // yup
-            /// <summary>
-            /// Initializes a new instance of the <see cref="Webcast" /> class.
-            /// </summary>
-            [JsonConstructor]
-            protected Webcast() { 
-          }
-          
-      /// <summary>
-      /// Initializes a new instance of the <see cref="Webcast" /> class.
-      /// </summary>
-          /// <param name="channel">Type specific channel information. May be the YouTube stream, or Twitch channel name. In the case of iframe types, contains HTML to embed the stream in an HTML iframe. (required).</param>
-          /// <param name="date">The date for the webcast in &#x60;yyyy-mm-dd&#x60; format. May be null.</param>
-          /// <param name="file">File identification as may be required for some types. May be null.</param>
-          /// <param name="type">Type of webcast, typically descriptive of the streaming provider. (required).</param>
-      public Webcast(string channel, TypeEnum type, string? date = default, string? file = default)
-      {
-                    // to ensure "channel" is required (not null)
-                    ArgumentNullException.ThrowIfNull(channel);
-                    this.Channel = channel;
-                      
-                    this.Date = date;
-                    this.File = file;
-                    this.Type = type;
-      }
-      
-            /// <summary>
-            /// Type specific channel information. May be the YouTube stream, or Twitch channel name. In the case of iframe types, contains HTML to embed the stream in an HTML iframe.
-            /// </summary>
-            /// <value>Type specific channel information. May be the YouTube stream, or Twitch channel name. In the case of iframe types, contains HTML to embed the stream in an HTML iframe.</value>
-              [JsonRequired]
-                [JsonPropertyName("channel")]
-                public string Channel { get; set; }
-                
-            /// <summary>
-            /// The date for the webcast in &#x60;yyyy-mm-dd&#x60; format. May be null.
-            /// </summary>
-            /// <value>The date for the webcast in &#x60;yyyy-mm-dd&#x60; format. May be null.</value>
-              
-                [JsonPropertyName("date")]
-                public string? Date { get; set; }
-                
-            /// <summary>
-            /// File identification as may be required for some types. May be null.
-            /// </summary>
-            /// <value>File identification as may be required for some types. May be null.</value>
-              
-                [JsonPropertyName("file")]
-                public string? File { get; set; }
-                
-            /// <summary>
-            /// Returns the string presentation of the object
-            /// </summary>
-            /// <returns>string presentation of the object</returns>
-            public override string ToString()
-            {
-              StringBuilder sb = new();
-              sb.AppendLine("class Webcast {");
-                  sb.Append("  Channel: ").AppendLine($"{ Channel }");
-                  sb.Append("  Date: ").AppendLine($"{ Date?.ToString() ?? "[null]" }");
-                  sb.Append("  File: ").AppendLine($"{ File?.ToString() ?? "[null]" }");
-                  sb.Append("  Type: ").AppendLine($"{ Type }");
-              sb.AppendLine("}");
-              return sb.ToString();
+        
+        /// <summary>
+        /// Type of webcast, typically descriptive of the streaming provider.
+        /// </summary>
+          /// <value>Type of webcast, typically descriptive of the streaming provider.</value>
+          [JsonRequired]
+            [JsonPropertyName("type")]
+            public TypeEnum Type { get; set; }
+              // yup
+              /// <summary>
+              /// Initializes a new instance of the <see cref="Webcast" /> class.
+              /// </summary>
+              [JsonConstructor]
+              protected Webcast() { 
             }
             
-            /// <summary>
-            /// Returns the JSON string presentation of the object
-            /// </summary>
-            /// <returns>JSON string presentation of the object</returns>
-            public string ToJson()
-            {
-              return JsonSerializer.Serialize(this);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Webcast" /> class.
+        /// </summary>
+            /// <param name="channel">Type specific channel information. May be the YouTube stream, or Twitch channel name. In the case of iframe types, contains HTML to embed the stream in an HTML iframe. (required).</param>
+            /// <param name="date">The date for the webcast in &#x60;yyyy-mm-dd&#x60; format. May be null.</param>
+            /// <param name="file">File identification as may be required for some types. May be null.</param>
+            /// <param name="type">Type of webcast, typically descriptive of the streaming provider. (required).</param>
+        public Webcast(string channel, TypeEnum type, string? date = default, string? file = default)
+        {
+                      // to ensure "channel" is required (not null)
+                      ArgumentNullException.ThrowIfNull(channel);
+                      this.Channel = channel;
+                        
+                      this.Date = date;
+                      this.File = file;
+                      this.Type = type;
+        }
+        
+              /// <summary>
+              /// Type specific channel information. May be the YouTube stream, or Twitch channel name. In the case of iframe types, contains HTML to embed the stream in an HTML iframe.
+              /// </summary>
+              /// <value>Type specific channel information. May be the YouTube stream, or Twitch channel name. In the case of iframe types, contains HTML to embed the stream in an HTML iframe.</value>
+                [JsonRequired]
+                  [JsonPropertyName("channel")]
+                  public string Channel { get; set; }
+                  
+              /// <summary>
+              /// The date for the webcast in &#x60;yyyy-mm-dd&#x60; format. May be null.
+              /// </summary>
+              /// <value>The date for the webcast in &#x60;yyyy-mm-dd&#x60; format. May be null.</value>
+                
+                  [JsonPropertyName("date")]
+                  public string? Date { get; set; }
+                  
+              /// <summary>
+              /// File identification as may be required for some types. May be null.
+              /// </summary>
+              /// <value>File identification as may be required for some types. May be null.</value>
+                
+                  [JsonPropertyName("file")]
+                  public string? File { get; set; }
+                  
+              /// <summary>
+              /// Returns the string presentation of the object
+              /// </summary>
+              /// <returns>string presentation of the object</returns>
+              public override string ToString()
+              {
+                StringBuilder sb = new();
+                sb.AppendLine("class Webcast {");
+                    sb.Append("  Channel: ").AppendLine($"{ Channel }");
+                    sb.Append("  Date: ").AppendLine($"{ Date?.ToString() ?? "[null]" }");
+                    sb.Append("  File: ").AppendLine($"{ File?.ToString() ?? "[null]" }");
+                    sb.Append("  Type: ").AppendLine($"{ Type }");
+                sb.AppendLine("}");
+                return sb.ToString();
+              }
+              
+              /// <summary>
+              /// Returns the JSON string presentation of the object
+              /// </summary>
+              /// <returns>JSON string presentation of the object</returns>
+              public string ToJson()
+              {
+                return JsonSerializer.Serialize(this);
+              }
             }
-          }
-          
+            #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
