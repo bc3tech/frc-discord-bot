@@ -29,8 +29,11 @@ namespace FIRST.Test.Api
     /// </remarks>
     public class RankingsApiTests : IDisposable
     {
+        private RankingsApi instance;
+
         public RankingsApiTests()
         {
+            instance = new RankingsApi();
         }
 
         public void Dispose()

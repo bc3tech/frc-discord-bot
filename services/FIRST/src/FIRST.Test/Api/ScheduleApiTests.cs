@@ -29,8 +29,11 @@ namespace FIRST.Test.Api
     /// </remarks>
     public class ScheduleApiTests : IDisposable
     {
+        private ScheduleApi instance;
+
         public ScheduleApiTests()
         {
+            instance = new ScheduleApi();
         }
 
         public void Dispose()

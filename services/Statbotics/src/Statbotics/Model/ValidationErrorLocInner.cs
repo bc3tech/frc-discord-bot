@@ -27,31 +27,26 @@
             /// with the <see cref="string" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of string.</param>
-            public ValidationErrorLocInner(string? actualInstance)
-            {
-              this.ActualInstance = actualInstance == default ? throw new ArgumentException("Invalid instance found. Must not be null.") : actualInstance;
-            }
+            public ValidationErrorLocInner(string actualInstance) => _actualInstance = actualInstance;
+            
             /// <summary>
             /// Initializes a new instance of the <see cref="ValidationErrorLocInner" /> class
             /// with the <see cref="int" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of int.</param>
-            public ValidationErrorLocInner(int? actualInstance)
-            {
-              this.ActualInstance = actualInstance == default ? throw new ArgumentException("Invalid instance found. Must not be null.") : actualInstance;
-            }
-      
+            public ValidationErrorLocInner(int actualInstance) => _actualInstance = actualInstance;
+            
       private object _actualInstance;
       
       /// <summary>
       /// Gets or Sets ActualInstance
       /// </summary>
-      public override object ActualInstance
+      public override object? ActualInstance
       {
-        get => _actualInstance;
+        get => _actualInstance!;
         set
         {
-          this._actualInstance = value switch
+          _actualInstance = value switch
           { 
             int _ => value,
             string _ => value,
@@ -100,19 +95,14 @@
     /// <returns>An instance of ValidationErrorLocInner</returns>
     public static ValidationErrorLocInner? FromJson(string jsonString)
     {
-      ValidationErrorLocInner? newValidationErrorLocInner = default;
-      
       if (string.IsNullOrEmpty(jsonString))
       {
-        return newValidationErrorLocInner;
+        return default;
       }
         
         try
         {
-          newValidationErrorLocInner = new ValidationErrorLocInner(JsonSerializer.Deserialize<int>(jsonString, ValidationErrorLocInner.SerializerSettings));
-          
-          // deserialization is considered successful at this point if no exception has been thrown.
-          return newValidationErrorLocInner;
+          return new ValidationErrorLocInner(JsonSerializer.Deserialize<int>(jsonString, ValidationErrorLocInner.SerializerSettings)!); // We expect the force-dereference to cause a nullref here
         }
         catch (Exception exception)
         {
@@ -122,10 +112,7 @@
         
         try
         {
-          newValidationErrorLocInner = new ValidationErrorLocInner(JsonSerializer.Deserialize<string>(jsonString, ValidationErrorLocInner.SerializerSettings));
-          
-          // deserialization is considered successful at this point if no exception has been thrown.
-          return newValidationErrorLocInner;
+          return new ValidationErrorLocInner(JsonSerializer.Deserialize<string>(jsonString, ValidationErrorLocInner.SerializerSettings)!); // We expect the force-dereference to cause a nullref here
         }
         catch (Exception exception)
         {

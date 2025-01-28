@@ -12,7 +12,6 @@ docs/TeamYearApi.md
 docs/ValidationError.md
 docs/ValidationErrorLocInner.md
 docs/YearApi.md
-src/FIRST/Properties/AssemblyInfo.cs
 src/Statbotics.Test/Statbotics.Test.csproj
 src/Statbotics/Api/DefaultApi.cs
 src/Statbotics/Api/EventApi.cs
@@ -42,4 +41,5 @@ src/Statbotics/Model/AbstractOpenAPISchema.cs
 src/Statbotics/Model/HTTPValidationError.cs
 src/Statbotics/Model/ValidationError.cs
 src/Statbotics/Model/ValidationErrorLocInner.cs
+src/Statbotics/Properties/AssemblyInfo.cs
 src/Statbotics/Statbotics.csproj

@@ -1,11 +1,11 @@
-﻿namespace TheBlueAlliance.Api;
+﻿namespace DiscordBotFunctionApp.TbaInterop.Models;
+
+using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-using TheBlueAlliance.Api.Notifications;
-
-public record WebhookMessage
+internal sealed record WebhookMessage
 {
     [JsonPropertyName("message_type")]
     public NotificationType MessageType { get; init; }
@@ -13,5 +13,5 @@ public record WebhookMessage
     [JsonPropertyName("message_data")]
     required public JsonElement MessageData { get; init; }
 
-    public T? GetDataAs<T>() => JsonSerializer.Deserialize<T>(this.MessageData);
+    public T? GetDataAs<T>() => MessageData.Deserialize<T>();
 }

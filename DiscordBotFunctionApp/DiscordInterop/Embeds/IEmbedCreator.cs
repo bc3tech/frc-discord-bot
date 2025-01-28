@@ -2,7 +2,7 @@
 
 using Discord;
 
-using TheBlueAlliance.Api;
+using DiscordBotFunctionApp.TbaInterop.Models;
 
 internal interface IEmbedCreator
 {

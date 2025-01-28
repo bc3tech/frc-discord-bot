@@ -33,7 +33,7 @@
             /// with the <see cref="TeamEventStatus" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of TeamEventStatus.</param>
-            public GetTeamEventsStatusesByYear200ResponseValue(TeamEventStatus actualInstance) => this.ActualInstance = actualInstance;
+            public GetTeamEventsStatusesByYear200ResponseValue(TeamEventStatus actualInstance) => _actualInstance = actualInstance;
             
       private object? _actualInstance;
       
@@ -87,19 +87,14 @@
     /// <returns>An instance of GetTeamEventsStatusesByYear200ResponseValue</returns>
     public static GetTeamEventsStatusesByYear200ResponseValue? FromJson(string jsonString)
     {
-      GetTeamEventsStatusesByYear200ResponseValue? newGetTeamEventsStatusesByYear200ResponseValue = default;
-      
       if (string.IsNullOrEmpty(jsonString))
       {
-        return newGetTeamEventsStatusesByYear200ResponseValue;
+        return default;
       }
         
         try
         {
-          newGetTeamEventsStatusesByYear200ResponseValue = new GetTeamEventsStatusesByYear200ResponseValue(JsonSerializer.Deserialize<TeamEventStatus>(jsonString, GetTeamEventsStatusesByYear200ResponseValue.SerializerSettings));
-          
-          // deserialization is considered successful at this point if no exception has been thrown.
-          return newGetTeamEventsStatusesByYear200ResponseValue;
+          return new GetTeamEventsStatusesByYear200ResponseValue(JsonSerializer.Deserialize<TeamEventStatus>(jsonString, GetTeamEventsStatusesByYear200ResponseValue.SerializerSettings)!); // We expect the force-dereference to cause a nullref here
         }
         catch (Exception exception)
         {

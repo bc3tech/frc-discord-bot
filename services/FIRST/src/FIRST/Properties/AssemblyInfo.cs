@@ -24,4 +24,5 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 
 [assembly: System.CodeDom.Compiler.GeneratedCode("OpenAPIGenerator-cli", "7.11.0")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Auto-generated code", Scope = "module")]
 

@@ -27,7 +27,7 @@
       "templateType": "SupportingFiles"
     },
     "AssemblyInfo.mustache": {
-      "destinationFilename": "src/FIRST/Properties/AssemblyInfo.cs",
+      "destinationFilename": "src/Statbotics/Properties/AssemblyInfo.cs",
       "templateType": "SupportingFiles"
     }
   }

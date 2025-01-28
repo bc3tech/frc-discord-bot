@@ -12,6 +12,7 @@ namespace FIRST.Api;
 using System;
 using System.Net.Http;
   using System.Collections.ObjectModel;
+  using System.Threading.Tasks;
 
 using FIRST.Client;
 
@@ -187,7 +188,7 @@ using FIRST.Client;
             /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Object</returns>
-          System.Threading.Tasks.Task<Object?> SeasonAvatarsGetAsync(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, CancellationToken cancellationToken = default);
+          Task<Object?> SeasonAvatarsGetAsync(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Team Avatar Listings
@@ -203,7 +204,7 @@ using FIRST.Client;
               /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Object)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonAvatarsGetWithHttpInfoAsync(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Object?>> SeasonAvatarsGetWithHttpInfoAsync(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// District Listings
           /// </summary>
@@ -215,7 +216,7 @@ using FIRST.Client;
             /// <param name="ifModifiedSince"> (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Object</returns>
-          System.Threading.Tasks.Task<Object?> SeasonDistrictsGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
+          Task<Object?> SeasonDistrictsGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// District Listings
@@ -228,7 +229,7 @@ using FIRST.Client;
               /// <param name="ifModifiedSince"> (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Object)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonDistrictsGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Object?>> SeasonDistrictsGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// Event Listings
           /// </summary>
@@ -246,7 +247,7 @@ using FIRST.Client;
             /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Object</returns>
-          System.Threading.Tasks.Task<Object?> SeasonEventsGetAsync(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default, CancellationToken cancellationToken = default);
+          Task<Object?> SeasonEventsGetAsync(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Event Listings
@@ -265,7 +266,7 @@ using FIRST.Client;
               /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Object)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonEventsGetWithHttpInfoAsync(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Object?>> SeasonEventsGetWithHttpInfoAsync(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// Season Summary
           /// </summary>
@@ -277,7 +278,7 @@ using FIRST.Client;
             /// <param name="ifModifiedSince">(Required)  (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Object</returns>
-          System.Threading.Tasks.Task<Object?> SeasonGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
+          Task<Object?> SeasonGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Season Summary
@@ -290,7 +291,7 @@ using FIRST.Client;
               /// <param name="ifModifiedSince">(Required)  (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Object)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Object?>> SeasonGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// Team Listings
           /// </summary>
@@ -307,7 +308,7 @@ using FIRST.Client;
             /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Object</returns>
-          System.Threading.Tasks.Task<Object?> SeasonTeamsGetAsync(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default, CancellationToken cancellationToken = default);
+          Task<Object?> SeasonTeamsGetAsync(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Team Listings
@@ -325,7 +326,7 @@ using FIRST.Client;
               /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Object)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonTeamsGetWithHttpInfoAsync(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Object?>> SeasonTeamsGetWithHttpInfoAsync(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -359,13 +360,11 @@ using FIRST.Client;
         /// <returns></returns>
         public SeasonDataApi(string? basePath)
         {
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -377,18 +376,16 @@ using FIRST.Client;
         /// <param name="configuration">An instance of Configuration.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
-        public SeasonDataApi(FIRST.Client.Configuration configuration)
+        public SeasonDataApi(Configuration configuration)
         {
           ArgumentNullException.ThrowIfNull(configuration);
           
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -421,13 +418,11 @@ using FIRST.Client;
         {
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -448,14 +443,12 @@ using FIRST.Client;
           ArgumentNullException.ThrowIfNull(configuration);
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -471,12 +464,12 @@ using FIRST.Client;
           ArgumentNullException.ThrowIfNull(client);
           
             ArgumentNullException.ThrowIfNull(asyncClient);
+            this.AsynchronousClient = asyncClient;
             
           ArgumentNullException.ThrowIfNull(configuration);
+          this.Configuration = configuration;
           
           this.Client = client;
-            this.AsynchronousClient = asyncClient;
-          this.Configuration = configuration;
           this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -598,8 +591,7 @@ using FIRST.Client;
                     localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
                   }
                   
-              
-                // authentication (basicAuth) required
+                              // authentication (basicAuth) required
                   // http basic authentication required
                   if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
                   {
@@ -633,7 +625,7 @@ using FIRST.Client;
               /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Object</returns>
-            public async System.Threading.Tasks.Task<Object?> SeasonAvatarsGetAsync(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, CancellationToken cancellationToken = default)
+            public async Task<Object?> SeasonAvatarsGetAsync(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, CancellationToken cancellationToken = default)
             {
               FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonAvatarsGetWithHttpInfoAsync(season, eventCode, ifModifiedSince, page, teamNumber, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -650,7 +642,7 @@ using FIRST.Client;
                 /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonAvatarsGetWithHttpInfoAsync(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, CancellationToken cancellationToken = default)
+              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonAvatarsGetWithHttpInfoAsync(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -701,8 +693,7 @@ using FIRST.Client;
                       localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
                     }
                     
-                
-                  // authentication (basicAuth) required
+                                  // authentication (basicAuth) required
                       // http basic authentication required
                       if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
                       
@@ -779,8 +770,7 @@ using FIRST.Client;
                     localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
                   }
                   
-              
-                // authentication (basicAuth) required
+                              // authentication (basicAuth) required
                   // http basic authentication required
                   if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
                   {
@@ -811,7 +801,7 @@ using FIRST.Client;
               /// <param name="ifModifiedSince"> (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Object</returns>
-            public async System.Threading.Tasks.Task<Object?> SeasonDistrictsGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+            public async Task<Object?> SeasonDistrictsGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
             {
               FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonDistrictsGetWithHttpInfoAsync(season, ifModifiedSince, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -825,7 +815,7 @@ using FIRST.Client;
                 /// <param name="ifModifiedSince"> (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonDistrictsGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonDistrictsGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -861,8 +851,7 @@ using FIRST.Client;
                       localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
                     }
                     
-                
-                  // authentication (basicAuth) required
+                                  // authentication (basicAuth) required
                       // http basic authentication required
                       if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
                       
@@ -981,8 +970,7 @@ using FIRST.Client;
                     localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
                   }
                   
-              
-                // authentication (basicAuth) required
+                              // authentication (basicAuth) required
                   // http basic authentication required
                   if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
                   {
@@ -1019,7 +1007,7 @@ using FIRST.Client;
               /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Object</returns>
-            public async System.Threading.Tasks.Task<Object?> SeasonEventsGetAsync(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default, CancellationToken cancellationToken = default)
+            public async Task<Object?> SeasonEventsGetAsync(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default, CancellationToken cancellationToken = default)
             {
               FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonEventsGetWithHttpInfoAsync(season, districtCode, eventCode, excludeDistrict, ifModifiedSince, teamNumber, tournamentType, weekNumber, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -1039,7 +1027,7 @@ using FIRST.Client;
                 /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonEventsGetWithHttpInfoAsync(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default, CancellationToken cancellationToken = default)
+              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonEventsGetWithHttpInfoAsync(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -1105,8 +1093,7 @@ using FIRST.Client;
                       localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
                     }
                     
-                
-                  // authentication (basicAuth) required
+                                  // authentication (basicAuth) required
                       // http basic authentication required
                       if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
                       
@@ -1183,8 +1170,7 @@ using FIRST.Client;
                     localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
                   }
                   
-              
-                // authentication (basicAuth) required
+                              // authentication (basicAuth) required
                   // http basic authentication required
                   if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
                   {
@@ -1215,7 +1201,7 @@ using FIRST.Client;
               /// <param name="ifModifiedSince">(Required)  (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Object</returns>
-            public async System.Threading.Tasks.Task<Object?> SeasonGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+            public async Task<Object?> SeasonGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
             {
               FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonGetWithHttpInfoAsync(season, ifModifiedSince, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -1229,7 +1215,7 @@ using FIRST.Client;
                 /// <param name="ifModifiedSince">(Required)  (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -1265,8 +1251,7 @@ using FIRST.Client;
                       localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
                     }
                     
-                
-                  // authentication (basicAuth) required
+                                  // authentication (basicAuth) required
                       // http basic authentication required
                       if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
                       
@@ -1378,8 +1363,7 @@ using FIRST.Client;
                     localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
                   }
                   
-              
-                // authentication (basicAuth) required
+                              // authentication (basicAuth) required
                   // http basic authentication required
                   if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
                   {
@@ -1415,7 +1399,7 @@ using FIRST.Client;
               /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Object</returns>
-            public async System.Threading.Tasks.Task<Object?> SeasonTeamsGetAsync(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default, CancellationToken cancellationToken = default)
+            public async Task<Object?> SeasonTeamsGetAsync(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default, CancellationToken cancellationToken = default)
             {
               FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonTeamsGetWithHttpInfoAsync(season, districtCode, eventCode, ifModifiedSince, page, state, teamNumber, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -1434,7 +1418,7 @@ using FIRST.Client;
                 /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonTeamsGetWithHttpInfoAsync(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default, CancellationToken cancellationToken = default)
+              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonTeamsGetWithHttpInfoAsync(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -1495,8 +1479,7 @@ using FIRST.Client;
                       localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
                     }
                     
-                
-                  // authentication (basicAuth) required
+                                  // authentication (basicAuth) required
                       // http basic authentication required
                       if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
                       

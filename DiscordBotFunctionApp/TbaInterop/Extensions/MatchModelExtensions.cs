@@ -1,8 +1,8 @@
-﻿namespace TheBlueAlliance.Api.Extensions;
+﻿namespace DiscordBotFunctionApp.TbaInterop.Extensions;
 using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchExtensions;
 
-public static class MatchModelExtensions
+internal static class MatchModelExtensions
 {
     public static int GetAllianceRankingPoints(this Match match, Match.WinningAllianceEnum allianceColor)
     {

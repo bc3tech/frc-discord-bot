@@ -12,6 +12,7 @@ namespace FIRST.Api;
 using System;
 using System.Net.Http;
   using System.Collections.ObjectModel;
+  using System.Threading.Tasks;
 
 using FIRST.Client;
 
@@ -58,7 +59,7 @@ using FIRST.Client;
           /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Object</returns>
-          System.Threading.Tasks.Task<Object?> RootGetAsync(CancellationToken cancellationToken = default);
+          Task<Object?> RootGetAsync(CancellationToken cancellationToken = default);
             
             /// <summary>
             /// API Index
@@ -69,7 +70,7 @@ using FIRST.Client;
             /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Object)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Object?>> RootGetWithHttpInfoAsync(CancellationToken cancellationToken = default);
+            Task<ApiResponse<Object?>> RootGetWithHttpInfoAsync(CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -103,13 +104,11 @@ using FIRST.Client;
         /// <returns></returns>
         public AncillaryApi(string? basePath)
         {
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -121,18 +120,16 @@ using FIRST.Client;
         /// <param name="configuration">An instance of Configuration.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
-        public AncillaryApi(FIRST.Client.Configuration configuration)
+        public AncillaryApi(Configuration configuration)
         {
           ArgumentNullException.ThrowIfNull(configuration);
           
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -165,13 +162,11 @@ using FIRST.Client;
         {
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -192,14 +187,12 @@ using FIRST.Client;
           ArgumentNullException.ThrowIfNull(configuration);
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -215,12 +208,12 @@ using FIRST.Client;
           ArgumentNullException.ThrowIfNull(client);
           
             ArgumentNullException.ThrowIfNull(asyncClient);
+            this.AsynchronousClient = asyncClient;
             
           ArgumentNullException.ThrowIfNull(configuration);
+          this.Configuration = configuration;
           
           this.Client = client;
-            this.AsynchronousClient = asyncClient;
-          this.Configuration = configuration;
           this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -305,8 +298,7 @@ using FIRST.Client;
                 localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
               }
               
-              
-                // authentication (noauthAuth) required
+                              // authentication (noauthAuth) required
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Object?>("/", localVarRequestOptions, this.Configuration);
@@ -329,7 +321,7 @@ using FIRST.Client;
             /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Object</returns>
-            public async System.Threading.Tasks.Task<Object?> RootGetAsync(CancellationToken cancellationToken = default)
+            public async Task<Object?> RootGetAsync(CancellationToken cancellationToken = default)
             {
               FIRST.Client.ApiResponse<Object?> localVarResponse = await RootGetWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -341,7 +333,7 @@ using FIRST.Client;
               /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> RootGetWithHttpInfoAsync(CancellationToken cancellationToken = default)
+              public async Task<FIRST.Client.ApiResponse<Object?>> RootGetWithHttpInfoAsync(CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -365,8 +357,7 @@ using FIRST.Client;
                   localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
                 }
                 
-                
-                  // authentication (noauthAuth) required
+                                  // authentication (noauthAuth) required
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 

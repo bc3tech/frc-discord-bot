@@ -226,7 +226,7 @@ public class Multimap<TKey, TValue> : IDictionary<TKey, IList<TValue>> where TKe
       }
       else
       {
-        if (!TryAdd(key, []))
+        if (!TryAdd(key, [value]))
         {
           throw new InvalidOperationException("Could not add value to Multimap.");
         }

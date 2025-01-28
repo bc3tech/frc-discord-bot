@@ -29,8 +29,11 @@ namespace FIRST.Test.Api
     /// </remarks>
     public class SeasonDataApiTests : IDisposable
     {
+        private SeasonDataApi instance;
+
         public SeasonDataApiTests()
         {
+            instance = new SeasonDataApi();
         }
 
         public void Dispose()

@@ -29,7 +29,7 @@ internal sealed class TeamRepository(ITeamApi tbaApiClient, ILogger<TeamReposito
                 {
                     cancellationToken.ThrowIfCancellationRequested();
                     var newTeams = await tbaApiClient.GetTeamsAsync(i++, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    if (newTeams.Count is 0)
+                    if (newTeams?.Count is null or 0)
                     {
                         break;
                     }

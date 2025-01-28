@@ -12,6 +12,7 @@ namespace Statbotics.Api;
 using System;
 using System.Net.Http;
   using System.Collections.ObjectModel;
+  using System.Threading.Tasks;
 
 using Statbotics.Client;
 
@@ -99,7 +100,7 @@ using Statbotics.Model;
             /// <param name="team"></param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Object</returns>
-          System.Threading.Tasks.Task<Object?> ReadTeamV3TeamTeamGetAsync(string team, CancellationToken cancellationToken = default);
+          Task<Object?> ReadTeamV3TeamTeamGetAsync(string team, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Query a single team
@@ -111,7 +112,7 @@ using Statbotics.Model;
               /// <param name="team"></param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Object)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Object?>> ReadTeamV3TeamTeamGetWithHttpInfoAsync(string team, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Object?>> ReadTeamV3TeamTeamGetWithHttpInfoAsync(string team, CancellationToken cancellationToken = default);
           /// <summary>
           /// Query multiple teams
           /// </summary>
@@ -130,7 +131,7 @@ using Statbotics.Model;
             /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Object&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Object>?> ReadTeamsV3TeamsGetAsync(bool? active = default, bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, CancellationToken cancellationToken = default);
+          Task<Collection<Object>?> ReadTeamsV3TeamsGetAsync(bool? active = default, bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Query multiple teams
@@ -150,7 +151,7 @@ using Statbotics.Model;
               /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Object>?>> ReadTeamsV3TeamsGetWithHttpInfoAsync(bool? active = default, bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Object>?>> ReadTeamsV3TeamsGetWithHttpInfoAsync(bool? active = default, bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -184,13 +185,11 @@ using Statbotics.Model;
         /// <returns></returns>
         public TeamApi(string? basePath)
         {
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -202,18 +201,16 @@ using Statbotics.Model;
         /// <param name="configuration">An instance of Configuration.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
-        public TeamApi(Statbotics.Client.Configuration configuration)
+        public TeamApi(Configuration configuration)
         {
           ArgumentNullException.ThrowIfNull(configuration);
           
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -246,13 +243,11 @@ using Statbotics.Model;
         {
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -273,14 +268,12 @@ using Statbotics.Model;
           ArgumentNullException.ThrowIfNull(configuration);
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -296,12 +289,12 @@ using Statbotics.Model;
           ArgumentNullException.ThrowIfNull(client);
           
             ArgumentNullException.ThrowIfNull(asyncClient);
+            this.AsynchronousClient = asyncClient;
             
           ArgumentNullException.ThrowIfNull(configuration);
+          this.Configuration = configuration;
           
           this.Client = client;
-            this.AsynchronousClient = asyncClient;
-          this.Configuration = configuration;
           this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -395,8 +388,7 @@ using Statbotics.Model;
               }
               
                   localVarRequestOptions.PathParameters.Add("team", ClientUtils.ParameterToString(team)); // path parameter
-              
-              
+                            
               // make the HTTP request
               var localVarResponse = this.Client.Get<Object?>("/v3/team/{team}", localVarRequestOptions, this.Configuration);
               
@@ -419,7 +411,7 @@ using Statbotics.Model;
               /// <param name="team"></param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Object</returns>
-            public async System.Threading.Tasks.Task<Object?> ReadTeamV3TeamTeamGetAsync(string team, CancellationToken cancellationToken = default)
+            public async Task<Object?> ReadTeamV3TeamTeamGetAsync(string team, CancellationToken cancellationToken = default)
             {
               Statbotics.Client.ApiResponse<Object?> localVarResponse = await ReadTeamV3TeamTeamGetWithHttpInfoAsync(team, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -432,7 +424,7 @@ using Statbotics.Model;
                 /// <param name="team"></param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<Statbotics.Client.ApiResponse<Object?>> ReadTeamV3TeamTeamGetWithHttpInfoAsync(string team, CancellationToken cancellationToken = default)
+              public async Task<Statbotics.Client.ApiResponse<Object?>> ReadTeamV3TeamTeamGetWithHttpInfoAsync(string team, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'team' is set
                       if (team is null)
@@ -463,8 +455,7 @@ using Statbotics.Model;
                 }
                 
                     localVarRequestOptions.PathParameters.Add("team", ClientUtils.ParameterToString(team)); // path parameter
-                
-                // make the HTTP request
+                                // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/v3/team/{team}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
@@ -580,8 +571,7 @@ using Statbotics.Model;
                       localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "state", state));
                   }
                   
-              
-              
+                            
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Object>?>("/v3/teams", localVarRequestOptions, this.Configuration);
               
@@ -612,7 +602,7 @@ using Statbotics.Model;
               /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Object&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Object>?> ReadTeamsV3TeamsGetAsync(bool? active = default, bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Object>?> ReadTeamsV3TeamsGetAsync(bool? active = default, bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, CancellationToken cancellationToken = default)
             {
               Statbotics.Client.ApiResponse<Collection<Object>?> localVarResponse = await ReadTeamsV3TeamsGetWithHttpInfoAsync(active, ascending, country, district, limit, metric, offseason, offset, state, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -633,7 +623,7 @@ using Statbotics.Model;
                 /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
-              public async System.Threading.Tasks.Task<Statbotics.Client.ApiResponse<Collection<Object>?>> ReadTeamsV3TeamsGetWithHttpInfoAsync(bool? active = default, bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, CancellationToken cancellationToken = default)
+              public async Task<Statbotics.Client.ApiResponse<Collection<Object>?>> ReadTeamsV3TeamsGetWithHttpInfoAsync(bool? active = default, bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -702,8 +692,7 @@ using Statbotics.Model;
                       localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "state", state));
                     }
                     
-                
-                // make the HTTP request
+                                // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Object>?>("/v3/teams", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)

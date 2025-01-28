@@ -167,8 +167,9 @@ public class Configuration : IReadableConfiguration
   /// <returns>API key with prefix.</returns>
   public string? GetApiKeyWithPrefix(string apiKeyIdentifier)
   {
-    return ApiKey.TryGetValue(apiKeyIdentifier, out var apiKeyValue) && apiKeyValue is not null && ApiKeyPrefix.TryGetValue(apiKeyIdentifier, out var apiKeyPrefix) && apiKeyPrefix is not null
+    return ApiKey.TryGetValue(apiKeyIdentifier, out var apiKeyValue) && apiKeyValue is not null ? ApiKeyPrefix.TryGetValue(apiKeyIdentifier, out var apiKeyPrefix) && apiKeyPrefix is not null
     ? apiKeyPrefix + " " + apiKeyValue
+    : apiKeyValue
     : null;
   }
   

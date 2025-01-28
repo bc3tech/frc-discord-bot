@@ -30,7 +30,7 @@
             /// <param name="record">record.</param>
             /// <param name="sortOrders">Ordered list of values used to determine the rank. See the &#x60;sort_order_info&#x60; property for the name of each value.</param>
             /// <param name="teamKey">TBA team key for this rank.</param>
-        public TeamEventStatusRankRanking(int? dq = default, int? matchesPlayed = default, double? qualAverage = default, int? rank = default, WLTRecord? record = default, Collection<decimal>? sortOrders = default, string? teamKey = default)
+        public TeamEventStatusRankRanking(int? dq = default, int? matchesPlayed = default, double? qualAverage = default, int? rank = default, WLTRecord? record = default, Collection<double>? sortOrders = default, string? teamKey = default)
         {
                       this.Dq = dq;
                       this.MatchesPlayed = matchesPlayed;
@@ -86,7 +86,7 @@
               /// <value>Ordered list of values used to determine the rank. See the &#x60;sort_order_info&#x60; property for the name of each value.</value>
                 
                   [JsonPropertyName("sort_orders")]
-                  public Collection<decimal>? SortOrders { get; set; }
+                  public Collection<double>? SortOrders { get; set; }
                   
               /// <summary>
               /// TBA team key for this rank.

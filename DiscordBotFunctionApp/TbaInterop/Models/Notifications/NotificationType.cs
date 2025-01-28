@@ -1,13 +1,13 @@
-﻿namespace TheBlueAlliance.Api.Notifications;
+﻿namespace DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.EnumStrings;
 
 using System.Text.Json.Serialization;
 
-[EnumStrings(ExtensionClassModifiers = "public static")]
+[EnumStrings]
 [JsonConverter(typeof(JsonStringEnumConverter<NotificationType>))]
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Used to match string values coming from API automatically via EnumString generator")]
-public enum NotificationType
+internal enum NotificationType
 {
     upcoming_match = 0,
     match_score = 1,

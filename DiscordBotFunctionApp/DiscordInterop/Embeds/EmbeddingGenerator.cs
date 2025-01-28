@@ -4,14 +4,14 @@ using Common.Extensions;
 
 using Discord;
 
+using DiscordBotFunctionApp.TbaInterop.Models;
+using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using System;
 using System.Runtime.CompilerServices;
-
-using TheBlueAlliance.Api;
-using TheBlueAlliance.Api.Notifications;
 
 internal sealed class EmbeddingGenerator(EmbedBuilderFactory embedBuilder, IServiceProvider services, ILogger<EmbeddingGenerator> logger)
 {

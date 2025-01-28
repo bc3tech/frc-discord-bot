@@ -29,8 +29,11 @@ namespace FIRST.Test.Api
     /// </remarks>
     public class AncillaryApiTests : IDisposable
     {
+        private AncillaryApi instance;
+
         public AncillaryApiTests()
         {
+            instance = new AncillaryApi();
         }
 
         public void Dispose()

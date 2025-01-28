@@ -11,6 +11,7 @@ using Discord.WebSocket;
 using DiscordBotFunctionApp;
 using DiscordBotFunctionApp.DiscordInterop.Embeds;
 using DiscordBotFunctionApp.Storage.TableEntities;
+using DiscordBotFunctionApp.TbaInterop.Models;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -19,8 +20,6 @@ using System;
 using System.Diagnostics;
 using System.Text.Json;
 using System.Threading;
-
-using TheBlueAlliance.Api;
 
 internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptions,
                                         [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptions,

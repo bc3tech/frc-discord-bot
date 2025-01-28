@@ -31,8 +31,11 @@ namespace TheBlueAlliance.Test.Api
     /// </remarks>
     public class DistrictApiTests : IDisposable
     {
+        private DistrictApi instance;
+
         public DistrictApiTests()
         {
+            instance = new DistrictApi();
         }
 
         public void Dispose()

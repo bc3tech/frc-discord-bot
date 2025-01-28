@@ -1,5 +1,5 @@
-﻿namespace TheBlueAlliance.Api.Notifications;
-public static class NotificationConstants
+﻿namespace DiscordBotFunctionApp.TbaInterop.Models.Notifications;
+internal static class NotificationConstants
 {
     public static readonly string?[] RenderNames =
     [

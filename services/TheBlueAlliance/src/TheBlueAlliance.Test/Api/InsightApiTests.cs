@@ -31,8 +31,11 @@ namespace TheBlueAlliance.Test.Api
     /// </remarks>
     public class InsightApiTests : IDisposable
     {
+        private InsightApi instance;
+
         public InsightApiTests()
         {
+            instance = new InsightApi();
         }
 
         public void Dispose()

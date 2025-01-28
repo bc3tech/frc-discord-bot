@@ -350,7 +350,7 @@ public sealed partial class ApiClient : ISynchronousClient, IAsynchronousClient
   {
     string rawContent = await response.Content.ReadAsStringAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
     
-    var transformed = new ApiResponse<T>(response.StatusCode, new Multimap<string, string>(), responseData, rawContent)
+    var transformed = new ApiResponse<T>(response.StatusCode, [], responseData, rawContent)
     {
       ErrorText = response.ReasonPhrase,
       Cookies = []

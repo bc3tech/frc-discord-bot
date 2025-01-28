@@ -3,6 +3,9 @@
 using Discord;
 
 using DiscordBotFunctionApp.Storage;
+using DiscordBotFunctionApp.TbaInterop;
+using DiscordBotFunctionApp.TbaInterop.Models;
+using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
@@ -10,7 +13,6 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Api.Notifications;
 using TheBlueAlliance.Model.MatchSimpleExtensions;
 
 internal sealed class UpcomingMatch(IMatchApi tbaApi, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<UpcomingMatch> logger) : IEmbedCreator
@@ -20,7 +22,7 @@ internal sealed class UpcomingMatch(IMatchApi tbaApi, EmbedBuilderFactory builde
     public async IAsyncEnumerable<Embed> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var baseBuilder = builderFactory.GetBuilder();
-        var notification = JsonSerializer.Deserialize<TheBlueAlliance.Api.Notifications.UpcomingMatch>(msg.MessageData);
+        var notification = JsonSerializer.Deserialize<TbaInterop.Models.Notifications.UpcomingMatch>(msg.MessageData);
         if (notification is null)
         {
             logger.LogWarning("Failed to deserialize notification data as {NotificationType}", TargetType);

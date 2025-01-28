@@ -1,5 +1,5 @@
-﻿namespace TheBlueAlliance.Api;
-public static class Translator
+﻿namespace DiscordBotFunctionApp.TbaInterop;
+internal static class Translator
 {
     public static string CompLevelToShortString(string compLevel)
     {

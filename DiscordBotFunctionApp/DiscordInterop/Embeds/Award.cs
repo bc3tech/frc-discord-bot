@@ -8,6 +8,9 @@ using Common.Extensions;
 using Discord;
 
 using DiscordBotFunctionApp.Storage;
+using DiscordBotFunctionApp.TbaInterop;
+using DiscordBotFunctionApp.TbaInterop.Models;
+using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
@@ -15,7 +18,6 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Api.Notifications;
 
 internal sealed class Award(IEventApi tbaApi, BlobContainerClient imageBlobs, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<Award> logger) : IEmbedCreator
 {

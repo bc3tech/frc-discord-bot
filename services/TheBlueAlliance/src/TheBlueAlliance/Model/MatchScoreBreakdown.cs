@@ -34,63 +34,63 @@
             /// with the <see cref="MatchScoreBreakdown2015" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2015.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2015 actualInstance) => this.ActualInstance = actualInstance;
+            public MatchScoreBreakdown(MatchScoreBreakdown2015 actualInstance) => _actualInstance = actualInstance;
             
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class
             /// with the <see cref="MatchScoreBreakdown2016" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2016.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2016 actualInstance) => this.ActualInstance = actualInstance;
+            public MatchScoreBreakdown(MatchScoreBreakdown2016 actualInstance) => _actualInstance = actualInstance;
             
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class
             /// with the <see cref="MatchScoreBreakdown2017" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2017.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2017 actualInstance) => this.ActualInstance = actualInstance;
+            public MatchScoreBreakdown(MatchScoreBreakdown2017 actualInstance) => _actualInstance = actualInstance;
             
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class
             /// with the <see cref="MatchScoreBreakdown2018" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2018.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2018 actualInstance) => this.ActualInstance = actualInstance;
+            public MatchScoreBreakdown(MatchScoreBreakdown2018 actualInstance) => _actualInstance = actualInstance;
             
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class
             /// with the <see cref="MatchScoreBreakdown2019" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2019.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2019 actualInstance) => this.ActualInstance = actualInstance;
+            public MatchScoreBreakdown(MatchScoreBreakdown2019 actualInstance) => _actualInstance = actualInstance;
             
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class
             /// with the <see cref="MatchScoreBreakdown2020" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2020.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2020 actualInstance) => this.ActualInstance = actualInstance;
+            public MatchScoreBreakdown(MatchScoreBreakdown2020 actualInstance) => _actualInstance = actualInstance;
             
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class
             /// with the <see cref="MatchScoreBreakdown2022" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2022.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2022 actualInstance) => this.ActualInstance = actualInstance;
+            public MatchScoreBreakdown(MatchScoreBreakdown2022 actualInstance) => _actualInstance = actualInstance;
             
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class
             /// with the <see cref="MatchScoreBreakdown2023" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2023.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2023 actualInstance) => this.ActualInstance = actualInstance;
+            public MatchScoreBreakdown(MatchScoreBreakdown2023 actualInstance) => _actualInstance = actualInstance;
             
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class
             /// with the <see cref="MatchScoreBreakdown2024" /> class
             /// </summary>
             /// <param name="actualInstance">An instance of MatchScoreBreakdown2024.</param>
-            public MatchScoreBreakdown(MatchScoreBreakdown2024 actualInstance) => this.ActualInstance = actualInstance;
+            public MatchScoreBreakdown(MatchScoreBreakdown2024 actualInstance) => _actualInstance = actualInstance;
             
       private object? _actualInstance;
       
@@ -124,90 +124,63 @@
           /// the InvalidClassException will be thrown
           /// </summary>
           /// <returns>An instance of MatchScoreBreakdown2015</returns>
-          public MatchScoreBreakdown2015? GetMatchScoreBreakdown2015()
-          {
-            return (MatchScoreBreakdown2015?)this.ActualInstance;
-          }
+          public MatchScoreBreakdown2015? GetMatchScoreBreakdown2015() => (MatchScoreBreakdown2015?)this.ActualInstance;
           
           /// <summary>
           /// Get the actual instance of `MatchScoreBreakdown2016`. If the actual instance is not `MatchScoreBreakdown2016`,
           /// the InvalidClassException will be thrown
           /// </summary>
           /// <returns>An instance of MatchScoreBreakdown2016</returns>
-          public MatchScoreBreakdown2016? GetMatchScoreBreakdown2016()
-          {
-            return (MatchScoreBreakdown2016?)this.ActualInstance;
-          }
+          public MatchScoreBreakdown2016? GetMatchScoreBreakdown2016() => (MatchScoreBreakdown2016?)this.ActualInstance;
           
           /// <summary>
           /// Get the actual instance of `MatchScoreBreakdown2017`. If the actual instance is not `MatchScoreBreakdown2017`,
           /// the InvalidClassException will be thrown
           /// </summary>
           /// <returns>An instance of MatchScoreBreakdown2017</returns>
-          public MatchScoreBreakdown2017? GetMatchScoreBreakdown2017()
-          {
-            return (MatchScoreBreakdown2017?)this.ActualInstance;
-          }
+          public MatchScoreBreakdown2017? GetMatchScoreBreakdown2017() => (MatchScoreBreakdown2017?)this.ActualInstance;
           
           /// <summary>
           /// Get the actual instance of `MatchScoreBreakdown2018`. If the actual instance is not `MatchScoreBreakdown2018`,
           /// the InvalidClassException will be thrown
           /// </summary>
           /// <returns>An instance of MatchScoreBreakdown2018</returns>
-          public MatchScoreBreakdown2018? GetMatchScoreBreakdown2018()
-          {
-            return (MatchScoreBreakdown2018?)this.ActualInstance;
-          }
+          public MatchScoreBreakdown2018? GetMatchScoreBreakdown2018() => (MatchScoreBreakdown2018?)this.ActualInstance;
           
           /// <summary>
           /// Get the actual instance of `MatchScoreBreakdown2019`. If the actual instance is not `MatchScoreBreakdown2019`,
           /// the InvalidClassException will be thrown
           /// </summary>
           /// <returns>An instance of MatchScoreBreakdown2019</returns>
-          public MatchScoreBreakdown2019? GetMatchScoreBreakdown2019()
-          {
-            return (MatchScoreBreakdown2019?)this.ActualInstance;
-          }
+          public MatchScoreBreakdown2019? GetMatchScoreBreakdown2019() => (MatchScoreBreakdown2019?)this.ActualInstance;
           
           /// <summary>
           /// Get the actual instance of `MatchScoreBreakdown2020`. If the actual instance is not `MatchScoreBreakdown2020`,
           /// the InvalidClassException will be thrown
           /// </summary>
           /// <returns>An instance of MatchScoreBreakdown2020</returns>
-          public MatchScoreBreakdown2020? GetMatchScoreBreakdown2020()
-          {
-            return (MatchScoreBreakdown2020?)this.ActualInstance;
-          }
+          public MatchScoreBreakdown2020? GetMatchScoreBreakdown2020() => (MatchScoreBreakdown2020?)this.ActualInstance;
           
           /// <summary>
           /// Get the actual instance of `MatchScoreBreakdown2022`. If the actual instance is not `MatchScoreBreakdown2022`,
           /// the InvalidClassException will be thrown
           /// </summary>
           /// <returns>An instance of MatchScoreBreakdown2022</returns>
-          public MatchScoreBreakdown2022? GetMatchScoreBreakdown2022()
-          {
-            return (MatchScoreBreakdown2022?)this.ActualInstance;
-          }
+          public MatchScoreBreakdown2022? GetMatchScoreBreakdown2022() => (MatchScoreBreakdown2022?)this.ActualInstance;
           
           /// <summary>
           /// Get the actual instance of `MatchScoreBreakdown2023`. If the actual instance is not `MatchScoreBreakdown2023`,
           /// the InvalidClassException will be thrown
           /// </summary>
           /// <returns>An instance of MatchScoreBreakdown2023</returns>
-          public MatchScoreBreakdown2023? GetMatchScoreBreakdown2023()
-          {
-            return (MatchScoreBreakdown2023?)this.ActualInstance;
-          }
+          public MatchScoreBreakdown2023? GetMatchScoreBreakdown2023() => (MatchScoreBreakdown2023?)this.ActualInstance;
           
           /// <summary>
           /// Get the actual instance of `MatchScoreBreakdown2024`. If the actual instance is not `MatchScoreBreakdown2024`,
           /// the InvalidClassException will be thrown
           /// </summary>
           /// <returns>An instance of MatchScoreBreakdown2024</returns>
-          public MatchScoreBreakdown2024? GetMatchScoreBreakdown2024()
-          {
-            return (MatchScoreBreakdown2024?)this.ActualInstance;
-          }
+          public MatchScoreBreakdown2024? GetMatchScoreBreakdown2024() => (MatchScoreBreakdown2024?)this.ActualInstance;
     
     /// <summary>
     /// Returns the string presentation of the object
@@ -236,7 +209,6 @@
     public static MatchScoreBreakdown? FromJson(string jsonString)
     {
       MatchScoreBreakdown? newMatchScoreBreakdown = default;
-      
       if (string.IsNullOrEmpty(jsonString))
       {
         return newMatchScoreBreakdown;
@@ -247,192 +219,183 @@
         try
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
-          if (typeof(MatchScoreBreakdown2015).GetProperty("AdditionalProperties") is null)
+          var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2015>(jsonString, typeof(MatchScoreBreakdown2015).GetProperty("AdditionalProperties") is null
+              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+
+          // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
+          if (deserialized is not null)
           {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2015>(jsonString, MatchScoreBreakdown.SerializerSettings));
+            newMatchScoreBreakdown = new MatchScoreBreakdown(deserialized);
+            matchedTypes.Add("MatchScoreBreakdown2015");
+            match++;
           }
-          else
-          {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2015>(jsonString, MatchScoreBreakdown.AdditionalPropertiesSerializerSettings));
-          }
-          
-          matchedTypes.Add("MatchScoreBreakdown2015");
-          match++;
         }
         catch (Exception exception)
         {
           // deserialization failed, try the next one
           System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into MatchScoreBreakdown2015: {1}", jsonString, exception.ToString()));
         }
-
+        
         try
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
-          if (typeof(MatchScoreBreakdown2016).GetProperty("AdditionalProperties") is null)
+          var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2016>(jsonString, typeof(MatchScoreBreakdown2016).GetProperty("AdditionalProperties") is null
+              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+
+          // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
+          if (deserialized is not null)
           {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2016>(jsonString, MatchScoreBreakdown.SerializerSettings));
+            newMatchScoreBreakdown = new MatchScoreBreakdown(deserialized);
+            matchedTypes.Add("MatchScoreBreakdown2016");
+            match++;
           }
-          else
-          {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2016>(jsonString, MatchScoreBreakdown.AdditionalPropertiesSerializerSettings));
-          }
-          
-          matchedTypes.Add("MatchScoreBreakdown2016");
-          match++;
         }
         catch (Exception exception)
         {
           // deserialization failed, try the next one
           System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into MatchScoreBreakdown2016: {1}", jsonString, exception.ToString()));
         }
-
+        
         try
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
-          if (typeof(MatchScoreBreakdown2017).GetProperty("AdditionalProperties") is null)
+          var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2017>(jsonString, typeof(MatchScoreBreakdown2017).GetProperty("AdditionalProperties") is null
+              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+
+          // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
+          if (deserialized is not null)
           {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2017>(jsonString, MatchScoreBreakdown.SerializerSettings));
+            newMatchScoreBreakdown = new MatchScoreBreakdown(deserialized);
+            matchedTypes.Add("MatchScoreBreakdown2017");
+            match++;
           }
-          else
-          {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2017>(jsonString, MatchScoreBreakdown.AdditionalPropertiesSerializerSettings));
-          }
-          
-          matchedTypes.Add("MatchScoreBreakdown2017");
-          match++;
         }
         catch (Exception exception)
         {
           // deserialization failed, try the next one
           System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into MatchScoreBreakdown2017: {1}", jsonString, exception.ToString()));
         }
-
+        
         try
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
-          if (typeof(MatchScoreBreakdown2018).GetProperty("AdditionalProperties") is null)
+          var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2018>(jsonString, typeof(MatchScoreBreakdown2018).GetProperty("AdditionalProperties") is null
+              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+
+          // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
+          if (deserialized is not null)
           {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2018>(jsonString, MatchScoreBreakdown.SerializerSettings));
+            newMatchScoreBreakdown = new MatchScoreBreakdown(deserialized);
+            matchedTypes.Add("MatchScoreBreakdown2018");
+            match++;
           }
-          else
-          {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2018>(jsonString, MatchScoreBreakdown.AdditionalPropertiesSerializerSettings));
-          }
-          
-          matchedTypes.Add("MatchScoreBreakdown2018");
-          match++;
         }
         catch (Exception exception)
         {
           // deserialization failed, try the next one
           System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into MatchScoreBreakdown2018: {1}", jsonString, exception.ToString()));
         }
-
+        
         try
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
-          if (typeof(MatchScoreBreakdown2019).GetProperty("AdditionalProperties") is null)
+          var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2019>(jsonString, typeof(MatchScoreBreakdown2019).GetProperty("AdditionalProperties") is null
+              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+
+          // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
+          if (deserialized is not null)
           {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2019>(jsonString, MatchScoreBreakdown.SerializerSettings));
+            newMatchScoreBreakdown = new MatchScoreBreakdown(deserialized);
+            matchedTypes.Add("MatchScoreBreakdown2019");
+            match++;
           }
-          else
-          {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2019>(jsonString, MatchScoreBreakdown.AdditionalPropertiesSerializerSettings));
-          }
-          
-          matchedTypes.Add("MatchScoreBreakdown2019");
-          match++;
         }
         catch (Exception exception)
         {
           // deserialization failed, try the next one
           System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into MatchScoreBreakdown2019: {1}", jsonString, exception.ToString()));
         }
-
+        
         try
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
-          if (typeof(MatchScoreBreakdown2020).GetProperty("AdditionalProperties") is null)
+          var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2020>(jsonString, typeof(MatchScoreBreakdown2020).GetProperty("AdditionalProperties") is null
+              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+
+          // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
+          if (deserialized is not null)
           {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2020>(jsonString, MatchScoreBreakdown.SerializerSettings));
+            newMatchScoreBreakdown = new MatchScoreBreakdown(deserialized);
+            matchedTypes.Add("MatchScoreBreakdown2020");
+            match++;
           }
-          else
-          {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2020>(jsonString, MatchScoreBreakdown.AdditionalPropertiesSerializerSettings));
-          }
-          
-          matchedTypes.Add("MatchScoreBreakdown2020");
-          match++;
         }
         catch (Exception exception)
         {
           // deserialization failed, try the next one
           System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into MatchScoreBreakdown2020: {1}", jsonString, exception.ToString()));
         }
-
+        
         try
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
-          if (typeof(MatchScoreBreakdown2022).GetProperty("AdditionalProperties") is null)
+          var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2022>(jsonString, typeof(MatchScoreBreakdown2022).GetProperty("AdditionalProperties") is null
+              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+
+          // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
+          if (deserialized is not null)
           {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2022>(jsonString, MatchScoreBreakdown.SerializerSettings));
+            newMatchScoreBreakdown = new MatchScoreBreakdown(deserialized);
+            matchedTypes.Add("MatchScoreBreakdown2022");
+            match++;
           }
-          else
-          {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2022>(jsonString, MatchScoreBreakdown.AdditionalPropertiesSerializerSettings));
-          }
-          
-          matchedTypes.Add("MatchScoreBreakdown2022");
-          match++;
         }
         catch (Exception exception)
         {
           // deserialization failed, try the next one
           System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into MatchScoreBreakdown2022: {1}", jsonString, exception.ToString()));
         }
-
+        
         try
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
-          if (typeof(MatchScoreBreakdown2023).GetProperty("AdditionalProperties") is null)
+          var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2023>(jsonString, typeof(MatchScoreBreakdown2023).GetProperty("AdditionalProperties") is null
+              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+
+          // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
+          if (deserialized is not null)
           {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2023>(jsonString, MatchScoreBreakdown.SerializerSettings));
+            newMatchScoreBreakdown = new MatchScoreBreakdown(deserialized);
+            matchedTypes.Add("MatchScoreBreakdown2023");
+            match++;
           }
-          else
-          {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2023>(jsonString, MatchScoreBreakdown.AdditionalPropertiesSerializerSettings));
-          }
-          
-          matchedTypes.Add("MatchScoreBreakdown2023");
-          match++;
         }
         catch (Exception exception)
         {
           // deserialization failed, try the next one
           System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into MatchScoreBreakdown2023: {1}", jsonString, exception.ToString()));
         }
-
+        
         try
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
-          if (typeof(MatchScoreBreakdown2024).GetProperty("AdditionalProperties") is null)
+          var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2024>(jsonString, typeof(MatchScoreBreakdown2024).GetProperty("AdditionalProperties") is null
+              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+
+          // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
+          if (deserialized is not null)
           {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2024>(jsonString, MatchScoreBreakdown.SerializerSettings));
+            newMatchScoreBreakdown = new MatchScoreBreakdown(deserialized);
+            matchedTypes.Add("MatchScoreBreakdown2024");
+            match++;
           }
-          else
-          {
-            newMatchScoreBreakdown = new MatchScoreBreakdown(JsonSerializer.Deserialize<MatchScoreBreakdown2024>(jsonString, MatchScoreBreakdown.AdditionalPropertiesSerializerSettings));
-          }
-          
-          matchedTypes.Add("MatchScoreBreakdown2024");
-          match++;
         }
         catch (Exception exception)
         {
           // deserialization failed, try the next one
           System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into MatchScoreBreakdown2024: {1}", jsonString, exception.ToString()));
         }
-
+        
       return match switch
       {
         0 => throw new InvalidDataException("The JSON string `" + jsonString + "` cannot be deserialized into any schema defined."),

@@ -25,6 +25,10 @@ internal sealed class EventRepository(IEventApi apiClient, ILogger<EventReposito
             try
             {
                 var newEvents = await apiClient.GetEventsByYearAsync(currentYear, cancellationToken: cancellationToken).ConfigureAwait(false);
+                if (newEvents?.Count is null or 0)
+                {
+                    return _events = [];
+                }
 
                 logger.LogInformation("Loaded {EventCount} events", newEvents.Count);
                 _events = newEvents.ToDictionary(t => t.Key!);

@@ -12,6 +12,7 @@ namespace TheBlueAlliance.Api;
 using System;
 using System.Net.Http;
   using System.Collections.ObjectModel;
+  using System.Threading.Tasks;
 
 using TheBlueAlliance.Client;
 
@@ -62,7 +63,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of SearchIndex</returns>
-          System.Threading.Tasks.Task<SearchIndex?> GetSearchIndexAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<SearchIndex?> GetSearchIndexAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -74,7 +75,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (SearchIndex)</returns>
-            System.Threading.Tasks.Task<ApiResponse<SearchIndex?>> GetSearchIndexWithHttpInfoAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<SearchIndex?>> GetSearchIndexWithHttpInfoAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -108,13 +109,11 @@ using TheBlueAlliance.Model;
         /// <returns></returns>
         public DefaultApi(string? basePath)
         {
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -126,18 +125,16 @@ using TheBlueAlliance.Model;
         /// <param name="configuration">An instance of Configuration.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
-        public DefaultApi(TheBlueAlliance.Client.Configuration configuration)
+        public DefaultApi(Configuration configuration)
         {
           ArgumentNullException.ThrowIfNull(configuration);
           
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -170,13 +167,11 @@ using TheBlueAlliance.Model;
         {
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -197,14 +192,12 @@ using TheBlueAlliance.Model;
           ArgumentNullException.ThrowIfNull(configuration);
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -220,12 +213,12 @@ using TheBlueAlliance.Model;
           ArgumentNullException.ThrowIfNull(client);
           
             ArgumentNullException.ThrowIfNull(asyncClient);
+            this.AsynchronousClient = asyncClient;
             
           ArgumentNullException.ThrowIfNull(configuration);
+          this.Configuration = configuration;
           
           this.Client = client;
-            this.AsynchronousClient = asyncClient;
-          this.Configuration = configuration;
           this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -317,13 +310,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<SearchIndex?>("/search_index", localVarRequestOptions, this.Configuration);
@@ -347,7 +340,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of SearchIndex</returns>
-            public async System.Threading.Tasks.Task<SearchIndex?> GetSearchIndexAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<SearchIndex?> GetSearchIndexAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<SearchIndex?> localVarResponse = await GetSearchIndexWithHttpInfoAsync(ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -360,7 +353,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (SearchIndex)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<SearchIndex?>> GetSearchIndexWithHttpInfoAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<SearchIndex?>> GetSearchIndexWithHttpInfoAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -389,13 +382,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<SearchIndex?>("/search_index", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 

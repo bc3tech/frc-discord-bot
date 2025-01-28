@@ -208,7 +208,7 @@
             /// <param name="playoffAverage">The average match score during playoffs. Year specific. May be null if not relevant for a given year.</param>
             /// <param name="record">record.</param>
             /// <param name="status">Current competition status for the playoffs.</param>
-        public TeamEventStatusPlayoff(WLTRecord? currentLevelRecord = default, LevelEnum? level = default, int? playoffAverage = default, WLTRecord? record = default, StatusEnum? status = default)
+        public TeamEventStatusPlayoff(WLTRecord? currentLevelRecord = default, LevelEnum? level = default, double? playoffAverage = default, WLTRecord? record = default, StatusEnum? status = default)
         {
                       this.CurrentLevelRecord = currentLevelRecord;
                       this.Level = level;
@@ -230,7 +230,7 @@
               /// <value>The average match score during playoffs. Year specific. May be null if not relevant for a given year.</value>
                 
                   [JsonPropertyName("playoff_average")]
-                  public int? PlayoffAverage { get; set; }
+                  public double? PlayoffAverage { get; set; }
                   
               /// <summary>
               /// Gets or Sets Record

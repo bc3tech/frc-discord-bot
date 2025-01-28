@@ -1,7 +1,7 @@
-﻿namespace TheBlueAlliance.Api.Notifications;
+﻿namespace DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
 using TheBlueAlliance.Model;
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Reduce boilerplate by just matching exact JSON body")]
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Reduce boilerplate by just matching exact JSON body")]
-public record AwardsPosted(string event_key, string? team_key, string event_name, Award[]? awards);
+internal sealed record AwardsPosted(string event_key, string? team_key, string event_name, Award[]? awards);

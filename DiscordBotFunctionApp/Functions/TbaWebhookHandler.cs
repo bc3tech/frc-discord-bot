@@ -1,6 +1,8 @@
 namespace DiscordBotFunctionApp.Functions;
 
 using DiscordBotFunctionApp.DiscordInterop;
+using DiscordBotFunctionApp.TbaInterop.Models;
+using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
@@ -9,9 +11,6 @@ using Microsoft.Extensions.Logging;
 
 using System.Text.Json;
 using System.Threading.Tasks;
-
-using TheBlueAlliance.Api;
-using TheBlueAlliance.Api.Notifications;
 
 internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILogger<TbaWebhookHandler> logger)
 {

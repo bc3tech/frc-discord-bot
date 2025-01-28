@@ -8,12 +8,11 @@ using Discord.Rest;
 using Discord.WebSocket;
 
 using DiscordBotFunctionApp.DiscordInterop.Embeds;
+using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
-using TheBlueAlliance.Api.Notifications;
 
 using AllianceSelection = Embeds.AllianceSelection;
 using MatchScore = Embeds.MatchScore;

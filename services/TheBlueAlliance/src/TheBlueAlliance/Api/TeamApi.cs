@@ -12,6 +12,7 @@ namespace TheBlueAlliance.Api;
 using System;
 using System.Net.Http;
   using System.Collections.ObjectModel;
+  using System.Threading.Tasks;
 
 using TheBlueAlliance.Client;
 
@@ -1025,7 +1026,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;DistrictRanking&gt;</returns>
-          System.Threading.Tasks.Task<Collection<DistrictRanking>?> GetDistrictRankingsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<DistrictRanking>?> GetDistrictRankingsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1038,7 +1039,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;DistrictRanking&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<DistrictRanking>?>> GetDistrictRankingsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<DistrictRanking>?>> GetDistrictRankingsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1050,7 +1051,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Team&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Team>?> GetDistrictTeamsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<Team>?> GetDistrictTeamsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1063,7 +1064,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Team>?>> GetDistrictTeamsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Team>?>> GetDistrictTeamsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1075,7 +1076,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;string&gt;</returns>
-          System.Threading.Tasks.Task<Collection<string>?> GetDistrictTeamsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<string>?> GetDistrictTeamsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1088,7 +1089,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<string>?>> GetDistrictTeamsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<string>?>> GetDistrictTeamsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1100,7 +1101,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-          System.Threading.Tasks.Task<Collection<TeamSimple>?> GetDistrictTeamsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<TeamSimple>?> GetDistrictTeamsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1113,7 +1114,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<TeamSimple>?>> GetDistrictTeamsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<TeamSimple>?>> GetDistrictTeamsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1125,7 +1126,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Team&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Team>?> GetEventTeamsAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<Team>?> GetEventTeamsAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1138,7 +1139,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Team>?>> GetEventTeamsWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Team>?>> GetEventTeamsWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1150,7 +1151,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;string&gt;</returns>
-          System.Threading.Tasks.Task<Collection<string>?> GetEventTeamsKeysAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<string>?> GetEventTeamsKeysAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1163,7 +1164,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<string>?>> GetEventTeamsKeysWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<string>?>> GetEventTeamsKeysWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1175,7 +1176,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-          System.Threading.Tasks.Task<Collection<TeamSimple>?> GetEventTeamsSimpleAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<TeamSimple>?> GetEventTeamsSimpleAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1188,7 +1189,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<TeamSimple>?>> GetEventTeamsSimpleWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<TeamSimple>?>> GetEventTeamsSimpleWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1200,7 +1201,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-          System.Threading.Tasks.Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetEventTeamsStatusesAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetEventTeamsStatusesAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1213,7 +1214,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetEventTeamsStatusesWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetEventTeamsStatusesWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1225,7 +1226,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Team</returns>
-          System.Threading.Tasks.Task<Team?> GetTeamAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Team?> GetTeamAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1238,7 +1239,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Team)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Team?>> GetTeamWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Team?>> GetTeamWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1250,7 +1251,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Award&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Award>?> GetTeamAwardsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<Award>?> GetTeamAwardsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1263,7 +1264,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Award>?>> GetTeamAwardsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Award>?>> GetTeamAwardsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1276,7 +1277,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Award&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Award>?> GetTeamAwardsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<Award>?> GetTeamAwardsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1290,7 +1291,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Award>?>> GetTeamAwardsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Award>?>> GetTeamAwardsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1302,7 +1303,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
-          System.Threading.Tasks.Task<Collection<DistrictList>?> GetTeamDistrictsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<DistrictList>?> GetTeamDistrictsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1315,7 +1316,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<DistrictList>?>> GetTeamDistrictsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<DistrictList>?>> GetTeamDistrictsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1328,7 +1329,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Award&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Award>?> GetTeamEventAwardsAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<Award>?> GetTeamEventAwardsAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1342,7 +1343,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Award>?>> GetTeamEventAwardsWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Award>?>> GetTeamEventAwardsWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1355,7 +1356,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Match&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Match>?> GetTeamEventMatchesAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<Match>?> GetTeamEventMatchesAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1369,7 +1370,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Match>?>> GetTeamEventMatchesWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Match>?>> GetTeamEventMatchesWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1382,7 +1383,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;string&gt;</returns>
-          System.Threading.Tasks.Task<Collection<string>?> GetTeamEventMatchesKeysAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<string>?> GetTeamEventMatchesKeysAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1396,7 +1397,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<string>?>> GetTeamEventMatchesKeysWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<string>?>> GetTeamEventMatchesKeysWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1409,7 +1410,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Match&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Match>?> GetTeamEventMatchesSimpleAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<Match>?> GetTeamEventMatchesSimpleAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1423,7 +1424,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Match>?>> GetTeamEventMatchesSimpleWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Match>?>> GetTeamEventMatchesSimpleWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1436,7 +1437,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of TeamEventStatus</returns>
-          System.Threading.Tasks.Task<TeamEventStatus?> GetTeamEventStatusAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<TeamEventStatus?> GetTeamEventStatusAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1450,7 +1451,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (TeamEventStatus)</returns>
-            System.Threading.Tasks.Task<ApiResponse<TeamEventStatus?>> GetTeamEventStatusWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<TeamEventStatus?>> GetTeamEventStatusWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1462,7 +1463,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Event&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Event>?> GetTeamEventsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<Event>?> GetTeamEventsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1475,7 +1476,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Event>?>> GetTeamEventsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Event>?>> GetTeamEventsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1488,7 +1489,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Event&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Event>?> GetTeamEventsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<Event>?> GetTeamEventsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1502,7 +1503,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Event>?>> GetTeamEventsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Event>?>> GetTeamEventsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1515,7 +1516,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;string&gt;</returns>
-          System.Threading.Tasks.Task<Collection<string>?> GetTeamEventsByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<string>?> GetTeamEventsByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1529,7 +1530,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<string>?>> GetTeamEventsByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<string>?>> GetTeamEventsByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1542,7 +1543,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
-          System.Threading.Tasks.Task<Collection<EventSimple>?> GetTeamEventsByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<EventSimple>?> GetTeamEventsByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1556,7 +1557,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<EventSimple>?>> GetTeamEventsByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<EventSimple>?>> GetTeamEventsByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1568,7 +1569,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;string&gt;</returns>
-          System.Threading.Tasks.Task<Collection<string>?> GetTeamEventsKeysAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<string>?> GetTeamEventsKeysAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1581,7 +1582,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<string>?>> GetTeamEventsKeysWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<string>?>> GetTeamEventsKeysWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1593,7 +1594,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
-          System.Threading.Tasks.Task<Collection<EventSimple>?> GetTeamEventsSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<EventSimple>?> GetTeamEventsSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1606,7 +1607,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<EventSimple>?>> GetTeamEventsSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<EventSimple>?>> GetTeamEventsSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1619,7 +1620,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-          System.Threading.Tasks.Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetTeamEventsStatusesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetTeamEventsStatusesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1633,7 +1634,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetTeamEventsStatusesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetTeamEventsStatusesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1645,7 +1646,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of History</returns>
-          System.Threading.Tasks.Task<History?> GetTeamHistoryAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<History?> GetTeamHistoryAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1658,7 +1659,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (History)</returns>
-            System.Threading.Tasks.Task<ApiResponse<History?>> GetTeamHistoryWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<History?>> GetTeamHistoryWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1671,7 +1672,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Match&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Match>?> GetTeamMatchesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<Match>?> GetTeamMatchesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1685,7 +1686,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Match>?>> GetTeamMatchesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Match>?>> GetTeamMatchesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1698,7 +1699,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;string&gt;</returns>
-          System.Threading.Tasks.Task<Collection<string>?> GetTeamMatchesByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<string>?> GetTeamMatchesByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1712,7 +1713,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<string>?>> GetTeamMatchesByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<string>?>> GetTeamMatchesByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1725,7 +1726,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;MatchSimple&gt;</returns>
-          System.Threading.Tasks.Task<Collection<MatchSimple>?> GetTeamMatchesByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<MatchSimple>?> GetTeamMatchesByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1739,7 +1740,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;MatchSimple&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<MatchSimple>?>> GetTeamMatchesByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<MatchSimple>?>> GetTeamMatchesByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1752,7 +1753,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Media&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Media>?> GetTeamMediaByTagAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<Media>?> GetTeamMediaByTagAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1766,7 +1767,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Media>?>> GetTeamMediaByTagWithHttpInfoAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Media>?>> GetTeamMediaByTagWithHttpInfoAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1780,7 +1781,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Media&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Media>?> GetTeamMediaByTagYearAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<Media>?> GetTeamMediaByTagYearAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1795,7 +1796,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Media>?>> GetTeamMediaByTagYearWithHttpInfoAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Media>?>> GetTeamMediaByTagYearWithHttpInfoAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1808,7 +1809,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Media&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Media>?> GetTeamMediaByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<Media>?> GetTeamMediaByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1822,7 +1823,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Media>?>> GetTeamMediaByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Media>?>> GetTeamMediaByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1834,7 +1835,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;TeamRobot&gt;</returns>
-          System.Threading.Tasks.Task<Collection<TeamRobot>?> GetTeamRobotsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<TeamRobot>?> GetTeamRobotsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1847,7 +1848,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;TeamRobot&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<TeamRobot>?>> GetTeamRobotsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<TeamRobot>?>> GetTeamRobotsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1859,7 +1860,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of TeamSimple</returns>
-          System.Threading.Tasks.Task<TeamSimple?> GetTeamSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<TeamSimple?> GetTeamSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1872,7 +1873,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (TeamSimple)</returns>
-            System.Threading.Tasks.Task<ApiResponse<TeamSimple?>> GetTeamSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<TeamSimple?>> GetTeamSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1884,7 +1885,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Media&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Media>?> GetTeamSocialMediaAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<Media>?> GetTeamSocialMediaAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1897,7 +1898,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Media>?>> GetTeamSocialMediaWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Media>?>> GetTeamSocialMediaWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1909,7 +1910,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;int&gt;</returns>
-          System.Threading.Tasks.Task<Collection<int>?> GetTeamYearsParticipatedAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<int>?> GetTeamYearsParticipatedAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1922,7 +1923,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;int&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<int>?>> GetTeamYearsParticipatedWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<int>?>> GetTeamYearsParticipatedWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1934,7 +1935,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Team&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Team>?> GetTeamsAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<Team>?> GetTeamsAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1947,7 +1948,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Team>?>> GetTeamsWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Team>?>> GetTeamsWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1960,7 +1961,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Team&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Team>?> GetTeamsByYearAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<Team>?> GetTeamsByYearAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -1974,7 +1975,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Team>?>> GetTeamsByYearWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Team>?>> GetTeamsByYearWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -1987,7 +1988,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;string&gt;</returns>
-          System.Threading.Tasks.Task<Collection<string>?> GetTeamsByYearKeysAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<string>?> GetTeamsByYearKeysAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -2001,7 +2002,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<string>?>> GetTeamsByYearKeysWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<string>?>> GetTeamsByYearKeysWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -2014,7 +2015,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-          System.Threading.Tasks.Task<Collection<TeamSimple>?> GetTeamsByYearSimpleAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<TeamSimple>?> GetTeamsByYearSimpleAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -2028,7 +2029,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<TeamSimple>?>> GetTeamsByYearSimpleWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<TeamSimple>?>> GetTeamsByYearSimpleWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -2040,7 +2041,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;string&gt;</returns>
-          System.Threading.Tasks.Task<Collection<string>?> GetTeamsKeysAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<string>?> GetTeamsKeysAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -2053,7 +2054,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<string>?>> GetTeamsKeysWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<string>?>> GetTeamsKeysWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// 
           /// </summary>
@@ -2065,7 +2066,7 @@ using TheBlueAlliance.Model;
             /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-          System.Threading.Tasks.Task<Collection<TeamSimple>?> GetTeamsSimpleAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+          Task<Collection<TeamSimple>?> GetTeamsSimpleAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// 
@@ -2078,7 +2079,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<TeamSimple>?>> GetTeamsSimpleWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<TeamSimple>?>> GetTeamsSimpleWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -2112,13 +2113,11 @@ using TheBlueAlliance.Model;
         /// <returns></returns>
         public TeamApi(string? basePath)
         {
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -2130,18 +2129,16 @@ using TheBlueAlliance.Model;
         /// <param name="configuration">An instance of Configuration.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
-        public TeamApi(TheBlueAlliance.Client.Configuration configuration)
+        public TeamApi(Configuration configuration)
         {
           ArgumentNullException.ThrowIfNull(configuration);
           
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -2174,13 +2171,11 @@ using TheBlueAlliance.Model;
         {
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -2201,14 +2196,12 @@ using TheBlueAlliance.Model;
           ArgumentNullException.ThrowIfNull(configuration);
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -2224,12 +2217,12 @@ using TheBlueAlliance.Model;
           ArgumentNullException.ThrowIfNull(client);
           
             ArgumentNullException.ThrowIfNull(asyncClient);
+            this.AsynchronousClient = asyncClient;
             
           ArgumentNullException.ThrowIfNull(configuration);
+          this.Configuration = configuration;
           
           this.Client = client;
-            this.AsynchronousClient = asyncClient;
-          this.Configuration = configuration;
           this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -2330,13 +2323,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<DistrictRanking>?>("/district/{district_key}/rankings", localVarRequestOptions, this.Configuration);
@@ -2361,7 +2354,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;DistrictRanking&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<DistrictRanking>?> GetDistrictRankingsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<DistrictRanking>?> GetDistrictRankingsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<DistrictRanking>?> localVarResponse = await GetDistrictRankingsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -2375,7 +2368,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;DistrictRanking&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<DistrictRanking>?>> GetDistrictRankingsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<DistrictRanking>?>> GetDistrictRankingsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'districtKey' is set
                       if (districtKey is null)
@@ -2411,13 +2404,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<DistrictRanking>?>("/district/{district_key}/rankings", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -2487,13 +2480,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Team>?>("/district/{district_key}/teams", localVarRequestOptions, this.Configuration);
@@ -2518,7 +2511,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Team&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Team>?> GetDistrictTeamsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Team>?> GetDistrictTeamsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<Team>?> localVarResponse = await GetDistrictTeamsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -2532,7 +2525,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<Team>?>> GetDistrictTeamsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Team>?>> GetDistrictTeamsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'districtKey' is set
                       if (districtKey is null)
@@ -2568,13 +2561,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Team>?>("/district/{district_key}/teams", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -2644,13 +2637,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<string>?>("/district/{district_key}/teams/keys", localVarRequestOptions, this.Configuration);
@@ -2675,7 +2668,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<string>?> GetDistrictTeamsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<string>?> GetDistrictTeamsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetDistrictTeamsKeysWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -2689,7 +2682,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetDistrictTeamsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetDistrictTeamsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'districtKey' is set
                       if (districtKey is null)
@@ -2725,13 +2718,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/district/{district_key}/teams/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -2801,13 +2794,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<TeamSimple>?>("/district/{district_key}/teams/simple", localVarRequestOptions, this.Configuration);
@@ -2832,7 +2825,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<TeamSimple>?> GetDistrictTeamsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<TeamSimple>?> GetDistrictTeamsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetDistrictTeamsSimpleWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -2846,7 +2839,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?>> GetDistrictTeamsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?>> GetDistrictTeamsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'districtKey' is set
                       if (districtKey is null)
@@ -2882,13 +2875,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<TeamSimple>?>("/district/{district_key}/teams/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -2958,13 +2951,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Team>?>("/event/{event_key}/teams", localVarRequestOptions, this.Configuration);
@@ -2989,7 +2982,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Team&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Team>?> GetEventTeamsAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Team>?> GetEventTeamsAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<Team>?> localVarResponse = await GetEventTeamsWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -3003,7 +2996,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<Team>?>> GetEventTeamsWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Team>?>> GetEventTeamsWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -3039,13 +3032,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Team>?>("/event/{event_key}/teams", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -3115,13 +3108,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<string>?>("/event/{event_key}/teams/keys", localVarRequestOptions, this.Configuration);
@@ -3146,7 +3139,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<string>?> GetEventTeamsKeysAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<string>?> GetEventTeamsKeysAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetEventTeamsKeysWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -3160,7 +3153,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetEventTeamsKeysWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetEventTeamsKeysWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -3196,13 +3189,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/event/{event_key}/teams/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -3272,13 +3265,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<TeamSimple>?>("/event/{event_key}/teams/simple", localVarRequestOptions, this.Configuration);
@@ -3303,7 +3296,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<TeamSimple>?> GetEventTeamsSimpleAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<TeamSimple>?> GetEventTeamsSimpleAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetEventTeamsSimpleWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -3317,7 +3310,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?>> GetEventTeamsSimpleWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?>> GetEventTeamsSimpleWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -3353,13 +3346,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<TeamSimple>?>("/event/{event_key}/teams/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -3429,13 +3422,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>("/event/{event_key}/teams/statuses", localVarRequestOptions, this.Configuration);
@@ -3460,7 +3453,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-            public async System.Threading.Tasks.Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetEventTeamsStatusesAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetEventTeamsStatusesAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> localVarResponse = await GetEventTeamsStatusesWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -3474,7 +3467,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetEventTeamsStatusesWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetEventTeamsStatusesWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -3510,13 +3503,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>("/event/{event_key}/teams/statuses", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -3586,13 +3579,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Team?>("/team/{team_key}", localVarRequestOptions, this.Configuration);
@@ -3617,7 +3610,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Team</returns>
-            public async System.Threading.Tasks.Task<Team?> GetTeamAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Team?> GetTeamAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Team?> localVarResponse = await GetTeamWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -3631,7 +3624,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Team)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Team?>> GetTeamWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Team?>> GetTeamWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -3667,13 +3660,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Team?>("/team/{team_key}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -3743,13 +3736,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Award>?>("/team/{team_key}/awards", localVarRequestOptions, this.Configuration);
@@ -3774,7 +3767,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Award&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Award>?> GetTeamAwardsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Award>?> GetTeamAwardsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<Award>?> localVarResponse = await GetTeamAwardsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -3788,7 +3781,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<Award>?>> GetTeamAwardsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Award>?>> GetTeamAwardsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -3824,13 +3817,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Award>?>("/team/{team_key}/awards", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -3903,13 +3896,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Award>?>("/team/{team_key}/awards/{year}", localVarRequestOptions, this.Configuration);
@@ -3935,7 +3928,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Award&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Award>?> GetTeamAwardsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Award>?> GetTeamAwardsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<Award>?> localVarResponse = await GetTeamAwardsByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -3950,7 +3943,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<Award>?>> GetTeamAwardsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Award>?>> GetTeamAwardsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -3987,13 +3980,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Award>?>("/team/{team_key}/awards/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -4063,13 +4056,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<DistrictList>?>("/team/{team_key}/districts", localVarRequestOptions, this.Configuration);
@@ -4094,7 +4087,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<DistrictList>?> GetTeamDistrictsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<DistrictList>?> GetTeamDistrictsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<DistrictList>?> localVarResponse = await GetTeamDistrictsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -4108,7 +4101,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<DistrictList>?>> GetTeamDistrictsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<DistrictList>?>> GetTeamDistrictsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -4144,13 +4137,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<DistrictList>?>("/team/{team_key}/districts", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -4229,13 +4222,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Award>?>("/team/{team_key}/event/{event_key}/awards", localVarRequestOptions, this.Configuration);
@@ -4261,7 +4254,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Award&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Award>?> GetTeamEventAwardsAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Award>?> GetTeamEventAwardsAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<Award>?> localVarResponse = await GetTeamEventAwardsWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -4276,7 +4269,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<Award>?>> GetTeamEventAwardsWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Award>?>> GetTeamEventAwardsWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -4319,13 +4312,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Award>?>("/team/{team_key}/event/{event_key}/awards", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -4404,13 +4397,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Match>?>("/team/{team_key}/event/{event_key}/matches", localVarRequestOptions, this.Configuration);
@@ -4436,7 +4429,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Match&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Match>?> GetTeamEventMatchesAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Match>?> GetTeamEventMatchesAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<Match>?> localVarResponse = await GetTeamEventMatchesWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -4451,7 +4444,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<Match>?>> GetTeamEventMatchesWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Match>?>> GetTeamEventMatchesWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -4494,13 +4487,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Match>?>("/team/{team_key}/event/{event_key}/matches", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -4579,13 +4572,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<string>?>("/team/{team_key}/event/{event_key}/matches/keys", localVarRequestOptions, this.Configuration);
@@ -4611,7 +4604,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<string>?> GetTeamEventMatchesKeysAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<string>?> GetTeamEventMatchesKeysAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetTeamEventMatchesKeysWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -4626,7 +4619,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamEventMatchesKeysWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamEventMatchesKeysWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -4669,13 +4662,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/team/{team_key}/event/{event_key}/matches/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -4754,13 +4747,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Match>?>("/team/{team_key}/event/{event_key}/matches/simple", localVarRequestOptions, this.Configuration);
@@ -4786,7 +4779,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Match&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Match>?> GetTeamEventMatchesSimpleAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Match>?> GetTeamEventMatchesSimpleAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<Match>?> localVarResponse = await GetTeamEventMatchesSimpleWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -4801,7 +4794,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<Match>?>> GetTeamEventMatchesSimpleWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Match>?>> GetTeamEventMatchesSimpleWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -4844,13 +4837,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Match>?>("/team/{team_key}/event/{event_key}/matches/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -4929,13 +4922,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<TeamEventStatus?>("/team/{team_key}/event/{event_key}/status", localVarRequestOptions, this.Configuration);
@@ -4961,7 +4954,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of TeamEventStatus</returns>
-            public async System.Threading.Tasks.Task<TeamEventStatus?> GetTeamEventStatusAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<TeamEventStatus?> GetTeamEventStatusAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<TeamEventStatus?> localVarResponse = await GetTeamEventStatusWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -4976,7 +4969,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (TeamEventStatus)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<TeamEventStatus?>> GetTeamEventStatusWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<TeamEventStatus?>> GetTeamEventStatusWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -5019,13 +5012,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<TeamEventStatus?>("/team/{team_key}/event/{event_key}/status", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -5095,13 +5088,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Event>?>("/team/{team_key}/events", localVarRequestOptions, this.Configuration);
@@ -5126,7 +5119,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Event&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Event>?> GetTeamEventsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Event>?> GetTeamEventsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<Event>?> localVarResponse = await GetTeamEventsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -5140,7 +5133,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<Event>?>> GetTeamEventsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Event>?>> GetTeamEventsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -5176,13 +5169,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Event>?>("/team/{team_key}/events", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -5255,13 +5248,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Event>?>("/team/{team_key}/events/{year}", localVarRequestOptions, this.Configuration);
@@ -5287,7 +5280,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Event&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Event>?> GetTeamEventsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Event>?> GetTeamEventsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<Event>?> localVarResponse = await GetTeamEventsByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -5302,7 +5295,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<Event>?>> GetTeamEventsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Event>?>> GetTeamEventsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -5339,13 +5332,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Event>?>("/team/{team_key}/events/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -5418,13 +5411,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<string>?>("/team/{team_key}/events/{year}/keys", localVarRequestOptions, this.Configuration);
@@ -5450,7 +5443,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<string>?> GetTeamEventsByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<string>?> GetTeamEventsByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetTeamEventsByYearKeysWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -5465,7 +5458,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamEventsByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamEventsByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -5502,13 +5495,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/team/{team_key}/events/{year}/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -5581,13 +5574,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<EventSimple>?>("/team/{team_key}/events/{year}/simple", localVarRequestOptions, this.Configuration);
@@ -5613,7 +5606,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<EventSimple>?> GetTeamEventsByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<EventSimple>?> GetTeamEventsByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<EventSimple>?> localVarResponse = await GetTeamEventsByYearSimpleWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -5628,7 +5621,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<EventSimple>?>> GetTeamEventsByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<EventSimple>?>> GetTeamEventsByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -5665,13 +5658,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<EventSimple>?>("/team/{team_key}/events/{year}/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -5741,13 +5734,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<string>?>("/team/{team_key}/events/keys", localVarRequestOptions, this.Configuration);
@@ -5772,7 +5765,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<string>?> GetTeamEventsKeysAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<string>?> GetTeamEventsKeysAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetTeamEventsKeysWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -5786,7 +5779,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamEventsKeysWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamEventsKeysWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -5822,13 +5815,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/team/{team_key}/events/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -5898,13 +5891,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<EventSimple>?>("/team/{team_key}/events/simple", localVarRequestOptions, this.Configuration);
@@ -5929,7 +5922,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<EventSimple>?> GetTeamEventsSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<EventSimple>?> GetTeamEventsSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<EventSimple>?> localVarResponse = await GetTeamEventsSimpleWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -5943,7 +5936,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<EventSimple>?>> GetTeamEventsSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<EventSimple>?>> GetTeamEventsSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -5979,13 +5972,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<EventSimple>?>("/team/{team_key}/events/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -6058,13 +6051,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>("/team/{team_key}/events/{year}/statuses", localVarRequestOptions, this.Configuration);
@@ -6090,7 +6083,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-            public async System.Threading.Tasks.Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetTeamEventsStatusesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetTeamEventsStatusesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> localVarResponse = await GetTeamEventsStatusesByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -6105,7 +6098,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetTeamEventsStatusesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetTeamEventsStatusesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -6142,13 +6135,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>("/team/{team_key}/events/{year}/statuses", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -6218,13 +6211,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<History?>("/team/{team_key}/history", localVarRequestOptions, this.Configuration);
@@ -6249,7 +6242,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of History</returns>
-            public async System.Threading.Tasks.Task<History?> GetTeamHistoryAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<History?> GetTeamHistoryAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<History?> localVarResponse = await GetTeamHistoryWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -6263,7 +6256,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (History)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<History?>> GetTeamHistoryWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<History?>> GetTeamHistoryWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -6299,13 +6292,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<History?>("/team/{team_key}/history", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -6378,13 +6371,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Match>?>("/team/{team_key}/matches/{year}", localVarRequestOptions, this.Configuration);
@@ -6410,7 +6403,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Match&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Match>?> GetTeamMatchesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Match>?> GetTeamMatchesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<Match>?> localVarResponse = await GetTeamMatchesByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -6425,7 +6418,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<Match>?>> GetTeamMatchesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Match>?>> GetTeamMatchesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -6462,13 +6455,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Match>?>("/team/{team_key}/matches/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -6541,13 +6534,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<string>?>("/team/{team_key}/matches/{year}/keys", localVarRequestOptions, this.Configuration);
@@ -6573,7 +6566,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<string>?> GetTeamMatchesByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<string>?> GetTeamMatchesByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetTeamMatchesByYearKeysWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -6588,7 +6581,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamMatchesByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamMatchesByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -6625,13 +6618,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/team/{team_key}/matches/{year}/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -6704,13 +6697,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<MatchSimple>?>("/team/{team_key}/matches/{year}/simple", localVarRequestOptions, this.Configuration);
@@ -6736,7 +6729,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;MatchSimple&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<MatchSimple>?> GetTeamMatchesByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<MatchSimple>?> GetTeamMatchesByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<MatchSimple>?> localVarResponse = await GetTeamMatchesByYearSimpleWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -6751,7 +6744,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;MatchSimple&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<MatchSimple>?>> GetTeamMatchesByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<MatchSimple>?>> GetTeamMatchesByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -6788,13 +6781,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<MatchSimple>?>("/team/{team_key}/matches/{year}/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -6873,13 +6866,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Media>?>("/team/{team_key}/media/tag/{media_tag}", localVarRequestOptions, this.Configuration);
@@ -6905,7 +6898,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Media&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Media>?> GetTeamMediaByTagAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Media>?> GetTeamMediaByTagAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<Media>?> localVarResponse = await GetTeamMediaByTagWithHttpInfoAsync(mediaTag, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -6920,7 +6913,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<Media>?>> GetTeamMediaByTagWithHttpInfoAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Media>?>> GetTeamMediaByTagWithHttpInfoAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'mediaTag' is set
                       if (mediaTag is null)
@@ -6963,13 +6956,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Media>?>("/team/{team_key}/media/tag/{media_tag}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -7051,13 +7044,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Media>?>("/team/{team_key}/media/tag/{media_tag}/{year}", localVarRequestOptions, this.Configuration);
@@ -7084,7 +7077,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Media&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Media>?> GetTeamMediaByTagYearAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Media>?> GetTeamMediaByTagYearAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<Media>?> localVarResponse = await GetTeamMediaByTagYearWithHttpInfoAsync(mediaTag, teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -7100,7 +7093,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<Media>?>> GetTeamMediaByTagYearWithHttpInfoAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Media>?>> GetTeamMediaByTagYearWithHttpInfoAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'mediaTag' is set
                       if (mediaTag is null)
@@ -7144,13 +7137,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Media>?>("/team/{team_key}/media/tag/{media_tag}/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -7223,13 +7216,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Media>?>("/team/{team_key}/media/{year}", localVarRequestOptions, this.Configuration);
@@ -7255,7 +7248,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Media&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Media>?> GetTeamMediaByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Media>?> GetTeamMediaByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<Media>?> localVarResponse = await GetTeamMediaByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -7270,7 +7263,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<Media>?>> GetTeamMediaByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Media>?>> GetTeamMediaByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -7307,13 +7300,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Media>?>("/team/{team_key}/media/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -7383,13 +7376,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<TeamRobot>?>("/team/{team_key}/robots", localVarRequestOptions, this.Configuration);
@@ -7414,7 +7407,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;TeamRobot&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<TeamRobot>?> GetTeamRobotsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<TeamRobot>?> GetTeamRobotsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<TeamRobot>?> localVarResponse = await GetTeamRobotsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -7428,7 +7421,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;TeamRobot&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<TeamRobot>?>> GetTeamRobotsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<TeamRobot>?>> GetTeamRobotsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -7464,13 +7457,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<TeamRobot>?>("/team/{team_key}/robots", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -7540,13 +7533,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<TeamSimple?>("/team/{team_key}/simple", localVarRequestOptions, this.Configuration);
@@ -7571,7 +7564,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of TeamSimple</returns>
-            public async System.Threading.Tasks.Task<TeamSimple?> GetTeamSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<TeamSimple?> GetTeamSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<TeamSimple?> localVarResponse = await GetTeamSimpleWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -7585,7 +7578,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (TeamSimple)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<TeamSimple?>> GetTeamSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<TeamSimple?>> GetTeamSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -7621,13 +7614,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<TeamSimple?>("/team/{team_key}/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -7697,13 +7690,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Media>?>("/team/{team_key}/social_media", localVarRequestOptions, this.Configuration);
@@ -7728,7 +7721,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Media&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Media>?> GetTeamSocialMediaAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Media>?> GetTeamSocialMediaAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<Media>?> localVarResponse = await GetTeamSocialMediaWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -7742,7 +7735,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<Media>?>> GetTeamSocialMediaWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Media>?>> GetTeamSocialMediaWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -7778,13 +7771,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Media>?>("/team/{team_key}/social_media", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -7854,13 +7847,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<int>?>("/team/{team_key}/years_participated", localVarRequestOptions, this.Configuration);
@@ -7885,7 +7878,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;int&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<int>?> GetTeamYearsParticipatedAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<int>?> GetTeamYearsParticipatedAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<int>?> localVarResponse = await GetTeamYearsParticipatedWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -7899,7 +7892,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;int&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<int>?>> GetTeamYearsParticipatedWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<int>?>> GetTeamYearsParticipatedWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -7935,13 +7928,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<int>?>("/team/{team_key}/years_participated", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -8005,13 +7998,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Team>?>("/teams/{page_num}", localVarRequestOptions, this.Configuration);
@@ -8036,7 +8029,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Team&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Team>?> GetTeamsAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Team>?> GetTeamsAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<Team>?> localVarResponse = await GetTeamsWithHttpInfoAsync(pageNum, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -8050,7 +8043,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<Team>?>> GetTeamsWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Team>?>> GetTeamsWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -8080,13 +8073,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Team>?>("/teams/{page_num}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -8153,13 +8146,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Team>?>("/teams/{year}/{page_num}", localVarRequestOptions, this.Configuration);
@@ -8185,7 +8178,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Team&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Team>?> GetTeamsByYearAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Team>?> GetTeamsByYearAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<Team>?> localVarResponse = await GetTeamsByYearWithHttpInfoAsync(pageNum, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -8200,7 +8193,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<Team>?>> GetTeamsByYearWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Team>?>> GetTeamsByYearWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -8231,13 +8224,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Team>?>("/teams/{year}/{page_num}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -8304,13 +8297,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<string>?>("/teams/{year}/{page_num}/keys", localVarRequestOptions, this.Configuration);
@@ -8336,7 +8329,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<string>?> GetTeamsByYearKeysAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<string>?> GetTeamsByYearKeysAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetTeamsByYearKeysWithHttpInfoAsync(pageNum, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -8351,7 +8344,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamsByYearKeysWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamsByYearKeysWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -8382,13 +8375,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/teams/{year}/{page_num}/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -8455,13 +8448,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<TeamSimple>?>("/teams/{year}/{page_num}/simple", localVarRequestOptions, this.Configuration);
@@ -8487,7 +8480,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<TeamSimple>?> GetTeamsByYearSimpleAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<TeamSimple>?> GetTeamsByYearSimpleAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetTeamsByYearSimpleWithHttpInfoAsync(pageNum, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -8502,7 +8495,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?>> GetTeamsByYearSimpleWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?>> GetTeamsByYearSimpleWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -8533,13 +8526,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<TeamSimple>?>("/teams/{year}/{page_num}/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -8603,13 +8596,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<string>?>("/teams/{page_num}/keys", localVarRequestOptions, this.Configuration);
@@ -8634,7 +8627,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<string>?> GetTeamsKeysAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<string>?> GetTeamsKeysAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetTeamsKeysWithHttpInfoAsync(pageNum, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -8648,7 +8641,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamsKeysWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamsKeysWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -8678,13 +8671,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/teams/{page_num}/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -8748,13 +8741,13 @@ using TheBlueAlliance.Model;
                     localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                   }
                   
-              
-                // authentication (apiKey) required
-                    if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                    }
-                    
+                              // authentication (apiKey) required
+                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                  if (!string.IsNullOrEmpty(apiKeyIfExists))
+                  {
+                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                  }
+                  
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<TeamSimple>?>("/teams/{page_num}/simple", localVarRequestOptions, this.Configuration);
@@ -8779,7 +8772,7 @@ using TheBlueAlliance.Model;
               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<TeamSimple>?> GetTeamsSimpleAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<TeamSimple>?> GetTeamsSimpleAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
               TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetTeamsSimpleWithHttpInfoAsync(pageNum, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -8793,7 +8786,7 @@ using TheBlueAlliance.Model;
                 /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-              public async System.Threading.Tasks.Task<TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?>> GetTeamsSimpleWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?>> GetTeamsSimpleWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -8823,13 +8816,13 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
                     }
                     
-                
-                  // authentication (apiKey) required
-                      if (!string.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key")))
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key"));
-                      }
-                      
+                                  // authentication (apiKey) required
+                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+                    if (!string.IsNullOrEmpty(apiKeyIfExists))
+                    {
+                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+                    }
+                    
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<TeamSimple>?>("/teams/{page_num}/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 

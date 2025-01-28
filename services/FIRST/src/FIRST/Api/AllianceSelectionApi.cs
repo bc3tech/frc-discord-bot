@@ -12,6 +12,7 @@ namespace FIRST.Api;
 using System;
 using System.Net.Http;
   using System.Collections.ObjectModel;
+  using System.Threading.Tasks;
 
 using FIRST.Client;
 
@@ -64,7 +65,7 @@ using FIRST.Client;
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of void</returns>
-          System.Threading.Tasks.Task SeasonAlliancesEventCodeGetAsync(string eventCode, string season, CancellationToken cancellationToken = default);
+          Task SeasonAlliancesEventCodeGetAsync(string eventCode, string season, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Event Alliances
@@ -77,7 +78,7 @@ using FIRST.Client;
               /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse</returns>
-            System.Threading.Tasks.Task<ApiResponse<object?>> SeasonAlliancesEventCodeGetWithHttpInfoAsync(string eventCode, string season, CancellationToken cancellationToken = default);
+            Task<ApiResponse<object?>> SeasonAlliancesEventCodeGetWithHttpInfoAsync(string eventCode, string season, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -111,13 +112,11 @@ using FIRST.Client;
         /// <returns></returns>
         public AllianceSelectionApi(string? basePath)
         {
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -129,18 +128,16 @@ using FIRST.Client;
         /// <param name="configuration">An instance of Configuration.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
-        public AllianceSelectionApi(FIRST.Client.Configuration configuration)
+        public AllianceSelectionApi(Configuration configuration)
         {
           ArgumentNullException.ThrowIfNull(configuration);
           
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -173,13 +170,11 @@ using FIRST.Client;
         {
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -200,14 +195,12 @@ using FIRST.Client;
           ArgumentNullException.ThrowIfNull(configuration);
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -223,12 +216,12 @@ using FIRST.Client;
           ArgumentNullException.ThrowIfNull(client);
           
             ArgumentNullException.ThrowIfNull(asyncClient);
+            this.AsynchronousClient = asyncClient;
             
           ArgumentNullException.ThrowIfNull(configuration);
+          this.Configuration = configuration;
           
           this.Client = client;
-            this.AsynchronousClient = asyncClient;
-          this.Configuration = configuration;
           this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -330,8 +323,7 @@ using FIRST.Client;
               
                   localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
                   localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-              
-                // authentication (basicAuth) required
+                              // authentication (basicAuth) required
                   // http basic authentication required
                   if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
                   {
@@ -362,7 +354,7 @@ using FIRST.Client;
               /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of void</returns>
-            public async System.Threading.Tasks.Task SeasonAlliancesEventCodeGetAsync(string eventCode, string season, CancellationToken cancellationToken = default)
+            public async Task SeasonAlliancesEventCodeGetAsync(string eventCode, string season, CancellationToken cancellationToken = default)
             {
               await SeasonAlliancesEventCodeGetWithHttpInfoAsync(eventCode, season, cancellationToken).ConfigureAwait(false);
               }
@@ -375,7 +367,7 @@ using FIRST.Client;
                 /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<object?>> SeasonAlliancesEventCodeGetWithHttpInfoAsync(string eventCode, string season, CancellationToken cancellationToken = default)
+              public async Task<FIRST.Client.ApiResponse<object?>> SeasonAlliancesEventCodeGetWithHttpInfoAsync(string eventCode, string season, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)
@@ -413,8 +405,7 @@ using FIRST.Client;
                 
                     localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
                     localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-                
-                  // authentication (basicAuth) required
+                                  // authentication (basicAuth) required
                       // http basic authentication required
                       if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
                       

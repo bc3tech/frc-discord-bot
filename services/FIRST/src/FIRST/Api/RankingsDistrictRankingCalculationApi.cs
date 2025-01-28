@@ -12,6 +12,7 @@ namespace FIRST.Api;
 using System;
 using System.Net.Http;
   using System.Collections.ObjectModel;
+  using System.Threading.Tasks;
 
 using FIRST.Client;
 
@@ -103,7 +104,7 @@ using FIRST.Client;
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Object</returns>
-          System.Threading.Tasks.Task<Object?> SeasonRankingsDistrictAllianceSelectionCalculationGetAsync(string season, CancellationToken cancellationToken = default);
+          Task<Object?> SeasonRankingsDistrictAllianceSelectionCalculationGetAsync(string season, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Alliance Selection Points
@@ -115,7 +116,7 @@ using FIRST.Client;
               /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Object)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Object?>> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
           /// <summary>
           /// Playoff Advancement Points
           /// </summary>
@@ -126,7 +127,7 @@ using FIRST.Client;
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Object</returns>
-          System.Threading.Tasks.Task<Object?> SeasonRankingsDistrictPlayoffAdvancementCalculationGetAsync(string season, CancellationToken cancellationToken = default);
+          Task<Object?> SeasonRankingsDistrictPlayoffAdvancementCalculationGetAsync(string season, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Playoff Advancement Points
@@ -138,7 +139,7 @@ using FIRST.Client;
               /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Object)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Object?>> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
           /// <summary>
           /// Qual Performance Points
           /// </summary>
@@ -149,7 +150,7 @@ using FIRST.Client;
             /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Object</returns>
-          System.Threading.Tasks.Task<Object?> SeasonRankingsDistrictQualPerformanceCalculationGetAsync(string season, CancellationToken cancellationToken = default);
+          Task<Object?> SeasonRankingsDistrictQualPerformanceCalculationGetAsync(string season, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Qual Performance Points
@@ -161,7 +162,7 @@ using FIRST.Client;
               /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Object)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Object?>> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -195,13 +196,11 @@ using FIRST.Client;
         /// <returns></returns>
         public RankingsDistrictRankingCalculationApi(string? basePath)
         {
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -213,18 +212,16 @@ using FIRST.Client;
         /// <param name="configuration">An instance of Configuration.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
-        public RankingsDistrictRankingCalculationApi(FIRST.Client.Configuration configuration)
+        public RankingsDistrictRankingCalculationApi(Configuration configuration)
         {
           ArgumentNullException.ThrowIfNull(configuration);
           
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -257,13 +254,11 @@ using FIRST.Client;
         {
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -284,14 +279,12 @@ using FIRST.Client;
           ArgumentNullException.ThrowIfNull(configuration);
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -307,12 +300,12 @@ using FIRST.Client;
           ArgumentNullException.ThrowIfNull(client);
           
             ArgumentNullException.ThrowIfNull(asyncClient);
+            this.AsynchronousClient = asyncClient;
             
           ArgumentNullException.ThrowIfNull(configuration);
+          this.Configuration = configuration;
           
           this.Client = client;
-            this.AsynchronousClient = asyncClient;
-          this.Configuration = configuration;
           this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -406,8 +399,7 @@ using FIRST.Client;
               }
               
                   localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-              
-                // authentication (noauthAuth) required
+                              // authentication (noauthAuth) required
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Object?>("/{season}/rankings/district/allianceSelectionCalculation", localVarRequestOptions, this.Configuration);
@@ -431,7 +423,7 @@ using FIRST.Client;
               /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Object</returns>
-            public async System.Threading.Tasks.Task<Object?> SeasonRankingsDistrictAllianceSelectionCalculationGetAsync(string season, CancellationToken cancellationToken = default)
+            public async Task<Object?> SeasonRankingsDistrictAllianceSelectionCalculationGetAsync(string season, CancellationToken cancellationToken = default)
             {
               FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfoAsync(season, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -444,7 +436,7 @@ using FIRST.Client;
                 /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
+              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -475,8 +467,7 @@ using FIRST.Client;
                 }
                 
                     localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-                
-                  // authentication (noauthAuth) required
+                                  // authentication (noauthAuth) required
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/{season}/rankings/district/allianceSelectionCalculation", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -539,8 +530,7 @@ using FIRST.Client;
               }
               
                   localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-              
-                // authentication (noauthAuth) required
+                              // authentication (noauthAuth) required
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Object?>("/{season}/rankings/district/playoffAdvancementCalculation", localVarRequestOptions, this.Configuration);
@@ -564,7 +554,7 @@ using FIRST.Client;
               /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Object</returns>
-            public async System.Threading.Tasks.Task<Object?> SeasonRankingsDistrictPlayoffAdvancementCalculationGetAsync(string season, CancellationToken cancellationToken = default)
+            public async Task<Object?> SeasonRankingsDistrictPlayoffAdvancementCalculationGetAsync(string season, CancellationToken cancellationToken = default)
             {
               FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfoAsync(season, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -577,7 +567,7 @@ using FIRST.Client;
                 /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
+              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -608,8 +598,7 @@ using FIRST.Client;
                 }
                 
                     localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-                
-                  // authentication (noauthAuth) required
+                                  // authentication (noauthAuth) required
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/{season}/rankings/district/playoffAdvancementCalculation", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
@@ -672,8 +661,7 @@ using FIRST.Client;
               }
               
                   localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-              
-                // authentication (noauthAuth) required
+                              // authentication (noauthAuth) required
               
               // make the HTTP request
               var localVarResponse = this.Client.Get<Object?>("/{season}/rankings/district/qualPerformanceCalculation", localVarRequestOptions, this.Configuration);
@@ -697,7 +685,7 @@ using FIRST.Client;
               /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Object</returns>
-            public async System.Threading.Tasks.Task<Object?> SeasonRankingsDistrictQualPerformanceCalculationGetAsync(string season, CancellationToken cancellationToken = default)
+            public async Task<Object?> SeasonRankingsDistrictQualPerformanceCalculationGetAsync(string season, CancellationToken cancellationToken = default)
             {
               FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfoAsync(season, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -710,7 +698,7 @@ using FIRST.Client;
                 /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
+              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -741,8 +729,7 @@ using FIRST.Client;
                 }
                 
                     localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-                
-                  // authentication (noauthAuth) required
+                                  // authentication (noauthAuth) required
                 // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/{season}/rankings/district/qualPerformanceCalculation", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 

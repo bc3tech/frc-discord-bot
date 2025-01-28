@@ -12,6 +12,7 @@ namespace FIRST.Api;
 using System;
 using System.Net.Http;
   using System.Collections.ObjectModel;
+  using System.Threading.Tasks;
 
 using FIRST.Client;
 
@@ -115,7 +116,7 @@ using FIRST.Client;
             /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Object</returns>
-          System.Threading.Tasks.Task<Object?> SeasonMatchesEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
+          Task<Object?> SeasonMatchesEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Event Match Results
@@ -134,7 +135,7 @@ using FIRST.Client;
               /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Object)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonMatchesEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Object?>> SeasonMatchesEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
           /// <summary>
           /// Score Details
           /// </summary>
@@ -151,7 +152,7 @@ using FIRST.Client;
             /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Object</returns>
-          System.Threading.Tasks.Task<Object?> SeasonScoresEventCodeTournamentLevelGetAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default);
+          Task<Object?> SeasonScoresEventCodeTournamentLevelGetAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Score Details
@@ -169,7 +170,7 @@ using FIRST.Client;
               /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Object)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Object?>> SeasonScoresEventCodeTournamentLevelGetWithHttpInfoAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Object?>> SeasonScoresEventCodeTournamentLevelGetWithHttpInfoAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -203,13 +204,11 @@ using FIRST.Client;
         /// <returns></returns>
         public MatchResultsApi(string? basePath)
         {
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -221,18 +220,16 @@ using FIRST.Client;
         /// <param name="configuration">An instance of Configuration.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
-        public MatchResultsApi(FIRST.Client.Configuration configuration)
+        public MatchResultsApi(Configuration configuration)
         {
           ArgumentNullException.ThrowIfNull(configuration);
           
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -265,13 +262,11 @@ using FIRST.Client;
         {
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -292,14 +287,12 @@ using FIRST.Client;
           ArgumentNullException.ThrowIfNull(configuration);
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -315,12 +308,12 @@ using FIRST.Client;
           ArgumentNullException.ThrowIfNull(client);
           
             ArgumentNullException.ThrowIfNull(asyncClient);
+            this.AsynchronousClient = asyncClient;
             
           ArgumentNullException.ThrowIfNull(configuration);
+          this.Configuration = configuration;
           
           this.Client = client;
-            this.AsynchronousClient = asyncClient;
-          this.Configuration = configuration;
           this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -465,8 +458,7 @@ using FIRST.Client;
                     localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
                   }
                   
-              
-                // authentication (basicAuth) required
+                              // authentication (basicAuth) required
                   // http basic authentication required
                   if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
                   {
@@ -503,7 +495,7 @@ using FIRST.Client;
               /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Object</returns>
-            public async System.Threading.Tasks.Task<Object?> SeasonMatchesEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
+            public async Task<Object?> SeasonMatchesEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
             {
               FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonMatchesEventCodeGetWithHttpInfoAsync(eventCode, season, end, ifModifiedSince, matchNumber, start, teamNumber, tournamentLevel, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -523,7 +515,7 @@ using FIRST.Client;
                 /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonMatchesEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
+              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonMatchesEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)
@@ -591,8 +583,7 @@ using FIRST.Client;
                       localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
                     }
                     
-                
-                  // authentication (basicAuth) required
+                                  // authentication (basicAuth) required
                       // http basic authentication required
                       if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
                       
@@ -709,8 +700,7 @@ using FIRST.Client;
                     localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
                   }
                   
-              
-                // authentication (basicAuth) required
+                              // authentication (basicAuth) required
                   // http basic authentication required
                   if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
                   {
@@ -746,7 +736,7 @@ using FIRST.Client;
               /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Object</returns>
-            public async System.Threading.Tasks.Task<Object?> SeasonScoresEventCodeTournamentLevelGetAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default)
+            public async Task<Object?> SeasonScoresEventCodeTournamentLevelGetAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default)
             {
               FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonScoresEventCodeTournamentLevelGetWithHttpInfoAsync(eventCode, season, tournamentLevel, end, ifModifiedSince, matchNumber, start, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -765,7 +755,7 @@ using FIRST.Client;
                 /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<FIRST.Client.ApiResponse<Object?>> SeasonScoresEventCodeTournamentLevelGetWithHttpInfoAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default)
+              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonScoresEventCodeTournamentLevelGetWithHttpInfoAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)
@@ -831,8 +821,7 @@ using FIRST.Client;
                       localVarRequestOptions.HeaderParameters.Add("If-Modified-Since", ClientUtils.ParameterToString(ifModifiedSince)); // header parameter
                     }
                     
-                
-                  // authentication (basicAuth) required
+                                  // authentication (basicAuth) required
                       // http basic authentication required
                       if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
                       

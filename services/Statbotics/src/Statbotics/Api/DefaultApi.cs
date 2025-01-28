@@ -12,6 +12,7 @@ namespace Statbotics.Api;
 using System;
 using System.Net.Http;
   using System.Collections.ObjectModel;
+  using System.Threading.Tasks;
 
 using Statbotics.Client;
 
@@ -71,7 +72,7 @@ using Statbotics.Client;
           /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Object</returns>
-          System.Threading.Tasks.Task<Object?> ReadRootV2GetAsync(CancellationToken cancellationToken = default);
+          Task<Object?> ReadRootV2GetAsync(CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Read Root
@@ -82,7 +83,7 @@ using Statbotics.Client;
             /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Object)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Object?>> ReadRootV2GetWithHttpInfoAsync(CancellationToken cancellationToken = default);
+            Task<ApiResponse<Object?>> ReadRootV2GetWithHttpInfoAsync(CancellationToken cancellationToken = default);
           /// <summary>
           /// Read Root
           /// </summary>
@@ -92,7 +93,7 @@ using Statbotics.Client;
           /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Object</returns>
-          System.Threading.Tasks.Task<Object?> ReadRootV3GetAsync(CancellationToken cancellationToken = default);
+          Task<Object?> ReadRootV3GetAsync(CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Read Root
@@ -103,7 +104,7 @@ using Statbotics.Client;
             /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Object)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Object?>> ReadRootV3GetWithHttpInfoAsync(CancellationToken cancellationToken = default);
+            Task<ApiResponse<Object?>> ReadRootV3GetWithHttpInfoAsync(CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -137,13 +138,11 @@ using Statbotics.Client;
         /// <returns></returns>
         public DefaultApi(string? basePath)
         {
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -155,18 +154,16 @@ using Statbotics.Client;
         /// <param name="configuration">An instance of Configuration.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
-        public DefaultApi(Statbotics.Client.Configuration configuration)
+        public DefaultApi(Configuration configuration)
         {
           ArgumentNullException.ThrowIfNull(configuration);
           
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -199,13 +196,11 @@ using Statbotics.Client;
         {
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -226,14 +221,12 @@ using Statbotics.Client;
           ArgumentNullException.ThrowIfNull(configuration);
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -249,12 +242,12 @@ using Statbotics.Client;
           ArgumentNullException.ThrowIfNull(client);
           
             ArgumentNullException.ThrowIfNull(asyncClient);
+            this.AsynchronousClient = asyncClient;
             
           ArgumentNullException.ThrowIfNull(configuration);
+          this.Configuration = configuration;
           
           this.Client = client;
-            this.AsynchronousClient = asyncClient;
-          this.Configuration = configuration;
           this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -339,8 +332,7 @@ using Statbotics.Client;
                 localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
               }
               
-              
-              
+                            
               // make the HTTP request
               var localVarResponse = this.Client.Get<Object?>("/v2/", localVarRequestOptions, this.Configuration);
               
@@ -362,7 +354,7 @@ using Statbotics.Client;
             /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Object</returns>
-            public async System.Threading.Tasks.Task<Object?> ReadRootV2GetAsync(CancellationToken cancellationToken = default)
+            public async Task<Object?> ReadRootV2GetAsync(CancellationToken cancellationToken = default)
             {
               Statbotics.Client.ApiResponse<Object?> localVarResponse = await ReadRootV2GetWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -374,7 +366,7 @@ using Statbotics.Client;
               /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<Statbotics.Client.ApiResponse<Object?>> ReadRootV2GetWithHttpInfoAsync(CancellationToken cancellationToken = default)
+              public async Task<Statbotics.Client.ApiResponse<Object?>> ReadRootV2GetWithHttpInfoAsync(CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -398,8 +390,7 @@ using Statbotics.Client;
                   localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
                 }
                 
-                
-                // make the HTTP request
+                                // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/v2/", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
@@ -452,8 +443,7 @@ using Statbotics.Client;
                 localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
               }
               
-              
-              
+                            
               // make the HTTP request
               var localVarResponse = this.Client.Get<Object?>("/v3/", localVarRequestOptions, this.Configuration);
               
@@ -475,7 +465,7 @@ using Statbotics.Client;
             /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Object</returns>
-            public async System.Threading.Tasks.Task<Object?> ReadRootV3GetAsync(CancellationToken cancellationToken = default)
+            public async Task<Object?> ReadRootV3GetAsync(CancellationToken cancellationToken = default)
             {
               Statbotics.Client.ApiResponse<Object?> localVarResponse = await ReadRootV3GetWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -487,7 +477,7 @@ using Statbotics.Client;
               /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<Statbotics.Client.ApiResponse<Object?>> ReadRootV3GetWithHttpInfoAsync(CancellationToken cancellationToken = default)
+              public async Task<Statbotics.Client.ApiResponse<Object?>> ReadRootV3GetWithHttpInfoAsync(CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -511,8 +501,7 @@ using Statbotics.Client;
                   localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
                 }
                 
-                
-                // make the HTTP request
+                                // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/v3/", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)

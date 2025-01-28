@@ -12,6 +12,7 @@ namespace Statbotics.Api;
 using System;
 using System.Net.Http;
   using System.Collections.ObjectModel;
+  using System.Threading.Tasks;
 
 using Statbotics.Client;
 
@@ -86,7 +87,7 @@ using Statbotics.Model;
             /// <param name="year"></param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Object</returns>
-          System.Threading.Tasks.Task<Object?> ReadYearV3YearYearGetAsync(int year, CancellationToken cancellationToken = default);
+          Task<Object?> ReadYearV3YearYearGetAsync(int year, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Query a single year
@@ -98,7 +99,7 @@ using Statbotics.Model;
               /// <param name="year"></param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Object)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Object?>> ReadYearV3YearYearGetWithHttpInfoAsync(int year, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Object?>> ReadYearV3YearYearGetWithHttpInfoAsync(int year, CancellationToken cancellationToken = default);
           /// <summary>
           /// Query multiple years
           /// </summary>
@@ -112,7 +113,7 @@ using Statbotics.Model;
             /// <param name="offset">Offset from the first result to return. (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Object&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Object>?> ReadYearsV3YearsGetAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default);
+          Task<Collection<Object>?> ReadYearsV3YearsGetAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Query multiple years
@@ -127,7 +128,7 @@ using Statbotics.Model;
               /// <param name="offset">Offset from the first result to return. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Object>?>> ReadYearsV3YearsGetWithHttpInfoAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Object>?>> ReadYearsV3YearsGetWithHttpInfoAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -161,13 +162,11 @@ using Statbotics.Model;
         /// <returns></returns>
         public YearApi(string? basePath)
         {
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -179,18 +178,16 @@ using Statbotics.Model;
         /// <param name="configuration">An instance of Configuration.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
-        public YearApi(Statbotics.Client.Configuration configuration)
+        public YearApi(Configuration configuration)
         {
           ArgumentNullException.ThrowIfNull(configuration);
           
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -223,13 +220,11 @@ using Statbotics.Model;
         {
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -250,14 +245,12 @@ using Statbotics.Model;
           ArgumentNullException.ThrowIfNull(configuration);
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -273,12 +266,12 @@ using Statbotics.Model;
           ArgumentNullException.ThrowIfNull(client);
           
             ArgumentNullException.ThrowIfNull(asyncClient);
+            this.AsynchronousClient = asyncClient;
             
           ArgumentNullException.ThrowIfNull(configuration);
+          this.Configuration = configuration;
           
           this.Client = client;
-            this.AsynchronousClient = asyncClient;
-          this.Configuration = configuration;
           this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -366,8 +359,7 @@ using Statbotics.Model;
               }
               
                   localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-              
-              
+                            
               // make the HTTP request
               var localVarResponse = this.Client.Get<Object?>("/v3/year/{year}", localVarRequestOptions, this.Configuration);
               
@@ -390,7 +382,7 @@ using Statbotics.Model;
               /// <param name="year"></param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Object</returns>
-            public async System.Threading.Tasks.Task<Object?> ReadYearV3YearYearGetAsync(int year, CancellationToken cancellationToken = default)
+            public async Task<Object?> ReadYearV3YearYearGetAsync(int year, CancellationToken cancellationToken = default)
             {
               Statbotics.Client.ApiResponse<Object?> localVarResponse = await ReadYearV3YearYearGetWithHttpInfoAsync(year, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -403,7 +395,7 @@ using Statbotics.Model;
                 /// <param name="year"></param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<Statbotics.Client.ApiResponse<Object?>> ReadYearV3YearYearGetWithHttpInfoAsync(int year, CancellationToken cancellationToken = default)
+              public async Task<Statbotics.Client.ApiResponse<Object?>> ReadYearV3YearYearGetWithHttpInfoAsync(int year, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -428,8 +420,7 @@ using Statbotics.Model;
                 }
                 
                     localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                
-                // make the HTTP request
+                                // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/v3/year/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
@@ -510,8 +501,7 @@ using Statbotics.Model;
                       localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "offset", offset));
                   }
                   
-              
-              
+                            
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Object>?>("/v3/years", localVarRequestOptions, this.Configuration);
               
@@ -537,7 +527,7 @@ using Statbotics.Model;
               /// <param name="offset">Offset from the first result to return. (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Object&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Object>?> ReadYearsV3YearsGetAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Object>?> ReadYearsV3YearsGetAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default)
             {
               Statbotics.Client.ApiResponse<Collection<Object>?> localVarResponse = await ReadYearsV3YearsGetWithHttpInfoAsync(ascending, limit, metric, offset, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -553,7 +543,7 @@ using Statbotics.Model;
                 /// <param name="offset">Offset from the first result to return. (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
-              public async System.Threading.Tasks.Task<Statbotics.Client.ApiResponse<Collection<Object>?>> ReadYearsV3YearsGetWithHttpInfoAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default)
+              public async Task<Statbotics.Client.ApiResponse<Collection<Object>?>> ReadYearsV3YearsGetWithHttpInfoAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -597,8 +587,7 @@ using Statbotics.Model;
                       localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "offset", offset));
                     }
                     
-                
-                // make the HTTP request
+                                // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Object>?>("/v3/years", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)

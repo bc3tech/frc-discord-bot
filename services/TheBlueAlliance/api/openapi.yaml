@@ -5556,8 +5556,9 @@ components:
         playoff_average:
           description: The average match score during playoffs. Year specific. May
             be null if not relevant for a given year.
+          format: double
           nullable: true
-          type: integer
+          type: number
       type: object
     Event_Ranking:
       properties:
@@ -8334,6 +8335,7 @@ components:
           description: Ordered list of values used to determine the rank. See the
             `sort_order_info` property for the name of each value.
           items:
+            format: double
             type: number
           type: array
         record:
@@ -8379,6 +8381,7 @@ components:
           description: "Additional year-specific information, may be null. See parent\
             \ `sort_order_info` for details."
           items:
+            format: double
             type: number
           nullable: true
           type: array

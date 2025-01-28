@@ -90,33 +90,41 @@ internal sealed partial class DiscordInitializationService(DiscordSocketClient c
     {
         using var scope = _logger.CreateMethodScope();
         // Hook the MessageReceived event into our command handler
-        client.SlashCommandExecuted += cmd => LogCommandExecutedAsync(cmd, cancellationToken);
-        client.MessageCommandExecuted += msg => LogMessageExecutedAsync(msg);
+        client.SlashCommandExecuted += cmd =>
+        {
+            LogCommandExecuted(cmd);
+            return Task.CompletedTask;
+        };
+        client.MessageCommandExecuted += msg =>
+        {
+            LogMessageExecuted(msg);
+            return Task.CompletedTask;
+        };
+
+        cancellationToken.ThrowIfCancellationRequested();
 
         _logger.LogTrace("Loading command modules...");
         var m = await interactionService.AddModulesAsync(Assembly.GetExecutingAssembly(), services).ConfigureAwait(false);
         _logger.LogDebug("{NumCommands} command modules loaded", interactionService.Modules.Count);
-        //await interactionService.AddModuleAsync<SubscribeCommandModule>(services);
+
+        cancellationToken.ThrowIfCancellationRequested();
 
         _logger.LogTrace("Adding modules globally...");
         var r = await interactionService.AddModulesGloballyAsync(deleteMissing: true, [.. m]).ConfigureAwait(false);
         _logger.LogDebug("{NumCommands} commands added globally ({Available Commands})", r.Count, string.Join(", ", r.Select(i => i.Name)));
     }
 
-    private Task LogMessageExecutedAsync(SocketMessageCommand msg, CancellationToken cancellationToken = default)
+    private void LogMessageExecuted(SocketMessageCommand msg)
     {
         _logger.LogInformation("Received message: {MessageName}", msg.Data.Name);
         _logger.LogTrace("Message data: {MessageData}", JsonSerializer.Serialize(msg.Data, _debugSerializerOptions));
-
-        return Task.CompletedTask;
     }
 
     private static readonly JsonSerializerOptions _debugSerializerOptions = new(JsonSerializerDefaults.Web) { ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve };
 
-    private Task LogCommandExecutedAsync(SocketSlashCommand command, CancellationToken cancellationToken = default)
+    private void LogCommandExecuted(SocketSlashCommand command)
     {
         _logger.LogInformation("Received command: {CommandName}", command.Data.Name);
         _logger.LogTrace("Command data: {CommandData}", JsonSerializer.Serialize(command.Data, _debugSerializerOptions));
-        return Task.CompletedTask;
     }
 }

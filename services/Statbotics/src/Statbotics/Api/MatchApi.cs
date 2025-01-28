@@ -12,6 +12,7 @@ namespace Statbotics.Api;
 using System;
 using System.Net.Http;
   using System.Collections.ObjectModel;
+  using System.Threading.Tasks;
 
 using Statbotics.Client;
 
@@ -101,7 +102,7 @@ using Statbotics.Model;
             /// <param name="match"></param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Object</returns>
-          System.Threading.Tasks.Task<Object?> ReadMatchV3MatchMatchGetAsync(string match, CancellationToken cancellationToken = default);
+          Task<Object?> ReadMatchV3MatchMatchGetAsync(string match, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Query a single match
@@ -113,7 +114,7 @@ using Statbotics.Model;
               /// <param name="match"></param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Object)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Object?>> ReadMatchV3MatchMatchGetWithHttpInfoAsync(string match, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Object?>> ReadMatchV3MatchMatchGetWithHttpInfoAsync(string match, CancellationToken cancellationToken = default);
           /// <summary>
           /// Query multiple matches
           /// </summary>
@@ -133,7 +134,7 @@ using Statbotics.Model;
             /// <param name="year">Four-digit year (optional)</param>
           /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
           /// <returns>Task of Collection&lt;Object&gt;</returns>
-          System.Threading.Tasks.Task<Collection<Object>?> ReadMatchesV3MatchesGetAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default);
+          Task<Collection<Object>?> ReadMatchesV3MatchesGetAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default);
             
             /// <summary>
             /// Query multiple matches
@@ -154,7 +155,7 @@ using Statbotics.Model;
               /// <param name="year">Four-digit year (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
-            System.Threading.Tasks.Task<ApiResponse<Collection<Object>?>> ReadMatchesV3MatchesGetWithHttpInfoAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Collection<Object>?>> ReadMatchesV3MatchesGetWithHttpInfoAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -188,13 +189,11 @@ using Statbotics.Model;
         /// <returns></returns>
         public MatchApi(string? basePath)
         {
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -206,18 +205,16 @@ using Statbotics.Model;
         /// <param name="configuration">An instance of Configuration.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
-        public MatchApi(Statbotics.Client.Configuration configuration)
+        public MatchApi(Configuration configuration)
         {
           ArgumentNullException.ThrowIfNull(configuration);
           
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(this.Configuration.BasePath);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -250,13 +247,11 @@ using Statbotics.Model;
         {
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          new Configuration { BasePath = basePath }
-          );
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client =  this.ApiClient;
+          this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
+          
           this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -277,14 +272,12 @@ using Statbotics.Model;
           ArgumentNullException.ThrowIfNull(configuration);
           ArgumentNullException.ThrowIfNull(client);
           
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(
-          GlobalConfiguration.Instance,
-          configuration
-          );
+          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
           this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
           this.Client = this.ApiClient;
             this.AsynchronousClient = this.ApiClient;
-          ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+          
+          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
         /// <summary>
@@ -300,12 +293,12 @@ using Statbotics.Model;
           ArgumentNullException.ThrowIfNull(client);
           
             ArgumentNullException.ThrowIfNull(asyncClient);
+            this.AsynchronousClient = asyncClient;
             
           ArgumentNullException.ThrowIfNull(configuration);
+          this.Configuration = configuration;
           
           this.Client = client;
-            this.AsynchronousClient = asyncClient;
-          this.Configuration = configuration;
           this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
         }
         
@@ -399,8 +392,7 @@ using Statbotics.Model;
               }
               
                   localVarRequestOptions.PathParameters.Add("match", ClientUtils.ParameterToString(match)); // path parameter
-              
-              
+                            
               // make the HTTP request
               var localVarResponse = this.Client.Get<Object?>("/v3/match/{match}", localVarRequestOptions, this.Configuration);
               
@@ -423,7 +415,7 @@ using Statbotics.Model;
               /// <param name="match"></param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Object</returns>
-            public async System.Threading.Tasks.Task<Object?> ReadMatchV3MatchMatchGetAsync(string match, CancellationToken cancellationToken = default)
+            public async Task<Object?> ReadMatchV3MatchMatchGetAsync(string match, CancellationToken cancellationToken = default)
             {
               Statbotics.Client.ApiResponse<Object?> localVarResponse = await ReadMatchV3MatchMatchGetWithHttpInfoAsync(match, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -436,7 +428,7 @@ using Statbotics.Model;
                 /// <param name="match"></param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Object)</returns>
-              public async System.Threading.Tasks.Task<Statbotics.Client.ApiResponse<Object?>> ReadMatchV3MatchMatchGetWithHttpInfoAsync(string match, CancellationToken cancellationToken = default)
+              public async Task<Statbotics.Client.ApiResponse<Object?>> ReadMatchV3MatchMatchGetWithHttpInfoAsync(string match, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'match' is set
                       if (match is null)
@@ -467,8 +459,7 @@ using Statbotics.Model;
                 }
                 
                     localVarRequestOptions.PathParameters.Add("match", ClientUtils.ParameterToString(match)); // path parameter
-                
-                // make the HTTP request
+                                // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/v3/match/{match}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
@@ -591,8 +582,7 @@ using Statbotics.Model;
                       localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "year", year));
                   }
                   
-              
-              
+                            
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Object>?>("/v3/matches", localVarRequestOptions, this.Configuration);
               
@@ -624,7 +614,7 @@ using Statbotics.Model;
               /// <param name="year">Four-digit year (optional)</param>
             /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
             /// <returns>Task of Collection&lt;Object&gt;</returns>
-            public async System.Threading.Tasks.Task<Collection<Object>?> ReadMatchesV3MatchesGetAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
+            public async Task<Collection<Object>?> ReadMatchesV3MatchesGetAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
             {
               Statbotics.Client.ApiResponse<Collection<Object>?> localVarResponse = await ReadMatchesV3MatchesGetWithHttpInfoAsync(ascending, elim, limit, metric, offseason, offset, team, varEvent, week, year, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -646,7 +636,7 @@ using Statbotics.Model;
                 /// <param name="year">Four-digit year (optional)</param>
               /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
               /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
-              public async System.Threading.Tasks.Task<Statbotics.Client.ApiResponse<Collection<Object>?>> ReadMatchesV3MatchesGetWithHttpInfoAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
+              public async Task<Statbotics.Client.ApiResponse<Collection<Object>?>> ReadMatchesV3MatchesGetWithHttpInfoAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -720,8 +710,7 @@ using Statbotics.Model;
                       localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "year", year));
                     }
                     
-                
-                // make the HTTP request
+                                // make the HTTP request
                 var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Object>?>("/v3/matches", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
