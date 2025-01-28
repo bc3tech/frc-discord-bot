@@ -18,12 +18,27 @@ internal static class DependencyInjectionExtensions
         return services.AddSingleton(sp =>
                     {
                         var config = sp.GetRequiredService<IConfiguration>();
-                        var apiKey = Throws.IfNullOrWhiteSpace(config[DiscordBotFunctionApp.Constants.Configuration.TbaApiKey]);
+                        var apiKey = Throws.IfNullOrWhiteSpace(config[DiscordBotFunctionApp.Constants.Configuration.TbaApiKey], message: $"TheBlueAlliance API key is required. Set the {DiscordBotFunctionApp.Constants.Configuration.TbaApiKey} config variable appropriately");
                         return new Configuration { ApiKey = { { "X-TBA-Auth-Key", apiKey } } };
                     })
-                    .AddSingleton<ITeamApi, TeamApi>()
-                    .AddSingleton<IEventApi, EventApi>()
-                    .AddSingleton<IMatchApi, MatchApi>()
+                    .AddSingleton<ITeamApi>(sp =>
+                    {
+                        var client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(DiscordBotFunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
+                        var cfg = sp.GetRequiredService<Configuration>();
+                        return new TeamApi(client, cfg);
+                    })
+                    .AddSingleton<IEventApi>(sp =>
+                    {
+                        var client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(DiscordBotFunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
+                        var cfg = sp.GetRequiredService<Configuration>();
+                        return new EventApi(client, cfg);
+                    })
+                    .AddSingleton<IMatchApi>(sp =>
+                    {
+                        var client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(DiscordBotFunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
+                        var cfg = sp.GetRequiredService<Configuration>();
+                        return new MatchApi(client, cfg);
+                    })
                     .AddHostedService<TbaInitializationService>();
     }
 }
