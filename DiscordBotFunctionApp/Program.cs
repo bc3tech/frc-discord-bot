@@ -4,10 +4,12 @@ using Azure.Data.Tables;
 using Azure.Identity;
 using Azure.Storage.Blobs;
 
+using DiscordBotFunctionApp.Apis;
 using DiscordBotFunctionApp.DiscordInterop;
 using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.Subscription;
 using DiscordBotFunctionApp.TbaInterop;
+using DiscordBotFunctionApp.StatboticsInterop;
 
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;
@@ -55,11 +57,14 @@ internal sealed class Program
                     .ConfigureFunctionsApplicationInsights()
                     .ConfigureDiscord()
                     .ConfigureTheBlueAllianceApi()
+                    .ConfigureStatboticsApi()
                     .ConfigureFIRSTApi()
                     .AddSingleton<EventRepository>()
                     .AddSingleton<TeamRepository>()
                     .AddSingleton<SubscriptionManager>()
-                    .AddSingleton<TokenCredential>(credential);
+                    .AddSingleton<TokenCredential>(credential)
+                    .AddSingleton<RESTCountries>()
+                    .AddHttpClient(nameof(RESTCountries), c => c.BaseAddress = new("https://restcountries.com/v3.1/"));
 
                 var tableStorageEndpointConfigValue = context.Configuration[Constants.Configuration.Azure.Storage.TableEndpoint];
                 TableServiceClient tsc = !string.IsNullOrWhiteSpace(tableStorageEndpointConfigValue) && Uri.TryCreate(tableStorageEndpointConfigValue, UriKind.Absolute, out var tableEndpoint)
