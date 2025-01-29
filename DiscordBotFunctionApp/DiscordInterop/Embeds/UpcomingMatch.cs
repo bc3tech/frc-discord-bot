@@ -54,7 +54,6 @@ $@"# Match starting soon!
 ## {compLevelHeader} - {matchHeader}
 Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.scheduled_time!).ToLocalTime():t}
 **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToLocalTime():t}**
-Win probability for {highlightTeam}: {stats.ReadTeamMatchV3TeamMatchTeamMatchGet(notification.event_key, notification.team_key)}
 ### Alliances
 **Red Alliance**
 {string.Join("\n", detailedMatch.Alliances!.Red!.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}"))}
