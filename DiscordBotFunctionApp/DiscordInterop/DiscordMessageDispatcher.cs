@@ -24,7 +24,7 @@ using System.Threading;
 internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptions,
                                         [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptions,
                                         DiscordSocketClient _discordClient,
-                                        EmbeddingGenerator _embedGenerator,
+                                        WebhookEmbeddingGenerator _embedGenerator,
                                         ILogger<DiscordMessageDispatcher> logger)
 {
     public async Task<bool> ProcessWebhookMessageAsync(WebhookMessage message, CancellationToken cancellationToken)
