@@ -24,6 +24,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Common\Common.csproj" />
+	  <ProjectReference Include="..\services\FIRST\src\FIRST\FIRST.csproj" />
 	  <ProjectReference Include="..\services\TheBlueAlliance\src\TheBlueAlliance\TheBlueAlliance.csproj" />
 	</ItemGroup>
 	<ItemGroup>

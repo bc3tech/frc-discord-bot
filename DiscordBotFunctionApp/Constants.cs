@@ -10,6 +10,8 @@ internal static class Constants
         public const string TableClient_EventSubscriptions = "eventSubscriptions";
 
         public const string TheBlueAllianceHttpClient = nameof(TheBlueAllianceHttpClient);
+        public const string StatboticsHttpClient = nameof(StatboticsHttpClient);
+        public const string FIRSTHttpClient = nameof(FIRSTHttpClient);
     }
 
     public static class Configuration
@@ -33,6 +35,13 @@ internal static class Constants
             public const string _Name = nameof(Discord);
             public static readonly string LogLevel = ConfigurationPath.Combine(_Name, nameof(LogLevel));
             public static readonly string Token = ConfigurationPath.Combine(_Name, nameof(Token));
+        }
+
+        public static class FIRST
+        {
+            public const string _Name = nameof(FIRST);
+            public static readonly string Username = ConfigurationPath.Combine(_Name, nameof(Username));
+            public static readonly string Password = ConfigurationPath.Combine(_Name, nameof(Password));
         }
 
         public static class Azure

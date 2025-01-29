@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
 
 using Throws = Common.Throws;
+using DiscordBotFunctionApp.FIRSTInterop;
 
 internal sealed class Program
 {
@@ -54,6 +55,7 @@ internal sealed class Program
                     .ConfigureFunctionsApplicationInsights()
                     .ConfigureDiscord()
                     .ConfigureTheBlueAllianceApi()
+                    .ConfigureFIRSTApi()
                     .AddSingleton<EventRepository>()
                     .AddSingleton<TeamRepository>()
                     .AddSingleton<SubscriptionManager>()
