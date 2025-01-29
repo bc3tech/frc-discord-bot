@@ -2,8 +2,6 @@
 
 using Common.Extensions;
 
-using Discord;
-
 using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.TbaInterop.Models;
 using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
@@ -17,18 +15,18 @@ using System.Text.Json;
 
 using TheBlueAlliance.Api;
 
-internal sealed class AllianceSelection(TeamRepository teams, IEventApi tbaClient, EmbedBuilderFactory builderFactory, ILogger<AllianceSelection> logger) : IEmbedCreator
+internal sealed class AllianceSelection(TeamRepository teams, IEventApi tbaClient, EmbedBuilderFactory builderFactory, ILogger<AllianceSelection> logger) : INotificationEmbedCreator
 {
     public static NotificationType TargetType { get; } = NotificationType.alliance_selection;
 
-    public async IAsyncEnumerable<Embed> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<SubscriptionEmbedding> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var baseBuilder = builderFactory.GetBuilder();
         var notification = JsonSerializer.Deserialize<TbaInterop.Models.Notifications.AllianceSelection>(msg.MessageData);
         if (notification is null)
         {
             logger.LogWarning("Failed to deserialize notification data as {NotificationType}", TargetType);
-            yield return baseBuilder.Build();
+            yield return new(baseBuilder.Build());
             yield break;
         }
 
@@ -36,7 +34,7 @@ internal sealed class AllianceSelection(TeamRepository teams, IEventApi tbaClien
         if (string.IsNullOrWhiteSpace(eventKey))
         {
             logger.LogWarning("Event key is missing from notification data");
-            yield return baseBuilder.Build();
+            yield return new(baseBuilder.Build());
             yield break;
         }
 
@@ -44,7 +42,7 @@ internal sealed class AllianceSelection(TeamRepository teams, IEventApi tbaClien
         if (alliances?.Count is null or 0)
         {
             logger.LogWarning("Failed to retrieve alliance selection data for {EventKey}", eventKey);
-            yield return baseBuilder.Build();
+            yield return new(baseBuilder.Build());
             yield break;
         }
 
@@ -71,8 +69,8 @@ internal sealed class AllianceSelection(TeamRepository teams, IEventApi tbaClien
             descriptionBuilder.AppendLine($"\nYou can find more alliance details on the [Event Results](https://www.thebluealliance.com/event/{eventKey}#results) page");
         }
 
-        yield return baseBuilder
+        yield return new(baseBuilder
             .WithDescription(descriptionBuilder.ToString())
-            .Build();
+            .Build());
     }
 }

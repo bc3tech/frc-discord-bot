@@ -13,12 +13,12 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Runtime.CompilerServices;
 
-internal sealed class EmbeddingGenerator(EmbedBuilderFactory embedBuilder, IServiceProvider services, ILogger<EmbeddingGenerator> logger)
+internal sealed class WebhookEmbeddingGenerator(EmbedBuilderFactory embedBuilder, IServiceProvider services, ILogger<WebhookEmbeddingGenerator> logger)
 {
     public async IAsyncEnumerable<Embed> CreateEmbeddingsAsync(WebhookMessage tbaWebhookMessage, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         using var scope = logger.CreateMethodScope();
-        var embedCreator = services.GetKeyedService<IEmbedCreator>(tbaWebhookMessage.MessageType.ToInvariantString());
+        var embedCreator = services.GetKeyedService<INotificationEmbedCreator>(tbaWebhookMessage.MessageType.ToInvariantString());
         if (embedCreator is null)
         {
             logger.LogWarning("No embedding creator registered for message type {MessageType}", tbaWebhookMessage.MessageType);

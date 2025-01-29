@@ -1,7 +1,5 @@
 ﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
 
-using Discord;
-
 using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.TbaInterop;
 using DiscordBotFunctionApp.TbaInterop.Models;
@@ -9,31 +7,33 @@ using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
+using Statbotics.Api;
+
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Model.MatchSimpleExtensions;
 
-internal sealed class UpcomingMatch(IMatchApi tbaApi, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<UpcomingMatch> logger) : IEmbedCreator
+internal sealed class UpcomingMatch(IMatchApi tbaApi, ITeamMatchApi stats, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<UpcomingMatch> logger) : INotificationEmbedCreator
 {
     public static NotificationType TargetType { get; } = NotificationType.upcoming_match;
 
-    public async IAsyncEnumerable<Embed> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<SubscriptionEmbedding> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var baseBuilder = builderFactory.GetBuilder();
         var notification = JsonSerializer.Deserialize<TbaInterop.Models.Notifications.UpcomingMatch>(msg.MessageData);
         if (notification is null)
         {
             logger.LogWarning("Failed to deserialize notification data as {NotificationType}", TargetType);
-            yield return baseBuilder.Build();
+            yield return new(baseBuilder.Build());
             yield break;
         }
 
         if (string.IsNullOrWhiteSpace(notification.match_key))
         {
             logger.LogWarning("Match key is missing from notification data");
-            yield return baseBuilder.Build();
+            yield return new(baseBuilder.Build());
             yield break;
         }
 
@@ -41,7 +41,7 @@ internal sealed class UpcomingMatch(IMatchApi tbaApi, EmbedBuilderFactory builde
         if (detailedMatch is null)
         {
             logger.LogWarning("Failed to retrieve detailed match data for {MatchKey}", notification.match_key);
-            yield return baseBuilder.Build();
+            yield return new(baseBuilder.Build());
             yield break;
         }
 
@@ -54,6 +54,7 @@ $@"# Match starting soon!
 ## {compLevelHeader} - {matchHeader}
 Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.scheduled_time!).ToLocalTime():t}
 **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToLocalTime():t}**
+Win probability for {highlightTeam}: {stats.ReadTeamMatchV3TeamMatchTeamMatchGet(notification.event_key, notification.team_key)}
 ### Alliances
 **Red Alliance**
 {string.Join("\n", detailedMatch.Alliances!.Red!.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}"))}
@@ -65,6 +66,6 @@ View more match details [here](https://www.thebluealliance.com/match/{detailedMa
 ")
             .Build();
 
-        yield return embedding;
+        yield return new(embedding);
     }
 }

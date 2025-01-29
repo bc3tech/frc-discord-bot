@@ -19,18 +19,18 @@ using System.Text.Json;
 
 using TheBlueAlliance.Api;
 
-internal sealed class Award(IEventApi tbaApi, BlobContainerClient imageBlobs, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<Award> logger) : IEmbedCreator
+internal sealed class Award(IEventApi tbaApi, BlobContainerClient imageBlobs, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<Award> logger) : INotificationEmbedCreator
 {
     public static NotificationType TargetType { get; } = NotificationType.awards_posted;
 
-    public async IAsyncEnumerable<Embed> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<SubscriptionEmbedding> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var baseBuilder = builderFactory.GetBuilder();
         var notification = JsonSerializer.Deserialize<AwardsPosted>(msg.MessageData);
         if (notification is null)
         {
             logger.LogWarning("Failed to deserialize notification data as {NotificationType}", TargetType);
-            yield return baseBuilder.Build();
+            yield return new(baseBuilder.Build());
             yield break;
         }
 
@@ -38,14 +38,14 @@ internal sealed class Award(IEventApi tbaApi, BlobContainerClient imageBlobs, Em
         if (eventAwards is null)
         {
             logger.LogWarning("Failed to retrieve detailed awards data for {EventKey}", notification.event_key);
-            yield return baseBuilder.Build();
+            yield return new(baseBuilder.Build());
             yield break;
         }
 
         if (eventAwards.Count is 0)
         {
             logger.LogWarning("No awards found for {EventKey}", notification.event_key);
-            yield return baseBuilder.Build();
+            yield return new(baseBuilder.Build());
             yield break;
         }
 
@@ -80,7 +80,7 @@ View more event awards [here](https://www.thebluealliance.com/event/{notificatio
                 .WithThumbnailUrl(imageUri)
                 .Build();
 
-            yield return embedding;
+            yield return new(embedding);
         }
     }
 }
