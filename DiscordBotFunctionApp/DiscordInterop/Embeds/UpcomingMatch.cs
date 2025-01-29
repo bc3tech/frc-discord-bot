@@ -7,13 +7,13 @@ using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
-using Statbotics.Api;
-
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 
-using TheBlueAlliance.Api;
 using TheBlueAlliance.Model.MatchSimpleExtensions;
+
+using IMatchApi = TheBlueAlliance.Api.IMatchApi;
+using ITeamMatchApi = Statbotics.Api.ITeamMatchApi;
 
 internal sealed class UpcomingMatch(IMatchApi tbaApi, ITeamMatchApi stats, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<UpcomingMatch> logger) : INotificationEmbedCreator
 {
