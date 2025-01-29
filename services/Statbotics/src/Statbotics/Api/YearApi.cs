@@ -483,22 +483,22 @@ using Statbotics.Model;
               
                   if (ascending is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "ascending", ascending));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "ascending", ascending));
                   }
                   
                   if (limit is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "limit", limit));
                   }
                   
                   if (metric is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "metric", metric));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "metric", metric));
                   }
                   
                   if (offset is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "offset", offset));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
                   }
                   
                             
@@ -569,22 +569,22 @@ using Statbotics.Model;
                 
                     if (ascending is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "ascending", ascending));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "ascending", ascending));
                     }
                     
                     if (limit is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "limit", limit));
                     }
                     
                     if (metric is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "metric", metric));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "metric", metric));
                     }
                     
                     if (offset is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "offset", offset));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
                     }
                     
                                 // make the HTTP request

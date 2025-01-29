@@ -86,7 +86,7 @@
     /// Returns the JSON string presentation of the object
     /// </summary>
     /// <returns>JSON string presentation of the object</returns>
-    public override string ToJson() => JsonSerializer.Serialize(this.ActualInstance, ValidationErrorLocInner.SerializerSettings);
+    public override string ToJson() => JsonSerializer.Serialize(this.ActualInstance, SerializerSettings);
     
     /// <summary>
     /// Converts the JSON string into an instance of ValidationErrorLocInner
@@ -102,7 +102,7 @@
         
         try
         {
-          return new ValidationErrorLocInner(JsonSerializer.Deserialize<int>(jsonString, ValidationErrorLocInner.SerializerSettings)!); // We expect the force-dereference to cause a nullref here
+          return new ValidationErrorLocInner(JsonSerializer.Deserialize<int>(jsonString, SerializerSettings)!); // We expect the force-dereference to cause a nullref here
         }
         catch (Exception exception)
         {
@@ -112,7 +112,7 @@
         
         try
         {
-          return new ValidationErrorLocInner(JsonSerializer.Deserialize<string>(jsonString, ValidationErrorLocInner.SerializerSettings)!); // We expect the force-dereference to cause a nullref here
+          return new ValidationErrorLocInner(JsonSerializer.Deserialize<string>(jsonString, SerializerSettings)!); // We expect the force-dereference to cause a nullref here
         }
         catch (Exception exception)
         {

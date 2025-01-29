@@ -403,22 +403,22 @@ using FIRST.Client;
                   localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
                   if (districtCode is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "districtCode", districtCode));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "districtCode", districtCode));
                   }
                   
                   if (page is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "page", page));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "page", page));
                   }
                   
                   if (teamNumber is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
                   }
                   
                   if (top is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "top", top));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "top", top));
                   }
                   
                   if (ifModifiedSince is not null)
@@ -512,22 +512,22 @@ using FIRST.Client;
                     localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
                     if (districtCode is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "districtCode", districtCode));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "districtCode", districtCode));
                     }
                     
                     if (page is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "page", page));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "page", page));
                     }
                     
                     if (teamNumber is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
                     }
                     
                     if (top is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "top", top));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "top", top));
                     }
                     
                     if (ifModifiedSince is not null)
@@ -622,12 +622,12 @@ using FIRST.Client;
                   localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
                   if (teamNumber is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
                   }
                   
                   if (top is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "top", top));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "top", top));
                   }
                   
                   if (ifModifiedSince is not null)
@@ -726,12 +726,12 @@ using FIRST.Client;
                     localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
                     if (teamNumber is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
                     }
                     
                     if (top is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "top", top));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "top", top));
                     }
                     
                     if (ifModifiedSince is not null)

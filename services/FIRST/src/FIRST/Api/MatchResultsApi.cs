@@ -430,27 +430,27 @@ using FIRST.Client;
                   localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
                   if (end is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "end", end));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "end", end));
                   }
                   
                   if (matchNumber is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "matchNumber", matchNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "matchNumber", matchNumber));
                   }
                   
                   if (start is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "start", start));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "start", start));
                   }
                   
                   if (teamNumber is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
                   }
                   
                   if (tournamentLevel is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "tournamentLevel", tournamentLevel));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "tournamentLevel", tournamentLevel));
                   }
                   
                   if (ifModifiedSince is not null)
@@ -555,27 +555,27 @@ using FIRST.Client;
                     localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
                     if (end is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "end", end));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "end", end));
                     }
                     
                     if (matchNumber is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "matchNumber", matchNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "matchNumber", matchNumber));
                     }
                     
                     if (start is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "start", start));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "start", start));
                     }
                     
                     if (teamNumber is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
                     }
                     
                     if (tournamentLevel is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "tournamentLevel", tournamentLevel));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "tournamentLevel", tournamentLevel));
                     }
                     
                     if (ifModifiedSince is not null)
@@ -682,17 +682,17 @@ using FIRST.Client;
                   localVarRequestOptions.PathParameters.Add("tournamentLevel", ClientUtils.ParameterToString(tournamentLevel)); // path parameter
                   if (end is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "end", end));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "end", end));
                   }
                   
                   if (matchNumber is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "matchNumber", matchNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "matchNumber", matchNumber));
                   }
                   
                   if (start is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "start", start));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "start", start));
                   }
                   
                   if (ifModifiedSince is not null)
@@ -803,17 +803,17 @@ using FIRST.Client;
                     localVarRequestOptions.PathParameters.Add("tournamentLevel", ClientUtils.ParameterToString(tournamentLevel)); // path parameter
                     if (end is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "end", end));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "end", end));
                     }
                     
                     if (matchNumber is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "matchNumber", matchNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "matchNumber", matchNumber));
                     }
                     
                     if (start is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "start", start));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "start", start));
                     }
                     
                     if (ifModifiedSince is not null)

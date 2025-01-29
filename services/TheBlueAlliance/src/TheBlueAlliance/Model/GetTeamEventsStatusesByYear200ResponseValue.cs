@@ -78,7 +78,7 @@
     /// Returns the JSON string presentation of the object
     /// </summary>
     /// <returns>JSON string presentation of the object</returns>
-    public override string ToJson() => JsonSerializer.Serialize(this.ActualInstance, GetTeamEventsStatusesByYear200ResponseValue.SerializerSettings);
+    public override string ToJson() => JsonSerializer.Serialize(this.ActualInstance, SerializerSettings);
     
     /// <summary>
     /// Converts the JSON string into an instance of GetTeamEventsStatusesByYear200ResponseValue
@@ -94,7 +94,7 @@
         
         try
         {
-          return new GetTeamEventsStatusesByYear200ResponseValue(JsonSerializer.Deserialize<TeamEventStatus>(jsonString, GetTeamEventsStatusesByYear200ResponseValue.SerializerSettings)!); // We expect the force-dereference to cause a nullref here
+          return new GetTeamEventsStatusesByYear200ResponseValue(JsonSerializer.Deserialize<TeamEventStatus>(jsonString, SerializerSettings)!); // We expect the force-dereference to cause a nullref here
         }
         catch (Exception exception)
         {

@@ -573,17 +573,17 @@ using FIRST.Client;
                   localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
                   if (eventCode is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "eventCode", eventCode));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "eventCode", eventCode));
                   }
                   
                   if (page is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "page", page));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "page", page));
                   }
                   
                   if (teamNumber is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
                   }
                   
                   if (ifModifiedSince is not null)
@@ -675,17 +675,17 @@ using FIRST.Client;
                     localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
                     if (eventCode is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "eventCode", eventCode));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "eventCode", eventCode));
                     }
                     
                     if (page is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "page", page));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "page", page));
                     }
                     
                     if (teamNumber is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
                     }
                     
                     if (ifModifiedSince is not null)
@@ -937,32 +937,32 @@ using FIRST.Client;
                   localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
                   if (districtCode is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "districtCode", districtCode));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "districtCode", districtCode));
                   }
                   
                   if (eventCode is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "eventCode", eventCode));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "eventCode", eventCode));
                   }
                   
                   if (excludeDistrict is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "excludeDistrict", excludeDistrict));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "excludeDistrict", excludeDistrict));
                   }
                   
                   if (teamNumber is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
                   }
                   
                   if (tournamentType is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "tournamentType", tournamentType));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "tournamentType", tournamentType));
                   }
                   
                   if (weekNumber is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "weekNumber", weekNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "weekNumber", weekNumber));
                   }
                   
                   if (ifModifiedSince is not null)
@@ -1060,32 +1060,32 @@ using FIRST.Client;
                     localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
                     if (districtCode is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "districtCode", districtCode));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "districtCode", districtCode));
                     }
                     
                     if (eventCode is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "eventCode", eventCode));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "eventCode", eventCode));
                     }
                     
                     if (excludeDistrict is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "excludeDistrict", excludeDistrict));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "excludeDistrict", excludeDistrict));
                     }
                     
                     if (teamNumber is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
                     }
                     
                     if (tournamentType is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "tournamentType", tournamentType));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "tournamentType", tournamentType));
                     }
                     
                     if (weekNumber is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "weekNumber", weekNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "weekNumber", weekNumber));
                     }
                     
                     if (ifModifiedSince is not null)
@@ -1335,27 +1335,27 @@ using FIRST.Client;
                   localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
                   if (districtCode is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "districtCode", districtCode));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "districtCode", districtCode));
                   }
                   
                   if (eventCode is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "eventCode", eventCode));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "eventCode", eventCode));
                   }
                   
                   if (page is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "page", page));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "page", page));
                   }
                   
                   if (state is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "state", state));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "state", state));
                   }
                   
                   if (teamNumber is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
                   }
                   
                   if (ifModifiedSince is not null)
@@ -1451,27 +1451,27 @@ using FIRST.Client;
                     localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
                     if (districtCode is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "districtCode", districtCode));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "districtCode", districtCode));
                     }
                     
                     if (eventCode is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "eventCode", eventCode));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "eventCode", eventCode));
                     }
                     
                     if (page is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "page", page));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "page", page));
                     }
                     
                     if (state is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "state", state));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "state", state));
                     }
                     
                     if (teamNumber is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(FIRST.Client.ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "teamNumber", teamNumber));
                     }
                     
                     if (ifModifiedSince is not null)

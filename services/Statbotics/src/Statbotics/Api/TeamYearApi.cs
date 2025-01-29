@@ -544,52 +544,52 @@ using Statbotics.Model;
               
                   if (ascending is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "ascending", ascending));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "ascending", ascending));
                   }
                   
                   if (country is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "country", country));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "country", country));
                   }
                   
                   if (district is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "district", district));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "district", district));
                   }
                   
                   if (limit is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "limit", limit));
                   }
                   
                   if (metric is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "metric", metric));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "metric", metric));
                   }
                   
                   if (offseason is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "offseason", offseason));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offseason", offseason));
                   }
                   
                   if (offset is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "offset", offset));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
                   }
                   
                   if (state is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "state", state));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "state", state));
                   }
                   
                   if (team is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "team", team));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "team", team));
                   }
                   
                   if (year is not null)
                   {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "year", year));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "year", year));
                   }
                   
                             
@@ -672,52 +672,52 @@ using Statbotics.Model;
                 
                     if (ascending is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "ascending", ascending));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "ascending", ascending));
                     }
                     
                     if (country is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "country", country));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "country", country));
                     }
                     
                     if (district is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "district", district));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "district", district));
                     }
                     
                     if (limit is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "limit", limit));
                     }
                     
                     if (metric is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "metric", metric));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "metric", metric));
                     }
                     
                     if (offseason is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "offseason", offseason));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offseason", offseason));
                     }
                     
                     if (offset is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "offset", offset));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
                     }
                     
                     if (state is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "state", state));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "state", state));
                     }
                     
                     if (team is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "team", team));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "team", team));
                     }
                     
                     if (year is not null)
                     {
-                      localVarRequestOptions.QueryParameters.Add(Statbotics.Client.ClientUtils.ParameterToMultiMap("", "year", year));
+                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "year", year));
                     }
                     
                                 // make the HTTP request
