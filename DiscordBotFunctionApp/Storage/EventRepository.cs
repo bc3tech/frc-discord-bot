@@ -13,31 +13,33 @@ using TheBlueAlliance.Model;
 
 internal sealed class EventRepository(IEventApi apiClient, ILogger<EventRepository> logger)
 {
-    private Dictionary<string, Event>? _events;
+    private Dictionary<string, Event> _events = [];
 
     public async ValueTask<IReadOnlyDictionary<string, Event>> GetEventsAsync(CancellationToken cancellationToken)
     {
         using var scope = logger.CreateMethodScope();
-        if (_events is null)
+        if (_events.Count is 0)
         {
-            var currentYear = TimeProvider.System.GetLocalNow().Year;
-            logger.LogDebug("Loading Events from TBA...");
-            try
+            for (int i = 0, currentYear = TimeProvider.System.GetLocalNow().Year; i < 4; i++, currentYear--)
             {
-                var newEvents = await apiClient.GetEventsByYearAsync(currentYear, cancellationToken: cancellationToken).ConfigureAwait(false);
-                if (newEvents?.Count is null or 0)
+                logger.LogDebug("Loading Events from TBA for {EventYear}...", currentYear);
+                try
                 {
-                    return _events = [];
-                }
+                    var newEvents = await apiClient.GetEventsByYearAsync(currentYear, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    if (newEvents?.Count is null or 0)
+                    {
+                        return _events = [];
+                    }
 
-                logger.LogInformation("Loaded {EventCount} events", newEvents.Count);
-                _events = newEvents.ToDictionary(t => t.Key!);
-            }
-            catch (Exception ex)
-            {
-                Debug.Fail(ex.Message);
-                logger.LogError(ex, "An error occurred while loading events from the TBA API: {ErrorMessage}", ex.Message);
-                _events = [];
+                    logger.LogInformation("Loaded {EventCount} events", newEvents.Count);
+                    _events = new Dictionary<string, Event>([.. _events, .. newEvents.ToDictionary(t => t.Key!)]);
+                }
+                catch (Exception ex)
+                {
+                    Debug.Fail(ex.Message);
+                    logger.LogError(ex, "An error occurred while loading events from the TBA API: {ErrorMessage}", ex.Message);
+                    _events = [];
+                }
             }
         }
 
