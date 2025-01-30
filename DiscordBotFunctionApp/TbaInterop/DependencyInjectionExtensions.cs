@@ -43,6 +43,12 @@ internal static class DependencyInjectionExtensions
                 var cfg = sp.GetRequiredService<Configuration>();
                 return new MatchApi(client, cfg);
             })
+            .AddSingleton<IDistrictApi>(sp =>
+            {
+                var client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(DiscordBotFunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
+                var cfg = sp.GetRequiredService<Configuration>();
+                return new DistrictApi(client, cfg);
+            })
             .AddHostedService<TbaInitializationService>();
     }
 }

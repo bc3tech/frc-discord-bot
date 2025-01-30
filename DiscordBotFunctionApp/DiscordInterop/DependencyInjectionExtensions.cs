@@ -88,7 +88,8 @@ internal static class DependencyInjectionExtensions
         .AddKeyedSingleton<INotificationEmbedCreator, AllianceSelection>(AllianceSelection.TargetType.ToInvariantString())
         .AddKeyedSingleton<INotificationEmbedCreator, UpcomingMatch>(UpcomingMatch.TargetType.ToInvariantString())
         .AddKeyedSingleton<INotificationEmbedCreator, Award>(Award.TargetType.ToInvariantString())
-        .AddKeyedSingleton<IEmbedCreator<string>, EventDetail>(nameof(EventDetail));
+        .AddKeyedSingleton<IEmbedCreator<string>, EventDetail>(nameof(EventDetail))
+        .AddKeyedSingleton<IEmbedCreator<string>, TeamDetail>(nameof(TeamDetail));
 
         return services;
     }
