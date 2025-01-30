@@ -4,7 +4,7 @@ using Common.JsonConverters;
 
 using System.Text.Json.Serialization;
 
-internal record Event
+internal sealed record Event
 {
     [JsonPropertyName("key")]
     public string? Key { get; init; }
@@ -83,7 +83,7 @@ internal record Event
             return "Elims Ongoing";
     }
 
-    public record Epa
+    internal sealed record Epa
     {
         [JsonPropertyName("max")]
         public float Max { get; init; }
@@ -101,7 +101,7 @@ internal record Event
         public float Sd { get; init; }
     }
 
-    public record Metrics
+    internal sealed record Metrics
     {
         [JsonPropertyName("win_prob")]
         public WinProb? WinProb { get; init; }
@@ -113,7 +113,7 @@ internal record Event
         public RpPred? RpPred { get; init; }
     }
 
-    public record WinProb
+    internal sealed record WinProb
     {
         [JsonPropertyName("count")]
         public int Count { get; init; }
@@ -128,7 +128,7 @@ internal record Event
         public float Mse { get; init; }
     }
 
-    public record ScorePred
+    internal sealed record ScorePred
     {
         [JsonPropertyName("count")]
         public int Count { get; init; }
@@ -143,7 +143,7 @@ internal record Event
         public float Error { get; init; }
     }
 
-    public record RpPred
+    internal sealed record RpPred
     {
         [JsonPropertyName("count")]
         public int Count { get; init; }
@@ -155,7 +155,7 @@ internal record Event
         public HarmonyRp? HarmonyRp { get; init; }
     }
 
-    public record MelodyRp
+    internal sealed record MelodyRp
     {
         [JsonPropertyName("error")]
         public float Error { get; init; }
@@ -170,7 +170,7 @@ internal record Event
         public float F1 { get; init; }
     }
 
-    public record HarmonyRp
+    internal sealed record HarmonyRp
     {
         [JsonPropertyName("error")]
         public float Error { get; init; }
