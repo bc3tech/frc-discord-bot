@@ -55,15 +55,17 @@ internal sealed class AutoCompleteHandlers
             var teamsRepo = services.GetService<TeamRepository>();
             Debug.Assert(teamsRepo is not null);
             var frcEvents = await teamsRepo.GetTeamsAsync(default).ConfigureAwait(false);
+#pragma warning disable EA0011 // Consider removing unnecessary conditional access operator (?) - found instances where, even though decorated with [JsonRequired] and not nullable, values were coming through as `null`
             return AutocompletionResult.FromSuccess(frcEvents
-                .Where(i => i.Value.Name.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
-                    || i.Value.Nickname.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
+                .Where(i => i.Value.Name?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
+                    || i.Value.Nickname?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
                     || i.Value.TeamNumber.ToString(CultureInfo.InvariantCulture).Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
-                    || i.Value.City.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
-                    || i.Value.Country.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
-                    || i.Value.StateProv.Contains(userSearchString, StringComparison.OrdinalIgnoreCase))
+                    || i.Value.City?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
+                    || i.Value.Country?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
+                    || i.Value.StateProv?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true)
                 .Take(MAX_RESULTS)
-                .Select(i => new AutocompleteResult(Ellipsify(teamsRepo.GetLabelForTeam(i.Key)), i.Key.ToTeamNumber())));
+                .Select(i => new AutocompleteResult(Ellipsify(teamsRepo.GetLabelForTeam(i.Key)), i.Key)));
+#pragma warning restore EA0011 // Consider removing unnecessary conditional access operator (?)
         }
     }
 }
