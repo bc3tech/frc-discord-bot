@@ -32,9 +32,6 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBu
             yield break;
         }
 
-        var compLevelHeader = $"{Translator.CompLevelToShortString(notification.match!.CompLevel!.ToInvariantString()!)} {notification.match.SetNumber}";
-        var matchHeader = $"Match {notification.match.MatchNumber}";
-
         var detailedMatch = await matchApi.GetMatchAsync(notification.match_key ?? Throws.IfNullOrWhiteSpace(notification.match?.Key), cancellationToken: cancellationToken).ConfigureAwait(false);
         if (detailedMatch is null)
         {
@@ -43,16 +40,18 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBu
             yield break;
         }
 
-        var eventStandings = await eventApi.GetEventRankingsAsync(notification.event_key ?? Throws.IfNullOrWhiteSpace(notification.match.EventKey), cancellationToken: cancellationToken).ConfigureAwait(false);
+        var compLevelHeader = $"{Translator.CompLevelToShortString(notification.match!.CompLevel!.ToInvariantString()!)} {notification.match.SetNumber}";
+        var matchHeader = $"Match {notification.match.MatchNumber}";
+        var ranks = (await eventApi.GetEventRankingsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))!.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
 
         var embedding = baseBuilder
             .WithDescription(
 $@"# Scores are in!
 ## {compLevelHeader} - {matchHeader}
 ### {(detailedMatch.WinningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)} Red Alliance - {detailedMatch.Alliances!.Red!.Score} (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red)})
-{string.Join("\n", detailedMatch.Alliances.Red.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(eventStandings is not null ? $" (#{eventStandings.Rankings.First(i => i.TeamKey == t).Rank})" : string.Empty)}"))}
+{string.Join("\n", detailedMatch.Alliances.Red.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
 ### {(detailedMatch.WinningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)} Blue Alliance - {detailedMatch.Alliances.Blue!.Score} (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue)})
-{string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(eventStandings is not null ? $" (#{eventStandings.Rankings.First(i => i.TeamKey == t).Rank})" : string.Empty)}"))}
+{string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
 
         View more match details[here](https://www.thebluealliance.com/match/{detailedMatch.Key})
         ")

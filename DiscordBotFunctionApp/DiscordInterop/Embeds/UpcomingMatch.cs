@@ -10,12 +10,13 @@ using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 
+using TheBlueAlliance.Api;
 using TheBlueAlliance.Model.MatchSimpleExtensions;
 
 using IMatchApi = TheBlueAlliance.Api.IMatchApi;
 using ITeamMatchApi = Statbotics.Api.ITeamMatchApi;
 
-internal sealed class UpcomingMatch(IMatchApi tbaApi, ITeamMatchApi stats, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<UpcomingMatch> logger) : INotificationEmbedCreator
+internal sealed class UpcomingMatch(IMatchApi tbaApi, IEventApi eventInsights, ITeamMatchApi stats, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<UpcomingMatch> logger) : INotificationEmbedCreator
 {
     public static NotificationType TargetType { get; } = NotificationType.upcoming_match;
 
@@ -47,22 +48,22 @@ internal sealed class UpcomingMatch(IMatchApi tbaApi, ITeamMatchApi stats, Embed
 
         var compLevelHeader = $"{Translator.CompLevelToShortString(detailedMatch.CompLevel.ToInvariantString()!)} {detailedMatch.SetNumber}";
         var matchHeader = $"Match {detailedMatch.MatchNumber}";
+        var ranks = (await eventInsights.GetEventRankingsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))!.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
 
         var embedding = baseBuilder
             .WithDescription(
 $@"# Match starting soon!
 ## {compLevelHeader} - {matchHeader}
-Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.scheduled_time!).ToLocalTime():t}
-**Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToLocalTime():t}**
+Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.scheduled_time!).ToPacificTime():t}
+**Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToPacificTime():t}**
 ### Alliances
 **Red Alliance**
-{string.Join("\n", detailedMatch.Alliances!.Red!.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}"))}
+{string.Join("\n", detailedMatch.Alliances!.Red!.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
 
 **Blue Alliance**
-{string.Join("\n", detailedMatch.Alliances.Blue!.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}"))}
+{string.Join("\n", detailedMatch.Alliances.Blue!.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
 
-View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})
-")
+View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})")
             .Build();
 
         yield return new(embedding);
