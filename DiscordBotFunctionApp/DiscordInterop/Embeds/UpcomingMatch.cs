@@ -14,9 +14,8 @@ using TheBlueAlliance.Api;
 using TheBlueAlliance.Model.MatchSimpleExtensions;
 
 using IMatchApi = TheBlueAlliance.Api.IMatchApi;
-using ITeamMatchApi = Statbotics.Api.ITeamMatchApi;
 
-internal sealed class UpcomingMatch(IMatchApi tbaApi, IEventApi eventInsights, ITeamMatchApi stats, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<UpcomingMatch> logger) : INotificationEmbedCreator
+internal sealed class UpcomingMatch(IMatchApi tbaApi, IEventApi eventInsights, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<UpcomingMatch> logger) : INotificationEmbedCreator
 {
     public static NotificationType TargetType { get; } = NotificationType.upcoming_match;
 
