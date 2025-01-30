@@ -48,6 +48,7 @@ public class SubscriptionCommandModule(IServiceProvider services) : InteractionM
         [Summary("team", "Team to subscribe to, 'all' if not specified."), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))]
         ushort? teamNumber= null)
     {
+        await this.DeferAsync(ephemeral: true).ConfigureAwait(false);
         if (eventKey is null && teamNumber is null)
         {
             await this.RespondAsync("At least one of Event or Team is required.", ephemeral: true).ConfigureAwait(false);
