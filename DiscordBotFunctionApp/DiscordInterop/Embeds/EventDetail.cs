@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 
-internal class EventDetail(RESTCountries _countryCodeLookup, EmbedBuilderFactory builderFactory, EventRepository _eventsRepo, Statbotics.Api.IEventApi eventStats, ILogger<EventDetail> logger) : IEmbedCreator<string>
+internal sealed class EventDetail(RESTCountries _countryCodeLookup, EmbedBuilderFactory builderFactory, EventRepository _eventsRepo, Statbotics.Api.IEventApi eventStats, ILogger<EventDetail> logger) : IEmbedCreator<string>
 {
     private static readonly JsonSerializerOptions _jsonOptions = new(JsonSerializerDefaults.Web);
 
