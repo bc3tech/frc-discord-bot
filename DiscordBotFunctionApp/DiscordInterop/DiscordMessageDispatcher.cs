@@ -86,7 +86,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
             if (targetChannel is IMessageChannel msgChan)
             {
-                await msgChan.SendMessageAsync(embeds: await embeds.ToArrayAsync(cancellationToken), options: new RequestOptions { CancelToken = cancellationToken }).ConfigureAwait(false);
+                await msgChan.SendMessageAsync(embeds: await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false), options: new RequestOptions { CancelToken = cancellationToken }).ConfigureAwait(false);
             }
             else
             {

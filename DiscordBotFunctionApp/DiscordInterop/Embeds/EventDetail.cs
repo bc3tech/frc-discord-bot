@@ -59,7 +59,7 @@ internal class EventDetail(RESTCountries _countryCodeLookup, EmbedBuilderFactory
             Event? stats = default;
             try
             {
-                var responseObj = await eventStats.ReadEventV3EventEventGetAsync(eventKey, cancellationToken);
+                var responseObj = await eventStats.ReadEventV3EventEventGetAsync(eventKey, cancellationToken).ConfigureAwait(false);
                 if (responseObj is not null)
                 {
                     stats = JsonSerializer.Deserialize<Event>(JsonSerializer.Serialize(responseObj, _jsonOptions), _jsonOptions);
