@@ -23,11 +23,13 @@ internal sealed class TeamDetail(RESTCountries _countryCodeLookup, EmbedBuilderF
         {
             var jsonResult = JsonSerializer.Serialize(await teamStats.ReadTeamV3TeamTeamGetAsync(teamKey.ToTeamNumber().ToString(), cancellationToken).ConfigureAwait(false));
             var teamResult = JsonSerializer.Deserialize<StatboticsInterop.Models.Team>(jsonResult)!;
+            var locationString = await createLocationStringAsync(teamDetails, _countryCodeLookup).ConfigureAwait(false);
             var builder = builderFactory.GetBuilder()
                 .WithTitle($"**{teamDetails.Nickname}**")
                 .WithUrl(teamDetails.Website)
                 .WithThumbnailUrl($"https://www.thebluealliance.com/avatar/{TimeProvider.System.GetLocalNow().Year - 1}/{teamKey}.png")
-                .WithDescription(await createLocationStringAsync(teamDetails, _countryCodeLookup).ConfigureAwait(false))
+                .WithDescription(teamDetails.Name)
+                .AddField("Location", locationString)
                 .AddField("Active?", teamResult.Active ? "Yes" : "No");
 
             var district = (await districts.GetTeamDistrictsAsync(teamKey, cancellationToken: cancellationToken).ConfigureAwait(false))?.FirstOrDefault();
@@ -36,9 +38,14 @@ internal sealed class TeamDetail(RESTCountries _countryCodeLookup, EmbedBuilderF
                 builder.AddField("District", district.DisplayName);
             }
 
+            if (!string.IsNullOrWhiteSpace(teamDetails.SchoolName))
+            {
+                builder.AddField("School", teamDetails.SchoolName);
+            }
+
             builder
                 .AddField("Rookie Year", $"{teamDetails.RookieYear}")
-                .AddField("All-time Record", $"{teamResult.Records.Full.Wins}-{teamResult.Records.Full.Losses}-{teamResult.Records.Full.Ties} ({teamResult.Records.Full.Wins/((double) teamResult.Records.Full.Wins+ teamResult.Records.Full.Losses+ teamResult.Records.Full.Ties):.000})");
+                .AddField("All-time Record", $"{teamResult.Records.Full.Wins}-{teamResult.Records.Full.Losses}-{teamResult.Records.Full.Ties} ({teamResult.Records.Full.Wins / ((double)teamResult.Records.Full.Wins + teamResult.Records.Full.Losses + teamResult.Records.Full.Ties):.000})");
 
             yield return new(builder.Build());
 
