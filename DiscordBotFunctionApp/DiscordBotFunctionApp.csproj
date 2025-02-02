@@ -8,6 +8,7 @@
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 		<PackageReference Include="Azure.Data.Tables" />
 		<PackageReference Include="Azure.Storage.Blobs" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Timer" />

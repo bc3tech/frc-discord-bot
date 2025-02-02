@@ -13,11 +13,13 @@ internal static class Constants
         public const string TheBlueAllianceHttpClient = nameof(TheBlueAllianceHttpClient);
         public const string StatboticsHttpClient = nameof(StatboticsHttpClient);
         public const string FIRSTHttpClient = nameof(FIRSTHttpClient);
+        public const string ChatBotHttpClient = nameof(ChatBotHttpClient);
     }
 
     public static class Configuration
     {
         public const string TbaApiKey = nameof(TbaApiKey);
+        public const string SignalREndpoint = nameof(SignalREndpoint);
 
         public static class Discord
         {
@@ -44,6 +46,34 @@ internal static class Constants
                 public static readonly string BlobsEndpoint = ConfigurationPath.Combine(_Name, nameof(BlobsEndpoint));
                 public static readonly string Tables = ConfigurationPath.Combine(_Name, nameof(Tables));
             }
+        }
+    }
+
+    public static class SignalR
+    {
+        public static class Users
+        {
+            public const string EndUser = nameof(EndUser);
+            public const string Orchestrator = nameof(Orchestrator);
+        }
+
+        public static class Functions
+        {
+            public const string GetAnswer = nameof(GetAnswer);
+
+            public const string GetStreamedAnswer = nameof(GetStreamedAnswer);
+
+            public const string SendStreamedAnswerBack = nameof(SendStreamedAnswerBack);
+
+            public const string Introduce = nameof(Introduce);
+
+            public const string Reintroduce = nameof(Reintroduce);
+
+            public const string ExpertJoined = nameof(ExpertJoined);
+
+            public const string ExpertLeft = nameof(ExpertLeft);
+
+            public const string PostStatus = nameof(PostStatus);
         }
     }
 }

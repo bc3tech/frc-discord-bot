@@ -18,7 +18,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-internal sealed partial class DiscordInitializationService(DiscordSocketClient client, InteractionService interactionService, IConfiguration appConfig, ILoggerFactory logFactory, IServiceProvider services) : IHostedService
+internal sealed partial class DiscordInitializationService(DiscordSocketClient client, InteractionService interactionService, ChatBot.MessageHandler chatBot, IConfiguration appConfig, ILoggerFactory logFactory, IServiceProvider services) : IHostedService
 {
     private readonly ILogger _logger = logFactory.CreateLogger<DiscordInitializationService>();
 
@@ -82,6 +82,15 @@ internal sealed partial class DiscordInitializationService(DiscordSocketClient c
             _logger.PingFromGatewayLatencyWasPreviousLatencyMsMsNowLatencyMsMs(i, j);
             _logger.LogMetric("Ping", j, new Dictionary<string, object>() { { "PreviousLatencyMs", i } });
             return Task.CompletedTask;
+        };
+
+        client.MessageReceived += async i =>
+        {
+            _logger.LogTrace("Message received from gateway ({GatewayMessage})", i);
+            if (i is SocketUserMessage msg && i.Channel is IDMChannel && i.Author.GlobalName is not null)
+            {
+                await chatBot.HandleUserMessageAsync(msg).ConfigureAwait(false);
+            }
         };
     }
 

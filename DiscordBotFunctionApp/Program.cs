@@ -24,6 +24,7 @@ using System;
 using System.Runtime.CompilerServices;
 
 using Throws = Common.Throws;
+using DiscordBotFunctionApp.ChatBot;
 
 internal sealed class Program
 {
@@ -54,6 +55,7 @@ internal sealed class Program
                     .ConfigureTheBlueAllianceApi()
                     .ConfigureStatboticsApi()
                     .ConfigureFIRSTApi()
+                    .ConfigureChatBotFunctionality()
                     .AddSingleton<EventRepository>()
                     .AddSingleton<TeamRepository>()
                     .AddSingleton<SubscriptionManager>()
