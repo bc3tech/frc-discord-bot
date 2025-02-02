@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using System;
+using System.Globalization;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading;
@@ -24,6 +25,7 @@ internal sealed partial class DiscordInitializationService(DiscordSocketClient c
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
+        var startTime = TimeProvider.System.GetTimestamp();
         var tsc = new TaskCompletionSource();
         client.Ready += () =>
         {
@@ -52,6 +54,8 @@ internal sealed partial class DiscordInitializationService(DiscordSocketClient c
         _logger.LogDebug("Currently active guilds:\n{ActiveGuilds}", string.Join($"\n", client.Guilds.Select(g => $"- {g.Name}")));
 
         await InstallCommandsAsync(cancellationToken).ConfigureAwait(false);
+
+        _logger.LogInformation("Discord initialization time: {DiscordInitTime}(s)", TimeProvider.System.GetElapsedTime(startTime).TotalSeconds.ToString("#.000", CultureInfo.CurrentUICulture));
 
         client.InteractionCreated += async x =>
         {
