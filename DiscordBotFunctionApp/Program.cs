@@ -20,6 +20,7 @@ using Microsoft.Extensions.Logging.Configuration;
 
 using Throws = Common.Throws;
 using DiscordBotFunctionApp.FIRSTInterop;
+using DiscordBotFunctionApp.ChatBot;
 
 internal sealed class Program
 {
@@ -60,6 +61,7 @@ internal sealed class Program
                     .ConfigureTheBlueAllianceApi()
                     .ConfigureStatboticsApi()
                     .ConfigureFIRSTApi()
+                    .ConfigureChatBotFunctionality()
                     .AddSingleton<EventRepository>()
                     .AddSingleton<TeamRepository>()
                     .AddSingleton<SubscriptionManager>()

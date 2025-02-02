@@ -30,7 +30,7 @@ internal static class DependencyInjectionExtensions
                 HandlerTimeout = 10_000,
                 LogLevel = Enum.Parse<LogSeverity>(discordLogLevel),
                 LogGatewayIntentWarnings = true,
-                GatewayIntents = GatewayIntents.Guilds | GatewayIntents.GuildMessages,
+                GatewayIntents = GatewayIntents.Guilds | GatewayIntents.GuildMessages | GatewayIntents.DirectMessages,
             };
         })
         .AddSingleton<EmbedBuilderFactory>()
