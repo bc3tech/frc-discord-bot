@@ -31,6 +31,7 @@ internal sealed class Program
             .ConfigureFunctionsWorkerDefaults()
             .ConfigureLogging((context, builder) => builder
                 .AddConfiguration(context.Configuration.GetSection("Logging"))
+                .AddApplicationInsights()
                 .AddDebug()
                 .AddSimpleConsole(i =>
                 {
