@@ -2,6 +2,8 @@
 
 using Common.Extensions;
 
+using Discord;
+
 using DiscordBotFunctionApp.Apis;
 using DiscordBotFunctionApp.Storage;
 
@@ -32,6 +34,14 @@ internal sealed class TeamDetail(RESTCountries _countryCodeLookup, EmbedBuilderF
                 .AddField("Location", locationString)
                 .AddField("Active?", teamResult.Active ? "Yes" : "No");
 
+            var lightestColor = Utility.GetLightestColorOf(
+                teamResult.Colors?.Primary is not null ? Color.Parse(teamResult.Colors.Primary) : null,
+                teamResult.Colors?.Secondary is not null ? Color.Parse(teamResult.Colors.Secondary) : null);
+            if (lightestColor is not null)
+            {
+                builder.WithColor(lightestColor.Value);
+            }
+
             var district = (await districts.GetTeamDistrictsAsync(teamKey, cancellationToken: cancellationToken).ConfigureAwait(false))?.FirstOrDefault();
             if (district is not null && !string.IsNullOrWhiteSpace(district.DisplayName))
             {
@@ -43,9 +53,13 @@ internal sealed class TeamDetail(RESTCountries _countryCodeLookup, EmbedBuilderF
                 builder.AddField("School", teamDetails.SchoolName);
             }
 
-            builder
-                .AddField("Rookie Year", $"{teamDetails.RookieYear}")
-                .AddField("All-time Record", $"{teamResult.Records.Full.Wins}-{teamResult.Records.Full.Losses}-{teamResult.Records.Full.Ties} ({teamResult.Records.Full.Wins / ((double)teamResult.Records.Full.Wins + teamResult.Records.Full.Losses + teamResult.Records.Full.Ties):.000})");
+            if (teamDetails.RookieYear.HasValue)
+            {
+                builder.AddField("Rookie Year", $"{teamDetails.RookieYear}");
+            }
+
+            StatboticsInterop.Models.Record fullRecord = teamResult.Records.Full ?? teamResult.Records;
+            builder.AddField("All-time Record", $"{fullRecord.Wins}-{fullRecord.Losses}-{fullRecord.Ties} ({fullRecord.Wins / ((float)fullRecord.Wins + fullRecord.Losses + fullRecord.Ties):.000})");
 
             yield return new(builder.Build());
 

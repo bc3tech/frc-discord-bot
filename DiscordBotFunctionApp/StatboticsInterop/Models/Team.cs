@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 internal sealed record Team
 {
     [JsonPropertyName("team")]
-    public string Number { get; init; }
+    public int Number { get; init; }
 
     [JsonPropertyName("name")]
     public string Name { get; init; }
@@ -29,7 +29,7 @@ internal sealed record Team
     public bool Active { get; init; }
 
     [JsonPropertyName("colors")]
-    public Colors Colors { get; init; }
+    public Colors? Colors { get; init; }
 
     [JsonPropertyName("record")]
     public Records Records { get; init; }
@@ -41,22 +41,22 @@ internal sealed record Team
 internal sealed record Colors
 {
     [JsonPropertyName("primary")]
-    public string Primary { get; init; }
+    public string? Primary { get; init; }
 
     [JsonPropertyName("secondary")]
-    public string Secondary { get; init; }
+    public string? Secondary { get; init; }
 }
 
-internal sealed record Records
+internal sealed record Records : Record
 {
     [JsonPropertyName("season")]
-    public Record Season { get; init; }
+    public Record? Season { get; init; }
 
     [JsonPropertyName("full")]
-    public Record Full { get; init; }
+    public Record? Full { get; init; }
 }
 
-internal sealed record Record
+internal record Record
 {
     [JsonPropertyName("wins")]
     public int Wins { get; init; }
