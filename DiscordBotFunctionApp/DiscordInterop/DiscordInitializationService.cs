@@ -79,7 +79,7 @@ internal sealed partial class DiscordInitializationService(DiscordSocketClient c
 
         client.LatencyUpdated += (i, j) =>
         {
-            _logger.LogTrace("Ping from gateway ({int1},{int2})", i, j);
+            _logger.LogTrace("Ping from gateway - Latency = Was: {PreviousLatencyMs}ms, Now: {LatencyMs}ms", i, j);
             return Task.CompletedTask;
         };
     }
@@ -114,6 +114,11 @@ internal sealed partial class DiscordInitializationService(DiscordSocketClient c
         cancellationToken.ThrowIfCancellationRequested();
 
         _logger.LogTrace("Adding modules globally...");
+        foreach (var g in client.Guilds)
+        {
+            await interactionService.RemoveModulesFromGuildAsync(g);
+        }
+
         var r = await interactionService.AddModulesGloballyAsync(deleteMissing: true, [.. m]).ConfigureAwait(false);
         _logger.LogDebug("{NumCommands} commands added globally ({Available Commands})", r.Count, string.Join(", ", r.Select(i => i.Name)));
     }
