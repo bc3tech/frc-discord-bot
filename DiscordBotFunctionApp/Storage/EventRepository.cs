@@ -49,6 +49,11 @@ internal sealed class EventRepository(IEventApi apiClient, ILogger<EventReposito
     public string GetLabelForEvent(string eventKey)
     {
         using var scope = logger.CreateMethodScope();
+        if (eventKey is CommonConstants.ALL)
+        {
+            return "All Events";
+        }
+
         if (_events.TryGetValue(eventKey, out var e) is true && e is not null)
         {
             return $"{(!string.IsNullOrWhiteSpace(e.Name) ? $"{e.Year} {e.Name}" : string.Empty)}{(!string.IsNullOrWhiteSpace(e.City) && !string.IsNullOrWhiteSpace(e.Country) ? $" - {e.City}, {e.Country}" : string.Empty)}";
