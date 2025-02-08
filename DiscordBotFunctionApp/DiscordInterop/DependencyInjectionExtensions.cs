@@ -24,20 +24,20 @@ internal static class DependencyInjectionExtensions
     {
         services.AddSingleton(sp =>
         {
-            var discordLogLevel = sp.GetRequiredService<IConfiguration>()[Constants.Configuration.Logging.Discord.LogLevel] ?? "Info";
+            var discordLogLevel = sp.GetRequiredService<IConfiguration>()[Constants.Configuration.Discord.LogLevel] ?? "Info";
             return new DiscordSocketConfig()
             {
                 HandlerTimeout = 10_000,
                 LogLevel = Enum.Parse<LogSeverity>(discordLogLevel),
                 LogGatewayIntentWarnings = true,
-                GatewayIntents = GatewayIntents.GuildMessages,
+                GatewayIntents = GatewayIntents.Guilds | GatewayIntents.GuildMessages,
             };
         })
         .AddSingleton<EmbedBuilderFactory>()
         .AddSingleton<WebhookEmbeddingGenerator>()
         .AddSingleton(sp =>
         {
-            var discordLogLevel = sp.GetRequiredService<IConfiguration>()[Constants.Configuration.Logging.Discord.LogLevel] ?? "Info";
+            var discordLogLevel = sp.GetRequiredService<IConfiguration>()[Constants.Configuration.Discord.LogLevel] ?? "Info";
             return new DiscordRestConfig()
             {
                 LogLevel = Enum.Parse<LogSeverity>(discordLogLevel)
@@ -66,7 +66,7 @@ internal static class DependencyInjectionExtensions
         .AddSingleton(sp =>
         {
             var logger = sp.GetRequiredService<ILoggerFactory>().CreateLogger<InteractionService>();
-            var discordLogLevel = sp.GetRequiredService<IConfiguration>()[Constants.Configuration.Logging.Discord.LogLevel] ?? "Info";
+            var discordLogLevel = sp.GetRequiredService<IConfiguration>()[Constants.Configuration.Discord.LogLevel] ?? "Info";
             var i = new InteractionService(sp.GetRequiredService<DiscordSocketClient>().Rest, new InteractionServiceConfig
             {
                 UseCompiledLambda = true,
