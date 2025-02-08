@@ -54,9 +54,9 @@ internal sealed class AutoCompleteHandlers
             var userSearchString = autocompleteInteraction.Data.Current.Value as string ?? string.Empty;
             var teamsRepo = services.GetService<TeamRepository>();
             Debug.Assert(teamsRepo is not null);
-            var frcEvents = await teamsRepo.GetTeamsAsync(default).ConfigureAwait(false);
+            var frcTeams = await teamsRepo.GetTeamsAsync(default).ConfigureAwait(false);
 #pragma warning disable EA0011 // Consider removing unnecessary conditional access operator (?) - found instances where, even though decorated with [JsonRequired] and not nullable, values were coming through as `null`
-            return AutocompletionResult.FromSuccess(frcEvents
+            return AutocompletionResult.FromSuccess(frcTeams
                 .Where(i => i.Value.Name?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
                     || i.Value.Nickname?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
                     || i.Value.TeamNumber.ToString(CultureInfo.InvariantCulture).Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
