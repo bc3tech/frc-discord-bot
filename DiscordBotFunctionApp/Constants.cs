@@ -18,23 +18,11 @@ internal static class Constants
     {
         public const string TbaApiKey = nameof(TbaApiKey);
 
-        public static class Logging
-        {
-            public const string _Name = nameof(Logging);
-            public const string LogLevel = nameof(LogLevel);
-
-            public static class Discord
-            {
-                public static readonly string _Name = ConfigurationPath.Combine(Logging._Name, nameof(Discord));
-                public static readonly string LogLevel = ConfigurationPath.Combine(_Name, nameof(LogLevel));
-            }
-        }
-
         public static class Discord
         {
             public const string _Name = nameof(Discord);
-            public static readonly string LogLevel = ConfigurationPath.Combine(_Name, nameof(LogLevel));
             public static readonly string Token = ConfigurationPath.Combine(_Name, nameof(Token));
+            public static readonly string LogLevel = ConfigurationPath.Combine(_Name, nameof(LogLevel));
         }
 
         public static class FIRST
