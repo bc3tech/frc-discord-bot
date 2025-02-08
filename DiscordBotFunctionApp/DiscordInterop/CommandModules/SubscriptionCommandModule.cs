@@ -1,5 +1,7 @@
 ﻿namespace DiscordBotFunctionApp.DiscordInterop.CommandModules;
 
+using Common.Extensions;
+
 using Discord.Interactions;
 
 using DiscordBotFunctionApp.Storage;
@@ -43,13 +45,11 @@ public class SubscriptionCommandModule(IServiceProvider services) : InteractionM
 
     [SlashCommand("create", "Creates a subscription to a team/event for the current channel")]
     public async Task CreateAsync(
-        [Summary("event", "Event to subscribe to, 'all' if not specified."), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))]
-        string? eventKey=null,
-        [Summary("team", "Team to subscribe to, 'all' if not specified."), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))]
-        ushort? teamNumber= null)
+        [Summary("team", "Team to subscribe to, 'all' if not specified."), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))] string? teamKey = null,
+        [Summary("event", "Event to subscribe to, 'all' if not specified."), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string? eventKey = null)
     {
         await this.DeferAsync(ephemeral: true).ConfigureAwait(false);
-        if (eventKey is null && teamNumber is null)
+        if (string.IsNullOrWhiteSpace(eventKey) && string.IsNullOrWhiteSpace(teamKey))
         {
             await this.RespondAsync("At least one of Event or Team is required.", ephemeral: true).ConfigureAwait(false);
         }
@@ -58,6 +58,8 @@ public class SubscriptionCommandModule(IServiceProvider services) : InteractionM
             Debug.Assert(_subscriptionManager is not null);
             Debug.Assert(this.Context.Interaction.GuildId.HasValue);
             Debug.Assert(this.Context.Interaction.ChannelId.HasValue);
+
+            var teamNumber = teamKey.ToTeamNumber();
 
             try
             {
