@@ -28,7 +28,7 @@
             /// <param name="playoffAverage">playoffAverage.</param>
             /// <param name="record">record.</param>
             /// <param name="status">status.</param>
-        public EliminationAllianceStatus(WLTRecord? currentLevelRecord = default, string? level = default, double? playoffAverage = default, WLTRecord? record = default, string? status = default)
+        public EliminationAllianceStatus(WLTRecord? currentLevelRecord = default, string? level = default, float? playoffAverage = default, WLTRecord? record = default, string? status = default)
         {
                       this.CurrentLevelRecord = currentLevelRecord;
                       this.Level = level;
@@ -56,7 +56,7 @@
               /// </summary>
                 
                   [JsonPropertyName("playoff_average")]
-                  public double? PlayoffAverage { get; set; }
+                  public float? PlayoffAverage { get; set; }
                   
               /// <summary>
               /// Gets or Sets Record

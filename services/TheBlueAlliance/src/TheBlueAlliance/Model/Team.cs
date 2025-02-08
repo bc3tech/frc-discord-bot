@@ -48,7 +48,7 @@
             /// <param name="stateProv">State of team derived from parsing the address registered with FIRST. (required).</param>
             /// <param name="teamNumber">Official team number issued by FIRST. (required).</param>
             /// <param name="website">Official website associated with the team.</param>
-        public Team(string address, string city, string country, string gmapsPlaceId, string gmapsUrl, string key, double? lat, double? lng, string locationName, string name, string nickname, string postalCode, int? rookieYear, string schoolName, string stateProv, int teamNumber, string? website = default)
+        public Team(string address, string city, string country, string gmapsPlaceId, string gmapsUrl, string key, float? lat, float? lng, string locationName, string name, string nickname, string postalCode, int? rookieYear, string schoolName, string stateProv, int teamNumber, string? website = default)
         {
                       // to ensure "address" is required (not null)
                       ArgumentNullException.ThrowIfNull(address);
@@ -168,7 +168,7 @@
               /// <value>Will be NULL, for future development.</value>
                 [JsonRequired]
                   [JsonPropertyName("lat")]
-                  public double? Lat { get; set; }
+                  public float? Lat { get; set; }
                   
               /// <summary>
               /// Will be NULL, for future development.
@@ -176,7 +176,7 @@
               /// <value>Will be NULL, for future development.</value>
                 [JsonRequired]
                   [JsonPropertyName("lng")]
-                  public double? Lng { get; set; }
+                  public float? Lng { get; set; }
                   
               /// <summary>
               /// Will be NULL, for future development.

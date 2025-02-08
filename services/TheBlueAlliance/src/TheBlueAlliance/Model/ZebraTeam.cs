@@ -34,7 +34,7 @@
             /// <param name="teamKey">The TBA team key for the Zebra MotionWorks data. (required).</param>
             /// <param name="xs">A list containing doubles and nulls representing a teams X position in feet at the corresponding timestamp. A null value represents no tracking data for a given timestamp. (required).</param>
             /// <param name="ys">A list containing doubles and nulls representing a teams Y position in feet at the corresponding timestamp. A null value represents no tracking data for a given timestamp. (required).</param>
-        public ZebraTeam(string teamKey, Collection<double> xs, Collection<double> ys)
+        public ZebraTeam(string teamKey, Collection<float> xs, Collection<float> ys)
         {
                       // to ensure "teamKey" is required (not null)
                       ArgumentNullException.ThrowIfNull(teamKey);
@@ -64,7 +64,7 @@
               /// <value>A list containing doubles and nulls representing a teams X position in feet at the corresponding timestamp. A null value represents no tracking data for a given timestamp.</value>
                 [JsonRequired]
                   [JsonPropertyName("xs")]
-                  public Collection<double> Xs { get; set; }
+                  public Collection<float> Xs { get; set; }
                   
               /// <summary>
               /// A list containing doubles and nulls representing a teams Y position in feet at the corresponding timestamp. A null value represents no tracking data for a given timestamp.
@@ -72,7 +72,7 @@
               /// <value>A list containing doubles and nulls representing a teams Y position in feet at the corresponding timestamp. A null value represents no tracking data for a given timestamp.</value>
                 [JsonRequired]
                   [JsonPropertyName("ys")]
-                  public Collection<double> Ys { get; set; }
+                  public Collection<float> Ys { get; set; }
                   
               /// <summary>
               /// Returns the string presentation of the object

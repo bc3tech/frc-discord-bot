@@ -61,7 +61,7 @@
             /// <param name="website">The event&#39;s website, if any. (required).</param>
             /// <param name="week">Week of the event relative to the first official season event, zero-indexed. Only valid for Regionals, Districts, and District Championships. Null otherwise. (Eg. A season with a week 0 &#39;preseason&#39; event does not count, and week 1 events will show 0 here. Seasons with a week 0.5 regional event will show week 0 for those event(s) and week 1 for week 1 events and so on.) (required).</param>
             /// <param name="year">Year the event data is for. (required).</param>
-        public Event(string address, string city, string country, DistrictList district, Collection<string> divisionKeys, DateOnly endDate, string eventCode, int eventType, string eventTypeString, string firstEventCode, string firstEventId, string gmapsPlaceId, string gmapsUrl, string key, double? lat, double? lng, string locationName, string name, string parentEventKey, int? playoffType, string playoffTypeString, string postalCode, string shortName, DateOnly startDate, string stateProv, string timezone, Collection<Webcast> webcasts, string website, int? week, int year)
+        public Event(string address, string city, string country, DistrictList district, Collection<string> divisionKeys, DateOnly endDate, string eventCode, int eventType, string eventTypeString, string firstEventCode, string firstEventId, string gmapsPlaceId, string gmapsUrl, string key, float? lat, float? lng, string locationName, string name, string parentEventKey, int? playoffType, string playoffTypeString, string postalCode, string shortName, DateOnly startDate, string stateProv, string timezone, Collection<Webcast> webcasts, string website, int? week, int year)
         {
                       // to ensure "address" is required (not null)
                       ArgumentNullException.ThrowIfNull(address);
@@ -290,7 +290,7 @@
               /// <value>Latitude for the event address.</value>
                 [JsonRequired]
                   [JsonPropertyName("lat")]
-                  public double? Lat { get; set; }
+                  public float? Lat { get; set; }
                   
               /// <summary>
               /// Longitude for the event address.
@@ -298,7 +298,7 @@
               /// <value>Longitude for the event address.</value>
                 [JsonRequired]
                   [JsonPropertyName("lng")]
-                  public double? Lng { get; set; }
+                  public float? Lng { get; set; }
                   
               /// <summary>
               /// Name of the location at the address for the event, eg. Blue Alliance High School.

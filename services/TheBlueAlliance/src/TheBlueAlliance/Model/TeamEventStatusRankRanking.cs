@@ -30,7 +30,7 @@
             /// <param name="record">record.</param>
             /// <param name="sortOrders">Ordered list of values used to determine the rank. See the &#x60;sort_order_info&#x60; property for the name of each value.</param>
             /// <param name="teamKey">TBA team key for this rank.</param>
-        public TeamEventStatusRankRanking(int? dq = default, int? matchesPlayed = default, double? qualAverage = default, int? rank = default, WLTRecord? record = default, Collection<double>? sortOrders = default, string? teamKey = default)
+        public TeamEventStatusRankRanking(int? dq = default, int? matchesPlayed = default, float? qualAverage = default, int? rank = default, WLTRecord? record = default, Collection<float>? sortOrders = default, string? teamKey = default)
         {
                       this.Dq = dq;
                       this.MatchesPlayed = matchesPlayed;
@@ -63,7 +63,7 @@
               /// <value>For some years, average qualification score. Can be null.</value>
                 
                   [JsonPropertyName("qual_average")]
-                  public double? QualAverage { get; set; }
+                  public float? QualAverage { get; set; }
                   
               /// <summary>
               /// Relative rank of this team.
@@ -86,7 +86,7 @@
               /// <value>Ordered list of values used to determine the rank. See the &#x60;sort_order_info&#x60; property for the name of each value.</value>
                 
                   [JsonPropertyName("sort_orders")]
-                  public Collection<double>? SortOrders { get; set; }
+                  public Collection<float>? SortOrders { get; set; }
                   
               /// <summary>
               /// TBA team key for this rank.
