@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 public static class StringExtensions
 {
+    [return: NotNullIfNotNull(nameof(s))]
     public static ushort? ToTeamNumber(this string? s) => ushort.TryParse(s?.TrimStart(['f', 'r', 'c']), out var i) ? i : null;
 
     [return: NotNullIfNotNull(nameof(replacement))]
