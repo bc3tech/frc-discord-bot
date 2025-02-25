@@ -15,11 +15,12 @@ using System.Net.Http;
   using System.Threading.Tasks;
 
 using FIRST.Client;
+using FIRST.Model;
 
-  /// <summary>
-  /// Represents a collection of functions to interact with the API endpoints
-  /// </summary>
-  public interface IScheduleApiSync : IApiAccessor
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface IScheduleApiSync : IApiAccessor
   {
     #region Synchronous Operations
       /// <summary>
@@ -37,7 +38,7 @@ using FIRST.Client;
       /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
       /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
       /// <returns>Object</returns>
-      Object? SeasonScheduleEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default);
+      Object? SeasonScheduleEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, TournamentLevel? tournamentLevel = default);
 
     /// <summary>
     /// Event Schedule
@@ -54,7 +55,7 @@ using FIRST.Client;
     /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
     /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
     /// <returns>ApiResponse of Object</returns>
-    ApiResponse<Object?> SeasonScheduleEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default);
+        ApiResponse<Object?> SeasonScheduleEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, TournamentLevel? tournamentLevel = default);
       #endregion Synchronous Operations
     }
     
@@ -80,7 +81,7 @@ using FIRST.Client;
     /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Object</returns>
-    Task<Object?> SeasonScheduleEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
+          Task<Object?> SeasonScheduleEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, TournamentLevel? tournamentLevel = default, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Event Schedule
@@ -98,7 +99,7 @@ using FIRST.Client;
     /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Object)</returns>
-    Task<ApiResponse<Object?>> SeasonScheduleEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
+            Task<ApiResponse<Object?>> SeasonScheduleEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, TournamentLevel? tournamentLevel = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -298,7 +299,7 @@ using FIRST.Client;
     /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
     /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
     /// <returns>Object</returns>
-    public Object? SeasonScheduleEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
+          public Object? SeasonScheduleEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, TournamentLevel? tournamentLevel = default)
           {
         ApiResponse<object?> localVarResponse = SeasonScheduleEventCodeGetWithHttpInfo(eventCode, season, end, ifModifiedSince, start, teamNumber, tournamentLevel);
               return localVarResponse.Data;
@@ -316,7 +317,7 @@ using FIRST.Client;
     /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
     /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
     /// <returns>ApiResponse of Object</returns>
-    public ApiResponse<Object?> SeasonScheduleEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
+            public ApiResponse<Object?> SeasonScheduleEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, TournamentLevel? tournamentLevel = default)
             {
                     // verify the required parameter 'eventCode' is set
                     if (eventCode is null)
@@ -415,7 +416,7 @@ using FIRST.Client;
     /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Object</returns>
-    public async Task<Object?> SeasonScheduleEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
+            public async Task<Object?> SeasonScheduleEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, TournamentLevel? tournamentLevel = default, CancellationToken cancellationToken = default)
             {
         ApiResponse<object?> localVarResponse = await SeasonScheduleEventCodeGetWithHttpInfoAsync(eventCode, season, end, ifModifiedSince, start, teamNumber, tournamentLevel, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
@@ -434,7 +435,7 @@ using FIRST.Client;
     /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Object)</returns>
-    public async Task<ApiResponse<object?>> SeasonScheduleEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
+              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonScheduleEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, TournamentLevel? tournamentLevel = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)

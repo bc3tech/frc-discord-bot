@@ -8,6 +8,8 @@ using Discord.Net;
 
 using DiscordBotFunctionApp.Storage;
 
+using FIRST.Model;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -95,6 +97,18 @@ internal sealed class AutoCompleteHandlers
             }
 
             return AutocompletionResult.FromSuccess();
+        }
+    }
+
+    internal sealed class FrcMatchTypeAutoCompleteHandler : AutocompleteHandler
+    {
+        private static readonly IEnumerable<TournamentLevel> _frcMatchTypes = Enum.GetValues<TournamentLevel>();
+        public override Task<AutocompletionResult> GenerateSuggestionsAsync(IInteractionContext context, IAutocompleteInteraction autocompleteInteraction, IParameterInfo parameter, IServiceProvider services)
+        {
+            var userSearchString = autocompleteInteraction.Data.Current.Value as string ?? string.Empty;
+            return Task.FromResult(AutocompletionResult.FromSuccess(_frcMatchTypes
+                .Where(i => i.ToInvariantString().Contains(userSearchString, StringComparison.OrdinalIgnoreCase))
+                .Select(i => new AutocompleteResult(i.ToInvariantString(), i))));
         }
     }
 }
