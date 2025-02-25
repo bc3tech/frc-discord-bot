@@ -1,4 +1,5 @@
 ﻿namespace DiscordBotFunctionApp.Storage.TableEntities;
+
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -16,6 +17,8 @@ internal sealed class GuildSubscriptions : Dictionary<string, HashSet<ulong>>
         TryGetValue(guildId, out var subscriptions);
         this[guildId] = [.. subscriptions ?? [], subscription.Equals("all", StringComparison.OrdinalIgnoreCase) ? 0 : ulong.Parse(subscription, CultureInfo.InvariantCulture)];
     }
+
+    public bool Exists(ulong guildId, ulong subscription) => this.TryGetValue(guildId.ToString(CultureInfo.InvariantCulture), out var channels) && channels.Contains(subscription);
 
     //private class GuildSubscriptionsConverter : JsonConverter<GuildSubscriptions>
     //{

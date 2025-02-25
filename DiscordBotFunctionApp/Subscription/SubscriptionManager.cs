@@ -46,7 +46,7 @@ internal sealed class SubscriptionManager([FromKeyedServices(Constants.ServiceKe
             logger.LogTrace("Adding subscription for team {SubscriptionTeam}", sub.Team);
             var r = await teamSubscriptions.GetEntityIfExistsAsync<TeamSubscriptionEntity>(sub.Team.Value.ToString(CultureInfo.InvariantCulture), CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
             var allEventSubscription = r.HasValue ? r.Value : null;
-            if (allEventSubscription is null)
+            if (allEventSubscription is null || !allEventSubscription.Subscribers.Exists(sub.GuildId, sub.ChannelId))
             {
                 var eventString = sub.Event ?? CommonConstants.ALL;
                 logger.LogInformation("Creating new subscription for team {SubscriptionTeam} and event {SubscriptionEvent}", sub.Team, eventString);
@@ -73,7 +73,7 @@ internal sealed class SubscriptionManager([FromKeyedServices(Constants.ServiceKe
             logger.LogTrace("Adding subscription for event {SubscriptionEvent}", sub.Event);
             var r = await eventSubscriptions.GetEntityIfExistsAsync<EventSubscriptionEntity>(sub.Event, CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
             var allTeamSubscription = r.HasValue ? r.Value : null;
-            if (allTeamSubscription is null)
+            if (allTeamSubscription is null || !allTeamSubscription.Subscribers.Exists(sub.GuildId, sub.ChannelId))
             {
                 var teamString = sub.Team?.ToString(CultureInfo.InvariantCulture) ?? CommonConstants.ALL;
                 logger.LogInformation("Creating new subscription for event {SubscriptionEvent} and team {SubscriptionTeam}", sub.Event, teamString);

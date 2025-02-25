@@ -55,7 +55,7 @@ public class SubscriptionCommandModule(IServiceProvider services) : InteractionM
         await this.DeferAsync(ephemeral: true).ConfigureAwait(false);
         if (string.IsNullOrWhiteSpace(eventKey) && string.IsNullOrWhiteSpace(teamKey))
         {
-            await this.RespondAsync("At least one of Event or Team is required.", ephemeral: true).ConfigureAwait(false);
+            await this.ModifyOriginalResponseAsync(p => p.Content = "At least one of Event or Team is required.").ConfigureAwait(false);
         }
         else
         {
