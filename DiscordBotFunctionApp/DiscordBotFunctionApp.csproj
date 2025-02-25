@@ -5,12 +5,6 @@
 		<UserSecretsId>898f8bc7-849a-4a06-be1c-3fac71d06105</UserSecretsId>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Include="local.settings.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	    <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-	  </None>
-	</ItemGroup>
-	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 		<PackageReference Include="Azure.Data.Tables" />
 		<PackageReference Include="Azure.Storage.Blobs" />
