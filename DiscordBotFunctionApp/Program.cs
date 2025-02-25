@@ -37,7 +37,11 @@ internal sealed class Program
                 {
                     i.IncludeScopes = true;
                     i.SingleLine = true;
+#if DEBUG
                     i.ColorBehavior = Microsoft.Extensions.Logging.Console.LoggerColorBehavior.Enabled;
+#else
+                    i.ColorBehavior = Microsoft.Extensions.Logging.Console.LoggerColorBehavior.Disabled;
+#endif
                 }))
             .ConfigureAppConfiguration(b =>
             {
