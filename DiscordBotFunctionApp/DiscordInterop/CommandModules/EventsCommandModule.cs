@@ -23,7 +23,7 @@ public class EventsCommandModule(IServiceProvider services) : CommandModuleBase
         using var scope = _logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(eventKey))
         {
-            await this.RespondAsync("Event key is required.", ephemeral: true).ConfigureAwait(false);
+            await this.ModifyOriginalResponseAsync(p => p.Content = "Event key is required.").ConfigureAwait(false);
             return;
         }
 
