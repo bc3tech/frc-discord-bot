@@ -20,7 +20,7 @@ internal sealed class SubscriptionManager([FromKeyedServices(Constants.ServiceKe
     [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptions,
     ILogger<SubscriptionManager> logger)
 {
-    public async IAsyncEnumerable<(ulong ChannelId, string EventKey, ushort TeamNumber)> GetSubscriptionsForGuildAsync(ulong guildId, [EnumeratorCancellation] CancellationToken cancellationToken)
+    public async IAsyncEnumerable<(ulong ChannelId, string EventKey, ushort? TeamNumber)> GetSubscriptionsForGuildAsync(ulong guildId, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         await foreach (var e in teamSubscriptions.QueryAsync<TeamSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
         {

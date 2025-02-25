@@ -16,7 +16,11 @@ internal sealed record EventSubscriptionEntity : ITableEntity, ISubscriptionEnti
     public string Event { get => PartitionKey; set => PartitionKey = value; }
 
     [IgnoreDataMember]
-    public ushort Team { get => ushort.Parse(RowKey, CultureInfo.InvariantCulture); set => RowKey = value.ToString(CultureInfo.InvariantCulture); }
+    public ushort? Team
+    {
+        get => ushort.TryParse(RowKey, CultureInfo.InvariantCulture, out var t) ? t : null;
+        set => RowKey = value.HasValue ? value.Value.ToString(CultureInfo.InvariantCulture) : CommonConstants.ALL;
+    }
 
     [IgnoreDataMember]
     public GuildSubscriptions Subscribers { get; set; } = [];
