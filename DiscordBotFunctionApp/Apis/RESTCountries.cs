@@ -5,9 +5,9 @@ using Microsoft.Extensions.Logging;
 using System.Net.Http.Json;
 using System.Text.Json.Nodes;
 
-internal sealed class RESTCountries(IHttpClientFactory httpClientFactory, ILogger<RESTCountries> _logger)
+internal sealed class RESTCountries(ILogger<RESTCountries> _logger)
 {
-    private readonly HttpClient _httpClient = httpClientFactory.CreateClient(nameof(RESTCountries));
+    private readonly HttpClient _httpClient = new() { BaseAddress = new("https://restcountries.com/v3.1/") };
 
     public async Task<string?> GetCountryCodeForFlagLookupAsync(string country, CancellationToken cancellationToken)
     {

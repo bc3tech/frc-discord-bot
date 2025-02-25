@@ -68,8 +68,7 @@ internal sealed class Program
                     .AddSingleton<TeamRepository>()
                     .AddSingleton<SubscriptionManager>()
                     .AddSingleton<TokenCredential>(credential)
-                    .AddSingleton<RESTCountries>()
-                    .AddHttpClient(nameof(RESTCountries), c => c.BaseAddress = new("https://restcountries.com/v3.1/"));
+                    .AddSingleton<RESTCountries>();
 
                 var tableStorageEndpointConfigValue = context.Configuration[Constants.Configuration.Azure.Storage.TableEndpoint];
                 TableServiceClient tsc = !string.IsNullOrWhiteSpace(tableStorageEndpointConfigValue) && Uri.TryCreate(tableStorageEndpointConfigValue, UriKind.Absolute, out var tableEndpoint)
