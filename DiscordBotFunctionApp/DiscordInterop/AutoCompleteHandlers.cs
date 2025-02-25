@@ -7,6 +7,8 @@ using Discord.Interactions;
 
 using DiscordBotFunctionApp.Storage;
 
+using FIRST.Model;
+
 using Microsoft.Extensions.DependencyInjection;
 
 using System;
@@ -66,6 +68,18 @@ internal sealed class AutoCompleteHandlers
                 .Take(MAX_RESULTS)
                 .Select(i => new AutocompleteResult(Ellipsify(teamsRepo.GetLabelForTeam(i.Key)), i.Key)));
 #pragma warning restore EA0011 // Consider removing unnecessary conditional access operator (?)
+        }
+    }
+
+    internal sealed class FrcMatchTypeAutoCompleteHandler : AutocompleteHandler
+    {
+        private static readonly IEnumerable<TournamentLevel> _frcMatchTypes = Enum.GetValues<TournamentLevel>();
+        public override Task<AutocompletionResult> GenerateSuggestionsAsync(IInteractionContext context, IAutocompleteInteraction autocompleteInteraction, IParameterInfo parameter, IServiceProvider services)
+        {
+            var userSearchString = autocompleteInteraction.Data.Current.Value as string ?? string.Empty;
+            return Task.FromResult(AutocompletionResult.FromSuccess(_frcMatchTypes
+                .Where(i => i.ToInvariantString().Contains(userSearchString, StringComparison.OrdinalIgnoreCase))
+                .Select(i => new AutocompleteResult(i.ToInvariantString(), i.ToInvariantString()))));
         }
     }
 }
