@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 public abstract class CommandModuleBase : InteractionModuleBase
 {
-    internal virtual async Task GenerateResponseAsync<T>(IEmbedCreator<T> embeddingCreator, T input, Func<ImmutableArray<Embed>, Task> modifyCallback, CancellationToken cancellationToken = default)
+    internal virtual async Task GenerateResponseAsync<T>(IEmbedCreator<T> embeddingCreator, T input, Func<ImmutableArray<Embed>, Task>? modifyCallback = null, CancellationToken cancellationToken = default)
     {
         ResponseEmbedding[] embeds = [];
         await foreach (var m in embeddingCreator.CreateAsync(input, cancellationToken: cancellationToken).ConfigureAwait(false))
@@ -26,7 +26,14 @@ public abstract class CommandModuleBase : InteractionModuleBase
                 discordEmbeds = [.. embeds.Where(i => !i.Transient).Select(i => i.Content)];
             }
 
-            await modifyCallback([.. discordEmbeds]).ConfigureAwait(false);
+            if (modifyCallback is not null)
+            {
+                await modifyCallback([.. discordEmbeds]).ConfigureAwait(false);
+            }
+            else
+            {
+                await this.ModifyOriginalResponseAsync(p => p.Embeds = discordEmbeds).ConfigureAwait(false);
+            }
         }
     }
 }

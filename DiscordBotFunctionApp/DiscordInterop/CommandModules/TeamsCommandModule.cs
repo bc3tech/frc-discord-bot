@@ -27,6 +27,6 @@ public class TeamsCommandModule(IServiceProvider services) : CommandModuleBase
             return;
         }
 
-        await GenerateResponseAsync(_embedCreator, teamKey, e => this.ModifyOriginalResponseAsync(p => p.Embeds = e.ToArray())).ConfigureAwait(false);
+        await GenerateResponseAsync(_embedCreator, teamKey).ConfigureAwait(false);
     }
 }

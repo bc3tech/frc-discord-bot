@@ -27,6 +27,6 @@ public class EventsCommandModule(IServiceProvider services) : CommandModuleBase
             return;
         }
 
-        await GenerateResponseAsync(_embedCreator, eventKey, e => this.ModifyOriginalResponseAsync(p => p.Embeds = e.ToArray())).ConfigureAwait(false);
+        await GenerateResponseAsync(_embedCreator, eventKey).ConfigureAwait(false);
     }
 }
