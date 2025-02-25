@@ -60,6 +60,10 @@ docs/MatchScoreBreakdown2023AllianceAutoCommunity.md
 docs/MatchScoreBreakdown2023AllianceLinksInner.md
 docs/MatchScoreBreakdown2024.md
 docs/MatchScoreBreakdown2024Alliance.md
+docs/MatchScoreBreakdown2025.md
+docs/MatchScoreBreakdown2025Alliance.md
+docs/MatchScoreBreakdown2025AllianceAutoReef.md
+docs/MatchScoreBreakdown2025AllianceAutoReefTopRow.md
 docs/MatchSimple.md
 docs/MatchSimpleAlliances.md
 docs/MatchTimeseries2018.md
@@ -88,6 +92,10 @@ docs/Webcast.md
 docs/Zebra.md
 docs/ZebraAlliances.md
 docs/ZebraTeam.md
+src/TheBlueAlliance.Test/Model/MatchScoreBreakdown2025AllianceAutoReefTests.cs
+src/TheBlueAlliance.Test/Model/MatchScoreBreakdown2025AllianceAutoReefTopRowTests.cs
+src/TheBlueAlliance.Test/Model/MatchScoreBreakdown2025AllianceTests.cs
+src/TheBlueAlliance.Test/Model/MatchScoreBreakdown2025Tests.cs
 src/TheBlueAlliance.Test/TheBlueAlliance.Test.csproj
 src/TheBlueAlliance/Api/DefaultApi.cs
 src/TheBlueAlliance/Api/DistrictApi.cs
@@ -167,6 +175,10 @@ src/TheBlueAlliance/Model/MatchScoreBreakdown2023AllianceAutoCommunity.cs
 src/TheBlueAlliance/Model/MatchScoreBreakdown2023AllianceLinksInner.cs
 src/TheBlueAlliance/Model/MatchScoreBreakdown2024.cs
 src/TheBlueAlliance/Model/MatchScoreBreakdown2024Alliance.cs
+src/TheBlueAlliance/Model/MatchScoreBreakdown2025.cs
+src/TheBlueAlliance/Model/MatchScoreBreakdown2025Alliance.cs
+src/TheBlueAlliance/Model/MatchScoreBreakdown2025AllianceAutoReef.cs
+src/TheBlueAlliance/Model/MatchScoreBreakdown2025AllianceAutoReefTopRow.cs
 src/TheBlueAlliance/Model/MatchSimple.cs
 src/TheBlueAlliance/Model/MatchSimpleAlliances.cs
 src/TheBlueAlliance/Model/MatchTimeseries2018.cs
