@@ -23,6 +23,8 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILo
             return new BadRequestObjectResult("No body content.");
         }
 
+        logger.LogDebug("Received webhook payload: {WebhookPayload}", bodyContent);
+
         var message = JsonSerializer.Deserialize<WebhookMessage>(bodyContent);
         if (message is not null)
         {
@@ -39,7 +41,6 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILo
             }
             else
             {
-                logger.LogDebug("Received webhook payload: {WebhookPayload}", bodyContent);
                 var handled = await dispatcher.ProcessWebhookMessageAsync(message, cancellationToken).ConfigureAwait(false);
                 if (handled)
                 {

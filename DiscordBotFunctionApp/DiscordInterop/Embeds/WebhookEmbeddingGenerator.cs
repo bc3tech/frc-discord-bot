@@ -26,6 +26,7 @@ internal sealed class WebhookEmbeddingGenerator(EmbedBuilderFactory embedBuilder
             yield break;
         }
 
+        logger.LogTrace("Generating embeddings for webhook message...");
         await foreach (var i in embedCreator.CreateAsync(tbaWebhookMessage, highlightTeam, cancellationToken))
         {
             yield return i;

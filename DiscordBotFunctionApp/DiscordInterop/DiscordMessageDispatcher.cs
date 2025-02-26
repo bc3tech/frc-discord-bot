@@ -43,7 +43,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         await SendNotificationsAsync<TeamSubscriptionEntity>(teamSubscriptions, teamRecordsToFind, notifications, i => i.Item1 != CommonConstants.ALL ? i.Item1.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
         await SendNotificationsAsync<EventSubscriptionEntity>(eventSubscriptions, eventRecordsToFind, notifications, i => i.Item2 != CommonConstants.ALL ? i.Item2.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
 
-        logger.LogInformation("Waiting for notifications...");
+        logger.LogInformation("Waiting for notifications to be sent...");
 
         await Task.WhenAll(notifications).ConfigureAwait(false);
 
@@ -88,6 +88,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
             if (targetChannel is IMessageChannel msgChan)
             {
+                logger.LogTrace("Sending notification to channel {ChannelId} - '{ChannelName}'", c, targetChannel.Name);
                 await msgChan.SendMessageAsync(embeds: await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false), options: new RequestOptions { CancelToken = cancellationToken }).ConfigureAwait(false);
             }
             else
@@ -95,8 +96,6 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                 logger.LogWarning("Channel {ChannelId} is not a message channel", c);
             }
         }
-
-        await Task.CompletedTask.ConfigureAwait(false);
     }
 
     private static (IReadOnlySet<string> Teams, IReadOnlySet<string> Events) GetTeamsAndEventsInMessage(JsonElement messageData)
