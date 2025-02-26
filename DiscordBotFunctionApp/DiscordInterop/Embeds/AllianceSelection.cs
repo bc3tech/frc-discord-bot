@@ -67,9 +67,9 @@ internal sealed class AllianceSelection(TeamRepository teams, IEventApi tbaClien
                     descriptionBuilder.AppendLine($"- {teams.GetTeamLabelWithHighlight(team, highlightTeam)} (#{ranks[team]})");
                 }
             }
-
-            descriptionBuilder.AppendLine($"\nYou can find more alliance details on the [Event Results](https://www.thebluealliance.com/event/{eventKey}#results) page");
         }
+
+        descriptionBuilder.AppendLine($"\nYou can find more alliance details on the [Event Results](https://www.thebluealliance.com/event/{eventKey}#results) page");
 
         yield return new(baseBuilder
             .WithDescription(descriptionBuilder.ToString())
