@@ -22,7 +22,6 @@ internal sealed class WebhookEmbeddingGenerator(EmbedBuilderFactory embedBuilder
         if (embedCreator is null)
         {
             logger.LogWarning("No embedding creator registered for message type {MessageType}", tbaWebhookMessage.MessageType);
-            yield return embedBuilder.GetBuilder().Build();
             yield break;
         }
 
