@@ -372,7 +372,6 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
                   }
                   
-              
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<LeaderboardInsight>?>("/insights/leaderboards/{year}", localVarRequestOptions, this.Configuration);
               
@@ -517,7 +516,6 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
                   }
                   
-              
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<NotablesInsight>?>("/insights/notables/{year}", localVarRequestOptions, this.Configuration);
               

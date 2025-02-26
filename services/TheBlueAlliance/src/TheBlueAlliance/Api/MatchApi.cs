@@ -978,7 +978,6 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
                   }
                   
-              
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<string>?>("/event/{event_key}/matches/timeseries", localVarRequestOptions, this.Configuration);
               
@@ -1135,7 +1134,6 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
                   }
                   
-              
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Match>?>("/event/{event_key}/matches", localVarRequestOptions, this.Configuration);
               
@@ -1292,7 +1290,6 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
                   }
                   
-              
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<string>?>("/event/{event_key}/matches/keys", localVarRequestOptions, this.Configuration);
               
@@ -1449,7 +1446,6 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
                   }
                   
-              
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<MatchSimple>?>("/event/{event_key}/matches/simple", localVarRequestOptions, this.Configuration);
               
@@ -1606,7 +1602,6 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
                   }
                   
-              
               // make the HTTP request
               var localVarResponse = this.Client.Get<Match?>("/match/{match_key}", localVarRequestOptions, this.Configuration);
               
@@ -1763,7 +1758,6 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
                   }
                   
-              
               // make the HTTP request
               var localVarResponse = this.Client.Get<MatchSimple?>("/match/{match_key}/simple", localVarRequestOptions, this.Configuration);
               
@@ -1920,7 +1914,6 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
                   }
                   
-              
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Object>?>("/match/{match_key}/timeseries", localVarRequestOptions, this.Configuration);
               
@@ -2077,7 +2070,6 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
                   }
                   
-              
               // make the HTTP request
               var localVarResponse = this.Client.Get<Zebra?>("/match/{match_key}/zebra_motionworks", localVarRequestOptions, this.Configuration);
               
@@ -2243,7 +2235,6 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
                   }
                   
-              
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Match>?>("/team/{team_key}/event/{event_key}/matches", localVarRequestOptions, this.Configuration);
               
@@ -2418,7 +2409,6 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
                   }
                   
-              
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<string>?>("/team/{team_key}/event/{event_key}/matches/keys", localVarRequestOptions, this.Configuration);
               
@@ -2593,7 +2583,6 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
                   }
                   
-              
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Match>?>("/team/{team_key}/event/{event_key}/matches/simple", localVarRequestOptions, this.Configuration);
               
@@ -2762,7 +2751,6 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
                   }
                   
-              
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<Match>?>("/team/{team_key}/matches/{year}", localVarRequestOptions, this.Configuration);
               
@@ -2925,7 +2913,6 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
                   }
                   
-              
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<string>?>("/team/{team_key}/matches/{year}/keys", localVarRequestOptions, this.Configuration);
               
@@ -3088,7 +3075,6 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
                   }
                   
-              
               // make the HTTP request
               var localVarResponse = this.Client.Get<Collection<MatchSimple>?>("/team/{team_key}/matches/{year}/simple", localVarRequestOptions, this.Configuration);
               

@@ -19,5 +19,4 @@ public static class EndGameEnumExtensions
             _ => string.Empty
         };
     }
-
 }

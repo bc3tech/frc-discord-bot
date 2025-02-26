@@ -317,7 +317,6 @@ using TheBlueAlliance.Model;
                       localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
                   }
                   
-              
               // make the HTTP request
               var localVarResponse = this.Client.Get<APIStatus?>("/status", localVarRequestOptions, this.Configuration);
               
