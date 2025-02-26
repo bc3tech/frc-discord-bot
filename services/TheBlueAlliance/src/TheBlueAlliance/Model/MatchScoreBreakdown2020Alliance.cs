@@ -18,7 +18,7 @@
 /// MatchScoreBreakdown2020Alliance
 /// </summary>
 
-  public partial class MatchScoreBreakdown2020Alliance
+  public partial record MatchScoreBreakdown2020Alliance
   {
         /// <summary>
         /// Initializes a new instance of the <see cref="MatchScoreBreakdown2020Alliance" /> class.
@@ -335,52 +335,6 @@
                   [JsonPropertyName("totalPoints")]
                   public int? TotalPoints { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class MatchScoreBreakdown2020Alliance {");
-                    sb.Append("  AdjustPoints: ").AppendLine($"{ AdjustPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCellPoints: ").AppendLine($"{ AutoCellPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCellsBottom: ").AppendLine($"{ AutoCellsBottom?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCellsInner: ").AppendLine($"{ AutoCellsInner?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCellsOuter: ").AppendLine($"{ AutoCellsOuter?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoInitLinePoints: ").AppendLine($"{ AutoInitLinePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoPoints: ").AppendLine($"{ AutoPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  ControlPanelPoints: ").AppendLine($"{ ControlPanelPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  EndgamePoints: ").AppendLine($"{ EndgamePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  EndgameRobot1: ").AppendLine($"{ EndgameRobot1?.ToString() ?? "[null]" }");
-                    sb.Append("  EndgameRobot2: ").AppendLine($"{ EndgameRobot2?.ToString() ?? "[null]" }");
-                    sb.Append("  EndgameRobot3: ").AppendLine($"{ EndgameRobot3?.ToString() ?? "[null]" }");
-                    sb.Append("  EndgameRungIsLevel: ").AppendLine($"{ EndgameRungIsLevel?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulCount: ").AppendLine($"{ FoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulPoints: ").AppendLine($"{ FoulPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  InitLineRobot1: ").AppendLine($"{ InitLineRobot1?.ToString() ?? "[null]" }");
-                    sb.Append("  InitLineRobot2: ").AppendLine($"{ InitLineRobot2?.ToString() ?? "[null]" }");
-                    sb.Append("  InitLineRobot3: ").AppendLine($"{ InitLineRobot3?.ToString() ?? "[null]" }");
-                    sb.Append("  Rp: ").AppendLine($"{ Rp?.ToString() ?? "[null]" }");
-                    sb.Append("  ShieldEnergizedRankingPoint: ").AppendLine($"{ ShieldEnergizedRankingPoint?.ToString() ?? "[null]" }");
-                    sb.Append("  ShieldOperationalRankingPoint: ").AppendLine($"{ ShieldOperationalRankingPoint?.ToString() ?? "[null]" }");
-                    sb.Append("  Stage1Activated: ").AppendLine($"{ Stage1Activated?.ToString() ?? "[null]" }");
-                    sb.Append("  Stage2Activated: ").AppendLine($"{ Stage2Activated?.ToString() ?? "[null]" }");
-                    sb.Append("  Stage3Activated: ").AppendLine($"{ Stage3Activated?.ToString() ?? "[null]" }");
-                    sb.Append("  Stage3TargetColor: ").AppendLine($"{ Stage3TargetColor?.ToString() ?? "[null]" }");
-                    sb.Append("  TbaNumRobotsHanging: ").AppendLine($"{ TbaNumRobotsHanging?.ToString() ?? "[null]" }");
-                    sb.Append("  TbaShieldEnergizedRankingPointFromFoul: ").AppendLine($"{ TbaShieldEnergizedRankingPointFromFoul?.ToString() ?? "[null]" }");
-                    sb.Append("  TechFoulCount: ").AppendLine($"{ TechFoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCellPoints: ").AppendLine($"{ TeleopCellPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCellsBottom: ").AppendLine($"{ TeleopCellsBottom?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCellsInner: ").AppendLine($"{ TeleopCellsInner?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCellsOuter: ").AppendLine($"{ TeleopCellsOuter?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopPoints: ").AppendLine($"{ TeleopPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TotalPoints: ").AppendLine($"{ TotalPoints?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

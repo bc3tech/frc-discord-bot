@@ -18,13 +18,13 @@
 /// MatchScoreBreakdown2023AllianceAutoCommunity
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class MatchScoreBreakdown2023AllianceAutoCommunity
+  public partial record MatchScoreBreakdown2023AllianceAutoCommunity
   {
               /// <summary>
   /// Defines B
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceAutoCommunityExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<BEnum>))]
   public enum BEnum
   {
         /// <summary>
@@ -97,7 +97,7 @@
   /// Defines M
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceAutoCommunityExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<MEnum>))]
   public enum MEnum
   {
         /// <summary>
@@ -170,7 +170,7 @@
   /// Defines T
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceAutoCommunityExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<TEnum>))]
   public enum TEnum
   {
         /// <summary>
@@ -289,21 +289,6 @@
                   [JsonPropertyName("T")]
                   public Collection<MatchScoreBreakdown2023AllianceAutoCommunity.TEnum> T { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class MatchScoreBreakdown2023AllianceAutoCommunity {");
-                    sb.Append("  B: ").AppendLine($"{(B is null ? "[null]" : string.Join(", ", B))}");
-                    sb.Append("  M: ").AppendLine($"{(M is null ? "[null]" : string.Join(", ", M))}");
-                    sb.Append("  T: ").AppendLine($"{(T is null ? "[null]" : string.Join(", ", T))}");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

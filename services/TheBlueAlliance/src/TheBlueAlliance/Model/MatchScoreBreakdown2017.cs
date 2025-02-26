@@ -18,7 +18,7 @@
 /// See the 2017 FMS API documentation for a description of each value.
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class MatchScoreBreakdown2017
+  public partial record MatchScoreBreakdown2017
   {
               // yup
               /// <summary>
@@ -58,20 +58,6 @@
                   [JsonPropertyName("red")]
                   public MatchScoreBreakdown2017Alliance Red { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class MatchScoreBreakdown2017 {");
-                    sb.Append("  Blue: ").AppendLine($"{ Blue }");
-                    sb.Append("  Red: ").AppendLine($"{ Red }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

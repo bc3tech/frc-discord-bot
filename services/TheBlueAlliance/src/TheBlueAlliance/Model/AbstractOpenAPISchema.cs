@@ -16,7 +16,7 @@ using System.Text.Json.Serialization;
 /// <summary>
 ///  Abstract base class for oneOf, anyOf schemas in the OpenAPI specification
 /// </summary>
-public abstract partial class AbstractOpenAPISchema
+public abstract partial record AbstractOpenAPISchema
 {
   /// <summary>
   ///  Custom JSON serializer
@@ -61,4 +61,23 @@ public abstract partial class AbstractOpenAPISchema
   /// Converts the instance into JSON string.
   /// </summary>
   public abstract string ToJson();
+}
+
+public sealed class AbstractOpenAPISchemaJsonConverter<T> : JsonConverter<T> where T : AbstractOpenAPISchema
+{
+    public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        // Read the entire JSON element as a string
+        using (JsonDocument document = JsonDocument.ParseValue(ref reader))
+        {
+            string jsonString = document.RootElement.GetRawText();
+            // Use the FromJson method to deserialize
+            return (T?)typeof(T).GetMethod("FromJson")?.Invoke(null, [jsonString]);
+        }
+    }
+
+    public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
+    {
+        writer.WriteRawValue(value.ToJson());
+    }
 }

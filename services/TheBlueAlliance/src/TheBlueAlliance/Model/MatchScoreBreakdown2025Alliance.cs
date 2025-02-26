@@ -18,13 +18,13 @@
 /// MatchScoreBreakdown2025Alliance
 /// </summary>
 
-  public partial class MatchScoreBreakdown2025Alliance
+  public partial record MatchScoreBreakdown2025Alliance
   {
             /// <summary>
   /// Defines AutoLineRobot1
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2025AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<AutoLineRobot1Enum>))]
   public enum AutoLineRobot1Enum
   {
         /// <summary>
@@ -96,7 +96,7 @@
   /// Defines AutoLineRobot2
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2025AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<AutoLineRobot2Enum>))]
   public enum AutoLineRobot2Enum
   {
         /// <summary>
@@ -168,7 +168,7 @@
   /// Defines AutoLineRobot3
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2025AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<AutoLineRobot3Enum>))]
   public enum AutoLineRobot3Enum
   {
         /// <summary>
@@ -240,7 +240,7 @@
   /// Defines EndGameRobot1
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2025AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<EndGameRobot1Enum>))]
   public enum EndGameRobot1Enum
   {
         /// <summary>
@@ -328,7 +328,7 @@
   /// Defines EndGameRobot2
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2025AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<EndGameRobot2Enum>))]
   public enum EndGameRobot2Enum
   {
         /// <summary>
@@ -416,7 +416,7 @@
   /// Defines EndGameRobot3
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2025AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<EndGameRobot3Enum>))]
   public enum EndGameRobot3Enum
   {
         /// <summary>
@@ -753,50 +753,6 @@
                   [JsonPropertyName("wallAlgaeCount")]
                   public int? WallAlgaeCount { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class MatchScoreBreakdown2025Alliance {");
-                    sb.Append("  AdjustPoints: ").AppendLine($"{ AdjustPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AlgaePoints: ").AppendLine($"{ AlgaePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoBonusAchieved: ").AppendLine($"{ AutoBonusAchieved?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCoralCount: ").AppendLine($"{ AutoCoralCount?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCoralPoints: ").AppendLine($"{ AutoCoralPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoLineRobot1: ").AppendLine($"{ AutoLineRobot1?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoLineRobot2: ").AppendLine($"{ AutoLineRobot2?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoLineRobot3: ").AppendLine($"{ AutoLineRobot3?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoMobilityPoints: ").AppendLine($"{ AutoMobilityPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoPoints: ").AppendLine($"{ AutoPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoReef: ").AppendLine($"{ AutoReef?.ToString() ?? "[null]" }");
-                    sb.Append("  BargeBonusAchieved: ").AppendLine($"{ BargeBonusAchieved?.ToString() ?? "[null]" }");
-                    sb.Append("  CoopertitionCriteriaMet: ").AppendLine($"{ CoopertitionCriteriaMet?.ToString() ?? "[null]" }");
-                    sb.Append("  CoralBonusAchieved: ").AppendLine($"{ CoralBonusAchieved?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameBargePoints: ").AppendLine($"{ EndGameBargePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameRobot1: ").AppendLine($"{ EndGameRobot1?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameRobot2: ").AppendLine($"{ EndGameRobot2?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameRobot3: ").AppendLine($"{ EndGameRobot3?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulCount: ").AppendLine($"{ FoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulPoints: ").AppendLine($"{ FoulPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  G206Penalty: ").AppendLine($"{ G206Penalty?.ToString() ?? "[null]" }");
-                    sb.Append("  G408Penalty: ").AppendLine($"{ G408Penalty?.ToString() ?? "[null]" }");
-                    sb.Append("  G424Penalty: ").AppendLine($"{ G424Penalty?.ToString() ?? "[null]" }");
-                    sb.Append("  NetAlgaeCount: ").AppendLine($"{ NetAlgaeCount?.ToString() ?? "[null]" }");
-                    sb.Append("  Rp: ").AppendLine($"{ Rp?.ToString() ?? "[null]" }");
-                    sb.Append("  TechFoulCount: ").AppendLine($"{ TechFoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCoralCount: ").AppendLine($"{ TeleopCoralCount?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCoralPoints: ").AppendLine($"{ TeleopCoralPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopPoints: ").AppendLine($"{ TeleopPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopReef: ").AppendLine($"{ TeleopReef?.ToString() ?? "[null]" }");
-                    sb.Append("  TotalPoints: ").AppendLine($"{ TotalPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  WallAlgaeCount: ").AppendLine($"{ WallAlgaeCount?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

@@ -18,7 +18,7 @@
 /// EliminationAllianceStatus
 /// </summary>
 
-  public partial class EliminationAllianceStatus
+  public partial record EliminationAllianceStatus
   {
         /// <summary>
         /// Initializes a new instance of the <see cref="EliminationAllianceStatus" /> class.
@@ -72,23 +72,6 @@
                   [JsonPropertyName("status")]
                   public string? Status { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class EliminationAllianceStatus {");
-                    sb.Append("  CurrentLevelRecord: ").AppendLine($"{ CurrentLevelRecord?.ToString() ?? "[null]" }");
-                    sb.Append("  Level: ").AppendLine($"{ Level?.ToString() ?? "[null]" }");
-                    sb.Append("  PlayoffAverage: ").AppendLine($"{ PlayoffAverage?.ToString() ?? "[null]" }");
-                    sb.Append("  Record: ").AppendLine($"{ Record?.ToString() ?? "[null]" }");
-                    sb.Append("  Status: ").AppendLine($"{ Status?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

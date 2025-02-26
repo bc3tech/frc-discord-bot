@@ -18,7 +18,7 @@
 /// MatchScoreBreakdown2024Alliance
 /// </summary>
 
-  public partial class MatchScoreBreakdown2024Alliance
+  public partial record MatchScoreBreakdown2024Alliance
   {
         /// <summary>
         /// Initializes a new instance of the <see cref="MatchScoreBreakdown2024Alliance" /> class.
@@ -495,70 +495,6 @@
                   [JsonPropertyName("trapStageRight")]
                   public bool? TrapStageRight { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class MatchScoreBreakdown2024Alliance {");
-                    sb.Append("  AdjustPoints: ").AppendLine($"{ AdjustPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoAmpNoteCount: ").AppendLine($"{ AutoAmpNoteCount?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoAmpNotePoints: ").AppendLine($"{ AutoAmpNotePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoLeavePoints: ").AppendLine($"{ AutoLeavePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoLineRobot1: ").AppendLine($"{ AutoLineRobot1?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoLineRobot2: ").AppendLine($"{ AutoLineRobot2?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoLineRobot3: ").AppendLine($"{ AutoLineRobot3?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoPoints: ").AppendLine($"{ AutoPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoSpeakerNoteCount: ").AppendLine($"{ AutoSpeakerNoteCount?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoSpeakerNotePoints: ").AppendLine($"{ AutoSpeakerNotePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoTotalNotePoints: ").AppendLine($"{ AutoTotalNotePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  CoopNotePlayed: ").AppendLine($"{ CoopNotePlayed?.ToString() ?? "[null]" }");
-                    sb.Append("  CoopertitionBonusAchieved: ").AppendLine($"{ CoopertitionBonusAchieved?.ToString() ?? "[null]" }");
-                    sb.Append("  CoopertitionCriteriaMet: ").AppendLine($"{ CoopertitionCriteriaMet?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameHarmonyPoints: ").AppendLine($"{ EndGameHarmonyPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameNoteInTrapPoints: ").AppendLine($"{ EndGameNoteInTrapPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameOnStagePoints: ").AppendLine($"{ EndGameOnStagePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameParkPoints: ").AppendLine($"{ EndGameParkPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameRobot1: ").AppendLine($"{ EndGameRobot1?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameRobot2: ").AppendLine($"{ EndGameRobot2?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameRobot3: ").AppendLine($"{ EndGameRobot3?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameSpotLightBonusPoints: ").AppendLine($"{ EndGameSpotLightBonusPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameTotalStagePoints: ").AppendLine($"{ EndGameTotalStagePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  EnsembleBonusAchieved: ").AppendLine($"{ EnsembleBonusAchieved?.ToString() ?? "[null]" }");
-                    sb.Append("  EnsembleBonusOnStageRobotsThreshold: ").AppendLine($"{ EnsembleBonusOnStageRobotsThreshold?.ToString() ?? "[null]" }");
-                    sb.Append("  EnsembleBonusStagePointsThreshold: ").AppendLine($"{ EnsembleBonusStagePointsThreshold?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulCount: ").AppendLine($"{ FoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulPoints: ").AppendLine($"{ FoulPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  G206Penalty: ").AppendLine($"{ G206Penalty?.ToString() ?? "[null]" }");
-                    sb.Append("  G408Penalty: ").AppendLine($"{ G408Penalty?.ToString() ?? "[null]" }");
-                    sb.Append("  G424Penalty: ").AppendLine($"{ G424Penalty?.ToString() ?? "[null]" }");
-                    sb.Append("  MelodyBonusAchieved: ").AppendLine($"{ MelodyBonusAchieved?.ToString() ?? "[null]" }");
-                    sb.Append("  MelodyBonusThreshold: ").AppendLine($"{ MelodyBonusThreshold?.ToString() ?? "[null]" }");
-                    sb.Append("  MelodyBonusThresholdCoop: ").AppendLine($"{ MelodyBonusThresholdCoop?.ToString() ?? "[null]" }");
-                    sb.Append("  MelodyBonusThresholdNonCoop: ").AppendLine($"{ MelodyBonusThresholdNonCoop?.ToString() ?? "[null]" }");
-                    sb.Append("  MicCenterStage: ").AppendLine($"{ MicCenterStage?.ToString() ?? "[null]" }");
-                    sb.Append("  MicStageLeft: ").AppendLine($"{ MicStageLeft?.ToString() ?? "[null]" }");
-                    sb.Append("  MicStageRight: ").AppendLine($"{ MicStageRight?.ToString() ?? "[null]" }");
-                    sb.Append("  Rp: ").AppendLine($"{ Rp?.ToString() ?? "[null]" }");
-                    sb.Append("  TechFoulCount: ").AppendLine($"{ TechFoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopAmpNoteCount: ").AppendLine($"{ TeleopAmpNoteCount?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopAmpNotePoints: ").AppendLine($"{ TeleopAmpNotePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopPoints: ").AppendLine($"{ TeleopPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopSpeakerNoteAmplifiedCount: ").AppendLine($"{ TeleopSpeakerNoteAmplifiedCount?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopSpeakerNoteAmplifiedPoints: ").AppendLine($"{ TeleopSpeakerNoteAmplifiedPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopSpeakerNoteCount: ").AppendLine($"{ TeleopSpeakerNoteCount?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopSpeakerNotePoints: ").AppendLine($"{ TeleopSpeakerNotePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopTotalNotePoints: ").AppendLine($"{ TeleopTotalNotePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TotalPoints: ").AppendLine($"{ TotalPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TrapCenterStage: ").AppendLine($"{ TrapCenterStage?.ToString() ?? "[null]" }");
-                    sb.Append("  TrapStageLeft: ").AppendLine($"{ TrapStageLeft?.ToString() ?? "[null]" }");
-                    sb.Append("  TrapStageRight: ").AppendLine($"{ TrapStageRight?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

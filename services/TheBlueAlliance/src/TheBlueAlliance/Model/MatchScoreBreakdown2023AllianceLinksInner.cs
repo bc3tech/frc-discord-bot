@@ -18,13 +18,13 @@
 /// MatchScoreBreakdown2023AllianceLinksInner
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class MatchScoreBreakdown2023AllianceLinksInner
+  public partial record MatchScoreBreakdown2023AllianceLinksInner
   {
               /// <summary>
   /// Defines Nodes
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceLinksInnerExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<NodesEnum>))]
   public enum NodesEnum
   {
         /// <summary>
@@ -97,7 +97,7 @@
   /// Defines Row
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceLinksInnerExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<RowEnum>))]
   public enum RowEnum
   {
         /// <summary>
@@ -202,20 +202,6 @@
                   [JsonPropertyName("nodes")]
                   public Collection<MatchScoreBreakdown2023AllianceLinksInner.NodesEnum> Nodes { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class MatchScoreBreakdown2023AllianceLinksInner {");
-                    sb.Append("  Nodes: ").AppendLine($"{(Nodes is null ? "[null]" : string.Join(", ", Nodes))}");
-                    sb.Append("  Row: ").AppendLine($"{ Row }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

@@ -18,7 +18,7 @@
 /// MatchScoreBreakdown2019Alliance
 /// </summary>
 
-  public partial class MatchScoreBreakdown2019Alliance
+  public partial record MatchScoreBreakdown2019Alliance
   {
         /// <summary>
         /// Initializes a new instance of the <see cref="MatchScoreBreakdown2019Alliance" /> class.
@@ -486,69 +486,6 @@
                   [JsonPropertyName("totalPoints")]
                   public int? TotalPoints { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class MatchScoreBreakdown2019Alliance {");
-                    sb.Append("  AdjustPoints: ").AppendLine($"{ AdjustPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoPoints: ").AppendLine($"{ AutoPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  Bay1: ").AppendLine($"{ Bay1?.ToString() ?? "[null]" }");
-                    sb.Append("  Bay2: ").AppendLine($"{ Bay2?.ToString() ?? "[null]" }");
-                    sb.Append("  Bay3: ").AppendLine($"{ Bay3?.ToString() ?? "[null]" }");
-                    sb.Append("  Bay4: ").AppendLine($"{ Bay4?.ToString() ?? "[null]" }");
-                    sb.Append("  Bay5: ").AppendLine($"{ Bay5?.ToString() ?? "[null]" }");
-                    sb.Append("  Bay6: ").AppendLine($"{ Bay6?.ToString() ?? "[null]" }");
-                    sb.Append("  Bay7: ").AppendLine($"{ Bay7?.ToString() ?? "[null]" }");
-                    sb.Append("  Bay8: ").AppendLine($"{ Bay8?.ToString() ?? "[null]" }");
-                    sb.Append("  CargoPoints: ").AppendLine($"{ CargoPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  CompleteRocketRankingPoint: ").AppendLine($"{ CompleteRocketRankingPoint?.ToString() ?? "[null]" }");
-                    sb.Append("  CompletedRocketFar: ").AppendLine($"{ CompletedRocketFar?.ToString() ?? "[null]" }");
-                    sb.Append("  CompletedRocketNear: ").AppendLine($"{ CompletedRocketNear?.ToString() ?? "[null]" }");
-                    sb.Append("  EndgameRobot1: ").AppendLine($"{ EndgameRobot1?.ToString() ?? "[null]" }");
-                    sb.Append("  EndgameRobot2: ").AppendLine($"{ EndgameRobot2?.ToString() ?? "[null]" }");
-                    sb.Append("  EndgameRobot3: ").AppendLine($"{ EndgameRobot3?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulCount: ").AppendLine($"{ FoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulPoints: ").AppendLine($"{ FoulPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  HabClimbPoints: ").AppendLine($"{ HabClimbPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  HabDockingRankingPoint: ").AppendLine($"{ HabDockingRankingPoint?.ToString() ?? "[null]" }");
-                    sb.Append("  HabLineRobot1: ").AppendLine($"{ HabLineRobot1?.ToString() ?? "[null]" }");
-                    sb.Append("  HabLineRobot2: ").AppendLine($"{ HabLineRobot2?.ToString() ?? "[null]" }");
-                    sb.Append("  HabLineRobot3: ").AppendLine($"{ HabLineRobot3?.ToString() ?? "[null]" }");
-                    sb.Append("  HatchPanelPoints: ").AppendLine($"{ HatchPanelPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  LowLeftRocketFar: ").AppendLine($"{ LowLeftRocketFar?.ToString() ?? "[null]" }");
-                    sb.Append("  LowLeftRocketNear: ").AppendLine($"{ LowLeftRocketNear?.ToString() ?? "[null]" }");
-                    sb.Append("  LowRightRocketFar: ").AppendLine($"{ LowRightRocketFar?.ToString() ?? "[null]" }");
-                    sb.Append("  LowRightRocketNear: ").AppendLine($"{ LowRightRocketNear?.ToString() ?? "[null]" }");
-                    sb.Append("  MidLeftRocketFar: ").AppendLine($"{ MidLeftRocketFar?.ToString() ?? "[null]" }");
-                    sb.Append("  MidLeftRocketNear: ").AppendLine($"{ MidLeftRocketNear?.ToString() ?? "[null]" }");
-                    sb.Append("  MidRightRocketFar: ").AppendLine($"{ MidRightRocketFar?.ToString() ?? "[null]" }");
-                    sb.Append("  MidRightRocketNear: ").AppendLine($"{ MidRightRocketNear?.ToString() ?? "[null]" }");
-                    sb.Append("  PreMatchBay1: ").AppendLine($"{ PreMatchBay1?.ToString() ?? "[null]" }");
-                    sb.Append("  PreMatchBay2: ").AppendLine($"{ PreMatchBay2?.ToString() ?? "[null]" }");
-                    sb.Append("  PreMatchBay3: ").AppendLine($"{ PreMatchBay3?.ToString() ?? "[null]" }");
-                    sb.Append("  PreMatchBay6: ").AppendLine($"{ PreMatchBay6?.ToString() ?? "[null]" }");
-                    sb.Append("  PreMatchBay7: ").AppendLine($"{ PreMatchBay7?.ToString() ?? "[null]" }");
-                    sb.Append("  PreMatchBay8: ").AppendLine($"{ PreMatchBay8?.ToString() ?? "[null]" }");
-                    sb.Append("  PreMatchLevelRobot1: ").AppendLine($"{ PreMatchLevelRobot1?.ToString() ?? "[null]" }");
-                    sb.Append("  PreMatchLevelRobot2: ").AppendLine($"{ PreMatchLevelRobot2?.ToString() ?? "[null]" }");
-                    sb.Append("  PreMatchLevelRobot3: ").AppendLine($"{ PreMatchLevelRobot3?.ToString() ?? "[null]" }");
-                    sb.Append("  Rp: ").AppendLine($"{ Rp?.ToString() ?? "[null]" }");
-                    sb.Append("  SandStormBonusPoints: ").AppendLine($"{ SandStormBonusPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TechFoulCount: ").AppendLine($"{ TechFoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopPoints: ").AppendLine($"{ TeleopPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TopLeftRocketFar: ").AppendLine($"{ TopLeftRocketFar?.ToString() ?? "[null]" }");
-                    sb.Append("  TopLeftRocketNear: ").AppendLine($"{ TopLeftRocketNear?.ToString() ?? "[null]" }");
-                    sb.Append("  TopRightRocketFar: ").AppendLine($"{ TopRightRocketFar?.ToString() ?? "[null]" }");
-                    sb.Append("  TopRightRocketNear: ").AppendLine($"{ TopRightRocketNear?.ToString() ?? "[null]" }");
-                    sb.Append("  TotalPoints: ").AppendLine($"{ TotalPoints?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

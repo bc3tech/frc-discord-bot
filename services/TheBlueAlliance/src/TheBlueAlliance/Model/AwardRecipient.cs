@@ -18,7 +18,7 @@
 /// An &#x60;Award_Recipient&#x60; object represents the team and/or person who received an award at an event.
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class AwardRecipient
+  public partial record AwardRecipient
   {
               // yup
               /// <summary>
@@ -60,20 +60,6 @@
                   [JsonPropertyName("team_key")]
                   public string TeamKey { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class AwardRecipient {");
-                    sb.Append("  Awardee: ").AppendLine($"{ Awardee }");
-                    sb.Append("  TeamKey: ").AppendLine($"{ TeamKey }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

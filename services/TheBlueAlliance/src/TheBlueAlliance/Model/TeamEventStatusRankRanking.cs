@@ -18,7 +18,7 @@
 /// TeamEventStatusRankRanking
 /// </summary>
 
-  public partial class TeamEventStatusRankRanking
+  public partial record TeamEventStatusRankRanking
   {
         /// <summary>
         /// Initializes a new instance of the <see cref="TeamEventStatusRankRanking" /> class.
@@ -96,25 +96,6 @@
                   [JsonPropertyName("team_key")]
                   public string? TeamKey { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class TeamEventStatusRankRanking {");
-                    sb.Append("  Dq: ").AppendLine($"{ Dq?.ToString() ?? "[null]" }");
-                    sb.Append("  MatchesPlayed: ").AppendLine($"{ MatchesPlayed?.ToString() ?? "[null]" }");
-                    sb.Append("  QualAverage: ").AppendLine($"{ QualAverage?.ToString() ?? "[null]" }");
-                    sb.Append("  Rank: ").AppendLine($"{ Rank?.ToString() ?? "[null]" }");
-                    sb.Append("  Record: ").AppendLine($"{ Record?.ToString() ?? "[null]" }");
-                    sb.Append("  SortOrders: ").AppendLine($"{(SortOrders is null ? "[null]" : string.Join(", ", SortOrders))}");
-                    sb.Append("  TeamKey: ").AppendLine($"{ TeamKey?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

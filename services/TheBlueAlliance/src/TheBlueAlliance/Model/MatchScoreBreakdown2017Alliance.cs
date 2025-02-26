@@ -18,13 +18,13 @@
 /// MatchScoreBreakdown2017Alliance
 /// </summary>
 
-  public partial class MatchScoreBreakdown2017Alliance
+  public partial record MatchScoreBreakdown2017Alliance
   {
             /// <summary>
   /// Defines Robot1Auto
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2017AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<Robot1AutoEnum>))]
   public enum Robot1AutoEnum
   {
         /// <summary>
@@ -104,7 +104,7 @@
   /// Defines Robot2Auto
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2017AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<Robot2AutoEnum>))]
   public enum Robot2AutoEnum
   {
         /// <summary>
@@ -184,7 +184,7 @@
   /// Defines Robot3Auto
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2017AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<Robot3AutoEnum>))]
   public enum Robot3AutoEnum
   {
         /// <summary>
@@ -543,51 +543,6 @@
                   [JsonPropertyName("touchpadNear")]
                   public string? TouchpadNear { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class MatchScoreBreakdown2017Alliance {");
-                    sb.Append("  AdjustPoints: ").AppendLine($"{ AdjustPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoFuelHigh: ").AppendLine($"{ AutoFuelHigh?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoFuelLow: ").AppendLine($"{ AutoFuelLow?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoFuelPoints: ").AppendLine($"{ AutoFuelPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoMobilityPoints: ").AppendLine($"{ AutoMobilityPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoPoints: ").AppendLine($"{ AutoPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoRotorPoints: ").AppendLine($"{ AutoRotorPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulCount: ").AppendLine($"{ FoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulPoints: ").AppendLine($"{ FoulPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  KPaBonusPoints: ").AppendLine($"{ KPaBonusPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  KPaRankingPointAchieved: ").AppendLine($"{ KPaRankingPointAchieved?.ToString() ?? "[null]" }");
-                    sb.Append("  Robot1Auto: ").AppendLine($"{ Robot1Auto?.ToString() ?? "[null]" }");
-                    sb.Append("  Robot2Auto: ").AppendLine($"{ Robot2Auto?.ToString() ?? "[null]" }");
-                    sb.Append("  Robot3Auto: ").AppendLine($"{ Robot3Auto?.ToString() ?? "[null]" }");
-                    sb.Append("  Rotor1Auto: ").AppendLine($"{ Rotor1Auto?.ToString() ?? "[null]" }");
-                    sb.Append("  Rotor1Engaged: ").AppendLine($"{ Rotor1Engaged?.ToString() ?? "[null]" }");
-                    sb.Append("  Rotor2Auto: ").AppendLine($"{ Rotor2Auto?.ToString() ?? "[null]" }");
-                    sb.Append("  Rotor2Engaged: ").AppendLine($"{ Rotor2Engaged?.ToString() ?? "[null]" }");
-                    sb.Append("  Rotor3Engaged: ").AppendLine($"{ Rotor3Engaged?.ToString() ?? "[null]" }");
-                    sb.Append("  Rotor4Engaged: ").AppendLine($"{ Rotor4Engaged?.ToString() ?? "[null]" }");
-                    sb.Append("  RotorBonusPoints: ").AppendLine($"{ RotorBonusPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  RotorRankingPointAchieved: ").AppendLine($"{ RotorRankingPointAchieved?.ToString() ?? "[null]" }");
-                    sb.Append("  TechFoulCount: ").AppendLine($"{ TechFoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopFuelHigh: ").AppendLine($"{ TeleopFuelHigh?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopFuelLow: ").AppendLine($"{ TeleopFuelLow?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopFuelPoints: ").AppendLine($"{ TeleopFuelPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopPoints: ").AppendLine($"{ TeleopPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopRotorPoints: ").AppendLine($"{ TeleopRotorPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopTakeoffPoints: ").AppendLine($"{ TeleopTakeoffPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TotalPoints: ").AppendLine($"{ TotalPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TouchpadFar: ").AppendLine($"{ TouchpadFar?.ToString() ?? "[null]" }");
-                    sb.Append("  TouchpadMiddle: ").AppendLine($"{ TouchpadMiddle?.ToString() ?? "[null]" }");
-                    sb.Append("  TouchpadNear: ").AppendLine($"{ TouchpadNear?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

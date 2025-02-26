@@ -18,7 +18,7 @@
 /// Insights for FIRST Power Up qualification and elimination matches.
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class EventInsights2018
+  public partial record EventInsights2018
   {
               // yup
               /// <summary>
@@ -435,55 +435,6 @@
                   [JsonPropertyName("winning_scale_ownership_percentage_teleop")]
                   public float WinningScaleOwnershipPercentageTeleop { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class EventInsights2018 {");
-                    sb.Append("  AutoQuestAchieved: ").AppendLine($"{(AutoQuestAchieved is null ? "[null]" : string.Join(", ", AutoQuestAchieved))}");
-                    sb.Append("  AverageBoostPlayed: ").AppendLine($"{ AverageBoostPlayed }");
-                    sb.Append("  AverageEndgamePoints: ").AppendLine($"{ AverageEndgamePoints }");
-                    sb.Append("  AverageForcePlayed: ").AppendLine($"{ AverageForcePlayed }");
-                    sb.Append("  AverageFoulScore: ").AppendLine($"{ AverageFoulScore }");
-                    sb.Append("  AveragePointsAuto: ").AppendLine($"{ AveragePointsAuto }");
-                    sb.Append("  AveragePointsTeleop: ").AppendLine($"{ AveragePointsTeleop }");
-                    sb.Append("  AverageRunPointsAuto: ").AppendLine($"{ AverageRunPointsAuto }");
-                    sb.Append("  AverageScaleOwnershipPoints: ").AppendLine($"{ AverageScaleOwnershipPoints }");
-                    sb.Append("  AverageScaleOwnershipPointsAuto: ").AppendLine($"{ AverageScaleOwnershipPointsAuto }");
-                    sb.Append("  AverageScaleOwnershipPointsTeleop: ").AppendLine($"{ AverageScaleOwnershipPointsTeleop }");
-                    sb.Append("  AverageScore: ").AppendLine($"{ AverageScore }");
-                    sb.Append("  AverageSwitchOwnershipPoints: ").AppendLine($"{ AverageSwitchOwnershipPoints }");
-                    sb.Append("  AverageSwitchOwnershipPointsAuto: ").AppendLine($"{ AverageSwitchOwnershipPointsAuto }");
-                    sb.Append("  AverageSwitchOwnershipPointsTeleop: ").AppendLine($"{ AverageSwitchOwnershipPointsTeleop }");
-                    sb.Append("  AverageVaultPoints: ").AppendLine($"{ AverageVaultPoints }");
-                    sb.Append("  AverageWinMargin: ").AppendLine($"{ AverageWinMargin }");
-                    sb.Append("  AverageWinScore: ").AppendLine($"{ AverageWinScore }");
-                    sb.Append("  BoostPlayedCounts: ").AppendLine($"{(BoostPlayedCounts is null ? "[null]" : string.Join(", ", BoostPlayedCounts))}");
-                    sb.Append("  ClimbCounts: ").AppendLine($"{(ClimbCounts is null ? "[null]" : string.Join(", ", ClimbCounts))}");
-                    sb.Append("  FaceTheBossAchieved: ").AppendLine($"{(FaceTheBossAchieved is null ? "[null]" : string.Join(", ", FaceTheBossAchieved))}");
-                    sb.Append("  ForcePlayedCounts: ").AppendLine($"{(ForcePlayedCounts is null ? "[null]" : string.Join(", ", ForcePlayedCounts))}");
-                    sb.Append("  HighScore: ").AppendLine($"{(HighScore is null ? "[null]" : string.Join(", ", HighScore))}");
-                    sb.Append("  LevitatePlayedCounts: ").AppendLine($"{(LevitatePlayedCounts is null ? "[null]" : string.Join(", ", LevitatePlayedCounts))}");
-                    sb.Append("  RunCountsAuto: ").AppendLine($"{(RunCountsAuto is null ? "[null]" : string.Join(", ", RunCountsAuto))}");
-                    sb.Append("  ScaleNeutralPercentage: ").AppendLine($"{ ScaleNeutralPercentage }");
-                    sb.Append("  ScaleNeutralPercentageAuto: ").AppendLine($"{ ScaleNeutralPercentageAuto }");
-                    sb.Append("  ScaleNeutralPercentageTeleop: ").AppendLine($"{ ScaleNeutralPercentageTeleop }");
-                    sb.Append("  SwitchOwnedCountsAuto: ").AppendLine($"{(SwitchOwnedCountsAuto is null ? "[null]" : string.Join(", ", SwitchOwnedCountsAuto))}");
-                    sb.Append("  UnicornMatches: ").AppendLine($"{(UnicornMatches is null ? "[null]" : string.Join(", ", UnicornMatches))}");
-                    sb.Append("  WinningOppSwitchDenialPercentageTeleop: ").AppendLine($"{ WinningOppSwitchDenialPercentageTeleop }");
-                    sb.Append("  WinningOwnSwitchOwnershipPercentage: ").AppendLine($"{ WinningOwnSwitchOwnershipPercentage }");
-                    sb.Append("  WinningOwnSwitchOwnershipPercentageAuto: ").AppendLine($"{ WinningOwnSwitchOwnershipPercentageAuto }");
-                    sb.Append("  WinningOwnSwitchOwnershipPercentageTeleop: ").AppendLine($"{ WinningOwnSwitchOwnershipPercentageTeleop }");
-                    sb.Append("  WinningScaleOwnershipPercentage: ").AppendLine($"{ WinningScaleOwnershipPercentage }");
-                    sb.Append("  WinningScaleOwnershipPercentageAuto: ").AppendLine($"{ WinningScaleOwnershipPercentageAuto }");
-                    sb.Append("  WinningScaleOwnershipPercentageTeleop: ").AppendLine($"{ WinningScaleOwnershipPercentageTeleop }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

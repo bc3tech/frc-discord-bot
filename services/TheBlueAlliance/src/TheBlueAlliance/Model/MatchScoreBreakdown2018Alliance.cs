@@ -18,7 +18,7 @@
 /// MatchScoreBreakdown2018Alliance
 /// </summary>
 
-  public partial class MatchScoreBreakdown2018Alliance
+  public partial record MatchScoreBreakdown2018Alliance
   {
         /// <summary>
         /// Initializes a new instance of the <see cref="MatchScoreBreakdown2018Alliance" /> class.
@@ -361,55 +361,6 @@
                   [JsonPropertyName("vaultPoints")]
                   public int? VaultPoints { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class MatchScoreBreakdown2018Alliance {");
-                    sb.Append("  AdjustPoints: ").AppendLine($"{ AdjustPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoOwnershipPoints: ").AppendLine($"{ AutoOwnershipPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoPoints: ").AppendLine($"{ AutoPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoQuestRankingPoint: ").AppendLine($"{ AutoQuestRankingPoint?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoRobot1: ").AppendLine($"{ AutoRobot1?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoRobot2: ").AppendLine($"{ AutoRobot2?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoRobot3: ").AppendLine($"{ AutoRobot3?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoRunPoints: ").AppendLine($"{ AutoRunPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoScaleOwnershipSec: ").AppendLine($"{ AutoScaleOwnershipSec?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoSwitchAtZero: ").AppendLine($"{ AutoSwitchAtZero?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoSwitchOwnershipSec: ").AppendLine($"{ AutoSwitchOwnershipSec?.ToString() ?? "[null]" }");
-                    sb.Append("  EndgamePoints: ").AppendLine($"{ EndgamePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  EndgameRobot1: ").AppendLine($"{ EndgameRobot1?.ToString() ?? "[null]" }");
-                    sb.Append("  EndgameRobot2: ").AppendLine($"{ EndgameRobot2?.ToString() ?? "[null]" }");
-                    sb.Append("  EndgameRobot3: ").AppendLine($"{ EndgameRobot3?.ToString() ?? "[null]" }");
-                    sb.Append("  FaceTheBossRankingPoint: ").AppendLine($"{ FaceTheBossRankingPoint?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulCount: ").AppendLine($"{ FoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulPoints: ").AppendLine($"{ FoulPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  Rp: ").AppendLine($"{ Rp?.ToString() ?? "[null]" }");
-                    sb.Append("  TbaGameData: ").AppendLine($"{ TbaGameData?.ToString() ?? "[null]" }");
-                    sb.Append("  TechFoulCount: ").AppendLine($"{ TechFoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopOwnershipPoints: ").AppendLine($"{ TeleopOwnershipPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopPoints: ").AppendLine($"{ TeleopPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopScaleBoostSec: ").AppendLine($"{ TeleopScaleBoostSec?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopScaleForceSec: ").AppendLine($"{ TeleopScaleForceSec?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopScaleOwnershipSec: ").AppendLine($"{ TeleopScaleOwnershipSec?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopSwitchBoostSec: ").AppendLine($"{ TeleopSwitchBoostSec?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopSwitchForceSec: ").AppendLine($"{ TeleopSwitchForceSec?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopSwitchOwnershipSec: ").AppendLine($"{ TeleopSwitchOwnershipSec?.ToString() ?? "[null]" }");
-                    sb.Append("  TotalPoints: ").AppendLine($"{ TotalPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  VaultBoostPlayed: ").AppendLine($"{ VaultBoostPlayed?.ToString() ?? "[null]" }");
-                    sb.Append("  VaultBoostTotal: ").AppendLine($"{ VaultBoostTotal?.ToString() ?? "[null]" }");
-                    sb.Append("  VaultForcePlayed: ").AppendLine($"{ VaultForcePlayed?.ToString() ?? "[null]" }");
-                    sb.Append("  VaultForceTotal: ").AppendLine($"{ VaultForceTotal?.ToString() ?? "[null]" }");
-                    sb.Append("  VaultLevitatePlayed: ").AppendLine($"{ VaultLevitatePlayed?.ToString() ?? "[null]" }");
-                    sb.Append("  VaultLevitateTotal: ").AppendLine($"{ VaultLevitateTotal?.ToString() ?? "[null]" }");
-                    sb.Append("  VaultPoints: ").AppendLine($"{ VaultPoints?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

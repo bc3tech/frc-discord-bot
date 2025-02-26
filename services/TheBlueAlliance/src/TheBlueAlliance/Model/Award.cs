@@ -18,7 +18,7 @@
 /// Award
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class Award
+  public partial record Award
   {
               // yup
               /// <summary>
@@ -94,23 +94,6 @@
                   [JsonPropertyName("year")]
                   public int Year { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class Award {");
-                    sb.Append("  AwardType: ").AppendLine($"{ AwardType }");
-                    sb.Append("  EventKey: ").AppendLine($"{ EventKey }");
-                    sb.Append("  Name: ").AppendLine($"{ Name }");
-                    sb.Append("  RecipientList: ").AppendLine($"{(RecipientList is null ? "[null]" : string.Join(", ", RecipientList))}");
-                    sb.Append("  Year: ").AppendLine($"{ Year }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

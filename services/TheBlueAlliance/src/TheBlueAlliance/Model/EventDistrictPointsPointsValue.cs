@@ -18,7 +18,7 @@
 /// EventDistrictPointsPointsValue
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class EventDistrictPointsPointsValue
+  public partial record EventDistrictPointsPointsValue
   {
               // yup
               /// <summary>
@@ -85,23 +85,6 @@
                   [JsonPropertyName("total")]
                   public int Total { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class EventDistrictPointsPointsValue {");
-                    sb.Append("  AlliancePoints: ").AppendLine($"{ AlliancePoints }");
-                    sb.Append("  AwardPoints: ").AppendLine($"{ AwardPoints }");
-                    sb.Append("  ElimPoints: ").AppendLine($"{ ElimPoints }");
-                    sb.Append("  QualPoints: ").AppendLine($"{ QualPoints }");
-                    sb.Append("  Total: ").AppendLine($"{ Total }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

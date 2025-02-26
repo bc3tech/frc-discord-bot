@@ -18,7 +18,7 @@
 /// EliminationAlliance
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class EliminationAlliance
+  public partial record EliminationAlliance
   {
               // yup
               /// <summary>
@@ -89,23 +89,6 @@
                   [JsonPropertyName("status")]
                   public EliminationAllianceStatus? Status { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class EliminationAlliance {");
-                    sb.Append("  Backup: ").AppendLine($"{ Backup?.ToString() ?? "[null]" }");
-                    sb.Append("  Declines: ").AppendLine($"{(Declines is null ? "[null]" : string.Join(", ", Declines))}");
-                    sb.Append("  Name: ").AppendLine($"{ Name?.ToString() ?? "[null]" }");
-                    sb.Append("  Picks: ").AppendLine($"{(Picks is null ? "[null]" : string.Join(", ", Picks))}");
-                    sb.Append("  Status: ").AppendLine($"{ Status?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

@@ -18,7 +18,7 @@
 /// EventSimple
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class EventSimple
+  public partial record EventSimple
   {
               // yup
               /// <summary>
@@ -165,29 +165,6 @@
                   [JsonPropertyName("year")]
                   public int Year { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class EventSimple {");
-                    sb.Append("  City: ").AppendLine($"{ City }");
-                    sb.Append("  Country: ").AppendLine($"{ Country }");
-                    sb.Append("  District: ").AppendLine($"{ District }");
-                    sb.Append("  EndDate: ").AppendLine($"{ EndDate }");
-                    sb.Append("  EventCode: ").AppendLine($"{ EventCode }");
-                    sb.Append("  EventType: ").AppendLine($"{ EventType }");
-                    sb.Append("  Key: ").AppendLine($"{ Key }");
-                    sb.Append("  Name: ").AppendLine($"{ Name }");
-                    sb.Append("  StartDate: ").AppendLine($"{ StartDate }");
-                    sb.Append("  StateProv: ").AppendLine($"{ StateProv }");
-                    sb.Append("  Year: ").AppendLine($"{ Year }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

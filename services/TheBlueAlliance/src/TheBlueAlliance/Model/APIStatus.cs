@@ -18,7 +18,7 @@
 /// APIStatus
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class APIStatus
+  public partial record APIStatus
   {
               // yup
               /// <summary>
@@ -102,24 +102,6 @@
                   [JsonPropertyName("max_season")]
                   public int MaxSeason { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class APIStatus {");
-                    sb.Append("  Android: ").AppendLine($"{ Android }");
-                    sb.Append("  CurrentSeason: ").AppendLine($"{ CurrentSeason }");
-                    sb.Append("  DownEvents: ").AppendLine($"{(DownEvents is null ? "[null]" : string.Join(", ", DownEvents))}");
-                    sb.Append("  Ios: ").AppendLine($"{ Ios }");
-                    sb.Append("  IsDatafeedDown: ").AppendLine($"{ IsDatafeedDown }");
-                    sb.Append("  MaxSeason: ").AppendLine($"{ MaxSeason }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

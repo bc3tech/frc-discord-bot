@@ -18,14 +18,14 @@
 /// LeaderboardInsightData
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class LeaderboardInsightData
+  public partial record LeaderboardInsightData
   {
             /// <summary>
   /// What type of key is used in the rankings; either &#39;team&#39;, &#39;event&#39;, or &#39;match&#39;.
   /// </summary>
     /// <value>What type of key is used in the rankings; either &#39;team&#39;, &#39;event&#39;, or &#39;match&#39;.</value>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.LeaderboardInsightDataExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<KeyTypeEnum>))]
   public enum KeyTypeEnum
   {
         /// <summary>
@@ -130,20 +130,6 @@
                   [JsonPropertyName("rankings")]
                   public Collection<LeaderboardInsightDataRankingsInner> Rankings { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class LeaderboardInsightData {");
-                    sb.Append("  KeyType: ").AppendLine($"{ KeyType }");
-                    sb.Append("  Rankings: ").AppendLine($"{(Rankings is null ? "[null]" : string.Join(", ", Rankings))}");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

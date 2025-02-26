@@ -18,7 +18,7 @@
 /// MatchScoreBreakdown2015Alliance
 /// </summary>
 
-  public partial class MatchScoreBreakdown2015Alliance
+  public partial record MatchScoreBreakdown2015Alliance
   {
         /// <summary>
         /// Initializes a new instance of the <see cref="MatchScoreBreakdown2015Alliance" /> class.
@@ -243,42 +243,6 @@
                   [JsonPropertyName("tote_stack")]
                   public bool? ToteStack { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class MatchScoreBreakdown2015Alliance {");
-                    sb.Append("  AdjustPoints: ").AppendLine($"{ AdjustPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoPoints: ").AppendLine($"{ AutoPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  ContainerCountLevel1: ").AppendLine($"{ ContainerCountLevel1?.ToString() ?? "[null]" }");
-                    sb.Append("  ContainerCountLevel2: ").AppendLine($"{ ContainerCountLevel2?.ToString() ?? "[null]" }");
-                    sb.Append("  ContainerCountLevel3: ").AppendLine($"{ ContainerCountLevel3?.ToString() ?? "[null]" }");
-                    sb.Append("  ContainerCountLevel4: ").AppendLine($"{ ContainerCountLevel4?.ToString() ?? "[null]" }");
-                    sb.Append("  ContainerCountLevel5: ").AppendLine($"{ ContainerCountLevel5?.ToString() ?? "[null]" }");
-                    sb.Append("  ContainerCountLevel6: ").AppendLine($"{ ContainerCountLevel6?.ToString() ?? "[null]" }");
-                    sb.Append("  ContainerPoints: ").AppendLine($"{ ContainerPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  ContainerSet: ").AppendLine($"{ ContainerSet?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulCount: ").AppendLine($"{ FoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulPoints: ").AppendLine($"{ FoulPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  LitterCountContainer: ").AppendLine($"{ LitterCountContainer?.ToString() ?? "[null]" }");
-                    sb.Append("  LitterCountLandfill: ").AppendLine($"{ LitterCountLandfill?.ToString() ?? "[null]" }");
-                    sb.Append("  LitterCountUnprocessed: ").AppendLine($"{ LitterCountUnprocessed?.ToString() ?? "[null]" }");
-                    sb.Append("  LitterPoints: ").AppendLine($"{ LitterPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  RobotSet: ").AppendLine($"{ RobotSet?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopPoints: ").AppendLine($"{ TeleopPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TotalPoints: ").AppendLine($"{ TotalPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  ToteCountFar: ").AppendLine($"{ ToteCountFar?.ToString() ?? "[null]" }");
-                    sb.Append("  ToteCountNear: ").AppendLine($"{ ToteCountNear?.ToString() ?? "[null]" }");
-                    sb.Append("  TotePoints: ").AppendLine($"{ TotePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  ToteSet: ").AppendLine($"{ ToteSet?.ToString() ?? "[null]" }");
-                    sb.Append("  ToteStack: ").AppendLine($"{ ToteStack?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

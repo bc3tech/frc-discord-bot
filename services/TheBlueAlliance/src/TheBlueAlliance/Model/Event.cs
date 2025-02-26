@@ -18,7 +18,7 @@
 /// Event
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class Event
+  public partial record Event
   {
               // yup
               /// <summary>
@@ -411,48 +411,6 @@
                   [JsonPropertyName("year")]
                   public int Year { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class Event {");
-                    sb.Append("  Address: ").AppendLine($"{ Address }");
-                    sb.Append("  City: ").AppendLine($"{ City }");
-                    sb.Append("  Country: ").AppendLine($"{ Country }");
-                    sb.Append("  District: ").AppendLine($"{ District }");
-                    sb.Append("  DivisionKeys: ").AppendLine($"{(DivisionKeys is null ? "[null]" : string.Join(", ", DivisionKeys))}");
-                    sb.Append("  EndDate: ").AppendLine($"{ EndDate }");
-                    sb.Append("  EventCode: ").AppendLine($"{ EventCode }");
-                    sb.Append("  EventType: ").AppendLine($"{ EventType }");
-                    sb.Append("  EventTypeString: ").AppendLine($"{ EventTypeString }");
-                    sb.Append("  FirstEventCode: ").AppendLine($"{ FirstEventCode }");
-                    sb.Append("  FirstEventId: ").AppendLine($"{ FirstEventId }");
-                    sb.Append("  GmapsPlaceId: ").AppendLine($"{ GmapsPlaceId }");
-                    sb.Append("  GmapsUrl: ").AppendLine($"{ GmapsUrl }");
-                    sb.Append("  Key: ").AppendLine($"{ Key }");
-                    sb.Append("  Lat: ").AppendLine($"{ Lat }");
-                    sb.Append("  Lng: ").AppendLine($"{ Lng }");
-                    sb.Append("  LocationName: ").AppendLine($"{ LocationName }");
-                    sb.Append("  Name: ").AppendLine($"{ Name }");
-                    sb.Append("  ParentEventKey: ").AppendLine($"{ ParentEventKey }");
-                    sb.Append("  PlayoffType: ").AppendLine($"{ PlayoffType }");
-                    sb.Append("  PlayoffTypeString: ").AppendLine($"{ PlayoffTypeString }");
-                    sb.Append("  PostalCode: ").AppendLine($"{ PostalCode }");
-                    sb.Append("  ShortName: ").AppendLine($"{ ShortName }");
-                    sb.Append("  StartDate: ").AppendLine($"{ StartDate }");
-                    sb.Append("  StateProv: ").AppendLine($"{ StateProv }");
-                    sb.Append("  Timezone: ").AppendLine($"{ Timezone }");
-                    sb.Append("  Webcasts: ").AppendLine($"{(Webcasts is null ? "[null]" : string.Join(", ", Webcasts))}");
-                    sb.Append("  Website: ").AppendLine($"{ Website }");
-                    sb.Append("  Week: ").AppendLine($"{ Week }");
-                    sb.Append("  Year: ").AppendLine($"{ Year }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

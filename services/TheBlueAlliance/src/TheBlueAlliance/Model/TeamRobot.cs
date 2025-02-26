@@ -18,7 +18,7 @@
 /// TeamRobot
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class TeamRobot
+  public partial record TeamRobot
   {
               // yup
               /// <summary>
@@ -84,22 +84,6 @@
                   [JsonPropertyName("year")]
                   public int Year { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class TeamRobot {");
-                    sb.Append("  Key: ").AppendLine($"{ Key }");
-                    sb.Append("  RobotName: ").AppendLine($"{ RobotName }");
-                    sb.Append("  TeamKey: ").AppendLine($"{ TeamKey }");
-                    sb.Append("  Year: ").AppendLine($"{ Year }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

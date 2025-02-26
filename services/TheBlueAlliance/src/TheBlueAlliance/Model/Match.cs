@@ -18,14 +18,14 @@
 /// Match
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class Match
+  public partial record Match
   {
             /// <summary>
   /// The competition level the match was played at.
   /// </summary>
     /// <value>The competition level the match was played at.</value>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<CompLevelEnum>))]
   public enum CompLevelEnum
   {
         /// <summary>
@@ -123,7 +123,7 @@
   /// </summary>
     /// <value>The color (red/blue) of the winning alliance. Will contain an empty string in the event of no winner, or a tie.</value>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<WinningAllianceEnum>))]
   public enum WinningAllianceEnum
   {
         /// <summary>
@@ -354,31 +354,6 @@
                   [JsonPropertyName("videos")]
                   public Collection<MatchVideosInner> Videos { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class Match {");
-                    sb.Append("  ActualTime: ").AppendLine($"{ ActualTime }");
-                    sb.Append("  Alliances: ").AppendLine($"{ Alliances }");
-                    sb.Append("  CompLevel: ").AppendLine($"{ CompLevel }");
-                    sb.Append("  EventKey: ").AppendLine($"{ EventKey }");
-                    sb.Append("  Key: ").AppendLine($"{ Key }");
-                    sb.Append("  MatchNumber: ").AppendLine($"{ MatchNumber }");
-                    sb.Append("  PostResultTime: ").AppendLine($"{ PostResultTime }");
-                    sb.Append("  PredictedTime: ").AppendLine($"{ PredictedTime }");
-                    sb.Append("  ScoreBreakdown: ").AppendLine($"{ ScoreBreakdown }");
-                    sb.Append("  SetNumber: ").AppendLine($"{ SetNumber }");
-                    sb.Append("  Time: ").AppendLine($"{ Time }");
-                    sb.Append("  Videos: ").AppendLine($"{(Videos is null ? "[null]" : string.Join(", ", Videos))}");
-                    sb.Append("  WinningAlliance: ").AppendLine($"{ WinningAlliance }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

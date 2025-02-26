@@ -18,14 +18,14 @@
 /// Webcast
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class Webcast
+  public partial record Webcast
   {
             /// <summary>
   /// Type of webcast, typically descriptive of the streaming provider.
   /// </summary>
     /// <value>Type of webcast, typically descriptive of the streaming provider.</value>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.WebcastExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<TypeEnum>))]
   public enum TypeEnum
   {
         /// <summary>
@@ -224,22 +224,6 @@
                   [JsonPropertyName("file")]
                   public string? File { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class Webcast {");
-                    sb.Append("  Channel: ").AppendLine($"{ Channel }");
-                    sb.Append("  Date: ").AppendLine($"{ Date?.ToString() ?? "[null]" }");
-                    sb.Append("  File: ").AppendLine($"{ File?.ToString() ?? "[null]" }");
-                    sb.Append("  Type: ").AppendLine($"{ Type }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

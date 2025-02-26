@@ -18,7 +18,7 @@
 /// EventDistrictPointsTiebreakersValue
 /// </summary>
 
-  public partial class EventDistrictPointsTiebreakersValue
+  public partial record EventDistrictPointsTiebreakersValue
   {
         /// <summary>
         /// Initializes a new instance of the <see cref="EventDistrictPointsTiebreakersValue" /> class.
@@ -45,20 +45,6 @@
                   [JsonPropertyName("qual_wins")]
                   public int? QualWins { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class EventDistrictPointsTiebreakersValue {");
-                    sb.Append("  HighestQualScores: ").AppendLine($"{(HighestQualScores is null ? "[null]" : string.Join(", ", HighestQualScores))}");
-                    sb.Append("  QualWins: ").AppendLine($"{ QualWins?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

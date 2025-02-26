@@ -18,13 +18,13 @@
 /// See the 2015 FMS API documentation for a description of each value
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class MatchScoreBreakdown2015
+  public partial record MatchScoreBreakdown2015
   {
             /// <summary>
   /// Defines Coopertition
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2015Extensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<CoopertitionEnum>))]
   public enum CoopertitionEnum
   {
         /// <summary>
@@ -149,22 +149,6 @@
                   [JsonPropertyName("red")]
                   public MatchScoreBreakdown2015Alliance Red { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class MatchScoreBreakdown2015 {");
-                    sb.Append("  Blue: ").AppendLine($"{ Blue }");
-                    sb.Append("  Coopertition: ").AppendLine($"{ Coopertition }");
-                    sb.Append("  CoopertitionPoints: ").AppendLine($"{ CoopertitionPoints }");
-                    sb.Append("  Red: ").AppendLine($"{ Red }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

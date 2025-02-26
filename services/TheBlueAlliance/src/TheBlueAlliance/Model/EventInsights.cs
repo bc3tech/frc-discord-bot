@@ -18,7 +18,7 @@
 /// A year-specific event insight object expressed as a JSON string, separated in to &#x60;qual&#x60; and &#x60;playoff&#x60; fields. See also Event_Insights_2016, Event_Insights_2017, etc.
 /// </summary>
 
-  public partial class EventInsights
+  public partial record EventInsights
   {
         /// <summary>
         /// Initializes a new instance of the <see cref="EventInsights" /> class.
@@ -47,20 +47,6 @@
                   [JsonPropertyName("qual")]
                   public Object? Qual { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class EventInsights {");
-                    sb.Append("  Playoff: ").AppendLine($"{ Playoff?.ToString() ?? "[null]" }");
-                    sb.Append("  Qual: ").AppendLine($"{ Qual?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

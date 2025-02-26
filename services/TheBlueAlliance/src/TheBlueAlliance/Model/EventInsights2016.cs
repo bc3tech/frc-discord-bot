@@ -18,7 +18,7 @@
 /// Insights for FIRST Stronghold qualification and elimination matches.
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class EventInsights2016
+  public partial record EventInsights2016
   {
               // yup
               /// <summary>
@@ -316,42 +316,6 @@
                   [JsonPropertyName("scales")]
                   public Collection<float> Scales { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class EventInsights2016 {");
-                    sb.Append("  AChevalDeFrise: ").AppendLine($"{(AChevalDeFrise is null ? "[null]" : string.Join(", ", AChevalDeFrise))}");
-                    sb.Append("  APortcullis: ").AppendLine($"{(APortcullis is null ? "[null]" : string.Join(", ", APortcullis))}");
-                    sb.Append("  AverageAutoScore: ").AppendLine($"{ AverageAutoScore }");
-                    sb.Append("  AverageBoulderScore: ").AppendLine($"{ AverageBoulderScore }");
-                    sb.Append("  AverageCrossingScore: ").AppendLine($"{ AverageCrossingScore }");
-                    sb.Append("  AverageFoulScore: ").AppendLine($"{ AverageFoulScore }");
-                    sb.Append("  AverageHighGoals: ").AppendLine($"{ AverageHighGoals }");
-                    sb.Append("  AverageLowGoals: ").AppendLine($"{ AverageLowGoals }");
-                    sb.Append("  AverageScore: ").AppendLine($"{ AverageScore }");
-                    sb.Append("  AverageTowerScore: ").AppendLine($"{ AverageTowerScore }");
-                    sb.Append("  AverageWinMargin: ").AppendLine($"{ AverageWinMargin }");
-                    sb.Append("  AverageWinScore: ").AppendLine($"{ AverageWinScore }");
-                    sb.Append("  BMoat: ").AppendLine($"{(BMoat is null ? "[null]" : string.Join(", ", BMoat))}");
-                    sb.Append("  BRamparts: ").AppendLine($"{(BRamparts is null ? "[null]" : string.Join(", ", BRamparts))}");
-                    sb.Append("  Breaches: ").AppendLine($"{(Breaches is null ? "[null]" : string.Join(", ", Breaches))}");
-                    sb.Append("  CDrawbridge: ").AppendLine($"{(CDrawbridge is null ? "[null]" : string.Join(", ", CDrawbridge))}");
-                    sb.Append("  CSallyPort: ").AppendLine($"{(CSallyPort is null ? "[null]" : string.Join(", ", CSallyPort))}");
-                    sb.Append("  Captures: ").AppendLine($"{(Captures is null ? "[null]" : string.Join(", ", Captures))}");
-                    sb.Append("  Challenges: ").AppendLine($"{(Challenges is null ? "[null]" : string.Join(", ", Challenges))}");
-                    sb.Append("  DRockWall: ").AppendLine($"{(DRockWall is null ? "[null]" : string.Join(", ", DRockWall))}");
-                    sb.Append("  DRoughTerrain: ").AppendLine($"{(DRoughTerrain is null ? "[null]" : string.Join(", ", DRoughTerrain))}");
-                    sb.Append("  HighScore: ").AppendLine($"{(HighScore is null ? "[null]" : string.Join(", ", HighScore))}");
-                    sb.Append("  LowBar: ").AppendLine($"{(LowBar is null ? "[null]" : string.Join(", ", LowBar))}");
-                    sb.Append("  Scales: ").AppendLine($"{(Scales is null ? "[null]" : string.Join(", ", Scales))}");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

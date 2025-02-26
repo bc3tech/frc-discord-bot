@@ -18,14 +18,14 @@
 /// Playoff status for this team, may be null if the team did not make playoffs, or playoffs have not begun.
 /// </summary>
 
-  public partial class TeamEventStatusPlayoff
+  public partial record TeamEventStatusPlayoff
   {
             /// <summary>
   /// The highest playoff level the team reached.
   /// </summary>
     /// <value>The highest playoff level the team reached.</value>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.TeamEventStatusPlayoffExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<LevelEnum>))]
   public enum LevelEnum
   {
         /// <summary>
@@ -123,7 +123,7 @@
   /// </summary>
     /// <value>Current competition status for the playoffs.</value>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.TeamEventStatusPlayoffExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<StatusEnum>))]
   public enum StatusEnum
   {
         /// <summary>
@@ -239,23 +239,6 @@
                   [JsonPropertyName("record")]
                   public WLTRecord? Record { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class TeamEventStatusPlayoff {");
-                    sb.Append("  CurrentLevelRecord: ").AppendLine($"{ CurrentLevelRecord?.ToString() ?? "[null]" }");
-                    sb.Append("  Level: ").AppendLine($"{ Level?.ToString() ?? "[null]" }");
-                    sb.Append("  PlayoffAverage: ").AppendLine($"{ PlayoffAverage?.ToString() ?? "[null]" }");
-                    sb.Append("  Record: ").AppendLine($"{ Record?.ToString() ?? "[null]" }");
-                    sb.Append("  Status: ").AppendLine($"{ Status?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

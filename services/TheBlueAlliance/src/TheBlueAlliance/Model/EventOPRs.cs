@@ -18,7 +18,7 @@
 /// OPR, DPR, and CCWM for teams at the event.
 /// </summary>
 
-  public partial class EventOPRs
+  public partial record EventOPRs
   {
         /// <summary>
         /// Initializes a new instance of the <see cref="EventOPRs" /> class.
@@ -57,21 +57,6 @@
                   [JsonPropertyName("oprs")]
                   public Dictionary<string, float>? Oprs { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class EventOPRs {");
-                    sb.Append("  Ccwms: ").AppendLine($"{ Ccwms?.ToString() ?? "[null]" }");
-                    sb.Append("  Dprs: ").AppendLine($"{ Dprs?.ToString() ?? "[null]" }");
-                    sb.Append("  Oprs: ").AppendLine($"{ Oprs?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

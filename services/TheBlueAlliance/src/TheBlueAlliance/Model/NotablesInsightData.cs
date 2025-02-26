@@ -18,7 +18,7 @@
 /// NotablesInsightData
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class NotablesInsightData
+  public partial record NotablesInsightData
   {
               // yup
               /// <summary>
@@ -46,19 +46,6 @@
                   [JsonPropertyName("entries")]
                   public Collection<NotablesInsightDataEntriesInner> Entries { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class NotablesInsightData {");
-                    sb.Append("  Entries: ").AppendLine($"{(Entries is null ? "[null]" : string.Join(", ", Entries))}");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

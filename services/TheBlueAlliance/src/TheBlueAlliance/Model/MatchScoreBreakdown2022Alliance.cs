@@ -18,13 +18,13 @@
 /// MatchScoreBreakdown2022Alliance
 /// </summary>
 
-  public partial class MatchScoreBreakdown2022Alliance
+  public partial record MatchScoreBreakdown2022Alliance
   {
             /// <summary>
   /// Defines EndgameRobot1
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<EndgameRobot1Enum>))]
   public enum EndgameRobot1Enum
   {
         /// <summary>
@@ -120,7 +120,7 @@
   /// Defines EndgameRobot2
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<EndgameRobot2Enum>))]
   public enum EndgameRobot2Enum
   {
         /// <summary>
@@ -216,7 +216,7 @@
   /// Defines EndgameRobot3
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<EndgameRobot3Enum>))]
   public enum EndgameRobot3Enum
   {
         /// <summary>
@@ -312,7 +312,7 @@
   /// Defines TaxiRobot1
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<TaxiRobot1Enum>))]
   public enum TaxiRobot1Enum
   {
         /// <summary>
@@ -384,7 +384,7 @@
   /// Defines TaxiRobot2
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<TaxiRobot2Enum>))]
   public enum TaxiRobot2Enum
   {
         /// <summary>
@@ -456,7 +456,7 @@
   /// Defines TaxiRobot3
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2022AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<TaxiRobot3Enum>))]
   public enum TaxiRobot3Enum
   {
         /// <summary>
@@ -849,58 +849,6 @@
                   [JsonPropertyName("totalPoints")]
                   public int? TotalPoints { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class MatchScoreBreakdown2022Alliance {");
-                    sb.Append("  AdjustPoints: ").AppendLine($"{ AdjustPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCargoLowerBlue: ").AppendLine($"{ AutoCargoLowerBlue?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCargoLowerFar: ").AppendLine($"{ AutoCargoLowerFar?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCargoLowerNear: ").AppendLine($"{ AutoCargoLowerNear?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCargoLowerRed: ").AppendLine($"{ AutoCargoLowerRed?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCargoPoints: ").AppendLine($"{ AutoCargoPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCargoTotal: ").AppendLine($"{ AutoCargoTotal?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCargoUpperBlue: ").AppendLine($"{ AutoCargoUpperBlue?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCargoUpperFar: ").AppendLine($"{ AutoCargoUpperFar?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCargoUpperNear: ").AppendLine($"{ AutoCargoUpperNear?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCargoUpperRed: ").AppendLine($"{ AutoCargoUpperRed?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoPoints: ").AppendLine($"{ AutoPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoTaxiPoints: ").AppendLine($"{ AutoTaxiPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  CargoBonusRankingPoint: ").AppendLine($"{ CargoBonusRankingPoint?.ToString() ?? "[null]" }");
-                    sb.Append("  EndgamePoints: ").AppendLine($"{ EndgamePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  EndgameRobot1: ").AppendLine($"{ EndgameRobot1?.ToString() ?? "[null]" }");
-                    sb.Append("  EndgameRobot2: ").AppendLine($"{ EndgameRobot2?.ToString() ?? "[null]" }");
-                    sb.Append("  EndgameRobot3: ").AppendLine($"{ EndgameRobot3?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulCount: ").AppendLine($"{ FoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulPoints: ").AppendLine($"{ FoulPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  HangarBonusRankingPoint: ").AppendLine($"{ HangarBonusRankingPoint?.ToString() ?? "[null]" }");
-                    sb.Append("  MatchCargoTotal: ").AppendLine($"{ MatchCargoTotal?.ToString() ?? "[null]" }");
-                    sb.Append("  QuintetAchieved: ").AppendLine($"{ QuintetAchieved?.ToString() ?? "[null]" }");
-                    sb.Append("  Rp: ").AppendLine($"{ Rp?.ToString() ?? "[null]" }");
-                    sb.Append("  TaxiRobot1: ").AppendLine($"{ TaxiRobot1?.ToString() ?? "[null]" }");
-                    sb.Append("  TaxiRobot2: ").AppendLine($"{ TaxiRobot2?.ToString() ?? "[null]" }");
-                    sb.Append("  TaxiRobot3: ").AppendLine($"{ TaxiRobot3?.ToString() ?? "[null]" }");
-                    sb.Append("  TechFoulCount: ").AppendLine($"{ TechFoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCargoLowerBlue: ").AppendLine($"{ TeleopCargoLowerBlue?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCargoLowerFar: ").AppendLine($"{ TeleopCargoLowerFar?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCargoLowerNear: ").AppendLine($"{ TeleopCargoLowerNear?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCargoLowerRed: ").AppendLine($"{ TeleopCargoLowerRed?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCargoPoints: ").AppendLine($"{ TeleopCargoPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCargoTotal: ").AppendLine($"{ TeleopCargoTotal?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCargoUpperBlue: ").AppendLine($"{ TeleopCargoUpperBlue?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCargoUpperFar: ").AppendLine($"{ TeleopCargoUpperFar?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCargoUpperNear: ").AppendLine($"{ TeleopCargoUpperNear?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCargoUpperRed: ").AppendLine($"{ TeleopCargoUpperRed?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopPoints: ").AppendLine($"{ TeleopPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TotalPoints: ").AppendLine($"{ TotalPoints?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

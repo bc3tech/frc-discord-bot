@@ -18,13 +18,13 @@
 /// MatchScoreBreakdown2023Alliance
 /// </summary>
 
-  public partial class MatchScoreBreakdown2023Alliance
+  public partial record MatchScoreBreakdown2023Alliance
   {
             /// <summary>
   /// Defines AutoBridgeState
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<AutoBridgeStateEnum>))]
   public enum AutoBridgeStateEnum
   {
         /// <summary>
@@ -96,7 +96,7 @@
   /// Defines AutoChargeStationRobot1
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<AutoChargeStationRobot1Enum>))]
   public enum AutoChargeStationRobot1Enum
   {
         /// <summary>
@@ -168,7 +168,7 @@
   /// Defines AutoChargeStationRobot2
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<AutoChargeStationRobot2Enum>))]
   public enum AutoChargeStationRobot2Enum
   {
         /// <summary>
@@ -240,7 +240,7 @@
   /// Defines AutoChargeStationRobot3
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<AutoChargeStationRobot3Enum>))]
   public enum AutoChargeStationRobot3Enum
   {
         /// <summary>
@@ -312,7 +312,7 @@
   /// Defines EndGameBridgeState
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<EndGameBridgeStateEnum>))]
   public enum EndGameBridgeStateEnum
   {
         /// <summary>
@@ -384,7 +384,7 @@
   /// Defines EndGameChargeStationRobot1
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<EndGameChargeStationRobot1Enum>))]
   public enum EndGameChargeStationRobot1Enum
   {
         /// <summary>
@@ -456,7 +456,7 @@
   /// Defines EndGameChargeStationRobot2
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<EndGameChargeStationRobot2Enum>))]
   public enum EndGameChargeStationRobot2Enum
   {
         /// <summary>
@@ -528,7 +528,7 @@
   /// Defines EndGameChargeStationRobot3
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<EndGameChargeStationRobot3Enum>))]
   public enum EndGameChargeStationRobot3Enum
   {
         /// <summary>
@@ -600,7 +600,7 @@
   /// Defines MobilityRobot1
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<MobilityRobot1Enum>))]
   public enum MobilityRobot1Enum
   {
         /// <summary>
@@ -672,7 +672,7 @@
   /// Defines MobilityRobot2
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<MobilityRobot2Enum>))]
   public enum MobilityRobot2Enum
   {
         /// <summary>
@@ -744,7 +744,7 @@
   /// Defines MobilityRobot3
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<MobilityRobot3Enum>))]
   public enum MobilityRobot3Enum
   {
         /// <summary>
@@ -1084,56 +1084,6 @@
                   [JsonPropertyName("totalPoints")]
                   public int? TotalPoints { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class MatchScoreBreakdown2023Alliance {");
-                    sb.Append("  ActivationBonusAchieved: ").AppendLine($"{ ActivationBonusAchieved?.ToString() ?? "[null]" }");
-                    sb.Append("  AdjustPoints: ").AppendLine($"{ AdjustPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoBridgeState: ").AppendLine($"{ AutoBridgeState?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoChargeStationPoints: ").AppendLine($"{ AutoChargeStationPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoChargeStationRobot1: ").AppendLine($"{ AutoChargeStationRobot1?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoChargeStationRobot2: ").AppendLine($"{ AutoChargeStationRobot2?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoChargeStationRobot3: ").AppendLine($"{ AutoChargeStationRobot3?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCommunity: ").AppendLine($"{ AutoCommunity?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoDocked: ").AppendLine($"{ AutoDocked?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoGamePieceCount: ").AppendLine($"{ AutoGamePieceCount?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoGamePiecePoints: ").AppendLine($"{ AutoGamePiecePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoMobilityPoints: ").AppendLine($"{ AutoMobilityPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoPoints: ").AppendLine($"{ AutoPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  CoopGamePieceCount: ").AppendLine($"{ CoopGamePieceCount?.ToString() ?? "[null]" }");
-                    sb.Append("  CoopertitionCriteriaMet: ").AppendLine($"{ CoopertitionCriteriaMet?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameBridgeState: ").AppendLine($"{ EndGameBridgeState?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameChargeStationPoints: ").AppendLine($"{ EndGameChargeStationPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameChargeStationRobot1: ").AppendLine($"{ EndGameChargeStationRobot1?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameChargeStationRobot2: ").AppendLine($"{ EndGameChargeStationRobot2?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameChargeStationRobot3: ").AppendLine($"{ EndGameChargeStationRobot3?.ToString() ?? "[null]" }");
-                    sb.Append("  EndGameParkPoints: ").AppendLine($"{ EndGameParkPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  ExtraGamePieceCount: ").AppendLine($"{ ExtraGamePieceCount?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulCount: ").AppendLine($"{ FoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulPoints: ").AppendLine($"{ FoulPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  LinkPoints: ").AppendLine($"{ LinkPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  Links: ").AppendLine($"{(Links is null ? "[null]" : string.Join(", ", Links))}");
-                    sb.Append("  MobilityRobot1: ").AppendLine($"{ MobilityRobot1?.ToString() ?? "[null]" }");
-                    sb.Append("  MobilityRobot2: ").AppendLine($"{ MobilityRobot2?.ToString() ?? "[null]" }");
-                    sb.Append("  MobilityRobot3: ").AppendLine($"{ MobilityRobot3?.ToString() ?? "[null]" }");
-                    sb.Append("  Rp: ").AppendLine($"{ Rp?.ToString() ?? "[null]" }");
-                    sb.Append("  SustainabilityBonusAchieved: ").AppendLine($"{ SustainabilityBonusAchieved?.ToString() ?? "[null]" }");
-                    sb.Append("  TechFoulCount: ").AppendLine($"{ TechFoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCommunity: ").AppendLine($"{ TeleopCommunity?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopGamePieceCount: ").AppendLine($"{ TeleopGamePieceCount?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopGamePiecePoints: ").AppendLine($"{ TeleopGamePiecePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopPoints: ").AppendLine($"{ TeleopPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TotalChargeStationPoints: ").AppendLine($"{ TotalChargeStationPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TotalPoints: ").AppendLine($"{ TotalPoints?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

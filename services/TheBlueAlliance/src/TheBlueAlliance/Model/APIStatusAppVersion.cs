@@ -18,7 +18,7 @@
 /// APIStatusAppVersion
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class APIStatusAppVersion
+  public partial record APIStatusAppVersion
   {
               // yup
               /// <summary>
@@ -55,20 +55,6 @@
                   [JsonPropertyName("min_app_version")]
                   public int MinAppVersion { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class APIStatusAppVersion {");
-                    sb.Append("  LatestAppVersion: ").AppendLine($"{ LatestAppVersion }");
-                    sb.Append("  MinAppVersion: ").AppendLine($"{ MinAppVersion }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

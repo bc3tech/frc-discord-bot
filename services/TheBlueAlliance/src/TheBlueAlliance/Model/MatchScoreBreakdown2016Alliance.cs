@@ -18,13 +18,13 @@
 /// MatchScoreBreakdown2016Alliance
 /// </summary>
 
-  public partial class MatchScoreBreakdown2016Alliance
+  public partial record MatchScoreBreakdown2016Alliance
   {
             /// <summary>
   /// Defines Robot1Auto
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2016AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<Robot1AutoEnum>))]
   public enum Robot1AutoEnum
   {
         /// <summary>
@@ -104,7 +104,7 @@
   /// Defines Robot2Auto
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2016AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<Robot2AutoEnum>))]
   public enum Robot2AutoEnum
   {
         /// <summary>
@@ -184,7 +184,7 @@
   /// Defines Robot3Auto
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2016AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<Robot3AutoEnum>))]
   public enum Robot3AutoEnum
   {
         /// <summary>
@@ -588,56 +588,6 @@
                   [JsonPropertyName("towerFaceC")]
                   public string? TowerFaceC { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class MatchScoreBreakdown2016Alliance {");
-                    sb.Append("  AdjustPoints: ").AppendLine($"{ AdjustPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoBoulderPoints: ").AppendLine($"{ AutoBoulderPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoBouldersHigh: ").AppendLine($"{ AutoBouldersHigh?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoBouldersLow: ").AppendLine($"{ AutoBouldersLow?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoCrossingPoints: ").AppendLine($"{ AutoCrossingPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoPoints: ").AppendLine($"{ AutoPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  AutoReachPoints: ").AppendLine($"{ AutoReachPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  BreachPoints: ").AppendLine($"{ BreachPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  CapturePoints: ").AppendLine($"{ CapturePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulCount: ").AppendLine($"{ FoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  FoulPoints: ").AppendLine($"{ FoulPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  Position1crossings: ").AppendLine($"{ Position1crossings?.ToString() ?? "[null]" }");
-                    sb.Append("  Position2: ").AppendLine($"{ Position2?.ToString() ?? "[null]" }");
-                    sb.Append("  Position2crossings: ").AppendLine($"{ Position2crossings?.ToString() ?? "[null]" }");
-                    sb.Append("  Position3: ").AppendLine($"{ Position3?.ToString() ?? "[null]" }");
-                    sb.Append("  Position3crossings: ").AppendLine($"{ Position3crossings?.ToString() ?? "[null]" }");
-                    sb.Append("  Position4: ").AppendLine($"{ Position4?.ToString() ?? "[null]" }");
-                    sb.Append("  Position4crossings: ").AppendLine($"{ Position4crossings?.ToString() ?? "[null]" }");
-                    sb.Append("  Position5: ").AppendLine($"{ Position5?.ToString() ?? "[null]" }");
-                    sb.Append("  Position5crossings: ").AppendLine($"{ Position5crossings?.ToString() ?? "[null]" }");
-                    sb.Append("  Robot1Auto: ").AppendLine($"{ Robot1Auto?.ToString() ?? "[null]" }");
-                    sb.Append("  Robot2Auto: ").AppendLine($"{ Robot2Auto?.ToString() ?? "[null]" }");
-                    sb.Append("  Robot3Auto: ").AppendLine($"{ Robot3Auto?.ToString() ?? "[null]" }");
-                    sb.Append("  TechFoulCount: ").AppendLine($"{ TechFoulCount?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopBoulderPoints: ").AppendLine($"{ TeleopBoulderPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopBouldersHigh: ").AppendLine($"{ TeleopBouldersHigh?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopBouldersLow: ").AppendLine($"{ TeleopBouldersLow?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopChallengePoints: ").AppendLine($"{ TeleopChallengePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopCrossingPoints: ").AppendLine($"{ TeleopCrossingPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopDefensesBreached: ").AppendLine($"{ TeleopDefensesBreached?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopPoints: ").AppendLine($"{ TeleopPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopScalePoints: ").AppendLine($"{ TeleopScalePoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TeleopTowerCaptured: ").AppendLine($"{ TeleopTowerCaptured?.ToString() ?? "[null]" }");
-                    sb.Append("  TotalPoints: ").AppendLine($"{ TotalPoints?.ToString() ?? "[null]" }");
-                    sb.Append("  TowerEndStrength: ").AppendLine($"{ TowerEndStrength?.ToString() ?? "[null]" }");
-                    sb.Append("  TowerFaceA: ").AppendLine($"{ TowerFaceA?.ToString() ?? "[null]" }");
-                    sb.Append("  TowerFaceB: ").AppendLine($"{ TowerFaceB?.ToString() ?? "[null]" }");
-                    sb.Append("  TowerFaceC: ").AppendLine($"{ TowerFaceC?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

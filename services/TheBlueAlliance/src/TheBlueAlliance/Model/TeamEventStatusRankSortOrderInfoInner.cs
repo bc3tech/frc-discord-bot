@@ -18,7 +18,7 @@
 /// TeamEventStatusRankSortOrderInfoInner
 /// </summary>
 
-  public partial class TeamEventStatusRankSortOrderInfoInner
+  public partial record TeamEventStatusRankSortOrderInfoInner
   {
         /// <summary>
         /// Initializes a new instance of the <see cref="TeamEventStatusRankSortOrderInfoInner" /> class.
@@ -47,20 +47,6 @@
                   [JsonPropertyName("precision")]
                   public int? Precision { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class TeamEventStatusRankSortOrderInfoInner {");
-                    sb.Append("  Name: ").AppendLine($"{ Name?.ToString() ?? "[null]" }");
-                    sb.Append("  Precision: ").AppendLine($"{ Precision?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

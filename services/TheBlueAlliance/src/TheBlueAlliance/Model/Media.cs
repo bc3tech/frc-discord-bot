@@ -18,14 +18,14 @@
 /// The &#x60;Media&#x60; object contains a reference for most any media associated with a team or event on TBA.
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class Media
+  public partial record Media
   {
             /// <summary>
   /// String type of the media element.
   /// </summary>
     /// <value>String type of the media element.</value>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MediaExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter))]
+  [JsonConverter(typeof(JsonStringEnumConverter<TypeEnum>))]
   public enum TypeEnum
   {
         /// <summary>
@@ -273,25 +273,6 @@
                   [JsonPropertyName("view_url")]
                   public string? ViewUrl { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class Media {");
-                    sb.Append("  Details: ").AppendLine($"{ Details?.ToString() ?? "[null]" }");
-                    sb.Append("  DirectUrl: ").AppendLine($"{ DirectUrl?.ToString() ?? "[null]" }");
-                    sb.Append("  ForeignKey: ").AppendLine($"{ ForeignKey }");
-                    sb.Append("  Preferred: ").AppendLine($"{ Preferred?.ToString() ?? "[null]" }");
-                    sb.Append("  TeamKeys: ").AppendLine($"{(TeamKeys is null ? "[null]" : string.Join(", ", TeamKeys))}");
-                    sb.Append("  Type: ").AppendLine($"{ Type }");
-                    sb.Append("  ViewUrl: ").AppendLine($"{ ViewUrl?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

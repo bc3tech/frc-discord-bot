@@ -18,7 +18,7 @@
 /// Backup status, may be null.
 /// </summary>
 
-  public partial class TeamEventStatusAllianceBackup
+  public partial record TeamEventStatusAllianceBackup
   {
         /// <summary>
         /// Initializes a new instance of the <see cref="TeamEventStatusAllianceBackup" /> class.
@@ -47,20 +47,6 @@
                   [JsonPropertyName("out")]
                   public string? Out { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class TeamEventStatusAllianceBackup {");
-                    sb.Append("  In: ").AppendLine($"{ In?.ToString() ?? "[null]" }");
-                    sb.Append("  Out: ").AppendLine($"{ Out?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

@@ -18,7 +18,7 @@
 /// MatchScoreBreakdown2025AllianceAutoReef
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class MatchScoreBreakdown2025AllianceAutoReef
+  public partial record MatchScoreBreakdown2025AllianceAutoReef
   {
               // yup
               /// <summary>
@@ -110,25 +110,6 @@
                   [JsonPropertyName("trough")]
                   public int Trough { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class MatchScoreBreakdown2025AllianceAutoReef {");
-                    sb.Append("  BotRow: ").AppendLine($"{ BotRow }");
-                    sb.Append("  MidRow: ").AppendLine($"{ MidRow }");
-                    sb.Append("  TbaBotRowCount: ").AppendLine($"{ TbaBotRowCount?.ToString() ?? "[null]" }");
-                    sb.Append("  TbaMidRowCount: ").AppendLine($"{ TbaMidRowCount?.ToString() ?? "[null]" }");
-                    sb.Append("  TbaTopRowCount: ").AppendLine($"{ TbaTopRowCount?.ToString() ?? "[null]" }");
-                    sb.Append("  TopRow: ").AppendLine($"{ TopRow }");
-                    sb.Append("  Trough: ").AppendLine($"{ Trough }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

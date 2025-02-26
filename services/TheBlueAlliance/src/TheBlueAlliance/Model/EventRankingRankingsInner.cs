@@ -18,7 +18,7 @@
 /// EventRankingRankingsInner
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class EventRankingRankingsInner
+  public partial record EventRankingRankingsInner
   {
               // yup
               /// <summary>
@@ -128,26 +128,6 @@
                   [JsonPropertyName("team_key")]
                   public string TeamKey { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class EventRankingRankingsInner {");
-                    sb.Append("  Dq: ").AppendLine($"{ Dq }");
-                    sb.Append("  ExtraStats: ").AppendLine($"{(ExtraStats is null ? "[null]" : string.Join(", ", ExtraStats))}");
-                    sb.Append("  MatchesPlayed: ").AppendLine($"{ MatchesPlayed }");
-                    sb.Append("  QualAverage: ").AppendLine($"{ QualAverage }");
-                    sb.Append("  Rank: ").AppendLine($"{ Rank }");
-                    sb.Append("  Record: ").AppendLine($"{ Record }");
-                    sb.Append("  SortOrders: ").AppendLine($"{(SortOrders is null ? "[null]" : string.Join(", ", SortOrders))}");
-                    sb.Append("  TeamKey: ").AppendLine($"{ TeamKey }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

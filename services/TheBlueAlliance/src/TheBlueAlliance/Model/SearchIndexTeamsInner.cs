@@ -18,7 +18,7 @@
 /// SearchIndexTeamsInner
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class SearchIndexTeamsInner
+  public partial record SearchIndexTeamsInner
   {
               // yup
               /// <summary>
@@ -58,20 +58,6 @@
                   [JsonPropertyName("nickname")]
                   public string Nickname { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class SearchIndexTeamsInner {");
-                    sb.Append("  Key: ").AppendLine($"{ Key }");
-                    sb.Append("  Nickname: ").AppendLine($"{ Nickname }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

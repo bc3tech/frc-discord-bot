@@ -92,10 +92,6 @@ docs/Webcast.md
 docs/Zebra.md
 docs/ZebraAlliances.md
 docs/ZebraTeam.md
-src/TheBlueAlliance.Test/Model/MatchScoreBreakdown2025AllianceAutoReefTests.cs
-src/TheBlueAlliance.Test/Model/MatchScoreBreakdown2025AllianceAutoReefTopRowTests.cs
-src/TheBlueAlliance.Test/Model/MatchScoreBreakdown2025AllianceTests.cs
-src/TheBlueAlliance.Test/Model/MatchScoreBreakdown2025Tests.cs
 src/TheBlueAlliance.Test/TheBlueAlliance.Test.csproj
 src/TheBlueAlliance/Api/DefaultApi.cs
 src/TheBlueAlliance/Api/DistrictApi.cs

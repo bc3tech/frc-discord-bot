@@ -18,7 +18,7 @@
 /// Timeseries data for the 2018 game *FIRST* POWER UP. *WARNING:* This is *not* official data, and is subject to a significant possibility of error, or missing data. Do not rely on this data for any purpose. In fact, pretend we made it up. *WARNING:* This model is currently under active development and may change at any time, including in breaking ways.
 /// </summary>
 
-  public partial class MatchTimeseries2018
+  public partial record MatchTimeseries2018
   {
         /// <summary>
         /// Initializes a new instance of the <see cref="MatchTimeseries2018" /> class.
@@ -336,49 +336,6 @@
                   [JsonPropertyName("time_remaining")]
                   public int? TimeRemaining { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class MatchTimeseries2018 {");
-                    sb.Append("  BlueAutoQuest: ").AppendLine($"{ BlueAutoQuest?.ToString() ?? "[null]" }");
-                    sb.Append("  BlueBoostCount: ").AppendLine($"{ BlueBoostCount?.ToString() ?? "[null]" }");
-                    sb.Append("  BlueBoostPlayed: ").AppendLine($"{ BlueBoostPlayed?.ToString() ?? "[null]" }");
-                    sb.Append("  BlueCurrentPowerup: ").AppendLine($"{ BlueCurrentPowerup?.ToString() ?? "[null]" }");
-                    sb.Append("  BlueFaceTheBoss: ").AppendLine($"{ BlueFaceTheBoss?.ToString() ?? "[null]" }");
-                    sb.Append("  BlueForceCount: ").AppendLine($"{ BlueForceCount?.ToString() ?? "[null]" }");
-                    sb.Append("  BlueForcePlayed: ").AppendLine($"{ BlueForcePlayed?.ToString() ?? "[null]" }");
-                    sb.Append("  BlueLevitateCount: ").AppendLine($"{ BlueLevitateCount?.ToString() ?? "[null]" }");
-                    sb.Append("  BlueLevitatePlayed: ").AppendLine($"{ BlueLevitatePlayed?.ToString() ?? "[null]" }");
-                    sb.Append("  BluePowerupTimeRemaining: ").AppendLine($"{ BluePowerupTimeRemaining?.ToString() ?? "[null]" }");
-                    sb.Append("  BlueScaleOwned: ").AppendLine($"{ BlueScaleOwned?.ToString() ?? "[null]" }");
-                    sb.Append("  BlueScore: ").AppendLine($"{ BlueScore?.ToString() ?? "[null]" }");
-                    sb.Append("  BlueSwitchOwned: ").AppendLine($"{ BlueSwitchOwned?.ToString() ?? "[null]" }");
-                    sb.Append("  EventKey: ").AppendLine($"{ EventKey?.ToString() ?? "[null]" }");
-                    sb.Append("  MatchId: ").AppendLine($"{ MatchId?.ToString() ?? "[null]" }");
-                    sb.Append("  Mode: ").AppendLine($"{ Mode?.ToString() ?? "[null]" }");
-                    sb.Append("  Play: ").AppendLine($"{ Play?.ToString() ?? "[null]" }");
-                    sb.Append("  RedAutoQuest: ").AppendLine($"{ RedAutoQuest?.ToString() ?? "[null]" }");
-                    sb.Append("  RedBoostCount: ").AppendLine($"{ RedBoostCount?.ToString() ?? "[null]" }");
-                    sb.Append("  RedBoostPlayed: ").AppendLine($"{ RedBoostPlayed?.ToString() ?? "[null]" }");
-                    sb.Append("  RedCurrentPowerup: ").AppendLine($"{ RedCurrentPowerup?.ToString() ?? "[null]" }");
-                    sb.Append("  RedFaceTheBoss: ").AppendLine($"{ RedFaceTheBoss?.ToString() ?? "[null]" }");
-                    sb.Append("  RedForceCount: ").AppendLine($"{ RedForceCount?.ToString() ?? "[null]" }");
-                    sb.Append("  RedForcePlayed: ").AppendLine($"{ RedForcePlayed?.ToString() ?? "[null]" }");
-                    sb.Append("  RedLevitateCount: ").AppendLine($"{ RedLevitateCount?.ToString() ?? "[null]" }");
-                    sb.Append("  RedLevitatePlayed: ").AppendLine($"{ RedLevitatePlayed?.ToString() ?? "[null]" }");
-                    sb.Append("  RedPowerupTimeRemaining: ").AppendLine($"{ RedPowerupTimeRemaining?.ToString() ?? "[null]" }");
-                    sb.Append("  RedScaleOwned: ").AppendLine($"{ RedScaleOwned?.ToString() ?? "[null]" }");
-                    sb.Append("  RedScore: ").AppendLine($"{ RedScore?.ToString() ?? "[null]" }");
-                    sb.Append("  RedSwitchOwned: ").AppendLine($"{ RedSwitchOwned?.ToString() ?? "[null]" }");
-                    sb.Append("  TimeRemaining: ").AppendLine($"{ TimeRemaining?.ToString() ?? "[null]" }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

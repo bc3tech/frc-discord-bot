@@ -18,7 +18,8 @@
   /// GetTeamEventsStatusesByYear200ResponseValue
   /// </summary>
   
-    public sealed partial class GetTeamEventsStatusesByYear200ResponseValue : AbstractOpenAPISchema
+    [JsonConverter(typeof(AbstractOpenAPISchemaJsonConverter<GetTeamEventsStatusesByYear200ResponseValue>))]
+    public sealed partial record GetTeamEventsStatusesByYear200ResponseValue : AbstractOpenAPISchema
     {
       public override string SchemaType { get; } = AnyOf;
       public override bool IsNullable { get; } = true;
@@ -60,19 +61,6 @@
           /// </summary>
           /// <returns>An instance of TeamEventStatus</returns>
           public TeamEventStatus? GetTeamEventStatus() => (TeamEventStatus?)this.ActualInstance;
-    
-    /// <summary>
-    /// Returns the string presentation of the object
-    /// </summary>
-    /// <returns>string presentation of the object</returns>
-    public override string ToString()
-    {
-      var sb = new StringBuilder();
-      sb.AppendLine("class GetTeamEventsStatusesByYear200ResponseValue {");
-      sb.Append("  ActualInstance: ").Append(this.ActualInstance).AppendLine();
-      sb.AppendLine("}");
-      return sb.ToString();
-    }
     
     /// <summary>
     /// Returns the JSON string presentation of the object

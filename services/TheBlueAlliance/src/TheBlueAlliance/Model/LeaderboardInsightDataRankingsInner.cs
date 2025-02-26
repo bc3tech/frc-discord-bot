@@ -18,7 +18,7 @@
 /// LeaderboardInsightDataRankingsInner
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class LeaderboardInsightDataRankingsInner
+  public partial record LeaderboardInsightDataRankingsInner
   {
               // yup
               /// <summary>
@@ -58,20 +58,6 @@
                   [JsonPropertyName("value")]
                   public decimal Value { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class LeaderboardInsightDataRankingsInner {");
-                    sb.Append("  Keys: ").AppendLine($"{(Keys is null ? "[null]" : string.Join(", ", Keys))}");
-                    sb.Append("  Value: ").AppendLine($"{ Value }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

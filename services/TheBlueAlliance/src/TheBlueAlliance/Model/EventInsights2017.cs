@@ -18,7 +18,7 @@
 /// Insights for FIRST STEAMWORKS qualification and elimination matches.
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class EventInsights2017
+  public partial record EventInsights2017
   {
               // yup
               /// <summary>
@@ -390,50 +390,6 @@
                   [JsonPropertyName("unicorn_matches")]
                   public Collection<float> UnicornMatches { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class EventInsights2017 {");
-                    sb.Append("  AverageFoulScore: ").AppendLine($"{ AverageFoulScore }");
-                    sb.Append("  AverageFuelPoints: ").AppendLine($"{ AverageFuelPoints }");
-                    sb.Append("  AverageFuelPointsAuto: ").AppendLine($"{ AverageFuelPointsAuto }");
-                    sb.Append("  AverageFuelPointsTeleop: ").AppendLine($"{ AverageFuelPointsTeleop }");
-                    sb.Append("  AverageHighGoals: ").AppendLine($"{ AverageHighGoals }");
-                    sb.Append("  AverageHighGoalsAuto: ").AppendLine($"{ AverageHighGoalsAuto }");
-                    sb.Append("  AverageHighGoalsTeleop: ").AppendLine($"{ AverageHighGoalsTeleop }");
-                    sb.Append("  AverageLowGoals: ").AppendLine($"{ AverageLowGoals }");
-                    sb.Append("  AverageLowGoalsAuto: ").AppendLine($"{ AverageLowGoalsAuto }");
-                    sb.Append("  AverageLowGoalsTeleop: ").AppendLine($"{ AverageLowGoalsTeleop }");
-                    sb.Append("  AverageMobilityPointsAuto: ").AppendLine($"{ AverageMobilityPointsAuto }");
-                    sb.Append("  AveragePointsAuto: ").AppendLine($"{ AveragePointsAuto }");
-                    sb.Append("  AveragePointsTeleop: ").AppendLine($"{ AveragePointsTeleop }");
-                    sb.Append("  AverageRotorPoints: ").AppendLine($"{ AverageRotorPoints }");
-                    sb.Append("  AverageRotorPointsAuto: ").AppendLine($"{ AverageRotorPointsAuto }");
-                    sb.Append("  AverageRotorPointsTeleop: ").AppendLine($"{ AverageRotorPointsTeleop }");
-                    sb.Append("  AverageScore: ").AppendLine($"{ AverageScore }");
-                    sb.Append("  AverageTakeoffPointsTeleop: ").AppendLine($"{ AverageTakeoffPointsTeleop }");
-                    sb.Append("  AverageWinMargin: ").AppendLine($"{ AverageWinMargin }");
-                    sb.Append("  AverageWinScore: ").AppendLine($"{ AverageWinScore }");
-                    sb.Append("  HighKpa: ").AppendLine($"{(HighKpa is null ? "[null]" : string.Join(", ", HighKpa))}");
-                    sb.Append("  HighScore: ").AppendLine($"{(HighScore is null ? "[null]" : string.Join(", ", HighScore))}");
-                    sb.Append("  KpaAchieved: ").AppendLine($"{(KpaAchieved is null ? "[null]" : string.Join(", ", KpaAchieved))}");
-                    sb.Append("  MobilityCounts: ").AppendLine($"{(MobilityCounts is null ? "[null]" : string.Join(", ", MobilityCounts))}");
-                    sb.Append("  Rotor1Engaged: ").AppendLine($"{(Rotor1Engaged is null ? "[null]" : string.Join(", ", Rotor1Engaged))}");
-                    sb.Append("  Rotor1EngagedAuto: ").AppendLine($"{(Rotor1EngagedAuto is null ? "[null]" : string.Join(", ", Rotor1EngagedAuto))}");
-                    sb.Append("  Rotor2Engaged: ").AppendLine($"{(Rotor2Engaged is null ? "[null]" : string.Join(", ", Rotor2Engaged))}");
-                    sb.Append("  Rotor2EngagedAuto: ").AppendLine($"{(Rotor2EngagedAuto is null ? "[null]" : string.Join(", ", Rotor2EngagedAuto))}");
-                    sb.Append("  Rotor3Engaged: ").AppendLine($"{(Rotor3Engaged is null ? "[null]" : string.Join(", ", Rotor3Engaged))}");
-                    sb.Append("  Rotor4Engaged: ").AppendLine($"{(Rotor4Engaged is null ? "[null]" : string.Join(", ", Rotor4Engaged))}");
-                    sb.Append("  TakeoffCounts: ").AppendLine($"{(TakeoffCounts is null ? "[null]" : string.Join(", ", TakeoffCounts))}");
-                    sb.Append("  UnicornMatches: ").AppendLine($"{(UnicornMatches is null ? "[null]" : string.Join(", ", UnicornMatches))}");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

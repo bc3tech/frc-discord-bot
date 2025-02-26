@@ -19,16 +19,12 @@
   /// Score breakdown for auto, teleop, etc. points. Varies from year to year. May be null.
   /// </summary>
   
-    public sealed partial class MatchScoreBreakdown : AbstractOpenAPISchema
+    [JsonConverter(typeof(AbstractOpenAPISchemaJsonConverter<MatchScoreBreakdown>))]
+    public sealed partial record MatchScoreBreakdown : AbstractOpenAPISchema
     {
       public override string SchemaType { get; } = OneOf;
       public override bool IsNullable { get; } = true;
       
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class.
-        /// </summary>
-        public MatchScoreBreakdown() { }
-        
             /// <summary>
             /// Initializes a new instance of the <see cref="MatchScoreBreakdown" /> class
             /// with the <see cref="MatchScoreBreakdown2015" /> class
@@ -198,19 +194,6 @@
           public MatchScoreBreakdown2025? GetMatchScoreBreakdown2025() => (MatchScoreBreakdown2025?)this.ActualInstance;
     
     /// <summary>
-    /// Returns the string presentation of the object
-    /// </summary>
-    /// <returns>string presentation of the object</returns>
-    public override string ToString()
-    {
-      var sb = new StringBuilder();
-      sb.AppendLine("class MatchScoreBreakdown {");
-      sb.Append("  ActualInstance: ").Append(this.ActualInstance).AppendLine();
-      sb.AppendLine("}");
-      return sb.ToString();
-    }
-    
-    /// <summary>
     /// Returns the JSON string presentation of the object
     /// </summary>
     /// <returns>JSON string presentation of the object</returns>
@@ -235,8 +218,8 @@
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
           var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2015>(jsonString, typeof(MatchScoreBreakdown2015).GetProperty("AdditionalProperties") is null
-              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
-
+          ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+          
           // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
           if (deserialized is not null)
           {
@@ -255,8 +238,8 @@
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
           var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2016>(jsonString, typeof(MatchScoreBreakdown2016).GetProperty("AdditionalProperties") is null
-              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
-
+          ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+          
           // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
           if (deserialized is not null)
           {
@@ -275,8 +258,8 @@
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
           var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2017>(jsonString, typeof(MatchScoreBreakdown2017).GetProperty("AdditionalProperties") is null
-              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
-
+          ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+          
           // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
           if (deserialized is not null)
           {
@@ -295,8 +278,8 @@
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
           var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2018>(jsonString, typeof(MatchScoreBreakdown2018).GetProperty("AdditionalProperties") is null
-              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
-
+          ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+          
           // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
           if (deserialized is not null)
           {
@@ -315,8 +298,8 @@
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
           var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2019>(jsonString, typeof(MatchScoreBreakdown2019).GetProperty("AdditionalProperties") is null
-              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
-
+          ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+          
           // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
           if (deserialized is not null)
           {
@@ -335,8 +318,8 @@
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
           var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2020>(jsonString, typeof(MatchScoreBreakdown2020).GetProperty("AdditionalProperties") is null
-              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
-
+          ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+          
           // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
           if (deserialized is not null)
           {
@@ -355,8 +338,8 @@
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
           var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2022>(jsonString, typeof(MatchScoreBreakdown2022).GetProperty("AdditionalProperties") is null
-              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
-
+          ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+          
           // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
           if (deserialized is not null)
           {
@@ -375,8 +358,8 @@
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
           var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2023>(jsonString, typeof(MatchScoreBreakdown2023).GetProperty("AdditionalProperties") is null
-              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
-
+          ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+          
           // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
           if (deserialized is not null)
           {
@@ -395,8 +378,8 @@
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
           var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2024>(jsonString, typeof(MatchScoreBreakdown2024).GetProperty("AdditionalProperties") is null
-              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
-
+          ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+          
           // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
           if (deserialized is not null)
           {
@@ -415,8 +398,8 @@
         {
           // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
           var deserialized = JsonSerializer.Deserialize<MatchScoreBreakdown2025>(jsonString, typeof(MatchScoreBreakdown2025).GetProperty("AdditionalProperties") is null
-              ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
-
+          ? MatchScoreBreakdown.SerializerSettings : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings);
+          
           // deserialization is considered successful at this point if no exception has been thrown and the result isn't null.
           if (deserialized is not null)
           {

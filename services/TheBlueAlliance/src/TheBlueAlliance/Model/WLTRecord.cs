@@ -18,7 +18,7 @@
 /// A Win-Loss-Tie record for a team, or an alliance.
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class WLTRecord
+  public partial record WLTRecord
   {
               // yup
               /// <summary>
@@ -65,21 +65,6 @@
                   [JsonPropertyName("wins")]
                   public int Wins { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class WLTRecord {");
-                    sb.Append("  Losses: ").AppendLine($"{ Losses }");
-                    sb.Append("  Ties: ").AppendLine($"{ Ties }");
-                    sb.Append("  Wins: ").AppendLine($"{ Wins }");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

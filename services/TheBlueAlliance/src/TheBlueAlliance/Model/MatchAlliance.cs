@@ -18,7 +18,7 @@
 /// MatchAlliance
 /// </summary>
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-  public partial class MatchAlliance
+  public partial record MatchAlliance
   {
               // yup
               /// <summary>
@@ -82,22 +82,6 @@
                   [JsonPropertyName("team_keys")]
                   public Collection<string> TeamKeys { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class MatchAlliance {");
-                    sb.Append("  DqTeamKeys: ").AppendLine($"{(DqTeamKeys is null ? "[null]" : string.Join(", ", DqTeamKeys))}");
-                    sb.Append("  Score: ").AppendLine($"{ Score }");
-                    sb.Append("  SurrogateTeamKeys: ").AppendLine($"{(SurrogateTeamKeys is null ? "[null]" : string.Join(", ", SurrogateTeamKeys))}");
-                    sb.Append("  TeamKeys: ").AppendLine($"{(TeamKeys is null ? "[null]" : string.Join(", ", TeamKeys))}");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>

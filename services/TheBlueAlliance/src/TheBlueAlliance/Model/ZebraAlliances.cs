@@ -18,7 +18,7 @@
 /// ZebraAlliances
 /// </summary>
 
-  public partial class ZebraAlliances
+  public partial record ZebraAlliances
   {
         /// <summary>
         /// Initializes a new instance of the <see cref="ZebraAlliances" /> class.
@@ -47,20 +47,6 @@
                   [JsonPropertyName("red")]
                   public Collection<ZebraTeam>? Red { get; set; }
                   
-              /// <summary>
-              /// Returns the string presentation of the object
-              /// </summary>
-              /// <returns>string presentation of the object</returns>
-              public override string ToString()
-              {
-                StringBuilder sb = new();
-                sb.AppendLine("class ZebraAlliances {");
-                    sb.Append("  Blue: ").AppendLine($"{(Blue is null ? "[null]" : string.Join(", ", Blue))}");
-                    sb.Append("  Red: ").AppendLine($"{(Red is null ? "[null]" : string.Join(", ", Red))}");
-                sb.AppendLine("}");
-                return sb.ToString();
-              }
-              
               /// <summary>
               /// Returns the JSON string presentation of the object
               /// </summary>
