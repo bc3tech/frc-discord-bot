@@ -46,6 +46,9 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBu
         var ranks = (await eventApi.GetEventRankingsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))!.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
         var scoreBreakdown = detailedMatch.ScoreBreakdown.GetMatchScoreBreakdown2025()!;
 
+        var videos = detailedMatch.Videos.Where(v => v.Type is "youtube" && v.Key is not null).Select(v => $"- https://www.youtube.com/watch?v={v.Key}");
+        var videoSection = videos.Any() ? $"\n**Videos**\n{string.Join("\n", videos)}\n" : string.Empty;
+
         var embedding = baseBuilder
             .WithDescription(
 $@"# Scores are in!
@@ -65,7 +68,7 @@ $@"# Scores are in!
 - Auto: {scoreBreakdown.Blue.AutoPoints}
 - Teleop: {scoreBreakdown.Blue.TeleopPoints}
 - Endgame: {scoreBreakdown.Blue.EndGameBargePoints}
-
+{videoSection}
         View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})
         ")
                     .Build();
