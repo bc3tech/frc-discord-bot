@@ -1,4 +1,5 @@
 ﻿@webhook_url = {{DiscordBotFunctionApp_HostAddress}}/api/tba/webhook{{auth_code}}
+
 ### Send ping request
 POST {{webhook_url}}
 content-type: application/json
@@ -23,43 +24,166 @@ content-type: application/json
 }
 
 ### Send match_score notification
-POST {{webhook_url}}
+POST {{DiscordBotFunctionApp_HostAddress}}/api/tba/webhook
 content-type: application/json
 
 {
-  "message_data": {
-    "event_name": "Test event",
-    "match": {
-      "comp_level": "f",
-      "match_number": 1,
-      "videos": [],
-      "time_string": "3:18 PM",
-      "set_number": 1,
-      "key": "2024orsal_qm5",
-      "time": 1397330280,
-      "score_breakdown": null,
-      "alliances": {
-        "blue": {
-          "score": 154,
-          "team_keys": [
-            "frc177",
-            "frc230",
-            "frc2046"
-          ]
-        },
-        "red": {
-          "score": 78,
-          "team_keys": [
-            "frc195",
-            "frc558",
-            "frc5122"
-          ]
+    "message_type": "match_score",
+    "message_data": {
+        "event_key": "2024wabon",
+        "match_key": "2024wabon_qm4",
+        "event_name": "PNW District Bonney Lake Event",
+        "match": {
+            "key": "2024wabon_qm4",
+            "event_key": "2024wabon",
+            "comp_level": "qm",
+            "set_number": 1,
+            "match_number": 4,
+            "alliances": {
+                "red": {
+                    "team_keys": [
+                        "frc3218",
+                        "frc2980",
+                        "frc2046"
+                    ],
+                    "score": 57,
+                    "surrogate_team_keys": [],
+                    "dq_team_keys": []
+                },
+                "blue": {
+                    "team_keys": [
+                        "frc5683",
+                        "frc3049",
+                        "frc3663"
+                    ],
+                    "score": 55,
+                    "surrogate_team_keys": [],
+                    "dq_team_keys": []
+                }
+            },
+            "winning_alliance": "red",
+            "score_breakdown": {
+                "red": {
+                    "coopertitionBonusAchieved": false,
+                    "melodyBonusThresholdCoop": 15,
+                    "melodyBonusThresholdNonCoop": 18,
+                    "melodyBonusThreshold": 18,
+                    "ensembleBonusStagePointsThreshold": 10,
+                    "ensembleBonusOnStageRobotsThreshold": 2,
+                    "autoLineRobot1": "No",
+                    "endGameRobot1": "Parked",
+                    "autoLineRobot2": "Yes",
+                    "endGameRobot2": "CenterStage",
+                    "autoLineRobot3": "Yes",
+                    "endGameRobot3": "StageRight",
+                    "autoAmpNoteCount": 0,
+                    "autoSpeakerNoteCount": 3,
+                    "teleopAmpNoteCount": 1,
+                    "teleopSpeakerNoteCount": 15,
+                    "teleopSpeakerNoteAmplifiedCount": 0,
+                    "micCenterStage": false,
+                    "micStageLeft": false,
+                    "micStageRight": false,
+                    "trapCenterStage": false,
+                    "trapStageLeft": false,
+                    "trapStageRight": false,
+                    "autoPoints": 19,
+                    "autoAmpNotePoints": 0,
+                    "autoSpeakerNotePoints": 15,
+                    "autoTotalNotePoints": 15,
+                    "autoLeavePoints": 4,
+                    "teleopPoints": 38,
+                    "teleopAmpNotePoints": 1,
+                    "teleopSpeakerNotePoints": 30,
+                    "teleopSpeakerNoteAmplifiedPoints": 0,
+                    "teleopTotalNotePoints": 31,
+                    "endGameParkPoints": 1,
+                    "endGameOnStagePoints": 6,
+                    "endGameSpotLightBonusPoints": 0,
+                    "endGameHarmonyPoints": 0,
+                    "endGameNoteInTrapPoints": 0,
+                    "endGameTotalStagePoints": 7,
+                    "melodyBonusAchieved": true,
+                    "ensembleBonusAchieved": false,
+                    "coopertitionCriteriaMet": false,
+                    "coopNotePlayed": false,
+                    "foulCount": 0,
+                    "techFoulCount": 0,
+                    "g206Penalty": false,
+                    "g408Penalty": false,
+                    "g424Penalty": false,
+                    "adjustPoints": 0,
+                    "foulPoints": 0,
+                    "rp": 3,
+                    "totalPoints": 57
+                },
+                "blue": {
+                    "coopertitionBonusAchieved": false,
+                    "melodyBonusThresholdCoop": 15,
+                    "melodyBonusThresholdNonCoop": 18,
+                    "melodyBonusThreshold": 18,
+                    "ensembleBonusStagePointsThreshold": 10,
+                    "ensembleBonusOnStageRobotsThreshold": 2,
+                    "autoLineRobot1": "No",
+                    "endGameRobot1": "CenterStage",
+                    "autoLineRobot2": "No",
+                    "endGameRobot2": "Parked",
+                    "autoLineRobot3": "Yes",
+                    "endGameRobot3": "Parked",
+                    "autoAmpNoteCount": 0,
+                    "autoSpeakerNoteCount": 4,
+                    "teleopAmpNoteCount": 0,
+                    "teleopSpeakerNoteCount": 14,
+                    "teleopSpeakerNoteAmplifiedCount": 0,
+                    "micCenterStage": false,
+                    "micStageLeft": false,
+                    "micStageRight": false,
+                    "trapCenterStage": false,
+                    "trapStageLeft": false,
+                    "trapStageRight": false,
+                    "autoPoints": 22,
+                    "autoAmpNotePoints": 0,
+                    "autoSpeakerNotePoints": 20,
+                    "autoTotalNotePoints": 20,
+                    "autoLeavePoints": 2,
+                    "teleopPoints": 33,
+                    "teleopAmpNotePoints": 0,
+                    "teleopSpeakerNotePoints": 28,
+                    "teleopSpeakerNoteAmplifiedPoints": 0,
+                    "teleopTotalNotePoints": 28,
+                    "endGameParkPoints": 2,
+                    "endGameOnStagePoints": 3,
+                    "endGameSpotLightBonusPoints": 0,
+                    "endGameHarmonyPoints": 0,
+                    "endGameNoteInTrapPoints": 0,
+                    "endGameTotalStagePoints": 5,
+                    "melodyBonusAchieved": true,
+                    "ensembleBonusAchieved": false,
+                    "coopertitionCriteriaMet": false,
+                    "coopNotePlayed": false,
+                    "foulCount": 0,
+                    "techFoulCount": 0,
+                    "g206Penalty": false,
+                    "g408Penalty": false,
+                    "g424Penalty": false,
+                    "adjustPoints": 0,
+                    "foulPoints": 0,
+                    "rp": 1,
+                    "totalPoints": 55
+                }
+            },
+            "videos": [
+                {
+                    "type": "youtube",
+                    "key": "w2-XMPqrWdo"
+                }
+            ],
+            "time": 1710614460,
+            "actual_time": 1710614660,
+            "predicted_time": 1710622701,
+            "post_result_time": 1710614938
         }
-      },
-      "event_key": "2024orsal"
     }
-  },
-  "message_type": "match_score"
 }
 
 ### Send upcoming_match notification
