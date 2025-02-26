@@ -19,7 +19,7 @@ internal static class Utility
         // Use the formula for relative luminance
         var luminances = colors.Where(c => c is not null)
             .Select(c => c!.Value)
-            .Select(c => (c, 0.2126 * c.R + 0.7152 * c.G + 0.0722 * c.B));
+            .Select(c => (c, (0.2126 * c.R) + (0.7152 * c.G) + (0.0722 * c.B)));
         return luminances.Any() ? luminances.MaxBy(l => l.Item2).c : null;
     }
 }

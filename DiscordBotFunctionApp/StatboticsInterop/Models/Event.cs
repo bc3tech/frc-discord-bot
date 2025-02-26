@@ -68,19 +68,18 @@ internal sealed record Event
 
     public string GetEventStatusStr()
     {
-        if (Status is not "Ongoing")
-            return Status ?? string.Empty;
-
-        if (QualMatches is 0)
-            return "Scheduled Unreleased";
-        else if (CurrentMatch is 0)
-            return "Schedule Released";
-        else if (CurrentMatch < QualMatches)
-            return $"Qual {CurrentMatch}";
-        else if (CurrentMatch == QualMatches)
-            return "Quals Over";
-        else
-            return "Elims Ongoing";
+        return Status switch
+        {
+            "Ongoing" => CurrentMatch switch
+            {
+                0 when QualMatches == 0 => "Scheduled Unreleased",
+                0 => "Schedule Released",
+                _ when CurrentMatch < QualMatches => $"Qual {CurrentMatch}",
+                _ when CurrentMatch == QualMatches => "Quals Over",
+                _ => "Elims Ongoing"
+            },
+            _ => Status ?? string.Empty
+        };
     }
 
     internal sealed record Epa
