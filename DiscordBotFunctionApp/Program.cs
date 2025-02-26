@@ -6,10 +6,12 @@ using Azure.Storage.Blobs;
 
 using DiscordBotFunctionApp.Apis;
 using DiscordBotFunctionApp.DiscordInterop;
+using DiscordBotFunctionApp.Extensions;
+using DiscordBotFunctionApp.FIRSTInterop;
+using DiscordBotFunctionApp.StatboticsInterop;
 using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.Subscription;
 using DiscordBotFunctionApp.TbaInterop;
-using DiscordBotFunctionApp.StatboticsInterop;
 
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;
@@ -18,8 +20,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
 
+using System;
+
 using Throws = Common.Throws;
-using DiscordBotFunctionApp.FIRSTInterop;
 
 internal sealed class Program
 {
@@ -68,7 +71,8 @@ internal sealed class Program
                     .AddSingleton<TeamRepository>()
                     .AddSingleton<SubscriptionManager>()
                     .AddSingleton<TokenCredential>(credential)
-                    .AddSingleton<RESTCountries>();
+                    .AddSingleton<RESTCountries>()
+                    .FixAppInsightsLogging();
 
                 var tableStorageEndpointConfigValue = context.Configuration[Constants.Configuration.Azure.Storage.TableEndpoint];
                 TableServiceClient tsc = !string.IsNullOrWhiteSpace(tableStorageEndpointConfigValue) && Uri.TryCreate(tableStorageEndpointConfigValue, UriKind.Absolute, out var tableEndpoint)
