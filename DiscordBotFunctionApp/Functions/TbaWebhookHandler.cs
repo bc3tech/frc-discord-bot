@@ -39,6 +39,7 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILo
             }
             else
             {
+                logger.LogDebug("Received webhook payload: {WebhookPayload}", bodyContent);
                 var handled = await dispatcher.ProcessWebhookMessageAsync(message, cancellationToken).ConfigureAwait(false);
                 if (handled)
                 {

@@ -29,6 +29,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 {
     public async Task<bool> ProcessWebhookMessageAsync(WebhookMessage message, CancellationToken cancellationToken)
     {
+        using var scope = logger.CreateMethodScope();
         (var teams, var events) = GetTeamsAndEventsInMessage(message.MessageData);
         logger.LogDebug("Teams: {TeamsInMessage}, Events: {EventsInMessage}", teams.Count, events.Count);
 
@@ -39,8 +40,8 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
         List<Task> notifications = [];
 
-        await sendNotificationsAsync<TeamSubscriptionEntity>(teamSubscriptions, teamRecordsToFind, notifications, i => i.Item1 != CommonConstants.ALL ? i.Item1.ToTeamNumber() : null, cancellationToken).ConfigureAwait(false);
-        await sendNotificationsAsync<EventSubscriptionEntity>(eventSubscriptions, eventRecordsToFind, notifications, i => i.Item2 != CommonConstants.ALL ? i.Item2.ToTeamNumber() : null, cancellationToken).ConfigureAwait(false);
+        await SendNotificationsAsync<TeamSubscriptionEntity>(teamSubscriptions, teamRecordsToFind, notifications, i => i.Item1 != CommonConstants.ALL ? i.Item1.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
+        await SendNotificationsAsync<EventSubscriptionEntity>(eventSubscriptions, eventRecordsToFind, notifications, i => i.Item2 != CommonConstants.ALL ? i.Item2.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
 
         logger.LogInformation("Waiting for notifications...");
 
@@ -49,26 +50,27 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         logger.LogInformation("Notifications completed");
 
         return true;
+    }
 
-        async Task sendNotificationsAsync<T>(TableClient sourceTable, IReadOnlyList<(string p, string r)> records, List<Task> notifications, Func<(string, string), ushort?> teamFinder, CancellationToken ct) where T : class, ITableEntity, ISubscriptionEntity
+    private async Task SendNotificationsAsync<T>(TableClient sourceTable, IReadOnlyList<(string p, string r)> records, List<Task> notifications, Func<(string, string), ushort?> teamFinder, ILogger<DiscordMessageDispatcher> logger, WebhookMessage message, CancellationToken cancellationToken) where T : class, ITableEntity, ISubscriptionEntity
+    {
+        using var scope = logger.CreateMethodScope();
+        foreach (var i in records)
         {
-            foreach (var i in records)
+            cancellationToken.ThrowIfCancellationRequested();
+            logger.LogTrace("Checking {TargetTable} for {PartitionKey} / {RowKey} ...", sourceTable.Name, i.p, i.r);
+            var sub = await getSubscriptionForAsync(sourceTable, i.p, i.r, cancellationToken).ConfigureAwait(false);
+            if (sub is not null)
             {
-                ct.ThrowIfCancellationRequested();
-                logger.LogTrace("Checking {TargetTable} for {PartitionKey} / {RowKey} ...", sourceTable.Name, i.p, i.r);
-                var sub = await getSubscriptionForAsync(sourceTable, i.p, i.r, cancellationToken).ConfigureAwait(false);
-                if (sub is not null)
-                {
-                    logger.LogTrace("Found record for {TargetTable} for {PartitionKey} / {RowKey}", sourceTable.Name, i.p, i.r);
-                    notifications.Add(ProcessSubscriptionAsync(message, sub.Subscribers, teamFinder(i), cancellationToken));
-                }
+                logger.LogTrace("Found record for {TargetTable} for {PartitionKey} / {RowKey}", sourceTable.Name, i.p, i.r);
+                notifications.Add(ProcessSubscriptionAsync(message, sub.Subscribers, teamFinder(i), cancellationToken));
             }
+        }
 
-            static async Task<T?> getSubscriptionForAsync(TableClient sourceTable, string partitionKey, string rowKey, CancellationToken ct)
-            {
-                var subscription = await sourceTable.GetEntityIfExistsAsync<T>(partitionKey, rowKey, cancellationToken: ct).ConfigureAwait(false);
-                return subscription.HasValue ? subscription.Value : null;
-            }
+        static async Task<T?> getSubscriptionForAsync(TableClient sourceTable, string partitionKey, string rowKey, CancellationToken ct)
+        {
+            var subscription = await sourceTable.GetEntityIfExistsAsync<T>(partitionKey, rowKey, cancellationToken: ct).ConfigureAwait(false);
+            return subscription.HasValue ? subscription.Value : null;
         }
     }
 
