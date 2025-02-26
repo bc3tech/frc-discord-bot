@@ -1,13 +1,4 @@
-# @env dev
-@base_url = http://localhost:7240/api
-# @auth_code = 
-
-# @env prod
-# @base_url = https://bearmetaldiscordbotfunctionapp.azurewebsites.net/api
-# @auth_code = "?code=8tRw-ZrJXGnNuQnS4l6bUMGVmoaQG3veDBU7x6iLOvOXAzFuphdT5Q%3D%3D""
-
-@webhook_url = {{base_url}}/tba/webhook
-
+﻿@webhook_url = {{DiscordBotFunctionApp_HostAddress}}/api/tba/webhook{{auth_code}}
 ### Send ping request
 POST {{webhook_url}}
 content-type: application/json
@@ -29,17 +20,6 @@ content-type: application/json
   "message_data": {
     "verification_key": "foo"
   }
-}
-
-### Send subscription request
-POST {{base_url}}/subscribe{{auth_code}}
-content-type: application/json
-
-{
-  "team": 5122,
-  "event": "2014necmp",
-  "guildId": "996567213614055504",
-  "channelId": "1328806657303642205"
 }
 
 ### Send match_score notification
