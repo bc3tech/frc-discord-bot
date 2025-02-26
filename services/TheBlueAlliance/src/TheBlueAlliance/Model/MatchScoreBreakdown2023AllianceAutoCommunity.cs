@@ -9,6 +9,7 @@
 
     namespace TheBlueAlliance.Model;
     
+    using System.Runtime.Serialization;
     using System.Text;
     using System.Text.Json;
     using System.Text.Json.Serialization;
@@ -24,41 +25,27 @@
   /// Defines B
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceAutoCommunityExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<BEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<BEnum>))]
   public enum BEnum
   {
         /// <summary>
         /// Enum None for value: None
         /// </summary>
+        [EnumMember(Value = "None")]
         None = 1,
           
         /// <summary>
         /// Enum Cone for value: Cone
         /// </summary>
+        [EnumMember(Value = "Cone")]
         Cone = 2,
           
         /// <summary>
         /// Enum Cube for value: Cube
         /// </summary>
+        [EnumMember(Value = "Cube")]
         Cube = 3
   }
-    
-    /// <summary>
-    /// Returns a <see cref="BEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static BEnum BEnumFromString(string value)
-    {
-      return value switch
-      {
-            "None" => BEnum.None,
-            "Cone" => BEnum.Cone,
-            "Cube" => BEnum.Cube,
-        _ => throw new NotImplementedException($"Could not convert value to type BEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="BEnum"/>
@@ -75,63 +62,32 @@
         _ => null
       };
     }
-    
-    /// <summary>
-    /// Converts the <see cref="BEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string BEnumToJsonValue(BEnum value)
-    {
-        return value switch
-        {
-              BEnum.None => "None",
-              BEnum.Cone => "Cone",
-              BEnum.Cube => "Cube",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
-    }
 
               /// <summary>
   /// Defines M
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceAutoCommunityExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<MEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<MEnum>))]
   public enum MEnum
   {
         /// <summary>
         /// Enum None for value: None
         /// </summary>
+        [EnumMember(Value = "None")]
         None = 1,
           
         /// <summary>
         /// Enum Cone for value: Cone
         /// </summary>
+        [EnumMember(Value = "Cone")]
         Cone = 2,
           
         /// <summary>
         /// Enum Cube for value: Cube
         /// </summary>
+        [EnumMember(Value = "Cube")]
         Cube = 3
   }
-    
-    /// <summary>
-    /// Returns a <see cref="MEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static MEnum MEnumFromString(string value)
-    {
-      return value switch
-      {
-            "None" => MEnum.None,
-            "Cone" => MEnum.Cone,
-            "Cube" => MEnum.Cube,
-        _ => throw new NotImplementedException($"Could not convert value to type MEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="MEnum"/>
@@ -148,63 +104,32 @@
         _ => null
       };
     }
-    
-    /// <summary>
-    /// Converts the <see cref="MEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string MEnumToJsonValue(MEnum value)
-    {
-        return value switch
-        {
-              MEnum.None => "None",
-              MEnum.Cone => "Cone",
-              MEnum.Cube => "Cube",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
-    }
 
               /// <summary>
   /// Defines T
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceAutoCommunityExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<TEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<TEnum>))]
   public enum TEnum
   {
         /// <summary>
         /// Enum None for value: None
         /// </summary>
+        [EnumMember(Value = "None")]
         None = 1,
           
         /// <summary>
         /// Enum Cone for value: Cone
         /// </summary>
+        [EnumMember(Value = "Cone")]
         Cone = 2,
           
         /// <summary>
         /// Enum Cube for value: Cube
         /// </summary>
+        [EnumMember(Value = "Cube")]
         Cube = 3
   }
-    
-    /// <summary>
-    /// Returns a <see cref="TEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static TEnum TEnumFromString(string value)
-    {
-      return value switch
-      {
-            "None" => TEnum.None,
-            "Cone" => TEnum.Cone,
-            "Cube" => TEnum.Cube,
-        _ => throw new NotImplementedException($"Could not convert value to type TEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="TEnum"/>
@@ -220,23 +145,6 @@
             "Cube" => TEnum.Cube,
         _ => null
       };
-    }
-    
-    /// <summary>
-    /// Converts the <see cref="TEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string TEnumToJsonValue(TEnum value)
-    {
-        return value switch
-        {
-              TEnum.None => "None",
-              TEnum.Cone => "Cone",
-              TEnum.Cube => "Cube",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
     }
 
               // yup

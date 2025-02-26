@@ -9,6 +9,7 @@
 
     namespace TheBlueAlliance.Model;
     
+    using System.Runtime.Serialization;
     using System.Text;
     using System.Text.Json;
     using System.Text.Json.Serialization;
@@ -24,41 +25,27 @@
   /// Defines Nodes
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceLinksInnerExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<NodesEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<NodesEnum>))]
   public enum NodesEnum
   {
         /// <summary>
         /// Enum None for value: None
         /// </summary>
+        [EnumMember(Value = "None")]
         None = 1,
           
         /// <summary>
         /// Enum Cone for value: Cone
         /// </summary>
+        [EnumMember(Value = "Cone")]
         Cone = 2,
           
         /// <summary>
         /// Enum Cube for value: Cube
         /// </summary>
+        [EnumMember(Value = "Cube")]
         Cube = 3
   }
-    
-    /// <summary>
-    /// Returns a <see cref="NodesEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static NodesEnum NodesEnumFromString(string value)
-    {
-      return value switch
-      {
-            "None" => NodesEnum.None,
-            "Cone" => NodesEnum.Cone,
-            "Cube" => NodesEnum.Cube,
-        _ => throw new NotImplementedException($"Could not convert value to type NodesEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="NodesEnum"/>
@@ -75,63 +62,32 @@
         _ => null
       };
     }
-    
-    /// <summary>
-    /// Converts the <see cref="NodesEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string NodesEnumToJsonValue(NodesEnum value)
-    {
-        return value switch
-        {
-              NodesEnum.None => "None",
-              NodesEnum.Cone => "Cone",
-              NodesEnum.Cube => "Cube",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
-    }
 
             /// <summary>
   /// Defines Row
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceLinksInnerExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<RowEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<RowEnum>))]
   public enum RowEnum
   {
         /// <summary>
         /// Enum Bottom for value: Bottom
         /// </summary>
+        [EnumMember(Value = "Bottom")]
         Bottom = 1,
           
         /// <summary>
         /// Enum Mid for value: Mid
         /// </summary>
+        [EnumMember(Value = "Mid")]
         Mid = 2,
           
         /// <summary>
         /// Enum Top for value: Top
         /// </summary>
+        [EnumMember(Value = "Top")]
         Top = 3
   }
-    
-    /// <summary>
-    /// Returns a <see cref="RowEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static RowEnum RowEnumFromString(string value)
-    {
-      return value switch
-      {
-            "Bottom" => RowEnum.Bottom,
-            "Mid" => RowEnum.Mid,
-            "Top" => RowEnum.Top,
-        _ => throw new NotImplementedException($"Could not convert value to type RowEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="RowEnum"/>
@@ -147,23 +103,6 @@
             "Top" => RowEnum.Top,
         _ => null
       };
-    }
-    
-    /// <summary>
-    /// Converts the <see cref="RowEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string RowEnumToJsonValue(RowEnum value)
-    {
-        return value switch
-        {
-              RowEnum.Bottom => "Bottom",
-              RowEnum.Mid => "Mid",
-              RowEnum.Top => "Top",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
     }
 
         

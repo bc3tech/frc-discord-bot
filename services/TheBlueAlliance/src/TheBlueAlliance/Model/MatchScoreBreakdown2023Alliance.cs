@@ -9,6 +9,7 @@
 
     namespace TheBlueAlliance.Model;
     
+    using System.Runtime.Serialization;
     using System.Text;
     using System.Text.Json;
     using System.Text.Json.Serialization;
@@ -24,35 +25,21 @@
   /// Defines AutoBridgeState
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<AutoBridgeStateEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<AutoBridgeStateEnum>))]
   public enum AutoBridgeStateEnum
   {
         /// <summary>
         /// Enum NotLevel for value: NotLevel
         /// </summary>
+        [EnumMember(Value = "NotLevel")]
         NotLevel = 1,
           
         /// <summary>
         /// Enum Level for value: Level
         /// </summary>
+        [EnumMember(Value = "Level")]
         Level = 2
   }
-    
-    /// <summary>
-    /// Returns a <see cref="AutoBridgeStateEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static AutoBridgeStateEnum AutoBridgeStateEnumFromString(string value)
-    {
-      return value switch
-      {
-            "NotLevel" => AutoBridgeStateEnum.NotLevel,
-            "Level" => AutoBridgeStateEnum.Level,
-        _ => throw new NotImplementedException($"Could not convert value to type AutoBridgeStateEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="AutoBridgeStateEnum"/>
@@ -68,22 +55,6 @@
         _ => null
       };
     }
-    
-    /// <summary>
-    /// Converts the <see cref="AutoBridgeStateEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string AutoBridgeStateEnumToJsonValue(AutoBridgeStateEnum value)
-    {
-        return value switch
-        {
-              AutoBridgeStateEnum.NotLevel => "NotLevel",
-              AutoBridgeStateEnum.Level => "Level",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
-    }
 
         
         /// <summary>
@@ -96,35 +67,21 @@
   /// Defines AutoChargeStationRobot1
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<AutoChargeStationRobot1Enum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<AutoChargeStationRobot1Enum>))]
   public enum AutoChargeStationRobot1Enum
   {
         /// <summary>
         /// Enum None for value: None
         /// </summary>
+        [EnumMember(Value = "None")]
         None = 1,
           
         /// <summary>
         /// Enum Docked for value: Docked
         /// </summary>
+        [EnumMember(Value = "Docked")]
         Docked = 2
   }
-    
-    /// <summary>
-    /// Returns a <see cref="AutoChargeStationRobot1Enum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static AutoChargeStationRobot1Enum AutoChargeStationRobot1EnumFromString(string value)
-    {
-      return value switch
-      {
-            "None" => AutoChargeStationRobot1Enum.None,
-            "Docked" => AutoChargeStationRobot1Enum.Docked,
-        _ => throw new NotImplementedException($"Could not convert value to type AutoChargeStationRobot1Enum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="AutoChargeStationRobot1Enum"/>
@@ -140,22 +97,6 @@
         _ => null
       };
     }
-    
-    /// <summary>
-    /// Converts the <see cref="AutoChargeStationRobot1Enum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string AutoChargeStationRobot1EnumToJsonValue(AutoChargeStationRobot1Enum value)
-    {
-        return value switch
-        {
-              AutoChargeStationRobot1Enum.None => "None",
-              AutoChargeStationRobot1Enum.Docked => "Docked",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
-    }
 
         
         /// <summary>
@@ -168,35 +109,21 @@
   /// Defines AutoChargeStationRobot2
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<AutoChargeStationRobot2Enum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<AutoChargeStationRobot2Enum>))]
   public enum AutoChargeStationRobot2Enum
   {
         /// <summary>
         /// Enum None for value: None
         /// </summary>
+        [EnumMember(Value = "None")]
         None = 1,
           
         /// <summary>
         /// Enum Docked for value: Docked
         /// </summary>
+        [EnumMember(Value = "Docked")]
         Docked = 2
   }
-    
-    /// <summary>
-    /// Returns a <see cref="AutoChargeStationRobot2Enum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static AutoChargeStationRobot2Enum AutoChargeStationRobot2EnumFromString(string value)
-    {
-      return value switch
-      {
-            "None" => AutoChargeStationRobot2Enum.None,
-            "Docked" => AutoChargeStationRobot2Enum.Docked,
-        _ => throw new NotImplementedException($"Could not convert value to type AutoChargeStationRobot2Enum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="AutoChargeStationRobot2Enum"/>
@@ -212,22 +139,6 @@
         _ => null
       };
     }
-    
-    /// <summary>
-    /// Converts the <see cref="AutoChargeStationRobot2Enum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string AutoChargeStationRobot2EnumToJsonValue(AutoChargeStationRobot2Enum value)
-    {
-        return value switch
-        {
-              AutoChargeStationRobot2Enum.None => "None",
-              AutoChargeStationRobot2Enum.Docked => "Docked",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
-    }
 
         
         /// <summary>
@@ -240,35 +151,21 @@
   /// Defines AutoChargeStationRobot3
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<AutoChargeStationRobot3Enum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<AutoChargeStationRobot3Enum>))]
   public enum AutoChargeStationRobot3Enum
   {
         /// <summary>
         /// Enum None for value: None
         /// </summary>
+        [EnumMember(Value = "None")]
         None = 1,
           
         /// <summary>
         /// Enum Docked for value: Docked
         /// </summary>
+        [EnumMember(Value = "Docked")]
         Docked = 2
   }
-    
-    /// <summary>
-    /// Returns a <see cref="AutoChargeStationRobot3Enum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static AutoChargeStationRobot3Enum AutoChargeStationRobot3EnumFromString(string value)
-    {
-      return value switch
-      {
-            "None" => AutoChargeStationRobot3Enum.None,
-            "Docked" => AutoChargeStationRobot3Enum.Docked,
-        _ => throw new NotImplementedException($"Could not convert value to type AutoChargeStationRobot3Enum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="AutoChargeStationRobot3Enum"/>
@@ -284,22 +181,6 @@
         _ => null
       };
     }
-    
-    /// <summary>
-    /// Converts the <see cref="AutoChargeStationRobot3Enum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string AutoChargeStationRobot3EnumToJsonValue(AutoChargeStationRobot3Enum value)
-    {
-        return value switch
-        {
-              AutoChargeStationRobot3Enum.None => "None",
-              AutoChargeStationRobot3Enum.Docked => "Docked",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
-    }
 
         
         /// <summary>
@@ -312,35 +193,21 @@
   /// Defines EndGameBridgeState
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<EndGameBridgeStateEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<EndGameBridgeStateEnum>))]
   public enum EndGameBridgeStateEnum
   {
         /// <summary>
         /// Enum NotLevel for value: NotLevel
         /// </summary>
+        [EnumMember(Value = "NotLevel")]
         NotLevel = 1,
           
         /// <summary>
         /// Enum Level for value: Level
         /// </summary>
+        [EnumMember(Value = "Level")]
         Level = 2
   }
-    
-    /// <summary>
-    /// Returns a <see cref="EndGameBridgeStateEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static EndGameBridgeStateEnum EndGameBridgeStateEnumFromString(string value)
-    {
-      return value switch
-      {
-            "NotLevel" => EndGameBridgeStateEnum.NotLevel,
-            "Level" => EndGameBridgeStateEnum.Level,
-        _ => throw new NotImplementedException($"Could not convert value to type EndGameBridgeStateEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="EndGameBridgeStateEnum"/>
@@ -356,22 +223,6 @@
         _ => null
       };
     }
-    
-    /// <summary>
-    /// Converts the <see cref="EndGameBridgeStateEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string EndGameBridgeStateEnumToJsonValue(EndGameBridgeStateEnum value)
-    {
-        return value switch
-        {
-              EndGameBridgeStateEnum.NotLevel => "NotLevel",
-              EndGameBridgeStateEnum.Level => "Level",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
-    }
 
         
         /// <summary>
@@ -384,35 +235,21 @@
   /// Defines EndGameChargeStationRobot1
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<EndGameChargeStationRobot1Enum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<EndGameChargeStationRobot1Enum>))]
   public enum EndGameChargeStationRobot1Enum
   {
         /// <summary>
         /// Enum None for value: None
         /// </summary>
+        [EnumMember(Value = "None")]
         None = 1,
           
         /// <summary>
         /// Enum Docked for value: Docked
         /// </summary>
+        [EnumMember(Value = "Docked")]
         Docked = 2
   }
-    
-    /// <summary>
-    /// Returns a <see cref="EndGameChargeStationRobot1Enum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static EndGameChargeStationRobot1Enum EndGameChargeStationRobot1EnumFromString(string value)
-    {
-      return value switch
-      {
-            "None" => EndGameChargeStationRobot1Enum.None,
-            "Docked" => EndGameChargeStationRobot1Enum.Docked,
-        _ => throw new NotImplementedException($"Could not convert value to type EndGameChargeStationRobot1Enum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="EndGameChargeStationRobot1Enum"/>
@@ -428,22 +265,6 @@
         _ => null
       };
     }
-    
-    /// <summary>
-    /// Converts the <see cref="EndGameChargeStationRobot1Enum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string EndGameChargeStationRobot1EnumToJsonValue(EndGameChargeStationRobot1Enum value)
-    {
-        return value switch
-        {
-              EndGameChargeStationRobot1Enum.None => "None",
-              EndGameChargeStationRobot1Enum.Docked => "Docked",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
-    }
 
         
         /// <summary>
@@ -456,35 +277,21 @@
   /// Defines EndGameChargeStationRobot2
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<EndGameChargeStationRobot2Enum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<EndGameChargeStationRobot2Enum>))]
   public enum EndGameChargeStationRobot2Enum
   {
         /// <summary>
         /// Enum None for value: None
         /// </summary>
+        [EnumMember(Value = "None")]
         None = 1,
           
         /// <summary>
         /// Enum Docked for value: Docked
         /// </summary>
+        [EnumMember(Value = "Docked")]
         Docked = 2
   }
-    
-    /// <summary>
-    /// Returns a <see cref="EndGameChargeStationRobot2Enum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static EndGameChargeStationRobot2Enum EndGameChargeStationRobot2EnumFromString(string value)
-    {
-      return value switch
-      {
-            "None" => EndGameChargeStationRobot2Enum.None,
-            "Docked" => EndGameChargeStationRobot2Enum.Docked,
-        _ => throw new NotImplementedException($"Could not convert value to type EndGameChargeStationRobot2Enum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="EndGameChargeStationRobot2Enum"/>
@@ -500,22 +307,6 @@
         _ => null
       };
     }
-    
-    /// <summary>
-    /// Converts the <see cref="EndGameChargeStationRobot2Enum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string EndGameChargeStationRobot2EnumToJsonValue(EndGameChargeStationRobot2Enum value)
-    {
-        return value switch
-        {
-              EndGameChargeStationRobot2Enum.None => "None",
-              EndGameChargeStationRobot2Enum.Docked => "Docked",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
-    }
 
         
         /// <summary>
@@ -528,35 +319,21 @@
   /// Defines EndGameChargeStationRobot3
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<EndGameChargeStationRobot3Enum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<EndGameChargeStationRobot3Enum>))]
   public enum EndGameChargeStationRobot3Enum
   {
         /// <summary>
         /// Enum None for value: None
         /// </summary>
+        [EnumMember(Value = "None")]
         None = 1,
           
         /// <summary>
         /// Enum Docked for value: Docked
         /// </summary>
+        [EnumMember(Value = "Docked")]
         Docked = 2
   }
-    
-    /// <summary>
-    /// Returns a <see cref="EndGameChargeStationRobot3Enum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static EndGameChargeStationRobot3Enum EndGameChargeStationRobot3EnumFromString(string value)
-    {
-      return value switch
-      {
-            "None" => EndGameChargeStationRobot3Enum.None,
-            "Docked" => EndGameChargeStationRobot3Enum.Docked,
-        _ => throw new NotImplementedException($"Could not convert value to type EndGameChargeStationRobot3Enum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="EndGameChargeStationRobot3Enum"/>
@@ -572,22 +349,6 @@
         _ => null
       };
     }
-    
-    /// <summary>
-    /// Converts the <see cref="EndGameChargeStationRobot3Enum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string EndGameChargeStationRobot3EnumToJsonValue(EndGameChargeStationRobot3Enum value)
-    {
-        return value switch
-        {
-              EndGameChargeStationRobot3Enum.None => "None",
-              EndGameChargeStationRobot3Enum.Docked => "Docked",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
-    }
 
         
         /// <summary>
@@ -600,35 +361,21 @@
   /// Defines MobilityRobot1
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<MobilityRobot1Enum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<MobilityRobot1Enum>))]
   public enum MobilityRobot1Enum
   {
         /// <summary>
         /// Enum Yes for value: Yes
         /// </summary>
+        [EnumMember(Value = "Yes")]
         Yes = 1,
           
         /// <summary>
         /// Enum No for value: No
         /// </summary>
+        [EnumMember(Value = "No")]
         No = 2
   }
-    
-    /// <summary>
-    /// Returns a <see cref="MobilityRobot1Enum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static MobilityRobot1Enum MobilityRobot1EnumFromString(string value)
-    {
-      return value switch
-      {
-            "Yes" => MobilityRobot1Enum.Yes,
-            "No" => MobilityRobot1Enum.No,
-        _ => throw new NotImplementedException($"Could not convert value to type MobilityRobot1Enum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="MobilityRobot1Enum"/>
@@ -644,22 +391,6 @@
         _ => null
       };
     }
-    
-    /// <summary>
-    /// Converts the <see cref="MobilityRobot1Enum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string MobilityRobot1EnumToJsonValue(MobilityRobot1Enum value)
-    {
-        return value switch
-        {
-              MobilityRobot1Enum.Yes => "Yes",
-              MobilityRobot1Enum.No => "No",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
-    }
 
         
         /// <summary>
@@ -672,35 +403,21 @@
   /// Defines MobilityRobot2
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<MobilityRobot2Enum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<MobilityRobot2Enum>))]
   public enum MobilityRobot2Enum
   {
         /// <summary>
         /// Enum Yes for value: Yes
         /// </summary>
+        [EnumMember(Value = "Yes")]
         Yes = 1,
           
         /// <summary>
         /// Enum No for value: No
         /// </summary>
+        [EnumMember(Value = "No")]
         No = 2
   }
-    
-    /// <summary>
-    /// Returns a <see cref="MobilityRobot2Enum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static MobilityRobot2Enum MobilityRobot2EnumFromString(string value)
-    {
-      return value switch
-      {
-            "Yes" => MobilityRobot2Enum.Yes,
-            "No" => MobilityRobot2Enum.No,
-        _ => throw new NotImplementedException($"Could not convert value to type MobilityRobot2Enum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="MobilityRobot2Enum"/>
@@ -716,22 +433,6 @@
         _ => null
       };
     }
-    
-    /// <summary>
-    /// Converts the <see cref="MobilityRobot2Enum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string MobilityRobot2EnumToJsonValue(MobilityRobot2Enum value)
-    {
-        return value switch
-        {
-              MobilityRobot2Enum.Yes => "Yes",
-              MobilityRobot2Enum.No => "No",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
-    }
 
         
         /// <summary>
@@ -744,35 +445,21 @@
   /// Defines MobilityRobot3
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2023AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<MobilityRobot3Enum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<MobilityRobot3Enum>))]
   public enum MobilityRobot3Enum
   {
         /// <summary>
         /// Enum Yes for value: Yes
         /// </summary>
+        [EnumMember(Value = "Yes")]
         Yes = 1,
           
         /// <summary>
         /// Enum No for value: No
         /// </summary>
+        [EnumMember(Value = "No")]
         No = 2
   }
-    
-    /// <summary>
-    /// Returns a <see cref="MobilityRobot3Enum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static MobilityRobot3Enum MobilityRobot3EnumFromString(string value)
-    {
-      return value switch
-      {
-            "Yes" => MobilityRobot3Enum.Yes,
-            "No" => MobilityRobot3Enum.No,
-        _ => throw new NotImplementedException($"Could not convert value to type MobilityRobot3Enum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="MobilityRobot3Enum"/>
@@ -787,22 +474,6 @@
             "No" => MobilityRobot3Enum.No,
         _ => null
       };
-    }
-    
-    /// <summary>
-    /// Converts the <see cref="MobilityRobot3Enum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string MobilityRobot3EnumToJsonValue(MobilityRobot3Enum value)
-    {
-        return value switch
-        {
-              MobilityRobot3Enum.Yes => "Yes",
-              MobilityRobot3Enum.No => "No",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
     }
 
         

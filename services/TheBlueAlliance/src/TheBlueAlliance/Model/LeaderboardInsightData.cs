@@ -9,6 +9,7 @@
 
     namespace TheBlueAlliance.Model;
     
+    using System.Runtime.Serialization;
     using System.Text;
     using System.Text.Json;
     using System.Text.Json.Serialization;
@@ -25,41 +26,27 @@
   /// </summary>
     /// <value>What type of key is used in the rankings; either &#39;team&#39;, &#39;event&#39;, or &#39;match&#39;.</value>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.LeaderboardInsightDataExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<KeyTypeEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<KeyTypeEnum>))]
   public enum KeyTypeEnum
   {
         /// <summary>
         /// Enum Team for value: team
         /// </summary>
+        [EnumMember(Value = "team")]
         Team = 1,
           
         /// <summary>
         /// Enum Event for value: event
         /// </summary>
+        [EnumMember(Value = "event")]
         Event = 2,
           
         /// <summary>
         /// Enum Match for value: match
         /// </summary>
+        [EnumMember(Value = "match")]
         Match = 3
   }
-    
-    /// <summary>
-    /// Returns a <see cref="KeyTypeEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static KeyTypeEnum KeyTypeEnumFromString(string value)
-    {
-      return value switch
-      {
-            "team" => KeyTypeEnum.Team,
-            "event" => KeyTypeEnum.Event,
-            "match" => KeyTypeEnum.Match,
-        _ => throw new NotImplementedException($"Could not convert value to type KeyTypeEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="KeyTypeEnum"/>
@@ -75,23 +62,6 @@
             "match" => KeyTypeEnum.Match,
         _ => null
       };
-    }
-    
-    /// <summary>
-    /// Converts the <see cref="KeyTypeEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string KeyTypeEnumToJsonValue(KeyTypeEnum value)
-    {
-        return value switch
-        {
-              KeyTypeEnum.Team => "team",
-              KeyTypeEnum.Event => "event",
-              KeyTypeEnum.Match => "match",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
     }
 
         

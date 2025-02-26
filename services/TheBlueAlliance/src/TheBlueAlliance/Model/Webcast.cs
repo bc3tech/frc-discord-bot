@@ -9,6 +9,7 @@
 
     namespace TheBlueAlliance.Model;
     
+    using System.Runtime.Serialization;
     using System.Text;
     using System.Text.Json;
     using System.Text.Json.Serialization;
@@ -25,95 +26,81 @@
   /// </summary>
     /// <value>Type of webcast, typically descriptive of the streaming provider.</value>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.WebcastExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<TypeEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<TypeEnum>))]
   public enum TypeEnum
   {
         /// <summary>
         /// Enum Youtube for value: youtube
         /// </summary>
+        [EnumMember(Value = "youtube")]
         Youtube = 1,
           
         /// <summary>
         /// Enum Twitch for value: twitch
         /// </summary>
+        [EnumMember(Value = "twitch")]
         Twitch = 2,
           
         /// <summary>
         /// Enum Ustream for value: ustream
         /// </summary>
+        [EnumMember(Value = "ustream")]
         Ustream = 3,
           
         /// <summary>
         /// Enum Iframe for value: iframe
         /// </summary>
+        [EnumMember(Value = "iframe")]
         Iframe = 4,
           
         /// <summary>
         /// Enum Html5 for value: html5
         /// </summary>
+        [EnumMember(Value = "html5")]
         Html5 = 5,
           
         /// <summary>
         /// Enum Rtmp for value: rtmp
         /// </summary>
+        [EnumMember(Value = "rtmp")]
         Rtmp = 6,
           
         /// <summary>
         /// Enum Livestream for value: livestream
         /// </summary>
+        [EnumMember(Value = "livestream")]
         Livestream = 7,
           
         /// <summary>
         /// Enum DirectLink for value: direct_link
         /// </summary>
+        [EnumMember(Value = "direct_link")]
         DirectLink = 8,
           
         /// <summary>
         /// Enum Mms for value: mms
         /// </summary>
+        [EnumMember(Value = "mms")]
         Mms = 9,
           
         /// <summary>
         /// Enum Justin for value: justin
         /// </summary>
+        [EnumMember(Value = "justin")]
         Justin = 10,
           
         /// <summary>
         /// Enum Stemtv for value: stemtv
         /// </summary>
+        [EnumMember(Value = "stemtv")]
         Stemtv = 11,
           
         /// <summary>
         /// Enum Dacast for value: dacast
         /// </summary>
+        [EnumMember(Value = "dacast")]
         Dacast = 12
   }
-    
-    /// <summary>
-    /// Returns a <see cref="TypeEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static TypeEnum TypeEnumFromString(string value)
-    {
-      return value switch
-      {
-            "youtube" => TypeEnum.Youtube,
-            "twitch" => TypeEnum.Twitch,
-            "ustream" => TypeEnum.Ustream,
-            "iframe" => TypeEnum.Iframe,
-            "html5" => TypeEnum.Html5,
-            "rtmp" => TypeEnum.Rtmp,
-            "livestream" => TypeEnum.Livestream,
-            "direct_link" => TypeEnum.DirectLink,
-            "mms" => TypeEnum.Mms,
-            "justin" => TypeEnum.Justin,
-            "stemtv" => TypeEnum.Stemtv,
-            "dacast" => TypeEnum.Dacast,
-        _ => throw new NotImplementedException($"Could not convert value to type TypeEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="TypeEnum"/>
@@ -138,32 +125,6 @@
             "dacast" => TypeEnum.Dacast,
         _ => null
       };
-    }
-    
-    /// <summary>
-    /// Converts the <see cref="TypeEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string TypeEnumToJsonValue(TypeEnum value)
-    {
-        return value switch
-        {
-              TypeEnum.Youtube => "youtube",
-              TypeEnum.Twitch => "twitch",
-              TypeEnum.Ustream => "ustream",
-              TypeEnum.Iframe => "iframe",
-              TypeEnum.Html5 => "html5",
-              TypeEnum.Rtmp => "rtmp",
-              TypeEnum.Livestream => "livestream",
-              TypeEnum.DirectLink => "direct_link",
-              TypeEnum.Mms => "mms",
-              TypeEnum.Justin => "justin",
-              TypeEnum.Stemtv => "stemtv",
-              TypeEnum.Dacast => "dacast",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
     }
 
         

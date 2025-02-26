@@ -9,6 +9,7 @@
 
     namespace TheBlueAlliance.Model;
     
+    using System.Runtime.Serialization;
     using System.Text;
     using System.Text.Json;
     using System.Text.Json.Serialization;
@@ -24,41 +25,27 @@
   /// Defines Coopertition
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2015Extensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<CoopertitionEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<CoopertitionEnum>))]
   public enum CoopertitionEnum
   {
         /// <summary>
         /// Enum None for value: None
         /// </summary>
+        [EnumMember(Value = "None")]
         None = 1,
           
         /// <summary>
         /// Enum Unknown for value: Unknown
         /// </summary>
+        [EnumMember(Value = "Unknown")]
         Unknown = 2,
           
         /// <summary>
         /// Enum Stack for value: Stack
         /// </summary>
+        [EnumMember(Value = "Stack")]
         Stack = 3
   }
-    
-    /// <summary>
-    /// Returns a <see cref="CoopertitionEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static CoopertitionEnum CoopertitionEnumFromString(string value)
-    {
-      return value switch
-      {
-            "None" => CoopertitionEnum.None,
-            "Unknown" => CoopertitionEnum.Unknown,
-            "Stack" => CoopertitionEnum.Stack,
-        _ => throw new NotImplementedException($"Could not convert value to type CoopertitionEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="CoopertitionEnum"/>
@@ -74,23 +61,6 @@
             "Stack" => CoopertitionEnum.Stack,
         _ => null
       };
-    }
-    
-    /// <summary>
-    /// Converts the <see cref="CoopertitionEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string CoopertitionEnumToJsonValue(CoopertitionEnum value)
-    {
-        return value switch
-        {
-              CoopertitionEnum.None => "None",
-              CoopertitionEnum.Unknown => "Unknown",
-              CoopertitionEnum.Stack => "Stack",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
     }
 
         

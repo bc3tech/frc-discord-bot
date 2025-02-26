@@ -9,6 +9,7 @@
 
     namespace TheBlueAlliance.Model;
     
+    using System.Runtime.Serialization;
     using System.Text;
     using System.Text.Json;
     using System.Text.Json.Serialization;
@@ -24,41 +25,27 @@
   /// Defines Robot1Auto
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2016AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<Robot1AutoEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<Robot1AutoEnum>))]
   public enum Robot1AutoEnum
   {
         /// <summary>
         /// Enum Crossed for value: Crossed
         /// </summary>
+        [EnumMember(Value = "Crossed")]
         Crossed = 1,
           
         /// <summary>
         /// Enum Reached for value: Reached
         /// </summary>
+        [EnumMember(Value = "Reached")]
         Reached = 2,
           
         /// <summary>
         /// Enum None for value: None
         /// </summary>
+        [EnumMember(Value = "None")]
         None = 3
   }
-    
-    /// <summary>
-    /// Returns a <see cref="Robot1AutoEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static Robot1AutoEnum Robot1AutoEnumFromString(string value)
-    {
-      return value switch
-      {
-            "Crossed" => Robot1AutoEnum.Crossed,
-            "Reached" => Robot1AutoEnum.Reached,
-            "None" => Robot1AutoEnum.None,
-        _ => throw new NotImplementedException($"Could not convert value to type Robot1AutoEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="Robot1AutoEnum"/>
@@ -75,23 +62,6 @@
         _ => null
       };
     }
-    
-    /// <summary>
-    /// Converts the <see cref="Robot1AutoEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string Robot1AutoEnumToJsonValue(Robot1AutoEnum value)
-    {
-        return value switch
-        {
-              Robot1AutoEnum.Crossed => "Crossed",
-              Robot1AutoEnum.Reached => "Reached",
-              Robot1AutoEnum.None => "None",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
-    }
 
         
         /// <summary>
@@ -104,41 +74,27 @@
   /// Defines Robot2Auto
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2016AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<Robot2AutoEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<Robot2AutoEnum>))]
   public enum Robot2AutoEnum
   {
         /// <summary>
         /// Enum Crossed for value: Crossed
         /// </summary>
+        [EnumMember(Value = "Crossed")]
         Crossed = 1,
           
         /// <summary>
         /// Enum Reached for value: Reached
         /// </summary>
+        [EnumMember(Value = "Reached")]
         Reached = 2,
           
         /// <summary>
         /// Enum None for value: None
         /// </summary>
+        [EnumMember(Value = "None")]
         None = 3
   }
-    
-    /// <summary>
-    /// Returns a <see cref="Robot2AutoEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static Robot2AutoEnum Robot2AutoEnumFromString(string value)
-    {
-      return value switch
-      {
-            "Crossed" => Robot2AutoEnum.Crossed,
-            "Reached" => Robot2AutoEnum.Reached,
-            "None" => Robot2AutoEnum.None,
-        _ => throw new NotImplementedException($"Could not convert value to type Robot2AutoEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="Robot2AutoEnum"/>
@@ -155,23 +111,6 @@
         _ => null
       };
     }
-    
-    /// <summary>
-    /// Converts the <see cref="Robot2AutoEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string Robot2AutoEnumToJsonValue(Robot2AutoEnum value)
-    {
-        return value switch
-        {
-              Robot2AutoEnum.Crossed => "Crossed",
-              Robot2AutoEnum.Reached => "Reached",
-              Robot2AutoEnum.None => "None",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
-    }
 
         
         /// <summary>
@@ -184,41 +123,27 @@
   /// Defines Robot3Auto
   /// </summary>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchScoreBreakdown2016AllianceExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<Robot3AutoEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<Robot3AutoEnum>))]
   public enum Robot3AutoEnum
   {
         /// <summary>
         /// Enum Crossed for value: Crossed
         /// </summary>
+        [EnumMember(Value = "Crossed")]
         Crossed = 1,
           
         /// <summary>
         /// Enum Reached for value: Reached
         /// </summary>
+        [EnumMember(Value = "Reached")]
         Reached = 2,
           
         /// <summary>
         /// Enum None for value: None
         /// </summary>
+        [EnumMember(Value = "None")]
         None = 3
   }
-    
-    /// <summary>
-    /// Returns a <see cref="Robot3AutoEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static Robot3AutoEnum Robot3AutoEnumFromString(string value)
-    {
-      return value switch
-      {
-            "Crossed" => Robot3AutoEnum.Crossed,
-            "Reached" => Robot3AutoEnum.Reached,
-            "None" => Robot3AutoEnum.None,
-        _ => throw new NotImplementedException($"Could not convert value to type Robot3AutoEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="Robot3AutoEnum"/>
@@ -234,23 +159,6 @@
             "None" => Robot3AutoEnum.None,
         _ => null
       };
-    }
-    
-    /// <summary>
-    /// Converts the <see cref="Robot3AutoEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string Robot3AutoEnumToJsonValue(Robot3AutoEnum value)
-    {
-        return value switch
-        {
-              Robot3AutoEnum.Crossed => "Crossed",
-              Robot3AutoEnum.Reached => "Reached",
-              Robot3AutoEnum.None => "None",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
     }
 
         

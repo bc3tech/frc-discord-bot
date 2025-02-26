@@ -9,6 +9,7 @@
 
     namespace TheBlueAlliance.Model;
     
+    using System.Runtime.Serialization;
     using System.Text;
     using System.Text.Json;
     using System.Text.Json.Serialization;
@@ -25,107 +26,93 @@
   /// </summary>
     /// <value>String type of the media element.</value>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MediaExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<TypeEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<TypeEnum>))]
   public enum TypeEnum
   {
         /// <summary>
         /// Enum Youtube for value: youtube
         /// </summary>
+        [EnumMember(Value = "youtube")]
         Youtube = 1,
           
         /// <summary>
         /// Enum Cdphotothread for value: cdphotothread
         /// </summary>
+        [EnumMember(Value = "cdphotothread")]
         Cdphotothread = 2,
           
         /// <summary>
         /// Enum Imgur for value: imgur
         /// </summary>
+        [EnumMember(Value = "imgur")]
         Imgur = 3,
           
         /// <summary>
         /// Enum FacebookProfile for value: facebook-profile
         /// </summary>
+        [EnumMember(Value = "facebook-profile")]
         FacebookProfile = 4,
           
         /// <summary>
         /// Enum YoutubeChannel for value: youtube-channel
         /// </summary>
+        [EnumMember(Value = "youtube-channel")]
         YoutubeChannel = 5,
           
         /// <summary>
         /// Enum TwitterProfile for value: twitter-profile
         /// </summary>
+        [EnumMember(Value = "twitter-profile")]
         TwitterProfile = 6,
           
         /// <summary>
         /// Enum GithubProfile for value: github-profile
         /// </summary>
+        [EnumMember(Value = "github-profile")]
         GithubProfile = 7,
           
         /// <summary>
         /// Enum InstagramProfile for value: instagram-profile
         /// </summary>
+        [EnumMember(Value = "instagram-profile")]
         InstagramProfile = 8,
           
         /// <summary>
         /// Enum PeriscopeProfile for value: periscope-profile
         /// </summary>
+        [EnumMember(Value = "periscope-profile")]
         PeriscopeProfile = 9,
           
         /// <summary>
         /// Enum GitlabProfile for value: gitlab-profile
         /// </summary>
+        [EnumMember(Value = "gitlab-profile")]
         GitlabProfile = 10,
           
         /// <summary>
         /// Enum Grabcad for value: grabcad
         /// </summary>
+        [EnumMember(Value = "grabcad")]
         Grabcad = 11,
           
         /// <summary>
         /// Enum InstagramImage for value: instagram-image
         /// </summary>
+        [EnumMember(Value = "instagram-image")]
         InstagramImage = 12,
           
         /// <summary>
         /// Enum ExternalLink for value: external-link
         /// </summary>
+        [EnumMember(Value = "external-link")]
         ExternalLink = 13,
           
         /// <summary>
         /// Enum Avatar for value: avatar
         /// </summary>
+        [EnumMember(Value = "avatar")]
         Avatar = 14
   }
-    
-    /// <summary>
-    /// Returns a <see cref="TypeEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static TypeEnum TypeEnumFromString(string value)
-    {
-      return value switch
-      {
-            "youtube" => TypeEnum.Youtube,
-            "cdphotothread" => TypeEnum.Cdphotothread,
-            "imgur" => TypeEnum.Imgur,
-            "facebook-profile" => TypeEnum.FacebookProfile,
-            "youtube-channel" => TypeEnum.YoutubeChannel,
-            "twitter-profile" => TypeEnum.TwitterProfile,
-            "github-profile" => TypeEnum.GithubProfile,
-            "instagram-profile" => TypeEnum.InstagramProfile,
-            "periscope-profile" => TypeEnum.PeriscopeProfile,
-            "gitlab-profile" => TypeEnum.GitlabProfile,
-            "grabcad" => TypeEnum.Grabcad,
-            "instagram-image" => TypeEnum.InstagramImage,
-            "external-link" => TypeEnum.ExternalLink,
-            "avatar" => TypeEnum.Avatar,
-        _ => throw new NotImplementedException($"Could not convert value to type TypeEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="TypeEnum"/>
@@ -152,34 +139,6 @@
             "avatar" => TypeEnum.Avatar,
         _ => null
       };
-    }
-    
-    /// <summary>
-    /// Converts the <see cref="TypeEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string TypeEnumToJsonValue(TypeEnum value)
-    {
-        return value switch
-        {
-              TypeEnum.Youtube => "youtube",
-              TypeEnum.Cdphotothread => "cdphotothread",
-              TypeEnum.Imgur => "imgur",
-              TypeEnum.FacebookProfile => "facebook-profile",
-              TypeEnum.YoutubeChannel => "youtube-channel",
-              TypeEnum.TwitterProfile => "twitter-profile",
-              TypeEnum.GithubProfile => "github-profile",
-              TypeEnum.InstagramProfile => "instagram-profile",
-              TypeEnum.PeriscopeProfile => "periscope-profile",
-              TypeEnum.GitlabProfile => "gitlab-profile",
-              TypeEnum.Grabcad => "grabcad",
-              TypeEnum.InstagramImage => "instagram-image",
-              TypeEnum.ExternalLink => "external-link",
-              TypeEnum.Avatar => "avatar",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
     }
 
         

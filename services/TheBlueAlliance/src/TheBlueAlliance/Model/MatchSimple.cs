@@ -9,6 +9,7 @@
 
     namespace TheBlueAlliance.Model;
     
+    using System.Runtime.Serialization;
     using System.Text;
     using System.Text.Json;
     using System.Text.Json.Serialization;
@@ -25,53 +26,39 @@
   /// </summary>
     /// <value>The competition level the match was played at.</value>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchSimpleExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<CompLevelEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<CompLevelEnum>))]
   public enum CompLevelEnum
   {
         /// <summary>
         /// Enum Qm for value: qm
         /// </summary>
+        [EnumMember(Value = "qm")]
         Qm = 1,
           
         /// <summary>
         /// Enum Ef for value: ef
         /// </summary>
+        [EnumMember(Value = "ef")]
         Ef = 2,
           
         /// <summary>
         /// Enum Qf for value: qf
         /// </summary>
+        [EnumMember(Value = "qf")]
         Qf = 3,
           
         /// <summary>
         /// Enum Sf for value: sf
         /// </summary>
+        [EnumMember(Value = "sf")]
         Sf = 4,
           
         /// <summary>
         /// Enum F for value: f
         /// </summary>
+        [EnumMember(Value = "f")]
         F = 5
   }
-    
-    /// <summary>
-    /// Returns a <see cref="CompLevelEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static CompLevelEnum CompLevelEnumFromString(string value)
-    {
-      return value switch
-      {
-            "qm" => CompLevelEnum.Qm,
-            "ef" => CompLevelEnum.Ef,
-            "qf" => CompLevelEnum.Qf,
-            "sf" => CompLevelEnum.Sf,
-            "f" => CompLevelEnum.F,
-        _ => throw new NotImplementedException($"Could not convert value to type CompLevelEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="CompLevelEnum"/>
@@ -90,25 +77,6 @@
         _ => null
       };
     }
-    
-    /// <summary>
-    /// Converts the <see cref="CompLevelEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string CompLevelEnumToJsonValue(CompLevelEnum value)
-    {
-        return value switch
-        {
-              CompLevelEnum.Qm => "qm",
-              CompLevelEnum.Ef => "ef",
-              CompLevelEnum.Qf => "qf",
-              CompLevelEnum.Sf => "sf",
-              CompLevelEnum.F => "f",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
-    }
 
         
         /// <summary>
@@ -123,41 +91,27 @@
   /// </summary>
     /// <value>The color (red/blue) of the winning alliance. Will contain an empty string in the event of no winner, or a tie.</value>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.MatchSimpleExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<WinningAllianceEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<WinningAllianceEnum>))]
   public enum WinningAllianceEnum
   {
         /// <summary>
         /// Enum Red for value: red
         /// </summary>
+        [EnumMember(Value = "red")]
         Red = 1,
           
         /// <summary>
         /// Enum Blue for value: blue
         /// </summary>
+        [EnumMember(Value = "blue")]
         Blue = 2,
           
         /// <summary>
         /// Enum Empty for value: 
         /// </summary>
+        [EnumMember(Value = "")]
         Empty = 3
   }
-    
-    /// <summary>
-    /// Returns a <see cref="WinningAllianceEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static WinningAllianceEnum WinningAllianceEnumFromString(string value)
-    {
-      return value switch
-      {
-            "red" => WinningAllianceEnum.Red,
-            "blue" => WinningAllianceEnum.Blue,
-            "" => WinningAllianceEnum.Empty,
-        _ => throw new NotImplementedException($"Could not convert value to type WinningAllianceEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="WinningAllianceEnum"/>
@@ -173,23 +127,6 @@
             "" => WinningAllianceEnum.Empty,
         _ => null
       };
-    }
-    
-    /// <summary>
-    /// Converts the <see cref="WinningAllianceEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string WinningAllianceEnumToJsonValue(WinningAllianceEnum value)
-    {
-        return value switch
-        {
-              WinningAllianceEnum.Red => "red",
-              WinningAllianceEnum.Blue => "blue",
-              WinningAllianceEnum.Empty => "",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
     }
 
         

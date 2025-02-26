@@ -9,6 +9,7 @@
 
     namespace TheBlueAlliance.Model;
     
+    using System.Runtime.Serialization;
     using System.Text;
     using System.Text.Json;
     using System.Text.Json.Serialization;
@@ -25,53 +26,39 @@
   /// </summary>
     /// <value>The highest playoff level the team reached.</value>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.TeamEventStatusPlayoffExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<LevelEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<LevelEnum>))]
   public enum LevelEnum
   {
         /// <summary>
         /// Enum Qm for value: qm
         /// </summary>
+        [EnumMember(Value = "qm")]
         Qm = 1,
           
         /// <summary>
         /// Enum Ef for value: ef
         /// </summary>
+        [EnumMember(Value = "ef")]
         Ef = 2,
           
         /// <summary>
         /// Enum Qf for value: qf
         /// </summary>
+        [EnumMember(Value = "qf")]
         Qf = 3,
           
         /// <summary>
         /// Enum Sf for value: sf
         /// </summary>
+        [EnumMember(Value = "sf")]
         Sf = 4,
           
         /// <summary>
         /// Enum F for value: f
         /// </summary>
+        [EnumMember(Value = "f")]
         F = 5
   }
-    
-    /// <summary>
-    /// Returns a <see cref="LevelEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static LevelEnum LevelEnumFromString(string value)
-    {
-      return value switch
-      {
-            "qm" => LevelEnum.Qm,
-            "ef" => LevelEnum.Ef,
-            "qf" => LevelEnum.Qf,
-            "sf" => LevelEnum.Sf,
-            "f" => LevelEnum.F,
-        _ => throw new NotImplementedException($"Could not convert value to type LevelEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="LevelEnum"/>
@@ -90,25 +77,6 @@
         _ => null
       };
     }
-    
-    /// <summary>
-    /// Converts the <see cref="LevelEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string LevelEnumToJsonValue(LevelEnum value)
-    {
-        return value switch
-        {
-              LevelEnum.Qm => "qm",
-              LevelEnum.Ef => "ef",
-              LevelEnum.Qf => "qf",
-              LevelEnum.Sf => "sf",
-              LevelEnum.F => "f",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
-    }
 
         
         /// <summary>
@@ -123,41 +91,27 @@
   /// </summary>
     /// <value>Current competition status for the playoffs.</value>
   [Microsoft.Extensions.EnumStrings.EnumStrings(ExtensionNamespace = "TheBlueAlliance.Model.TeamEventStatusPlayoffExtensions", ExtensionClassModifiers ="public static")]
-  [JsonConverter(typeof(JsonStringEnumConverter<StatusEnum>))]
+  [JsonConverter(typeof(JsonStringEnumConverterWithEnumMemberSupport<StatusEnum>))]
   public enum StatusEnum
   {
         /// <summary>
         /// Enum Won for value: won
         /// </summary>
+        [EnumMember(Value = "won")]
         Won = 1,
           
         /// <summary>
         /// Enum Eliminated for value: eliminated
         /// </summary>
+        [EnumMember(Value = "eliminated")]
         Eliminated = 2,
           
         /// <summary>
         /// Enum Playing for value: playing
         /// </summary>
+        [EnumMember(Value = "playing")]
         Playing = 3
   }
-    
-    /// <summary>
-    /// Returns a <see cref="StatusEnum"/>
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public static StatusEnum StatusEnumFromString(string value)
-    {
-      return value switch
-      {
-            "won" => StatusEnum.Won,
-            "eliminated" => StatusEnum.Eliminated,
-            "playing" => StatusEnum.Playing,
-        _ => throw new NotImplementedException($"Could not convert value to type StatusEnum: '{value}'")
-      };
-    }
     
     /// <summary>
     /// Returns a <see cref="StatusEnum"/>
@@ -173,23 +127,6 @@
             "playing" => StatusEnum.Playing,
         _ => null
       };
-    }
-    
-    /// <summary>
-    /// Converts the <see cref="StatusEnum"/> to the json value
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-      /// <exception cref="NotImplementedException"></exception>
-    public static string StatusEnumToJsonValue(StatusEnum value)
-    {
-        return value switch
-        {
-              StatusEnum.Won => "won",
-              StatusEnum.Eliminated => "eliminated",
-              StatusEnum.Playing => "playing",
-          _ => throw new NotImplementedException($"Value could not be handled: '{value}'")
-        };
     }
 
         
