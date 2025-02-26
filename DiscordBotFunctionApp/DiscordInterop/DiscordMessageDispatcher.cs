@@ -74,6 +74,8 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         }
     }
 
+    private const ushort MAX_EMBEDS_PER_MESSAGE = 10;
+
     private async Task ProcessSubscriptionAsync(WebhookMessage message, GuildSubscriptions subscribers, ushort? highlightTeam, CancellationToken cancellationToken)
     {
         using var scope = logger.CreateMethodScope();
@@ -89,7 +91,11 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
             if (targetChannel is IMessageChannel msgChan)
             {
                 logger.LogTrace("Sending notification to channel {ChannelId} - '{ChannelName}'", c, targetChannel.Name);
-                await msgChan.SendMessageAsync(embeds: await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false), options: new RequestOptions { CancelToken = cancellationToken }).ConfigureAwait(false);
+                var embedChunks = (await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false)).Chunk(MAX_EMBEDS_PER_MESSAGE);
+                foreach (var i in embedChunks)
+                {
+                    await msgChan.SendMessageAsync(embeds: i, options: new RequestOptions { CancelToken = cancellationToken }).ConfigureAwait(false);
+                }
             }
             else
             {
