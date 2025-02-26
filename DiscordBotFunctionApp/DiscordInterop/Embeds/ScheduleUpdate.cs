@@ -18,7 +18,6 @@ internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger
         if (notification is null)
         {
             logger.LogWarning("Failed to deserialize notification data as {NotificationType}", TargetType);
-            yield return new(baseBuilder.Build());
             yield break;
         }
 
@@ -31,6 +30,6 @@ Next match start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.fi
 View the detailed event schedule [here](https://www.thebluealliance.com/event/{notification.event_key})")
             .Build();
 
-        yield return new(embedding);
+        yield return await Task.FromResult<SubscriptionEmbedding>(new(embedding));
     }
 }
