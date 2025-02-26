@@ -10,12 +10,10 @@ using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 
-using TheBlueAlliance.Api;
+using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchSimpleExtensions;
 
-using IMatchApi = TheBlueAlliance.Api.IMatchApi;
-
-internal sealed class UpcomingMatch(IMatchApi tbaApi, IEventApi eventInsights, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<UpcomingMatch> logger) : INotificationEmbedCreator
+internal sealed class UpcomingMatch(TheBlueAlliance.Api.IMatchApi tbaApi, TheBlueAlliance.Api.IEventApi eventInsights, Statbotics.Api.IMatchApi matchStats, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<UpcomingMatch> logger) : INotificationEmbedCreator
 {
     public static NotificationType TargetType { get; } = NotificationType.upcoming_match;
 
@@ -48,6 +46,8 @@ internal sealed class UpcomingMatch(IMatchApi tbaApi, IEventApi eventInsights, E
         var compLevelHeader = $"{Translator.CompLevelToShortString(detailedMatch.CompLevel.ToInvariantString()!)} {detailedMatch.SetNumber}";
         var matchHeader = $"Match {detailedMatch.MatchNumber}";
         var ranks = (await eventInsights.GetEventRankingsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))!.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
+        var stats = await matchStats.ReadMatchV3MatchMatchGetAsync(notification.match_key, cancellationToken: cancellationToken).ConfigureAwait(false);
+        var predictedWinner = MatchSimple.WinningAllianceEnumFromString(stats!.Pred.Winner!);
 
         var embedding = baseBuilder
             .WithDescription(
@@ -61,6 +61,11 @@ Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.sch
 
 **Blue Alliance**
 {string.Join("\n", detailedMatch.Alliances.Blue!.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
+
+## Prediction
+
+- Winner: {predictedWinner.ToInvariantString()} Alliance ({(predictedWinner is MatchSimple.WinningAllianceEnum.Red ? stats.Pred.RedWinProb : (1 - stats.Pred.RedWinProb)):P2}) {(highlightTeam.HasValue && ((predictedWinner is MatchSimple.WinningAllianceEnum.Red && stats.Alliances.Red.TeamKeys.Contains(highlightTeam.Value)) || (predictedWinner is MatchSimple.WinningAllianceEnum.Blue && stats.Alliances.Blue.TeamKeys.Contains(highlightTeam.Value))) ? "🤞🤞" : "💪💪")}
+- Score: [Red] {stats.Pred.RedScore} - [Blue] {stats.Pred.BlueScore}
 
 View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})")
             .Build();
