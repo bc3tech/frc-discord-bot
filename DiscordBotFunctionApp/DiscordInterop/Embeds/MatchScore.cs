@@ -1,6 +1,7 @@
 ﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
 
 using Common;
+using Common.Extensions;
 
 using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.TbaInterop;
@@ -68,10 +69,10 @@ Results posted at {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PostResultTi
   - Coral (top/mid/bottom/trough): {scoreBreakdown.Red.TeleopReef?.TbaTopRowCount}/{scoreBreakdown.Red.TeleopReef?.TbaMidRowCount}/{scoreBreakdown.Red.TeleopReef?.TbaBotRowCount}/{scoreBreakdown.Red.TeleopReef?.Trough} - {scoreBreakdown.Red.TeleopCoralPoints}pts
 - Endgame: ({scoreBreakdown.Red.EndGameRobot1.ToGlyph()}/{scoreBreakdown.Red.EndGameRobot2.ToGlyph()}/{scoreBreakdown.Red.EndGameRobot3.ToGlyph()}) {scoreBreakdown.Red.EndGameBargePoints}pts
 - Algae (net/wall): {scoreBreakdown.Red.NetAlgaeCount}/{scoreBreakdown.Red.WallAlgaeCount} - {scoreBreakdown.Red.AlgaePoints}pts
-- {(scoreBreakdown.Red.CoopertitionCriteriaMet is true ? "✅" : "❎")} Coopertition
-- {(scoreBreakdown.Red.AutoBonusAchieved is true ? "✅" : "❎")} Auto Bonus ({scoreBreakdown.Red.AutoLineRobot1.ToGlyph()}/{scoreBreakdown.Red.AutoLineRobot2.ToGlyph()}/{scoreBreakdown.Red.AutoLineRobot3.ToGlyph()})
-- {(scoreBreakdown.Red.BargeBonusAchieved is true ? "✅" : "❎")} Barge Bonus
-- {(scoreBreakdown.Red.CoralBonusAchieved is true ? "✅" : "❎")} Coral Bonus
+- {scoreBreakdown.Red.CoopertitionCriteriaMet.ToGlyph()} Coopertition
+- {scoreBreakdown.Red.AutoBonusAchieved.ToGlyph()} Auto Bonus ({scoreBreakdown.Red.AutoLineRobot1.ToGlyph()}/{scoreBreakdown.Red.AutoLineRobot2.ToGlyph()}/{scoreBreakdown.Red.AutoLineRobot3.ToGlyph()})
+- {scoreBreakdown.Red.BargeBonusAchieved.ToGlyph()} Barge Bonus
+- {scoreBreakdown.Red.CoralBonusAchieved.ToGlyph()} Coral Bonus
 
 ### {(detailedMatch.WinningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)} Blue Alliance - {detailedMatch.Alliances.Blue!.Score} (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue)})
 {string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
@@ -83,10 +84,10 @@ Results posted at {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PostResultTi
   - Coral (top/mid/bottom/trough): {scoreBreakdown.Blue.TeleopReef?.TbaTopRowCount}/{scoreBreakdown.Blue.TeleopReef?.TbaMidRowCount}/{scoreBreakdown.Blue.TeleopReef?.TbaBotRowCount}/{scoreBreakdown.Blue.TeleopReef?.Trough} - {scoreBreakdown.Blue.TeleopCoralPoints}pts
 - Endgame: ({scoreBreakdown.Blue.EndGameRobot1.ToGlyph()}/{scoreBreakdown.Blue.EndGameRobot2.ToGlyph()}/{scoreBreakdown.Blue.EndGameRobot3.ToGlyph()}) {scoreBreakdown.Blue.EndGameBargePoints}pts
 - Algae (net/wall): {scoreBreakdown.Blue.NetAlgaeCount}/{scoreBreakdown.Blue.WallAlgaeCount} - {scoreBreakdown.Blue.AlgaePoints}pts
-- {(scoreBreakdown.Blue.CoopertitionCriteriaMet is true ? "✅" : "❎")} Coopertition
-- {(scoreBreakdown.Blue.AutoBonusAchieved is true ? "✅" : "❎")} Auto Bonus ({scoreBreakdown.Blue.AutoLineRobot1.ToGlyph()}/{scoreBreakdown.Blue.AutoLineRobot2.ToGlyph()}/{scoreBreakdown.Blue.AutoLineRobot3.ToGlyph()})
-- {(scoreBreakdown.Blue.BargeBonusAchieved is true ? "✅" : "❎")} Barge Bonus
-- {(scoreBreakdown.Blue.CoralBonusAchieved is true ? "✅" : "❎")} Coral Bonus
+- {scoreBreakdown.Blue.CoopertitionCriteriaMet.ToGlyph()} Coopertition
+- {scoreBreakdown.Blue.AutoBonusAchieved.ToGlyph()} Auto Bonus ({scoreBreakdown.Blue.AutoLineRobot1.ToGlyph()}/{scoreBreakdown.Blue.AutoLineRobot2.ToGlyph()}/{scoreBreakdown.Blue.AutoLineRobot3.ToGlyph()})
+- {scoreBreakdown.Blue.BargeBonusAchieved.ToGlyph()} Barge Bonus
+- {scoreBreakdown.Blue.CoralBonusAchieved.ToGlyph()} Coral Bonus
 {videoSection}
 View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})")
                     .Build();
