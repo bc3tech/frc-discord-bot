@@ -58,8 +58,11 @@ internal sealed class TeamDetail(RESTCountries _countryCodeLookup, EmbedBuilderF
                 builder.AddField("Rookie Year", $"{teamDetails.RookieYear}");
             }
 
-            StatboticsInterop.Models.Record fullRecord = teamResult.Records.Full ?? teamResult.Records;
-            builder.AddField("All-time Record", $"{fullRecord.Wins}-{fullRecord.Losses}-{fullRecord.Ties} ({fullRecord.Wins / ((float)fullRecord.Wins + fullRecord.Losses + fullRecord.Ties):.000})");
+            var fullRecord = teamResult.Records?.Full;
+            if (fullRecord is not null)
+            {
+                builder.AddField("All-time Record", $"{fullRecord.Wins}-{fullRecord.Losses}-{fullRecord.Ties} ({fullRecord.Wins / ((float)fullRecord.Wins + fullRecord.Losses + fullRecord.Ties):.000})");
+            }
 
             yield return new(builder.Build());
 

@@ -582,7 +582,6 @@ public sealed partial class MatchApi : IMatchApi
             localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "year", year));
         }
 
-
         // make the HTTP request
         var localVarResponse = this.Client.Get<Collection<Object>?>("/v3/matches", localVarRequestOptions, this.Configuration);
 
