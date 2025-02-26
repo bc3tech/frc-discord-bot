@@ -24,7 +24,7 @@ content-type: application/json
 }
 
 ### Send match_score notification
-POST {{DiscordBotFunctionApp_HostAddress}}/api/tba/webhook
+POST {{webhook_url}}
 content-type: application/json
 
 {
@@ -334,4 +334,17 @@ content-type: application/json
     ]
   },
   "message_type": "awards_posted"
+}
+
+### Send schedule updaten otification
+POST {{webhook_url}}
+content-type: application/json
+
+{
+  "message_data": {
+    "event_key": "2025isde2",
+    "event_name": "ISR District Event #2",
+    "first_match_time": 1397330280
+  },
+  "message_type": "schedule_updated"
 }
