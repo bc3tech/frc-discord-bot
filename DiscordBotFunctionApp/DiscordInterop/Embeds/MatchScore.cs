@@ -23,6 +23,7 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBu
 
     public async IAsyncEnumerable<SubscriptionEmbedding> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Creating match score embed for {msg}", msg);
         var baseBuilder = builderFactory.GetBuilder();
         var notification = JsonSerializer.Deserialize<TbaInterop.Models.Notifications.MatchScore>(msg.MessageData);
         if (notification is null)
@@ -51,21 +52,19 @@ $@"# Scores are in!
 ## {compLevelHeader} - {matchHeader}
 ### {(detailedMatch.WinningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)} Red Alliance - {detailedMatch.Alliances!.Red!.Score} (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red)})
 {string.Join("\n", detailedMatch.Alliances.Red.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
-
-**Red Alliance Breakdown**
-Auto: {scoreBreakdown.Red.AutoPoints}
-Teleop: {scoreBreakdown.Red.TeleopPoints}
-Endgame: {scoreBreakdown.Red.EndGameBargePoints}
+  **Score Breakdown**
+- Auto: {scoreBreakdown.Red.AutoPoints}
+- Teleop: {scoreBreakdown.Red.TeleopPoints}
+- Endgame: {scoreBreakdown.Red.EndGameBargePoints}
 
 ### {(detailedMatch.WinningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)} Blue Alliance - {detailedMatch.Alliances.Blue!.Score} (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue)})
 {string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
+  **Score Breakdown**
+- Auto: {scoreBreakdown.Blue.AutoPoints}
+- Teleop: {scoreBreakdown.Blue.TeleopPoints}
+- Endgame: {scoreBreakdown.Blue.EndGameBargePoints}
 
-**Blue Alliance Breakdown**
-Auto: {scoreBreakdown.Blue.AutoPoints}
-Teleop: {scoreBreakdown.Blue.TeleopPoints}
-Endgame: {scoreBreakdown.Blue.EndGameBargePoints}
-
-        View more match details[here](https://www.thebluealliance.com/match/{detailedMatch.Key})
+        View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})
         ")
                     .Build();
 
