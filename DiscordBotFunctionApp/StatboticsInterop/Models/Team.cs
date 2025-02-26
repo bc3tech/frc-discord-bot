@@ -8,16 +8,16 @@ internal sealed record Team
     public int Number { get; init; }
 
     [JsonPropertyName("name")]
-    public string Name { get; init; }
+    public string? Name { get; init; }
 
     [JsonPropertyName("country")]
-    public string Country { get; init; }
+    public string? Country { get; init; }
 
     [JsonPropertyName("state")]
-    public string State { get; init; }
+    public string? State { get; init; }
 
     [JsonPropertyName("district")]
-    public string District { get; init; }
+    public string? District { get; init; }
 
     [JsonPropertyName("rookie_year")]
     public int RookieYear { get; init; }
@@ -32,10 +32,10 @@ internal sealed record Team
     public Colors? Colors { get; init; }
 
     [JsonPropertyName("record")]
-    public Records Records { get; init; }
+    public Records? Records { get; init; }
 
     [JsonPropertyName("norm_epa")]
-    public NormEpa NormEpa { get; init; }
+    public NormEpa? NormEpa { get; init; }
 }
 
 internal sealed record Colors
