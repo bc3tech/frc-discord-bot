@@ -52,14 +52,16 @@ $@"# Scores are in!
 ## {compLevelHeader} - {matchHeader}
 ### {(detailedMatch.WinningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)} Red Alliance - {detailedMatch.Alliances!.Red!.Score} (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red)})
 {string.Join("\n", detailedMatch.Alliances.Red.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
-  **Score Breakdown**
+
+**Score Breakdown**
 - Auto: {scoreBreakdown.Red.AutoPoints}
 - Teleop: {scoreBreakdown.Red.TeleopPoints}
 - Endgame: {scoreBreakdown.Red.EndGameBargePoints}
 
 ### {(detailedMatch.WinningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)} Blue Alliance - {detailedMatch.Alliances.Blue!.Score} (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue)})
 {string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
-  **Score Breakdown**
+
+**Score Breakdown**
 - Auto: {scoreBreakdown.Blue.AutoPoints}
 - Teleop: {scoreBreakdown.Blue.TeleopPoints}
 - Endgame: {scoreBreakdown.Blue.EndGameBargePoints}
