@@ -47,7 +47,7 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup, EmbedBuilder
 
             if (eventDetails.Webcasts is not null and { Count: > 0 })
             {
-                builder.AddField("Where to watch", string.Join('\n', eventDetails.GetWebcastFullUrls().Where(i => !string.IsNullOrWhiteSpace(i.Url)).Select(i => $"- [{i.Name}]({i.Url})")));
+                builder.AddField("Where to watch", string.Join('\n', eventDetails.GetWebcastFullUrls().Where(i => !string.IsNullOrWhiteSpace(i.Url)).Select(i => $"- {i.Url}")));
             }
 
             builder
