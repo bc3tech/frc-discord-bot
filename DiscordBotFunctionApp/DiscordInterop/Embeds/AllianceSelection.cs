@@ -49,11 +49,11 @@ internal sealed class AllianceSelection(TeamRepository teams, IEventApi tbaClien
         var ranks = (await tbaClient.GetEventRankingsAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false))!.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
 
         // We have to build this with loops instead of interpolation because we don't want to output **anything** if Declines is empty (not even a line break)
-        var descriptionBuilder = new StringBuilder("# Alliance Selection Complete\n");
+        var descriptionBuilder = new StringBuilder($"## {notification.event_name}: Alliance Selection Complete\n");
         for (int i = 0; i < alliances.Count; i++)
         {
             var alliance = alliances[i];
-            descriptionBuilder.AppendLine($"## Alliance {i + 1}");
+            descriptionBuilder.AppendLine($"### Alliance {i + 1}");
             foreach (var team in alliance.Picks!.OrderBy(t => t.ToTeamNumber()))
             {
                 descriptionBuilder.AppendLine($"- {teams.GetTeamLabelWithHighlight(team, highlightTeam)} (#{ranks[team]})");

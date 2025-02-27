@@ -54,7 +54,7 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBu
         var embedding = baseBuilder
             .WithDescription(
 $@"# Scores are in!
-## {compLevelHeader} - {matchHeader}
+## {notification.event_name}: {compLevelHeader} - {matchHeader}
 Predicted start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PredictedTime!.Value).ToPacificTime():t}
 Actual start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.ActualTime!.Value).ToPacificTime():t}
 Results posted at {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PostResultTime!.Value).ToPacificTime():t}

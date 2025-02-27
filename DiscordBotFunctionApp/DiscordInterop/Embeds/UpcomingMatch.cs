@@ -79,7 +79,7 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IMatchApi tbaApi, TheBlu
         var embedding = baseBuilder
             .WithDescription(
 $@"# Match starting soon!
-## {compLevelHeader} - {matchHeader}
+## {notification.event_name}: {compLevelHeader} - {matchHeader}
 Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.scheduled_time!).ToPacificTime():t}
 **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToPacificTime():t}**
 ### Alliances

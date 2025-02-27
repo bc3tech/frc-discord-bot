@@ -70,7 +70,7 @@ internal sealed class Award(IEventApi tbaApi, BlobContainerClient imageBlobs, Em
             var embedding = baseBuilder
                 .WithDescription(
     $@"# Award!
-## {latestAward.Name}
+## {notification.event_name}: {latestAward.Name}
 ### {(latestAward.RecipientList.Count > 1 ? "Recipients" : "Recipient")}
 {string.Join("\n", latestAward.RecipientList!
         .Select(t => $"- {teams.GetTeamLabelWithHighlight(t.TeamKey, highlightTeam)}{(!string.IsNullOrWhiteSpace(t.Awardee) ? $" [{t.Awardee}]" : string.Empty)}"))}
