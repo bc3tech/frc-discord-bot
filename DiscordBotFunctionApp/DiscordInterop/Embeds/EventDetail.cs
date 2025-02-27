@@ -29,7 +29,7 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup, EmbedBuilder
             var builder = builderFactory.GetBuilder()
                 .WithTitle($"**{eventDetails.Name}**")
                 .WithUrl(eventDetails.Website)
-                .WithDescription($@"{eventDetails.Year} Week {eventDetails.Week} {eventDetails.EventTypeString} competition
+                .WithDescription($@"{eventDetails.Year} Week {eventDetails.Week.GetValueOrDefault(-1) + 1} {eventDetails.EventTypeString} competition
 [{eventDetails.LocationName}, {eventDetails.City}, {eventDetails.StateProv}, {eventDetails.Country}]({eventDetails.GmapsUrl})");
 
             if (!string.IsNullOrWhiteSpace(countryCode))
