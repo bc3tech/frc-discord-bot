@@ -1,8 +1,8 @@
-﻿namespace DiscordBotFunctionApp.StatboticsInterop.Models;
+﻿namespace Statbotics.Model;
 
 using System.Text.Json.Serialization;
 
-internal sealed record Team
+public sealed record Team
 {
     [JsonPropertyName("team")]
     public int Number { get; init; }
@@ -38,7 +38,7 @@ internal sealed record Team
     public NormEpa? NormEpa { get; init; }
 }
 
-internal sealed record Colors
+public sealed record Colors
 {
     [JsonPropertyName("primary")]
     public string? Primary { get; init; }
@@ -47,7 +47,7 @@ internal sealed record Colors
     public string? Secondary { get; init; }
 }
 
-internal sealed record Records : Record
+public sealed record Records : Record
 {
     [JsonPropertyName("season")]
     public Record? Season { get; init; }
@@ -56,7 +56,7 @@ internal sealed record Records : Record
     public Record? Full { get; init; }
 }
 
-internal record Record
+public record Record
 {
     [JsonPropertyName("wins")]
     public int Wins { get; init; }
@@ -74,7 +74,7 @@ internal record Record
     public float Winrate { get; init; }
 }
 
-internal sealed record NormEpa
+public sealed record NormEpa
 {
     [JsonPropertyName("current")]
     public float Current { get; init; }

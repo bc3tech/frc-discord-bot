@@ -9,6 +9,8 @@ using DiscordBotFunctionApp.Storage;
 
 using Microsoft.Extensions.Logging;
 
+using Statbotics.Model;
+
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
@@ -24,7 +26,7 @@ internal sealed class TeamDetail(RESTCountries _countryCodeLookup, EmbedBuilderF
         if ((await _teamsRepo.GetTeamsAsync(default).ConfigureAwait(false)).TryGetValue(teamKey, out var teamDetails) && teamDetails is not null)
         {
             var jsonResult = JsonSerializer.Serialize(await teamStats.ReadTeamV3TeamTeamGetAsync(teamKey.ToTeamNumber()!.ToString()!, cancellationToken).ConfigureAwait(false));
-            var teamResult = JsonSerializer.Deserialize<StatboticsInterop.Models.Team>(jsonResult)!;
+            var teamResult = JsonSerializer.Deserialize<Team>(jsonResult)!;
             var locationString = await createLocationStringAsync(teamDetails, _countryCodeLookup).ConfigureAwait(false);
             var builder = builderFactory.GetBuilder()
                 .WithTitle($"**{teamDetails.Nickname}**")

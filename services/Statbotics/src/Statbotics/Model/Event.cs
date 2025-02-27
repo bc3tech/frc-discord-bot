@@ -1,16 +1,16 @@
-namespace DiscordBotFunctionApp.StatboticsInterop.Models;
+namespace Statbotics.Model;
 
 using Common.JsonConverters;
 
 using System.Text.Json.Serialization;
 
-internal sealed record Event
+public sealed record Event
 {
     [JsonPropertyName("key")]
     public string? Key { get; init; }
 
     [JsonPropertyName("year")]
-    public int Year { get; init; }
+    public int? Year { get; init; }
 
     [JsonPropertyName("name")]
     public string? Name { get; init; }
@@ -37,7 +37,7 @@ internal sealed record Event
     public string? Type { get; init; }
 
     [JsonPropertyName("week")]
-    public int Week { get; init; }
+    public int? Week { get; init; }
 
     [JsonPropertyName("offseason")]
     public bool Offseason { get; init; }
@@ -52,13 +52,13 @@ internal sealed record Event
     public string? StatusStr { get; init; }
 
     [JsonPropertyName("num_teams")]
-    public int NumTeams { get; init; }
+    public int? NumTeams { get; init; }
 
     [JsonPropertyName("current_match")]
-    public int CurrentMatch { get; init; }
+    public int? CurrentMatch { get; init; }
 
     [JsonPropertyName("qual_matches")]
-    public int QualMatches { get; init; }
+    public int? QualMatches { get; init; }
 
     [JsonPropertyName("epa")]
     public Epa? EpaVal { get; init; }
@@ -82,25 +82,25 @@ internal sealed record Event
         };
     }
 
-    internal sealed record Epa
+    public sealed record Epa
     {
         [JsonPropertyName("max")]
-        public float Max { get; init; }
+        public float? Max { get; init; }
 
         [JsonPropertyName("top_8")]
-        public float Top8 { get; init; }
+        public float? Top8 { get; init; }
 
         [JsonPropertyName("top_24")]
-        public float Top24 { get; init; }
+        public float? Top24 { get; init; }
 
         [JsonPropertyName("mean")]
-        public float Mean { get; init; }
+        public float? Mean { get; init; }
 
         [JsonPropertyName("sd")]
-        public float Sd { get; init; }
+        public float? Sd { get; init; }
     }
 
-    internal sealed record Metrics
+    public sealed record Metrics
     {
         [JsonPropertyName("win_prob")]
         public WinProb? WinProb { get; init; }
@@ -112,40 +112,40 @@ internal sealed record Event
         public RpPred? RpPred { get; init; }
     }
 
-    internal sealed record WinProb
+    public sealed record WinProb
     {
         [JsonPropertyName("count")]
-        public int Count { get; init; }
+        public int? Count { get; init; }
 
         [JsonPropertyName("conf")]
-        public float Conf { get; init; }
+        public float? Conf { get; init; }
 
         [JsonPropertyName("acc")]
-        public float Acc { get; init; }
+        public float? Acc { get; init; }
 
         [JsonPropertyName("mse")]
-        public float Mse { get; init; }
+        public float? Mse { get; init; }
     }
 
-    internal sealed record ScorePred
+    public sealed record ScorePred
     {
         [JsonPropertyName("count")]
-        public int Count { get; init; }
+        public int? Count { get; init; }
 
         [JsonPropertyName("rmse")]
-        public float Rmse { get; init; }
+        public float? Rmse { get; init; }
 
         [JsonPropertyName("mae")]
-        public float Mae { get; init; }
+        public float? Mae { get; init; }
 
         [JsonPropertyName("error")]
-        public float Error { get; init; }
+        public float? Error { get; init; }
     }
 
-    internal sealed record RpPred
+    public sealed record RpPred
     {
         [JsonPropertyName("count")]
-        public int Count { get; init; }
+        public int? Count { get; init; }
 
         [JsonPropertyName("melody_rp")]
         public MelodyRp? MelodyRp { get; init; }
@@ -154,33 +154,33 @@ internal sealed record Event
         public HarmonyRp? HarmonyRp { get; init; }
     }
 
-    internal sealed record MelodyRp
+    public sealed record MelodyRp
     {
         [JsonPropertyName("error")]
-        public float Error { get; init; }
+        public float? Error { get; init; }
 
         [JsonPropertyName("acc")]
-        public float Acc { get; init; }
+        public float? Acc { get; init; }
 
         [JsonPropertyName("ll")]
-        public float Ll { get; init; }
+        public float? Ll { get; init; }
 
         [JsonPropertyName("f1")]
-        public float F1 { get; init; }
+        public float? F1 { get; init; }
     }
 
-    internal sealed record HarmonyRp
+    public sealed record HarmonyRp
     {
         [JsonPropertyName("error")]
-        public float Error { get; init; }
+        public float? Error { get; init; }
 
         [JsonPropertyName("acc")]
-        public float Acc { get; init; }
+        public float? Acc { get; init; }
 
         [JsonPropertyName("ll")]
-        public float Ll { get; init; }
+        public float? Ll { get; init; }
 
         [JsonPropertyName("f1")]
-        public float F1 { get; init; }
+        public float? F1 { get; init; }
     }
 }

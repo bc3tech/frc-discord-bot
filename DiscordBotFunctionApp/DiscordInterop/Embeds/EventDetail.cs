@@ -5,11 +5,12 @@ using Common.Extensions;
 using Discord;
 
 using DiscordBotFunctionApp.Apis;
-using DiscordBotFunctionApp.StatboticsInterop.Models;
 using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.TbaInterop.Extensions;
 
 using Microsoft.Extensions.Logging;
+
+using Statbotics.Model;
 
 using System.Runtime.CompilerServices;
 using System.Text.Json;
@@ -52,18 +53,14 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup, EmbedBuilder
 
             builder
                 .AddField("Event details on TBA", $"https://thebluealliance.com/event/{eventDetails.Key}")
-                .AddField("-- Stats --", "Checking for statistics...", inline: true);
+                .AddField("Stats", "Checking for statistics...", inline: true);
 
             yield return new(builder.Build(), Transient: true);
 
             Event? stats = default;
             try
             {
-                var responseObj = await eventStats.ReadEventV3EventEventGetAsync(eventKey, cancellationToken).ConfigureAwait(false);
-                if (responseObj is not null)
-                {
-                    stats = JsonSerializer.Deserialize<Event>(JsonSerializer.Serialize(responseObj, _jsonOptions), _jsonOptions);
-                }
+                stats = await eventStats.ReadEventV3EventEventGetAsync(eventKey, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -73,10 +70,12 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup, EmbedBuilder
             if (stats is not null)
             {
                 builder.Fields.Insert(0, new EmbedFieldBuilder().WithName("Status").WithValue(stats.GetEventStatusStr()));
-                builder.Fields[^1].Value = $@"{stats.NumTeams} teams
-Max EPA: {stats.EpaVal?.Max}
-Avg EPA: {stats.EpaVal?.Mean}";
-                builder.Fields.Add(new EmbedFieldBuilder().WithName("Additional video").WithValue(stats.Video));
+                builder.Fields[^1].Value = stats.NumTeams is not null and not 0
+                    ? $@"{stats.NumTeams} teams
+Max EPA: {stats.EpaVal?.Max}*
+Avg EPA: {stats.EpaVal?.Mean}*
+-# \* This is a prediction if the event has not yet started"
+                    : "No stats available.";
             }
             else
             {
