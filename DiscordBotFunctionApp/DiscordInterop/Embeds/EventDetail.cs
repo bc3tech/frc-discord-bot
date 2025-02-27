@@ -51,7 +51,7 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup, EmbedBuilder
             }
 
             builder
-                .AddField("Event details on TBA", $"https://thebluealliance.com/events/{eventDetails.Key}")
+                .AddField("Event details on TBA", $"https://thebluealliance.com/event/{eventDetails.Key}")
                 .AddField("-- Stats --", "Checking for statistics...", inline: true);
 
             yield return new(builder.Build(), Transient: true);
