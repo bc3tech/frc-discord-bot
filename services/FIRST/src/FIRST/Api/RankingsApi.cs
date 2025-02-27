@@ -37,22 +37,22 @@ using FIRST.Client;
       /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
       /// <returns>Object</returns>
       Object? SeasonRankingsDistrictGet(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default);
-        
-        /// <summary>
-        /// District Rankings
-        /// </summary>
-        /// <remarks>
-        /// The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-        /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-        /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> SeasonRankingsDistrictGetWithHttpInfo(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default);
+
+    /// <summary>
+    /// District Rankings
+    /// </summary>
+    /// <remarks>
+    /// The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+    /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> SeasonRankingsDistrictGetWithHttpInfo(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default);
       /// <summary>
       /// Event Rankings
       /// </summary>
@@ -67,21 +67,21 @@ using FIRST.Client;
       /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
       /// <returns>Object</returns>
       Object? SeasonRankingsEventCodeGet(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default);
-        
-        /// <summary>
-        /// Event Rankings
-        /// </summary>
-        /// <remarks>
-        /// The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-        /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> SeasonRankingsEventCodeGetWithHttpInfo(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default);
+
+    /// <summary>
+    /// Event Rankings
+    /// </summary>
+    /// <remarks>
+    /// The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+    /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> SeasonRankingsEventCodeGetWithHttpInfo(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default);
       #endregion Synchronous Operations
     }
     
@@ -90,71 +90,71 @@ using FIRST.Client;
       /// </summary>
       public interface IRankingsApiAsync : IApiAccessor
       {
-        #region Asynchronous Operations
-          /// <summary>
-          /// District Rankings
-          /// </summary>
-          /// <remarks>
-          /// The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-            /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-            /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> SeasonRankingsDistrictGetAsync(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// District Rankings
-            /// </summary>
-            /// <remarks>
-            /// The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-              /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-              /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> SeasonRankingsDistrictGetWithHttpInfoAsync(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// Event Rankings
-          /// </summary>
-          /// <remarks>
-          /// The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-            /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> SeasonRankingsEventCodeGetAsync(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Event Rankings
-            /// </summary>
-            /// <remarks>
-            /// The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-              /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> SeasonRankingsEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default);
+    #region Asynchronous Operations
+    /// <summary>
+    /// District Rankings
+    /// </summary>
+    /// <remarks>
+    /// The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+    /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> SeasonRankingsDistrictGetAsync(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// District Rankings
+    /// </summary>
+    /// <remarks>
+    /// The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+    /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> SeasonRankingsDistrictGetWithHttpInfoAsync(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Event Rankings
+    /// </summary>
+    /// <remarks>
+    /// The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+    /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> SeasonRankingsEventCodeGetAsync(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Event Rankings
+    /// </summary>
+    /// <remarks>
+    /// The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+    /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> SeasonRankingsEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -341,36 +341,36 @@ using FIRST.Client;
           }
           set => _exceptionFactory = value;
         }
-        
-          /// <summary>
-          /// District Rankings The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-          /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-          /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-          /// <returns>Object</returns>
-          public Object? SeasonRankingsDistrictGet(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default)
+
+    /// <summary>
+    /// District Rankings The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+    /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+    /// <returns>Object</returns>
+    public Object? SeasonRankingsDistrictGet(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default)
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonRankingsDistrictGetWithHttpInfo(season, districtCode, ifModifiedSince, page, teamNumber, top);
+        ApiResponse<object?> localVarResponse = SeasonRankingsDistrictGetWithHttpInfo(season, districtCode, ifModifiedSince, page, teamNumber, top);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// District Rankings The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-            /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-            /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> SeasonRankingsDistrictGetWithHttpInfo(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default)
+
+    /// <summary>
+    /// District Rankings The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+    /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> SeasonRankingsDistrictGetWithHttpInfo(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default)
             {
                     // verify the required parameter 'season' is set
                     if (season is null)
@@ -448,38 +448,38 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// District Rankings The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-              /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-              /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> SeasonRankingsDistrictGetAsync(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// District Rankings The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+    /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> SeasonRankingsDistrictGetAsync(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonRankingsDistrictGetWithHttpInfoAsync(season, districtCode, ifModifiedSince, page, teamNumber, top, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await SeasonRankingsDistrictGetWithHttpInfoAsync(season, districtCode, ifModifiedSince, page, teamNumber, top, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// District Rankings The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-                /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-                /// <param name="ifModifiedSince"> (optional)</param>
-                /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-                /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-                /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonRankingsDistrictGetWithHttpInfoAsync(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// District Rankings The district rankings API returns team ranking detail from a particular team in a particular season. You *must* specify a districtCode unless a &#x60;teamNumber&#x60; is being specified. If a &#x60;teamNumber&#x60; is specified, do not include any other paramaters. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a &#x60;top&#x60; and &#x60;teamNumber&#x60; in the same call. If you specify a &#x60;page&#x60;, you cannot specify a &#x60;top&#x60;.  This endpoint is only updated periodically, and may not reflect final rankings for an event/district until a period of time after a given event is completed. The final authority on teams advancing tournament levels is the District Ranking website and communications from *FIRST*, not this API. *See the FRC Game Manual for more information.*
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive alphanumeric districtCode of the district from which the rankings are requested. Must be at least 2 characters.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+    /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> SeasonRankingsDistrictGetWithHttpInfoAsync(string season, string? districtCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -557,32 +557,32 @@ using FIRST.Client;
                 
                 return localVarResponse;
               }          /// <summary>
-          /// Event Rankings The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-          /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-          /// <returns>Object</returns>
-          public Object? SeasonRankingsEventCodeGet(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default)
+                         /// Event Rankings The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
+                         /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+                         /// <param name="ifModifiedSince"> (optional)</param>
+                         /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+                         /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+                         /// <returns>Object</returns>
+    public Object? SeasonRankingsEventCodeGet(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default)
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonRankingsEventCodeGetWithHttpInfo(eventCode, season, ifModifiedSince, teamNumber, top);
+        ApiResponse<object?> localVarResponse = SeasonRankingsEventCodeGetWithHttpInfo(eventCode, season, ifModifiedSince, teamNumber, top);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Event Rankings The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-            /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> SeasonRankingsEventCodeGetWithHttpInfo(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default)
+
+    /// <summary>
+    /// Event Rankings The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+    /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> SeasonRankingsEventCodeGetWithHttpInfo(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default)
             {
                     // verify the required parameter 'eventCode' is set
                     if (eventCode is null)
@@ -657,36 +657,36 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Event Rankings The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-              /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> SeasonRankingsEventCodeGetAsync(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Event Rankings The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+    /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> SeasonRankingsEventCodeGetAsync(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonRankingsEventCodeGetWithHttpInfoAsync(eventCode, season, ifModifiedSince, teamNumber, top, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await SeasonRankingsEventCodeGetWithHttpInfoAsync(eventCode, season, ifModifiedSince, teamNumber, top, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Event Rankings The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-                /// <param name="ifModifiedSince"> (optional)</param>
-                /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
-                /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonRankingsEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Event Rankings The rankings API returns team ranking detail from a particular event in a particular season. Optionally, the &#x60;top&#x60; parameter can be added to the query string to request a subset of the rankings based on the highest ranked teams at the time of the request. Alternately, you can specify the &#x60;teamNumber&#x60; parameter to retrieve the ranking on one specific team. You cannot specify both a top and &#x60;teamNumber&#x60; in the same call.  **IMPORTANT: This endpoint use to return differently for 2015 vs other seasons. In the fall 2016 updates, this was changed, and all seasons of data now return in the genericized format specified below.**  In all response details, the \&quot;team\&quot; refers to the FRC Team that the ranking represents, as well as their various alliance partners in the matches they have played (i.e. scores in a single match are not calcualted by team, but by alliance). *See the FRC Game Manual for more information.*
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the rankings are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional team number of the team whose ranking is requested. (optional)</param>
+    /// <param name="top">**(int)** Optional number of requested top ranked teams to return in result. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> SeasonRankingsEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? ifModifiedSince = default, string? teamNumber = default, string? top = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)

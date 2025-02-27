@@ -23,52 +23,52 @@ using TheBlueAlliance.Model;
   public interface IInsightApiSync : IApiAccessor
   {
     #region Synchronous Operations
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;LeaderboardInsight&gt;</returns>
-      Collection<LeaderboardInsight>? GetInsightsLeaderboardsYear(int year, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;LeaderboardInsight&gt;</returns>
-        ApiResponse<Collection<LeaderboardInsight>?> GetInsightsLeaderboardsYearWithHttpInfo(int year, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;NotablesInsight&gt;</returns>
-      Collection<NotablesInsight>? GetInsightsNotablesYear(int year, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;NotablesInsight&gt;</returns>
-        ApiResponse<Collection<NotablesInsight>?> GetInsightsNotablesYearWithHttpInfo(int year, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;LeaderboardInsight&gt;</returns>
+    Collection<LeaderboardInsight>? GetInsightsLeaderboardsYear(int year, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;LeaderboardInsight&gt;</returns>
+    ApiResponse<Collection<LeaderboardInsight>?> GetInsightsLeaderboardsYearWithHttpInfo(int year, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;NotablesInsight&gt;</returns>
+    Collection<NotablesInsight>? GetInsightsNotablesYear(int year, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;NotablesInsight&gt;</returns>
+    ApiResponse<Collection<NotablesInsight>?> GetInsightsNotablesYearWithHttpInfo(int year, string? ifNoneMatch = default);
       #endregion Synchronous Operations
     }
     
@@ -77,57 +77,57 @@ using TheBlueAlliance.Model;
       /// </summary>
       public interface IInsightApiAsync : IApiAccessor
       {
-        #region Asynchronous Operations
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;LeaderboardInsight&gt;</returns>
-          Task<Collection<LeaderboardInsight>?> GetInsightsLeaderboardsYearAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;LeaderboardInsight&gt;)</returns>
-            Task<ApiResponse<Collection<LeaderboardInsight>?>> GetInsightsLeaderboardsYearWithHttpInfoAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;NotablesInsight&gt;</returns>
-          Task<Collection<NotablesInsight>?> GetInsightsNotablesYearAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;NotablesInsight&gt;)</returns>
-            Task<ApiResponse<Collection<NotablesInsight>?>> GetInsightsNotablesYearWithHttpInfoAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    #region Asynchronous Operations
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;LeaderboardInsight&gt;</returns>
+    Task<Collection<LeaderboardInsight>?> GetInsightsLeaderboardsYearAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;LeaderboardInsight&gt;)</returns>
+    Task<ApiResponse<Collection<LeaderboardInsight>?>> GetInsightsLeaderboardsYearWithHttpInfoAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;NotablesInsight&gt;</returns>
+    Task<Collection<NotablesInsight>?> GetInsightsNotablesYearAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;NotablesInsight&gt;)</returns>
+    Task<ApiResponse<Collection<NotablesInsight>?>> GetInsightsNotablesYearWithHttpInfoAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -314,28 +314,28 @@ using TheBlueAlliance.Model;
           }
           set => _exceptionFactory = value;
         }
-        
-          /// <summary>
-          ///  Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;LeaderboardInsight&gt;</returns>
-          public Collection<LeaderboardInsight>? GetInsightsLeaderboardsYear(int year, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;LeaderboardInsight&gt;</returns>
+    public Collection<LeaderboardInsight>? GetInsightsLeaderboardsYear(int year, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<LeaderboardInsight>?> localVarResponse = GetInsightsLeaderboardsYearWithHttpInfo(year, ifNoneMatch);
+        ApiResponse<Collection<LeaderboardInsight>?> localVarResponse = GetInsightsLeaderboardsYearWithHttpInfo(year, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;LeaderboardInsight&gt;</returns>
-            public ApiResponse<Collection<LeaderboardInsight>?> GetInsightsLeaderboardsYearWithHttpInfo(int year, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;LeaderboardInsight&gt;</returns>
+    public ApiResponse<Collection<LeaderboardInsight>?> GetInsightsLeaderboardsYearWithHttpInfo(int year, string? ifNoneMatch = default)
             {
               RequestOptions localVarRequestOptions = new();
               
@@ -386,30 +386,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;LeaderboardInsight&gt;</returns>
-            public async Task<Collection<LeaderboardInsight>?> GetInsightsLeaderboardsYearAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;LeaderboardInsight&gt;</returns>
+    public async Task<Collection<LeaderboardInsight>?> GetInsightsLeaderboardsYearAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<LeaderboardInsight>?> localVarResponse = await GetInsightsLeaderboardsYearWithHttpInfoAsync(year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<LeaderboardInsight>?> localVarResponse = await GetInsightsLeaderboardsYearWithHttpInfoAsync(year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;LeaderboardInsight&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<LeaderboardInsight>?>> GetInsightsLeaderboardsYearWithHttpInfoAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;LeaderboardInsight&gt;)</returns>
+    public async Task<ApiResponse<Collection<LeaderboardInsight>?>> GetInsightsLeaderboardsYearWithHttpInfoAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -460,26 +460,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;NotablesInsight&gt;</returns>
-          public Collection<NotablesInsight>? GetInsightsNotablesYear(int year, string? ifNoneMatch = default)
+                         ///  Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;NotablesInsight&gt;</returns>
+    public Collection<NotablesInsight>? GetInsightsNotablesYear(int year, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<NotablesInsight>?> localVarResponse = GetInsightsNotablesYearWithHttpInfo(year, ifNoneMatch);
+        ApiResponse<Collection<NotablesInsight>?> localVarResponse = GetInsightsNotablesYearWithHttpInfo(year, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;NotablesInsight&gt;</returns>
-            public ApiResponse<Collection<NotablesInsight>?> GetInsightsNotablesYearWithHttpInfo(int year, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;NotablesInsight&gt;</returns>
+    public ApiResponse<Collection<NotablesInsight>?> GetInsightsNotablesYearWithHttpInfo(int year, string? ifNoneMatch = default)
             {
               RequestOptions localVarRequestOptions = new();
               
@@ -530,30 +530,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;NotablesInsight&gt;</returns>
-            public async Task<Collection<NotablesInsight>?> GetInsightsNotablesYearAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;NotablesInsight&gt;</returns>
+    public async Task<Collection<NotablesInsight>?> GetInsightsNotablesYearAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<NotablesInsight>?> localVarResponse = await GetInsightsNotablesYearWithHttpInfoAsync(year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<NotablesInsight>?> localVarResponse = await GetInsightsNotablesYearWithHttpInfoAsync(year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;NotablesInsight&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<NotablesInsight>?>> GetInsightsNotablesYearWithHttpInfoAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;NotablesInsight&gt;)</returns>
+    public async Task<ApiResponse<Collection<NotablesInsight>?>> GetInsightsNotablesYearWithHttpInfoAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 

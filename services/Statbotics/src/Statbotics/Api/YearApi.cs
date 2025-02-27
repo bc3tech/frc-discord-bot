@@ -33,41 +33,41 @@ using Statbotics.Model;
       /// <param name="year"></param>
       /// <returns>Object</returns>
       Object? ReadYearV3YearYearGet(int year);
-        
-        /// <summary>
-        /// Query a single year
-        /// </summary>
-        /// <remarks>
-        /// Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
-        /// </remarks>
-        /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="year"></param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> ReadYearV3YearYearGetWithHttpInfo(int year);
-      /// <summary>
-      /// Query multiple years
-      /// </summary>
-      /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-      /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-      /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-      /// <param name="offset">Offset from the first result to return. (optional)</param>
-      /// <returns>Collection&lt;Object&gt;</returns>
-      Collection<Object>? ReadYearsV3YearsGet(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default);
-        
-        /// <summary>
-        /// Query multiple years
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-        /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-        /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-        /// <param name="offset">Offset from the first result to return. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
-        ApiResponse<Collection<Object>?> ReadYearsV3YearsGetWithHttpInfo(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default);
+
+    /// <summary>
+    /// Query a single year
+    /// </summary>
+    /// <remarks>
+    /// Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year"></param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> ReadYearV3YearYearGetWithHttpInfo(int year);
+    /// <summary>
+    /// Query multiple years
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <returns>Collection&lt;Object&gt;</returns>
+    Collection<Object>? ReadYearsV3YearsGet(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default);
+
+    /// <summary>
+    /// Query multiple years
+    /// </summary>
+    /// <remarks>
+    /// 
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
+    ApiResponse<Collection<Object>?> ReadYearsV3YearsGetWithHttpInfo(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default);
       #endregion Synchronous Operations
     }
     
@@ -76,59 +76,59 @@ using Statbotics.Model;
       /// </summary>
       public interface IYearApiAsync : IApiAccessor
       {
-        #region Asynchronous Operations
-          /// <summary>
-          /// Query a single year
-          /// </summary>
-          /// <remarks>
-          /// Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
-          /// </remarks>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="year"></param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> ReadYearV3YearYearGetAsync(int year, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Query a single year
-            /// </summary>
-            /// <remarks>
-            /// Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
-            /// </remarks>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="year"></param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> ReadYearV3YearYearGetWithHttpInfoAsync(int year, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// Query multiple years
-          /// </summary>
-          /// <remarks>
-          /// 
-          /// </remarks>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-            /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-            /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-            /// <param name="offset">Offset from the first result to return. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Object&gt;</returns>
-          Task<Collection<Object>?> ReadYearsV3YearsGetAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Query multiple years
-            /// </summary>
-            /// <remarks>
-            /// 
-            /// </remarks>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-              /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-              /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-              /// <param name="offset">Offset from the first result to return. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
-            Task<ApiResponse<Collection<Object>?>> ReadYearsV3YearsGetWithHttpInfoAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default);
+    #region Asynchronous Operations
+    /// <summary>
+    /// Query a single year
+    /// </summary>
+    /// <remarks>
+    /// Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year"></param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> ReadYearV3YearYearGetAsync(int year, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Query a single year
+    /// </summary>
+    /// <remarks>
+    /// Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year"></param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> ReadYearV3YearYearGetWithHttpInfoAsync(int year, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Query multiple years
+    /// </summary>
+    /// <remarks>
+    /// 
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Object&gt;</returns>
+    Task<Collection<Object>?> ReadYearsV3YearsGetAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Query multiple years
+    /// </summary>
+    /// <remarks>
+    /// 
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
+    Task<ApiResponse<Collection<Object>?>> ReadYearsV3YearsGetWithHttpInfoAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -315,26 +315,26 @@ using Statbotics.Model;
           }
           set => _exceptionFactory = value;
         }
-        
-          /// <summary>
-          /// Query a single year Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
-          /// </summary>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="year"></param>
-          /// <returns>Object</returns>
-          public Object? ReadYearV3YearYearGet(int year)
+
+    /// <summary>
+    /// Query a single year Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year"></param>
+    /// <returns>Object</returns>
+    public Object? ReadYearV3YearYearGet(int year)
           {
-            Statbotics.Client.ApiResponse<Object?> localVarResponse = ReadYearV3YearYearGetWithHttpInfo(year);
+        ApiResponse<object?> localVarResponse = ReadYearV3YearYearGetWithHttpInfo(year);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Query a single year Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
-            /// </summary>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="year"></param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> ReadYearV3YearYearGetWithHttpInfo(int year)
+
+    /// <summary>
+    /// Query a single year Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year"></param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> ReadYearV3YearYearGetWithHttpInfo(int year)
             {
               RequestOptions localVarRequestOptions = new();
               
@@ -374,28 +374,28 @@ using Statbotics.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Query a single year Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
-            /// </summary>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="year"></param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> ReadYearV3YearYearGetAsync(int year, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Query a single year Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year"></param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> ReadYearV3YearYearGetAsync(int year, CancellationToken cancellationToken = default)
             {
-              Statbotics.Client.ApiResponse<Object?> localVarResponse = await ReadYearV3YearYearGetWithHttpInfoAsync(year, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await ReadYearV3YearYearGetWithHttpInfoAsync(year, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Query a single year Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
-              /// </summary>
-              /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="year"></param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<Statbotics.Client.ApiResponse<Object?>> ReadYearV3YearYearGetWithHttpInfoAsync(int year, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Query a single year Returns a single Year object. Requires a four-digit year, e.g. &#x60;2019&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year"></param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> ReadYearV3YearYearGetWithHttpInfoAsync(int year, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -434,30 +434,30 @@ using Statbotics.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          /// Query multiple years 
-          /// </summary>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-          /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-          /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-          /// <param name="offset">Offset from the first result to return. (optional)</param>
-          /// <returns>Collection&lt;Object&gt;</returns>
-          public Collection<Object>? ReadYearsV3YearsGet(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default)
+                         /// Query multiple years 
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+                         /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+                         /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+                         /// <param name="offset">Offset from the first result to return. (optional)</param>
+                         /// <returns>Collection&lt;Object&gt;</returns>
+    public Collection<Object>? ReadYearsV3YearsGet(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default)
           {
-            Statbotics.Client.ApiResponse<Collection<Object>?> localVarResponse = ReadYearsV3YearsGetWithHttpInfo(ascending, limit, metric, offset);
+        ApiResponse<Collection<object>?> localVarResponse = ReadYearsV3YearsGetWithHttpInfo(ascending, limit, metric, offset);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Query multiple years 
-            /// </summary>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-            /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-            /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-            /// <param name="offset">Offset from the first result to return. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
-            public ApiResponse<Collection<Object>?> ReadYearsV3YearsGetWithHttpInfo(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default)
+
+    /// <summary>
+    /// Query multiple years 
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
+    public ApiResponse<Collection<Object>?> ReadYearsV3YearsGetWithHttpInfo(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default)
             {
               RequestOptions localVarRequestOptions = new();
               
@@ -516,34 +516,34 @@ using Statbotics.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Query multiple years 
-            /// </summary>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-              /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-              /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-              /// <param name="offset">Offset from the first result to return. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Object&gt;</returns>
-            public async Task<Collection<Object>?> ReadYearsV3YearsGetAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Query multiple years 
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Object&gt;</returns>
+    public async Task<Collection<Object>?> ReadYearsV3YearsGetAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default)
             {
-              Statbotics.Client.ApiResponse<Collection<Object>?> localVarResponse = await ReadYearsV3YearsGetWithHttpInfoAsync(ascending, limit, metric, offset, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<object>?> localVarResponse = await ReadYearsV3YearsGetWithHttpInfoAsync(ascending, limit, metric, offset, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Query multiple years 
-              /// </summary>
-              /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-                /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-                /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-                /// <param name="offset">Offset from the first result to return. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
-              public async Task<Statbotics.Client.ApiResponse<Collection<Object>?>> ReadYearsV3YearsGetWithHttpInfoAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Query multiple years 
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
+    public async Task<ApiResponse<Collection<object>?>> ReadYearsV3YearsGetWithHttpInfoAsync(bool? ascending = default, int? limit = default, string? metric = default, int? offset = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 

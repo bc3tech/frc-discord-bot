@@ -139,7 +139,7 @@
               /// </summary>
                 [JsonRequired]
                   [JsonPropertyName("nodes")]
-                  public Collection<MatchScoreBreakdown2023AllianceLinksInner.NodesEnum> Nodes { get; set; }
+                  public Collection<NodesEnum> Nodes { get; set; }
                   
               /// <summary>
               /// Returns the JSON string presentation of the object

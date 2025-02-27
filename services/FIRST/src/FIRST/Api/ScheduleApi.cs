@@ -38,23 +38,23 @@ using FIRST.Client;
       /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
       /// <returns>Object</returns>
       Object? SeasonScheduleEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default);
-        
-        /// <summary>
-        /// Event Schedule
-        /// </summary>
-        /// <remarks>
-        /// The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
-        /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
-        /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> SeasonScheduleEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default);
+
+    /// <summary>
+    /// Event Schedule
+    /// </summary>
+    /// <remarks>
+    /// The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
+    /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> SeasonScheduleEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default);
       #endregion Synchronous Operations
     }
     
@@ -63,42 +63,42 @@ using FIRST.Client;
       /// </summary>
       public interface IScheduleApiAsync : IApiAccessor
       {
-        #region Asynchronous Operations
-          /// <summary>
-          /// Event Schedule
-          /// </summary>
-          /// <remarks>
-          /// The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
-            /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
-            /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> SeasonScheduleEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Event Schedule
-            /// </summary>
-            /// <remarks>
-            /// The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
-              /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
-              /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> SeasonScheduleEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
+    #region Asynchronous Operations
+    /// <summary>
+    /// Event Schedule
+    /// </summary>
+    /// <remarks>
+    /// The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
+    /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> SeasonScheduleEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Event Schedule
+    /// </summary>
+    /// <remarks>
+    /// The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
+    /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> SeasonScheduleEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -285,38 +285,38 @@ using FIRST.Client;
           }
           set => _exceptionFactory = value;
         }
-        
-          /// <summary>
-          /// Event Schedule The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
-          /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
-          /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-          /// <returns>Object</returns>
-          public Object? SeasonScheduleEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
+
+    /// <summary>
+    /// Event Schedule The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
+    /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+    /// <returns>Object</returns>
+    public Object? SeasonScheduleEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonScheduleEventCodeGetWithHttpInfo(eventCode, season, end, ifModifiedSince, start, teamNumber, tournamentLevel);
+        ApiResponse<object?> localVarResponse = SeasonScheduleEventCodeGetWithHttpInfo(eventCode, season, end, ifModifiedSince, start, teamNumber, tournamentLevel);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Event Schedule The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
-            /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
-            /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> SeasonScheduleEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
+
+    /// <summary>
+    /// Event Schedule The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
+    /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> SeasonScheduleEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
             {
                     // verify the required parameter 'eventCode' is set
                     if (eventCode is null)
@@ -401,40 +401,40 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Event Schedule The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
-              /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
-              /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> SeasonScheduleEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Event Schedule The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
+    /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> SeasonScheduleEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonScheduleEventCodeGetWithHttpInfoAsync(eventCode, season, end, ifModifiedSince, start, teamNumber, tournamentLevel, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await SeasonScheduleEventCodeGetWithHttpInfoAsync(eventCode, season, end, ifModifiedSince, start, teamNumber, tournamentLevel, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Event Schedule The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-                /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-                /// <param name="ifModifiedSince"> (optional)</param>
-                /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
-                /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
-                /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonScheduleEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Event Schedule The schedule API returns the match schedule for the desired tournament level of a particular event in a particular season. You must also specify a &#x60;tournamentLevel&#x60; from which to return the results. Alternately, you can specify a &#x60;teamNumber&#x60; to filter the results to only those in which a particular team is participating. There is no validation that the &#x60;teamNumber&#x60; you request is actually competing at the event, if they are not, the response will be empty. You can also specify the parameters together, but cannot make a request without at least one of the two.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the schedule are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the schedule. Only returns matches in which the requested team participated. (optional)</param>
+    /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> SeasonScheduleEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)

@@ -181,21 +181,21 @@
               /// </summary>
                 [JsonRequired]
                   [JsonPropertyName("B")]
-                  public Collection<MatchScoreBreakdown2023AllianceAutoCommunity.BEnum> B { get; set; }
+                  public Collection<BEnum> B { get; set; }
                   
               /// <summary>
               /// Gets or Sets M
               /// </summary>
                 [JsonRequired]
                   [JsonPropertyName("M")]
-                  public Collection<MatchScoreBreakdown2023AllianceAutoCommunity.MEnum> M { get; set; }
+                  public Collection<MEnum> M { get; set; }
                   
               /// <summary>
               /// Gets or Sets T
               /// </summary>
                 [JsonRequired]
                   [JsonPropertyName("T")]
-                  public Collection<MatchScoreBreakdown2023AllianceAutoCommunity.TEnum> T { get; set; }
+                  public Collection<TEnum> T { get; set; }
                   
               /// <summary>
               /// Returns the JSON string presentation of the object

@@ -34,57 +34,57 @@ using Statbotics.Model;
       /// <param name="year"></param>
       /// <returns>Object</returns>
       Object? ReadTeamYearV3TeamYearTeamYearGet(string team, int year);
-        
-        /// <summary>
-        /// Query a single team year
-        /// </summary>
-        /// <remarks>
-        /// Returns a single Team Year object. Requires a team number and year.
-        /// </remarks>
-        /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="team"></param>
-        /// <param name="year"></param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> ReadTeamYearV3TeamYearTeamYearGetWithHttpInfo(string team, int year);
-      /// <summary>
-      /// Query multiple team years
-      /// </summary>
-        /// <remarks>
-        /// Returns up to 1000 team years at a time. Specify limit and offset to page through results.
-        /// </remarks>
-      /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-      /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
-      /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
-      /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-      /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-      /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-      /// <param name="offset">Offset from the first result to return. (optional)</param>
-      /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
-      /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
-      /// <param name="year">Four-digit year (optional)</param>
-      /// <returns>Collection&lt;Object&gt;</returns>
-      Collection<Object>? ReadTeamYearsV3TeamYearsGet(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? team = default, int? year = default);
-        
-        /// <summary>
-        /// Query multiple team years
-        /// </summary>
-        /// <remarks>
-        /// Returns up to 1000 team years at a time. Specify limit and offset to page through results.
-        /// </remarks>
-        /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-        /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
-        /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
-        /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-        /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-        /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-        /// <param name="offset">Offset from the first result to return. (optional)</param>
-        /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
-        /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
-        /// <param name="year">Four-digit year (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
-        ApiResponse<Collection<Object>?> ReadTeamYearsV3TeamYearsGetWithHttpInfo(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? team = default, int? year = default);
+
+    /// <summary>
+    /// Query a single team year
+    /// </summary>
+    /// <remarks>
+    /// Returns a single Team Year object. Requires a team number and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="team"></param>
+    /// <param name="year"></param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> ReadTeamYearV3TeamYearTeamYearGetWithHttpInfo(string team, int year);
+    /// <summary>
+    /// Query multiple team years
+    /// </summary>
+    /// <remarks>
+    /// Returns up to 1000 team years at a time. Specify limit and offset to page through results.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
+    /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
+    /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <returns>Collection&lt;Object&gt;</returns>
+    Collection<Object>? ReadTeamYearsV3TeamYearsGet(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? team = default, int? year = default);
+
+    /// <summary>
+    /// Query multiple team years
+    /// </summary>
+    /// <remarks>
+    /// Returns up to 1000 team years at a time. Specify limit and offset to page through results.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
+    /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
+    /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
+    ApiResponse<Collection<Object>?> ReadTeamYearsV3TeamYearsGetWithHttpInfo(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? team = default, int? year = default);
       #endregion Synchronous Operations
     }
     
@@ -93,73 +93,73 @@ using Statbotics.Model;
       /// </summary>
       public interface ITeamYearApiAsync : IApiAccessor
       {
-        #region Asynchronous Operations
-          /// <summary>
-          /// Query a single team year
-          /// </summary>
-          /// <remarks>
-          /// Returns a single Team Year object. Requires a team number and year.
-          /// </remarks>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="team"></param>
-            /// <param name="year"></param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> ReadTeamYearV3TeamYearTeamYearGetAsync(string team, int year, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Query a single team year
-            /// </summary>
-            /// <remarks>
-            /// Returns a single Team Year object. Requires a team number and year.
-            /// </remarks>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="team"></param>
-              /// <param name="year"></param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> ReadTeamYearV3TeamYearTeamYearGetWithHttpInfoAsync(string team, int year, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// Query multiple team years
-          /// </summary>
-          /// <remarks>
-          /// Returns up to 1000 team years at a time. Specify limit and offset to page through results.
-          /// </remarks>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-            /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
-            /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
-            /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-            /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-            /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-            /// <param name="offset">Offset from the first result to return. (optional)</param>
-            /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
-            /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
-            /// <param name="year">Four-digit year (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Object&gt;</returns>
-          Task<Collection<Object>?> ReadTeamYearsV3TeamYearsGetAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? team = default, int? year = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Query multiple team years
-            /// </summary>
-            /// <remarks>
-            /// Returns up to 1000 team years at a time. Specify limit and offset to page through results.
-            /// </remarks>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-              /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
-              /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
-              /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-              /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-              /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-              /// <param name="offset">Offset from the first result to return. (optional)</param>
-              /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
-              /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
-              /// <param name="year">Four-digit year (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
-            Task<ApiResponse<Collection<Object>?>> ReadTeamYearsV3TeamYearsGetWithHttpInfoAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? team = default, int? year = default, CancellationToken cancellationToken = default);
+    #region Asynchronous Operations
+    /// <summary>
+    /// Query a single team year
+    /// </summary>
+    /// <remarks>
+    /// Returns a single Team Year object. Requires a team number and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="team"></param>
+    /// <param name="year"></param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> ReadTeamYearV3TeamYearTeamYearGetAsync(string team, int year, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Query a single team year
+    /// </summary>
+    /// <remarks>
+    /// Returns a single Team Year object. Requires a team number and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="team"></param>
+    /// <param name="year"></param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> ReadTeamYearV3TeamYearTeamYearGetWithHttpInfoAsync(string team, int year, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Query multiple team years
+    /// </summary>
+    /// <remarks>
+    /// Returns up to 1000 team years at a time. Specify limit and offset to page through results.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
+    /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
+    /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Object&gt;</returns>
+    Task<Collection<Object>?> ReadTeamYearsV3TeamYearsGetAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? team = default, int? year = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Query multiple team years
+    /// </summary>
+    /// <remarks>
+    /// Returns up to 1000 team years at a time. Specify limit and offset to page through results.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
+    /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
+    /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
+    Task<ApiResponse<Collection<Object>?>> ReadTeamYearsV3TeamYearsGetWithHttpInfoAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? team = default, int? year = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -346,28 +346,28 @@ using Statbotics.Model;
           }
           set => _exceptionFactory = value;
         }
-        
-          /// <summary>
-          /// Query a single team year Returns a single Team Year object. Requires a team number and year.
-          /// </summary>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="team"></param>
-          /// <param name="year"></param>
-          /// <returns>Object</returns>
-          public Object? ReadTeamYearV3TeamYearTeamYearGet(string team, int year)
+
+    /// <summary>
+    /// Query a single team year Returns a single Team Year object. Requires a team number and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="team"></param>
+    /// <param name="year"></param>
+    /// <returns>Object</returns>
+    public Object? ReadTeamYearV3TeamYearTeamYearGet(string team, int year)
           {
-            Statbotics.Client.ApiResponse<Object?> localVarResponse = ReadTeamYearV3TeamYearTeamYearGetWithHttpInfo(team, year);
+        ApiResponse<object?> localVarResponse = ReadTeamYearV3TeamYearTeamYearGetWithHttpInfo(team, year);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Query a single team year Returns a single Team Year object. Requires a team number and year.
-            /// </summary>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="team"></param>
-            /// <param name="year"></param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> ReadTeamYearV3TeamYearTeamYearGetWithHttpInfo(string team, int year)
+
+    /// <summary>
+    /// Query a single team year Returns a single Team Year object. Requires a team number and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="team"></param>
+    /// <param name="year"></param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> ReadTeamYearV3TeamYearTeamYearGetWithHttpInfo(string team, int year)
             {
                     // verify the required parameter 'team' is set
                     if (team is null)
@@ -414,30 +414,30 @@ using Statbotics.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Query a single team year Returns a single Team Year object. Requires a team number and year.
-            /// </summary>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="team"></param>
-              /// <param name="year"></param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> ReadTeamYearV3TeamYearTeamYearGetAsync(string team, int year, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Query a single team year Returns a single Team Year object. Requires a team number and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="team"></param>
+    /// <param name="year"></param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> ReadTeamYearV3TeamYearTeamYearGetAsync(string team, int year, CancellationToken cancellationToken = default)
             {
-              Statbotics.Client.ApiResponse<Object?> localVarResponse = await ReadTeamYearV3TeamYearTeamYearGetWithHttpInfoAsync(team, year, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await ReadTeamYearV3TeamYearTeamYearGetWithHttpInfoAsync(team, year, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Query a single team year Returns a single Team Year object. Requires a team number and year.
-              /// </summary>
-              /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="team"></param>
-                /// <param name="year"></param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<Statbotics.Client.ApiResponse<Object?>> ReadTeamYearV3TeamYearTeamYearGetWithHttpInfoAsync(string team, int year, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Query a single team year Returns a single Team Year object. Requires a team number and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="team"></param>
+    /// <param name="year"></param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> ReadTeamYearV3TeamYearTeamYearGetWithHttpInfoAsync(string team, int year, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'team' is set
                       if (team is null)
@@ -483,42 +483,42 @@ using Statbotics.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          /// Query multiple team years Returns up to 1000 team years at a time. Specify limit and offset to page through results.
-          /// </summary>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-          /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
-          /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
-          /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-          /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-          /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-          /// <param name="offset">Offset from the first result to return. (optional)</param>
-          /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
-          /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
-          /// <param name="year">Four-digit year (optional)</param>
-          /// <returns>Collection&lt;Object&gt;</returns>
-          public Collection<Object>? ReadTeamYearsV3TeamYearsGet(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? team = default, int? year = default)
+                         /// Query multiple team years Returns up to 1000 team years at a time. Specify limit and offset to page through results.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+                         /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
+                         /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
+                         /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+                         /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+                         /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+                         /// <param name="offset">Offset from the first result to return. (optional)</param>
+                         /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
+                         /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
+                         /// <param name="year">Four-digit year (optional)</param>
+                         /// <returns>Collection&lt;Object&gt;</returns>
+    public Collection<Object>? ReadTeamYearsV3TeamYearsGet(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? team = default, int? year = default)
           {
-            Statbotics.Client.ApiResponse<Collection<Object>?> localVarResponse = ReadTeamYearsV3TeamYearsGetWithHttpInfo(ascending, country, district, limit, metric, offseason, offset, state, team, year);
+        ApiResponse<Collection<object>?> localVarResponse = ReadTeamYearsV3TeamYearsGetWithHttpInfo(ascending, country, district, limit, metric, offseason, offset, state, team, year);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Query multiple team years Returns up to 1000 team years at a time. Specify limit and offset to page through results.
-            /// </summary>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-            /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
-            /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
-            /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-            /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-            /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-            /// <param name="offset">Offset from the first result to return. (optional)</param>
-            /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
-            /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
-            /// <param name="year">Four-digit year (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
-            public ApiResponse<Collection<Object>?> ReadTeamYearsV3TeamYearsGetWithHttpInfo(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? team = default, int? year = default)
+
+    /// <summary>
+    /// Query multiple team years Returns up to 1000 team years at a time. Specify limit and offset to page through results.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
+    /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
+    /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
+    public ApiResponse<Collection<Object>?> ReadTeamYearsV3TeamYearsGetWithHttpInfo(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? team = default, int? year = default)
             {
               RequestOptions localVarRequestOptions = new();
               
@@ -607,46 +607,46 @@ using Statbotics.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Query multiple team years Returns up to 1000 team years at a time. Specify limit and offset to page through results.
-            /// </summary>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-              /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
-              /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
-              /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-              /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-              /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-              /// <param name="offset">Offset from the first result to return. (optional)</param>
-              /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
-              /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
-              /// <param name="year">Four-digit year (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Object&gt;</returns>
-            public async Task<Collection<Object>?> ReadTeamYearsV3TeamYearsGetAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? team = default, int? year = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Query multiple team years Returns up to 1000 team years at a time. Specify limit and offset to page through results.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
+    /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
+    /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Object&gt;</returns>
+    public async Task<Collection<Object>?> ReadTeamYearsV3TeamYearsGetAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? team = default, int? year = default, CancellationToken cancellationToken = default)
             {
-              Statbotics.Client.ApiResponse<Collection<Object>?> localVarResponse = await ReadTeamYearsV3TeamYearsGetWithHttpInfoAsync(ascending, country, district, limit, metric, offseason, offset, state, team, year, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<object>?> localVarResponse = await ReadTeamYearsV3TeamYearsGetWithHttpInfoAsync(ascending, country, district, limit, metric, offseason, offset, state, team, year, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Query multiple team years Returns up to 1000 team years at a time. Specify limit and offset to page through results.
-              /// </summary>
-              /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-                /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
-                /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
-                /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-                /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-                /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-                /// <param name="offset">Offset from the first result to return. (optional)</param>
-                /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
-                /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
-                /// <param name="year">Four-digit year (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
-              public async Task<Statbotics.Client.ApiResponse<Collection<Object>?>> ReadTeamYearsV3TeamYearsGetWithHttpInfoAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? team = default, int? year = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Query multiple team years Returns up to 1000 team years at a time. Specify limit and offset to page through results.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
+    /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
+    /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
+    public async Task<ApiResponse<Collection<object>?>> ReadTeamYearsV3TeamYearsGetWithHttpInfoAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? team = default, int? year = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 

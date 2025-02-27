@@ -29,7 +29,7 @@ public interface IMatchApiSync : IApiAccessor
     /// <remarks>
     /// Returns a single Match object. Requires a match key, e.g. &#x60;2019ncwak_f1m1&#x60;.
     /// </remarks>
-    /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
     /// <param name="match"></param>
     /// <returns>Object</returns>
     Match? ReadMatchV3MatchMatchGet(string match);
@@ -40,7 +40,7 @@ public interface IMatchApiSync : IApiAccessor
     /// <remarks>
     /// Returns a single Match object. Requires a match key, e.g. &#x60;2019ncwak_f1m1&#x60;.
     /// </remarks>
-    /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
     /// <param name="match"></param>
     /// <returns>ApiResponse of Object</returns>
     ApiResponse<Match?> ReadMatchV3MatchMatchGetWithHttpInfo(string match);
@@ -50,7 +50,7 @@ public interface IMatchApiSync : IApiAccessor
     /// <remarks>
     /// Returns up to 1000 matches at a time. Specify limit and offset to page through results.
     /// </remarks>
-    /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
     /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
     /// <param name="elim">Whether the match is an elimination match. (optional)</param>
     /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
@@ -70,7 +70,7 @@ public interface IMatchApiSync : IApiAccessor
     /// <remarks>
     /// Returns up to 1000 matches at a time. Specify limit and offset to page through results.
     /// </remarks>
-    /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
     /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
     /// <param name="elim">Whether the match is an elimination match. (optional)</param>
     /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
@@ -98,7 +98,7 @@ public interface IMatchApiAsync : IApiAccessor
     /// <remarks>
     /// Returns a single Match object. Requires a match key, e.g. &#x60;2019ncwak_f1m1&#x60;.
     /// </remarks>
-    /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
     /// <param name="match"></param>
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Object</returns>
@@ -110,7 +110,7 @@ public interface IMatchApiAsync : IApiAccessor
     /// <remarks>
     /// Returns a single Match object. Requires a match key, e.g. &#x60;2019ncwak_f1m1&#x60;.
     /// </remarks>
-    /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
     /// <param name="match"></param>
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Object)</returns>
@@ -121,7 +121,7 @@ public interface IMatchApiAsync : IApiAccessor
     /// <remarks>
     /// Returns up to 1000 matches at a time. Specify limit and offset to page through results.
     /// </remarks>
-    /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
     /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
     /// <param name="elim">Whether the match is an elimination match. (optional)</param>
     /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
@@ -142,7 +142,7 @@ public interface IMatchApiAsync : IApiAccessor
     /// <remarks>
     /// Returns up to 1000 matches at a time. Specify limit and offset to page through results.
     /// </remarks>
-    /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
     /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
     /// <param name="elim">Whether the match is an elimination match. (optional)</param>
     /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
@@ -346,19 +346,19 @@ public sealed partial class MatchApi : IMatchApi
     /// <summary>
     /// Query a single match Returns a single Match object. Requires a match key, e.g. &#x60;2019ncwak_f1m1&#x60;.
     /// </summary>
-    /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
     /// <param name="match"></param>
     /// <returns>Object</returns>
     public Match? ReadMatchV3MatchMatchGet(string match)
     {
-        Statbotics.Client.ApiResponse<Match?> localVarResponse = ReadMatchV3MatchMatchGetWithHttpInfo(match);
+        ApiResponse<Match?> localVarResponse = ReadMatchV3MatchMatchGetWithHttpInfo(match);
         return localVarResponse.Data;
     }
 
     /// <summary>
     /// Query a single match Returns a single Match object. Requires a match key, e.g. &#x60;2019ncwak_f1m1&#x60;.
     /// </summary>
-    /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
     /// <param name="match"></param>
     /// <returns>ApiResponse of Object</returns>
     public ApiResponse<Match?> ReadMatchV3MatchMatchGetWithHttpInfo(string match)
@@ -411,24 +411,24 @@ public sealed partial class MatchApi : IMatchApi
     /// <summary>
     /// Query a single match Returns a single Match object. Requires a match key, e.g. &#x60;2019ncwak_f1m1&#x60;.
     /// </summary>
-    /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
     /// <param name="match"></param>
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Object</returns>
     public async Task<Match?> ReadMatchV3MatchMatchGetAsync(string match, CancellationToken cancellationToken = default)
     {
-        Statbotics.Client.ApiResponse<Match?> localVarResponse = await ReadMatchV3MatchMatchGetWithHttpInfoAsync(match, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Match?> localVarResponse = await ReadMatchV3MatchMatchGetWithHttpInfoAsync(match, cancellationToken).ConfigureAwait(false);
         return localVarResponse.Data;
     }
 
     /// <summary>
     /// Query a single match Returns a single Match object. Requires a match key, e.g. &#x60;2019ncwak_f1m1&#x60;.
     /// </summary>
-    /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
     /// <param name="match"></param>
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Object)</returns>
-    public async Task<Statbotics.Client.ApiResponse<Match?>> ReadMatchV3MatchMatchGetWithHttpInfoAsync(string match, CancellationToken cancellationToken = default)
+    public async Task<ApiResponse<Match?>> ReadMatchV3MatchMatchGetWithHttpInfoAsync(string match, CancellationToken cancellationToken = default)
     {
         // verify the required parameter 'match' is set
         if (match is null)
@@ -475,7 +475,7 @@ public sealed partial class MatchApi : IMatchApi
     }          /// <summary>
                /// Query multiple matches Returns up to 1000 matches at a time. Specify limit and offset to page through results.
                /// </summary>
-               /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
                /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
                /// <param name="elim">Whether the match is an elimination match. (optional)</param>
                /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
@@ -489,14 +489,14 @@ public sealed partial class MatchApi : IMatchApi
                /// <returns>Collection&lt;Object&gt;</returns>
     public Collection<Object>? ReadMatchesV3MatchesGet(bool? ascending = default, bool? elim = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default)
     {
-        Statbotics.Client.ApiResponse<Collection<Object>?> localVarResponse = ReadMatchesV3MatchesGetWithHttpInfo(ascending, elim, limit, metric, offseason, offset, team, varEvent, week, year);
+        ApiResponse<Collection<object>?> localVarResponse = ReadMatchesV3MatchesGetWithHttpInfo(ascending, elim, limit, metric, offseason, offset, team, varEvent, week, year);
         return localVarResponse.Data;
     }
 
     /// <summary>
     /// Query multiple matches Returns up to 1000 matches at a time. Specify limit and offset to page through results.
     /// </summary>
-    /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
     /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
     /// <param name="elim">Whether the match is an elimination match. (optional)</param>
     /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
@@ -600,7 +600,7 @@ public sealed partial class MatchApi : IMatchApi
     /// <summary>
     /// Query multiple matches Returns up to 1000 matches at a time. Specify limit and offset to page through results.
     /// </summary>
-    /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
     /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
     /// <param name="elim">Whether the match is an elimination match. (optional)</param>
     /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
@@ -615,14 +615,14 @@ public sealed partial class MatchApi : IMatchApi
     /// <returns>Task of Collection&lt;Object&gt;</returns>
     public async Task<Collection<Object>?> ReadMatchesV3MatchesGetAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
     {
-        Statbotics.Client.ApiResponse<Collection<Object>?> localVarResponse = await ReadMatchesV3MatchesGetWithHttpInfoAsync(ascending, elim, limit, metric, offseason, offset, team, varEvent, week, year, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<object>?> localVarResponse = await ReadMatchesV3MatchesGetWithHttpInfoAsync(ascending, elim, limit, metric, offseason, offset, team, varEvent, week, year, cancellationToken).ConfigureAwait(false);
         return localVarResponse.Data;
     }
 
     /// <summary>
     /// Query multiple matches Returns up to 1000 matches at a time. Specify limit and offset to page through results.
     /// </summary>
-    /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
     /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
     /// <param name="elim">Whether the match is an elimination match. (optional)</param>
     /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
@@ -635,7 +635,7 @@ public sealed partial class MatchApi : IMatchApi
     /// <param name="year">Four-digit year (optional)</param>
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
-    public async Task<Statbotics.Client.ApiResponse<Collection<Object>?>> ReadMatchesV3MatchesGetWithHttpInfoAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
+    public async Task<ApiResponse<Collection<object>?>> ReadMatchesV3MatchesGetWithHttpInfoAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
     {
         RequestOptions localVarRequestOptions = new();
 

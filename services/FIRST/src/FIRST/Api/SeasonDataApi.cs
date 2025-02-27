@@ -36,21 +36,21 @@ using FIRST.Client;
       /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
       /// <returns>Object</returns>
       Object? SeasonAvatarsGet(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default);
-        
-        /// <summary>
-        /// Team Avatar Listings
-        /// </summary>
-        /// <remarks>
-        /// This endpoint applies only to the 2018 or later seasons. Requests for other seasons will result in a &#x60;Bad Season&#x60; error. The team avatar listings API returns all FRC official teams in a particular &#x60;season&#x60; with, if applicable, their Avatar. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; or you will receive an &#x60;HTTP 501&#x60;. If a team does not have an Avatar, the return value will be &#x60;null&#x60;. Please note that the returned Avatar is encoded in the reply, and would need to be properly handled in order to render a PNG image.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-        /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> SeasonAvatarsGetWithHttpInfo(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default);
+
+    /// <summary>
+    /// Team Avatar Listings
+    /// </summary>
+    /// <remarks>
+    /// This endpoint applies only to the 2018 or later seasons. Requests for other seasons will result in a &#x60;Bad Season&#x60; error. The team avatar listings API returns all FRC official teams in a particular &#x60;season&#x60; with, if applicable, their Avatar. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; or you will receive an &#x60;HTTP 501&#x60;. If a team does not have an Avatar, the return value will be &#x60;null&#x60;. Please note that the returned Avatar is encoded in the reply, and would need to be properly handled in order to render a PNG image.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> SeasonAvatarsGetWithHttpInfo(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default);
       /// <summary>
       /// District Listings
       /// </summary>
@@ -62,18 +62,18 @@ using FIRST.Client;
       /// <param name="ifModifiedSince"> (optional)</param>
       /// <returns>Object</returns>
       Object? SeasonDistrictsGet(string season, string? ifModifiedSince = default);
-        
-        /// <summary>
-        /// District Listings
-        /// </summary>
-        /// <remarks>
-        /// The district listings API returns all FRC official districts of a particular season.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> SeasonDistrictsGetWithHttpInfo(string season, string? ifModifiedSince = default);
+
+    /// <summary>
+    /// District Listings
+    /// </summary>
+    /// <remarks>
+    /// The district listings API returns all FRC official districts of a particular season.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> SeasonDistrictsGetWithHttpInfo(string season, string? ifModifiedSince = default);
       /// <summary>
       /// Event Listings
       /// </summary>
@@ -91,24 +91,24 @@ using FIRST.Client;
       /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
       /// <returns>Object</returns>
       Object? SeasonEventsGet(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default);
-        
-        /// <summary>
-        /// Event Listings
-        /// </summary>
-        /// <remarks>
-        /// The event listings API returns all FRC official district and regional events in a particular season. You can specify an &#x60;eventCode&#x60; if you would only like data about one specific event. If you specify an &#x60;eventCode&#x60; you cannot specify any other optional parameters. Alternately, you can specify a &#x60;teamNumber&#x60; to retrieve only the listings of events being attended by the particular team. If you specify a &#x60;teamNumber&#x60; you cannot specify an &#x60;eventCode&#x60;. The &#x60;districtCode&#x60; parameter can be added to filter the response to only thos events from a particular district. If you specify the &#x60;districtCode&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or the &#x60;excludeDistrict&#x60; parameters. The &#x60;excludeDistrict&#x60; parameter can be used to prevent the response from including district events. If you specify the &#x60;excludeDistrict&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or &#x60;districtCode&#x60;.  Values on this endpoint are \&quot;pass through\&quot; values from the MyEvents registration system. As such, if the event does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.  The response for event listings contains a special field called &#x60;divisionCode&#x60;. Starting with the 2015 season, some events are considered to be divisions of others. For example, the FIRST Championship contains four Divisions and each Division contains two Subdivisions. As an example of a reponse, the event listings for a subdivision will contain a &#x60;divisionCode&#x60; of the Division from which they belong. In turn, the Division will then have a &#x60;divisionCode&#x60; that matches the FIRST Championship event code (as they are divisions of that event). This allows you to see the full structure of events, and how they relate to each other.  **_Important Note:_** For events with the &#x60;type&#x60; ChampionshipDivision, you cannot request match results, rankings, schedules or alliances. These event types do not have those results, only Subdivisions. As such, you would receive an &#x60;HTTP 404 (not found)&#x60; if you request results that are not applicable to the event. However, they do have awards, and those can be requested.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="districtCode">**(string)** Case insensitive districtCode of the district from which event listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-        /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event about which details are requested. (optional)</param>
-        /// <param name="excludeDistrict">**(bool)**  Boolean to specify whether or not to exclude district events in the event listings. true means exclude, but if no value is specified, false will be used (include district events). Excluding district events also excludes district championships. (optional)</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <param name="teamNumber">**(int)** Numeric teamNumber of the team from which the attending event listings are requested. (optional)</param>
-        /// <param name="tournamentType">**(string)** Type of event to perform the calculation on.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Regional 3. DistrictEvent 4. DistrictChampionship 5. DistrictChampionshipWithLevels 6. DistrictChampionshipDivision 7. ChampionshipSubdivision 8. ChampionshipDivision 9. Championship 10. OffSeason 11. OffSeasonWithAzureSync &#x60;&#x60;&#x60; (optional)</param>
-        /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> SeasonEventsGetWithHttpInfo(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default);
+
+    /// <summary>
+    /// Event Listings
+    /// </summary>
+    /// <remarks>
+    /// The event listings API returns all FRC official district and regional events in a particular season. You can specify an &#x60;eventCode&#x60; if you would only like data about one specific event. If you specify an &#x60;eventCode&#x60; you cannot specify any other optional parameters. Alternately, you can specify a &#x60;teamNumber&#x60; to retrieve only the listings of events being attended by the particular team. If you specify a &#x60;teamNumber&#x60; you cannot specify an &#x60;eventCode&#x60;. The &#x60;districtCode&#x60; parameter can be added to filter the response to only thos events from a particular district. If you specify the &#x60;districtCode&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or the &#x60;excludeDistrict&#x60; parameters. The &#x60;excludeDistrict&#x60; parameter can be used to prevent the response from including district events. If you specify the &#x60;excludeDistrict&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or &#x60;districtCode&#x60;.  Values on this endpoint are \&quot;pass through\&quot; values from the MyEvents registration system. As such, if the event does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.  The response for event listings contains a special field called &#x60;divisionCode&#x60;. Starting with the 2015 season, some events are considered to be divisions of others. For example, the FIRST Championship contains four Divisions and each Division contains two Subdivisions. As an example of a reponse, the event listings for a subdivision will contain a &#x60;divisionCode&#x60; of the Division from which they belong. In turn, the Division will then have a &#x60;divisionCode&#x60; that matches the FIRST Championship event code (as they are divisions of that event). This allows you to see the full structure of events, and how they relate to each other.  **_Important Note:_** For events with the &#x60;type&#x60; ChampionshipDivision, you cannot request match results, rankings, schedules or alliances. These event types do not have those results, only Subdivisions. As such, you would receive an &#x60;HTTP 404 (not found)&#x60; if you request results that are not applicable to the event. However, they do have awards, and those can be requested.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive districtCode of the district from which event listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event about which details are requested. (optional)</param>
+    /// <param name="excludeDistrict">**(bool)**  Boolean to specify whether or not to exclude district events in the event listings. true means exclude, but if no value is specified, false will be used (include district events). Excluding district events also excludes district championships. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team from which the attending event listings are requested. (optional)</param>
+    /// <param name="tournamentType">**(string)** Type of event to perform the calculation on.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Regional 3. DistrictEvent 4. DistrictChampionship 5. DistrictChampionshipWithLevels 6. DistrictChampionshipDivision 7. ChampionshipSubdivision 8. ChampionshipDivision 9. Championship 10. OffSeason 11. OffSeasonWithAzureSync &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> SeasonEventsGetWithHttpInfo(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default);
       /// <summary>
       /// Season Summary
       /// </summary>
@@ -120,18 +120,18 @@ using FIRST.Client;
       /// <param name="ifModifiedSince">(Required)  (optional)</param>
       /// <returns>Object</returns>
       Object? SeasonGet(string season, string? ifModifiedSince = default);
-        
-        /// <summary>
-        /// Season Summary
-        /// </summary>
-        /// <remarks>
-        /// The season summary API returns a high level glance of a particular FRC season.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="ifModifiedSince">(Required)  (optional)</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> SeasonGetWithHttpInfo(string season, string? ifModifiedSince = default);
+
+    /// <summary>
+    /// Season Summary
+    /// </summary>
+    /// <remarks>
+    /// The season summary API returns a high level glance of a particular FRC season.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince">(Required)  (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> SeasonGetWithHttpInfo(string season, string? ifModifiedSince = default);
       /// <summary>
       /// Team Listings
       /// </summary>
@@ -148,23 +148,23 @@ using FIRST.Client;
       /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
       /// <returns>Object</returns>
       Object? SeasonTeamsGet(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default);
-        
-        /// <summary>
-        /// Team Listings
-        /// </summary>
-        /// <remarks>
-        /// The team listings API returns all FRC official teams in a particular &#x60;season&#x60;. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. Further, the district parameter allows results to be returned only when the team is a member of the requested district based on the district code. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; and/or &#x60;districtCode&#x60; and/or state in the same request, or you will receive an &#x60;HTTP 501&#x60;. You can however request a &#x60;districtCode&#x60; and an &#x60;eventCode&#x60; together. If you specify the &#x60;state&#x60; parameter, it should be the full legal name of the US state or international state/prov, such as &#x60;New Hampshire&#x60; or &#x60;Ontario&#x60;. Values on this endpoint are \&quot;pass through\&quot; values from the TIMS registration system. As such, if the team does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="districtCode">**(string)** Case insensitive districtCode code of the district from which team listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-        /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-        /// <param name="state">**(string)** Name of the state or province the desired teams are located. (optional)</param>
-        /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> SeasonTeamsGetWithHttpInfo(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default);
+
+    /// <summary>
+    /// Team Listings
+    /// </summary>
+    /// <remarks>
+    /// The team listings API returns all FRC official teams in a particular &#x60;season&#x60;. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. Further, the district parameter allows results to be returned only when the team is a member of the requested district based on the district code. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; and/or &#x60;districtCode&#x60; and/or state in the same request, or you will receive an &#x60;HTTP 501&#x60;. You can however request a &#x60;districtCode&#x60; and an &#x60;eventCode&#x60; together. If you specify the &#x60;state&#x60; parameter, it should be the full legal name of the US state or international state/prov, such as &#x60;New Hampshire&#x60; or &#x60;Ontario&#x60;. Values on this endpoint are \&quot;pass through\&quot; values from the TIMS registration system. As such, if the team does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive districtCode code of the district from which team listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="state">**(string)** Name of the state or province the desired teams are located. (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> SeasonTeamsGetWithHttpInfo(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default);
       #endregion Synchronous Operations
     }
     
@@ -173,160 +173,160 @@ using FIRST.Client;
       /// </summary>
       public interface ISeasonDataApiAsync : IApiAccessor
       {
-        #region Asynchronous Operations
-          /// <summary>
-          /// Team Avatar Listings
-          /// </summary>
-          /// <remarks>
-          /// This endpoint applies only to the 2018 or later seasons. Requests for other seasons will result in a &#x60;Bad Season&#x60; error. The team avatar listings API returns all FRC official teams in a particular &#x60;season&#x60; with, if applicable, their Avatar. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; or you will receive an &#x60;HTTP 501&#x60;. If a team does not have an Avatar, the return value will be &#x60;null&#x60;. Please note that the returned Avatar is encoded in the reply, and would need to be properly handled in order to render a PNG image.
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-            /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> SeasonAvatarsGetAsync(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Team Avatar Listings
-            /// </summary>
-            /// <remarks>
-            /// This endpoint applies only to the 2018 or later seasons. Requests for other seasons will result in a &#x60;Bad Season&#x60; error. The team avatar listings API returns all FRC official teams in a particular &#x60;season&#x60; with, if applicable, their Avatar. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; or you will receive an &#x60;HTTP 501&#x60;. If a team does not have an Avatar, the return value will be &#x60;null&#x60;. Please note that the returned Avatar is encoded in the reply, and would need to be properly handled in order to render a PNG image.
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-              /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> SeasonAvatarsGetWithHttpInfoAsync(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// District Listings
-          /// </summary>
-          /// <remarks>
-          /// The district listings API returns all FRC official districts of a particular season.
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> SeasonDistrictsGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// District Listings
-            /// </summary>
-            /// <remarks>
-            /// The district listings API returns all FRC official districts of a particular season.
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> SeasonDistrictsGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// Event Listings
-          /// </summary>
-          /// <remarks>
-          /// The event listings API returns all FRC official district and regional events in a particular season. You can specify an &#x60;eventCode&#x60; if you would only like data about one specific event. If you specify an &#x60;eventCode&#x60; you cannot specify any other optional parameters. Alternately, you can specify a &#x60;teamNumber&#x60; to retrieve only the listings of events being attended by the particular team. If you specify a &#x60;teamNumber&#x60; you cannot specify an &#x60;eventCode&#x60;. The &#x60;districtCode&#x60; parameter can be added to filter the response to only thos events from a particular district. If you specify the &#x60;districtCode&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or the &#x60;excludeDistrict&#x60; parameters. The &#x60;excludeDistrict&#x60; parameter can be used to prevent the response from including district events. If you specify the &#x60;excludeDistrict&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or &#x60;districtCode&#x60;.  Values on this endpoint are \&quot;pass through\&quot; values from the MyEvents registration system. As such, if the event does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.  The response for event listings contains a special field called &#x60;divisionCode&#x60;. Starting with the 2015 season, some events are considered to be divisions of others. For example, the FIRST Championship contains four Divisions and each Division contains two Subdivisions. As an example of a reponse, the event listings for a subdivision will contain a &#x60;divisionCode&#x60; of the Division from which they belong. In turn, the Division will then have a &#x60;divisionCode&#x60; that matches the FIRST Championship event code (as they are divisions of that event). This allows you to see the full structure of events, and how they relate to each other.  **_Important Note:_** For events with the &#x60;type&#x60; ChampionshipDivision, you cannot request match results, rankings, schedules or alliances. These event types do not have those results, only Subdivisions. As such, you would receive an &#x60;HTTP 404 (not found)&#x60; if you request results that are not applicable to the event. However, they do have awards, and those can be requested.
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="districtCode">**(string)** Case insensitive districtCode of the district from which event listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-            /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event about which details are requested. (optional)</param>
-            /// <param name="excludeDistrict">**(bool)**  Boolean to specify whether or not to exclude district events in the event listings. true means exclude, but if no value is specified, false will be used (include district events). Excluding district events also excludes district championships. (optional)</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="teamNumber">**(int)** Numeric teamNumber of the team from which the attending event listings are requested. (optional)</param>
-            /// <param name="tournamentType">**(string)** Type of event to perform the calculation on.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Regional 3. DistrictEvent 4. DistrictChampionship 5. DistrictChampionshipWithLevels 6. DistrictChampionshipDivision 7. ChampionshipSubdivision 8. ChampionshipDivision 9. Championship 10. OffSeason 11. OffSeasonWithAzureSync &#x60;&#x60;&#x60; (optional)</param>
-            /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> SeasonEventsGetAsync(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Event Listings
-            /// </summary>
-            /// <remarks>
-            /// The event listings API returns all FRC official district and regional events in a particular season. You can specify an &#x60;eventCode&#x60; if you would only like data about one specific event. If you specify an &#x60;eventCode&#x60; you cannot specify any other optional parameters. Alternately, you can specify a &#x60;teamNumber&#x60; to retrieve only the listings of events being attended by the particular team. If you specify a &#x60;teamNumber&#x60; you cannot specify an &#x60;eventCode&#x60;. The &#x60;districtCode&#x60; parameter can be added to filter the response to only thos events from a particular district. If you specify the &#x60;districtCode&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or the &#x60;excludeDistrict&#x60; parameters. The &#x60;excludeDistrict&#x60; parameter can be used to prevent the response from including district events. If you specify the &#x60;excludeDistrict&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or &#x60;districtCode&#x60;.  Values on this endpoint are \&quot;pass through\&quot; values from the MyEvents registration system. As such, if the event does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.  The response for event listings contains a special field called &#x60;divisionCode&#x60;. Starting with the 2015 season, some events are considered to be divisions of others. For example, the FIRST Championship contains four Divisions and each Division contains two Subdivisions. As an example of a reponse, the event listings for a subdivision will contain a &#x60;divisionCode&#x60; of the Division from which they belong. In turn, the Division will then have a &#x60;divisionCode&#x60; that matches the FIRST Championship event code (as they are divisions of that event). This allows you to see the full structure of events, and how they relate to each other.  **_Important Note:_** For events with the &#x60;type&#x60; ChampionshipDivision, you cannot request match results, rankings, schedules or alliances. These event types do not have those results, only Subdivisions. As such, you would receive an &#x60;HTTP 404 (not found)&#x60; if you request results that are not applicable to the event. However, they do have awards, and those can be requested.
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="districtCode">**(string)** Case insensitive districtCode of the district from which event listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-              /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event about which details are requested. (optional)</param>
-              /// <param name="excludeDistrict">**(bool)**  Boolean to specify whether or not to exclude district events in the event listings. true means exclude, but if no value is specified, false will be used (include district events). Excluding district events also excludes district championships. (optional)</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="teamNumber">**(int)** Numeric teamNumber of the team from which the attending event listings are requested. (optional)</param>
-              /// <param name="tournamentType">**(string)** Type of event to perform the calculation on.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Regional 3. DistrictEvent 4. DistrictChampionship 5. DistrictChampionshipWithLevels 6. DistrictChampionshipDivision 7. ChampionshipSubdivision 8. ChampionshipDivision 9. Championship 10. OffSeason 11. OffSeasonWithAzureSync &#x60;&#x60;&#x60; (optional)</param>
-              /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> SeasonEventsGetWithHttpInfoAsync(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// Season Summary
-          /// </summary>
-          /// <remarks>
-          /// The season summary API returns a high level glance of a particular FRC season.
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="ifModifiedSince">(Required)  (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> SeasonGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Season Summary
-            /// </summary>
-            /// <remarks>
-            /// The season summary API returns a high level glance of a particular FRC season.
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="ifModifiedSince">(Required)  (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> SeasonGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// Team Listings
-          /// </summary>
-          /// <remarks>
-          /// The team listings API returns all FRC official teams in a particular &#x60;season&#x60;. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. Further, the district parameter allows results to be returned only when the team is a member of the requested district based on the district code. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; and/or &#x60;districtCode&#x60; and/or state in the same request, or you will receive an &#x60;HTTP 501&#x60;. You can however request a &#x60;districtCode&#x60; and an &#x60;eventCode&#x60; together. If you specify the &#x60;state&#x60; parameter, it should be the full legal name of the US state or international state/prov, such as &#x60;New Hampshire&#x60; or &#x60;Ontario&#x60;. Values on this endpoint are \&quot;pass through\&quot; values from the TIMS registration system. As such, if the team does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="districtCode">**(string)** Case insensitive districtCode code of the district from which team listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-            /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-            /// <param name="state">**(string)** Name of the state or province the desired teams are located. (optional)</param>
-            /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> SeasonTeamsGetAsync(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Team Listings
-            /// </summary>
-            /// <remarks>
-            /// The team listings API returns all FRC official teams in a particular &#x60;season&#x60;. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. Further, the district parameter allows results to be returned only when the team is a member of the requested district based on the district code. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; and/or &#x60;districtCode&#x60; and/or state in the same request, or you will receive an &#x60;HTTP 501&#x60;. You can however request a &#x60;districtCode&#x60; and an &#x60;eventCode&#x60; together. If you specify the &#x60;state&#x60; parameter, it should be the full legal name of the US state or international state/prov, such as &#x60;New Hampshire&#x60; or &#x60;Ontario&#x60;. Values on this endpoint are \&quot;pass through\&quot; values from the TIMS registration system. As such, if the team does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="districtCode">**(string)** Case insensitive districtCode code of the district from which team listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-              /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-              /// <param name="state">**(string)** Name of the state or province the desired teams are located. (optional)</param>
-              /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> SeasonTeamsGetWithHttpInfoAsync(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default, CancellationToken cancellationToken = default);
+    #region Asynchronous Operations
+    /// <summary>
+    /// Team Avatar Listings
+    /// </summary>
+    /// <remarks>
+    /// This endpoint applies only to the 2018 or later seasons. Requests for other seasons will result in a &#x60;Bad Season&#x60; error. The team avatar listings API returns all FRC official teams in a particular &#x60;season&#x60; with, if applicable, their Avatar. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; or you will receive an &#x60;HTTP 501&#x60;. If a team does not have an Avatar, the return value will be &#x60;null&#x60;. Please note that the returned Avatar is encoded in the reply, and would need to be properly handled in order to render a PNG image.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> SeasonAvatarsGetAsync(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Team Avatar Listings
+    /// </summary>
+    /// <remarks>
+    /// This endpoint applies only to the 2018 or later seasons. Requests for other seasons will result in a &#x60;Bad Season&#x60; error. The team avatar listings API returns all FRC official teams in a particular &#x60;season&#x60; with, if applicable, their Avatar. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; or you will receive an &#x60;HTTP 501&#x60;. If a team does not have an Avatar, the return value will be &#x60;null&#x60;. Please note that the returned Avatar is encoded in the reply, and would need to be properly handled in order to render a PNG image.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> SeasonAvatarsGetWithHttpInfoAsync(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// District Listings
+    /// </summary>
+    /// <remarks>
+    /// The district listings API returns all FRC official districts of a particular season.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> SeasonDistrictsGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// District Listings
+    /// </summary>
+    /// <remarks>
+    /// The district listings API returns all FRC official districts of a particular season.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> SeasonDistrictsGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Event Listings
+    /// </summary>
+    /// <remarks>
+    /// The event listings API returns all FRC official district and regional events in a particular season. You can specify an &#x60;eventCode&#x60; if you would only like data about one specific event. If you specify an &#x60;eventCode&#x60; you cannot specify any other optional parameters. Alternately, you can specify a &#x60;teamNumber&#x60; to retrieve only the listings of events being attended by the particular team. If you specify a &#x60;teamNumber&#x60; you cannot specify an &#x60;eventCode&#x60;. The &#x60;districtCode&#x60; parameter can be added to filter the response to only thos events from a particular district. If you specify the &#x60;districtCode&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or the &#x60;excludeDistrict&#x60; parameters. The &#x60;excludeDistrict&#x60; parameter can be used to prevent the response from including district events. If you specify the &#x60;excludeDistrict&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or &#x60;districtCode&#x60;.  Values on this endpoint are \&quot;pass through\&quot; values from the MyEvents registration system. As such, if the event does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.  The response for event listings contains a special field called &#x60;divisionCode&#x60;. Starting with the 2015 season, some events are considered to be divisions of others. For example, the FIRST Championship contains four Divisions and each Division contains two Subdivisions. As an example of a reponse, the event listings for a subdivision will contain a &#x60;divisionCode&#x60; of the Division from which they belong. In turn, the Division will then have a &#x60;divisionCode&#x60; that matches the FIRST Championship event code (as they are divisions of that event). This allows you to see the full structure of events, and how they relate to each other.  **_Important Note:_** For events with the &#x60;type&#x60; ChampionshipDivision, you cannot request match results, rankings, schedules or alliances. These event types do not have those results, only Subdivisions. As such, you would receive an &#x60;HTTP 404 (not found)&#x60; if you request results that are not applicable to the event. However, they do have awards, and those can be requested.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive districtCode of the district from which event listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event about which details are requested. (optional)</param>
+    /// <param name="excludeDistrict">**(bool)**  Boolean to specify whether or not to exclude district events in the event listings. true means exclude, but if no value is specified, false will be used (include district events). Excluding district events also excludes district championships. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team from which the attending event listings are requested. (optional)</param>
+    /// <param name="tournamentType">**(string)** Type of event to perform the calculation on.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Regional 3. DistrictEvent 4. DistrictChampionship 5. DistrictChampionshipWithLevels 6. DistrictChampionshipDivision 7. ChampionshipSubdivision 8. ChampionshipDivision 9. Championship 10. OffSeason 11. OffSeasonWithAzureSync &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> SeasonEventsGetAsync(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Event Listings
+    /// </summary>
+    /// <remarks>
+    /// The event listings API returns all FRC official district and regional events in a particular season. You can specify an &#x60;eventCode&#x60; if you would only like data about one specific event. If you specify an &#x60;eventCode&#x60; you cannot specify any other optional parameters. Alternately, you can specify a &#x60;teamNumber&#x60; to retrieve only the listings of events being attended by the particular team. If you specify a &#x60;teamNumber&#x60; you cannot specify an &#x60;eventCode&#x60;. The &#x60;districtCode&#x60; parameter can be added to filter the response to only thos events from a particular district. If you specify the &#x60;districtCode&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or the &#x60;excludeDistrict&#x60; parameters. The &#x60;excludeDistrict&#x60; parameter can be used to prevent the response from including district events. If you specify the &#x60;excludeDistrict&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or &#x60;districtCode&#x60;.  Values on this endpoint are \&quot;pass through\&quot; values from the MyEvents registration system. As such, if the event does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.  The response for event listings contains a special field called &#x60;divisionCode&#x60;. Starting with the 2015 season, some events are considered to be divisions of others. For example, the FIRST Championship contains four Divisions and each Division contains two Subdivisions. As an example of a reponse, the event listings for a subdivision will contain a &#x60;divisionCode&#x60; of the Division from which they belong. In turn, the Division will then have a &#x60;divisionCode&#x60; that matches the FIRST Championship event code (as they are divisions of that event). This allows you to see the full structure of events, and how they relate to each other.  **_Important Note:_** For events with the &#x60;type&#x60; ChampionshipDivision, you cannot request match results, rankings, schedules or alliances. These event types do not have those results, only Subdivisions. As such, you would receive an &#x60;HTTP 404 (not found)&#x60; if you request results that are not applicable to the event. However, they do have awards, and those can be requested.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive districtCode of the district from which event listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event about which details are requested. (optional)</param>
+    /// <param name="excludeDistrict">**(bool)**  Boolean to specify whether or not to exclude district events in the event listings. true means exclude, but if no value is specified, false will be used (include district events). Excluding district events also excludes district championships. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team from which the attending event listings are requested. (optional)</param>
+    /// <param name="tournamentType">**(string)** Type of event to perform the calculation on.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Regional 3. DistrictEvent 4. DistrictChampionship 5. DistrictChampionshipWithLevels 6. DistrictChampionshipDivision 7. ChampionshipSubdivision 8. ChampionshipDivision 9. Championship 10. OffSeason 11. OffSeasonWithAzureSync &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> SeasonEventsGetWithHttpInfoAsync(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Season Summary
+    /// </summary>
+    /// <remarks>
+    /// The season summary API returns a high level glance of a particular FRC season.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince">(Required)  (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> SeasonGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Season Summary
+    /// </summary>
+    /// <remarks>
+    /// The season summary API returns a high level glance of a particular FRC season.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince">(Required)  (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> SeasonGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Team Listings
+    /// </summary>
+    /// <remarks>
+    /// The team listings API returns all FRC official teams in a particular &#x60;season&#x60;. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. Further, the district parameter allows results to be returned only when the team is a member of the requested district based on the district code. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; and/or &#x60;districtCode&#x60; and/or state in the same request, or you will receive an &#x60;HTTP 501&#x60;. You can however request a &#x60;districtCode&#x60; and an &#x60;eventCode&#x60; together. If you specify the &#x60;state&#x60; parameter, it should be the full legal name of the US state or international state/prov, such as &#x60;New Hampshire&#x60; or &#x60;Ontario&#x60;. Values on this endpoint are \&quot;pass through\&quot; values from the TIMS registration system. As such, if the team does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive districtCode code of the district from which team listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="state">**(string)** Name of the state or province the desired teams are located. (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> SeasonTeamsGetAsync(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Team Listings
+    /// </summary>
+    /// <remarks>
+    /// The team listings API returns all FRC official teams in a particular &#x60;season&#x60;. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. Further, the district parameter allows results to be returned only when the team is a member of the requested district based on the district code. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; and/or &#x60;districtCode&#x60; and/or state in the same request, or you will receive an &#x60;HTTP 501&#x60;. You can however request a &#x60;districtCode&#x60; and an &#x60;eventCode&#x60; together. If you specify the &#x60;state&#x60; parameter, it should be the full legal name of the US state or international state/prov, such as &#x60;New Hampshire&#x60; or &#x60;Ontario&#x60;. Values on this endpoint are \&quot;pass through\&quot; values from the TIMS registration system. As such, if the team does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive districtCode code of the district from which team listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="state">**(string)** Name of the state or province the desired teams are located. (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> SeasonTeamsGetWithHttpInfoAsync(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -513,34 +513,34 @@ using FIRST.Client;
           }
           set => _exceptionFactory = value;
         }
-        
-          /// <summary>
-          /// Team Avatar Listings This endpoint applies only to the 2018 or later seasons. Requests for other seasons will result in a &#x60;Bad Season&#x60; error. The team avatar listings API returns all FRC official teams in a particular &#x60;season&#x60; with, if applicable, their Avatar. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; or you will receive an &#x60;HTTP 501&#x60;. If a team does not have an Avatar, the return value will be &#x60;null&#x60;. Please note that the returned Avatar is encoded in the reply, and would need to be properly handled in order to render a PNG image.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-          /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
-          /// <returns>Object</returns>
-          public Object? SeasonAvatarsGet(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default)
+
+    /// <summary>
+    /// Team Avatar Listings This endpoint applies only to the 2018 or later seasons. Requests for other seasons will result in a &#x60;Bad Season&#x60; error. The team avatar listings API returns all FRC official teams in a particular &#x60;season&#x60; with, if applicable, their Avatar. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; or you will receive an &#x60;HTTP 501&#x60;. If a team does not have an Avatar, the return value will be &#x60;null&#x60;. Please note that the returned Avatar is encoded in the reply, and would need to be properly handled in order to render a PNG image.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
+    /// <returns>Object</returns>
+    public Object? SeasonAvatarsGet(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default)
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonAvatarsGetWithHttpInfo(season, eventCode, ifModifiedSince, page, teamNumber);
+        ApiResponse<object?> localVarResponse = SeasonAvatarsGetWithHttpInfo(season, eventCode, ifModifiedSince, page, teamNumber);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Team Avatar Listings This endpoint applies only to the 2018 or later seasons. Requests for other seasons will result in a &#x60;Bad Season&#x60; error. The team avatar listings API returns all FRC official teams in a particular &#x60;season&#x60; with, if applicable, their Avatar. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; or you will receive an &#x60;HTTP 501&#x60;. If a team does not have an Avatar, the return value will be &#x60;null&#x60;. Please note that the returned Avatar is encoded in the reply, and would need to be properly handled in order to render a PNG image.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-            /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> SeasonAvatarsGetWithHttpInfo(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default)
+
+    /// <summary>
+    /// Team Avatar Listings This endpoint applies only to the 2018 or later seasons. Requests for other seasons will result in a &#x60;Bad Season&#x60; error. The team avatar listings API returns all FRC official teams in a particular &#x60;season&#x60; with, if applicable, their Avatar. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; or you will receive an &#x60;HTTP 501&#x60;. If a team does not have an Avatar, the return value will be &#x60;null&#x60;. Please note that the returned Avatar is encoded in the reply, and would need to be properly handled in order to render a PNG image.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> SeasonAvatarsGetWithHttpInfo(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default)
             {
                     // verify the required parameter 'season' is set
                     if (season is null)
@@ -613,36 +613,36 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Team Avatar Listings This endpoint applies only to the 2018 or later seasons. Requests for other seasons will result in a &#x60;Bad Season&#x60; error. The team avatar listings API returns all FRC official teams in a particular &#x60;season&#x60; with, if applicable, their Avatar. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; or you will receive an &#x60;HTTP 501&#x60;. If a team does not have an Avatar, the return value will be &#x60;null&#x60;. Please note that the returned Avatar is encoded in the reply, and would need to be properly handled in order to render a PNG image.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-              /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> SeasonAvatarsGetAsync(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Team Avatar Listings This endpoint applies only to the 2018 or later seasons. Requests for other seasons will result in a &#x60;Bad Season&#x60; error. The team avatar listings API returns all FRC official teams in a particular &#x60;season&#x60; with, if applicable, their Avatar. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; or you will receive an &#x60;HTTP 501&#x60;. If a team does not have an Avatar, the return value will be &#x60;null&#x60;. Please note that the returned Avatar is encoded in the reply, and would need to be properly handled in order to render a PNG image.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> SeasonAvatarsGetAsync(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonAvatarsGetWithHttpInfoAsync(season, eventCode, ifModifiedSince, page, teamNumber, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await SeasonAvatarsGetWithHttpInfoAsync(season, eventCode, ifModifiedSince, page, teamNumber, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Team Avatar Listings This endpoint applies only to the 2018 or later seasons. Requests for other seasons will result in a &#x60;Bad Season&#x60; error. The team avatar listings API returns all FRC official teams in a particular &#x60;season&#x60; with, if applicable, their Avatar. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; or you will receive an &#x60;HTTP 501&#x60;. If a team does not have an Avatar, the return value will be &#x60;null&#x60;. Please note that the returned Avatar is encoded in the reply, and would need to be properly handled in order to render a PNG image.
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-                /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
-                /// <param name="ifModifiedSince"> (optional)</param>
-                /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-                /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonAvatarsGetWithHttpInfoAsync(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Team Avatar Listings This endpoint applies only to the 2018 or later seasons. Requests for other seasons will result in a &#x60;Bad Season&#x60; error. The team avatar listings API returns all FRC official teams in a particular &#x60;season&#x60; with, if applicable, their Avatar. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; or you will receive an &#x60;HTTP 501&#x60;. If a team does not have an Avatar, the return value will be &#x60;null&#x60;. Please note that the returned Avatar is encoded in the reply, and would need to be properly handled in order to render a PNG image.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> SeasonAvatarsGetWithHttpInfoAsync(string season, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? teamNumber = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -715,26 +715,26 @@ using FIRST.Client;
                 
                 return localVarResponse;
               }          /// <summary>
-          /// District Listings The district listings API returns all FRC official districts of a particular season.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-          /// <returns>Object</returns>
-          public Object? SeasonDistrictsGet(string season, string? ifModifiedSince = default)
+                         /// District Listings The district listings API returns all FRC official districts of a particular season.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+                         /// <param name="ifModifiedSince"> (optional)</param>
+                         /// <returns>Object</returns>
+    public Object? SeasonDistrictsGet(string season, string? ifModifiedSince = default)
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonDistrictsGetWithHttpInfo(season, ifModifiedSince);
+        ApiResponse<object?> localVarResponse = SeasonDistrictsGetWithHttpInfo(season, ifModifiedSince);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// District Listings The district listings API returns all FRC official districts of a particular season.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> SeasonDistrictsGetWithHttpInfo(string season, string? ifModifiedSince = default)
+
+    /// <summary>
+    /// District Listings The district listings API returns all FRC official districts of a particular season.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> SeasonDistrictsGetWithHttpInfo(string season, string? ifModifiedSince = default)
             {
                     // verify the required parameter 'season' is set
                     if (season is null)
@@ -792,30 +792,30 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// District Listings The district listings API returns all FRC official districts of a particular season.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> SeasonDistrictsGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// District Listings The district listings API returns all FRC official districts of a particular season.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> SeasonDistrictsGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonDistrictsGetWithHttpInfoAsync(season, ifModifiedSince, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await SeasonDistrictsGetWithHttpInfoAsync(season, ifModifiedSince, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// District Listings The district listings API returns all FRC official districts of a particular season.
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-                /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonDistrictsGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// District Listings The district listings API returns all FRC official districts of a particular season.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> SeasonDistrictsGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -873,38 +873,38 @@ using FIRST.Client;
                 
                 return localVarResponse;
               }          /// <summary>
-          /// Event Listings The event listings API returns all FRC official district and regional events in a particular season. You can specify an &#x60;eventCode&#x60; if you would only like data about one specific event. If you specify an &#x60;eventCode&#x60; you cannot specify any other optional parameters. Alternately, you can specify a &#x60;teamNumber&#x60; to retrieve only the listings of events being attended by the particular team. If you specify a &#x60;teamNumber&#x60; you cannot specify an &#x60;eventCode&#x60;. The &#x60;districtCode&#x60; parameter can be added to filter the response to only thos events from a particular district. If you specify the &#x60;districtCode&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or the &#x60;excludeDistrict&#x60; parameters. The &#x60;excludeDistrict&#x60; parameter can be used to prevent the response from including district events. If you specify the &#x60;excludeDistrict&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or &#x60;districtCode&#x60;.  Values on this endpoint are \&quot;pass through\&quot; values from the MyEvents registration system. As such, if the event does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.  The response for event listings contains a special field called &#x60;divisionCode&#x60;. Starting with the 2015 season, some events are considered to be divisions of others. For example, the FIRST Championship contains four Divisions and each Division contains two Subdivisions. As an example of a reponse, the event listings for a subdivision will contain a &#x60;divisionCode&#x60; of the Division from which they belong. In turn, the Division will then have a &#x60;divisionCode&#x60; that matches the FIRST Championship event code (as they are divisions of that event). This allows you to see the full structure of events, and how they relate to each other.  **_Important Note:_** For events with the &#x60;type&#x60; ChampionshipDivision, you cannot request match results, rankings, schedules or alliances. These event types do not have those results, only Subdivisions. As such, you would receive an &#x60;HTTP 404 (not found)&#x60; if you request results that are not applicable to the event. However, they do have awards, and those can be requested.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="districtCode">**(string)** Case insensitive districtCode of the district from which event listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-          /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event about which details are requested. (optional)</param>
-          /// <param name="excludeDistrict">**(bool)**  Boolean to specify whether or not to exclude district events in the event listings. true means exclude, but if no value is specified, false will be used (include district events). Excluding district events also excludes district championships. (optional)</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="teamNumber">**(int)** Numeric teamNumber of the team from which the attending event listings are requested. (optional)</param>
-          /// <param name="tournamentType">**(string)** Type of event to perform the calculation on.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Regional 3. DistrictEvent 4. DistrictChampionship 5. DistrictChampionshipWithLevels 6. DistrictChampionshipDivision 7. ChampionshipSubdivision 8. ChampionshipDivision 9. Championship 10. OffSeason 11. OffSeasonWithAzureSync &#x60;&#x60;&#x60; (optional)</param>
-          /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
-          /// <returns>Object</returns>
-          public Object? SeasonEventsGet(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default)
+                         /// Event Listings The event listings API returns all FRC official district and regional events in a particular season. You can specify an &#x60;eventCode&#x60; if you would only like data about one specific event. If you specify an &#x60;eventCode&#x60; you cannot specify any other optional parameters. Alternately, you can specify a &#x60;teamNumber&#x60; to retrieve only the listings of events being attended by the particular team. If you specify a &#x60;teamNumber&#x60; you cannot specify an &#x60;eventCode&#x60;. The &#x60;districtCode&#x60; parameter can be added to filter the response to only thos events from a particular district. If you specify the &#x60;districtCode&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or the &#x60;excludeDistrict&#x60; parameters. The &#x60;excludeDistrict&#x60; parameter can be used to prevent the response from including district events. If you specify the &#x60;excludeDistrict&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or &#x60;districtCode&#x60;.  Values on this endpoint are \&quot;pass through\&quot; values from the MyEvents registration system. As such, if the event does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.  The response for event listings contains a special field called &#x60;divisionCode&#x60;. Starting with the 2015 season, some events are considered to be divisions of others. For example, the FIRST Championship contains four Divisions and each Division contains two Subdivisions. As an example of a reponse, the event listings for a subdivision will contain a &#x60;divisionCode&#x60; of the Division from which they belong. In turn, the Division will then have a &#x60;divisionCode&#x60; that matches the FIRST Championship event code (as they are divisions of that event). This allows you to see the full structure of events, and how they relate to each other.  **_Important Note:_** For events with the &#x60;type&#x60; ChampionshipDivision, you cannot request match results, rankings, schedules or alliances. These event types do not have those results, only Subdivisions. As such, you would receive an &#x60;HTTP 404 (not found)&#x60; if you request results that are not applicable to the event. However, they do have awards, and those can be requested.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+                         /// <param name="districtCode">**(string)** Case insensitive districtCode of the district from which event listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+                         /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event about which details are requested. (optional)</param>
+                         /// <param name="excludeDistrict">**(bool)**  Boolean to specify whether or not to exclude district events in the event listings. true means exclude, but if no value is specified, false will be used (include district events). Excluding district events also excludes district championships. (optional)</param>
+                         /// <param name="ifModifiedSince"> (optional)</param>
+                         /// <param name="teamNumber">**(int)** Numeric teamNumber of the team from which the attending event listings are requested. (optional)</param>
+                         /// <param name="tournamentType">**(string)** Type of event to perform the calculation on.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Regional 3. DistrictEvent 4. DistrictChampionship 5. DistrictChampionshipWithLevels 6. DistrictChampionshipDivision 7. ChampionshipSubdivision 8. ChampionshipDivision 9. Championship 10. OffSeason 11. OffSeasonWithAzureSync &#x60;&#x60;&#x60; (optional)</param>
+                         /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
+                         /// <returns>Object</returns>
+    public Object? SeasonEventsGet(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default)
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonEventsGetWithHttpInfo(season, districtCode, eventCode, excludeDistrict, ifModifiedSince, teamNumber, tournamentType, weekNumber);
+        ApiResponse<object?> localVarResponse = SeasonEventsGetWithHttpInfo(season, districtCode, eventCode, excludeDistrict, ifModifiedSince, teamNumber, tournamentType, weekNumber);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Event Listings The event listings API returns all FRC official district and regional events in a particular season. You can specify an &#x60;eventCode&#x60; if you would only like data about one specific event. If you specify an &#x60;eventCode&#x60; you cannot specify any other optional parameters. Alternately, you can specify a &#x60;teamNumber&#x60; to retrieve only the listings of events being attended by the particular team. If you specify a &#x60;teamNumber&#x60; you cannot specify an &#x60;eventCode&#x60;. The &#x60;districtCode&#x60; parameter can be added to filter the response to only thos events from a particular district. If you specify the &#x60;districtCode&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or the &#x60;excludeDistrict&#x60; parameters. The &#x60;excludeDistrict&#x60; parameter can be used to prevent the response from including district events. If you specify the &#x60;excludeDistrict&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or &#x60;districtCode&#x60;.  Values on this endpoint are \&quot;pass through\&quot; values from the MyEvents registration system. As such, if the event does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.  The response for event listings contains a special field called &#x60;divisionCode&#x60;. Starting with the 2015 season, some events are considered to be divisions of others. For example, the FIRST Championship contains four Divisions and each Division contains two Subdivisions. As an example of a reponse, the event listings for a subdivision will contain a &#x60;divisionCode&#x60; of the Division from which they belong. In turn, the Division will then have a &#x60;divisionCode&#x60; that matches the FIRST Championship event code (as they are divisions of that event). This allows you to see the full structure of events, and how they relate to each other.  **_Important Note:_** For events with the &#x60;type&#x60; ChampionshipDivision, you cannot request match results, rankings, schedules or alliances. These event types do not have those results, only Subdivisions. As such, you would receive an &#x60;HTTP 404 (not found)&#x60; if you request results that are not applicable to the event. However, they do have awards, and those can be requested.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="districtCode">**(string)** Case insensitive districtCode of the district from which event listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-            /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event about which details are requested. (optional)</param>
-            /// <param name="excludeDistrict">**(bool)**  Boolean to specify whether or not to exclude district events in the event listings. true means exclude, but if no value is specified, false will be used (include district events). Excluding district events also excludes district championships. (optional)</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="teamNumber">**(int)** Numeric teamNumber of the team from which the attending event listings are requested. (optional)</param>
-            /// <param name="tournamentType">**(string)** Type of event to perform the calculation on.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Regional 3. DistrictEvent 4. DistrictChampionship 5. DistrictChampionshipWithLevels 6. DistrictChampionshipDivision 7. ChampionshipSubdivision 8. ChampionshipDivision 9. Championship 10. OffSeason 11. OffSeasonWithAzureSync &#x60;&#x60;&#x60; (optional)</param>
-            /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> SeasonEventsGetWithHttpInfo(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default)
+
+    /// <summary>
+    /// Event Listings The event listings API returns all FRC official district and regional events in a particular season. You can specify an &#x60;eventCode&#x60; if you would only like data about one specific event. If you specify an &#x60;eventCode&#x60; you cannot specify any other optional parameters. Alternately, you can specify a &#x60;teamNumber&#x60; to retrieve only the listings of events being attended by the particular team. If you specify a &#x60;teamNumber&#x60; you cannot specify an &#x60;eventCode&#x60;. The &#x60;districtCode&#x60; parameter can be added to filter the response to only thos events from a particular district. If you specify the &#x60;districtCode&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or the &#x60;excludeDistrict&#x60; parameters. The &#x60;excludeDistrict&#x60; parameter can be used to prevent the response from including district events. If you specify the &#x60;excludeDistrict&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or &#x60;districtCode&#x60;.  Values on this endpoint are \&quot;pass through\&quot; values from the MyEvents registration system. As such, if the event does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.  The response for event listings contains a special field called &#x60;divisionCode&#x60;. Starting with the 2015 season, some events are considered to be divisions of others. For example, the FIRST Championship contains four Divisions and each Division contains two Subdivisions. As an example of a reponse, the event listings for a subdivision will contain a &#x60;divisionCode&#x60; of the Division from which they belong. In turn, the Division will then have a &#x60;divisionCode&#x60; that matches the FIRST Championship event code (as they are divisions of that event). This allows you to see the full structure of events, and how they relate to each other.  **_Important Note:_** For events with the &#x60;type&#x60; ChampionshipDivision, you cannot request match results, rankings, schedules or alliances. These event types do not have those results, only Subdivisions. As such, you would receive an &#x60;HTTP 404 (not found)&#x60; if you request results that are not applicable to the event. However, they do have awards, and those can be requested.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive districtCode of the district from which event listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event about which details are requested. (optional)</param>
+    /// <param name="excludeDistrict">**(bool)**  Boolean to specify whether or not to exclude district events in the event listings. true means exclude, but if no value is specified, false will be used (include district events). Excluding district events also excludes district championships. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team from which the attending event listings are requested. (optional)</param>
+    /// <param name="tournamentType">**(string)** Type of event to perform the calculation on.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Regional 3. DistrictEvent 4. DistrictChampionship 5. DistrictChampionshipWithLevels 6. DistrictChampionshipDivision 7. ChampionshipSubdivision 8. ChampionshipDivision 9. Championship 10. OffSeason 11. OffSeasonWithAzureSync &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> SeasonEventsGetWithHttpInfo(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default)
             {
                     // verify the required parameter 'season' is set
                     if (season is null)
@@ -992,42 +992,42 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Event Listings The event listings API returns all FRC official district and regional events in a particular season. You can specify an &#x60;eventCode&#x60; if you would only like data about one specific event. If you specify an &#x60;eventCode&#x60; you cannot specify any other optional parameters. Alternately, you can specify a &#x60;teamNumber&#x60; to retrieve only the listings of events being attended by the particular team. If you specify a &#x60;teamNumber&#x60; you cannot specify an &#x60;eventCode&#x60;. The &#x60;districtCode&#x60; parameter can be added to filter the response to only thos events from a particular district. If you specify the &#x60;districtCode&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or the &#x60;excludeDistrict&#x60; parameters. The &#x60;excludeDistrict&#x60; parameter can be used to prevent the response from including district events. If you specify the &#x60;excludeDistrict&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or &#x60;districtCode&#x60;.  Values on this endpoint are \&quot;pass through\&quot; values from the MyEvents registration system. As such, if the event does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.  The response for event listings contains a special field called &#x60;divisionCode&#x60;. Starting with the 2015 season, some events are considered to be divisions of others. For example, the FIRST Championship contains four Divisions and each Division contains two Subdivisions. As an example of a reponse, the event listings for a subdivision will contain a &#x60;divisionCode&#x60; of the Division from which they belong. In turn, the Division will then have a &#x60;divisionCode&#x60; that matches the FIRST Championship event code (as they are divisions of that event). This allows you to see the full structure of events, and how they relate to each other.  **_Important Note:_** For events with the &#x60;type&#x60; ChampionshipDivision, you cannot request match results, rankings, schedules or alliances. These event types do not have those results, only Subdivisions. As such, you would receive an &#x60;HTTP 404 (not found)&#x60; if you request results that are not applicable to the event. However, they do have awards, and those can be requested.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="districtCode">**(string)** Case insensitive districtCode of the district from which event listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-              /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event about which details are requested. (optional)</param>
-              /// <param name="excludeDistrict">**(bool)**  Boolean to specify whether or not to exclude district events in the event listings. true means exclude, but if no value is specified, false will be used (include district events). Excluding district events also excludes district championships. (optional)</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="teamNumber">**(int)** Numeric teamNumber of the team from which the attending event listings are requested. (optional)</param>
-              /// <param name="tournamentType">**(string)** Type of event to perform the calculation on.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Regional 3. DistrictEvent 4. DistrictChampionship 5. DistrictChampionshipWithLevels 6. DistrictChampionshipDivision 7. ChampionshipSubdivision 8. ChampionshipDivision 9. Championship 10. OffSeason 11. OffSeasonWithAzureSync &#x60;&#x60;&#x60; (optional)</param>
-              /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> SeasonEventsGetAsync(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Event Listings The event listings API returns all FRC official district and regional events in a particular season. You can specify an &#x60;eventCode&#x60; if you would only like data about one specific event. If you specify an &#x60;eventCode&#x60; you cannot specify any other optional parameters. Alternately, you can specify a &#x60;teamNumber&#x60; to retrieve only the listings of events being attended by the particular team. If you specify a &#x60;teamNumber&#x60; you cannot specify an &#x60;eventCode&#x60;. The &#x60;districtCode&#x60; parameter can be added to filter the response to only thos events from a particular district. If you specify the &#x60;districtCode&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or the &#x60;excludeDistrict&#x60; parameters. The &#x60;excludeDistrict&#x60; parameter can be used to prevent the response from including district events. If you specify the &#x60;excludeDistrict&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or &#x60;districtCode&#x60;.  Values on this endpoint are \&quot;pass through\&quot; values from the MyEvents registration system. As such, if the event does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.  The response for event listings contains a special field called &#x60;divisionCode&#x60;. Starting with the 2015 season, some events are considered to be divisions of others. For example, the FIRST Championship contains four Divisions and each Division contains two Subdivisions. As an example of a reponse, the event listings for a subdivision will contain a &#x60;divisionCode&#x60; of the Division from which they belong. In turn, the Division will then have a &#x60;divisionCode&#x60; that matches the FIRST Championship event code (as they are divisions of that event). This allows you to see the full structure of events, and how they relate to each other.  **_Important Note:_** For events with the &#x60;type&#x60; ChampionshipDivision, you cannot request match results, rankings, schedules or alliances. These event types do not have those results, only Subdivisions. As such, you would receive an &#x60;HTTP 404 (not found)&#x60; if you request results that are not applicable to the event. However, they do have awards, and those can be requested.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive districtCode of the district from which event listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event about which details are requested. (optional)</param>
+    /// <param name="excludeDistrict">**(bool)**  Boolean to specify whether or not to exclude district events in the event listings. true means exclude, but if no value is specified, false will be used (include district events). Excluding district events also excludes district championships. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team from which the attending event listings are requested. (optional)</param>
+    /// <param name="tournamentType">**(string)** Type of event to perform the calculation on.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Regional 3. DistrictEvent 4. DistrictChampionship 5. DistrictChampionshipWithLevels 6. DistrictChampionshipDivision 7. ChampionshipSubdivision 8. ChampionshipDivision 9. Championship 10. OffSeason 11. OffSeasonWithAzureSync &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> SeasonEventsGetAsync(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default, CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonEventsGetWithHttpInfoAsync(season, districtCode, eventCode, excludeDistrict, ifModifiedSince, teamNumber, tournamentType, weekNumber, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await SeasonEventsGetWithHttpInfoAsync(season, districtCode, eventCode, excludeDistrict, ifModifiedSince, teamNumber, tournamentType, weekNumber, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Event Listings The event listings API returns all FRC official district and regional events in a particular season. You can specify an &#x60;eventCode&#x60; if you would only like data about one specific event. If you specify an &#x60;eventCode&#x60; you cannot specify any other optional parameters. Alternately, you can specify a &#x60;teamNumber&#x60; to retrieve only the listings of events being attended by the particular team. If you specify a &#x60;teamNumber&#x60; you cannot specify an &#x60;eventCode&#x60;. The &#x60;districtCode&#x60; parameter can be added to filter the response to only thos events from a particular district. If you specify the &#x60;districtCode&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or the &#x60;excludeDistrict&#x60; parameters. The &#x60;excludeDistrict&#x60; parameter can be used to prevent the response from including district events. If you specify the &#x60;excludeDistrict&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or &#x60;districtCode&#x60;.  Values on this endpoint are \&quot;pass through\&quot; values from the MyEvents registration system. As such, if the event does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.  The response for event listings contains a special field called &#x60;divisionCode&#x60;. Starting with the 2015 season, some events are considered to be divisions of others. For example, the FIRST Championship contains four Divisions and each Division contains two Subdivisions. As an example of a reponse, the event listings for a subdivision will contain a &#x60;divisionCode&#x60; of the Division from which they belong. In turn, the Division will then have a &#x60;divisionCode&#x60; that matches the FIRST Championship event code (as they are divisions of that event). This allows you to see the full structure of events, and how they relate to each other.  **_Important Note:_** For events with the &#x60;type&#x60; ChampionshipDivision, you cannot request match results, rankings, schedules or alliances. These event types do not have those results, only Subdivisions. As such, you would receive an &#x60;HTTP 404 (not found)&#x60; if you request results that are not applicable to the event. However, they do have awards, and those can be requested.
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-                /// <param name="districtCode">**(string)** Case insensitive districtCode of the district from which event listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-                /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event about which details are requested. (optional)</param>
-                /// <param name="excludeDistrict">**(bool)**  Boolean to specify whether or not to exclude district events in the event listings. true means exclude, but if no value is specified, false will be used (include district events). Excluding district events also excludes district championships. (optional)</param>
-                /// <param name="ifModifiedSince"> (optional)</param>
-                /// <param name="teamNumber">**(int)** Numeric teamNumber of the team from which the attending event listings are requested. (optional)</param>
-                /// <param name="tournamentType">**(string)** Type of event to perform the calculation on.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Regional 3. DistrictEvent 4. DistrictChampionship 5. DistrictChampionshipWithLevels 6. DistrictChampionshipDivision 7. ChampionshipSubdivision 8. ChampionshipDivision 9. Championship 10. OffSeason 11. OffSeasonWithAzureSync &#x60;&#x60;&#x60; (optional)</param>
-                /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonEventsGetWithHttpInfoAsync(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Event Listings The event listings API returns all FRC official district and regional events in a particular season. You can specify an &#x60;eventCode&#x60; if you would only like data about one specific event. If you specify an &#x60;eventCode&#x60; you cannot specify any other optional parameters. Alternately, you can specify a &#x60;teamNumber&#x60; to retrieve only the listings of events being attended by the particular team. If you specify a &#x60;teamNumber&#x60; you cannot specify an &#x60;eventCode&#x60;. The &#x60;districtCode&#x60; parameter can be added to filter the response to only thos events from a particular district. If you specify the &#x60;districtCode&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or the &#x60;excludeDistrict&#x60; parameters. The &#x60;excludeDistrict&#x60; parameter can be used to prevent the response from including district events. If you specify the &#x60;excludeDistrict&#x60; parameter, you cannot specify an &#x60;eventCode&#x60; or &#x60;districtCode&#x60;.  Values on this endpoint are \&quot;pass through\&quot; values from the MyEvents registration system. As such, if the event does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.  The response for event listings contains a special field called &#x60;divisionCode&#x60;. Starting with the 2015 season, some events are considered to be divisions of others. For example, the FIRST Championship contains four Divisions and each Division contains two Subdivisions. As an example of a reponse, the event listings for a subdivision will contain a &#x60;divisionCode&#x60; of the Division from which they belong. In turn, the Division will then have a &#x60;divisionCode&#x60; that matches the FIRST Championship event code (as they are divisions of that event). This allows you to see the full structure of events, and how they relate to each other.  **_Important Note:_** For events with the &#x60;type&#x60; ChampionshipDivision, you cannot request match results, rankings, schedules or alliances. These event types do not have those results, only Subdivisions. As such, you would receive an &#x60;HTTP 404 (not found)&#x60; if you request results that are not applicable to the event. However, they do have awards, and those can be requested.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive districtCode of the district from which event listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event about which details are requested. (optional)</param>
+    /// <param name="excludeDistrict">**(bool)**  Boolean to specify whether or not to exclude district events in the event listings. true means exclude, but if no value is specified, false will be used (include district events). Excluding district events also excludes district championships. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team from which the attending event listings are requested. (optional)</param>
+    /// <param name="tournamentType">**(string)** Type of event to perform the calculation on.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Regional 3. DistrictEvent 4. DistrictChampionship 5. DistrictChampionshipWithLevels 6. DistrictChampionshipDivision 7. ChampionshipSubdivision 8. ChampionshipDivision 9. Championship 10. OffSeason 11. OffSeasonWithAzureSync &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="weekNumber">**(int)** Week during the FRC season that the event takes place. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> SeasonEventsGetWithHttpInfoAsync(string season, string? districtCode = default, string? eventCode = default, string? excludeDistrict = default, string? ifModifiedSince = default, string? teamNumber = default, string? tournamentType = default, string? weekNumber = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -1115,26 +1115,26 @@ using FIRST.Client;
                 
                 return localVarResponse;
               }          /// <summary>
-          /// Season Summary The season summary API returns a high level glance of a particular FRC season.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="ifModifiedSince">(Required)  (optional)</param>
-          /// <returns>Object</returns>
-          public Object? SeasonGet(string season, string? ifModifiedSince = default)
+                         /// Season Summary The season summary API returns a high level glance of a particular FRC season.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+                         /// <param name="ifModifiedSince">(Required)  (optional)</param>
+                         /// <returns>Object</returns>
+    public Object? SeasonGet(string season, string? ifModifiedSince = default)
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonGetWithHttpInfo(season, ifModifiedSince);
+        ApiResponse<object?> localVarResponse = SeasonGetWithHttpInfo(season, ifModifiedSince);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Season Summary The season summary API returns a high level glance of a particular FRC season.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="ifModifiedSince">(Required)  (optional)</param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> SeasonGetWithHttpInfo(string season, string? ifModifiedSince = default)
+
+    /// <summary>
+    /// Season Summary The season summary API returns a high level glance of a particular FRC season.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince">(Required)  (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> SeasonGetWithHttpInfo(string season, string? ifModifiedSince = default)
             {
                     // verify the required parameter 'season' is set
                     if (season is null)
@@ -1192,30 +1192,30 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Season Summary The season summary API returns a high level glance of a particular FRC season.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="ifModifiedSince">(Required)  (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> SeasonGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Season Summary The season summary API returns a high level glance of a particular FRC season.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince">(Required)  (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> SeasonGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonGetWithHttpInfoAsync(season, ifModifiedSince, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await SeasonGetWithHttpInfoAsync(season, ifModifiedSince, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Season Summary The season summary API returns a high level glance of a particular FRC season.
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-                /// <param name="ifModifiedSince">(Required)  (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Season Summary The season summary API returns a high level glance of a particular FRC season.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince">(Required)  (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> SeasonGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -1273,36 +1273,36 @@ using FIRST.Client;
                 
                 return localVarResponse;
               }          /// <summary>
-          /// Team Listings The team listings API returns all FRC official teams in a particular &#x60;season&#x60;. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. Further, the district parameter allows results to be returned only when the team is a member of the requested district based on the district code. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; and/or &#x60;districtCode&#x60; and/or state in the same request, or you will receive an &#x60;HTTP 501&#x60;. You can however request a &#x60;districtCode&#x60; and an &#x60;eventCode&#x60; together. If you specify the &#x60;state&#x60; parameter, it should be the full legal name of the US state or international state/prov, such as &#x60;New Hampshire&#x60; or &#x60;Ontario&#x60;. Values on this endpoint are \&quot;pass through\&quot; values from the TIMS registration system. As such, if the team does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="districtCode">**(string)** Case insensitive districtCode code of the district from which team listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-          /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-          /// <param name="state">**(string)** Name of the state or province the desired teams are located. (optional)</param>
-          /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
-          /// <returns>Object</returns>
-          public Object? SeasonTeamsGet(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default)
+                         /// Team Listings The team listings API returns all FRC official teams in a particular &#x60;season&#x60;. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. Further, the district parameter allows results to be returned only when the team is a member of the requested district based on the district code. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; and/or &#x60;districtCode&#x60; and/or state in the same request, or you will receive an &#x60;HTTP 501&#x60;. You can however request a &#x60;districtCode&#x60; and an &#x60;eventCode&#x60; together. If you specify the &#x60;state&#x60; parameter, it should be the full legal name of the US state or international state/prov, such as &#x60;New Hampshire&#x60; or &#x60;Ontario&#x60;. Values on this endpoint are \&quot;pass through\&quot; values from the TIMS registration system. As such, if the team does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+                         /// <param name="districtCode">**(string)** Case insensitive districtCode code of the district from which team listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+                         /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
+                         /// <param name="ifModifiedSince"> (optional)</param>
+                         /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+                         /// <param name="state">**(string)** Name of the state or province the desired teams are located. (optional)</param>
+                         /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
+                         /// <returns>Object</returns>
+    public Object? SeasonTeamsGet(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default)
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonTeamsGetWithHttpInfo(season, districtCode, eventCode, ifModifiedSince, page, state, teamNumber);
+        ApiResponse<object?> localVarResponse = SeasonTeamsGetWithHttpInfo(season, districtCode, eventCode, ifModifiedSince, page, state, teamNumber);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Team Listings The team listings API returns all FRC official teams in a particular &#x60;season&#x60;. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. Further, the district parameter allows results to be returned only when the team is a member of the requested district based on the district code. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; and/or &#x60;districtCode&#x60; and/or state in the same request, or you will receive an &#x60;HTTP 501&#x60;. You can however request a &#x60;districtCode&#x60; and an &#x60;eventCode&#x60; together. If you specify the &#x60;state&#x60; parameter, it should be the full legal name of the US state or international state/prov, such as &#x60;New Hampshire&#x60; or &#x60;Ontario&#x60;. Values on this endpoint are \&quot;pass through\&quot; values from the TIMS registration system. As such, if the team does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="districtCode">**(string)** Case insensitive districtCode code of the district from which team listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-            /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-            /// <param name="state">**(string)** Name of the state or province the desired teams are located. (optional)</param>
-            /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> SeasonTeamsGetWithHttpInfo(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default)
+
+    /// <summary>
+    /// Team Listings The team listings API returns all FRC official teams in a particular &#x60;season&#x60;. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. Further, the district parameter allows results to be returned only when the team is a member of the requested district based on the district code. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; and/or &#x60;districtCode&#x60; and/or state in the same request, or you will receive an &#x60;HTTP 501&#x60;. You can however request a &#x60;districtCode&#x60; and an &#x60;eventCode&#x60; together. If you specify the &#x60;state&#x60; parameter, it should be the full legal name of the US state or international state/prov, such as &#x60;New Hampshire&#x60; or &#x60;Ontario&#x60;. Values on this endpoint are \&quot;pass through\&quot; values from the TIMS registration system. As such, if the team does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive districtCode code of the district from which team listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="state">**(string)** Name of the state or province the desired teams are located. (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> SeasonTeamsGetWithHttpInfo(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default)
             {
                     // verify the required parameter 'season' is set
                     if (season is null)
@@ -1385,40 +1385,40 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Team Listings The team listings API returns all FRC official teams in a particular &#x60;season&#x60;. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. Further, the district parameter allows results to be returned only when the team is a member of the requested district based on the district code. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; and/or &#x60;districtCode&#x60; and/or state in the same request, or you will receive an &#x60;HTTP 501&#x60;. You can however request a &#x60;districtCode&#x60; and an &#x60;eventCode&#x60; together. If you specify the &#x60;state&#x60; parameter, it should be the full legal name of the US state or international state/prov, such as &#x60;New Hampshire&#x60; or &#x60;Ontario&#x60;. Values on this endpoint are \&quot;pass through\&quot; values from the TIMS registration system. As such, if the team does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="districtCode">**(string)** Case insensitive districtCode code of the district from which team listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-              /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-              /// <param name="state">**(string)** Name of the state or province the desired teams are located. (optional)</param>
-              /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> SeasonTeamsGetAsync(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Team Listings The team listings API returns all FRC official teams in a particular &#x60;season&#x60;. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. Further, the district parameter allows results to be returned only when the team is a member of the requested district based on the district code. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; and/or &#x60;districtCode&#x60; and/or state in the same request, or you will receive an &#x60;HTTP 501&#x60;. You can however request a &#x60;districtCode&#x60; and an &#x60;eventCode&#x60; together. If you specify the &#x60;state&#x60; parameter, it should be the full legal name of the US state or international state/prov, such as &#x60;New Hampshire&#x60; or &#x60;Ontario&#x60;. Values on this endpoint are \&quot;pass through\&quot; values from the TIMS registration system. As such, if the team does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive districtCode code of the district from which team listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="state">**(string)** Name of the state or province the desired teams are located. (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> SeasonTeamsGetAsync(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default, CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonTeamsGetWithHttpInfoAsync(season, districtCode, eventCode, ifModifiedSince, page, state, teamNumber, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await SeasonTeamsGetWithHttpInfoAsync(season, districtCode, eventCode, ifModifiedSince, page, state, teamNumber, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Team Listings The team listings API returns all FRC official teams in a particular &#x60;season&#x60;. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. Further, the district parameter allows results to be returned only when the team is a member of the requested district based on the district code. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; and/or &#x60;districtCode&#x60; and/or state in the same request, or you will receive an &#x60;HTTP 501&#x60;. You can however request a &#x60;districtCode&#x60; and an &#x60;eventCode&#x60; together. If you specify the &#x60;state&#x60; parameter, it should be the full legal name of the US state or international state/prov, such as &#x60;New Hampshire&#x60; or &#x60;Ontario&#x60;. Values on this endpoint are \&quot;pass through\&quot; values from the TIMS registration system. As such, if the team does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-                /// <param name="districtCode">**(string)** Case insensitive districtCode code of the district from which team listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
-                /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
-                /// <param name="ifModifiedSince"> (optional)</param>
-                /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
-                /// <param name="state">**(string)** Name of the state or province the desired teams are located. (optional)</param>
-                /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonTeamsGetWithHttpInfoAsync(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Team Listings The team listings API returns all FRC official teams in a particular &#x60;season&#x60;. If specified, the &#x60;teamNumber&#x60; parameter will return only one result with the details of the requested &#x60;teamNumber&#x60;. Alternately, the &#x60;eventCode&#x60; parameter allows sorting of the team list to only those teams attending a particular event in the particular &#x60;season&#x60;. Further, the district parameter allows results to be returned only when the team is a member of the requested district based on the district code. If you specify a &#x60;teamNumber&#x60; parameter, you cannot additionally specify an &#x60;eventCode&#x60; and/or &#x60;districtCode&#x60; and/or state in the same request, or you will receive an &#x60;HTTP 501&#x60;. You can however request a &#x60;districtCode&#x60; and an &#x60;eventCode&#x60; together. If you specify the &#x60;state&#x60; parameter, it should be the full legal name of the US state or international state/prov, such as &#x60;New Hampshire&#x60; or &#x60;Ontario&#x60;. Values on this endpoint are \&quot;pass through\&quot; values from the TIMS registration system. As such, if the team does not specify a value for a field, it may be presented in the API as &#x60;null&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="districtCode">**(string)** Case insensitive districtCode code of the district from which team listings are requested.  District Codes: &#x60;&#x60;&#x60; FMA PNW NE FIN FNC ONT ISR CHS FIT PCH FIM &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="eventCode">**(string)** Case insensitive alphanumeric eventCode of the event from which details are requested. (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="page">**(int)** Numeric page of results to return. If not included, page 1 will be returned. (optional)</param>
+    /// <param name="state">**(string)** Name of the state or province the desired teams are located. (optional)</param>
+    /// <param name="teamNumber">**(int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> SeasonTeamsGetWithHttpInfoAsync(string season, string? districtCode = default, string? eventCode = default, string? ifModifiedSince = default, string? page = default, string? state = default, string? teamNumber = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)

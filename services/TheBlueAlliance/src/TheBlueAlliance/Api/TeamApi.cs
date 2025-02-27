@@ -23,989 +23,989 @@ using TheBlueAlliance.Model;
   public interface ITeamApiSync : IApiAccessor
   {
     #region Synchronous Operations
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of team district rankings for the given district.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;DistrictRanking&gt;</returns>
-      Collection<DistrictRanking>? GetDistrictRankings(string districtKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of team district rankings for the given district.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;DistrictRanking&gt;</returns>
-        ApiResponse<Collection<DistrictRanking>?> GetDistrictRankingsWithHttpInfo(string districtKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Team&gt;</returns>
-      Collection<Team>? GetDistrictTeams(string districtKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
-        ApiResponse<Collection<Team>?> GetDistrictTeamsWithHttpInfo(string districtKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;string&gt;</returns>
-      Collection<string>? GetDistrictTeamsKeys(string districtKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-        ApiResponse<Collection<string>?> GetDistrictTeamsKeysWithHttpInfo(string districtKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;TeamSimple&gt;</returns>
-      Collection<TeamSimple>? GetDistrictTeamsSimple(string districtKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
-        ApiResponse<Collection<TeamSimple>?> GetDistrictTeamsSimpleWithHttpInfo(string districtKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;Team&#x60; objects that competed in the given event.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Team&gt;</returns>
-      Collection<Team>? GetEventTeams(string eventKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;Team&#x60; objects that competed in the given event.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
-        ApiResponse<Collection<Team>?> GetEventTeamsWithHttpInfo(string eventKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;Team&#x60; keys that competed in the given event.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;string&gt;</returns>
-      Collection<string>? GetEventTeamsKeys(string eventKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;Team&#x60; keys that competed in the given event.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-        ApiResponse<Collection<string>?> GetEventTeamsKeysWithHttpInfo(string eventKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;TeamSimple&gt;</returns>
-      Collection<TeamSimple>? GetEventTeamsSimple(string eventKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
-        ApiResponse<Collection<TeamSimple>?> GetEventTeamsSimpleWithHttpInfo(string eventKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a key-value list of the event statuses for teams competing at the given event.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-      Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>? GetEventTeamsStatuses(string eventKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a key-value list of the event statuses for teams competing at the given event.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-        ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetEventTeamsStatusesWithHttpInfo(string eventKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a &#x60;Team&#x60; object for the team referenced by the given key.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Team</returns>
-      Team? GetTeam(string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a &#x60;Team&#x60; object for the team referenced by the given key.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Team</returns>
-        ApiResponse<Team?> GetTeamWithHttpInfo(string teamKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of awards the given team has won.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Award&gt;</returns>
-      Collection<Award>? GetTeamAwards(string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of awards the given team has won.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
-        ApiResponse<Collection<Award>?> GetTeamAwardsWithHttpInfo(string teamKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of awards the given team has won in a given year.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Award&gt;</returns>
-      Collection<Award>? GetTeamAwardsByYear(string teamKey, int year, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of awards the given team has won in a given year.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
-        ApiResponse<Collection<Award>?> GetTeamAwardsByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;DistrictList&gt;</returns>
-      Collection<DistrictList>? GetTeamDistricts(string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
-        ApiResponse<Collection<DistrictList>?> GetTeamDistrictsWithHttpInfo(string teamKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of awards the given team won at the given event.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Award&gt;</returns>
-      Collection<Award>? GetTeamEventAwards(string eventKey, string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of awards the given team won at the given event.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
-        ApiResponse<Collection<Award>?> GetTeamEventAwardsWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of matches for the given team and event.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Match&gt;</returns>
-      Collection<Match>? GetTeamEventMatches(string eventKey, string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of matches for the given team and event.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Match&gt;</returns>
-        ApiResponse<Collection<Match>?> GetTeamEventMatchesWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of match keys for matches for the given team and event.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;string&gt;</returns>
-      Collection<string>? GetTeamEventMatchesKeys(string eventKey, string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of match keys for matches for the given team and event.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-        ApiResponse<Collection<string>?> GetTeamEventMatchesKeysWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a short-form list of matches for the given team and event.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Match&gt;</returns>
-      Collection<Match>? GetTeamEventMatchesSimple(string eventKey, string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a short-form list of matches for the given team and event.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Match&gt;</returns>
-        ApiResponse<Collection<Match>?> GetTeamEventMatchesSimpleWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets the competition rank and status of the team at the given event.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>TeamEventStatus</returns>
-      TeamEventStatus? GetTeamEventStatus(string eventKey, string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets the competition rank and status of the team at the given event.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of TeamEventStatus</returns>
-        ApiResponse<TeamEventStatus?> GetTeamEventStatusWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of all events this team has competed at.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Event&gt;</returns>
-      Collection<Event>? GetTeamEvents(string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of all events this team has competed at.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
-        ApiResponse<Collection<Event>?> GetTeamEventsWithHttpInfo(string teamKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of events this team has competed at in the given year.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Event&gt;</returns>
-      Collection<Event>? GetTeamEventsByYear(string teamKey, int year, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of events this team has competed at in the given year.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
-        ApiResponse<Collection<Event>?> GetTeamEventsByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of the event keys for events this team has competed at in the given year.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;string&gt;</returns>
-      Collection<string>? GetTeamEventsByYearKeys(string teamKey, int year, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of the event keys for events this team has competed at in the given year.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-        ApiResponse<Collection<string>?> GetTeamEventsByYearKeysWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a short-form list of events this team has competed at in the given year.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;EventSimple&gt;</returns>
-      Collection<EventSimple>? GetTeamEventsByYearSimple(string teamKey, int year, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a short-form list of events this team has competed at in the given year.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;EventSimple&gt;</returns>
-        ApiResponse<Collection<EventSimple>?> GetTeamEventsByYearSimpleWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of the event keys for all events this team has competed at.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;string&gt;</returns>
-      Collection<string>? GetTeamEventsKeys(string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of the event keys for all events this team has competed at.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-        ApiResponse<Collection<string>?> GetTeamEventsKeysWithHttpInfo(string teamKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a short-form list of all events this team has competed at.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;EventSimple&gt;</returns>
-      Collection<EventSimple>? GetTeamEventsSimple(string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a short-form list of all events this team has competed at.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;EventSimple&gt;</returns>
-        ApiResponse<Collection<EventSimple>?> GetTeamEventsSimpleWithHttpInfo(string teamKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a key-value list of the event statuses for events this team has competed at in the given year.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-      Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>? GetTeamEventsStatusesByYear(string teamKey, int year, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a key-value list of the event statuses for events this team has competed at in the given year.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-        ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetTeamEventsStatusesByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets the history for the team referenced by the given key, including their events and awards.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>History</returns>
-      History? GetTeamHistory(string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets the history for the team referenced by the given key, including their events and awards.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of History</returns>
-        ApiResponse<History?> GetTeamHistoryWithHttpInfo(string teamKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of matches for the given team and year.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Match&gt;</returns>
-      Collection<Match>? GetTeamMatchesByYear(string teamKey, int year, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of matches for the given team and year.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Match&gt;</returns>
-        ApiResponse<Collection<Match>?> GetTeamMatchesByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of match keys for matches for the given team and year.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;string&gt;</returns>
-      Collection<string>? GetTeamMatchesByYearKeys(string teamKey, int year, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of match keys for matches for the given team and year.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-        ApiResponse<Collection<string>?> GetTeamMatchesByYearKeysWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a short-form list of matches for the given team and year.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;MatchSimple&gt;</returns>
-      Collection<MatchSimple>? GetTeamMatchesByYearSimple(string teamKey, int year, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a short-form list of matches for the given team and year.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;MatchSimple&gt;</returns>
-        ApiResponse<Collection<MatchSimple>?> GetTeamMatchesByYearSimpleWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of Media (videos / pictures) for the given team and tag.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="mediaTag">Media Tag which describes the Media.</param>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Media&gt;</returns>
-      Collection<Media>? GetTeamMediaByTag(string mediaTag, string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of Media (videos / pictures) for the given team and tag.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="mediaTag">Media Tag which describes the Media.</param>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
-        ApiResponse<Collection<Media>?> GetTeamMediaByTagWithHttpInfo(string mediaTag, string teamKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of Media (videos / pictures) for the given team, tag and year.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="mediaTag">Media Tag which describes the Media.</param>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Media&gt;</returns>
-      Collection<Media>? GetTeamMediaByTagYear(string mediaTag, string teamKey, int year, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of Media (videos / pictures) for the given team, tag and year.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="mediaTag">Media Tag which describes the Media.</param>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
-        ApiResponse<Collection<Media>?> GetTeamMediaByTagYearWithHttpInfo(string mediaTag, string teamKey, int year, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of Media (videos / pictures) for the given team and year.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Media&gt;</returns>
-      Collection<Media>? GetTeamMediaByYear(string teamKey, int year, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of Media (videos / pictures) for the given team and year.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
-        ApiResponse<Collection<Media>?> GetTeamMediaByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;TeamRobot&gt;</returns>
-      Collection<TeamRobot>? GetTeamRobots(string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;TeamRobot&gt;</returns>
-        ApiResponse<Collection<TeamRobot>?> GetTeamRobotsWithHttpInfo(string teamKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>TeamSimple</returns>
-      TeamSimple? GetTeamSimple(string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of TeamSimple</returns>
-        ApiResponse<TeamSimple?> GetTeamSimpleWithHttpInfo(string teamKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of Media (social media) for the given team.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Media&gt;</returns>
-      Collection<Media>? GetTeamSocialMedia(string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of Media (social media) for the given team.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
-        ApiResponse<Collection<Media>?> GetTeamSocialMediaWithHttpInfo(string teamKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of years in which the team participated in at least one competition.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;int&gt;</returns>
-      Collection<int>? GetTeamYearsParticipated(string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of years in which the team participated in at least one competition.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;int&gt;</returns>
-        ApiResponse<Collection<int>?> GetTeamYearsParticipatedWithHttpInfo(string teamKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Team&gt;</returns>
-      Collection<Team>? GetTeams(int pageNum, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
-        ApiResponse<Collection<Team>?> GetTeamsWithHttpInfo(int pageNum, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-      /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Team&gt;</returns>
-      Collection<Team>? GetTeamsByYear(int pageNum, int year, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-        /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
-        ApiResponse<Collection<Team>?> GetTeamsByYearWithHttpInfo(int pageNum, int year, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list Team Keys that competed in the given year, paginated in groups of 500.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-      /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;string&gt;</returns>
-      Collection<string>? GetTeamsByYearKeys(int pageNum, int year, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list Team Keys that competed in the given year, paginated in groups of 500.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-        /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-        ApiResponse<Collection<string>?> GetTeamsByYearKeysWithHttpInfo(int pageNum, int year, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-      /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;TeamSimple&gt;</returns>
-      Collection<TeamSimple>? GetTeamsByYearSimple(int pageNum, int year, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-        /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
-        ApiResponse<Collection<TeamSimple>?> GetTeamsByYearSimpleWithHttpInfo(int pageNum, int year, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;string&gt;</returns>
-      Collection<string>? GetTeamsKeys(int pageNum, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-        ApiResponse<Collection<string>?> GetTeamsKeysWithHttpInfo(int pageNum, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;TeamSimple&gt;</returns>
-      Collection<TeamSimple>? GetTeamsSimple(int pageNum, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
-        ApiResponse<Collection<TeamSimple>?> GetTeamsSimpleWithHttpInfo(int pageNum, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of team district rankings for the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;DistrictRanking&gt;</returns>
+    Collection<DistrictRanking>? GetDistrictRankings(string districtKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of team district rankings for the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;DistrictRanking&gt;</returns>
+    ApiResponse<Collection<DistrictRanking>?> GetDistrictRankingsWithHttpInfo(string districtKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Team&gt;</returns>
+    Collection<Team>? GetDistrictTeams(string districtKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
+    ApiResponse<Collection<Team>?> GetDistrictTeamsWithHttpInfo(string districtKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;string&gt;</returns>
+    Collection<string>? GetDistrictTeamsKeys(string districtKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    ApiResponse<Collection<string>?> GetDistrictTeamsKeysWithHttpInfo(string districtKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;TeamSimple&gt;</returns>
+    Collection<TeamSimple>? GetDistrictTeamsSimple(string districtKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
+    ApiResponse<Collection<TeamSimple>?> GetDistrictTeamsSimpleWithHttpInfo(string districtKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Team&gt;</returns>
+    Collection<Team>? GetEventTeams(string eventKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
+    ApiResponse<Collection<Team>?> GetEventTeamsWithHttpInfo(string eventKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; keys that competed in the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;string&gt;</returns>
+    Collection<string>? GetEventTeamsKeys(string eventKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; keys that competed in the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    ApiResponse<Collection<string>?> GetEventTeamsKeysWithHttpInfo(string eventKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;TeamSimple&gt;</returns>
+    Collection<TeamSimple>? GetEventTeamsSimple(string eventKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
+    ApiResponse<Collection<TeamSimple>?> GetEventTeamsSimpleWithHttpInfo(string eventKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a key-value list of the event statuses for teams competing at the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
+    Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>? GetEventTeamsStatuses(string eventKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a key-value list of the event statuses for teams competing at the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
+    ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetEventTeamsStatusesWithHttpInfo(string eventKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a &#x60;Team&#x60; object for the team referenced by the given key.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Team</returns>
+    Team? GetTeam(string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a &#x60;Team&#x60; object for the team referenced by the given key.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Team</returns>
+    ApiResponse<Team?> GetTeamWithHttpInfo(string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of awards the given team has won.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Award&gt;</returns>
+    Collection<Award>? GetTeamAwards(string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of awards the given team has won.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
+    ApiResponse<Collection<Award>?> GetTeamAwardsWithHttpInfo(string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of awards the given team has won in a given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Award&gt;</returns>
+    Collection<Award>? GetTeamAwardsByYear(string teamKey, int year, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of awards the given team has won in a given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
+    ApiResponse<Collection<Award>?> GetTeamAwardsByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;DistrictList&gt;</returns>
+    Collection<DistrictList>? GetTeamDistricts(string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
+    ApiResponse<Collection<DistrictList>?> GetTeamDistrictsWithHttpInfo(string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of awards the given team won at the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Award&gt;</returns>
+    Collection<Award>? GetTeamEventAwards(string eventKey, string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of awards the given team won at the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
+    ApiResponse<Collection<Award>?> GetTeamEventAwardsWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of matches for the given team and event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Match&gt;</returns>
+    Collection<Match>? GetTeamEventMatches(string eventKey, string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of matches for the given team and event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Match&gt;</returns>
+    ApiResponse<Collection<Match>?> GetTeamEventMatchesWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of match keys for matches for the given team and event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;string&gt;</returns>
+    Collection<string>? GetTeamEventMatchesKeys(string eventKey, string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of match keys for matches for the given team and event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    ApiResponse<Collection<string>?> GetTeamEventMatchesKeysWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of matches for the given team and event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Match&gt;</returns>
+    Collection<Match>? GetTeamEventMatchesSimple(string eventKey, string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of matches for the given team and event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Match&gt;</returns>
+    ApiResponse<Collection<Match>?> GetTeamEventMatchesSimpleWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets the competition rank and status of the team at the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>TeamEventStatus</returns>
+    TeamEventStatus? GetTeamEventStatus(string eventKey, string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets the competition rank and status of the team at the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of TeamEventStatus</returns>
+    ApiResponse<TeamEventStatus?> GetTeamEventStatusWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of all events this team has competed at.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Event&gt;</returns>
+    Collection<Event>? GetTeamEvents(string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of all events this team has competed at.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
+    ApiResponse<Collection<Event>?> GetTeamEventsWithHttpInfo(string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of events this team has competed at in the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Event&gt;</returns>
+    Collection<Event>? GetTeamEventsByYear(string teamKey, int year, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of events this team has competed at in the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
+    ApiResponse<Collection<Event>?> GetTeamEventsByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of the event keys for events this team has competed at in the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;string&gt;</returns>
+    Collection<string>? GetTeamEventsByYearKeys(string teamKey, int year, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of the event keys for events this team has competed at in the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    ApiResponse<Collection<string>?> GetTeamEventsByYearKeysWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of events this team has competed at in the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;EventSimple&gt;</returns>
+    Collection<EventSimple>? GetTeamEventsByYearSimple(string teamKey, int year, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of events this team has competed at in the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;EventSimple&gt;</returns>
+    ApiResponse<Collection<EventSimple>?> GetTeamEventsByYearSimpleWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of the event keys for all events this team has competed at.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;string&gt;</returns>
+    Collection<string>? GetTeamEventsKeys(string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of the event keys for all events this team has competed at.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    ApiResponse<Collection<string>?> GetTeamEventsKeysWithHttpInfo(string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of all events this team has competed at.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;EventSimple&gt;</returns>
+    Collection<EventSimple>? GetTeamEventsSimple(string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of all events this team has competed at.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;EventSimple&gt;</returns>
+    ApiResponse<Collection<EventSimple>?> GetTeamEventsSimpleWithHttpInfo(string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a key-value list of the event statuses for events this team has competed at in the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
+    Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>? GetTeamEventsStatusesByYear(string teamKey, int year, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a key-value list of the event statuses for events this team has competed at in the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
+    ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetTeamEventsStatusesByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets the history for the team referenced by the given key, including their events and awards.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>History</returns>
+    History? GetTeamHistory(string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets the history for the team referenced by the given key, including their events and awards.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of History</returns>
+    ApiResponse<History?> GetTeamHistoryWithHttpInfo(string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of matches for the given team and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Match&gt;</returns>
+    Collection<Match>? GetTeamMatchesByYear(string teamKey, int year, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of matches for the given team and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Match&gt;</returns>
+    ApiResponse<Collection<Match>?> GetTeamMatchesByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of match keys for matches for the given team and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;string&gt;</returns>
+    Collection<string>? GetTeamMatchesByYearKeys(string teamKey, int year, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of match keys for matches for the given team and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    ApiResponse<Collection<string>?> GetTeamMatchesByYearKeysWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of matches for the given team and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;MatchSimple&gt;</returns>
+    Collection<MatchSimple>? GetTeamMatchesByYearSimple(string teamKey, int year, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of matches for the given team and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;MatchSimple&gt;</returns>
+    ApiResponse<Collection<MatchSimple>?> GetTeamMatchesByYearSimpleWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Media (videos / pictures) for the given team and tag.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="mediaTag">Media Tag which describes the Media.</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Media&gt;</returns>
+    Collection<Media>? GetTeamMediaByTag(string mediaTag, string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Media (videos / pictures) for the given team and tag.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="mediaTag">Media Tag which describes the Media.</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
+    ApiResponse<Collection<Media>?> GetTeamMediaByTagWithHttpInfo(string mediaTag, string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Media (videos / pictures) for the given team, tag and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="mediaTag">Media Tag which describes the Media.</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Media&gt;</returns>
+    Collection<Media>? GetTeamMediaByTagYear(string mediaTag, string teamKey, int year, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Media (videos / pictures) for the given team, tag and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="mediaTag">Media Tag which describes the Media.</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
+    ApiResponse<Collection<Media>?> GetTeamMediaByTagYearWithHttpInfo(string mediaTag, string teamKey, int year, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Media (videos / pictures) for the given team and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Media&gt;</returns>
+    Collection<Media>? GetTeamMediaByYear(string teamKey, int year, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Media (videos / pictures) for the given team and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
+    ApiResponse<Collection<Media>?> GetTeamMediaByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;TeamRobot&gt;</returns>
+    Collection<TeamRobot>? GetTeamRobots(string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;TeamRobot&gt;</returns>
+    ApiResponse<Collection<TeamRobot>?> GetTeamRobotsWithHttpInfo(string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>TeamSimple</returns>
+    TeamSimple? GetTeamSimple(string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of TeamSimple</returns>
+    ApiResponse<TeamSimple?> GetTeamSimpleWithHttpInfo(string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Media (social media) for the given team.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Media&gt;</returns>
+    Collection<Media>? GetTeamSocialMedia(string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Media (social media) for the given team.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
+    ApiResponse<Collection<Media>?> GetTeamSocialMediaWithHttpInfo(string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of years in which the team participated in at least one competition.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;int&gt;</returns>
+    Collection<int>? GetTeamYearsParticipated(string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of years in which the team participated in at least one competition.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;int&gt;</returns>
+    ApiResponse<Collection<int>?> GetTeamYearsParticipatedWithHttpInfo(string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Team&gt;</returns>
+    Collection<Team>? GetTeams(int pageNum, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
+    ApiResponse<Collection<Team>?> GetTeamsWithHttpInfo(int pageNum, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Team&gt;</returns>
+    Collection<Team>? GetTeamsByYear(int pageNum, int year, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
+    ApiResponse<Collection<Team>?> GetTeamsByYearWithHttpInfo(int pageNum, int year, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list Team Keys that competed in the given year, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;string&gt;</returns>
+    Collection<string>? GetTeamsByYearKeys(int pageNum, int year, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list Team Keys that competed in the given year, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    ApiResponse<Collection<string>?> GetTeamsByYearKeysWithHttpInfo(int pageNum, int year, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;TeamSimple&gt;</returns>
+    Collection<TeamSimple>? GetTeamsByYearSimple(int pageNum, int year, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
+    ApiResponse<Collection<TeamSimple>?> GetTeamsByYearSimpleWithHttpInfo(int pageNum, int year, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;string&gt;</returns>
+    Collection<string>? GetTeamsKeys(int pageNum, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    ApiResponse<Collection<string>?> GetTeamsKeysWithHttpInfo(int pageNum, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;TeamSimple&gt;</returns>
+    Collection<TeamSimple>? GetTeamsSimple(int pageNum, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
+    ApiResponse<Collection<TeamSimple>?> GetTeamsSimpleWithHttpInfo(int pageNum, string? ifNoneMatch = default);
       #endregion Synchronous Operations
     }
     
@@ -1014,1072 +1014,1072 @@ using TheBlueAlliance.Model;
       /// </summary>
       public interface ITeamApiAsync : IApiAccessor
       {
-        #region Asynchronous Operations
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of team district rankings for the given district.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;DistrictRanking&gt;</returns>
-          Task<Collection<DistrictRanking>?> GetDistrictRankingsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of team district rankings for the given district.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;DistrictRanking&gt;)</returns>
-            Task<ApiResponse<Collection<DistrictRanking>?>> GetDistrictRankingsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Team&gt;</returns>
-          Task<Collection<Team>?> GetDistrictTeamsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-            Task<ApiResponse<Collection<Team>?>> GetDistrictTeamsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;string&gt;</returns>
-          Task<Collection<string>?> GetDistrictTeamsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            Task<ApiResponse<Collection<string>?>> GetDistrictTeamsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-          Task<Collection<TeamSimple>?> GetDistrictTeamsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-            Task<ApiResponse<Collection<TeamSimple>?>> GetDistrictTeamsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of &#x60;Team&#x60; objects that competed in the given event.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Team&gt;</returns>
-          Task<Collection<Team>?> GetEventTeamsAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of &#x60;Team&#x60; objects that competed in the given event.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-            Task<ApiResponse<Collection<Team>?>> GetEventTeamsWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of &#x60;Team&#x60; keys that competed in the given event.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;string&gt;</returns>
-          Task<Collection<string>?> GetEventTeamsKeysAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of &#x60;Team&#x60; keys that competed in the given event.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            Task<ApiResponse<Collection<string>?>> GetEventTeamsKeysWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-          Task<Collection<TeamSimple>?> GetEventTeamsSimpleAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-            Task<ApiResponse<Collection<TeamSimple>?>> GetEventTeamsSimpleWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a key-value list of the event statuses for teams competing at the given event.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-          Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetEventTeamsStatusesAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a key-value list of the event statuses for teams competing at the given event.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;)</returns>
-            Task<ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetEventTeamsStatusesWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a &#x60;Team&#x60; object for the team referenced by the given key.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Team</returns>
-          Task<Team?> GetTeamAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a &#x60;Team&#x60; object for the team referenced by the given key.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Team)</returns>
-            Task<ApiResponse<Team?>> GetTeamWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of awards the given team has won.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Award&gt;</returns>
-          Task<Collection<Award>?> GetTeamAwardsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of awards the given team has won.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
-            Task<ApiResponse<Collection<Award>?>> GetTeamAwardsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of awards the given team has won in a given year.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Award&gt;</returns>
-          Task<Collection<Award>?> GetTeamAwardsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of awards the given team has won in a given year.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
-            Task<ApiResponse<Collection<Award>?>> GetTeamAwardsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
-          Task<Collection<DistrictList>?> GetTeamDistrictsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
-            Task<ApiResponse<Collection<DistrictList>?>> GetTeamDistrictsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of awards the given team won at the given event.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Award&gt;</returns>
-          Task<Collection<Award>?> GetTeamEventAwardsAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of awards the given team won at the given event.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
-            Task<ApiResponse<Collection<Award>?>> GetTeamEventAwardsWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of matches for the given team and event.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Match&gt;</returns>
-          Task<Collection<Match>?> GetTeamEventMatchesAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of matches for the given team and event.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
-            Task<ApiResponse<Collection<Match>?>> GetTeamEventMatchesWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of match keys for matches for the given team and event.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;string&gt;</returns>
-          Task<Collection<string>?> GetTeamEventMatchesKeysAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of match keys for matches for the given team and event.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            Task<ApiResponse<Collection<string>?>> GetTeamEventMatchesKeysWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a short-form list of matches for the given team and event.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Match&gt;</returns>
-          Task<Collection<Match>?> GetTeamEventMatchesSimpleAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a short-form list of matches for the given team and event.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
-            Task<ApiResponse<Collection<Match>?>> GetTeamEventMatchesSimpleWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets the competition rank and status of the team at the given event.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of TeamEventStatus</returns>
-          Task<TeamEventStatus?> GetTeamEventStatusAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets the competition rank and status of the team at the given event.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (TeamEventStatus)</returns>
-            Task<ApiResponse<TeamEventStatus?>> GetTeamEventStatusWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of all events this team has competed at.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Event&gt;</returns>
-          Task<Collection<Event>?> GetTeamEventsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of all events this team has competed at.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
-            Task<ApiResponse<Collection<Event>?>> GetTeamEventsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of events this team has competed at in the given year.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Event&gt;</returns>
-          Task<Collection<Event>?> GetTeamEventsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of events this team has competed at in the given year.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
-            Task<ApiResponse<Collection<Event>?>> GetTeamEventsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of the event keys for events this team has competed at in the given year.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;string&gt;</returns>
-          Task<Collection<string>?> GetTeamEventsByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of the event keys for events this team has competed at in the given year.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            Task<ApiResponse<Collection<string>?>> GetTeamEventsByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a short-form list of events this team has competed at in the given year.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
-          Task<Collection<EventSimple>?> GetTeamEventsByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a short-form list of events this team has competed at in the given year.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
-            Task<ApiResponse<Collection<EventSimple>?>> GetTeamEventsByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of the event keys for all events this team has competed at.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;string&gt;</returns>
-          Task<Collection<string>?> GetTeamEventsKeysAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of the event keys for all events this team has competed at.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            Task<ApiResponse<Collection<string>?>> GetTeamEventsKeysWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a short-form list of all events this team has competed at.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
-          Task<Collection<EventSimple>?> GetTeamEventsSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a short-form list of all events this team has competed at.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
-            Task<ApiResponse<Collection<EventSimple>?>> GetTeamEventsSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a key-value list of the event statuses for events this team has competed at in the given year.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-          Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetTeamEventsStatusesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a key-value list of the event statuses for events this team has competed at in the given year.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;)</returns>
-            Task<ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetTeamEventsStatusesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets the history for the team referenced by the given key, including their events and awards.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of History</returns>
-          Task<History?> GetTeamHistoryAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets the history for the team referenced by the given key, including their events and awards.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (History)</returns>
-            Task<ApiResponse<History?>> GetTeamHistoryWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of matches for the given team and year.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Match&gt;</returns>
-          Task<Collection<Match>?> GetTeamMatchesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of matches for the given team and year.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
-            Task<ApiResponse<Collection<Match>?>> GetTeamMatchesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of match keys for matches for the given team and year.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;string&gt;</returns>
-          Task<Collection<string>?> GetTeamMatchesByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of match keys for matches for the given team and year.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            Task<ApiResponse<Collection<string>?>> GetTeamMatchesByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a short-form list of matches for the given team and year.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;MatchSimple&gt;</returns>
-          Task<Collection<MatchSimple>?> GetTeamMatchesByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a short-form list of matches for the given team and year.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;MatchSimple&gt;)</returns>
-            Task<ApiResponse<Collection<MatchSimple>?>> GetTeamMatchesByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of Media (videos / pictures) for the given team and tag.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="mediaTag">Media Tag which describes the Media.</param>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Media&gt;</returns>
-          Task<Collection<Media>?> GetTeamMediaByTagAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of Media (videos / pictures) for the given team and tag.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="mediaTag">Media Tag which describes the Media.</param>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
-            Task<ApiResponse<Collection<Media>?>> GetTeamMediaByTagWithHttpInfoAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of Media (videos / pictures) for the given team, tag and year.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="mediaTag">Media Tag which describes the Media.</param>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Media&gt;</returns>
-          Task<Collection<Media>?> GetTeamMediaByTagYearAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of Media (videos / pictures) for the given team, tag and year.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="mediaTag">Media Tag which describes the Media.</param>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
-            Task<ApiResponse<Collection<Media>?>> GetTeamMediaByTagYearWithHttpInfoAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of Media (videos / pictures) for the given team and year.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Media&gt;</returns>
-          Task<Collection<Media>?> GetTeamMediaByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of Media (videos / pictures) for the given team and year.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
-            Task<ApiResponse<Collection<Media>?>> GetTeamMediaByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;TeamRobot&gt;</returns>
-          Task<Collection<TeamRobot>?> GetTeamRobotsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;TeamRobot&gt;)</returns>
-            Task<ApiResponse<Collection<TeamRobot>?>> GetTeamRobotsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of TeamSimple</returns>
-          Task<TeamSimple?> GetTeamSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (TeamSimple)</returns>
-            Task<ApiResponse<TeamSimple?>> GetTeamSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of Media (social media) for the given team.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Media&gt;</returns>
-          Task<Collection<Media>?> GetTeamSocialMediaAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of Media (social media) for the given team.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
-            Task<ApiResponse<Collection<Media>?>> GetTeamSocialMediaWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of years in which the team participated in at least one competition.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;int&gt;</returns>
-          Task<Collection<int>?> GetTeamYearsParticipatedAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of years in which the team participated in at least one competition.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;int&gt;)</returns>
-            Task<ApiResponse<Collection<int>?>> GetTeamYearsParticipatedWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Team&gt;</returns>
-          Task<Collection<Team>?> GetTeamsAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-            Task<ApiResponse<Collection<Team>?>> GetTeamsWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Team&gt;</returns>
-          Task<Collection<Team>?> GetTeamsByYearAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-            Task<ApiResponse<Collection<Team>?>> GetTeamsByYearWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list Team Keys that competed in the given year, paginated in groups of 500.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;string&gt;</returns>
-          Task<Collection<string>?> GetTeamsByYearKeysAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list Team Keys that competed in the given year, paginated in groups of 500.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            Task<ApiResponse<Collection<string>?>> GetTeamsByYearKeysWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-          Task<Collection<TeamSimple>?> GetTeamsByYearSimpleAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-            Task<ApiResponse<Collection<TeamSimple>?>> GetTeamsByYearSimpleWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;string&gt;</returns>
-          Task<Collection<string>?> GetTeamsKeysAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            Task<ApiResponse<Collection<string>?>> GetTeamsKeysWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-          Task<Collection<TeamSimple>?> GetTeamsSimpleAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-            Task<ApiResponse<Collection<TeamSimple>?>> GetTeamsSimpleWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    #region Asynchronous Operations
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of team district rankings for the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;DistrictRanking&gt;</returns>
+    Task<Collection<DistrictRanking>?> GetDistrictRankingsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of team district rankings for the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;DistrictRanking&gt;)</returns>
+    Task<ApiResponse<Collection<DistrictRanking>?>> GetDistrictRankingsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Team&gt;</returns>
+    Task<Collection<Team>?> GetDistrictTeamsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
+    Task<ApiResponse<Collection<Team>?>> GetDistrictTeamsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    Task<Collection<string>?> GetDistrictTeamsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    Task<ApiResponse<Collection<string>?>> GetDistrictTeamsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
+    Task<Collection<TeamSimple>?> GetDistrictTeamsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
+    Task<ApiResponse<Collection<TeamSimple>?>> GetDistrictTeamsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Team&gt;</returns>
+    Task<Collection<Team>?> GetEventTeamsAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
+    Task<ApiResponse<Collection<Team>?>> GetEventTeamsWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; keys that competed in the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    Task<Collection<string>?> GetEventTeamsKeysAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; keys that competed in the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    Task<ApiResponse<Collection<string>?>> GetEventTeamsKeysWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
+    Task<Collection<TeamSimple>?> GetEventTeamsSimpleAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
+    Task<ApiResponse<Collection<TeamSimple>?>> GetEventTeamsSimpleWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a key-value list of the event statuses for teams competing at the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
+    Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetEventTeamsStatusesAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a key-value list of the event statuses for teams competing at the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;)</returns>
+    Task<ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetEventTeamsStatusesWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a &#x60;Team&#x60; object for the team referenced by the given key.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Team</returns>
+    Task<Team?> GetTeamAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a &#x60;Team&#x60; object for the team referenced by the given key.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Team)</returns>
+    Task<ApiResponse<Team?>> GetTeamWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of awards the given team has won.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Award&gt;</returns>
+    Task<Collection<Award>?> GetTeamAwardsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of awards the given team has won.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
+    Task<ApiResponse<Collection<Award>?>> GetTeamAwardsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of awards the given team has won in a given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Award&gt;</returns>
+    Task<Collection<Award>?> GetTeamAwardsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of awards the given team has won in a given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
+    Task<ApiResponse<Collection<Award>?>> GetTeamAwardsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
+    Task<Collection<DistrictList>?> GetTeamDistrictsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
+    Task<ApiResponse<Collection<DistrictList>?>> GetTeamDistrictsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of awards the given team won at the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Award&gt;</returns>
+    Task<Collection<Award>?> GetTeamEventAwardsAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of awards the given team won at the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
+    Task<ApiResponse<Collection<Award>?>> GetTeamEventAwardsWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of matches for the given team and event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Match&gt;</returns>
+    Task<Collection<Match>?> GetTeamEventMatchesAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of matches for the given team and event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
+    Task<ApiResponse<Collection<Match>?>> GetTeamEventMatchesWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of match keys for matches for the given team and event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    Task<Collection<string>?> GetTeamEventMatchesKeysAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of match keys for matches for the given team and event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    Task<ApiResponse<Collection<string>?>> GetTeamEventMatchesKeysWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of matches for the given team and event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Match&gt;</returns>
+    Task<Collection<Match>?> GetTeamEventMatchesSimpleAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of matches for the given team and event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
+    Task<ApiResponse<Collection<Match>?>> GetTeamEventMatchesSimpleWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets the competition rank and status of the team at the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of TeamEventStatus</returns>
+    Task<TeamEventStatus?> GetTeamEventStatusAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets the competition rank and status of the team at the given event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (TeamEventStatus)</returns>
+    Task<ApiResponse<TeamEventStatus?>> GetTeamEventStatusWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of all events this team has competed at.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Event&gt;</returns>
+    Task<Collection<Event>?> GetTeamEventsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of all events this team has competed at.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
+    Task<ApiResponse<Collection<Event>?>> GetTeamEventsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of events this team has competed at in the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Event&gt;</returns>
+    Task<Collection<Event>?> GetTeamEventsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of events this team has competed at in the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
+    Task<ApiResponse<Collection<Event>?>> GetTeamEventsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of the event keys for events this team has competed at in the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    Task<Collection<string>?> GetTeamEventsByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of the event keys for events this team has competed at in the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    Task<ApiResponse<Collection<string>?>> GetTeamEventsByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of events this team has competed at in the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
+    Task<Collection<EventSimple>?> GetTeamEventsByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of events this team has competed at in the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
+    Task<ApiResponse<Collection<EventSimple>?>> GetTeamEventsByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of the event keys for all events this team has competed at.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    Task<Collection<string>?> GetTeamEventsKeysAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of the event keys for all events this team has competed at.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    Task<ApiResponse<Collection<string>?>> GetTeamEventsKeysWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of all events this team has competed at.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
+    Task<Collection<EventSimple>?> GetTeamEventsSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of all events this team has competed at.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
+    Task<ApiResponse<Collection<EventSimple>?>> GetTeamEventsSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a key-value list of the event statuses for events this team has competed at in the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
+    Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetTeamEventsStatusesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a key-value list of the event statuses for events this team has competed at in the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;)</returns>
+    Task<ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetTeamEventsStatusesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets the history for the team referenced by the given key, including their events and awards.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of History</returns>
+    Task<History?> GetTeamHistoryAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets the history for the team referenced by the given key, including their events and awards.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (History)</returns>
+    Task<ApiResponse<History?>> GetTeamHistoryWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of matches for the given team and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Match&gt;</returns>
+    Task<Collection<Match>?> GetTeamMatchesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of matches for the given team and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
+    Task<ApiResponse<Collection<Match>?>> GetTeamMatchesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of match keys for matches for the given team and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    Task<Collection<string>?> GetTeamMatchesByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of match keys for matches for the given team and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    Task<ApiResponse<Collection<string>?>> GetTeamMatchesByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of matches for the given team and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;MatchSimple&gt;</returns>
+    Task<Collection<MatchSimple>?> GetTeamMatchesByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of matches for the given team and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;MatchSimple&gt;)</returns>
+    Task<ApiResponse<Collection<MatchSimple>?>> GetTeamMatchesByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Media (videos / pictures) for the given team and tag.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="mediaTag">Media Tag which describes the Media.</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Media&gt;</returns>
+    Task<Collection<Media>?> GetTeamMediaByTagAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Media (videos / pictures) for the given team and tag.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="mediaTag">Media Tag which describes the Media.</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
+    Task<ApiResponse<Collection<Media>?>> GetTeamMediaByTagWithHttpInfoAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Media (videos / pictures) for the given team, tag and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="mediaTag">Media Tag which describes the Media.</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Media&gt;</returns>
+    Task<Collection<Media>?> GetTeamMediaByTagYearAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Media (videos / pictures) for the given team, tag and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="mediaTag">Media Tag which describes the Media.</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
+    Task<ApiResponse<Collection<Media>?>> GetTeamMediaByTagYearWithHttpInfoAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Media (videos / pictures) for the given team and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Media&gt;</returns>
+    Task<Collection<Media>?> GetTeamMediaByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Media (videos / pictures) for the given team and year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
+    Task<ApiResponse<Collection<Media>?>> GetTeamMediaByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;TeamRobot&gt;</returns>
+    Task<Collection<TeamRobot>?> GetTeamRobotsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;TeamRobot&gt;)</returns>
+    Task<ApiResponse<Collection<TeamRobot>?>> GetTeamRobotsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of TeamSimple</returns>
+    Task<TeamSimple?> GetTeamSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (TeamSimple)</returns>
+    Task<ApiResponse<TeamSimple?>> GetTeamSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Media (social media) for the given team.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Media&gt;</returns>
+    Task<Collection<Media>?> GetTeamSocialMediaAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Media (social media) for the given team.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
+    Task<ApiResponse<Collection<Media>?>> GetTeamSocialMediaWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of years in which the team participated in at least one competition.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;int&gt;</returns>
+    Task<Collection<int>?> GetTeamYearsParticipatedAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of years in which the team participated in at least one competition.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;int&gt;)</returns>
+    Task<ApiResponse<Collection<int>?>> GetTeamYearsParticipatedWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Team&gt;</returns>
+    Task<Collection<Team>?> GetTeamsAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
+    Task<ApiResponse<Collection<Team>?>> GetTeamsWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Team&gt;</returns>
+    Task<Collection<Team>?> GetTeamsByYearAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
+    Task<ApiResponse<Collection<Team>?>> GetTeamsByYearWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list Team Keys that competed in the given year, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    Task<Collection<string>?> GetTeamsByYearKeysAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list Team Keys that competed in the given year, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    Task<ApiResponse<Collection<string>?>> GetTeamsByYearKeysWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
+    Task<Collection<TeamSimple>?> GetTeamsByYearSimpleAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
+    Task<ApiResponse<Collection<TeamSimple>?>> GetTeamsByYearSimpleWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    Task<Collection<string>?> GetTeamsKeysAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    Task<ApiResponse<Collection<string>?>> GetTeamsKeysWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
+    Task<Collection<TeamSimple>?> GetTeamsSimpleAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
+    Task<ApiResponse<Collection<TeamSimple>?>> GetTeamsSimpleWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -2266,28 +2266,28 @@ using TheBlueAlliance.Model;
           }
           set => _exceptionFactory = value;
         }
-        
-          /// <summary>
-          ///  Gets a list of team district rankings for the given district.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;DistrictRanking&gt;</returns>
-          public Collection<DistrictRanking>? GetDistrictRankings(string districtKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of team district rankings for the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;DistrictRanking&gt;</returns>
+    public Collection<DistrictRanking>? GetDistrictRankings(string districtKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<DistrictRanking>?> localVarResponse = GetDistrictRankingsWithHttpInfo(districtKey, ifNoneMatch);
+        ApiResponse<Collection<DistrictRanking>?> localVarResponse = GetDistrictRankingsWithHttpInfo(districtKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of team district rankings for the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;DistrictRanking&gt;</returns>
-            public ApiResponse<Collection<DistrictRanking>?> GetDistrictRankingsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of team district rankings for the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;DistrictRanking&gt;</returns>
+    public ApiResponse<Collection<DistrictRanking>?> GetDistrictRankingsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'districtKey' is set
                     if (districtKey is null)
@@ -2344,30 +2344,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of team district rankings for the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;DistrictRanking&gt;</returns>
-            public async Task<Collection<DistrictRanking>?> GetDistrictRankingsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of team district rankings for the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;DistrictRanking&gt;</returns>
+    public async Task<Collection<DistrictRanking>?> GetDistrictRankingsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<DistrictRanking>?> localVarResponse = await GetDistrictRankingsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<DistrictRanking>?> localVarResponse = await GetDistrictRankingsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of team district rankings for the given district.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;DistrictRanking&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<DistrictRanking>?>> GetDistrictRankingsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of team district rankings for the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;DistrictRanking&gt;)</returns>
+    public async Task<ApiResponse<Collection<DistrictRanking>?>> GetDistrictRankingsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'districtKey' is set
                       if (districtKey is null)
@@ -2424,26 +2424,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Team&gt;</returns>
-          public Collection<Team>? GetDistrictTeams(string districtKey, string? ifNoneMatch = default)
+                         ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Team&gt;</returns>
+    public Collection<Team>? GetDistrictTeams(string districtKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Team>?> localVarResponse = GetDistrictTeamsWithHttpInfo(districtKey, ifNoneMatch);
+        ApiResponse<Collection<Team>?> localVarResponse = GetDistrictTeamsWithHttpInfo(districtKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
-            public ApiResponse<Collection<Team>?> GetDistrictTeamsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
+    public ApiResponse<Collection<Team>?> GetDistrictTeamsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'districtKey' is set
                     if (districtKey is null)
@@ -2500,30 +2500,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Team&gt;</returns>
-            public async Task<Collection<Team>?> GetDistrictTeamsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Team&gt;</returns>
+    public async Task<Collection<Team>?> GetDistrictTeamsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Team>?> localVarResponse = await GetDistrictTeamsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Team>?> localVarResponse = await GetDistrictTeamsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Team>?>> GetDistrictTeamsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
+    public async Task<ApiResponse<Collection<Team>?>> GetDistrictTeamsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'districtKey' is set
                       if (districtKey is null)
@@ -2580,26 +2580,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;string&gt;</returns>
-          public Collection<string>? GetDistrictTeamsKeys(string districtKey, string? ifNoneMatch = default)
+                         ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetDistrictTeamsKeys(string districtKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = GetDistrictTeamsKeysWithHttpInfo(districtKey, ifNoneMatch);
+        ApiResponse<Collection<string>?> localVarResponse = GetDistrictTeamsKeysWithHttpInfo(districtKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-            public ApiResponse<Collection<string>?> GetDistrictTeamsKeysWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    public ApiResponse<Collection<string>?> GetDistrictTeamsKeysWithHttpInfo(string districtKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'districtKey' is set
                     if (districtKey is null)
@@ -2656,30 +2656,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async Task<Collection<string>?> GetDistrictTeamsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    public async Task<Collection<string>?> GetDistrictTeamsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetDistrictTeamsKeysWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<string>?> localVarResponse = await GetDistrictTeamsKeysWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetDistrictTeamsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    public async Task<ApiResponse<Collection<string>?>> GetDistrictTeamsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'districtKey' is set
                       if (districtKey is null)
@@ -2736,26 +2736,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;TeamSimple&gt;</returns>
-          public Collection<TeamSimple>? GetDistrictTeamsSimple(string districtKey, string? ifNoneMatch = default)
+                         ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;TeamSimple&gt;</returns>
+    public Collection<TeamSimple>? GetDistrictTeamsSimple(string districtKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?> localVarResponse = GetDistrictTeamsSimpleWithHttpInfo(districtKey, ifNoneMatch);
+        ApiResponse<Collection<TeamSimple>?> localVarResponse = GetDistrictTeamsSimpleWithHttpInfo(districtKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
-            public ApiResponse<Collection<TeamSimple>?> GetDistrictTeamsSimpleWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
+    public ApiResponse<Collection<TeamSimple>?> GetDistrictTeamsSimpleWithHttpInfo(string districtKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'districtKey' is set
                     if (districtKey is null)
@@ -2812,30 +2812,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-            public async Task<Collection<TeamSimple>?> GetDistrictTeamsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
+    public async Task<Collection<TeamSimple>?> GetDistrictTeamsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetDistrictTeamsSimpleWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetDistrictTeamsSimpleWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?>> GetDistrictTeamsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
+    public async Task<ApiResponse<Collection<TeamSimple>?>> GetDistrictTeamsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'districtKey' is set
                       if (districtKey is null)
@@ -2892,26 +2892,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of &#x60;Team&#x60; objects that competed in the given event.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Team&gt;</returns>
-          public Collection<Team>? GetEventTeams(string eventKey, string? ifNoneMatch = default)
+                         ///  Gets a list of &#x60;Team&#x60; objects that competed in the given event.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Team&gt;</returns>
+    public Collection<Team>? GetEventTeams(string eventKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Team>?> localVarResponse = GetEventTeamsWithHttpInfo(eventKey, ifNoneMatch);
+        ApiResponse<Collection<Team>?> localVarResponse = GetEventTeamsWithHttpInfo(eventKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;Team&#x60; objects that competed in the given event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
-            public ApiResponse<Collection<Team>?> GetEventTeamsWithHttpInfo(string eventKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
+    public ApiResponse<Collection<Team>?> GetEventTeamsWithHttpInfo(string eventKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'eventKey' is set
                     if (eventKey is null)
@@ -2968,30 +2968,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;Team&#x60; objects that competed in the given event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Team&gt;</returns>
-            public async Task<Collection<Team>?> GetEventTeamsAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Team&gt;</returns>
+    public async Task<Collection<Team>?> GetEventTeamsAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Team>?> localVarResponse = await GetEventTeamsWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Team>?> localVarResponse = await GetEventTeamsWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of &#x60;Team&#x60; objects that competed in the given event.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Team>?>> GetEventTeamsWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
+    public async Task<ApiResponse<Collection<Team>?>> GetEventTeamsWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -3048,26 +3048,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of &#x60;Team&#x60; keys that competed in the given event.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;string&gt;</returns>
-          public Collection<string>? GetEventTeamsKeys(string eventKey, string? ifNoneMatch = default)
+                         ///  Gets a list of &#x60;Team&#x60; keys that competed in the given event.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetEventTeamsKeys(string eventKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = GetEventTeamsKeysWithHttpInfo(eventKey, ifNoneMatch);
+        ApiResponse<Collection<string>?> localVarResponse = GetEventTeamsKeysWithHttpInfo(eventKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;Team&#x60; keys that competed in the given event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-            public ApiResponse<Collection<string>?> GetEventTeamsKeysWithHttpInfo(string eventKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; keys that competed in the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    public ApiResponse<Collection<string>?> GetEventTeamsKeysWithHttpInfo(string eventKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'eventKey' is set
                     if (eventKey is null)
@@ -3124,30 +3124,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;Team&#x60; keys that competed in the given event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async Task<Collection<string>?> GetEventTeamsKeysAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; keys that competed in the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    public async Task<Collection<string>?> GetEventTeamsKeysAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetEventTeamsKeysWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<string>?> localVarResponse = await GetEventTeamsKeysWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of &#x60;Team&#x60; keys that competed in the given event.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetEventTeamsKeysWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; keys that competed in the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    public async Task<ApiResponse<Collection<string>?>> GetEventTeamsKeysWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -3204,26 +3204,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;TeamSimple&gt;</returns>
-          public Collection<TeamSimple>? GetEventTeamsSimple(string eventKey, string? ifNoneMatch = default)
+                         ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;TeamSimple&gt;</returns>
+    public Collection<TeamSimple>? GetEventTeamsSimple(string eventKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?> localVarResponse = GetEventTeamsSimpleWithHttpInfo(eventKey, ifNoneMatch);
+        ApiResponse<Collection<TeamSimple>?> localVarResponse = GetEventTeamsSimpleWithHttpInfo(eventKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
-            public ApiResponse<Collection<TeamSimple>?> GetEventTeamsSimpleWithHttpInfo(string eventKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
+    public ApiResponse<Collection<TeamSimple>?> GetEventTeamsSimpleWithHttpInfo(string eventKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'eventKey' is set
                     if (eventKey is null)
@@ -3280,30 +3280,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-            public async Task<Collection<TeamSimple>?> GetEventTeamsSimpleAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
+    public async Task<Collection<TeamSimple>?> GetEventTeamsSimpleAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetEventTeamsSimpleWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetEventTeamsSimpleWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?>> GetEventTeamsSimpleWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
+    public async Task<ApiResponse<Collection<TeamSimple>?>> GetEventTeamsSimpleWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -3360,26 +3360,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a key-value list of the event statuses for teams competing at the given event.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-          public Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>? GetEventTeamsStatuses(string eventKey, string? ifNoneMatch = default)
+                         ///  Gets a key-value list of the event statuses for teams competing at the given event.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
+    public Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>? GetEventTeamsStatuses(string eventKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> localVarResponse = GetEventTeamsStatusesWithHttpInfo(eventKey, ifNoneMatch);
+        ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> localVarResponse = GetEventTeamsStatusesWithHttpInfo(eventKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a key-value list of the event statuses for teams competing at the given event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-            public ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetEventTeamsStatusesWithHttpInfo(string eventKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a key-value list of the event statuses for teams competing at the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
+    public ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetEventTeamsStatusesWithHttpInfo(string eventKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'eventKey' is set
                     if (eventKey is null)
@@ -3436,30 +3436,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a key-value list of the event statuses for teams competing at the given event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-            public async Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetEventTeamsStatusesAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a key-value list of the event statuses for teams competing at the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
+    public async Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetEventTeamsStatusesAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> localVarResponse = await GetEventTeamsStatusesWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> localVarResponse = await GetEventTeamsStatusesWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a key-value list of the event statuses for teams competing at the given event.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetEventTeamsStatusesWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a key-value list of the event statuses for teams competing at the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;)</returns>
+    public async Task<ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetEventTeamsStatusesWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -3516,26 +3516,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a &#x60;Team&#x60; object for the team referenced by the given key.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Team</returns>
-          public Team? GetTeam(string teamKey, string? ifNoneMatch = default)
+                         ///  Gets a &#x60;Team&#x60; object for the team referenced by the given key.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Team</returns>
+    public Team? GetTeam(string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Team?> localVarResponse = GetTeamWithHttpInfo(teamKey, ifNoneMatch);
+        ApiResponse<Team?> localVarResponse = GetTeamWithHttpInfo(teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a &#x60;Team&#x60; object for the team referenced by the given key.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Team</returns>
-            public ApiResponse<Team?> GetTeamWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a &#x60;Team&#x60; object for the team referenced by the given key.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Team</returns>
+    public ApiResponse<Team?> GetTeamWithHttpInfo(string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -3592,30 +3592,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a &#x60;Team&#x60; object for the team referenced by the given key.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Team</returns>
-            public async Task<Team?> GetTeamAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a &#x60;Team&#x60; object for the team referenced by the given key.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Team</returns>
+    public async Task<Team?> GetTeamAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Team?> localVarResponse = await GetTeamWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Team?> localVarResponse = await GetTeamWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a &#x60;Team&#x60; object for the team referenced by the given key.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Team)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Team?>> GetTeamWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a &#x60;Team&#x60; object for the team referenced by the given key.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Team)</returns>
+    public async Task<ApiResponse<Team?>> GetTeamWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -3672,26 +3672,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of awards the given team has won.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Award&gt;</returns>
-          public Collection<Award>? GetTeamAwards(string teamKey, string? ifNoneMatch = default)
+                         ///  Gets a list of awards the given team has won.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Award&gt;</returns>
+    public Collection<Award>? GetTeamAwards(string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Award>?> localVarResponse = GetTeamAwardsWithHttpInfo(teamKey, ifNoneMatch);
+        ApiResponse<Collection<Award>?> localVarResponse = GetTeamAwardsWithHttpInfo(teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of awards the given team has won.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
-            public ApiResponse<Collection<Award>?> GetTeamAwardsWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of awards the given team has won.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
+    public ApiResponse<Collection<Award>?> GetTeamAwardsWithHttpInfo(string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -3748,30 +3748,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of awards the given team has won.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Award&gt;</returns>
-            public async Task<Collection<Award>?> GetTeamAwardsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of awards the given team has won.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Award&gt;</returns>
+    public async Task<Collection<Award>?> GetTeamAwardsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Award>?> localVarResponse = await GetTeamAwardsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Award>?> localVarResponse = await GetTeamAwardsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of awards the given team has won.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Award>?>> GetTeamAwardsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of awards the given team has won.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
+    public async Task<ApiResponse<Collection<Award>?>> GetTeamAwardsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -3828,28 +3828,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of awards the given team has won in a given year.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Award&gt;</returns>
-          public Collection<Award>? GetTeamAwardsByYear(string teamKey, int year, string? ifNoneMatch = default)
+                         ///  Gets a list of awards the given team has won in a given year.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Award&gt;</returns>
+    public Collection<Award>? GetTeamAwardsByYear(string teamKey, int year, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Award>?> localVarResponse = GetTeamAwardsByYearWithHttpInfo(teamKey, year, ifNoneMatch);
+        ApiResponse<Collection<Award>?> localVarResponse = GetTeamAwardsByYearWithHttpInfo(teamKey, year, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of awards the given team has won in a given year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
-            public ApiResponse<Collection<Award>?> GetTeamAwardsByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of awards the given team has won in a given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
+    public ApiResponse<Collection<Award>?> GetTeamAwardsByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -3907,32 +3907,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of awards the given team has won in a given year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Award&gt;</returns>
-            public async Task<Collection<Award>?> GetTeamAwardsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of awards the given team has won in a given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Award&gt;</returns>
+    public async Task<Collection<Award>?> GetTeamAwardsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Award>?> localVarResponse = await GetTeamAwardsByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Award>?> localVarResponse = await GetTeamAwardsByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of awards the given team has won in a given year.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Award>?>> GetTeamAwardsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of awards the given team has won in a given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
+    public async Task<ApiResponse<Collection<Award>?>> GetTeamAwardsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -3990,26 +3990,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;DistrictList&gt;</returns>
-          public Collection<DistrictList>? GetTeamDistricts(string teamKey, string? ifNoneMatch = default)
+                         ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;DistrictList&gt;</returns>
+    public Collection<DistrictList>? GetTeamDistricts(string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<DistrictList>?> localVarResponse = GetTeamDistrictsWithHttpInfo(teamKey, ifNoneMatch);
+        ApiResponse<Collection<DistrictList>?> localVarResponse = GetTeamDistrictsWithHttpInfo(teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
-            public ApiResponse<Collection<DistrictList>?> GetTeamDistrictsWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
+    public ApiResponse<Collection<DistrictList>?> GetTeamDistrictsWithHttpInfo(string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -4066,30 +4066,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
-            public async Task<Collection<DistrictList>?> GetTeamDistrictsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
+    public async Task<Collection<DistrictList>?> GetTeamDistrictsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<DistrictList>?> localVarResponse = await GetTeamDistrictsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<DistrictList>?> localVarResponse = await GetTeamDistrictsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<DistrictList>?>> GetTeamDistrictsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
+    public async Task<ApiResponse<Collection<DistrictList>?>> GetTeamDistrictsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -4146,28 +4146,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of awards the given team won at the given event.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Award&gt;</returns>
-          public Collection<Award>? GetTeamEventAwards(string eventKey, string teamKey, string? ifNoneMatch = default)
+                         ///  Gets a list of awards the given team won at the given event.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Award&gt;</returns>
+    public Collection<Award>? GetTeamEventAwards(string eventKey, string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Award>?> localVarResponse = GetTeamEventAwardsWithHttpInfo(eventKey, teamKey, ifNoneMatch);
+        ApiResponse<Collection<Award>?> localVarResponse = GetTeamEventAwardsWithHttpInfo(eventKey, teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of awards the given team won at the given event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
-            public ApiResponse<Collection<Award>?> GetTeamEventAwardsWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of awards the given team won at the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
+    public ApiResponse<Collection<Award>?> GetTeamEventAwardsWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'eventKey' is set
                     if (eventKey is null)
@@ -4231,32 +4231,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of awards the given team won at the given event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Award&gt;</returns>
-            public async Task<Collection<Award>?> GetTeamEventAwardsAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of awards the given team won at the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Award&gt;</returns>
+    public async Task<Collection<Award>?> GetTeamEventAwardsAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Award>?> localVarResponse = await GetTeamEventAwardsWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Award>?> localVarResponse = await GetTeamEventAwardsWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of awards the given team won at the given event.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Award>?>> GetTeamEventAwardsWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of awards the given team won at the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
+    public async Task<ApiResponse<Collection<Award>?>> GetTeamEventAwardsWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -4320,28 +4320,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of matches for the given team and event.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Match&gt;</returns>
-          public Collection<Match>? GetTeamEventMatches(string eventKey, string teamKey, string? ifNoneMatch = default)
+                         ///  Gets a list of matches for the given team and event.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Match&gt;</returns>
+    public Collection<Match>? GetTeamEventMatches(string eventKey, string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Match>?> localVarResponse = GetTeamEventMatchesWithHttpInfo(eventKey, teamKey, ifNoneMatch);
+        ApiResponse<Collection<Match>?> localVarResponse = GetTeamEventMatchesWithHttpInfo(eventKey, teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of matches for the given team and event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Match&gt;</returns>
-            public ApiResponse<Collection<Match>?> GetTeamEventMatchesWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of matches for the given team and event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Match&gt;</returns>
+    public ApiResponse<Collection<Match>?> GetTeamEventMatchesWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'eventKey' is set
                     if (eventKey is null)
@@ -4405,32 +4405,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of matches for the given team and event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Match&gt;</returns>
-            public async Task<Collection<Match>?> GetTeamEventMatchesAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of matches for the given team and event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Match&gt;</returns>
+    public async Task<Collection<Match>?> GetTeamEventMatchesAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Match>?> localVarResponse = await GetTeamEventMatchesWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Match>?> localVarResponse = await GetTeamEventMatchesWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of matches for the given team and event.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Match>?>> GetTeamEventMatchesWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of matches for the given team and event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
+    public async Task<ApiResponse<Collection<Match>?>> GetTeamEventMatchesWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -4494,28 +4494,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of match keys for matches for the given team and event.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;string&gt;</returns>
-          public Collection<string>? GetTeamEventMatchesKeys(string eventKey, string teamKey, string? ifNoneMatch = default)
+                         ///  Gets a list of match keys for matches for the given team and event.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetTeamEventMatchesKeys(string eventKey, string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = GetTeamEventMatchesKeysWithHttpInfo(eventKey, teamKey, ifNoneMatch);
+        ApiResponse<Collection<string>?> localVarResponse = GetTeamEventMatchesKeysWithHttpInfo(eventKey, teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of match keys for matches for the given team and event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-            public ApiResponse<Collection<string>?> GetTeamEventMatchesKeysWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of match keys for matches for the given team and event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    public ApiResponse<Collection<string>?> GetTeamEventMatchesKeysWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'eventKey' is set
                     if (eventKey is null)
@@ -4579,32 +4579,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of match keys for matches for the given team and event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async Task<Collection<string>?> GetTeamEventMatchesKeysAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of match keys for matches for the given team and event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    public async Task<Collection<string>?> GetTeamEventMatchesKeysAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetTeamEventMatchesKeysWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<string>?> localVarResponse = await GetTeamEventMatchesKeysWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of match keys for matches for the given team and event.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamEventMatchesKeysWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of match keys for matches for the given team and event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    public async Task<ApiResponse<Collection<string>?>> GetTeamEventMatchesKeysWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -4668,28 +4668,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a short-form list of matches for the given team and event.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Match&gt;</returns>
-          public Collection<Match>? GetTeamEventMatchesSimple(string eventKey, string teamKey, string? ifNoneMatch = default)
+                         ///  Gets a short-form list of matches for the given team and event.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Match&gt;</returns>
+    public Collection<Match>? GetTeamEventMatchesSimple(string eventKey, string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Match>?> localVarResponse = GetTeamEventMatchesSimpleWithHttpInfo(eventKey, teamKey, ifNoneMatch);
+        ApiResponse<Collection<Match>?> localVarResponse = GetTeamEventMatchesSimpleWithHttpInfo(eventKey, teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a short-form list of matches for the given team and event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Match&gt;</returns>
-            public ApiResponse<Collection<Match>?> GetTeamEventMatchesSimpleWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a short-form list of matches for the given team and event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Match&gt;</returns>
+    public ApiResponse<Collection<Match>?> GetTeamEventMatchesSimpleWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'eventKey' is set
                     if (eventKey is null)
@@ -4753,32 +4753,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a short-form list of matches for the given team and event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Match&gt;</returns>
-            public async Task<Collection<Match>?> GetTeamEventMatchesSimpleAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a short-form list of matches for the given team and event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Match&gt;</returns>
+    public async Task<Collection<Match>?> GetTeamEventMatchesSimpleAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Match>?> localVarResponse = await GetTeamEventMatchesSimpleWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Match>?> localVarResponse = await GetTeamEventMatchesSimpleWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a short-form list of matches for the given team and event.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Match>?>> GetTeamEventMatchesSimpleWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a short-form list of matches for the given team and event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
+    public async Task<ApiResponse<Collection<Match>?>> GetTeamEventMatchesSimpleWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -4842,28 +4842,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets the competition rank and status of the team at the given event.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>TeamEventStatus</returns>
-          public TeamEventStatus? GetTeamEventStatus(string eventKey, string teamKey, string? ifNoneMatch = default)
+                         ///  Gets the competition rank and status of the team at the given event.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>TeamEventStatus</returns>
+    public TeamEventStatus? GetTeamEventStatus(string eventKey, string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<TeamEventStatus?> localVarResponse = GetTeamEventStatusWithHttpInfo(eventKey, teamKey, ifNoneMatch);
+        ApiResponse<TeamEventStatus?> localVarResponse = GetTeamEventStatusWithHttpInfo(eventKey, teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets the competition rank and status of the team at the given event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of TeamEventStatus</returns>
-            public ApiResponse<TeamEventStatus?> GetTeamEventStatusWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets the competition rank and status of the team at the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of TeamEventStatus</returns>
+    public ApiResponse<TeamEventStatus?> GetTeamEventStatusWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'eventKey' is set
                     if (eventKey is null)
@@ -4927,32 +4927,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets the competition rank and status of the team at the given event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of TeamEventStatus</returns>
-            public async Task<TeamEventStatus?> GetTeamEventStatusAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets the competition rank and status of the team at the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of TeamEventStatus</returns>
+    public async Task<TeamEventStatus?> GetTeamEventStatusAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<TeamEventStatus?> localVarResponse = await GetTeamEventStatusWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<TeamEventStatus?> localVarResponse = await GetTeamEventStatusWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets the competition rank and status of the team at the given event.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (TeamEventStatus)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<TeamEventStatus?>> GetTeamEventStatusWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets the competition rank and status of the team at the given event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (TeamEventStatus)</returns>
+    public async Task<ApiResponse<TeamEventStatus?>> GetTeamEventStatusWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -5016,26 +5016,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of all events this team has competed at.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Event&gt;</returns>
-          public Collection<Event>? GetTeamEvents(string teamKey, string? ifNoneMatch = default)
+                         ///  Gets a list of all events this team has competed at.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Event&gt;</returns>
+    public Collection<Event>? GetTeamEvents(string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Event>?> localVarResponse = GetTeamEventsWithHttpInfo(teamKey, ifNoneMatch);
+        ApiResponse<Collection<Event>?> localVarResponse = GetTeamEventsWithHttpInfo(teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of all events this team has competed at.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
-            public ApiResponse<Collection<Event>?> GetTeamEventsWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of all events this team has competed at.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
+    public ApiResponse<Collection<Event>?> GetTeamEventsWithHttpInfo(string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -5092,30 +5092,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of all events this team has competed at.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Event&gt;</returns>
-            public async Task<Collection<Event>?> GetTeamEventsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of all events this team has competed at.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Event&gt;</returns>
+    public async Task<Collection<Event>?> GetTeamEventsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Event>?> localVarResponse = await GetTeamEventsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Event>?> localVarResponse = await GetTeamEventsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of all events this team has competed at.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Event>?>> GetTeamEventsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of all events this team has competed at.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
+    public async Task<ApiResponse<Collection<Event>?>> GetTeamEventsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -5172,28 +5172,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of events this team has competed at in the given year.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Event&gt;</returns>
-          public Collection<Event>? GetTeamEventsByYear(string teamKey, int year, string? ifNoneMatch = default)
+                         ///  Gets a list of events this team has competed at in the given year.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Event&gt;</returns>
+    public Collection<Event>? GetTeamEventsByYear(string teamKey, int year, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Event>?> localVarResponse = GetTeamEventsByYearWithHttpInfo(teamKey, year, ifNoneMatch);
+        ApiResponse<Collection<Event>?> localVarResponse = GetTeamEventsByYearWithHttpInfo(teamKey, year, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of events this team has competed at in the given year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
-            public ApiResponse<Collection<Event>?> GetTeamEventsByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of events this team has competed at in the given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
+    public ApiResponse<Collection<Event>?> GetTeamEventsByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -5251,32 +5251,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of events this team has competed at in the given year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Event&gt;</returns>
-            public async Task<Collection<Event>?> GetTeamEventsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of events this team has competed at in the given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Event&gt;</returns>
+    public async Task<Collection<Event>?> GetTeamEventsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Event>?> localVarResponse = await GetTeamEventsByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Event>?> localVarResponse = await GetTeamEventsByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of events this team has competed at in the given year.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Event>?>> GetTeamEventsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of events this team has competed at in the given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
+    public async Task<ApiResponse<Collection<Event>?>> GetTeamEventsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -5334,28 +5334,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of the event keys for events this team has competed at in the given year.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;string&gt;</returns>
-          public Collection<string>? GetTeamEventsByYearKeys(string teamKey, int year, string? ifNoneMatch = default)
+                         ///  Gets a list of the event keys for events this team has competed at in the given year.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetTeamEventsByYearKeys(string teamKey, int year, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = GetTeamEventsByYearKeysWithHttpInfo(teamKey, year, ifNoneMatch);
+        ApiResponse<Collection<string>?> localVarResponse = GetTeamEventsByYearKeysWithHttpInfo(teamKey, year, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of the event keys for events this team has competed at in the given year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-            public ApiResponse<Collection<string>?> GetTeamEventsByYearKeysWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of the event keys for events this team has competed at in the given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    public ApiResponse<Collection<string>?> GetTeamEventsByYearKeysWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -5413,32 +5413,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of the event keys for events this team has competed at in the given year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async Task<Collection<string>?> GetTeamEventsByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of the event keys for events this team has competed at in the given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    public async Task<Collection<string>?> GetTeamEventsByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetTeamEventsByYearKeysWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<string>?> localVarResponse = await GetTeamEventsByYearKeysWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of the event keys for events this team has competed at in the given year.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamEventsByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of the event keys for events this team has competed at in the given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    public async Task<ApiResponse<Collection<string>?>> GetTeamEventsByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -5496,28 +5496,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a short-form list of events this team has competed at in the given year.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;EventSimple&gt;</returns>
-          public Collection<EventSimple>? GetTeamEventsByYearSimple(string teamKey, int year, string? ifNoneMatch = default)
+                         ///  Gets a short-form list of events this team has competed at in the given year.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;EventSimple&gt;</returns>
+    public Collection<EventSimple>? GetTeamEventsByYearSimple(string teamKey, int year, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<EventSimple>?> localVarResponse = GetTeamEventsByYearSimpleWithHttpInfo(teamKey, year, ifNoneMatch);
+        ApiResponse<Collection<EventSimple>?> localVarResponse = GetTeamEventsByYearSimpleWithHttpInfo(teamKey, year, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a short-form list of events this team has competed at in the given year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;EventSimple&gt;</returns>
-            public ApiResponse<Collection<EventSimple>?> GetTeamEventsByYearSimpleWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a short-form list of events this team has competed at in the given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;EventSimple&gt;</returns>
+    public ApiResponse<Collection<EventSimple>?> GetTeamEventsByYearSimpleWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -5575,32 +5575,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a short-form list of events this team has competed at in the given year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
-            public async Task<Collection<EventSimple>?> GetTeamEventsByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a short-form list of events this team has competed at in the given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
+    public async Task<Collection<EventSimple>?> GetTeamEventsByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<EventSimple>?> localVarResponse = await GetTeamEventsByYearSimpleWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<EventSimple>?> localVarResponse = await GetTeamEventsByYearSimpleWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a short-form list of events this team has competed at in the given year.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<EventSimple>?>> GetTeamEventsByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a short-form list of events this team has competed at in the given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
+    public async Task<ApiResponse<Collection<EventSimple>?>> GetTeamEventsByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -5658,26 +5658,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of the event keys for all events this team has competed at.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;string&gt;</returns>
-          public Collection<string>? GetTeamEventsKeys(string teamKey, string? ifNoneMatch = default)
+                         ///  Gets a list of the event keys for all events this team has competed at.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetTeamEventsKeys(string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = GetTeamEventsKeysWithHttpInfo(teamKey, ifNoneMatch);
+        ApiResponse<Collection<string>?> localVarResponse = GetTeamEventsKeysWithHttpInfo(teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of the event keys for all events this team has competed at.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-            public ApiResponse<Collection<string>?> GetTeamEventsKeysWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of the event keys for all events this team has competed at.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    public ApiResponse<Collection<string>?> GetTeamEventsKeysWithHttpInfo(string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -5734,30 +5734,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of the event keys for all events this team has competed at.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async Task<Collection<string>?> GetTeamEventsKeysAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of the event keys for all events this team has competed at.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    public async Task<Collection<string>?> GetTeamEventsKeysAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetTeamEventsKeysWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<string>?> localVarResponse = await GetTeamEventsKeysWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of the event keys for all events this team has competed at.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamEventsKeysWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of the event keys for all events this team has competed at.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    public async Task<ApiResponse<Collection<string>?>> GetTeamEventsKeysWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -5814,26 +5814,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a short-form list of all events this team has competed at.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;EventSimple&gt;</returns>
-          public Collection<EventSimple>? GetTeamEventsSimple(string teamKey, string? ifNoneMatch = default)
+                         ///  Gets a short-form list of all events this team has competed at.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;EventSimple&gt;</returns>
+    public Collection<EventSimple>? GetTeamEventsSimple(string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<EventSimple>?> localVarResponse = GetTeamEventsSimpleWithHttpInfo(teamKey, ifNoneMatch);
+        ApiResponse<Collection<EventSimple>?> localVarResponse = GetTeamEventsSimpleWithHttpInfo(teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a short-form list of all events this team has competed at.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;EventSimple&gt;</returns>
-            public ApiResponse<Collection<EventSimple>?> GetTeamEventsSimpleWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a short-form list of all events this team has competed at.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;EventSimple&gt;</returns>
+    public ApiResponse<Collection<EventSimple>?> GetTeamEventsSimpleWithHttpInfo(string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -5890,30 +5890,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a short-form list of all events this team has competed at.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
-            public async Task<Collection<EventSimple>?> GetTeamEventsSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a short-form list of all events this team has competed at.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
+    public async Task<Collection<EventSimple>?> GetTeamEventsSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<EventSimple>?> localVarResponse = await GetTeamEventsSimpleWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<EventSimple>?> localVarResponse = await GetTeamEventsSimpleWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a short-form list of all events this team has competed at.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<EventSimple>?>> GetTeamEventsSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a short-form list of all events this team has competed at.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
+    public async Task<ApiResponse<Collection<EventSimple>?>> GetTeamEventsSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -5970,28 +5970,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a key-value list of the event statuses for events this team has competed at in the given year.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-          public Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>? GetTeamEventsStatusesByYear(string teamKey, int year, string? ifNoneMatch = default)
+                         ///  Gets a key-value list of the event statuses for events this team has competed at in the given year.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
+    public Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>? GetTeamEventsStatusesByYear(string teamKey, int year, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> localVarResponse = GetTeamEventsStatusesByYearWithHttpInfo(teamKey, year, ifNoneMatch);
+        ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> localVarResponse = GetTeamEventsStatusesByYearWithHttpInfo(teamKey, year, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a key-value list of the event statuses for events this team has competed at in the given year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-            public ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetTeamEventsStatusesByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a key-value list of the event statuses for events this team has competed at in the given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
+    public ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetTeamEventsStatusesByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -6049,32 +6049,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a key-value list of the event statuses for events this team has competed at in the given year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-            public async Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetTeamEventsStatusesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a key-value list of the event statuses for events this team has competed at in the given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
+    public async Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetTeamEventsStatusesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> localVarResponse = await GetTeamEventsStatusesByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> localVarResponse = await GetTeamEventsStatusesByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a key-value list of the event statuses for events this team has competed at in the given year.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetTeamEventsStatusesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a key-value list of the event statuses for events this team has competed at in the given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;)</returns>
+    public async Task<ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetTeamEventsStatusesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -6132,26 +6132,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets the history for the team referenced by the given key, including their events and awards.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>History</returns>
-          public History? GetTeamHistory(string teamKey, string? ifNoneMatch = default)
+                         ///  Gets the history for the team referenced by the given key, including their events and awards.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>History</returns>
+    public History? GetTeamHistory(string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<History?> localVarResponse = GetTeamHistoryWithHttpInfo(teamKey, ifNoneMatch);
+        ApiResponse<History?> localVarResponse = GetTeamHistoryWithHttpInfo(teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets the history for the team referenced by the given key, including their events and awards.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of History</returns>
-            public ApiResponse<History?> GetTeamHistoryWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets the history for the team referenced by the given key, including their events and awards.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of History</returns>
+    public ApiResponse<History?> GetTeamHistoryWithHttpInfo(string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -6208,30 +6208,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets the history for the team referenced by the given key, including their events and awards.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of History</returns>
-            public async Task<History?> GetTeamHistoryAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets the history for the team referenced by the given key, including their events and awards.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of History</returns>
+    public async Task<History?> GetTeamHistoryAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<History?> localVarResponse = await GetTeamHistoryWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<History?> localVarResponse = await GetTeamHistoryWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets the history for the team referenced by the given key, including their events and awards.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (History)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<History?>> GetTeamHistoryWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets the history for the team referenced by the given key, including their events and awards.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (History)</returns>
+    public async Task<ApiResponse<History?>> GetTeamHistoryWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -6288,28 +6288,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of matches for the given team and year.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Match&gt;</returns>
-          public Collection<Match>? GetTeamMatchesByYear(string teamKey, int year, string? ifNoneMatch = default)
+                         ///  Gets a list of matches for the given team and year.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Match&gt;</returns>
+    public Collection<Match>? GetTeamMatchesByYear(string teamKey, int year, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Match>?> localVarResponse = GetTeamMatchesByYearWithHttpInfo(teamKey, year, ifNoneMatch);
+        ApiResponse<Collection<Match>?> localVarResponse = GetTeamMatchesByYearWithHttpInfo(teamKey, year, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of matches for the given team and year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Match&gt;</returns>
-            public ApiResponse<Collection<Match>?> GetTeamMatchesByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of matches for the given team and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Match&gt;</returns>
+    public ApiResponse<Collection<Match>?> GetTeamMatchesByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -6367,32 +6367,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of matches for the given team and year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Match&gt;</returns>
-            public async Task<Collection<Match>?> GetTeamMatchesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of matches for the given team and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Match&gt;</returns>
+    public async Task<Collection<Match>?> GetTeamMatchesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Match>?> localVarResponse = await GetTeamMatchesByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Match>?> localVarResponse = await GetTeamMatchesByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of matches for the given team and year.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Match>?>> GetTeamMatchesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of matches for the given team and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
+    public async Task<ApiResponse<Collection<Match>?>> GetTeamMatchesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -6450,28 +6450,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of match keys for matches for the given team and year.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;string&gt;</returns>
-          public Collection<string>? GetTeamMatchesByYearKeys(string teamKey, int year, string? ifNoneMatch = default)
+                         ///  Gets a list of match keys for matches for the given team and year.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetTeamMatchesByYearKeys(string teamKey, int year, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = GetTeamMatchesByYearKeysWithHttpInfo(teamKey, year, ifNoneMatch);
+        ApiResponse<Collection<string>?> localVarResponse = GetTeamMatchesByYearKeysWithHttpInfo(teamKey, year, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of match keys for matches for the given team and year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-            public ApiResponse<Collection<string>?> GetTeamMatchesByYearKeysWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of match keys for matches for the given team and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    public ApiResponse<Collection<string>?> GetTeamMatchesByYearKeysWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -6529,32 +6529,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of match keys for matches for the given team and year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async Task<Collection<string>?> GetTeamMatchesByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of match keys for matches for the given team and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    public async Task<Collection<string>?> GetTeamMatchesByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetTeamMatchesByYearKeysWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<string>?> localVarResponse = await GetTeamMatchesByYearKeysWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of match keys for matches for the given team and year.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamMatchesByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of match keys for matches for the given team and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    public async Task<ApiResponse<Collection<string>?>> GetTeamMatchesByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -6612,28 +6612,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a short-form list of matches for the given team and year.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;MatchSimple&gt;</returns>
-          public Collection<MatchSimple>? GetTeamMatchesByYearSimple(string teamKey, int year, string? ifNoneMatch = default)
+                         ///  Gets a short-form list of matches for the given team and year.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;MatchSimple&gt;</returns>
+    public Collection<MatchSimple>? GetTeamMatchesByYearSimple(string teamKey, int year, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<MatchSimple>?> localVarResponse = GetTeamMatchesByYearSimpleWithHttpInfo(teamKey, year, ifNoneMatch);
+        ApiResponse<Collection<MatchSimple>?> localVarResponse = GetTeamMatchesByYearSimpleWithHttpInfo(teamKey, year, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a short-form list of matches for the given team and year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;MatchSimple&gt;</returns>
-            public ApiResponse<Collection<MatchSimple>?> GetTeamMatchesByYearSimpleWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a short-form list of matches for the given team and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;MatchSimple&gt;</returns>
+    public ApiResponse<Collection<MatchSimple>?> GetTeamMatchesByYearSimpleWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -6691,32 +6691,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a short-form list of matches for the given team and year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;MatchSimple&gt;</returns>
-            public async Task<Collection<MatchSimple>?> GetTeamMatchesByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a short-form list of matches for the given team and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;MatchSimple&gt;</returns>
+    public async Task<Collection<MatchSimple>?> GetTeamMatchesByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<MatchSimple>?> localVarResponse = await GetTeamMatchesByYearSimpleWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<MatchSimple>?> localVarResponse = await GetTeamMatchesByYearSimpleWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a short-form list of matches for the given team and year.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;MatchSimple&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<MatchSimple>?>> GetTeamMatchesByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a short-form list of matches for the given team and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;MatchSimple&gt;)</returns>
+    public async Task<ApiResponse<Collection<MatchSimple>?>> GetTeamMatchesByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -6774,28 +6774,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of Media (videos / pictures) for the given team and tag.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="mediaTag">Media Tag which describes the Media.</param>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Media&gt;</returns>
-          public Collection<Media>? GetTeamMediaByTag(string mediaTag, string teamKey, string? ifNoneMatch = default)
+                         ///  Gets a list of Media (videos / pictures) for the given team and tag.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="mediaTag">Media Tag which describes the Media.</param>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Media&gt;</returns>
+    public Collection<Media>? GetTeamMediaByTag(string mediaTag, string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Media>?> localVarResponse = GetTeamMediaByTagWithHttpInfo(mediaTag, teamKey, ifNoneMatch);
+        ApiResponse<Collection<Media>?> localVarResponse = GetTeamMediaByTagWithHttpInfo(mediaTag, teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of Media (videos / pictures) for the given team and tag.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="mediaTag">Media Tag which describes the Media.</param>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
-            public ApiResponse<Collection<Media>?> GetTeamMediaByTagWithHttpInfo(string mediaTag, string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of Media (videos / pictures) for the given team and tag.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="mediaTag">Media Tag which describes the Media.</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
+    public ApiResponse<Collection<Media>?> GetTeamMediaByTagWithHttpInfo(string mediaTag, string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'mediaTag' is set
                     if (mediaTag is null)
@@ -6859,32 +6859,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of Media (videos / pictures) for the given team and tag.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="mediaTag">Media Tag which describes the Media.</param>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Media&gt;</returns>
-            public async Task<Collection<Media>?> GetTeamMediaByTagAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of Media (videos / pictures) for the given team and tag.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="mediaTag">Media Tag which describes the Media.</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Media&gt;</returns>
+    public async Task<Collection<Media>?> GetTeamMediaByTagAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Media>?> localVarResponse = await GetTeamMediaByTagWithHttpInfoAsync(mediaTag, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Media>?> localVarResponse = await GetTeamMediaByTagWithHttpInfoAsync(mediaTag, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of Media (videos / pictures) for the given team and tag.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="mediaTag">Media Tag which describes the Media.</param>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Media>?>> GetTeamMediaByTagWithHttpInfoAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of Media (videos / pictures) for the given team and tag.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="mediaTag">Media Tag which describes the Media.</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
+    public async Task<ApiResponse<Collection<Media>?>> GetTeamMediaByTagWithHttpInfoAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'mediaTag' is set
                       if (mediaTag is null)
@@ -6948,30 +6948,30 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of Media (videos / pictures) for the given team, tag and year.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="mediaTag">Media Tag which describes the Media.</param>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Media&gt;</returns>
-          public Collection<Media>? GetTeamMediaByTagYear(string mediaTag, string teamKey, int year, string? ifNoneMatch = default)
+                         ///  Gets a list of Media (videos / pictures) for the given team, tag and year.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="mediaTag">Media Tag which describes the Media.</param>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Media&gt;</returns>
+    public Collection<Media>? GetTeamMediaByTagYear(string mediaTag, string teamKey, int year, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Media>?> localVarResponse = GetTeamMediaByTagYearWithHttpInfo(mediaTag, teamKey, year, ifNoneMatch);
+        ApiResponse<Collection<Media>?> localVarResponse = GetTeamMediaByTagYearWithHttpInfo(mediaTag, teamKey, year, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of Media (videos / pictures) for the given team, tag and year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="mediaTag">Media Tag which describes the Media.</param>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
-            public ApiResponse<Collection<Media>?> GetTeamMediaByTagYearWithHttpInfo(string mediaTag, string teamKey, int year, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of Media (videos / pictures) for the given team, tag and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="mediaTag">Media Tag which describes the Media.</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
+    public ApiResponse<Collection<Media>?> GetTeamMediaByTagYearWithHttpInfo(string mediaTag, string teamKey, int year, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'mediaTag' is set
                     if (mediaTag is null)
@@ -7036,34 +7036,34 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of Media (videos / pictures) for the given team, tag and year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="mediaTag">Media Tag which describes the Media.</param>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Media&gt;</returns>
-            public async Task<Collection<Media>?> GetTeamMediaByTagYearAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of Media (videos / pictures) for the given team, tag and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="mediaTag">Media Tag which describes the Media.</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Media&gt;</returns>
+    public async Task<Collection<Media>?> GetTeamMediaByTagYearAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Media>?> localVarResponse = await GetTeamMediaByTagYearWithHttpInfoAsync(mediaTag, teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Media>?> localVarResponse = await GetTeamMediaByTagYearWithHttpInfoAsync(mediaTag, teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of Media (videos / pictures) for the given team, tag and year.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="mediaTag">Media Tag which describes the Media.</param>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Media>?>> GetTeamMediaByTagYearWithHttpInfoAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of Media (videos / pictures) for the given team, tag and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="mediaTag">Media Tag which describes the Media.</param>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
+    public async Task<ApiResponse<Collection<Media>?>> GetTeamMediaByTagYearWithHttpInfoAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'mediaTag' is set
                       if (mediaTag is null)
@@ -7128,28 +7128,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of Media (videos / pictures) for the given team and year.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Media&gt;</returns>
-          public Collection<Media>? GetTeamMediaByYear(string teamKey, int year, string? ifNoneMatch = default)
+                         ///  Gets a list of Media (videos / pictures) for the given team and year.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Media&gt;</returns>
+    public Collection<Media>? GetTeamMediaByYear(string teamKey, int year, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Media>?> localVarResponse = GetTeamMediaByYearWithHttpInfo(teamKey, year, ifNoneMatch);
+        ApiResponse<Collection<Media>?> localVarResponse = GetTeamMediaByYearWithHttpInfo(teamKey, year, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of Media (videos / pictures) for the given team and year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
-            public ApiResponse<Collection<Media>?> GetTeamMediaByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of Media (videos / pictures) for the given team and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
+    public ApiResponse<Collection<Media>?> GetTeamMediaByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -7207,32 +7207,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of Media (videos / pictures) for the given team and year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Media&gt;</returns>
-            public async Task<Collection<Media>?> GetTeamMediaByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of Media (videos / pictures) for the given team and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Media&gt;</returns>
+    public async Task<Collection<Media>?> GetTeamMediaByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Media>?> localVarResponse = await GetTeamMediaByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Media>?> localVarResponse = await GetTeamMediaByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of Media (videos / pictures) for the given team and year.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Media>?>> GetTeamMediaByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of Media (videos / pictures) for the given team and year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
+    public async Task<ApiResponse<Collection<Media>?>> GetTeamMediaByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -7290,26 +7290,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;TeamRobot&gt;</returns>
-          public Collection<TeamRobot>? GetTeamRobots(string teamKey, string? ifNoneMatch = default)
+                         ///  Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;TeamRobot&gt;</returns>
+    public Collection<TeamRobot>? GetTeamRobots(string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<TeamRobot>?> localVarResponse = GetTeamRobotsWithHttpInfo(teamKey, ifNoneMatch);
+        ApiResponse<Collection<TeamRobot>?> localVarResponse = GetTeamRobotsWithHttpInfo(teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;TeamRobot&gt;</returns>
-            public ApiResponse<Collection<TeamRobot>?> GetTeamRobotsWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;TeamRobot&gt;</returns>
+    public ApiResponse<Collection<TeamRobot>?> GetTeamRobotsWithHttpInfo(string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -7366,30 +7366,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;TeamRobot&gt;</returns>
-            public async Task<Collection<TeamRobot>?> GetTeamRobotsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;TeamRobot&gt;</returns>
+    public async Task<Collection<TeamRobot>?> GetTeamRobotsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<TeamRobot>?> localVarResponse = await GetTeamRobotsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<TeamRobot>?> localVarResponse = await GetTeamRobotsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;TeamRobot&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<TeamRobot>?>> GetTeamRobotsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;TeamRobot&gt;)</returns>
+    public async Task<ApiResponse<Collection<TeamRobot>?>> GetTeamRobotsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -7446,26 +7446,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>TeamSimple</returns>
-          public TeamSimple? GetTeamSimple(string teamKey, string? ifNoneMatch = default)
+                         ///  Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>TeamSimple</returns>
+    public TeamSimple? GetTeamSimple(string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<TeamSimple?> localVarResponse = GetTeamSimpleWithHttpInfo(teamKey, ifNoneMatch);
+        ApiResponse<TeamSimple?> localVarResponse = GetTeamSimpleWithHttpInfo(teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of TeamSimple</returns>
-            public ApiResponse<TeamSimple?> GetTeamSimpleWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of TeamSimple</returns>
+    public ApiResponse<TeamSimple?> GetTeamSimpleWithHttpInfo(string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -7522,30 +7522,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of TeamSimple</returns>
-            public async Task<TeamSimple?> GetTeamSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of TeamSimple</returns>
+    public async Task<TeamSimple?> GetTeamSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<TeamSimple?> localVarResponse = await GetTeamSimpleWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<TeamSimple?> localVarResponse = await GetTeamSimpleWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (TeamSimple)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<TeamSimple?>> GetTeamSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (TeamSimple)</returns>
+    public async Task<ApiResponse<TeamSimple?>> GetTeamSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -7602,26 +7602,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of Media (social media) for the given team.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Media&gt;</returns>
-          public Collection<Media>? GetTeamSocialMedia(string teamKey, string? ifNoneMatch = default)
+                         ///  Gets a list of Media (social media) for the given team.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Media&gt;</returns>
+    public Collection<Media>? GetTeamSocialMedia(string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Media>?> localVarResponse = GetTeamSocialMediaWithHttpInfo(teamKey, ifNoneMatch);
+        ApiResponse<Collection<Media>?> localVarResponse = GetTeamSocialMediaWithHttpInfo(teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of Media (social media) for the given team.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
-            public ApiResponse<Collection<Media>?> GetTeamSocialMediaWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of Media (social media) for the given team.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
+    public ApiResponse<Collection<Media>?> GetTeamSocialMediaWithHttpInfo(string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -7678,30 +7678,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of Media (social media) for the given team.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Media&gt;</returns>
-            public async Task<Collection<Media>?> GetTeamSocialMediaAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of Media (social media) for the given team.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Media&gt;</returns>
+    public async Task<Collection<Media>?> GetTeamSocialMediaAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Media>?> localVarResponse = await GetTeamSocialMediaWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Media>?> localVarResponse = await GetTeamSocialMediaWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of Media (social media) for the given team.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Media>?>> GetTeamSocialMediaWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of Media (social media) for the given team.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
+    public async Task<ApiResponse<Collection<Media>?>> GetTeamSocialMediaWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -7758,26 +7758,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of years in which the team participated in at least one competition.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;int&gt;</returns>
-          public Collection<int>? GetTeamYearsParticipated(string teamKey, string? ifNoneMatch = default)
+                         ///  Gets a list of years in which the team participated in at least one competition.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;int&gt;</returns>
+    public Collection<int>? GetTeamYearsParticipated(string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<int>?> localVarResponse = GetTeamYearsParticipatedWithHttpInfo(teamKey, ifNoneMatch);
+        ApiResponse<Collection<int>?> localVarResponse = GetTeamYearsParticipatedWithHttpInfo(teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of years in which the team participated in at least one competition.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;int&gt;</returns>
-            public ApiResponse<Collection<int>?> GetTeamYearsParticipatedWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of years in which the team participated in at least one competition.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;int&gt;</returns>
+    public ApiResponse<Collection<int>?> GetTeamYearsParticipatedWithHttpInfo(string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -7834,30 +7834,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of years in which the team participated in at least one competition.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;int&gt;</returns>
-            public async Task<Collection<int>?> GetTeamYearsParticipatedAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of years in which the team participated in at least one competition.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;int&gt;</returns>
+    public async Task<Collection<int>?> GetTeamYearsParticipatedAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<int>?> localVarResponse = await GetTeamYearsParticipatedWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<int>?> localVarResponse = await GetTeamYearsParticipatedWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of years in which the team participated in at least one competition.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;int&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<int>?>> GetTeamYearsParticipatedWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of years in which the team participated in at least one competition.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;int&gt;)</returns>
+    public async Task<ApiResponse<Collection<int>?>> GetTeamYearsParticipatedWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)
@@ -7914,26 +7914,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Team&gt;</returns>
-          public Collection<Team>? GetTeams(int pageNum, string? ifNoneMatch = default)
+                         ///  Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Team&gt;</returns>
+    public Collection<Team>? GetTeams(int pageNum, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Team>?> localVarResponse = GetTeamsWithHttpInfo(pageNum, ifNoneMatch);
+        ApiResponse<Collection<Team>?> localVarResponse = GetTeamsWithHttpInfo(pageNum, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
-            public ApiResponse<Collection<Team>?> GetTeamsWithHttpInfo(int pageNum, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
+    public ApiResponse<Collection<Team>?> GetTeamsWithHttpInfo(int pageNum, string? ifNoneMatch = default)
             {
               RequestOptions localVarRequestOptions = new();
               
@@ -7984,30 +7984,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Team&gt;</returns>
-            public async Task<Collection<Team>?> GetTeamsAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Team&gt;</returns>
+    public async Task<Collection<Team>?> GetTeamsAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Team>?> localVarResponse = await GetTeamsWithHttpInfoAsync(pageNum, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Team>?> localVarResponse = await GetTeamsWithHttpInfoAsync(pageNum, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Team>?>> GetTeamsWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
+    public async Task<ApiResponse<Collection<Team>?>> GetTeamsWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -8058,28 +8058,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-          /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Team&gt;</returns>
-          public Collection<Team>? GetTeamsByYear(int pageNum, int year, string? ifNoneMatch = default)
+                         ///  Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Team&gt;</returns>
+    public Collection<Team>? GetTeamsByYear(int pageNum, int year, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Team>?> localVarResponse = GetTeamsByYearWithHttpInfo(pageNum, year, ifNoneMatch);
+        ApiResponse<Collection<Team>?> localVarResponse = GetTeamsByYearWithHttpInfo(pageNum, year, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
-            public ApiResponse<Collection<Team>?> GetTeamsByYearWithHttpInfo(int pageNum, int year, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
+    public ApiResponse<Collection<Team>?> GetTeamsByYearWithHttpInfo(int pageNum, int year, string? ifNoneMatch = default)
             {
               RequestOptions localVarRequestOptions = new();
               
@@ -8131,32 +8131,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Team&gt;</returns>
-            public async Task<Collection<Team>?> GetTeamsByYearAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Team&gt;</returns>
+    public async Task<Collection<Team>?> GetTeamsByYearAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Team>?> localVarResponse = await GetTeamsByYearWithHttpInfoAsync(pageNum, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Team>?> localVarResponse = await GetTeamsByYearWithHttpInfoAsync(pageNum, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-                /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Team>?>> GetTeamsByYearWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
+    public async Task<ApiResponse<Collection<Team>?>> GetTeamsByYearWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -8208,28 +8208,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list Team Keys that competed in the given year, paginated in groups of 500.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-          /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;string&gt;</returns>
-          public Collection<string>? GetTeamsByYearKeys(int pageNum, int year, string? ifNoneMatch = default)
+                         ///  Gets a list Team Keys that competed in the given year, paginated in groups of 500.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetTeamsByYearKeys(int pageNum, int year, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = GetTeamsByYearKeysWithHttpInfo(pageNum, year, ifNoneMatch);
+        ApiResponse<Collection<string>?> localVarResponse = GetTeamsByYearKeysWithHttpInfo(pageNum, year, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list Team Keys that competed in the given year, paginated in groups of 500.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-            public ApiResponse<Collection<string>?> GetTeamsByYearKeysWithHttpInfo(int pageNum, int year, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list Team Keys that competed in the given year, paginated in groups of 500.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    public ApiResponse<Collection<string>?> GetTeamsByYearKeysWithHttpInfo(int pageNum, int year, string? ifNoneMatch = default)
             {
               RequestOptions localVarRequestOptions = new();
               
@@ -8281,32 +8281,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list Team Keys that competed in the given year, paginated in groups of 500.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async Task<Collection<string>?> GetTeamsByYearKeysAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list Team Keys that competed in the given year, paginated in groups of 500.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    public async Task<Collection<string>?> GetTeamsByYearKeysAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetTeamsByYearKeysWithHttpInfoAsync(pageNum, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<string>?> localVarResponse = await GetTeamsByYearKeysWithHttpInfoAsync(pageNum, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list Team Keys that competed in the given year, paginated in groups of 500.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-                /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamsByYearKeysWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list Team Keys that competed in the given year, paginated in groups of 500.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    public async Task<ApiResponse<Collection<string>?>> GetTeamsByYearKeysWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -8358,28 +8358,28 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-          /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;TeamSimple&gt;</returns>
-          public Collection<TeamSimple>? GetTeamsByYearSimple(int pageNum, int year, string? ifNoneMatch = default)
+                         ///  Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;TeamSimple&gt;</returns>
+    public Collection<TeamSimple>? GetTeamsByYearSimple(int pageNum, int year, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?> localVarResponse = GetTeamsByYearSimpleWithHttpInfo(pageNum, year, ifNoneMatch);
+        ApiResponse<Collection<TeamSimple>?> localVarResponse = GetTeamsByYearSimpleWithHttpInfo(pageNum, year, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
-            public ApiResponse<Collection<TeamSimple>?> GetTeamsByYearSimpleWithHttpInfo(int pageNum, int year, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
+    public ApiResponse<Collection<TeamSimple>?> GetTeamsByYearSimpleWithHttpInfo(int pageNum, int year, string? ifNoneMatch = default)
             {
               RequestOptions localVarRequestOptions = new();
               
@@ -8431,32 +8431,32 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-            public async Task<Collection<TeamSimple>?> GetTeamsByYearSimpleAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
+    public async Task<Collection<TeamSimple>?> GetTeamsByYearSimpleAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetTeamsByYearSimpleWithHttpInfoAsync(pageNum, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetTeamsByYearSimpleWithHttpInfoAsync(pageNum, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-                /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?>> GetTeamsByYearSimpleWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
+    public async Task<ApiResponse<Collection<TeamSimple>?>> GetTeamsByYearSimpleWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -8508,26 +8508,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;string&gt;</returns>
-          public Collection<string>? GetTeamsKeys(int pageNum, string? ifNoneMatch = default)
+                         ///  Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetTeamsKeys(int pageNum, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = GetTeamsKeysWithHttpInfo(pageNum, ifNoneMatch);
+        ApiResponse<Collection<string>?> localVarResponse = GetTeamsKeysWithHttpInfo(pageNum, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-            public ApiResponse<Collection<string>?> GetTeamsKeysWithHttpInfo(int pageNum, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    public ApiResponse<Collection<string>?> GetTeamsKeysWithHttpInfo(int pageNum, string? ifNoneMatch = default)
             {
               RequestOptions localVarRequestOptions = new();
               
@@ -8578,30 +8578,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async Task<Collection<string>?> GetTeamsKeysAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    public async Task<Collection<string>?> GetTeamsKeysAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetTeamsKeysWithHttpInfoAsync(pageNum, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<string>?> localVarResponse = await GetTeamsKeysWithHttpInfoAsync(pageNum, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetTeamsKeysWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    public async Task<ApiResponse<Collection<string>?>> GetTeamsKeysWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -8652,26 +8652,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;TeamSimple&gt;</returns>
-          public Collection<TeamSimple>? GetTeamsSimple(int pageNum, string? ifNoneMatch = default)
+                         ///  Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;TeamSimple&gt;</returns>
+    public Collection<TeamSimple>? GetTeamsSimple(int pageNum, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?> localVarResponse = GetTeamsSimpleWithHttpInfo(pageNum, ifNoneMatch);
+        ApiResponse<Collection<TeamSimple>?> localVarResponse = GetTeamsSimpleWithHttpInfo(pageNum, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
-            public ApiResponse<Collection<TeamSimple>?> GetTeamsSimpleWithHttpInfo(int pageNum, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
+    public ApiResponse<Collection<TeamSimple>?> GetTeamsSimpleWithHttpInfo(int pageNum, string? ifNoneMatch = default)
             {
               RequestOptions localVarRequestOptions = new();
               
@@ -8722,30 +8722,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-            public async Task<Collection<TeamSimple>?> GetTeamsSimpleAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
+    public async Task<Collection<TeamSimple>?> GetTeamsSimpleAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetTeamsSimpleWithHttpInfoAsync(pageNum, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetTeamsSimpleWithHttpInfoAsync(pageNum, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?>> GetTeamsSimpleWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
+    public async Task<ApiResponse<Collection<TeamSimple>?>> GetTeamsSimpleWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 

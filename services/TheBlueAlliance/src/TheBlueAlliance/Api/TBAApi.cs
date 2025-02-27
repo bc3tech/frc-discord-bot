@@ -23,27 +23,27 @@ using TheBlueAlliance.Model;
   public interface ITBAApiSync : IApiAccessor
   {
     #region Synchronous Operations
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Returns API status, and TBA status information.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>APIStatus</returns>
-      APIStatus? GetStatus(string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Returns API status, and TBA status information.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of APIStatus</returns>
-        ApiResponse<APIStatus?> GetStatusWithHttpInfo(string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Returns API status, and TBA status information.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>APIStatus</returns>
+    APIStatus? GetStatus(string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Returns API status, and TBA status information.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of APIStatus</returns>
+    ApiResponse<APIStatus?> GetStatusWithHttpInfo(string? ifNoneMatch = default);
       #endregion Synchronous Operations
     }
     
@@ -52,30 +52,30 @@ using TheBlueAlliance.Model;
       /// </summary>
       public interface ITBAApiAsync : IApiAccessor
       {
-        #region Asynchronous Operations
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Returns API status, and TBA status information.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of APIStatus</returns>
-          Task<APIStatus?> GetStatusAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Returns API status, and TBA status information.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (APIStatus)</returns>
-            Task<ApiResponse<APIStatus?>> GetStatusWithHttpInfoAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    #region Asynchronous Operations
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Returns API status, and TBA status information.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of APIStatus</returns>
+    Task<APIStatus?> GetStatusAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Returns API status, and TBA status information.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (APIStatus)</returns>
+    Task<ApiResponse<APIStatus?>> GetStatusWithHttpInfoAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -262,26 +262,26 @@ using TheBlueAlliance.Model;
           }
           set => _exceptionFactory = value;
         }
-        
-          /// <summary>
-          ///  Returns API status, and TBA status information.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>APIStatus</returns>
-          public APIStatus? GetStatus(string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Returns API status, and TBA status information.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>APIStatus</returns>
+    public APIStatus? GetStatus(string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<APIStatus?> localVarResponse = GetStatusWithHttpInfo(ifNoneMatch);
+        ApiResponse<APIStatus?> localVarResponse = GetStatusWithHttpInfo(ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Returns API status, and TBA status information.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of APIStatus</returns>
-            public ApiResponse<APIStatus?> GetStatusWithHttpInfo(string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Returns API status, and TBA status information.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of APIStatus</returns>
+    public ApiResponse<APIStatus?> GetStatusWithHttpInfo(string? ifNoneMatch = default)
             {
               RequestOptions localVarRequestOptions = new();
               
@@ -331,28 +331,28 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Returns API status, and TBA status information.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of APIStatus</returns>
-            public async Task<APIStatus?> GetStatusAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Returns API status, and TBA status information.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of APIStatus</returns>
+    public async Task<APIStatus?> GetStatusAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<APIStatus?> localVarResponse = await GetStatusWithHttpInfoAsync(ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<APIStatus?> localVarResponse = await GetStatusWithHttpInfoAsync(ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Returns API status, and TBA status information.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (APIStatus)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<APIStatus?>> GetStatusWithHttpInfoAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Returns API status, and TBA status information.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (APIStatus)</returns>
+    public async Task<ApiResponse<APIStatus?>> GetStatusWithHttpInfoAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 

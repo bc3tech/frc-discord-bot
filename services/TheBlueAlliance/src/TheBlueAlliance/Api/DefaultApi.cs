@@ -23,27 +23,27 @@ using TheBlueAlliance.Model;
   public interface IDefaultApiSync : IApiAccessor
   {
     #region Synchronous Operations
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a large blob of data that is used on the frontend for searching. May change without notice.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>SearchIndex</returns>
-      SearchIndex? GetSearchIndex(string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a large blob of data that is used on the frontend for searching. May change without notice.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of SearchIndex</returns>
-        ApiResponse<SearchIndex?> GetSearchIndexWithHttpInfo(string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a large blob of data that is used on the frontend for searching. May change without notice.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>SearchIndex</returns>
+    SearchIndex? GetSearchIndex(string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a large blob of data that is used on the frontend for searching. May change without notice.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of SearchIndex</returns>
+    ApiResponse<SearchIndex?> GetSearchIndexWithHttpInfo(string? ifNoneMatch = default);
       #endregion Synchronous Operations
     }
     
@@ -52,30 +52,30 @@ using TheBlueAlliance.Model;
       /// </summary>
       public interface IDefaultApiAsync : IApiAccessor
       {
-        #region Asynchronous Operations
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a large blob of data that is used on the frontend for searching. May change without notice.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of SearchIndex</returns>
-          Task<SearchIndex?> GetSearchIndexAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a large blob of data that is used on the frontend for searching. May change without notice.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (SearchIndex)</returns>
-            Task<ApiResponse<SearchIndex?>> GetSearchIndexWithHttpInfoAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    #region Asynchronous Operations
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a large blob of data that is used on the frontend for searching. May change without notice.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of SearchIndex</returns>
+    Task<SearchIndex?> GetSearchIndexAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a large blob of data that is used on the frontend for searching. May change without notice.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (SearchIndex)</returns>
+    Task<ApiResponse<SearchIndex?>> GetSearchIndexWithHttpInfoAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -262,26 +262,26 @@ using TheBlueAlliance.Model;
           }
           set => _exceptionFactory = value;
         }
-        
-          /// <summary>
-          ///  Gets a large blob of data that is used on the frontend for searching. May change without notice.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>SearchIndex</returns>
-          public SearchIndex? GetSearchIndex(string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a large blob of data that is used on the frontend for searching. May change without notice.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>SearchIndex</returns>
+    public SearchIndex? GetSearchIndex(string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<SearchIndex?> localVarResponse = GetSearchIndexWithHttpInfo(ifNoneMatch);
+        ApiResponse<SearchIndex?> localVarResponse = GetSearchIndexWithHttpInfo(ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a large blob of data that is used on the frontend for searching. May change without notice.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of SearchIndex</returns>
-            public ApiResponse<SearchIndex?> GetSearchIndexWithHttpInfo(string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a large blob of data that is used on the frontend for searching. May change without notice.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of SearchIndex</returns>
+    public ApiResponse<SearchIndex?> GetSearchIndexWithHttpInfo(string? ifNoneMatch = default)
             {
               RequestOptions localVarRequestOptions = new();
               
@@ -331,28 +331,28 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a large blob of data that is used on the frontend for searching. May change without notice.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of SearchIndex</returns>
-            public async Task<SearchIndex?> GetSearchIndexAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a large blob of data that is used on the frontend for searching. May change without notice.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of SearchIndex</returns>
+    public async Task<SearchIndex?> GetSearchIndexAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<SearchIndex?> localVarResponse = await GetSearchIndexWithHttpInfoAsync(ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<SearchIndex?> localVarResponse = await GetSearchIndexWithHttpInfoAsync(ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a large blob of data that is used on the frontend for searching. May change without notice.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (SearchIndex)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<SearchIndex?>> GetSearchIndexWithHttpInfoAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a large blob of data that is used on the frontend for searching. May change without notice.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (SearchIndex)</returns>
+    public async Task<ApiResponse<SearchIndex?>> GetSearchIndexWithHttpInfoAsync(string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 

@@ -23,68 +23,68 @@ using Statbotics.Model;
   public interface IEventApiSync : IApiAccessor
   {
     #region Synchronous Operations
-      /// <summary>
-      /// Query a single event
-      /// </summary>
-        /// <remarks>
-        /// Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
-        /// </remarks>
-      /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="varEvent"></param>
-      /// <returns>Object</returns>
-      Object? ReadEventV3EventEventGet(string varEvent);
-        
-        /// <summary>
-        /// Query a single event
-        /// </summary>
-        /// <remarks>
-        /// Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
-        /// </remarks>
-        /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="varEvent"></param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> ReadEventV3EventEventGetWithHttpInfo(string varEvent);
-      /// <summary>
-      /// Query multiple events
-      /// </summary>
-        /// <remarks>
-        /// Returns up to 1000 events at a time. Specify limit and offset to page through results.
-        /// </remarks>
-      /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-      /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
-      /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
-      /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-      /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-      /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-      /// <param name="offset">Offset from the first result to return. (optional)</param>
-      /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
-      /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
-      /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-      /// <param name="year">Four-digit year (optional)</param>
-      /// <returns>Collection&lt;Object&gt;</returns>
-      Collection<Object>? ReadEventsV3EventsGet(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default);
-        
-        /// <summary>
-        /// Query multiple events
-        /// </summary>
-        /// <remarks>
-        /// Returns up to 1000 events at a time. Specify limit and offset to page through results.
-        /// </remarks>
-        /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-        /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
-        /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
-        /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-        /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-        /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-        /// <param name="offset">Offset from the first result to return. (optional)</param>
-        /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
-        /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
-        /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-        /// <param name="year">Four-digit year (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
-        ApiResponse<Collection<Object>?> ReadEventsV3EventsGetWithHttpInfo(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default);
+    /// <summary>
+    /// Query a single event
+    /// </summary>
+    /// <remarks>
+    /// Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="varEvent"></param>
+    /// <returns>Event</returns>
+    Event? ReadEventV3EventEventGet(string varEvent);
+
+    /// <summary>
+    /// Query a single event
+    /// </summary>
+    /// <remarks>
+    /// Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="varEvent"></param>
+    /// <returns>ApiResponse of Event</returns>
+    ApiResponse<Event?> ReadEventV3EventEventGetWithHttpInfo(string varEvent);
+    /// <summary>
+    /// Query multiple events
+    /// </summary>
+    /// <remarks>
+    /// Returns up to 1000 events at a time. Specify limit and offset to page through results.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
+    /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
+    /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
+    /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <returns>Collection&lt;Event&gt;</returns>
+    Collection<Event>? ReadEventsV3EventsGet(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default);
+
+    /// <summary>
+    /// Query multiple events
+    /// </summary>
+    /// <remarks>
+    /// Returns up to 1000 events at a time. Specify limit and offset to page through results.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
+    /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
+    /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
+    /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
+    ApiResponse<Collection<Event>?> ReadEventsV3EventsGetWithHttpInfo(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default);
       #endregion Synchronous Operations
     }
     
@@ -93,73 +93,73 @@ using Statbotics.Model;
       /// </summary>
       public interface IEventApiAsync : IApiAccessor
       {
-        #region Asynchronous Operations
-          /// <summary>
-          /// Query a single event
-          /// </summary>
-          /// <remarks>
-          /// Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
-          /// </remarks>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="varEvent"></param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> ReadEventV3EventEventGetAsync(string varEvent, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Query a single event
-            /// </summary>
-            /// <remarks>
-            /// Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
-            /// </remarks>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="varEvent"></param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> ReadEventV3EventEventGetWithHttpInfoAsync(string varEvent, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// Query multiple events
-          /// </summary>
-          /// <remarks>
-          /// Returns up to 1000 events at a time. Specify limit and offset to page through results.
-          /// </remarks>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-            /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
-            /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
-            /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-            /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-            /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-            /// <param name="offset">Offset from the first result to return. (optional)</param>
-            /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
-            /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
-            /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-            /// <param name="year">Four-digit year (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Object&gt;</returns>
-          Task<Collection<Object>?> ReadEventsV3EventsGetAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Query multiple events
-            /// </summary>
-            /// <remarks>
-            /// Returns up to 1000 events at a time. Specify limit and offset to page through results.
-            /// </remarks>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-              /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
-              /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
-              /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-              /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-              /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-              /// <param name="offset">Offset from the first result to return. (optional)</param>
-              /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
-              /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
-              /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-              /// <param name="year">Four-digit year (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
-            Task<ApiResponse<Collection<Object>?>> ReadEventsV3EventsGetWithHttpInfoAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default, CancellationToken cancellationToken = default);
+    #region Asynchronous Operations
+    /// <summary>
+    /// Query a single event
+    /// </summary>
+    /// <remarks>
+    /// Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="varEvent"></param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Event</returns>
+    Task<Event?> ReadEventV3EventEventGetAsync(string varEvent, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Query a single event
+    /// </summary>
+    /// <remarks>
+    /// Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="varEvent"></param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Event)</returns>
+    Task<ApiResponse<Event?>> ReadEventV3EventEventGetWithHttpInfoAsync(string varEvent, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Query multiple events
+    /// </summary>
+    /// <remarks>
+    /// Returns up to 1000 events at a time. Specify limit and offset to page through results.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
+    /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
+    /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
+    /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Event&gt;</returns>
+    Task<Collection<Event>?> ReadEventsV3EventsGetAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Query multiple events
+    /// </summary>
+    /// <remarks>
+    /// Returns up to 1000 events at a time. Specify limit and offset to page through results.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
+    /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
+    /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
+    /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
+    Task<ApiResponse<Collection<Event>?>> ReadEventsV3EventsGetWithHttpInfoAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -346,26 +346,26 @@ using Statbotics.Model;
           }
           set => _exceptionFactory = value;
         }
-        
-          /// <summary>
-          /// Query a single event Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
-          /// </summary>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="varEvent"></param>
-          /// <returns>Object</returns>
-          public Object? ReadEventV3EventEventGet(string varEvent)
+
+    /// <summary>
+    /// Query a single event Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="varEvent"></param>
+    /// <returns>Event</returns>
+    public Event? ReadEventV3EventEventGet(string varEvent)
           {
-            Statbotics.Client.ApiResponse<Object?> localVarResponse = ReadEventV3EventEventGetWithHttpInfo(varEvent);
+        ApiResponse<Event?> localVarResponse = ReadEventV3EventEventGetWithHttpInfo(varEvent);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Query a single event Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
-            /// </summary>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="varEvent"></param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> ReadEventV3EventEventGetWithHttpInfo(string varEvent)
+
+    /// <summary>
+    /// Query a single event Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="varEvent"></param>
+    /// <returns>ApiResponse of Event</returns>
+    public ApiResponse<Event?> ReadEventV3EventEventGetWithHttpInfo(string varEvent)
             {
                     // verify the required parameter 'varEvent' is set
                     if (varEvent is null)
@@ -398,7 +398,7 @@ using Statbotics.Model;
                   localVarRequestOptions.PathParameters.Add("event", ClientUtils.ParameterToString(varEvent)); // path parameter
                             
               // make the HTTP request
-              var localVarResponse = this.Client.Get<Object?>("/v3/event/{event}", localVarRequestOptions, this.Configuration);
+              var localVarResponse = this.Client.Get<Event?>("/v3/event/{event}", localVarRequestOptions, this.Configuration);
               
               if (this.ExceptionFactory is not null)
               {
@@ -411,28 +411,28 @@ using Statbotics.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Query a single event Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
-            /// </summary>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="varEvent"></param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> ReadEventV3EventEventGetAsync(string varEvent, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Query a single event Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="varEvent"></param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Event</returns>
+    public async Task<Event?> ReadEventV3EventEventGetAsync(string varEvent, CancellationToken cancellationToken = default)
             {
-              Statbotics.Client.ApiResponse<Object?> localVarResponse = await ReadEventV3EventEventGetWithHttpInfoAsync(varEvent, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Event?> localVarResponse = await ReadEventV3EventEventGetWithHttpInfoAsync(varEvent, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Query a single event Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
-              /// </summary>
-              /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="varEvent"></param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<Statbotics.Client.ApiResponse<Object?>> ReadEventV3EventEventGetWithHttpInfoAsync(string varEvent, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Query a single event Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="varEvent"></param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Event)</returns>
+    public async Task<ApiResponse<Event?>> ReadEventV3EventEventGetWithHttpInfoAsync(string varEvent, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'varEvent' is set
                       if (varEvent is null)
@@ -464,7 +464,7 @@ using Statbotics.Model;
                 
                     localVarRequestOptions.PathParameters.Add("event", ClientUtils.ParameterToString(varEvent)); // path parameter
                                 // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/v3/event/{event}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+                var localVarResponse = await this.AsynchronousClient.GetAsync<Event?>("/v3/event/{event}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
                 {
@@ -477,44 +477,44 @@ using Statbotics.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          /// Query multiple events Returns up to 1000 events at a time. Specify limit and offset to page through results.
-          /// </summary>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-          /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
-          /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
-          /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-          /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-          /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-          /// <param name="offset">Offset from the first result to return. (optional)</param>
-          /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
-          /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
-          /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-          /// <param name="year">Four-digit year (optional)</param>
-          /// <returns>Collection&lt;Object&gt;</returns>
-          public Collection<Object>? ReadEventsV3EventsGet(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default)
+                         /// Query multiple events Returns up to 1000 events at a time. Specify limit and offset to page through results.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+                         /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
+                         /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
+                         /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+                         /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+                         /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+                         /// <param name="offset">Offset from the first result to return. (optional)</param>
+                         /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
+                         /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
+                         /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+                         /// <param name="year">Four-digit year (optional)</param>
+                         /// <returns>Collection&lt;Event&gt;</returns>
+    public Collection<Event>? ReadEventsV3EventsGet(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default)
           {
-            Statbotics.Client.ApiResponse<Collection<Object>?> localVarResponse = ReadEventsV3EventsGetWithHttpInfo(ascending, country, district, limit, metric, offseason, offset, state, type, week, year);
+        ApiResponse<Collection<Event>?> localVarResponse = ReadEventsV3EventsGetWithHttpInfo(ascending, country, district, limit, metric, offseason, offset, state, type, week, year);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Query multiple events Returns up to 1000 events at a time. Specify limit and offset to page through results.
-            /// </summary>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-            /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
-            /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
-            /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-            /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-            /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-            /// <param name="offset">Offset from the first result to return. (optional)</param>
-            /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
-            /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
-            /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-            /// <param name="year">Four-digit year (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
-            public ApiResponse<Collection<Object>?> ReadEventsV3EventsGetWithHttpInfo(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default)
+
+    /// <summary>
+    /// Query multiple events Returns up to 1000 events at a time. Specify limit and offset to page through results.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
+    /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
+    /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
+    /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
+    public ApiResponse<Collection<Event>?> ReadEventsV3EventsGetWithHttpInfo(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default)
             {
               RequestOptions localVarRequestOptions = new();
               
@@ -595,7 +595,7 @@ using Statbotics.Model;
                   
                             
               // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Object>?>("/v3/events", localVarRequestOptions, this.Configuration);
+              var localVarResponse = this.Client.Get<Collection<Event>?>("/v3/events", localVarRequestOptions, this.Configuration);
               
               if (this.ExceptionFactory is not null)
               {
@@ -608,48 +608,48 @@ using Statbotics.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Query multiple events Returns up to 1000 events at a time. Specify limit and offset to page through results.
-            /// </summary>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-              /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
-              /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
-              /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-              /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-              /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-              /// <param name="offset">Offset from the first result to return. (optional)</param>
-              /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
-              /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
-              /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-              /// <param name="year">Four-digit year (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Object&gt;</returns>
-            public async Task<Collection<Object>?> ReadEventsV3EventsGetAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Query multiple events Returns up to 1000 events at a time. Specify limit and offset to page through results.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
+    /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
+    /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
+    /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Event&gt;</returns>
+    public async Task<Collection<Event>?> ReadEventsV3EventsGetAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
             {
-              Statbotics.Client.ApiResponse<Collection<Object>?> localVarResponse = await ReadEventsV3EventsGetWithHttpInfoAsync(ascending, country, district, limit, metric, offseason, offset, state, type, week, year, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Event>?> localVarResponse = await ReadEventsV3EventsGetWithHttpInfoAsync(ascending, country, district, limit, metric, offseason, offset, state, type, week, year, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Query multiple events Returns up to 1000 events at a time. Specify limit and offset to page through results.
-              /// </summary>
-              /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-                /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
-                /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
-                /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-                /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-                /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-                /// <param name="offset">Offset from the first result to return. (optional)</param>
-                /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
-                /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
-                /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-                /// <param name="year">Four-digit year (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
-              public async Task<Statbotics.Client.ApiResponse<Collection<Object>?>> ReadEventsV3EventsGetWithHttpInfoAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Query multiple events Returns up to 1000 events at a time. Specify limit and offset to page through results.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
+    /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
+    /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
+    /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
+    public async Task<ApiResponse<Collection<Event>?>> ReadEventsV3EventsGetWithHttpInfoAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -729,7 +729,7 @@ using Statbotics.Model;
                     }
                     
                                 // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Object>?>("/v3/events", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Event>?>("/v3/events", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
                 
                 if (this.ExceptionFactory is not null)
                 {

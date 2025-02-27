@@ -55,7 +55,7 @@ internal sealed partial class CustomJsonCodec
   /// <returns>A JSON string.</returns>
   public string Serialize(object obj)
   {
-    if (obj is FIRST.Model.AbstractOpenAPISchema absObj)
+    if (obj is Model.AbstractOpenAPISchema absObj)
     {
       // the object to be serialized is an oneOf/anyOf schema
       return absObj.ToJson();

@@ -23,282 +23,282 @@ using TheBlueAlliance.Model;
   public interface IDistrictApiSync : IApiAccessor
   {
     #region Synchronous Operations
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of awards in the given district.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Award&gt;</returns>
-      Collection<Award>? GetDistrictAwards(string districtKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of awards in the given district.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
-        ApiResponse<Collection<Award>?> GetDistrictAwardsWithHttpInfo(string districtKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of events in the given district.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Event&gt;</returns>
-      Collection<Event>? GetDistrictEvents(string districtKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of events in the given district.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
-        ApiResponse<Collection<Event>?> GetDistrictEventsWithHttpInfo(string districtKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of event keys for events in the given district.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;string&gt;</returns>
-      Collection<string>? GetDistrictEventsKeys(string districtKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of event keys for events in the given district.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-        ApiResponse<Collection<string>?> GetDistrictEventsKeysWithHttpInfo(string districtKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a short-form list of events in the given district.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;EventSimple&gt;</returns>
-      Collection<EventSimple>? GetDistrictEventsSimple(string districtKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a short-form list of events in the given district.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;EventSimple&gt;</returns>
-        ApiResponse<Collection<EventSimple>?> GetDistrictEventsSimpleWithHttpInfo(string districtKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;DistrictList&gt;</returns>
-      Collection<DistrictList>? GetDistrictHistory(string districtAbbreviation, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
-        ApiResponse<Collection<DistrictList>?> GetDistrictHistoryWithHttpInfo(string districtAbbreviation, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of team district rankings for the given district.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;DistrictRanking&gt;</returns>
-      Collection<DistrictRanking>? GetDistrictRankings(string districtKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of team district rankings for the given district.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;DistrictRanking&gt;</returns>
-        ApiResponse<Collection<DistrictRanking>?> GetDistrictRankingsWithHttpInfo(string districtKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;Team&gt;</returns>
-      Collection<Team>? GetDistrictTeams(string districtKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
-        ApiResponse<Collection<Team>?> GetDistrictTeamsWithHttpInfo(string districtKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;string&gt;</returns>
-      Collection<string>? GetDistrictTeamsKeys(string districtKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-        ApiResponse<Collection<string>?> GetDistrictTeamsKeysWithHttpInfo(string districtKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;TeamSimple&gt;</returns>
-      Collection<TeamSimple>? GetDistrictTeamsSimple(string districtKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
-        ApiResponse<Collection<TeamSimple>?> GetDistrictTeamsSimpleWithHttpInfo(string districtKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of districts and their corresponding district key, for the given year.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;DistrictList&gt;</returns>
-      Collection<DistrictList>? GetDistrictsByYear(int year, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of districts and their corresponding district key, for the given year.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
-        ApiResponse<Collection<DistrictList>?> GetDistrictsByYearWithHttpInfo(int year, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets a list of team rankings for the Event.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>EventDistrictPoints</returns>
-      EventDistrictPoints? GetEventDistrictPoints(string eventKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets a list of team rankings for the Event.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of EventDistrictPoints</returns>
-        ApiResponse<EventDistrictPoints?> GetEventDistrictPointsWithHttpInfo(string eventKey, string? ifNoneMatch = default);
-      /// <summary>
-      /// 
-      /// </summary>
-        /// <remarks>
-        /// Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-        /// </remarks>
-      /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-      /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-      /// <returns>Collection&lt;DistrictList&gt;</returns>
-      Collection<DistrictList>? GetTeamDistricts(string teamKey, string? ifNoneMatch = default);
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-        /// </remarks>
-        /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-        /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
-        ApiResponse<Collection<DistrictList>?> GetTeamDistrictsWithHttpInfo(string teamKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of awards in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Award&gt;</returns>
+    Collection<Award>? GetDistrictAwards(string districtKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of awards in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
+    ApiResponse<Collection<Award>?> GetDistrictAwardsWithHttpInfo(string districtKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Event&gt;</returns>
+    Collection<Event>? GetDistrictEvents(string districtKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
+    ApiResponse<Collection<Event>?> GetDistrictEventsWithHttpInfo(string districtKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of event keys for events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;string&gt;</returns>
+    Collection<string>? GetDistrictEventsKeys(string districtKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of event keys for events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    ApiResponse<Collection<string>?> GetDistrictEventsKeysWithHttpInfo(string districtKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;EventSimple&gt;</returns>
+    Collection<EventSimple>? GetDistrictEventsSimple(string districtKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;EventSimple&gt;</returns>
+    ApiResponse<Collection<EventSimple>?> GetDistrictEventsSimpleWithHttpInfo(string districtKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;DistrictList&gt;</returns>
+    Collection<DistrictList>? GetDistrictHistory(string districtAbbreviation, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
+    ApiResponse<Collection<DistrictList>?> GetDistrictHistoryWithHttpInfo(string districtAbbreviation, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of team district rankings for the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;DistrictRanking&gt;</returns>
+    Collection<DistrictRanking>? GetDistrictRankings(string districtKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of team district rankings for the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;DistrictRanking&gt;</returns>
+    ApiResponse<Collection<DistrictRanking>?> GetDistrictRankingsWithHttpInfo(string districtKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Team&gt;</returns>
+    Collection<Team>? GetDistrictTeams(string districtKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
+    ApiResponse<Collection<Team>?> GetDistrictTeamsWithHttpInfo(string districtKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;string&gt;</returns>
+    Collection<string>? GetDistrictTeamsKeys(string districtKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    ApiResponse<Collection<string>?> GetDistrictTeamsKeysWithHttpInfo(string districtKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;TeamSimple&gt;</returns>
+    Collection<TeamSimple>? GetDistrictTeamsSimple(string districtKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
+    ApiResponse<Collection<TeamSimple>?> GetDistrictTeamsSimpleWithHttpInfo(string districtKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of districts and their corresponding district key, for the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;DistrictList&gt;</returns>
+    Collection<DistrictList>? GetDistrictsByYear(int year, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of districts and their corresponding district key, for the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
+    ApiResponse<Collection<DistrictList>?> GetDistrictsByYearWithHttpInfo(int year, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of team rankings for the Event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>EventDistrictPoints</returns>
+    EventDistrictPoints? GetEventDistrictPoints(string eventKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of team rankings for the Event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of EventDistrictPoints</returns>
+    ApiResponse<EventDistrictPoints?> GetEventDistrictPointsWithHttpInfo(string eventKey, string? ifNoneMatch = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;DistrictList&gt;</returns>
+    Collection<DistrictList>? GetTeamDistricts(string teamKey, string? ifNoneMatch = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
+    ApiResponse<Collection<DistrictList>?> GetTeamDistrictsWithHttpInfo(string teamKey, string? ifNoneMatch = default);
       #endregion Synchronous Operations
     }
     
@@ -307,307 +307,307 @@ using TheBlueAlliance.Model;
       /// </summary>
       public interface IDistrictApiAsync : IApiAccessor
       {
-        #region Asynchronous Operations
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of awards in the given district.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Award&gt;</returns>
-          Task<Collection<Award>?> GetDistrictAwardsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of awards in the given district.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
-            Task<ApiResponse<Collection<Award>?>> GetDistrictAwardsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of events in the given district.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Event&gt;</returns>
-          Task<Collection<Event>?> GetDistrictEventsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of events in the given district.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
-            Task<ApiResponse<Collection<Event>?>> GetDistrictEventsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of event keys for events in the given district.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;string&gt;</returns>
-          Task<Collection<string>?> GetDistrictEventsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of event keys for events in the given district.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            Task<ApiResponse<Collection<string>?>> GetDistrictEventsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a short-form list of events in the given district.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
-          Task<Collection<EventSimple>?> GetDistrictEventsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a short-form list of events in the given district.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
-            Task<ApiResponse<Collection<EventSimple>?>> GetDistrictEventsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
-          Task<Collection<DistrictList>?> GetDistrictHistoryAsync(string districtAbbreviation, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
-            Task<ApiResponse<Collection<DistrictList>?>> GetDistrictHistoryWithHttpInfoAsync(string districtAbbreviation, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of team district rankings for the given district.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;DistrictRanking&gt;</returns>
-          Task<Collection<DistrictRanking>?> GetDistrictRankingsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of team district rankings for the given district.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;DistrictRanking&gt;)</returns>
-            Task<ApiResponse<Collection<DistrictRanking>?>> GetDistrictRankingsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Team&gt;</returns>
-          Task<Collection<Team>?> GetDistrictTeamsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-            Task<ApiResponse<Collection<Team>?>> GetDistrictTeamsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;string&gt;</returns>
-          Task<Collection<string>?> GetDistrictTeamsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-            Task<ApiResponse<Collection<string>?>> GetDistrictTeamsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-          Task<Collection<TeamSimple>?> GetDistrictTeamsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-            Task<ApiResponse<Collection<TeamSimple>?>> GetDistrictTeamsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of districts and their corresponding district key, for the given year.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
-          Task<Collection<DistrictList>?> GetDistrictsByYearAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of districts and their corresponding district key, for the given year.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
-            Task<ApiResponse<Collection<DistrictList>?>> GetDistrictsByYearWithHttpInfoAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets a list of team rankings for the Event.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of EventDistrictPoints</returns>
-          Task<EventDistrictPoints?> GetEventDistrictPointsAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets a list of team rankings for the Event.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (EventDistrictPoints)</returns>
-            Task<ApiResponse<EventDistrictPoints?>> GetEventDistrictPointsWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// 
-          /// </summary>
-          /// <remarks>
-          /// Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-          /// </remarks>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
-          Task<Collection<DistrictList>?> GetTeamDistrictsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <remarks>
-            /// Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-            /// </remarks>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
-            Task<ApiResponse<Collection<DistrictList>?>> GetTeamDistrictsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    #region Asynchronous Operations
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of awards in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Award&gt;</returns>
+    Task<Collection<Award>?> GetDistrictAwardsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of awards in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
+    Task<ApiResponse<Collection<Award>?>> GetDistrictAwardsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Event&gt;</returns>
+    Task<Collection<Event>?> GetDistrictEventsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
+    Task<ApiResponse<Collection<Event>?>> GetDistrictEventsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of event keys for events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    Task<Collection<string>?> GetDistrictEventsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of event keys for events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    Task<ApiResponse<Collection<string>?>> GetDistrictEventsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
+    Task<Collection<EventSimple>?> GetDistrictEventsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
+    Task<ApiResponse<Collection<EventSimple>?>> GetDistrictEventsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
+    Task<Collection<DistrictList>?> GetDistrictHistoryAsync(string districtAbbreviation, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
+    Task<ApiResponse<Collection<DistrictList>?>> GetDistrictHistoryWithHttpInfoAsync(string districtAbbreviation, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of team district rankings for the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;DistrictRanking&gt;</returns>
+    Task<Collection<DistrictRanking>?> GetDistrictRankingsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of team district rankings for the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;DistrictRanking&gt;)</returns>
+    Task<ApiResponse<Collection<DistrictRanking>?>> GetDistrictRankingsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Team&gt;</returns>
+    Task<Collection<Team>?> GetDistrictTeamsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
+    Task<ApiResponse<Collection<Team>?>> GetDistrictTeamsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    Task<Collection<string>?> GetDistrictTeamsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    Task<ApiResponse<Collection<string>?>> GetDistrictTeamsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
+    Task<Collection<TeamSimple>?> GetDistrictTeamsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
+    Task<ApiResponse<Collection<TeamSimple>?>> GetDistrictTeamsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of districts and their corresponding district key, for the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
+    Task<Collection<DistrictList>?> GetDistrictsByYearAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of districts and their corresponding district key, for the given year.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
+    Task<ApiResponse<Collection<DistrictList>?>> GetDistrictsByYearWithHttpInfoAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of team rankings for the Event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of EventDistrictPoints</returns>
+    Task<EventDistrictPoints?> GetEventDistrictPointsAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets a list of team rankings for the Event.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (EventDistrictPoints)</returns>
+    Task<ApiResponse<EventDistrictPoints?>> GetEventDistrictPointsWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
+    Task<Collection<DistrictList>?> GetTeamDistrictsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
+    Task<ApiResponse<Collection<DistrictList>?>> GetTeamDistrictsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -794,28 +794,28 @@ using TheBlueAlliance.Model;
           }
           set => _exceptionFactory = value;
         }
-        
-          /// <summary>
-          ///  Gets a list of awards in the given district.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Award&gt;</returns>
-          public Collection<Award>? GetDistrictAwards(string districtKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of awards in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>Collection&lt;Award&gt;</returns>
+    public Collection<Award>? GetDistrictAwards(string districtKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Award>?> localVarResponse = GetDistrictAwardsWithHttpInfo(districtKey, ifNoneMatch);
+        ApiResponse<Collection<Award>?> localVarResponse = GetDistrictAwardsWithHttpInfo(districtKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of awards in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
-            public ApiResponse<Collection<Award>?> GetDistrictAwardsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of awards in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
+    public ApiResponse<Collection<Award>?> GetDistrictAwardsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'districtKey' is set
                     if (districtKey is null)
@@ -872,30 +872,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of awards in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Award&gt;</returns>
-            public async Task<Collection<Award>?> GetDistrictAwardsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of awards in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Award&gt;</returns>
+    public async Task<Collection<Award>?> GetDistrictAwardsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Award>?> localVarResponse = await GetDistrictAwardsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Award>?> localVarResponse = await GetDistrictAwardsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of awards in the given district.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Award>?>> GetDistrictAwardsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of awards in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
+    public async Task<ApiResponse<Collection<Award>?>> GetDistrictAwardsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'districtKey' is set
                       if (districtKey is null)
@@ -952,26 +952,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of events in the given district.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Event&gt;</returns>
-          public Collection<Event>? GetDistrictEvents(string districtKey, string? ifNoneMatch = default)
+                         ///  Gets a list of events in the given district.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Event&gt;</returns>
+    public Collection<Event>? GetDistrictEvents(string districtKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Event>?> localVarResponse = GetDistrictEventsWithHttpInfo(districtKey, ifNoneMatch);
+        ApiResponse<Collection<Event>?> localVarResponse = GetDistrictEventsWithHttpInfo(districtKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
-            public ApiResponse<Collection<Event>?> GetDistrictEventsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
+    public ApiResponse<Collection<Event>?> GetDistrictEventsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'districtKey' is set
                     if (districtKey is null)
@@ -1028,30 +1028,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Event&gt;</returns>
-            public async Task<Collection<Event>?> GetDistrictEventsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Event&gt;</returns>
+    public async Task<Collection<Event>?> GetDistrictEventsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Event>?> localVarResponse = await GetDistrictEventsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Event>?> localVarResponse = await GetDistrictEventsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of events in the given district.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Event>?>> GetDistrictEventsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
+    public async Task<ApiResponse<Collection<Event>?>> GetDistrictEventsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'districtKey' is set
                       if (districtKey is null)
@@ -1108,26 +1108,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of event keys for events in the given district.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;string&gt;</returns>
-          public Collection<string>? GetDistrictEventsKeys(string districtKey, string? ifNoneMatch = default)
+                         ///  Gets a list of event keys for events in the given district.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetDistrictEventsKeys(string districtKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = GetDistrictEventsKeysWithHttpInfo(districtKey, ifNoneMatch);
+        ApiResponse<Collection<string>?> localVarResponse = GetDistrictEventsKeysWithHttpInfo(districtKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of event keys for events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-            public ApiResponse<Collection<string>?> GetDistrictEventsKeysWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of event keys for events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    public ApiResponse<Collection<string>?> GetDistrictEventsKeysWithHttpInfo(string districtKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'districtKey' is set
                     if (districtKey is null)
@@ -1184,30 +1184,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of event keys for events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async Task<Collection<string>?> GetDistrictEventsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of event keys for events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    public async Task<Collection<string>?> GetDistrictEventsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetDistrictEventsKeysWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<string>?> localVarResponse = await GetDistrictEventsKeysWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of event keys for events in the given district.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetDistrictEventsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of event keys for events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    public async Task<ApiResponse<Collection<string>?>> GetDistrictEventsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'districtKey' is set
                       if (districtKey is null)
@@ -1264,26 +1264,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a short-form list of events in the given district.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;EventSimple&gt;</returns>
-          public Collection<EventSimple>? GetDistrictEventsSimple(string districtKey, string? ifNoneMatch = default)
+                         ///  Gets a short-form list of events in the given district.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;EventSimple&gt;</returns>
+    public Collection<EventSimple>? GetDistrictEventsSimple(string districtKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<EventSimple>?> localVarResponse = GetDistrictEventsSimpleWithHttpInfo(districtKey, ifNoneMatch);
+        ApiResponse<Collection<EventSimple>?> localVarResponse = GetDistrictEventsSimpleWithHttpInfo(districtKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a short-form list of events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;EventSimple&gt;</returns>
-            public ApiResponse<Collection<EventSimple>?> GetDistrictEventsSimpleWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a short-form list of events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;EventSimple&gt;</returns>
+    public ApiResponse<Collection<EventSimple>?> GetDistrictEventsSimpleWithHttpInfo(string districtKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'districtKey' is set
                     if (districtKey is null)
@@ -1340,30 +1340,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a short-form list of events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
-            public async Task<Collection<EventSimple>?> GetDistrictEventsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a short-form list of events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
+    public async Task<Collection<EventSimple>?> GetDistrictEventsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<EventSimple>?> localVarResponse = await GetDistrictEventsSimpleWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<EventSimple>?> localVarResponse = await GetDistrictEventsSimpleWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a short-form list of events in the given district.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<EventSimple>?>> GetDistrictEventsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a short-form list of events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
+    public async Task<ApiResponse<Collection<EventSimple>?>> GetDistrictEventsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'districtKey' is set
                       if (districtKey is null)
@@ -1420,26 +1420,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;DistrictList&gt;</returns>
-          public Collection<DistrictList>? GetDistrictHistory(string districtAbbreviation, string? ifNoneMatch = default)
+                         ///  Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;DistrictList&gt;</returns>
+    public Collection<DistrictList>? GetDistrictHistory(string districtAbbreviation, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<DistrictList>?> localVarResponse = GetDistrictHistoryWithHttpInfo(districtAbbreviation, ifNoneMatch);
+        ApiResponse<Collection<DistrictList>?> localVarResponse = GetDistrictHistoryWithHttpInfo(districtAbbreviation, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
-            public ApiResponse<Collection<DistrictList>?> GetDistrictHistoryWithHttpInfo(string districtAbbreviation, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
+    public ApiResponse<Collection<DistrictList>?> GetDistrictHistoryWithHttpInfo(string districtAbbreviation, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'districtAbbreviation' is set
                     if (districtAbbreviation is null)
@@ -1496,30 +1496,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
-            public async Task<Collection<DistrictList>?> GetDistrictHistoryAsync(string districtAbbreviation, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
+    public async Task<Collection<DistrictList>?> GetDistrictHistoryAsync(string districtAbbreviation, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<DistrictList>?> localVarResponse = await GetDistrictHistoryWithHttpInfoAsync(districtAbbreviation, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<DistrictList>?> localVarResponse = await GetDistrictHistoryWithHttpInfoAsync(districtAbbreviation, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<DistrictList>?>> GetDistrictHistoryWithHttpInfoAsync(string districtAbbreviation, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
+    public async Task<ApiResponse<Collection<DistrictList>?>> GetDistrictHistoryWithHttpInfoAsync(string districtAbbreviation, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'districtAbbreviation' is set
                       if (districtAbbreviation is null)
@@ -1576,26 +1576,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of team district rankings for the given district.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;DistrictRanking&gt;</returns>
-          public Collection<DistrictRanking>? GetDistrictRankings(string districtKey, string? ifNoneMatch = default)
+                         ///  Gets a list of team district rankings for the given district.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;DistrictRanking&gt;</returns>
+    public Collection<DistrictRanking>? GetDistrictRankings(string districtKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<DistrictRanking>?> localVarResponse = GetDistrictRankingsWithHttpInfo(districtKey, ifNoneMatch);
+        ApiResponse<Collection<DistrictRanking>?> localVarResponse = GetDistrictRankingsWithHttpInfo(districtKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of team district rankings for the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;DistrictRanking&gt;</returns>
-            public ApiResponse<Collection<DistrictRanking>?> GetDistrictRankingsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of team district rankings for the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;DistrictRanking&gt;</returns>
+    public ApiResponse<Collection<DistrictRanking>?> GetDistrictRankingsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'districtKey' is set
                     if (districtKey is null)
@@ -1652,30 +1652,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of team district rankings for the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;DistrictRanking&gt;</returns>
-            public async Task<Collection<DistrictRanking>?> GetDistrictRankingsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of team district rankings for the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;DistrictRanking&gt;</returns>
+    public async Task<Collection<DistrictRanking>?> GetDistrictRankingsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<DistrictRanking>?> localVarResponse = await GetDistrictRankingsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<DistrictRanking>?> localVarResponse = await GetDistrictRankingsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of team district rankings for the given district.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;DistrictRanking&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<DistrictRanking>?>> GetDistrictRankingsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of team district rankings for the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;DistrictRanking&gt;)</returns>
+    public async Task<ApiResponse<Collection<DistrictRanking>?>> GetDistrictRankingsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'districtKey' is set
                       if (districtKey is null)
@@ -1732,26 +1732,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;Team&gt;</returns>
-          public Collection<Team>? GetDistrictTeams(string districtKey, string? ifNoneMatch = default)
+                         ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;Team&gt;</returns>
+    public Collection<Team>? GetDistrictTeams(string districtKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<Team>?> localVarResponse = GetDistrictTeamsWithHttpInfo(districtKey, ifNoneMatch);
+        ApiResponse<Collection<Team>?> localVarResponse = GetDistrictTeamsWithHttpInfo(districtKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
-            public ApiResponse<Collection<Team>?> GetDistrictTeamsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
+    public ApiResponse<Collection<Team>?> GetDistrictTeamsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'districtKey' is set
                     if (districtKey is null)
@@ -1808,30 +1808,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Team&gt;</returns>
-            public async Task<Collection<Team>?> GetDistrictTeamsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Team&gt;</returns>
+    public async Task<Collection<Team>?> GetDistrictTeamsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<Team>?> localVarResponse = await GetDistrictTeamsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<Team>?> localVarResponse = await GetDistrictTeamsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<Team>?>> GetDistrictTeamsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
+    public async Task<ApiResponse<Collection<Team>?>> GetDistrictTeamsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'districtKey' is set
                       if (districtKey is null)
@@ -1888,26 +1888,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;string&gt;</returns>
-          public Collection<string>? GetDistrictTeamsKeys(string districtKey, string? ifNoneMatch = default)
+                         ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetDistrictTeamsKeys(string districtKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = GetDistrictTeamsKeysWithHttpInfo(districtKey, ifNoneMatch);
+        ApiResponse<Collection<string>?> localVarResponse = GetDistrictTeamsKeysWithHttpInfo(districtKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
-            public ApiResponse<Collection<string>?> GetDistrictTeamsKeysWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
+    public ApiResponse<Collection<string>?> GetDistrictTeamsKeysWithHttpInfo(string districtKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'districtKey' is set
                     if (districtKey is null)
@@ -1964,30 +1964,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;string&gt;</returns>
-            public async Task<Collection<string>?> GetDistrictTeamsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;string&gt;</returns>
+    public async Task<Collection<string>?> GetDistrictTeamsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<string>?> localVarResponse = await GetDistrictTeamsKeysWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<string>?> localVarResponse = await GetDistrictTeamsKeysWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<string>?>> GetDistrictTeamsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
+    public async Task<ApiResponse<Collection<string>?>> GetDistrictTeamsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'districtKey' is set
                       if (districtKey is null)
@@ -2044,26 +2044,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;TeamSimple&gt;</returns>
-          public Collection<TeamSimple>? GetDistrictTeamsSimple(string districtKey, string? ifNoneMatch = default)
+                         ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;TeamSimple&gt;</returns>
+    public Collection<TeamSimple>? GetDistrictTeamsSimple(string districtKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?> localVarResponse = GetDistrictTeamsSimpleWithHttpInfo(districtKey, ifNoneMatch);
+        ApiResponse<Collection<TeamSimple>?> localVarResponse = GetDistrictTeamsSimpleWithHttpInfo(districtKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
-            public ApiResponse<Collection<TeamSimple>?> GetDistrictTeamsSimpleWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
+    public ApiResponse<Collection<TeamSimple>?> GetDistrictTeamsSimpleWithHttpInfo(string districtKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'districtKey' is set
                     if (districtKey is null)
@@ -2120,30 +2120,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
-            public async Task<Collection<TeamSimple>?> GetDistrictTeamsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
+    public async Task<Collection<TeamSimple>?> GetDistrictTeamsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetDistrictTeamsSimpleWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetDistrictTeamsSimpleWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<TeamSimple>?>> GetDistrictTeamsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
+    public async Task<ApiResponse<Collection<TeamSimple>?>> GetDistrictTeamsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'districtKey' is set
                       if (districtKey is null)
@@ -2200,26 +2200,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of districts and their corresponding district key, for the given year.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;DistrictList&gt;</returns>
-          public Collection<DistrictList>? GetDistrictsByYear(int year, string? ifNoneMatch = default)
+                         ///  Gets a list of districts and their corresponding district key, for the given year.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;DistrictList&gt;</returns>
+    public Collection<DistrictList>? GetDistrictsByYear(int year, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<DistrictList>?> localVarResponse = GetDistrictsByYearWithHttpInfo(year, ifNoneMatch);
+        ApiResponse<Collection<DistrictList>?> localVarResponse = GetDistrictsByYearWithHttpInfo(year, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of districts and their corresponding district key, for the given year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
-            public ApiResponse<Collection<DistrictList>?> GetDistrictsByYearWithHttpInfo(int year, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of districts and their corresponding district key, for the given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
+    public ApiResponse<Collection<DistrictList>?> GetDistrictsByYearWithHttpInfo(int year, string? ifNoneMatch = default)
             {
               RequestOptions localVarRequestOptions = new();
               
@@ -2270,30 +2270,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of districts and their corresponding district key, for the given year.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
-            public async Task<Collection<DistrictList>?> GetDistrictsByYearAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of districts and their corresponding district key, for the given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
+    public async Task<Collection<DistrictList>?> GetDistrictsByYearAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<DistrictList>?> localVarResponse = await GetDistrictsByYearWithHttpInfoAsync(year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<DistrictList>?> localVarResponse = await GetDistrictsByYearWithHttpInfoAsync(year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of districts and their corresponding district key, for the given year.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<DistrictList>?>> GetDistrictsByYearWithHttpInfoAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of districts and their corresponding district key, for the given year.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
+    public async Task<ApiResponse<Collection<DistrictList>?>> GetDistrictsByYearWithHttpInfoAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 
@@ -2344,26 +2344,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets a list of team rankings for the Event.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>EventDistrictPoints</returns>
-          public EventDistrictPoints? GetEventDistrictPoints(string eventKey, string? ifNoneMatch = default)
+                         ///  Gets a list of team rankings for the Event.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>EventDistrictPoints</returns>
+    public EventDistrictPoints? GetEventDistrictPoints(string eventKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<EventDistrictPoints?> localVarResponse = GetEventDistrictPointsWithHttpInfo(eventKey, ifNoneMatch);
+        ApiResponse<EventDistrictPoints?> localVarResponse = GetEventDistrictPointsWithHttpInfo(eventKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets a list of team rankings for the Event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of EventDistrictPoints</returns>
-            public ApiResponse<EventDistrictPoints?> GetEventDistrictPointsWithHttpInfo(string eventKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets a list of team rankings for the Event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of EventDistrictPoints</returns>
+    public ApiResponse<EventDistrictPoints?> GetEventDistrictPointsWithHttpInfo(string eventKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'eventKey' is set
                     if (eventKey is null)
@@ -2420,30 +2420,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets a list of team rankings for the Event.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of EventDistrictPoints</returns>
-            public async Task<EventDistrictPoints?> GetEventDistrictPointsAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of team rankings for the Event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of EventDistrictPoints</returns>
+    public async Task<EventDistrictPoints?> GetEventDistrictPointsAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<EventDistrictPoints?> localVarResponse = await GetEventDistrictPointsWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<EventDistrictPoints?> localVarResponse = await GetEventDistrictPointsWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets a list of team rankings for the Event.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (EventDistrictPoints)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<EventDistrictPoints?>> GetEventDistrictPointsWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets a list of team rankings for the Event.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (EventDistrictPoints)</returns>
+    public async Task<ApiResponse<EventDistrictPoints?>> GetEventDistrictPointsWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventKey' is set
                       if (eventKey is null)
@@ -2500,26 +2500,26 @@ using TheBlueAlliance.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-          /// </summary>
-          /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-          /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-          /// <returns>Collection&lt;DistrictList&gt;</returns>
-          public Collection<DistrictList>? GetTeamDistricts(string teamKey, string? ifNoneMatch = default)
+                         ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+                         /// <returns>Collection&lt;DistrictList&gt;</returns>
+    public Collection<DistrictList>? GetTeamDistricts(string teamKey, string? ifNoneMatch = default)
           {
-            TheBlueAlliance.Client.ApiResponse<Collection<DistrictList>?> localVarResponse = GetTeamDistrictsWithHttpInfo(teamKey, ifNoneMatch);
+        ApiResponse<Collection<DistrictList>?> localVarResponse = GetTeamDistrictsWithHttpInfo(teamKey, ifNoneMatch);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-            /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
-            public ApiResponse<Collection<DistrictList>?> GetTeamDistrictsWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+
+    /// <summary>
+    ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
+    public ApiResponse<Collection<DistrictList>?> GetTeamDistrictsWithHttpInfo(string teamKey, string? ifNoneMatch = default)
             {
                     // verify the required parameter 'teamKey' is set
                     if (teamKey is null)
@@ -2576,30 +2576,30 @@ using TheBlueAlliance.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-            /// </summary>
-            /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-              /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
-            public async Task<Collection<DistrictList>?> GetTeamDistrictsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
+    public async Task<Collection<DistrictList>?> GetTeamDistrictsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
             {
-              TheBlueAlliance.Client.ApiResponse<Collection<DistrictList>?> localVarResponse = await GetTeamDistrictsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<DistrictList>?> localVarResponse = await GetTeamDistrictsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-              /// </summary>
-              /// <exception cref="TheBlueAlliance.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
-              public async Task<TheBlueAlliance.Client.ApiResponse<Collection<DistrictList>?>> GetTeamDistrictsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+    /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
+    public async Task<ApiResponse<Collection<DistrictList>?>> GetTeamDistrictsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'teamKey' is set
                       if (teamKey is null)

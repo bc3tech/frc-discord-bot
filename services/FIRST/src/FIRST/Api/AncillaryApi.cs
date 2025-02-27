@@ -31,16 +31,16 @@ using FIRST.Client;
       /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
       /// <returns>Object</returns>
       Object? RootGet();
-        
-        /// <summary>
-        /// API Index
-        /// </summary>
-        /// <remarks>
-        /// Root level call with no parameters.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> RootGetWithHttpInfo();
+
+    /// <summary>
+    /// API Index
+    /// </summary>
+    /// <remarks>
+    /// Root level call with no parameters.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> RootGetWithHttpInfo();
       #endregion Synchronous Operations
     }
     
@@ -49,28 +49,28 @@ using FIRST.Client;
       /// </summary>
       public interface IAncillaryApiAsync : IApiAccessor
       {
-        #region Asynchronous Operations
-          /// <summary>
-          /// API Index
-          /// </summary>
-          /// <remarks>
-          /// Root level call with no parameters.
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> RootGetAsync(CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// API Index
-            /// </summary>
-            /// <remarks>
-            /// Root level call with no parameters.
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> RootGetWithHttpInfoAsync(CancellationToken cancellationToken = default);
+    #region Asynchronous Operations
+    /// <summary>
+    /// API Index
+    /// </summary>
+    /// <remarks>
+    /// Root level call with no parameters.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> RootGetAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// API Index
+    /// </summary>
+    /// <remarks>
+    /// Root level call with no parameters.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> RootGetWithHttpInfoAsync(CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -257,24 +257,24 @@ using FIRST.Client;
           }
           set => _exceptionFactory = value;
         }
-        
-          /// <summary>
-          /// API Index Root level call with no parameters.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <returns>Object</returns>
-          public Object? RootGet()
+
+    /// <summary>
+    /// API Index Root level call with no parameters.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <returns>Object</returns>
+    public Object? RootGet()
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = RootGetWithHttpInfo();
+        ApiResponse<object?> localVarResponse = RootGetWithHttpInfo();
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// API Index Root level call with no parameters.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> RootGetWithHttpInfo()
+
+    /// <summary>
+    /// API Index Root level call with no parameters.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> RootGetWithHttpInfo()
             {
               RequestOptions localVarRequestOptions = new();
               
@@ -314,26 +314,26 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// API Index Root level call with no parameters.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> RootGetAsync(CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// API Index Root level call with no parameters.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> RootGetAsync(CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await RootGetWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await RootGetWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// API Index Root level call with no parameters.
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> RootGetWithHttpInfoAsync(CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// API Index Root level call with no parameters.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> RootGetWithHttpInfoAsync(CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 

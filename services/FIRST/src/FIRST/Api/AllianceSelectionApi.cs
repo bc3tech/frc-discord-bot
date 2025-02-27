@@ -22,29 +22,29 @@ using FIRST.Client;
   public interface IAllianceSelectionApiSync : IApiAccessor
   {
     #region Synchronous Operations
-      /// <summary>
-      /// Event Alliances
-      /// </summary>
-        /// <remarks>
-        /// The alliances API returns details about alliance selection at a particular event in a particular season.
-        /// </remarks>
-      /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the alliance selection results are requested. Must be at least 3 characters. </param>
-      /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
-      /// <returns></returns>
-      void SeasonAlliancesEventCodeGet(string eventCode, string season);
-        
-        /// <summary>
-        /// Event Alliances
-        /// </summary>
-        /// <remarks>
-        /// The alliances API returns details about alliance selection at a particular event in a particular season.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the alliance selection results are requested. Must be at least 3 characters. </param>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
-        /// <returns>ApiResponse of object(void)</returns>
-        ApiResponse<object?> SeasonAlliancesEventCodeGetWithHttpInfo(string eventCode, string season);
+    /// <summary>
+    /// Event Alliances
+    /// </summary>
+    /// <remarks>
+    /// The alliances API returns details about alliance selection at a particular event in a particular season.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the alliance selection results are requested. Must be at least 3 characters. </param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
+    /// <returns></returns>
+    void SeasonAlliancesEventCodeGet(string eventCode, string season);
+
+    /// <summary>
+    /// Event Alliances
+    /// </summary>
+    /// <remarks>
+    /// The alliances API returns details about alliance selection at a particular event in a particular season.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the alliance selection results are requested. Must be at least 3 characters. </param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
+    /// <returns>ApiResponse of object(void)</returns>
+    ApiResponse<object?> SeasonAlliancesEventCodeGetWithHttpInfo(string eventCode, string season);
       #endregion Synchronous Operations
     }
     
@@ -53,32 +53,32 @@ using FIRST.Client;
       /// </summary>
       public interface IAllianceSelectionApiAsync : IApiAccessor
       {
-        #region Asynchronous Operations
-          /// <summary>
-          /// Event Alliances
-          /// </summary>
-          /// <remarks>
-          /// The alliances API returns details about alliance selection at a particular event in a particular season.
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the alliance selection results are requested. Must be at least 3 characters. </param>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of void</returns>
-          Task SeasonAlliancesEventCodeGetAsync(string eventCode, string season, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Event Alliances
-            /// </summary>
-            /// <remarks>
-            /// The alliances API returns details about alliance selection at a particular event in a particular season.
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the alliance selection results are requested. Must be at least 3 characters. </param>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse</returns>
-            Task<ApiResponse<object?>> SeasonAlliancesEventCodeGetWithHttpInfoAsync(string eventCode, string season, CancellationToken cancellationToken = default);
+    #region Asynchronous Operations
+    /// <summary>
+    /// Event Alliances
+    /// </summary>
+    /// <remarks>
+    /// The alliances API returns details about alliance selection at a particular event in a particular season.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the alliance selection results are requested. Must be at least 3 characters. </param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of void</returns>
+    Task SeasonAlliancesEventCodeGetAsync(string eventCode, string season, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Event Alliances
+    /// </summary>
+    /// <remarks>
+    /// The alliances API returns details about alliance selection at a particular event in a particular season.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the alliance selection results are requested. Must be at least 3 characters. </param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse</returns>
+    Task<ApiResponse<object?>> SeasonAlliancesEventCodeGetWithHttpInfoAsync(string eventCode, string season, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -265,27 +265,27 @@ using FIRST.Client;
           }
           set => _exceptionFactory = value;
         }
-        
-          /// <summary>
-          /// Event Alliances The alliances API returns details about alliance selection at a particular event in a particular season.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the alliance selection results are requested. Must be at least 3 characters. </param>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
-          /// <returns></returns>
-          public void SeasonAlliancesEventCodeGet(string eventCode, string season)
+
+    /// <summary>
+    /// Event Alliances The alliances API returns details about alliance selection at a particular event in a particular season.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the alliance selection results are requested. Must be at least 3 characters. </param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
+    /// <returns></returns>
+    public void SeasonAlliancesEventCodeGet(string eventCode, string season)
           {
             SeasonAlliancesEventCodeGetWithHttpInfo(eventCode, season);
             }
-            
-            /// <summary>
-            /// Event Alliances The alliances API returns details about alliance selection at a particular event in a particular season.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the alliance selection results are requested. Must be at least 3 characters. </param>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
-            /// <returns>ApiResponse of object(void)</returns>
-            public ApiResponse<object?> SeasonAlliancesEventCodeGetWithHttpInfo(string eventCode, string season)
+
+    /// <summary>
+    /// Event Alliances The alliances API returns details about alliance selection at a particular event in a particular season.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the alliance selection results are requested. Must be at least 3 characters. </param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
+    /// <returns>ApiResponse of object(void)</returns>
+    public ApiResponse<object?> SeasonAlliancesEventCodeGetWithHttpInfo(string eventCode, string season)
             {
                     // verify the required parameter 'eventCode' is set
                     if (eventCode is null)
@@ -345,29 +345,29 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Event Alliances The alliances API returns details about alliance selection at a particular event in a particular season.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the alliance selection results are requested. Must be at least 3 characters. </param>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of void</returns>
-            public async Task SeasonAlliancesEventCodeGetAsync(string eventCode, string season, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Event Alliances The alliances API returns details about alliance selection at a particular event in a particular season.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the alliance selection results are requested. Must be at least 3 characters. </param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of void</returns>
+    public async Task SeasonAlliancesEventCodeGetAsync(string eventCode, string season, CancellationToken cancellationToken = default)
             {
               await SeasonAlliancesEventCodeGetWithHttpInfoAsync(eventCode, season, cancellationToken).ConfigureAwait(false);
               }
-              
-              /// <summary>
-              /// Event Alliances The alliances API returns details about alliance selection at a particular event in a particular season.
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the alliance selection results are requested. Must be at least 3 characters. </param>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse</returns>
-              public async Task<FIRST.Client.ApiResponse<object?>> SeasonAlliancesEventCodeGetWithHttpInfoAsync(string eventCode, string season, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Event Alliances The alliances API returns details about alliance selection at a particular event in a particular season.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the alliance selection results are requested. Must be at least 3 characters. </param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse</returns>
+    public async Task<ApiResponse<object?>> SeasonAlliancesEventCodeGetWithHttpInfoAsync(string eventCode, string season, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)

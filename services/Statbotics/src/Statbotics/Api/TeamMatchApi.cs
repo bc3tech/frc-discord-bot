@@ -34,59 +34,59 @@ using Statbotics.Model;
       /// <param name="team"></param>
       /// <returns>Object</returns>
       Object? ReadTeamMatchV3TeamMatchTeamMatchGet(string match, string team);
-        
-        /// <summary>
-        /// Query a single team match
-        /// </summary>
-        /// <remarks>
-        /// Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
-        /// </remarks>
-        /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="match"></param>
-        /// <param name="team"></param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> ReadTeamMatchV3TeamMatchTeamMatchGetWithHttpInfo(string match, string team);
-      /// <summary>
-      /// Query multiple team matches
-      /// </summary>
-        /// <remarks>
-        /// Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
-        /// </remarks>
-      /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-      /// <param name="elim">Whether the match is an elimination match. (optional)</param>
-      /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-      /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
-      /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-      /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-      /// <param name="offset">Offset from the first result to return. (optional)</param>
-      /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
-      /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
-      /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-      /// <param name="year">Four-digit year (optional)</param>
-      /// <returns>Collection&lt;Object&gt;</returns>
-      Collection<Object>? ReadTeamMatchesV3TeamMatchesGet(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default);
-        
-        /// <summary>
-        /// Query multiple team matches
-        /// </summary>
-        /// <remarks>
-        /// Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
-        /// </remarks>
-        /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-        /// <param name="elim">Whether the match is an elimination match. (optional)</param>
-        /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-        /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
-        /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-        /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-        /// <param name="offset">Offset from the first result to return. (optional)</param>
-        /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
-        /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
-        /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-        /// <param name="year">Four-digit year (optional)</param>
-        /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
-        ApiResponse<Collection<Object>?> ReadTeamMatchesV3TeamMatchesGetWithHttpInfo(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default);
+
+    /// <summary>
+    /// Query a single team match
+    /// </summary>
+    /// <remarks>
+    /// Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="match"></param>
+    /// <param name="team"></param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> ReadTeamMatchV3TeamMatchTeamMatchGetWithHttpInfo(string match, string team);
+    /// <summary>
+    /// Query multiple team matches
+    /// </summary>
+    /// <remarks>
+    /// Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="elim">Whether the match is an elimination match. (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
+    /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
+    /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <returns>Collection&lt;Object&gt;</returns>
+    Collection<Object>? ReadTeamMatchesV3TeamMatchesGet(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default);
+
+    /// <summary>
+    /// Query multiple team matches
+    /// </summary>
+    /// <remarks>
+    /// Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="elim">Whether the match is an elimination match. (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
+    /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
+    /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
+    ApiResponse<Collection<Object>?> ReadTeamMatchesV3TeamMatchesGetWithHttpInfo(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default);
       #endregion Synchronous Operations
     }
     
@@ -95,75 +95,75 @@ using Statbotics.Model;
       /// </summary>
       public interface ITeamMatchApiAsync : IApiAccessor
       {
-        #region Asynchronous Operations
-          /// <summary>
-          /// Query a single team match
-          /// </summary>
-          /// <remarks>
-          /// Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
-          /// </remarks>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="match"></param>
-            /// <param name="team"></param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> ReadTeamMatchV3TeamMatchTeamMatchGetAsync(string match, string team, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Query a single team match
-            /// </summary>
-            /// <remarks>
-            /// Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
-            /// </remarks>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="match"></param>
-              /// <param name="team"></param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> ReadTeamMatchV3TeamMatchTeamMatchGetWithHttpInfoAsync(string match, string team, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// Query multiple team matches
-          /// </summary>
-          /// <remarks>
-          /// Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
-          /// </remarks>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-            /// <param name="elim">Whether the match is an elimination match. (optional)</param>
-            /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-            /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
-            /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-            /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-            /// <param name="offset">Offset from the first result to return. (optional)</param>
-            /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
-            /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
-            /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-            /// <param name="year">Four-digit year (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Collection&lt;Object&gt;</returns>
-          Task<Collection<Object>?> ReadTeamMatchesV3TeamMatchesGetAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Query multiple team matches
-            /// </summary>
-            /// <remarks>
-            /// Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
-            /// </remarks>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-              /// <param name="elim">Whether the match is an elimination match. (optional)</param>
-              /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-              /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
-              /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-              /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-              /// <param name="offset">Offset from the first result to return. (optional)</param>
-              /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
-              /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
-              /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-              /// <param name="year">Four-digit year (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
-            Task<ApiResponse<Collection<Object>?>> ReadTeamMatchesV3TeamMatchesGetWithHttpInfoAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default);
+    #region Asynchronous Operations
+    /// <summary>
+    /// Query a single team match
+    /// </summary>
+    /// <remarks>
+    /// Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="match"></param>
+    /// <param name="team"></param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> ReadTeamMatchV3TeamMatchTeamMatchGetAsync(string match, string team, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Query a single team match
+    /// </summary>
+    /// <remarks>
+    /// Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="match"></param>
+    /// <param name="team"></param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> ReadTeamMatchV3TeamMatchTeamMatchGetWithHttpInfoAsync(string match, string team, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Query multiple team matches
+    /// </summary>
+    /// <remarks>
+    /// Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="elim">Whether the match is an elimination match. (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
+    /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
+    /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Object&gt;</returns>
+    Task<Collection<Object>?> ReadTeamMatchesV3TeamMatchesGetAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Query multiple team matches
+    /// </summary>
+    /// <remarks>
+    /// Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="elim">Whether the match is an elimination match. (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
+    /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
+    /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
+    Task<ApiResponse<Collection<Object>?>> ReadTeamMatchesV3TeamMatchesGetWithHttpInfoAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -350,28 +350,28 @@ using Statbotics.Model;
           }
           set => _exceptionFactory = value;
         }
-        
-          /// <summary>
-          /// Query a single team match Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
-          /// </summary>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="match"></param>
-          /// <param name="team"></param>
-          /// <returns>Object</returns>
-          public Object? ReadTeamMatchV3TeamMatchTeamMatchGet(string match, string team)
+
+    /// <summary>
+    /// Query a single team match Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="match"></param>
+    /// <param name="team"></param>
+    /// <returns>Object</returns>
+    public Object? ReadTeamMatchV3TeamMatchTeamMatchGet(string match, string team)
           {
-            Statbotics.Client.ApiResponse<Object?> localVarResponse = ReadTeamMatchV3TeamMatchTeamMatchGetWithHttpInfo(match, team);
+        ApiResponse<object?> localVarResponse = ReadTeamMatchV3TeamMatchTeamMatchGetWithHttpInfo(match, team);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Query a single team match Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
-            /// </summary>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="match"></param>
-            /// <param name="team"></param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> ReadTeamMatchV3TeamMatchTeamMatchGetWithHttpInfo(string match, string team)
+
+    /// <summary>
+    /// Query a single team match Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="match"></param>
+    /// <param name="team"></param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> ReadTeamMatchV3TeamMatchTeamMatchGetWithHttpInfo(string match, string team)
             {
                     // verify the required parameter 'match' is set
                     if (match is null)
@@ -424,30 +424,30 @@ using Statbotics.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Query a single team match Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
-            /// </summary>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="match"></param>
-              /// <param name="team"></param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> ReadTeamMatchV3TeamMatchTeamMatchGetAsync(string match, string team, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Query a single team match Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="match"></param>
+    /// <param name="team"></param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> ReadTeamMatchV3TeamMatchTeamMatchGetAsync(string match, string team, CancellationToken cancellationToken = default)
             {
-              Statbotics.Client.ApiResponse<Object?> localVarResponse = await ReadTeamMatchV3TeamMatchTeamMatchGetWithHttpInfoAsync(match, team, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await ReadTeamMatchV3TeamMatchTeamMatchGetWithHttpInfoAsync(match, team, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Query a single team match Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
-              /// </summary>
-              /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="match"></param>
-                /// <param name="team"></param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<Statbotics.Client.ApiResponse<Object?>> ReadTeamMatchV3TeamMatchTeamMatchGetWithHttpInfoAsync(string match, string team, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Query a single team match Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="match"></param>
+    /// <param name="team"></param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> ReadTeamMatchV3TeamMatchTeamMatchGetWithHttpInfoAsync(string match, string team, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'match' is set
                       if (match is null)
@@ -499,44 +499,44 @@ using Statbotics.Model;
                 
                 return localVarResponse;
               }          /// <summary>
-          /// Query multiple team matches Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
-          /// </summary>
-          /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-          /// <param name="elim">Whether the match is an elimination match. (optional)</param>
-          /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-          /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
-          /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-          /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-          /// <param name="offset">Offset from the first result to return. (optional)</param>
-          /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
-          /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
-          /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-          /// <param name="year">Four-digit year (optional)</param>
-          /// <returns>Collection&lt;Object&gt;</returns>
-          public Collection<Object>? ReadTeamMatchesV3TeamMatchesGet(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default)
+                         /// Query multiple team matches Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+                         /// <param name="elim">Whether the match is an elimination match. (optional)</param>
+                         /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+                         /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
+                         /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+                         /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+                         /// <param name="offset">Offset from the first result to return. (optional)</param>
+                         /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
+                         /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
+                         /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+                         /// <param name="year">Four-digit year (optional)</param>
+                         /// <returns>Collection&lt;Object&gt;</returns>
+    public Collection<Object>? ReadTeamMatchesV3TeamMatchesGet(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default)
           {
-            Statbotics.Client.ApiResponse<Collection<Object>?> localVarResponse = ReadTeamMatchesV3TeamMatchesGetWithHttpInfo(ascending, elim, limit, match, metric, offseason, offset, team, varEvent, week, year);
+        ApiResponse<Collection<object>?> localVarResponse = ReadTeamMatchesV3TeamMatchesGetWithHttpInfo(ascending, elim, limit, match, metric, offseason, offset, team, varEvent, week, year);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Query multiple team matches Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
-            /// </summary>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-            /// <param name="elim">Whether the match is an elimination match. (optional)</param>
-            /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-            /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
-            /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-            /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-            /// <param name="offset">Offset from the first result to return. (optional)</param>
-            /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
-            /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
-            /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-            /// <param name="year">Four-digit year (optional)</param>
-            /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
-            public ApiResponse<Collection<Object>?> ReadTeamMatchesV3TeamMatchesGetWithHttpInfo(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default)
+
+    /// <summary>
+    /// Query multiple team matches Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="elim">Whether the match is an elimination match. (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
+    /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
+    /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
+    public ApiResponse<Collection<Object>?> ReadTeamMatchesV3TeamMatchesGetWithHttpInfo(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default)
             {
               RequestOptions localVarRequestOptions = new();
               
@@ -630,48 +630,48 @@ using Statbotics.Model;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Query multiple team matches Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
-            /// </summary>
-            /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-              /// <param name="elim">Whether the match is an elimination match. (optional)</param>
-              /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-              /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
-              /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-              /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-              /// <param name="offset">Offset from the first result to return. (optional)</param>
-              /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
-              /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
-              /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-              /// <param name="year">Four-digit year (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Collection&lt;Object&gt;</returns>
-            public async Task<Collection<Object>?> ReadTeamMatchesV3TeamMatchesGetAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Query multiple team matches Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="elim">Whether the match is an elimination match. (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
+    /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
+    /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Collection&lt;Object&gt;</returns>
+    public async Task<Collection<Object>?> ReadTeamMatchesV3TeamMatchesGetAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
             {
-              Statbotics.Client.ApiResponse<Collection<Object>?> localVarResponse = await ReadTeamMatchesV3TeamMatchesGetWithHttpInfoAsync(ascending, elim, limit, match, metric, offseason, offset, team, varEvent, week, year, cancellationToken).ConfigureAwait(false);
+        ApiResponse<Collection<object>?> localVarResponse = await ReadTeamMatchesV3TeamMatchesGetWithHttpInfoAsync(ascending, elim, limit, match, metric, offseason, offset, team, varEvent, week, year, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Query multiple team matches Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
-              /// </summary>
-              /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-                /// <param name="elim">Whether the match is an elimination match. (optional)</param>
-                /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-                /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
-                /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-                /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-                /// <param name="offset">Offset from the first result to return. (optional)</param>
-                /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
-                /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
-                /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-                /// <param name="year">Four-digit year (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
-              public async Task<Statbotics.Client.ApiResponse<Collection<Object>?>> ReadTeamMatchesV3TeamMatchesGetWithHttpInfoAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Query multiple team matches Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+    /// <param name="elim">Whether the match is an elimination match. (optional)</param>
+    /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+    /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
+    /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+    /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+    /// <param name="offset">Offset from the first result to return. (optional)</param>
+    /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
+    /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
+    /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+    /// <param name="year">Four-digit year (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
+    public async Task<ApiResponse<Collection<object>?>> ReadTeamMatchesV3TeamMatchesGetWithHttpInfoAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
               {
                 RequestOptions localVarRequestOptions = new();
                 

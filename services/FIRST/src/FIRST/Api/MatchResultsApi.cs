@@ -39,24 +39,24 @@ using FIRST.Client;
       /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
       /// <returns>Object</returns>
       Object? SeasonMatchesEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default);
-        
-        /// <summary>
-        /// Event Match Results
-        /// </summary>
-        /// <remarks>
-        /// The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-        /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
-        /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
-        /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> SeasonMatchesEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default);
+
+    /// <summary>
+    /// Event Match Results
+    /// </summary>
+    /// <remarks>
+    /// The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
+    /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> SeasonMatchesEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default);
       /// <summary>
       /// Score Details
       /// </summary>
@@ -73,23 +73,23 @@ using FIRST.Client;
       /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
       /// <returns>Object</returns>
       Object? SeasonScoresEventCodeTournamentLevelGet(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default);
-        
-        /// <summary>
-        /// Score Details
-        /// </summary>
-        /// <remarks>
-        /// The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
-        /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-        /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> SeasonScoresEventCodeTournamentLevelGetWithHttpInfo(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default);
+
+    /// <summary>
+    /// Score Details
+    /// </summary>
+    /// <remarks>
+    /// The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> SeasonScoresEventCodeTournamentLevelGetWithHttpInfo(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default);
       #endregion Synchronous Operations
     }
     
@@ -98,79 +98,79 @@ using FIRST.Client;
       /// </summary>
       public interface IMatchResultsApiAsync : IApiAccessor
       {
-        #region Asynchronous Operations
-          /// <summary>
-          /// Event Match Results
-          /// </summary>
-          /// <remarks>
-          /// The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-            /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
-            /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
-            /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> SeasonMatchesEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Event Match Results
-            /// </summary>
-            /// <remarks>
-            /// The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-              /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
-              /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
-              /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> SeasonMatchesEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// Score Details
-          /// </summary>
-          /// <remarks>
-          /// The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
-            /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-            /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> SeasonScoresEventCodeTournamentLevelGetAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Score Details
-            /// </summary>
-            /// <remarks>
-            /// The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
-              /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-              /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> SeasonScoresEventCodeTournamentLevelGetWithHttpInfoAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default);
+    #region Asynchronous Operations
+    /// <summary>
+    /// Event Match Results
+    /// </summary>
+    /// <remarks>
+    /// The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
+    /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> SeasonMatchesEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Event Match Results
+    /// </summary>
+    /// <remarks>
+    /// The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
+    /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> SeasonMatchesEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Score Details
+    /// </summary>
+    /// <remarks>
+    /// The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> SeasonScoresEventCodeTournamentLevelGetAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Score Details
+    /// </summary>
+    /// <remarks>
+    /// The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> SeasonScoresEventCodeTournamentLevelGetWithHttpInfoAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -357,40 +357,40 @@ using FIRST.Client;
           }
           set => _exceptionFactory = value;
         }
-        
-          /// <summary>
-          /// Event Match Results The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-          /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
-          /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
-          /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-          /// <returns>Object</returns>
-          public Object? SeasonMatchesEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
+
+    /// <summary>
+    /// Event Match Results The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
+    /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+    /// <returns>Object</returns>
+    public Object? SeasonMatchesEventCodeGet(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonMatchesEventCodeGetWithHttpInfo(eventCode, season, end, ifModifiedSince, matchNumber, start, teamNumber, tournamentLevel);
+        ApiResponse<object?> localVarResponse = SeasonMatchesEventCodeGetWithHttpInfo(eventCode, season, end, ifModifiedSince, matchNumber, start, teamNumber, tournamentLevel);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Event Match Results The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-            /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
-            /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
-            /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> SeasonMatchesEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
+
+    /// <summary>
+    /// Event Match Results The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
+    /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> SeasonMatchesEventCodeGetWithHttpInfo(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default)
             {
                     // verify the required parameter 'eventCode' is set
                     if (eventCode is null)
@@ -480,42 +480,42 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Event Match Results The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-              /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
-              /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
-              /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> SeasonMatchesEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Event Match Results The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
+    /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> SeasonMatchesEventCodeGetAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonMatchesEventCodeGetWithHttpInfoAsync(eventCode, season, end, ifModifiedSince, matchNumber, start, teamNumber, tournamentLevel, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await SeasonMatchesEventCodeGetWithHttpInfoAsync(eventCode, season, end, ifModifiedSince, matchNumber, start, teamNumber, tournamentLevel, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Event Match Results The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-                /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-                /// <param name="ifModifiedSince"> (optional)</param>
-                /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-                /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
-                /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
-                /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonMatchesEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Event Match Results The match results API returns the match results for all matches of a particular event in a particular season. Match results are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  If you specify the &#x60;matchNumber&#x60;, &#x60;start&#x60; and/or &#x60;end&#x60; optional parameters, you must also specify a &#x60;tournamentLevel&#x60;. If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the matchNumber, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  **Note**: If you specify &#x60;start&#x60;, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  Starting in the 2015 season, Elimination matches were renamed to Playoff matches. As such, you must request Playoff matches from the API, and \&quot;elim\&quot; will not return any results. In Playoffs, match numbers 1-8 are \&quot;Quarterfinal\&quot; matches, 9-14 are \&quot;Semifinal\&quot; and 15-17 are \&quot;Finals\&quot; matches. The \&quot;level\&quot; response however, will always just show \&quot;Playoff\&quot; regardless of the portion of the Playoff tournament.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the results are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return. (optional)</param>
+    /// <param name="teamNumber">**(int)** Optional teamNumber to search for within the results. Only returns match results in which the requested team was a participant. (optional)</param>
+    /// <param name="tournamentLevel">**(string)** Optional tournamentLevel of desired match results.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> SeasonMatchesEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, string? teamNumber = default, string? tournamentLevel = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)
@@ -605,36 +605,36 @@ using FIRST.Client;
                 
                 return localVarResponse;
               }          /// <summary>
-          /// Score Details The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
-          /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-          /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
-          /// <returns>Object</returns>
-          public Object? SeasonScoresEventCodeTournamentLevelGet(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default)
+                         /// Score Details The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
+                         /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+                         /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
+                         /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+                         /// <param name="ifModifiedSince"> (optional)</param>
+                         /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+                         /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
+                         /// <returns>Object</returns>
+    public Object? SeasonScoresEventCodeTournamentLevelGet(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default)
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonScoresEventCodeTournamentLevelGetWithHttpInfo(eventCode, season, tournamentLevel, end, ifModifiedSince, matchNumber, start);
+        ApiResponse<object?> localVarResponse = SeasonScoresEventCodeTournamentLevelGetWithHttpInfo(eventCode, season, tournamentLevel, end, ifModifiedSince, matchNumber, start);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Score Details The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
-            /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-            /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> SeasonScoresEventCodeTournamentLevelGetWithHttpInfo(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default)
+
+    /// <summary>
+    /// Score Details The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> SeasonScoresEventCodeTournamentLevelGetWithHttpInfo(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default)
             {
                     // verify the required parameter 'eventCode' is set
                     if (eventCode is null)
@@ -722,40 +722,40 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Score Details The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
-              /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-              /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> SeasonScoresEventCodeTournamentLevelGetAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Score Details The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> SeasonScoresEventCodeTournamentLevelGetAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonScoresEventCodeTournamentLevelGetWithHttpInfoAsync(eventCode, season, tournamentLevel, end, ifModifiedSince, matchNumber, start, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await SeasonScoresEventCodeTournamentLevelGetWithHttpInfoAsync(eventCode, season, tournamentLevel, end, ifModifiedSince, matchNumber, start, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Score Details The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-                /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
-                /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
-                /// <param name="ifModifiedSince"> (optional)</param>
-                /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
-                /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonScoresEventCodeTournamentLevelGetWithHttpInfoAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Score Details The score details API returns the score detail for all matches of a particular event in a particular season and a particular tournament level. Score details are only available once a match has been played, retrieving info about future matches requires the event schedule API. You cannot receive data about a match that is in progress.  **IMPORTANT: This endpoint returns differently depending on the season requested. The response details are listed multiple times, representing the different seasons possible in the return. Additionally, the scores shown in the example returns are not necessarily realistic- like the points may not add up.**  If you specify the &#x60;teamNumber&#x60; parameter, you cannot specify a &#x60;matchNumber&#x60; parameter. If you specify the &#x60;matchNumber&#x60;, you cannot define a &#x60;start&#x60; or &#x60;end&#x60;.  _**Note:**_ If you specify start, and it is higher than the maximum match number at the event, you will not receive any match results in the response. The same is true in reverse for the end parameter.  &gt; _Click the \&quot;20XX Score Details\&quot; drop down in the example request/response pane (to the right or below) to view example score details responses for each of the available seasons._
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **[REQUIRED] (string)** Case insensitive alphanumeric eventCode of the event from which the details are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="tournamentLevel">(Required) **[REQUIRED] (string)** Required tournamentLevel of desired score details.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60;</param>
+    /// <param name="end">**(int)** Optional end match number for subset of results to return (inclusive). (optional)</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="matchNumber">**(int)** Optional specific single matchNumber of result. (optional)</param>
+    /// <param name="start">**(int)** Optional start match number for subset of results to return (includsive). (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> SeasonScoresEventCodeTournamentLevelGetWithHttpInfoAsync(string eventCode, string season, string tournamentLevel, string? end = default, string? ifModifiedSince = default, string? matchNumber = default, string? start = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)

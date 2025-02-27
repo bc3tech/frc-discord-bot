@@ -32,17 +32,17 @@ using FIRST.Client;
       /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
       /// <returns>Object</returns>
       Object? SeasonRankingsDistrictAllianceSelectionCalculationGet(string season);
-        
-        /// <summary>
-        /// Alliance Selection Points
-        /// </summary>
-        /// <remarks>
-        /// Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfo(string season);
+
+    /// <summary>
+    /// Alliance Selection Points
+    /// </summary>
+    /// <remarks>
+    /// Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfo(string season);
       /// <summary>
       /// Playoff Advancement Points
       /// </summary>
@@ -53,17 +53,17 @@ using FIRST.Client;
       /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
       /// <returns>Object</returns>
       Object? SeasonRankingsDistrictPlayoffAdvancementCalculationGet(string season);
-        
-        /// <summary>
-        /// Playoff Advancement Points
-        /// </summary>
-        /// <remarks>
-        /// Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfo(string season);
+
+    /// <summary>
+    /// Playoff Advancement Points
+    /// </summary>
+    /// <remarks>
+    /// Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfo(string season);
       /// <summary>
       /// Qual Performance Points
       /// </summary>
@@ -74,17 +74,17 @@ using FIRST.Client;
       /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
       /// <returns>Object</returns>
       Object? SeasonRankingsDistrictQualPerformanceCalculationGet(string season);
-        
-        /// <summary>
-        /// Qual Performance Points
-        /// </summary>
-        /// <remarks>
-        /// Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfo(string season);
+
+    /// <summary>
+    /// Qual Performance Points
+    /// </summary>
+    /// <remarks>
+    /// Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfo(string season);
       #endregion Synchronous Operations
     }
     
@@ -93,76 +93,76 @@ using FIRST.Client;
       /// </summary>
       public interface IRankingsDistrictRankingCalculationApiAsync : IApiAccessor
       {
-        #region Asynchronous Operations
-          /// <summary>
-          /// Alliance Selection Points
-          /// </summary>
-          /// <remarks>
-          /// Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> SeasonRankingsDistrictAllianceSelectionCalculationGetAsync(string season, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Alliance Selection Points
-            /// </summary>
-            /// <remarks>
-            /// Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// Playoff Advancement Points
-          /// </summary>
-          /// <remarks>
-          /// Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> SeasonRankingsDistrictPlayoffAdvancementCalculationGetAsync(string season, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Playoff Advancement Points
-            /// </summary>
-            /// <remarks>
-            /// Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// Qual Performance Points
-          /// </summary>
-          /// <remarks>
-          /// Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> SeasonRankingsDistrictQualPerformanceCalculationGetAsync(string season, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Qual Performance Points
-            /// </summary>
-            /// <remarks>
-            /// Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
+    #region Asynchronous Operations
+    /// <summary>
+    /// Alliance Selection Points
+    /// </summary>
+    /// <remarks>
+    /// Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> SeasonRankingsDistrictAllianceSelectionCalculationGetAsync(string season, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Alliance Selection Points
+    /// </summary>
+    /// <remarks>
+    /// Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Playoff Advancement Points
+    /// </summary>
+    /// <remarks>
+    /// Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> SeasonRankingsDistrictPlayoffAdvancementCalculationGetAsync(string season, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Playoff Advancement Points
+    /// </summary>
+    /// <remarks>
+    /// Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Qual Performance Points
+    /// </summary>
+    /// <remarks>
+    /// Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> SeasonRankingsDistrictQualPerformanceCalculationGetAsync(string season, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Qual Performance Points
+    /// </summary>
+    /// <remarks>
+    /// Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -349,26 +349,26 @@ using FIRST.Client;
           }
           set => _exceptionFactory = value;
         }
-        
-          /// <summary>
-          /// Alliance Selection Points Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <returns>Object</returns>
-          public Object? SeasonRankingsDistrictAllianceSelectionCalculationGet(string season)
+
+    /// <summary>
+    /// Alliance Selection Points Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <returns>Object</returns>
+    public Object? SeasonRankingsDistrictAllianceSelectionCalculationGet(string season)
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfo(season);
+        ApiResponse<object?> localVarResponse = SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfo(season);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Alliance Selection Points Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfo(string season)
+
+    /// <summary>
+    /// Alliance Selection Points Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfo(string season)
             {
                     // verify the required parameter 'season' is set
                     if (season is null)
@@ -415,28 +415,28 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Alliance Selection Points Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> SeasonRankingsDistrictAllianceSelectionCalculationGetAsync(string season, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Alliance Selection Points Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> SeasonRankingsDistrictAllianceSelectionCalculationGetAsync(string season, CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfoAsync(season, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfoAsync(season, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Alliance Selection Points Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Alliance Selection Points Alliance Selection Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.   &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> SeasonRankingsDistrictAllianceSelectionCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -482,24 +482,24 @@ using FIRST.Client;
                 
                 return localVarResponse;
               }          /// <summary>
-          /// Playoff Advancement Points Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <returns>Object</returns>
-          public Object? SeasonRankingsDistrictPlayoffAdvancementCalculationGet(string season)
+                         /// Playoff Advancement Points Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+                         /// <returns>Object</returns>
+    public Object? SeasonRankingsDistrictPlayoffAdvancementCalculationGet(string season)
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfo(season);
+        ApiResponse<object?> localVarResponse = SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfo(season);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Playoff Advancement Points Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfo(string season)
+
+    /// <summary>
+    /// Playoff Advancement Points Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfo(string season)
             {
                     // verify the required parameter 'season' is set
                     if (season is null)
@@ -546,28 +546,28 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Playoff Advancement Points Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> SeasonRankingsDistrictPlayoffAdvancementCalculationGetAsync(string season, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Playoff Advancement Points Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> SeasonRankingsDistrictPlayoffAdvancementCalculationGetAsync(string season, CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfoAsync(season, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfoAsync(season, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Playoff Advancement Points Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Playoff Advancement Points Playoff Advancement Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;quarterFinalWins&#x60;, &#x60;semiFinalWins&#x60;, and &#x60;finalWins&#x60; are all required parameters for the calculation to occur.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> SeasonRankingsDistrictPlayoffAdvancementCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -613,24 +613,24 @@ using FIRST.Client;
                 
                 return localVarResponse;
               }          /// <summary>
-          /// Qual Performance Points Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <returns>Object</returns>
-          public Object? SeasonRankingsDistrictQualPerformanceCalculationGet(string season)
+                         /// Qual Performance Points Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+                         /// <returns>Object</returns>
+    public Object? SeasonRankingsDistrictQualPerformanceCalculationGet(string season)
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfo(season);
+        ApiResponse<object?> localVarResponse = SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfo(season);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Qual Performance Points Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfo(string season)
+
+    /// <summary>
+    /// Qual Performance Points Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfo(string season)
             {
                     // verify the required parameter 'season' is set
                     if (season is null)
@@ -677,28 +677,28 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Qual Performance Points Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> SeasonRankingsDistrictQualPerformanceCalculationGetAsync(string season, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Qual Performance Points Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> SeasonRankingsDistrictQualPerformanceCalculationGetAsync(string season, CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfoAsync(season, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfoAsync(season, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Qual Performance Points Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Qual Performance Points Qual Performance Points is one of three endpoints to assist teams in figuring out how to improve their performance to achieve the desired district ranking placement. It is to determine the Event Total points.  &#x60;tournamentType&#x60;, &#x60;sizeType&#x60;, &#x60;allianceNumber&#x60;, and &#x60;allianceRole&#x60; are all required parameters for the calculation to occur.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> SeasonRankingsDistrictQualPerformanceCalculationGetWithHttpInfoAsync(string season, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)

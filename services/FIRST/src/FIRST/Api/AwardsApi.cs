@@ -34,19 +34,19 @@ using FIRST.Client;
       /// <param name="ifModifiedSince"> (optional)</param>
       /// <returns>Object</returns>
       Object? SeasonAwardsEventEventCodeGet(string eventCode, string season, string? ifModifiedSince = default);
-        
-        /// <summary>
-        /// Event Awards
-        /// </summary>
-        /// <remarks>
-        /// The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> SeasonAwardsEventEventCodeGetWithHttpInfo(string eventCode, string season, string? ifModifiedSince = default);
+
+    /// <summary>
+    /// Event Awards
+    /// </summary>
+    /// <remarks>
+    /// The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> SeasonAwardsEventEventCodeGetWithHttpInfo(string eventCode, string season, string? ifModifiedSince = default);
       /// <summary>
       /// Event Team Awards
       /// </summary>
@@ -59,19 +59,19 @@ using FIRST.Client;
       /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
       /// <returns>Object</returns>
       Object? SeasonAwardsEventteamEventCodeTeamNumberGet(string eventCode, string season, string teamNumber);
-        
-        /// <summary>
-        /// Event Team Awards
-        /// </summary>
-        /// <remarks>
-        /// The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfo(string eventCode, string season, string teamNumber);
+
+    /// <summary>
+    /// Event Team Awards
+    /// </summary>
+    /// <remarks>
+    /// The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfo(string eventCode, string season, string teamNumber);
       /// <summary>
       /// Awards Listings
       /// </summary>
@@ -83,18 +83,18 @@ using FIRST.Client;
       /// <param name="ifModifiedSince"> (optional)</param>
       /// <returns>Object</returns>
       Object? SeasonAwardsListGet(string season, string? ifModifiedSince = default);
-        
-        /// <summary>
-        /// Awards Listings
-        /// </summary>
-        /// <remarks>
-        /// The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="ifModifiedSince"> (optional)</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> SeasonAwardsListGetWithHttpInfo(string season, string? ifModifiedSince = default);
+
+    /// <summary>
+    /// Awards Listings
+    /// </summary>
+    /// <remarks>
+    /// The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> SeasonAwardsListGetWithHttpInfo(string season, string? ifModifiedSince = default);
       /// <summary>
       /// Team Awards
       /// </summary>
@@ -106,18 +106,18 @@ using FIRST.Client;
       /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
       /// <returns>Object</returns>
       Object? SeasonAwardsTeamTeamNumberGet(string season, string teamNumber);
-        
-        /// <summary>
-        /// Team Awards
-        /// </summary>
-        /// <remarks>
-        /// The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-        /// </remarks>
-        /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-        /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-        /// <returns>ApiResponse of Object</returns>
-        ApiResponse<Object?> SeasonAwardsTeamTeamNumberGetWithHttpInfo(string season, string teamNumber);
+
+    /// <summary>
+    /// Team Awards
+    /// </summary>
+    /// <remarks>
+    /// The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+    /// <returns>ApiResponse of Object</returns>
+    ApiResponse<Object?> SeasonAwardsTeamTeamNumberGetWithHttpInfo(string season, string teamNumber);
       #endregion Synchronous Operations
     }
     
@@ -126,111 +126,111 @@ using FIRST.Client;
       /// </summary>
       public interface IAwardsApiAsync : IApiAccessor
       {
-        #region Asynchronous Operations
-          /// <summary>
-          /// Event Awards
-          /// </summary>
-          /// <remarks>
-          /// The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> SeasonAwardsEventEventCodeGetAsync(string eventCode, string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Event Awards
-            /// </summary>
-            /// <remarks>
-            /// The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> SeasonAwardsEventEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// Event Team Awards
-          /// </summary>
-          /// <remarks>
-          /// The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> SeasonAwardsEventteamEventCodeTeamNumberGetAsync(string eventCode, string season, string teamNumber, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Event Team Awards
-            /// </summary>
-            /// <remarks>
-            /// The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfoAsync(string eventCode, string season, string teamNumber, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// Awards Listings
-          /// </summary>
-          /// <remarks>
-          /// The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> SeasonAwardsListGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Awards Listings
-            /// </summary>
-            /// <remarks>
-            /// The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> SeasonAwardsListGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
-          /// <summary>
-          /// Team Awards
-          /// </summary>
-          /// <remarks>
-          /// The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-          /// </remarks>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-          /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-          /// <returns>Task of Object</returns>
-          Task<Object?> SeasonAwardsTeamTeamNumberGetAsync(string season, string teamNumber, CancellationToken cancellationToken = default);
-            
-            /// <summary>
-            /// Team Awards
-            /// </summary>
-            /// <remarks>
-            /// The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-            /// </remarks>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of ApiResponse (Object)</returns>
-            Task<ApiResponse<Object?>> SeasonAwardsTeamTeamNumberGetWithHttpInfoAsync(string season, string teamNumber, CancellationToken cancellationToken = default);
+    #region Asynchronous Operations
+    /// <summary>
+    /// Event Awards
+    /// </summary>
+    /// <remarks>
+    /// The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> SeasonAwardsEventEventCodeGetAsync(string eventCode, string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Event Awards
+    /// </summary>
+    /// <remarks>
+    /// The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> SeasonAwardsEventEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Event Team Awards
+    /// </summary>
+    /// <remarks>
+    /// The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> SeasonAwardsEventteamEventCodeTeamNumberGetAsync(string eventCode, string season, string teamNumber, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Event Team Awards
+    /// </summary>
+    /// <remarks>
+    /// The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfoAsync(string eventCode, string season, string teamNumber, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Awards Listings
+    /// </summary>
+    /// <remarks>
+    /// The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> SeasonAwardsListGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Awards Listings
+    /// </summary>
+    /// <remarks>
+    /// The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> SeasonAwardsListGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default);
+    /// <summary>
+    /// Team Awards
+    /// </summary>
+    /// <remarks>
+    /// The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    Task<Object?> SeasonAwardsTeamTeamNumberGetAsync(string season, string teamNumber, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Team Awards
+    /// </summary>
+    /// <remarks>
+    /// The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </remarks>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    Task<ApiResponse<Object?>> SeasonAwardsTeamTeamNumberGetWithHttpInfoAsync(string season, string teamNumber, CancellationToken cancellationToken = default);
           #endregion Asynchronous Operations
         }
       
@@ -417,30 +417,30 @@ using FIRST.Client;
           }
           set => _exceptionFactory = value;
         }
-        
-          /// <summary>
-          /// Event Awards The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-          /// <returns>Object</returns>
-          public Object? SeasonAwardsEventEventCodeGet(string eventCode, string season, string? ifModifiedSince = default)
+
+    /// <summary>
+    /// Event Awards The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <returns>Object</returns>
+    public Object? SeasonAwardsEventEventCodeGet(string eventCode, string season, string? ifModifiedSince = default)
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonAwardsEventEventCodeGetWithHttpInfo(eventCode, season, ifModifiedSince);
+        ApiResponse<object?> localVarResponse = SeasonAwardsEventEventCodeGetWithHttpInfo(eventCode, season, ifModifiedSince);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Event Awards The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> SeasonAwardsEventEventCodeGetWithHttpInfo(string eventCode, string season, string? ifModifiedSince = default)
+
+    /// <summary>
+    /// Event Awards The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> SeasonAwardsEventEventCodeGetWithHttpInfo(string eventCode, string season, string? ifModifiedSince = default)
             {
                     // verify the required parameter 'eventCode' is set
                     if (eventCode is null)
@@ -505,32 +505,32 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Event Awards The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> SeasonAwardsEventEventCodeGetAsync(string eventCode, string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Event Awards The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> SeasonAwardsEventEventCodeGetAsync(string eventCode, string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonAwardsEventEventCodeGetWithHttpInfoAsync(eventCode, season, ifModifiedSince, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await SeasonAwardsEventEventCodeGetWithHttpInfoAsync(eventCode, season, ifModifiedSince, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Event Awards The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-                /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonAwardsEventEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Event Awards The event awards API returns details about awards presented at a particular event in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">(Required) **(string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> SeasonAwardsEventEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)
@@ -595,28 +595,28 @@ using FIRST.Client;
                 
                 return localVarResponse;
               }          /// <summary>
-          /// Event Team Awards The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-          /// <returns>Object</returns>
-          public Object? SeasonAwardsEventteamEventCodeTeamNumberGet(string eventCode, string season, string teamNumber)
+                         /// Event Team Awards The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+                         /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+                         /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+                         /// <returns>Object</returns>
+    public Object? SeasonAwardsEventteamEventCodeTeamNumberGet(string eventCode, string season, string teamNumber)
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfo(eventCode, season, teamNumber);
+        ApiResponse<object?> localVarResponse = SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfo(eventCode, season, teamNumber);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Event Team Awards The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfo(string eventCode, string season, string teamNumber)
+
+    /// <summary>
+    /// Event Team Awards The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfo(string eventCode, string season, string teamNumber)
             {
                     // verify the required parameter 'eventCode' is set
                     if (eventCode is null)
@@ -683,32 +683,32 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Event Team Awards The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> SeasonAwardsEventteamEventCodeTeamNumberGetAsync(string eventCode, string season, string teamNumber, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Event Team Awards The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> SeasonAwardsEventteamEventCodeTeamNumberGetAsync(string eventCode, string season, string teamNumber, CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfoAsync(eventCode, season, teamNumber, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfoAsync(eventCode, season, teamNumber, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Event Team Awards The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-                /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfoAsync(string eventCode, string season, string teamNumber, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Event Team Awards The event team awards API returns details about awards presented at a particular event in a particular season for a particular team. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="eventCode">**[Required] (string)** Optional case insensitive alphanumeric eventCode of the event from which the awards are requested. Must be at least 3 characters.</param>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the team and event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> SeasonAwardsEventteamEventCodeTeamNumberGetWithHttpInfoAsync(string eventCode, string season, string teamNumber, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)
@@ -775,26 +775,26 @@ using FIRST.Client;
                 
                 return localVarResponse;
               }          /// <summary>
-          /// Awards Listings The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="ifModifiedSince"> (optional)</param>
-          /// <returns>Object</returns>
-          public Object? SeasonAwardsListGet(string season, string? ifModifiedSince = default)
+                         /// Awards Listings The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+                         /// <param name="ifModifiedSince"> (optional)</param>
+                         /// <returns>Object</returns>
+    public Object? SeasonAwardsListGet(string season, string? ifModifiedSince = default)
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonAwardsListGetWithHttpInfo(season, ifModifiedSince);
+        ApiResponse<object?> localVarResponse = SeasonAwardsListGetWithHttpInfo(season, ifModifiedSince);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Awards Listings The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="ifModifiedSince"> (optional)</param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> SeasonAwardsListGetWithHttpInfo(string season, string? ifModifiedSince = default)
+
+    /// <summary>
+    /// Awards Listings The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> SeasonAwardsListGetWithHttpInfo(string season, string? ifModifiedSince = default)
             {
                     // verify the required parameter 'season' is set
                     if (season is null)
@@ -852,30 +852,30 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Awards Listings The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="ifModifiedSince"> (optional)</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> SeasonAwardsListGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Awards Listings The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> SeasonAwardsListGetAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonAwardsListGetWithHttpInfoAsync(season, ifModifiedSince, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await SeasonAwardsListGetWithHttpInfoAsync(season, ifModifiedSince, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Awards Listings The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-                /// <param name="ifModifiedSince"> (optional)</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonAwardsListGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Awards Listings The award listings API returns a listing of the various awards that can be distributed in the requested season. This is especially useful in order to avoid having to use the &#x60;name&#x60; field of the event awards API to know which award was won. Instead the &#x60;awardId&#x60; field can be matched between the two APIs.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="ifModifiedSince"> (optional)</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> SeasonAwardsListGetWithHttpInfoAsync(string season, string? ifModifiedSince = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
@@ -933,26 +933,26 @@ using FIRST.Client;
                 
                 return localVarResponse;
               }          /// <summary>
-          /// Team Awards The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-          /// </summary>
-          /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-          /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-          /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-          /// <returns>Object</returns>
-          public Object? SeasonAwardsTeamTeamNumberGet(string season, string teamNumber)
+                         /// Team Awards The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+                         /// </summary>
+                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+                         /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+                         /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+                         /// <returns>Object</returns>
+    public Object? SeasonAwardsTeamTeamNumberGet(string season, string teamNumber)
           {
-            FIRST.Client.ApiResponse<Object?> localVarResponse = SeasonAwardsTeamTeamNumberGetWithHttpInfo(season, teamNumber);
+        ApiResponse<object?> localVarResponse = SeasonAwardsTeamTeamNumberGetWithHttpInfo(season, teamNumber);
               return localVarResponse.Data;
             }
-            
-            /// <summary>
-            /// Team Awards The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-            /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-            /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-            /// <returns>ApiResponse of Object</returns>
-            public ApiResponse<Object?> SeasonAwardsTeamTeamNumberGetWithHttpInfo(string season, string teamNumber)
+
+    /// <summary>
+    /// Team Awards The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+    /// <returns>ApiResponse of Object</returns>
+    public ApiResponse<Object?> SeasonAwardsTeamTeamNumberGetWithHttpInfo(string season, string teamNumber)
             {
                     // verify the required parameter 'season' is set
                     if (season is null)
@@ -1012,30 +1012,30 @@ using FIRST.Client;
               
               return localVarResponse;
             }
-            
-            /// <summary>
-            /// Team Awards The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-            /// </summary>
-            /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-              /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-              /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-            /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-            /// <returns>Task of Object</returns>
-            public async Task<Object?> SeasonAwardsTeamTeamNumberGetAsync(string season, string teamNumber, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Team Awards The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of Object</returns>
+    public async Task<Object?> SeasonAwardsTeamTeamNumberGetAsync(string season, string teamNumber, CancellationToken cancellationToken = default)
             {
-              FIRST.Client.ApiResponse<Object?> localVarResponse = await SeasonAwardsTeamTeamNumberGetWithHttpInfoAsync(season, teamNumber, cancellationToken).ConfigureAwait(false);
+        ApiResponse<object?> localVarResponse = await SeasonAwardsTeamTeamNumberGetWithHttpInfoAsync(season, teamNumber, cancellationToken).ConfigureAwait(false);
                 return localVarResponse.Data;
               }
-              
-              /// <summary>
-              /// Team Awards The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
-              /// </summary>
-              /// <exception cref="FIRST.Client.ApiException">Thrown when fails to make API call</exception>
-                /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
-                /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
-              /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-              /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonAwardsTeamTeamNumberGetWithHttpInfoAsync(string season, string teamNumber, CancellationToken cancellationToken = default)
+
+    /// <summary>
+    /// Team Awards The team awards API returns details about awards presented for a particular team in a particular season. Return values may contain either &#x60;teamNumber&#x60; or &#x60;person&#x60; values, and if the winner was a &#x60;person&#x60;, and that person is from a team, the &#x60;teamNumber&#x60; value might be set with their &#x60;teamNumber&#x60;.
+    /// </summary>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+    /// <param name="season">**[REQUIRED] (int)** Numeric year of the team from which the award listings are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year.</param>
+    /// <param name="teamNumber">**[REQUIRED] (int)** Numeric teamNumber of the team about which information is requested. Must be 1 to 4 digits.</param>
+    /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+    /// <returns>Task of ApiResponse (Object)</returns>
+    public async Task<ApiResponse<object?>> SeasonAwardsTeamTeamNumberGetWithHttpInfoAsync(string season, string teamNumber, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'season' is set
                       if (season is null)
