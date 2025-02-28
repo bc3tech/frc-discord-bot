@@ -38,7 +38,7 @@ static partial class Log
     [LoggerMessage(8, LogLevel.Debug, "Loading Events from TBA for {EventYear}...")]
     internal static partial void LoadingEventsFromTBAForEventYear(this ILogger logger, int EventYear);
 
-    [LoggerMessage(9, LogLevel.Debug, "Loaded {EventCount} events")]
+    [LoggerMessage(9, LogLevel.Trace, "Loaded {EventCount} events")]
     internal static partial void LoadedEventCountEvents(this ILogger logger, int EventCount);
 
     [LoggerMessage(10, LogLevel.Error, "An error occurred while loading events from the TBA API: {ErrorMessage}")]
@@ -98,7 +98,7 @@ static partial class Log
     [LoggerMessage(28, LogLevel.Warning, "'All' subscription already exists for event {SubscriptionEvent}")]
     internal static partial void AllSubscriptionAlreadyExistsForEventSubscriptionEvent(this ILogger logger, string SubscriptionEvent);
 
-    [LoggerMessage(29, LogLevel.Debug, "Retrieved {TeamCount} teams")]
+    [LoggerMessage(29, LogLevel.Trace, "Retrieved {TeamCount} teams")]
     internal static partial void RetrievedTeamCountTeams(this ILogger logger, int TeamCount);
 
     [LoggerMessage(30, LogLevel.Error, "An error occurred while loading teams from the TBA API: {ErrorMessage}")]
