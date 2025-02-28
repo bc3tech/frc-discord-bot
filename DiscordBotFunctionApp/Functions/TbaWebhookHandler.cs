@@ -41,10 +41,22 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILo
             }
             else
             {
-                var handled = await dispatcher.ProcessWebhookMessageAsync(message, cancellationToken).ConfigureAwait(false);
-                if (handled)
+                try
                 {
-                    return new OkResult();
+                    var handled = await dispatcher.ProcessWebhookMessageAsync(message, cancellationToken).ConfigureAwait(false);
+                    if (handled)
+                    {
+                        return new OkResult();
+                    }
+                    else
+                    {
+                        logger.LogWarning("Unhandled webhook message {WebhookPayload}", bodyContent);
+                    }
+                }
+                catch (Exception e) when (e is TaskCanceledException or OperationCanceledException)
+                {
+                    logger.LogError(e, "Operation cancelled.");
+                    return new OkObjectResult("Operation cancelled.");
                 }
             }
         }
