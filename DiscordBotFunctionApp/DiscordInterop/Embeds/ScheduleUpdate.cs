@@ -17,7 +17,7 @@ internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger
         var notification = JsonSerializer.Deserialize<TbaInterop.Models.Notifications.ScheduleUpdate>(msg.MessageData);
         if (notification is null)
         {
-            logger.LogWarning("Failed to deserialize notification data as {NotificationType}", TargetType);
+            logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
             yield break;
         }
 

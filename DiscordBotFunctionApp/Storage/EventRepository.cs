@@ -22,7 +22,7 @@ internal sealed class EventRepository(IEventApi apiClient, ILogger<EventReposito
         {
             for (int i = 0, currentYear = TimeProvider.System.GetLocalNow().Year; i < 4; i++, currentYear--)
             {
-                logger.LogDebug("Loading Events from TBA for {EventYear}...", currentYear);
+                logger.LoadingEventsFromTBAForEventYear(currentYear);
                 try
                 {
                     var newEvents = await apiClient.GetEventsByYearAsync(currentYear, cancellationToken: cancellationToken).ConfigureAwait(false);
@@ -31,13 +31,14 @@ internal sealed class EventRepository(IEventApi apiClient, ILogger<EventReposito
                         return _events = [];
                     }
 
-                    logger.LogInformation("Loaded {EventCount} events", newEvents.Count);
+                    logger.LoadedEventCountEvents(newEvents.Count);
+                    logger.LogMetric("EventCount", newEvents.Count, new Dictionary<string, object>() { { "Year", currentYear } });
                     _events = new Dictionary<string, Event>([.. _events, .. newEvents.ToDictionary(t => t.Key!)]);
                 }
                 catch (Exception ex)
                 {
                     Debug.Fail(ex.Message);
-                    logger.LogError(ex, "An error occurred while loading events from the TBA API: {ErrorMessage}", ex.Message);
+                    logger.AnErrorOccurredWhileLoadingEventsFromTheTBAAPIErrorMessage(ex, ex.Message);
                     _events = [];
                 }
             }
@@ -59,7 +60,7 @@ internal sealed class EventRepository(IEventApi apiClient, ILogger<EventReposito
             return $"{(!string.IsNullOrWhiteSpace(e.Name) ? $"{e.Year} {e.Name}" : string.Empty)}{(!string.IsNullOrWhiteSpace(e.City) && !string.IsNullOrWhiteSpace(e.Country) ? $" - {e.City}, {e.Country}" : string.Empty)}";
         }
 
-        logger.LogWarning("Event {EventKey} not found in cache", eventKey);
+        logger.EventEventKeyNotFoundInCache(eventKey);
 
         return string.Empty;
     }

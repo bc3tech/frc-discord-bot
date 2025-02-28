@@ -31,23 +31,21 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
     {
         using var scope = logger.CreateMethodScope();
         (var teams, var events) = GetTeamsAndEventsInMessage(message.MessageData);
-        logger.LogDebug("Teams: {TeamsInMessage}, Events: {EventsInMessage}", teams.Count, events.Count);
+        logger.TeamsTeamsInMessageEventsEventsInMessage(teams.Count, events.Count);
 
         var teamRecordsToFind = teams.Permutate([CommonConstants.ALL, .. events], (p, r) => (p, r)).ToArray().AsReadOnly();
         var eventRecordsToFind = events.Permutate([CommonConstants.ALL, .. teams], (p, r) => (p, r)).ToArray().AsReadOnly();
 
-        logger.LogTrace("Permutated results into {TeamRecordsCount} team records and {EventRecordsCount} event records", teamRecordsToFind.Count, eventRecordsToFind.Count);
+        logger.PermutatedResultsIntoTeamRecordsCountTeamRecordsAndEventRecordsCountEventRecords(teamRecordsToFind.Count, eventRecordsToFind.Count);
 
         List<Task> notifications = [];
 
         await SendNotificationsAsync<TeamSubscriptionEntity>(teamSubscriptions, teamRecordsToFind, notifications, i => i.Item1 != CommonConstants.ALL ? i.Item1.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
         await SendNotificationsAsync<EventSubscriptionEntity>(eventSubscriptions, eventRecordsToFind, notifications, i => i.Item2 != CommonConstants.ALL ? i.Item2.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
 
-        logger.LogDebug("Waiting for notifications to be sent...");
+        logger.WaitingForNotificationsToBeSent();
 
         await Task.WhenAll(notifications).ConfigureAwait(false);
-
-        logger.LogInformation("{NumNotifications} Notification(s) sent", notifications.Count);
 
         return true;
     }
@@ -58,12 +56,12 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         foreach (var i in records)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            logger.LogTrace("Checking {TargetTable} for {PartitionKey} / {RowKey} ...", sourceTable.Name, i.p, i.r);
+            logger.CheckingTargetTableForPartitionKeyRowKey(sourceTable.Name, i.p, i.r);
             var sub = await getSubscriptionForAsync(sourceTable, i.p, i.r, cancellationToken).ConfigureAwait(false);
             if (sub is not null)
             {
-                logger.LogTrace("Found record for {TargetTable} for {PartitionKey} / {RowKey}", sourceTable.Name, i.p, i.r);
-                notifications.Add(ProcessSubscriptionAsync(message, sub.Subscribers, teamFinder(i), cancellationToken));
+                logger.FoundRecordForTargetTableForPartitionKeyRowKey(sourceTable.Name, i.p, i.r);
+                await ProcessSubscriptionAsync(message, sub.Subscribers, teamFinder(i), notifications, cancellationToken);
             }
         }
 
@@ -76,7 +74,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
     private const ushort MAX_EMBEDS_PER_MESSAGE = 10;
 
-    private async Task ProcessSubscriptionAsync(WebhookMessage message, GuildSubscriptions subscribers, ushort? highlightTeam, CancellationToken cancellationToken)
+    private async Task ProcessSubscriptionAsync(WebhookMessage message, GuildSubscriptions subscribers, ushort? highlightTeam, List<Task> notifications, CancellationToken cancellationToken)
     {
         using var scope = logger.CreateMethodScope();
         var embeds = _embedGenerator.CreateEmbeddingsAsync(message, highlightTeam, cancellationToken: cancellationToken);
@@ -87,20 +85,22 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                 cancellationToken.ThrowIfCancellationRequested();
                 var targetChannel = await _discordClient.GetChannelAsync(c, Utility.CreateCancelRequestOptions(cancellationToken)).ConfigureAwait(false);
                 Debug.Assert(targetChannel is not null);
-                logger.LogTrace("Retrieved channel {ChannelId} - '{ChannelName}'", c, targetChannel.Name);
+                logger.RetrievedChannelChannelIdChannelName(c, targetChannel.Name);
 
                 if (targetChannel is IMessageChannel msgChan)
                 {
-                    logger.LogTrace("Sending notification to channel {ChannelId} - '{ChannelName}'", c, targetChannel.Name);
+                    logger.SendingNotificationToChannelChannelIdChannelName(c, targetChannel.Name);
                     var embedChunks = (await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false)).Chunk(MAX_EMBEDS_PER_MESSAGE);
                     foreach (var i in embedChunks)
                     {
                         await msgChan.SendMessageAsync(embeds: i, options: new RequestOptions { CancelToken = cancellationToken }).ConfigureAwait(false);
                     }
+
+                    logger.LogMetric("NotificationSent", 1, new Dictionary<string, object>() { { "ChannelId", c }, { "ChannelName", targetChannel.Name } });
                 }
                 else
                 {
-                    logger.LogWarning("Channel {ChannelId} is not a message channel", c);
+                    logger.ChannelChannelIdIsNotAMessageChannel(c);
                 }
             }
         }

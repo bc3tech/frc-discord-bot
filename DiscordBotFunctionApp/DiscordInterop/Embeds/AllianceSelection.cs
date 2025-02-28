@@ -25,7 +25,7 @@ internal sealed class AllianceSelection(TeamRepository teams, IEventApi tbaClien
         var notification = JsonSerializer.Deserialize<TbaInterop.Models.Notifications.AllianceSelection>(msg.MessageData);
         if (notification is null)
         {
-            logger.LogWarning("Failed to deserialize notification data as {NotificationType}", TargetType);
+            logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
             yield return new(baseBuilder.Build());
             yield break;
         }
@@ -33,7 +33,7 @@ internal sealed class AllianceSelection(TeamRepository teams, IEventApi tbaClien
         var eventKey = !string.IsNullOrWhiteSpace(notification.event_key) ? notification.event_key : notification.Event?.Key;
         if (string.IsNullOrWhiteSpace(eventKey))
         {
-            logger.LogWarning("Event key is missing from notification data");
+            logger.EventKeyIsMissingFromNotificationData();
             yield return new(baseBuilder.Build());
             yield break;
         }
@@ -41,7 +41,7 @@ internal sealed class AllianceSelection(TeamRepository teams, IEventApi tbaClien
         var alliances = await tbaClient.GetEventAlliancesAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (alliances?.Count is null or 0)
         {
-            logger.LogWarning("Failed to retrieve alliance selection data for {EventKey}", eventKey);
+            logger.FailedToRetrieveAllianceSelectionDataForEventKey(eventKey);
             yield return new(baseBuilder.Build());
             yield break;
         }

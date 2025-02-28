@@ -24,14 +24,14 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IMatchApi tbaApi, TheBlu
         var notification = JsonSerializer.Deserialize<TbaInterop.Models.Notifications.UpcomingMatch>(msg.MessageData);
         if (notification is null)
         {
-            logger.LogWarning("Failed to deserialize notification data as {NotificationType}", TargetType);
+            logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
             yield return new(baseBuilder.Build());
             yield break;
         }
 
         if (string.IsNullOrWhiteSpace(notification.match_key))
         {
-            logger.LogWarning("Match key is missing from notification data");
+            logger.MatchKeyIsMissingFromNotificationData();
             yield return new(baseBuilder.Build());
             yield break;
         }
@@ -39,7 +39,7 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IMatchApi tbaApi, TheBlu
         var detailedMatch = await tbaApi.GetMatchSimpleAsync(notification.match_key, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (detailedMatch is null)
         {
-            logger.LogWarning("Failed to retrieve detailed match data for {MatchKey}", notification.match_key);
+            logger.FailedToRetrieveDetailedMatchDataForMatchKey(notification.match_key);
             yield return new(baseBuilder.Build());
             yield break;
         }

@@ -95,8 +95,7 @@ internal sealed class Program
             .ConfigureLogging((context, builder) => builder
                 .AddConfiguration(context.Configuration.GetSection("Logging"))
                 .AddApplicationInsights()
-                .AddDebug()
-                .AddConsole())
+                .AddDebug())
             .Build();
 
         await host.RunAsync().ConfigureAwait(false);

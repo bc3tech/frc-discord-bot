@@ -29,7 +29,7 @@ internal sealed class Award(IEventApi tbaApi, BlobContainerClient imageBlobs, Em
         var notification = JsonSerializer.Deserialize<AwardsPosted>(msg.MessageData);
         if (notification is null)
         {
-            logger.LogWarning("Failed to deserialize notification data as {NotificationType}", TargetType);
+            logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
             yield return new(baseBuilder.Build());
             yield break;
         }
@@ -37,14 +37,14 @@ internal sealed class Award(IEventApi tbaApi, BlobContainerClient imageBlobs, Em
         var eventAwards = await tbaApi.GetEventAwardsAsync(notification.event_key, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (eventAwards is null)
         {
-            logger.LogWarning("Failed to retrieve detailed awards data for {EventKey}", notification.event_key);
+            logger.FailedToRetrieveDetailedAwardsDataForEventKey(notification.event_key);
             yield return new(baseBuilder.Build());
             yield break;
         }
 
         if (eventAwards.Count is 0)
         {
-            logger.LogWarning("No awards found for {EventKey}", notification.event_key);
+            logger.NoAwardsFoundForEventKey(notification.event_key);
             yield return new(baseBuilder.Build());
             yield break;
         }

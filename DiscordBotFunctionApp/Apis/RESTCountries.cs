@@ -23,20 +23,21 @@ internal sealed class RESTCountries(ILogger<RESTCountries> _logger)
             var responseContent = await response.Content.ReadFromJsonAsync<JsonArray>(cancellationToken: cancellationToken).ConfigureAwait(false);
             if (responseContent is null or { Count: 0 })
             {
-                _logger.LogWarning("No country found for {Country}", country);
+                _logger.NoCountryFoundForCountry(country);
                 return null;
             }
 
-            _logger.LogDebug("{NumCountries} country(ies) returned.", responseContent.Count);
+            _logger.NumCountriesCountryIesReturned(responseContent.Count);
+            _logger.LogMetric("NumCountries", responseContent.Count, new Dictionary<string, object>() { { "Country", country } });
             var result = responseContent[0]!;
 
-            _logger.LogTrace("First country: {Country}", result["name"]!["common"]!.ToString());
+            _logger.FirstCountryCountry(result["name"]!["common"]);
 
             return result["cca2"]?.ToString();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error getting country code for {Country}", country);
+            _logger.ErrorGettingCountryCodeForCountry(ex, country);
             return null;
         }
     }

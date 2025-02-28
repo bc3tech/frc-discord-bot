@@ -20,7 +20,7 @@ internal sealed class TeamRepository(ITeamApi tbaApiClient, ILogger<TeamReposito
         using var scope = logger.CreateMethodScope();
         if (_teams is null)
         {
-            logger.LogDebug("Loading Teams from TBA...");
+            logger.LoadingTeamsFromTBA();
             List<Team> teams = [];
             int i = 0;
             try
@@ -37,13 +37,14 @@ internal sealed class TeamRepository(ITeamApi tbaApiClient, ILogger<TeamReposito
                     teams.AddRange(newTeams);
                 } while (true);
 
-                logger.LogInformation("Retrieved {TeamCount} teams", teams.Count);
+                logger.RetrievedTeamCountTeams(teams.Count);
+                logger.LogMetric("TeamCount", teams.Count);
                 _teams = teams.ToDictionary(t => t.Key!);
             }
             catch (Exception ex)
             {
                 Debug.Fail(ex.Message);
-                logger.LogError(ex, "An error occurred while loading teams from the TBA API: {ErrorMessage}", ex.Message);
+                logger.AnErrorOccurredWhileLoadingTeamsFromTheTBAAPIErrorMessage(ex, ex.Message);
                 _teams = [];
             }
         }
@@ -61,7 +62,7 @@ internal sealed class TeamRepository(ITeamApi tbaApiClient, ILogger<TeamReposito
             return $"{t.TeamNumber} {(!string.IsNullOrWhiteSpace(t.Nickname) ? t.Nickname : string.Empty)}{(!string.IsNullOrWhiteSpace(t.City) && !string.IsNullOrWhiteSpace(t.Country) ? $" - {t.City}, {t.Country}" : string.Empty)}";
         }
 
-        logger.LogWarning("Team {TeamNumber} not found in cache", teamKey);
+        logger.TeamTeamNumberNotFoundInCache(teamKey);
 
         return string.Empty;
     }
