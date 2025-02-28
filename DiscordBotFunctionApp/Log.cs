@@ -17,7 +17,7 @@ static partial class Log
     [LoggerMessage(1, LogLevel.Trace, "Permutated results into {TeamRecordsCount} team records and {EventRecordsCount} event records")]
     internal static partial void PermutatedResultsIntoTeamRecordsCountTeamRecordsAndEventRecordsCountEventRecords(this ILogger logger, int TeamRecordsCount, int EventRecordsCount);
 
-    [LoggerMessage(2, LogLevel.Debug, "Teams: {TeamsInMessage}, Events: {EventsInMessage}")]
+    [LoggerMessage(2, LogLevel.Trace, "Teams: {TeamsInMessage}, Events: {EventsInMessage}")]
     internal static partial void TeamsTeamsInMessageEventsEventsInMessage(this ILogger logger, int TeamsInMessage, int EventsInMessage);
 
     [LoggerMessage(3, LogLevel.Trace, "Checking {TargetTable} for {PartitionKey} / {RowKey} ...")]
@@ -115,4 +115,109 @@ static partial class Log
 
     [LoggerMessage(34, LogLevel.Debug, "Loading Teams from TBA...")]
     internal static partial void LoadingTeamsFromTBA(this ILogger logger);
+
+    [LoggerMessage(35, LogLevel.Debug, "Received webhook payload: {WebhookPayload}")]
+    internal static partial void ReceivedWebhookPayloadWebhookPayload(this ILogger logger, string WebhookPayload);
+
+    [LoggerMessage(36, LogLevel.Information, "Received verification message from The Blue Alliance. Key: {VerificationKey}")]
+    internal static partial void ReceivedVerificationMessageFromTheBlueAllianceKeyVerificationKey(this ILogger logger, string VerificationKey);
+
+    [LoggerMessage(37, LogLevel.Information, "Received ping message from The Blue Alliance:\nTitle: {PingTitle}\nDescription: {PingDesc}")]
+    internal static partial void ReceivedPingMessageFromTheBlueAllianceTitlePingTitleDescriptionPingDesc(this ILogger logger, string PingTitle, string PingDesc);
+
+    [LoggerMessage(38, LogLevel.Warning, "Unhandled webhook message {WebhookPayload}")]
+    internal static partial void UnhandledWebhookMessageWebhookPayload(this ILogger logger, string WebhookPayload);
+
+    [LoggerMessage(39, LogLevel.Error, "Operation cancelled.")]
+    internal static partial void OperationCancelled(this ILogger logger, Exception exception);
+
+    [LoggerMessage(40, LogLevel.Error, "Unknown/unhandled message")]
+    internal static partial void UnknownUnhandledMessage(this ILogger logger);
+
+    [LoggerMessage(41, LogLevel.Error, "Error getting data from Statbotics for {EventKey}")]
+    internal static partial void ErrorGettingDataFromStatboticsForEventKey(this ILogger logger, Exception exception, string EventKey);
+
+    [LoggerMessage(42, LogLevel.Trace, "Logging in to Discord...")]
+    internal static partial void LoggingInToDiscord(this ILogger logger);
+
+    [LoggerMessage(43, LogLevel.Information, "Discord client logged in")]
+    internal static partial void DiscordClientLoggedIn(this ILogger logger);
+
+    [LoggerMessage(44, LogLevel.Trace, "Starting Discord client...")]
+    internal static partial void StartingDiscordClient(this ILogger logger);
+
+    [LoggerMessage(45, LogLevel.Information, "Discord client started")]
+    internal static partial void DiscordClientStarted(this ILogger logger);
+
+    [LoggerMessage(46, LogLevel.Debug, "Waiting for client to be Ready")]
+    internal static partial void WaitingForClientToBeReady(this ILogger logger);
+
+    [LoggerMessage(47, LogLevel.Information, "Discord client ready")]
+    internal static partial void DiscordClientReady(this ILogger logger);
+
+    [LoggerMessage(48, LogLevel.Trace, "Currently active guilds:\n{ActiveGuilds}")]
+    internal static partial void CurrentlyActiveGuildsActiveGuilds(this ILogger logger, string ActiveGuilds);
+
+    [LoggerMessage(49, LogLevel.Debug, "Discord initialization time: {DiscordInitTime:#.000}(s)")]
+    internal static partial void DiscordInitializationTimeDiscordInitTimeS(this ILogger logger, double DiscordInitTime);
+
+    [LoggerMessage(50, LogLevel.Trace, "Interaction received: {InteractionType}\nData: {InteractionData}")]
+    internal static partial void InteractionReceivedInteractionTypeDataInteractionData(this ILogger logger, Discord.InteractionType InteractionType, string InteractionData);
+
+    [LoggerMessage(51, LogLevel.Debug, "Application command updated: {CommandName}")]
+    internal static partial void ApplicationCommandUpdatedCommandName(this ILogger logger, string CommandName);
+
+    [LoggerMessage(52, LogLevel.Debug, "Integration updated: {IntegrationName}")]
+    internal static partial void IntegrationUpdatedIntegrationName(this ILogger logger, string IntegrationName);
+
+    [LoggerMessage(53, LogLevel.Trace, "Ping from gateway - Latency = Was: {PreviousLatencyMs}ms, Now: {LatencyMs}ms")]
+    internal static partial void PingFromGatewayLatencyWasPreviousLatencyMsMsNowLatencyMsMs(this ILogger logger, int PreviousLatencyMs, int LatencyMs);
+
+    [LoggerMessage(54, LogLevel.Trace, "Loading command modules...")]
+    internal static partial void LoadingCommandModules(this ILogger logger);
+
+    [LoggerMessage(55, LogLevel.Debug, "{NumCommands} command modules loaded")]
+    internal static partial void NumCommandsCommandModulesLoaded(this ILogger logger, int NumCommands);
+
+    [LoggerMessage(56, LogLevel.Trace, "Adding modules globally...")]
+    internal static partial void AddingModulesGlobally(this ILogger logger);
+
+    [LoggerMessage(57, LogLevel.Debug, "{NumCommands} commands added globally ({AvailableCommands})")]
+    internal static partial void NumCommandsCommandsAddedGloballyAvailableCommands(this ILogger logger, int NumCommands, string AvailableCommands);
+
+    [LoggerMessage(58, LogLevel.Debug, "Received message: {MessageName}")]
+    internal static partial void ReceivedMessageMessageName(this ILogger logger, string MessageName);
+
+    [LoggerMessage(59, LogLevel.Trace, "Message data: {MessageData}")]
+    internal static partial void MessageDataMessageData(this ILogger logger, string MessageData);
+
+    [LoggerMessage(60, LogLevel.Debug, "Received command: {CommandName}")]
+    internal static partial void ReceivedCommandCommandName(this ILogger logger, string CommandName);
+
+    [LoggerMessage(61, LogLevel.Trace, "Command data: {CommandData}")]
+    internal static partial void CommandDataCommandData(this ILogger logger, string CommandData);
+
+    [LoggerMessage(62, LogLevel.Debug, "Creating match score embed for {msg}")]
+    internal static partial void CreatingMatchScoreEmbedForMsg(this ILogger logger, TbaInterop.Models.WebhookMessage msg);
+
+    [LoggerMessage(63, LogLevel.Trace, "Keepalive ({arg0})")]
+    internal static partial void KeepaliveArg0(this ILogger logger, DateTimeOffset arg0);
+
+    [LoggerMessage(64, LogLevel.Trace, "Next timer schedule at: {arg0}")]
+    internal static partial void NextTimerScheduleAtArg0(this ILogger logger, DateTime arg0);
+
+    [LoggerMessage(65, LogLevel.Trace, "Creating TableClient for {Table}")]
+    internal static partial void CreatingTableClientForTable(this ILogger? logger, string Table);
+
+    [LoggerMessage(66, LogLevel.Trace, "Ensuring table {Table} exists")]
+    internal static partial void EnsuringTableTableExists(this ILogger? logger, string Table);
+
+    [LoggerMessage(67, LogLevel.Debug, "Table {Table} exists")]
+    internal static partial void TableTableExists(this ILogger? logger, string Table);
+
+    [LoggerMessage(68, LogLevel.Warning, "No embedding creator registered for message type {MessageType}")]
+    internal static partial void NoEmbeddingCreatorRegisteredForMessageTypeMessageType(this ILogger logger, TbaInterop.Models.Notifications.NotificationType MessageType);
+
+    [LoggerMessage(69, LogLevel.Trace, "Generating embeddings for webhook message type '{WebhookMessageType}'...")]
+    internal static partial void GeneratingEmbeddingsForWebhookMessageTypeWebhookMessageType(this ILogger logger, TbaInterop.Models.Notifications.NotificationType WebhookMessageType);
 }

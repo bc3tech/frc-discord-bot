@@ -69,12 +69,11 @@ internal sealed class Program
                     services.AddKeyedSingleton(i, (sp, _) =>
                     {
                         var logger = sp.GetService<ILogger<TableClient>>();
-
-                        logger?.LogTrace("Creating TableClient for {Table}", i);
+                        logger.CreatingTableClientForTable(i);
                         var c = tsc.GetTableClient(i);
-                        logger?.LogTrace("Ensuring table {Table} exists", i);
+                        logger.EnsuringTableTableExists(i);
                         c.CreateIfNotExists();
-                        logger?.LogDebug("Table {Table} exists", i);
+                        logger.TableTableExists(i);
                         return c;
                     });
                 }

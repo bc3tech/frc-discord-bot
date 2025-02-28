@@ -21,8 +21,9 @@ using UpcomingMatch = Embeds.UpcomingMatch;
 
 internal static class DependencyInjectionExtensions
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1848:Use the LoggerMessage delegates", Justification = "<Pending>")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "EA0000:Use source generated logging methods for improved performance", Justification = "<Pending>")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "EA0000:Use source generated logging methods for improved performance", Justification = "Piping log messages from Discord on through; severity is set by Discord so we can't use strongly-typed methods")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1848:Use the LoggerMessage delegates", Justification = "Piping log messages from Discord on through; severity is set by Discord so we can't use strongly-typed methods")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2254:Template should be a static expression", Justification = "Piping log messages from Discord on through; severity is set by Discord so we can't use strongly-typed methods")]
     public static IServiceCollection ConfigureDiscord(this IServiceCollection services)
     {
         services.AddSingleton(sp =>

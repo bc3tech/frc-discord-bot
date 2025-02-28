@@ -33,53 +33,55 @@ internal sealed partial class DiscordInitializationService(DiscordSocketClient c
             return Task.CompletedTask;
         };
 
-        _logger.LogDebug("Logging in to Discord...");
+        _logger.LoggingInToDiscord();
         client.LoggedIn += () =>
         {
-            _logger.LogInformation("Discord client logged in");
+            _logger.DiscordClientLoggedIn();
             return Task.CompletedTask;
         };
         await client.LoginAsync(TokenType.Bot, appConfig[Constants.Configuration.Discord.Token], validateToken: true)
             .ConfigureAwait(false);
 
-        _logger.LogDebug("Starting Discord client...");
+        _logger.StartingDiscordClient();
         await client.StartAsync()
             .ConfigureAwait(false);
-        _logger.LogInformation("Discord client started");
+        _logger.DiscordClientStarted();
 
-        _logger.LogDebug("Waiting for client to be Ready");
+        _logger.WaitingForClientToBeReady();
         await tsc.Task.ConfigureAwait(false);
 
-        _logger.LogInformation("Discord client ready");
-        _logger.LogDebug("Currently active guilds:\n{ActiveGuilds}", string.Join($"\n", client.Guilds.Select(g => $"- {g.Name}")));
+        _logger.DiscordClientReady();
+        _logger.CurrentlyActiveGuildsActiveGuilds(string.Join($"\n", client.Guilds.Select(g => $"- {g.Name}")));
 
         await InstallCommandsAsync(cancellationToken).ConfigureAwait(false);
 
-        _logger.LogInformation("Discord initialization time: {DiscordInitTime}(s)", TimeProvider.System.GetElapsedTime(startTime).TotalSeconds.ToString("#.000", CultureInfo.CurrentUICulture));
+        var initTime = TimeProvider.System.GetElapsedTime(startTime).TotalSeconds;
+        _logger.DiscordInitializationTimeDiscordInitTimeS(initTime);
+        _logger.LogMetric("DiscordInitTime", initTime);
 
         client.InteractionCreated += async x =>
         {
-            _logger.LogInformation("Interaction received: {InteractionType}", x.Type);
-            _logger.LogTrace("Interaction data: {InteractionData}", JsonSerializer.Serialize(x.Data, _debugSerializerOptions));
+            _logger.InteractionReceivedInteractionTypeDataInteractionData(x.Type, JsonSerializer.Serialize(x.Data, _debugSerializerOptions));
             var ctx = new SocketInteractionContext(client, x);
             await interactionService.ExecuteCommandAsync(ctx, services).ConfigureAwait(false);
         };
 
         client.ApplicationCommandUpdated += cmd =>
         {
-            _logger.LogDebug("Application command updated: {CommandName}", cmd.Name);
+            _logger.ApplicationCommandUpdatedCommandName(cmd.Name);
             return Task.CompletedTask;
         };
 
         client.IntegrationUpdated += integration =>
         {
-            _logger.LogDebug("Integration updated: {IntegrationName}", integration.Name);
+            _logger.IntegrationUpdatedIntegrationName(integration.Name);
             return Task.CompletedTask;
         };
 
         client.LatencyUpdated += (i, j) =>
         {
-            _logger.LogTrace("Ping from gateway - Latency = Was: {PreviousLatencyMs}ms, Now: {LatencyMs}ms", i, j);
+            _logger.PingFromGatewayLatencyWasPreviousLatencyMsMsNowLatencyMsMs(i, j);
+            _logger.LogMetric("Ping", j, new Dictionary<string, object>() { { "PreviousLatencyMs", i } });
             return Task.CompletedTask;
         };
     }
@@ -107,33 +109,33 @@ internal sealed partial class DiscordInitializationService(DiscordSocketClient c
 
         cancellationToken.ThrowIfCancellationRequested();
 
-        _logger.LogTrace("Loading command modules...");
+        _logger.LoadingCommandModules();
         var m = await interactionService.AddModulesAsync(Assembly.GetExecutingAssembly(), services).ConfigureAwait(false);
-        _logger.LogDebug("{NumCommands} command modules loaded", interactionService.Modules.Count);
+        _logger.NumCommandsCommandModulesLoaded(interactionService.Modules.Count);
 
         cancellationToken.ThrowIfCancellationRequested();
 
-        _logger.LogTrace("Adding modules globally...");
+        _logger.AddingModulesGlobally();
         foreach (var g in client.Guilds)
         {
             await interactionService.RemoveModulesFromGuildAsync(g);
         }
 
         var r = await interactionService.AddModulesGloballyAsync(deleteMissing: true, [.. m]).ConfigureAwait(false);
-        _logger.LogDebug("{NumCommands} commands added globally ({Available Commands})", r.Count, string.Join(", ", r.Select(i => i.Name)));
+        _logger.NumCommandsCommandsAddedGloballyAvailableCommands(r.Count, string.Join(", ", r.Select(i => i.Name)));
     }
 
     private void LogMessageExecuted(SocketMessageCommand msg)
     {
-        _logger.LogInformation("Received message: {MessageName}", msg.Data.Name);
-        _logger.LogTrace("Message data: {MessageData}", JsonSerializer.Serialize(msg.Data, _debugSerializerOptions));
+        _logger.ReceivedMessageMessageName(msg.Data.Name);
+        _logger.MessageDataMessageData(JsonSerializer.Serialize(msg.Data, _debugSerializerOptions));
     }
 
     private static readonly JsonSerializerOptions _debugSerializerOptions = new(JsonSerializerDefaults.Web) { ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve };
 
     private void LogCommandExecuted(SocketSlashCommand command)
     {
-        _logger.LogInformation("Received command: {CommandName}", command.Data.Name);
-        _logger.LogTrace("Command data: {CommandData}", JsonSerializer.Serialize(command.Data, _debugSerializerOptions));
+        _logger.ReceivedCommandCommandName(command.Data.Name);
+        _logger.CommandDataCommandData(JsonSerializer.Serialize(command.Data, _debugSerializerOptions));
     }
 }

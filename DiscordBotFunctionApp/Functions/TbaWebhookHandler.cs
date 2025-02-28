@@ -23,20 +23,20 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILo
             return new BadRequestObjectResult("No body content.");
         }
 
-        logger.LogDebug("Received webhook payload: {WebhookPayload}", bodyContent);
+        logger.ReceivedWebhookPayloadWebhookPayload(bodyContent);
 
         var message = JsonSerializer.Deserialize<WebhookMessage>(bodyContent);
         if (message is not null)
         {
             if (message.MessageType is NotificationType.verification)
             {
-                logger.LogInformation("Received verification message from The Blue Alliance. Key: {VerificationKey}", JsonSerializer.Deserialize<Verification>(message.MessageData)!.verification_key);
+                logger.ReceivedVerificationMessageFromTheBlueAllianceKeyVerificationKey(JsonSerializer.Deserialize<Verification>(message.MessageData)!.verification_key);
                 return new OkResult();
             }
             else if (message.MessageType is NotificationType.ping)
             {
                 var pingData = JsonSerializer.Deserialize<Ping>(message.MessageData);
-                logger.LogInformation("Received ping message from The Blue Alliance:\nTitle: {PingTitle}\nDescription: {PingDesc}", pingData.title, pingData.desc);
+                logger.ReceivedPingMessageFromTheBlueAllianceTitlePingTitleDescriptionPingDesc(pingData.title, pingData.desc);
                 return new OkResult();
             }
             else
@@ -50,18 +50,18 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILo
                     }
                     else
                     {
-                        logger.LogWarning("Unhandled webhook message {WebhookPayload}", bodyContent);
+                        logger.UnhandledWebhookMessageWebhookPayload(bodyContent);
                     }
                 }
                 catch (Exception e) when (e is TaskCanceledException or OperationCanceledException)
                 {
-                    logger.LogError(e, "Operation cancelled.");
+                    logger.OperationCancelled(e);
                     return new OkObjectResult("Operation cancelled.");
                 }
             }
         }
 
-        logger.LogError("Unknown/unhandled message: {WebhookMessage}", bodyContent);
+        logger.UnknownUnhandledMessage();
         return new BadRequestObjectResult("Unknown message type or body.");
     }
 }

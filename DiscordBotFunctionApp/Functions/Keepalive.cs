@@ -14,11 +14,11 @@ internal sealed class Keepalive(ILogger<Keepalive> logger)
 #endif
         )] TimerInfo myTimer)
     {
-        logger.LogInformation($"Keepalive ({TimeProvider.System.GetLocalNow():g})");
+        logger.KeepaliveArg0(TimeProvider.System.GetLocalNow());
 
         if (myTimer.ScheduleStatus is not null)
         {
-            logger.LogInformation($"Next timer schedule at: {myTimer.ScheduleStatus.Next.ToLocalTime():g}");
+            logger.NextTimerScheduleAtArg0(myTimer.ScheduleStatus.Next.ToLocalTime());
         }
     }
 }

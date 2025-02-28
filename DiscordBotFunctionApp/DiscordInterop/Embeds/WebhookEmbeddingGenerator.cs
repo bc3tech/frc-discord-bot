@@ -21,11 +21,11 @@ internal sealed class WebhookEmbeddingGenerator(IServiceProvider services, ILogg
         var embedCreator = services.GetKeyedService<INotificationEmbedCreator>(tbaWebhookMessage.MessageType.ToInvariantString());
         if (embedCreator is null)
         {
-            logger.LogWarning("No embedding creator registered for message type {MessageType}", tbaWebhookMessage.MessageType);
+            logger.NoEmbeddingCreatorRegisteredForMessageTypeMessageType(tbaWebhookMessage.MessageType);
             yield break;
         }
 
-        logger.LogTrace("Generating embeddings for webhook message...");
+        logger.GeneratingEmbeddingsForWebhookMessageTypeWebhookMessageType(tbaWebhookMessage.MessageType);
         await foreach (var i in embedCreator.CreateAsync(tbaWebhookMessage, highlightTeam, cancellationToken))
         {
             yield return i;

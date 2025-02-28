@@ -64,7 +64,7 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup, EmbedBuilder
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error getting data from Statbotics for {EventKey}", eventKey);
+                logger.ErrorGettingDataFromStatboticsForEventKey(ex, eventKey);
             }
 
             if (stats is not null)

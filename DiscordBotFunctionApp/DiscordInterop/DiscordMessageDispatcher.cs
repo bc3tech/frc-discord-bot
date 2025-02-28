@@ -40,8 +40,8 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
         List<Task> notifications = [];
 
-        await SendNotificationsAsync<TeamSubscriptionEntity>(teamSubscriptions, teamRecordsToFind, notifications, i => i.Item1 != CommonConstants.ALL ? i.Item1.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
-        await SendNotificationsAsync<EventSubscriptionEntity>(eventSubscriptions, eventRecordsToFind, notifications, i => i.Item2 != CommonConstants.ALL ? i.Item2.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
+        await SendNotificationsAsync<TeamSubscriptionEntity>(teamSubscriptions, teamRecordsToFind, i => i.Item1 != CommonConstants.ALL ? i.Item1.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
+        await SendNotificationsAsync<EventSubscriptionEntity>(eventSubscriptions, eventRecordsToFind, i => i.Item2 != CommonConstants.ALL ? i.Item2.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
 
         logger.WaitingForNotificationsToBeSent();
 
@@ -50,7 +50,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         return true;
     }
 
-    private async Task SendNotificationsAsync<T>(TableClient sourceTable, IReadOnlyList<(string p, string r)> records, List<Task> notifications, Func<(string, string), ushort?> teamFinder, ILogger<DiscordMessageDispatcher> logger, WebhookMessage message, CancellationToken cancellationToken) where T : class, ITableEntity, ISubscriptionEntity
+    private async Task SendNotificationsAsync<T>(TableClient sourceTable, IReadOnlyList<(string p, string r)> records, Func<(string, string), ushort?> teamFinder, ILogger<DiscordMessageDispatcher> logger, WebhookMessage message, CancellationToken cancellationToken) where T : class, ITableEntity, ISubscriptionEntity
     {
         using var scope = logger.CreateMethodScope();
         foreach (var i in records)
@@ -61,7 +61,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
             if (sub is not null)
             {
                 logger.FoundRecordForTargetTableForPartitionKeyRowKey(sourceTable.Name, i.p, i.r);
-                await ProcessSubscriptionAsync(message, sub.Subscribers, teamFinder(i), notifications, cancellationToken);
+                await ProcessSubscriptionAsync(message, sub.Subscribers, teamFinder(i), cancellationToken);
             }
         }
 
@@ -74,7 +74,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
     private const ushort MAX_EMBEDS_PER_MESSAGE = 10;
 
-    private async Task ProcessSubscriptionAsync(WebhookMessage message, GuildSubscriptions subscribers, ushort? highlightTeam, List<Task> notifications, CancellationToken cancellationToken)
+    private async Task ProcessSubscriptionAsync(WebhookMessage message, GuildSubscriptions subscribers, ushort? highlightTeam, CancellationToken cancellationToken)
     {
         using var scope = logger.CreateMethodScope();
         var embeds = _embedGenerator.CreateEmbeddingsAsync(message, highlightTeam, cancellationToken: cancellationToken);

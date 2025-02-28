@@ -26,12 +26,12 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBu
 
     public async IAsyncEnumerable<SubscriptionEmbedding> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        logger.LogDebug("Creating match score embed for {msg}", msg);
+        logger.CreatingMatchScoreEmbedForMsg(msg);
         var baseBuilder = builderFactory.GetBuilder();
         var notification = JsonSerializer.Deserialize<TbaInterop.Models.Notifications.MatchScore>(msg.MessageData);
         if (notification is null)
         {
-            logger.LogWarning("Failed to deserialize notification data as {NotificationType}", TargetType);
+            logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
             yield return new(baseBuilder.Build());
             yield break;
         }
@@ -39,7 +39,7 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBu
         var detailedMatch = await matchApi.GetMatchAsync(notification.match_key ?? Throws.IfNullOrWhiteSpace(notification.match?.Key), cancellationToken: cancellationToken).ConfigureAwait(false);
         if (detailedMatch is null)
         {
-            logger.LogWarning("Failed to retrieve detailed match data for {MatchKey}", notification.match_key ?? notification.match?.Key);
+            logger.FailedToRetrieveDetailedMatchDataForMatchKey(notification.match_key ?? notification.match?.Key ?? "UNKNOWN");
             yield return new(baseBuilder.Build());
             yield break;
         }
@@ -48,7 +48,6 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBu
         var matchHeader = $"Match {notification.match.MatchNumber}";
         var ranks = (await eventApi.GetEventRankingsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))!.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
         var scoreBreakdown = detailedMatch.ScoreBreakdown?.GetMatchScoreBreakdown2025();
-        Debug.Assert(scoreBreakdown is not null);
         string? redScoreBreakdownText = default, blueScoreBreakdownText = default;
         if (scoreBreakdown?.Red is not null)
         {
@@ -82,6 +81,7 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBu
 - {scoreBreakdown.Blue.CoralBonusAchieved.ToGlyph()} Coral Bonus";
         }
 
+        Debug.Assert(scoreBreakdown is not null);
         var videos = detailedMatch.Videos.Where(v => v.Type is "youtube" && v.Key is not null).Select(v => $"- https://www.youtube.com/watch?v={v.Key}");
         var videoSection = videos.Any() ? $"\n**Videos**\n{string.Join("\n", videos)}\n" : string.Empty;
 
