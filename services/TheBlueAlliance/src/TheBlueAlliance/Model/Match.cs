@@ -265,7 +265,7 @@
               /// </summary>
                 [JsonRequired]
                   [JsonPropertyName("score_breakdown")]
-                  public MatchScoreBreakdown ScoreBreakdown { get; set; }
+                  public MatchScoreBreakdown? ScoreBreakdown { get; set; }
                   
               /// <summary>
               /// The set number in a series of matches where more than one match is required in the match series.

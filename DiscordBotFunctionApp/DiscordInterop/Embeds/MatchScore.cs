@@ -11,6 +11,7 @@ using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 
@@ -46,7 +47,40 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBu
         var compLevelHeader = $"{Translator.CompLevelToShortString(notification.match!.CompLevel!.ToInvariantString()!)} {notification.match.SetNumber}";
         var matchHeader = $"Match {notification.match.MatchNumber}";
         var ranks = (await eventApi.GetEventRankingsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))!.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
-        var scoreBreakdown = detailedMatch.ScoreBreakdown.GetMatchScoreBreakdown2025()!;
+        var scoreBreakdown = detailedMatch.ScoreBreakdown?.GetMatchScoreBreakdown2025();
+        Debug.Assert(scoreBreakdown is not null);
+        string? redScoreBreakdownText = default, blueScoreBreakdownText = default;
+        if (scoreBreakdown?.Red is not null)
+        {
+            redScoreBreakdownText = $@"
+**Score Breakdown**
+- Auto: {scoreBreakdown.Red.AutoPoints}
+  - Coral (top/mid/bottom/trough): {scoreBreakdown.Red.AutoReef?.TbaTopRowCount ?? '?'}/{scoreBreakdown.Red.AutoReef?.TbaMidRowCount ?? '?'}/{scoreBreakdown.Red.AutoReef?.TbaBotRowCount ?? '?'}/{scoreBreakdown.Red.AutoReef?.Trough ?? '?'} - {scoreBreakdown.Red.AutoCoralPoints}pts
+- Teleop: {scoreBreakdown.Red.TeleopPoints}
+  - Coral (top/mid/bottom/trough): {scoreBreakdown.Red.TeleopReef?.TbaTopRowCount ?? '?'}/{scoreBreakdown.Red.TeleopReef?.TbaMidRowCount ?? '?'}/{scoreBreakdown.Red.TeleopReef?.TbaBotRowCount ?? '?'}/{scoreBreakdown.Red.TeleopReef?.Trough ?? '?'} - {scoreBreakdown.Red.TeleopCoralPoints}pts
+- Endgame: ({scoreBreakdown.Red.EndGameRobot1.ToGlyph()}/{scoreBreakdown.Red.EndGameRobot2.ToGlyph()}/{scoreBreakdown.Red.EndGameRobot3.ToGlyph()}) {scoreBreakdown.Red.EndGameBargePoints}pts
+- Algae (net/wall): {scoreBreakdown.Red.NetAlgaeCount}/{scoreBreakdown.Red.WallAlgaeCount} - {scoreBreakdown.Red.AlgaePoints}pts
+- {scoreBreakdown.Red.CoopertitionCriteriaMet.ToGlyph()} Coopertition
+- {scoreBreakdown.Red.AutoBonusAchieved.ToGlyph()} Auto Bonus ({scoreBreakdown.Red.AutoLineRobot1.ToGlyph()}/{scoreBreakdown.Red.AutoLineRobot2.ToGlyph()}/{scoreBreakdown.Red.AutoLineRobot3.ToGlyph()})
+- {scoreBreakdown.Red.BargeBonusAchieved.ToGlyph()} Barge Bonus
+- {scoreBreakdown.Red.CoralBonusAchieved.ToGlyph()} Coral Bonus";
+        }
+
+        if (scoreBreakdown?.Blue is not null)
+        {
+            blueScoreBreakdownText = $@"
+**Score Breakdown**
+- Auto: {scoreBreakdown.Blue.AutoPoints}
+  - Coral (top/mid/bottom/trough): {scoreBreakdown.Blue.AutoReef?.TbaTopRowCount ?? '?'}/{scoreBreakdown.Blue.AutoReef?.TbaMidRowCount ?? '?'}/{scoreBreakdown.Blue.AutoReef?.TbaBotRowCount ?? '?'}/{scoreBreakdown.Blue.AutoReef?.Trough ?? '?'} - {scoreBreakdown.Blue.AutoCoralPoints}pts
+- Teleop: {scoreBreakdown.Blue.TeleopPoints}
+  - Coral (top/mid/bottom/trough): {scoreBreakdown.Blue.TeleopReef?.TbaTopRowCount ?? '?'}/{scoreBreakdown.Blue.TeleopReef?.TbaMidRowCount ?? '?'}/{scoreBreakdown.Blue.TeleopReef?.TbaBotRowCount ?? '?'}/{scoreBreakdown.Blue.TeleopReef?.Trough ?? '?'} - {scoreBreakdown.Blue.TeleopCoralPoints}pts
+- Endgame: ({scoreBreakdown.Blue.EndGameRobot1.ToGlyph()}/{scoreBreakdown.Blue.EndGameRobot2.ToGlyph()}/{scoreBreakdown.Blue.EndGameRobot3.ToGlyph()}) {scoreBreakdown.Blue.EndGameBargePoints}pts
+- Algae (net/wall): {scoreBreakdown.Blue.NetAlgaeCount}/{scoreBreakdown.Blue.WallAlgaeCount} - {scoreBreakdown.Blue.AlgaePoints}pts
+- {scoreBreakdown.Blue.CoopertitionCriteriaMet.ToGlyph()} Coopertition
+- {scoreBreakdown.Blue.AutoBonusAchieved.ToGlyph()} Auto Bonus ({scoreBreakdown.Blue.AutoLineRobot1.ToGlyph()}/{scoreBreakdown.Blue.AutoLineRobot2.ToGlyph()}/{scoreBreakdown.Blue.AutoLineRobot3.ToGlyph()})
+- {scoreBreakdown.Blue.BargeBonusAchieved.ToGlyph()} Barge Bonus
+- {scoreBreakdown.Blue.CoralBonusAchieved.ToGlyph()} Coral Bonus";
+        }
 
         var videos = detailedMatch.Videos.Where(v => v.Type is "youtube" && v.Key is not null).Select(v => $"- https://www.youtube.com/watch?v={v.Key}");
         var videoSection = videos.Any() ? $"\n**Videos**\n{string.Join("\n", videos)}\n" : string.Empty;
@@ -58,35 +92,13 @@ $@"# Scores are in!
 Predicted start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PredictedTime!.Value).ToPacificTime():t}
 Actual start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.ActualTime!.Value).ToPacificTime():t}
 {(detailedMatch.PostResultTime.HasValue ? $"Results posted at {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PostResultTime!.Value).ToPacificTime():t}\n" : string.Empty)}
-### {(detailedMatch.WinningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)} Red Alliance - {detailedMatch.Alliances.Red.Score} (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red)})
+### {(detailedMatch.WinningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)} Red Alliance - {detailedMatch.Alliances.Red.Score} (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red) ?? '?'})
 {string.Join("\n", detailedMatch.Alliances.Red.TeamKeys.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
+{redScoreBreakdownText ?? string.Empty}
 
-**Score Breakdown**
-- Auto: {scoreBreakdown.Red.AutoPoints}
-  - Coral (top/mid/bottom/trough): {scoreBreakdown.Red.AutoReef?.TbaTopRowCount ?? '?'}/{scoreBreakdown.Red.AutoReef?.TbaMidRowCount ?? '?'}/{scoreBreakdown.Red.AutoReef?.TbaBotRowCount ?? '?'}/{scoreBreakdown.Red.AutoReef?.Trough ?? '?'} - {scoreBreakdown.Red.AutoCoralPoints}pts
-- Teleop: {scoreBreakdown.Red.TeleopPoints}
-  - Coral (top/mid/bottom/trough): {scoreBreakdown.Red.TeleopReef?.TbaTopRowCount ?? '?'}/{scoreBreakdown.Red.TeleopReef?.TbaMidRowCount ?? '?'}/{scoreBreakdown.Red.TeleopReef?.TbaBotRowCount ?? '?'}/{scoreBreakdown.Red.TeleopReef?.Trough ?? '?'} - {scoreBreakdown.Red.TeleopCoralPoints}pts
-- Endgame: ({scoreBreakdown.Red.EndGameRobot1.ToGlyph()}/{scoreBreakdown.Red.EndGameRobot2.ToGlyph()}/{scoreBreakdown.Red.EndGameRobot3.ToGlyph()}) {scoreBreakdown.Red.EndGameBargePoints}pts
-- Algae (net/wall): {scoreBreakdown.Red.NetAlgaeCount}/{scoreBreakdown.Red.WallAlgaeCount} - {scoreBreakdown.Red.AlgaePoints}pts
-- {scoreBreakdown.Red.CoopertitionCriteriaMet.ToGlyph()} Coopertition
-- {scoreBreakdown.Red.AutoBonusAchieved.ToGlyph()} Auto Bonus ({scoreBreakdown.Red.AutoLineRobot1.ToGlyph()}/{scoreBreakdown.Red.AutoLineRobot2.ToGlyph()}/{scoreBreakdown.Red.AutoLineRobot3.ToGlyph()})
-- {scoreBreakdown.Red.BargeBonusAchieved.ToGlyph()} Barge Bonus
-- {scoreBreakdown.Red.CoralBonusAchieved.ToGlyph()} Coral Bonus
-
-### {(detailedMatch.WinningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)} Blue Alliance - {detailedMatch.Alliances.Blue.Score} (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue)})
+### {(detailedMatch.WinningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)} Blue Alliance - {detailedMatch.Alliances.Blue.Score} (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue) ?? '?'})
 {string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
-
-**Score Breakdown**
-- Auto: {scoreBreakdown.Blue.AutoPoints}
-  - Coral (top/mid/bottom/trough): {scoreBreakdown.Blue.AutoReef?.TbaTopRowCount ?? '?'}/{scoreBreakdown.Blue.AutoReef?.TbaMidRowCount ?? '?'}/{scoreBreakdown.Blue.AutoReef?.TbaBotRowCount ?? '?'}/{scoreBreakdown.Blue.AutoReef?.Trough ?? '?'} - {scoreBreakdown.Blue.AutoCoralPoints}pts
-- Teleop: {scoreBreakdown.Blue.TeleopPoints}
-  - Coral (top/mid/bottom/trough): {scoreBreakdown.Blue.TeleopReef?.TbaTopRowCount ?? '?'}/{scoreBreakdown.Blue.TeleopReef?.TbaMidRowCount ?? '?'}/{scoreBreakdown.Blue.TeleopReef?.TbaBotRowCount ?? '?'}/{scoreBreakdown.Blue.TeleopReef?.Trough ?? '?'} - {scoreBreakdown.Blue.TeleopCoralPoints}pts
-- Endgame: ({scoreBreakdown.Blue.EndGameRobot1.ToGlyph()}/{scoreBreakdown.Blue.EndGameRobot2.ToGlyph()}/{scoreBreakdown.Blue.EndGameRobot3.ToGlyph()}) {scoreBreakdown.Blue.EndGameBargePoints}pts
-- Algae (net/wall): {scoreBreakdown.Blue.NetAlgaeCount}/{scoreBreakdown.Blue.WallAlgaeCount} - {scoreBreakdown.Blue.AlgaePoints}pts
-- {scoreBreakdown.Blue.CoopertitionCriteriaMet.ToGlyph()} Coopertition
-- {scoreBreakdown.Blue.AutoBonusAchieved.ToGlyph()} Auto Bonus ({scoreBreakdown.Blue.AutoLineRobot1.ToGlyph()}/{scoreBreakdown.Blue.AutoLineRobot2.ToGlyph()}/{scoreBreakdown.Blue.AutoLineRobot3.ToGlyph()})
-- {scoreBreakdown.Blue.BargeBonusAchieved.ToGlyph()} Barge Bonus
-- {scoreBreakdown.Blue.CoralBonusAchieved.ToGlyph()} Coral Bonus
+{blueScoreBreakdownText ?? string.Empty}
 {videoSection}
 View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})")
                     .Build();
