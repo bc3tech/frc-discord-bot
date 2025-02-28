@@ -32,20 +32,6 @@ internal sealed class Program
     {
         var host = new HostBuilder()
             .ConfigureFunctionsWorkerDefaults()
-            .ConfigureLogging((context, builder) => builder
-                .AddConfiguration(context.Configuration.GetSection("Logging"))
-                .AddApplicationInsights()
-                .AddDebug()
-                .AddSimpleConsole(i =>
-                {
-                    i.IncludeScopes = true;
-                    i.SingleLine = true;
-#if DEBUG
-                    i.ColorBehavior = Microsoft.Extensions.Logging.Console.LoggerColorBehavior.Enabled;
-#else
-                    i.ColorBehavior = Microsoft.Extensions.Logging.Console.LoggerColorBehavior.Disabled;
-#endif
-                }))
             .ConfigureAppConfiguration(b =>
             {
                 b.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -105,7 +91,13 @@ internal sealed class Program
 
                     return blobContainer;
                 });
-            }).Build();
+            })
+            .ConfigureLogging((context, builder) => builder
+                .AddConfiguration(context.Configuration.GetSection("Logging"))
+                .AddApplicationInsights()
+                .AddDebug()
+                .AddConsole())
+            .Build();
 
         await host.RunAsync().ConfigureAwait(false);
     }
