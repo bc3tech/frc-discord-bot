@@ -43,11 +43,11 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         await SendNotificationsAsync<TeamSubscriptionEntity>(teamSubscriptions, teamRecordsToFind, notifications, i => i.Item1 != CommonConstants.ALL ? i.Item1.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
         await SendNotificationsAsync<EventSubscriptionEntity>(eventSubscriptions, eventRecordsToFind, notifications, i => i.Item2 != CommonConstants.ALL ? i.Item2.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
 
-        logger.LogInformation("Waiting for notifications to be sent...");
+        logger.LogDebug("Waiting for notifications to be sent...");
 
         await Task.WhenAll(notifications).ConfigureAwait(false);
 
-        logger.LogInformation("Notifications completed");
+        logger.LogInformation("{NumNotifications} Notification(s) sent", notifications.Count);
 
         return true;
     }
@@ -80,26 +80,28 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
     {
         using var scope = logger.CreateMethodScope();
         var embeds = _embedGenerator.CreateEmbeddingsAsync(message, highlightTeam, cancellationToken: cancellationToken);
-
-        foreach (var c in subscribers.SelectMany(i => i.Value))
+        if (await embeds.AnyAsync(cancellationToken: cancellationToken).ConfigureAwait(false))
         {
-            cancellationToken.ThrowIfCancellationRequested();
-            var targetChannel = await _discordClient.GetChannelAsync(c, Utility.CreateCancelRequestOptions(cancellationToken)).ConfigureAwait(false);
-            Debug.Assert(targetChannel is not null);
-            logger.LogTrace("Retrieved channel {ChannelId} - '{ChannelName}'", c, targetChannel.Name);
+            foreach (var c in subscribers.SelectMany(i => i.Value))
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                var targetChannel = await _discordClient.GetChannelAsync(c, Utility.CreateCancelRequestOptions(cancellationToken)).ConfigureAwait(false);
+                Debug.Assert(targetChannel is not null);
+                logger.LogTrace("Retrieved channel {ChannelId} - '{ChannelName}'", c, targetChannel.Name);
 
-            if (targetChannel is IMessageChannel msgChan)
-            {
-                logger.LogTrace("Sending notification to channel {ChannelId} - '{ChannelName}'", c, targetChannel.Name);
-                var embedChunks = (await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false)).Chunk(MAX_EMBEDS_PER_MESSAGE);
-                foreach (var i in embedChunks)
+                if (targetChannel is IMessageChannel msgChan)
                 {
-                    await msgChan.SendMessageAsync(embeds: i, options: new RequestOptions { CancelToken = cancellationToken }).ConfigureAwait(false);
+                    logger.LogTrace("Sending notification to channel {ChannelId} - '{ChannelName}'", c, targetChannel.Name);
+                    var embedChunks = (await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false)).Chunk(MAX_EMBEDS_PER_MESSAGE);
+                    foreach (var i in embedChunks)
+                    {
+                        await msgChan.SendMessageAsync(embeds: i, options: new RequestOptions { CancelToken = cancellationToken }).ConfigureAwait(false);
+                    }
                 }
-            }
-            else
-            {
-                logger.LogWarning("Channel {ChannelId} is not a message channel", c);
+                else
+                {
+                    logger.LogWarning("Channel {ChannelId} is not a message channel", c);
+                }
             }
         }
     }
