@@ -94,6 +94,7 @@ internal static class DependencyInjectionExtensions
         .AddKeyedSingleton<INotificationEmbedCreator, ScheduleUpdate>(ScheduleUpdate.TargetType.ToInvariantString())
         .AddKeyedSingleton<INotificationEmbedCreator, Award>(Award.TargetType.ToInvariantString())
         .AddKeyedSingleton<IEmbedCreator<string>, EventDetail>(nameof(EventDetail))
+        .AddKeyedSingleton<IEmbedCreator<string>, UpcomingMatch>(nameof(UpcomingMatch))
         .AddKeyedSingleton<IEmbedCreator<string>, TeamDetail>(nameof(TeamDetail));
 
         return services;
