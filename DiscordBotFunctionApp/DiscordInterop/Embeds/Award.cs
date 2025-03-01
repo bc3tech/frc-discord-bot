@@ -26,7 +26,7 @@ internal sealed class Award(IEventApi tbaApi, BlobContainerClient imageBlobs, Em
     public async IAsyncEnumerable<SubscriptionEmbedding> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var baseBuilder = builderFactory.GetBuilder();
-        var notification = JsonSerializer.Deserialize<AwardsPosted>(msg.MessageData);
+        var notification = msg.GetDataAs<AwardsPosted>();
         if (notification is null)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);

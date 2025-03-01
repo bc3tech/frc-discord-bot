@@ -28,7 +28,7 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBu
     {
         logger.CreatingMatchScoreEmbedForMsg(msg);
         var baseBuilder = builderFactory.GetBuilder();
-        var notification = JsonSerializer.Deserialize<TbaInterop.Models.Notifications.MatchScore>(msg.MessageData);
+        var notification = msg.GetDataAs<TbaInterop.Models.Notifications.MatchScore>();
         if (notification is null)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);

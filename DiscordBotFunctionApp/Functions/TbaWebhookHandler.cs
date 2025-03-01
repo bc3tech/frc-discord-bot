@@ -30,12 +30,12 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILo
         {
             if (message.MessageType is NotificationType.verification)
             {
-                logger.ReceivedVerificationMessageFromTheBlueAllianceKeyVerificationKey(JsonSerializer.Deserialize<Verification>(message.MessageData)!.verification_key);
+                logger.ReceivedVerificationMessageFromTheBlueAllianceKeyVerificationKey(message.GetDataAs<Verification>()!.verification_key);
                 return new OkResult();
             }
             else if (message.MessageType is NotificationType.ping)
             {
-                var pingData = JsonSerializer.Deserialize<Ping>(message.MessageData);
+                var pingData = message.GetDataAs<Ping>();
                 logger.ReceivedPingMessageFromTheBlueAllianceTitlePingTitleDescriptionPingDesc(pingData.title, pingData.desc);
                 return new OkResult();
             }

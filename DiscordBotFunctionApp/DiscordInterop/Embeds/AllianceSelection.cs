@@ -22,7 +22,7 @@ internal sealed class AllianceSelection(TeamRepository teams, IEventApi tbaClien
     public async IAsyncEnumerable<SubscriptionEmbedding> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var baseBuilder = builderFactory.GetBuilder();
-        var notification = JsonSerializer.Deserialize<TbaInterop.Models.Notifications.AllianceSelection>(msg.MessageData);
+        var notification = msg.GetDataAs<TbaInterop.Models.Notifications.AllianceSelection>();
         if (notification is null)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
