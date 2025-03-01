@@ -48,13 +48,13 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IMatchApi tbaApi, TheBlu
         var matchHeader = $"Match {detailedMatch.MatchNumber}";
         var ranks = (await eventInsights.GetEventRankingsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))!.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
         var stats = await matchStats.ReadMatchV3MatchMatchGetAsync(notification.match_key, cancellationToken: cancellationToken).ConfigureAwait(false);
-        MatchSimple.WinningAllianceEnum? predictedWinner = stats!.Pred?.Winner is not null ? MatchSimple.WinningAllianceEnumFromStringOrDefault(stats.Pred.Winner).GetValueOrDefault(MatchSimple.WinningAllianceEnum.Empty) : null;
-        var allAlliancesInMatch = (stats.Alliances?.Blue?.TeamKeys ?? [])
-            .Concat(stats.Alliances?.Blue?.DqTeamKeys ?? [])
-            .Concat(stats.Alliances?.Blue?.SurrogateTeamKeys ?? [])
-            .Concat(stats.Alliances?.Red?.TeamKeys ?? [])
-            .Concat(stats.Alliances?.Red?.DqTeamKeys ?? [])
-            .Concat(stats.Alliances?.Red?.SurrogateTeamKeys ?? []);
+        MatchSimple.WinningAllianceEnum? predictedWinner = stats?.Pred?.Winner is not null ? MatchSimple.WinningAllianceEnumFromStringOrDefault(stats.Pred.Winner).GetValueOrDefault(MatchSimple.WinningAllianceEnum.Empty) : null;
+        var allAlliancesInMatch = (stats?.Alliances?.Blue?.TeamKeys ?? [])
+            .Concat(stats?.Alliances?.Blue?.DqTeamKeys ?? [])
+            .Concat(stats?.Alliances?.Blue?.SurrogateTeamKeys ?? [])
+            .Concat(stats?.Alliances?.Red?.TeamKeys ?? [])
+            .Concat(stats?.Alliances?.Red?.DqTeamKeys ?? [])
+            .Concat(stats?.Alliances?.Red?.SurrogateTeamKeys ?? []);
         var containsHighlightedTeam = highlightTeam.HasValue && allAlliancesInMatch.Contains(highlightTeam.Value);
 
         var prediction = new StringBuilder();
@@ -62,7 +62,7 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IMatchApi tbaApi, TheBlu
         {
             prediction
                 .AppendLine("\n\n## Prediction")
-                .Append($"- Winner: {predictedWinner.Value.ToInvariantString()} Alliance ({(predictedWinner is MatchSimple.WinningAllianceEnum.Red ? stats.Pred!.RedWinProb : (1 - stats.Pred!.RedWinProb)):P2})");
+                .Append($"- Winner: {predictedWinner.Value.ToInvariantString()} Alliance ({(predictedWinner is MatchSimple.WinningAllianceEnum.Red ? stats!.Pred!.RedWinProb : (1 - stats!.Pred!.RedWinProb)):P2})");
             if (containsHighlightedTeam)
             {
                 prediction

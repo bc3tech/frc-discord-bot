@@ -81,9 +81,10 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBu
 - {scoreBreakdown.Blue.CoralBonusAchieved.ToGlyph()} Coral Bonus";
         }
 
-        Debug.Assert(scoreBreakdown is not null);
+        Debug.Assert(detailedMatch.Videos is not null);
         var videos = detailedMatch.Videos.Where(v => v.Type is "youtube" && v.Key is not null).Select(v => $"- https://www.youtube.com/watch?v={v.Key}");
-        var videoSection = videos.Any() ? $"\n**Videos**\n{string.Join("\n", videos)}\n" : string.Empty;
+        Debug.Assert(videos is not null);
+        var videoSection = videos.Any() is true ? $"\n**Videos**\n{string.Join("\n", videos)}\n" : string.Empty;
 
         var embedding = baseBuilder
             .WithDescription(

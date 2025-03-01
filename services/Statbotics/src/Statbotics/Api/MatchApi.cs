@@ -467,6 +467,11 @@ public sealed partial class MatchApi : IMatchApi
             var _exception = this.ExceptionFactory("ReadMatchV3MatchMatchGet", localVarResponse);
             if (_exception is not null)
             {
+                if (_exception is ApiException)
+                {
+                    return new ApiResponse<Match?>(System.Net.HttpStatusCode.NoContent, null);
+                }
+
                 throw _exception;
             }
         }
