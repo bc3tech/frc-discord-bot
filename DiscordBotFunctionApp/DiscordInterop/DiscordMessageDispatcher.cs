@@ -1,5 +1,6 @@
 ﻿namespace DiscordBotFunctionApp.DiscordInterop;
 
+using Azure;
 using Azure.Data.Tables;
 
 using Common.Extensions;
@@ -21,8 +22,9 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Threading;
 
-internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptions,
-                                        [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptions,
+internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptionsTable,
+                                        [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptionsTable,
+                                        [FromKeyedServices(Constants.ServiceKeys.TableClient_Threads)] TableClient threadsTable,
                                         DiscordSocketClient _discordClient,
                                         WebhookEmbeddingGenerator _embedGenerator,
                                         ILogger<DiscordMessageDispatcher> logger)
@@ -40,8 +42,8 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
         List<Task> notifications = [];
 
-        await SendNotificationsAsync<TeamSubscriptionEntity>(teamSubscriptions, teamRecordsToFind, i => i.Item1 is not CommonConstants.ALL ? i.Item1.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
-        await SendNotificationsAsync<EventSubscriptionEntity>(eventSubscriptions, eventRecordsToFind, i => i.Item2 is not CommonConstants.ALL ? i.Item2.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
+        await SendNotificationsAsync<TeamSubscriptionEntity>(teamSubscriptionsTable, teamRecordsToFind, i => i.Item1 is not CommonConstants.ALL ? i.Item1.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
+        await SendNotificationsAsync<EventSubscriptionEntity>(eventSubscriptionsTable, eventRecordsToFind, i => i.Item2 is not CommonConstants.ALL ? i.Item2.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
 
         logger.WaitingForNotificationsToBeSent();
 
@@ -91,9 +93,15 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                 {
                     logger.SendingNotificationToChannelChannelIdChannelName(c, targetChannel.Name);
                     var embedChunks = (await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false)).Chunk(MAX_EMBEDS_PER_MESSAGE);
+                    MessageReference? initialMessageForThread = message.ThreadReplies() ? await getThreadIdForMessageAsync() : null;
                     foreach (var i in embedChunks)
                     {
-                        await msgChan.SendMessageAsync(embeds: i, options: new RequestOptions { CancelToken = cancellationToken }).ConfigureAwait(false);
+                        var createdMessage = await msgChan.SendMessageAsync(embeds: i, options: new RequestOptions { CancelToken = cancellationToken }, messageReference: initialMessageForThread).ConfigureAwait(false);
+                        if (initialMessageForThread is null && message.ThreadReplies())
+                        {
+                            initialMessageForThread = new MessageReference(createdMessage.Id);
+                            await saveMessageIdAsync(initialMessageForThread);
+                        }
                     }
 
                     logger.LogMetric("NotificationSent", 1, new Dictionary<string, object>() { { "ChannelId", c }, { "ChannelName", targetChannel.Name } });
@@ -102,6 +110,41 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                 {
                     logger.ChannelChannelIdIsNotAMessageChannel(c);
                 }
+            }
+        }
+
+        async Task<MessageReference?> getThreadIdForMessageAsync()
+        {
+            var threadLocator = message.GetThreadLocator();
+            if (threadLocator is null)
+            {
+                return null;
+            }
+
+            var (pk, rk) = threadLocator.Value;
+            var entity = await threadsTable.GetEntityIfExistsAsync<TableEntity>(pk, rk, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var messageId = entity.HasValue is true ? entity.Value!.GetInt64("MessageId") : null;
+            return messageId is null ? null : new MessageReference((ulong)messageId);
+        }
+
+        async Task saveMessageIdAsync(MessageReference threadId)
+        {
+            var threadLocator = message.GetThreadLocator();
+            if (threadLocator is null)
+            {
+                logger.LogWarning("Attempted to save thread ID for message that didn't return a locator value.");
+                return;
+            }
+
+            var (pk, rk) = threadLocator.Value;
+            var entity = new TableEntity(pk, rk) { { "MessageId", threadId.MessageId.Value } };
+            try
+            {
+                await threadsTable.AddEntityAsync(entity, cancellationToken: cancellationToken).ConfigureAwait(false);
+            }
+            catch (RequestFailedException ex) when (ex.Status is 409)
+            {
+                logger.LogWarning("Thread ID for message already existed in table. Locator: {ThreadLocator}", threadLocator);
             }
         }
     }
