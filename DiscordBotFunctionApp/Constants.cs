@@ -8,6 +8,7 @@ internal static class Constants
     {
         public const string TableClient_TeamSubscriptions = "teamSubscriptions";
         public const string TableClient_EventSubscriptions = "eventSubscriptions";
+        public const string TableClient_Threads = "threads";
 
         public const string TheBlueAllianceHttpClient = nameof(TheBlueAllianceHttpClient);
         public const string StatboticsHttpClient = nameof(StatboticsHttpClient);
