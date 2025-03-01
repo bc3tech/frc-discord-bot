@@ -11,6 +11,7 @@ using Discord.WebSocket;
 
 using DiscordBotFunctionApp;
 using DiscordBotFunctionApp.DiscordInterop.Embeds;
+using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.Storage.TableEntities;
 using DiscordBotFunctionApp.TbaInterop.Models;
 
@@ -22,12 +23,13 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Threading;
 
-internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptionsTable,
-                                        [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptionsTable,
-                                        [FromKeyedServices(Constants.ServiceKeys.TableClient_Threads)] TableClient threadsTable,
-                                        DiscordSocketClient _discordClient,
-                                        WebhookEmbeddingGenerator _embedGenerator,
-                                        ILogger<DiscordMessageDispatcher> logger)
+internal sealed partial class DiscordMessageDispatcher(
+    EventRepository events,
+    [FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptionsTable,
+    [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptionsTable,
+    [FromKeyedServices(Constants.ServiceKeys.TableClient_Threads)] TableClient threadsTable,
+    DiscordSocketClient _discordClient, WebhookEmbeddingGenerator _embedGenerator,
+    ILogger<DiscordMessageDispatcher> logger)
 {
     public async Task<bool> ProcessWebhookMessageAsync(WebhookMessage message, CancellationToken cancellationToken)
     {
@@ -93,14 +95,13 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                 {
                     logger.SendingNotificationToChannelChannelIdChannelName(c, targetChannel.Name);
                     var embedChunks = (await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false)).Chunk(MAX_EMBEDS_PER_MESSAGE);
-                    MessageReference? initialMessageForThread = message.ThreadReplies() ? await getThreadIdForMessageAsync() : null;
+                    var threadForMessage = message.ThreadReplies() ? await getThreadForMessageAsync() : null;
                     foreach (var i in embedChunks)
                     {
-                        var createdMessage = await msgChan.SendMessageAsync(embeds: i, options: new RequestOptions { CancelToken = cancellationToken }, messageReference: initialMessageForThread).ConfigureAwait(false);
-                        if (initialMessageForThread is null && message.ThreadReplies())
+                        var createdMessage = await (threadForMessage ?? msgChan).SendMessageAsync(embeds: i, options: new RequestOptions { CancelToken = cancellationToken }).ConfigureAwait(false);
+                        if (threadForMessage is null && message.ThreadReplies())
                         {
-                            initialMessageForThread = new MessageReference(createdMessage.Id);
-                            await saveMessageIdAsync(initialMessageForThread);
+                            threadForMessage = await createThreadForMessageAsync(message, new(messageId: createdMessage.Id, channelId: createdMessage.Channel.Id));
                         }
                     }
 
@@ -113,7 +114,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
             }
         }
 
-        async Task<MessageReference?> getThreadIdForMessageAsync()
+        async Task<ITextChannel?> getThreadForMessageAsync()
         {
             var threadLocator = message.GetThreadLocator();
             if (threadLocator is null)
@@ -123,21 +124,27 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
             var (pk, rk) = threadLocator.Value;
             var entity = await threadsTable.GetEntityIfExistsAsync<TableEntity>(pk, rk, cancellationToken: cancellationToken).ConfigureAwait(false);
-            var messageId = entity.HasValue is true ? entity.Value!.GetInt64("MessageId") : null;
-            return messageId is null ? null : new MessageReference((ulong)messageId);
+            var messageId = (ulong?)(entity.HasValue is true ? entity.Value!.GetInt64("ThreadId") : null);
+            return messageId.HasValue ? await _discordClient.GetChannelAsync(messageId!.Value) as ITextChannel : null;
         }
 
-        async Task saveMessageIdAsync(MessageReference threadId)
+        async Task<ITextChannel?> createThreadForMessageAsync(WebhookMessage message, MessageReference threadId)
         {
             var threadLocator = message.GetThreadLocator();
             if (threadLocator is null)
             {
                 logger.LogWarning("Attempted to save thread ID for message that didn't return a locator value.");
-                return;
+                return null;
             }
 
             var (pk, rk) = threadLocator.Value;
-            var entity = new TableEntity(pk, rk) { { "MessageId", threadId.MessageId.Value } };
+            var name = message.MessageData.TryGetProperty("event_key", out var eventKey) ? events.GetLabelForEvent(eventKey.GetString()!) : "Match";
+            var channelForThread = await _discordClient.GetChannelAsync(threadId.ChannelId).ConfigureAwait(false) as ITextChannel;
+            Debug.Assert(channelForThread is not null);
+            var sourceMessage = await channelForThread.GetMessageAsync(threadId.MessageId.Value);
+            var newThread = await channelForThread.CreateThreadAsync(name, ThreadType.PublicThread, ThreadArchiveDuration.ThreeDays, sourceMessage).ConfigureAwait(false);
+
+            var entity = new TableEntity(pk, rk) { { "ThreadId", newThread.Id } };
             try
             {
                 await threadsTable.AddEntityAsync(entity, cancellationToken: cancellationToken).ConfigureAwait(false);
@@ -146,6 +153,8 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
             {
                 logger.LogWarning("Thread ID for message already existed in table. Locator: {ThreadLocator}", threadLocator);
             }
+
+            return newThread;
         }
     }
 

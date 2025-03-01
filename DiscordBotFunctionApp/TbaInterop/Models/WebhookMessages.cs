@@ -15,7 +15,11 @@ internal sealed record WebhookMessage
 
     public T? GetDataAs<T>() => MessageData.Deserialize<T>();
 
-    public bool ThreadReplies() => MessageType is NotificationType.event_match_video or NotificationType.match_score or NotificationType.match_video;
+    public bool ThreadReplies() => 
+        MessageType is NotificationType.upcoming_match 
+        or NotificationType.event_match_video 
+        or NotificationType.match_score 
+        or NotificationType.match_video;
 
     public (string PartitionKey, string RowKey)? GetThreadLocator()
     {
