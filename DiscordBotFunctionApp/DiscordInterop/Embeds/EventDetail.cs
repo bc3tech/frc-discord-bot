@@ -19,7 +19,7 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup, EmbedBuilder
 {
     private static readonly JsonSerializerOptions _jsonOptions = new(JsonSerializerDefaults.Web);
 
-    public async IAsyncEnumerable<ResponseEmbedding> CreateAsync(string eventKey, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync(string eventKey, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         using var scope = logger.CreateMethodScope();
 

@@ -28,7 +28,10 @@ internal sealed class WebhookEmbeddingGenerator(IServiceProvider services, ILogg
         logger.GeneratingEmbeddingsForWebhookMessageTypeWebhookMessageType(tbaWebhookMessage.MessageType);
         await foreach (var i in embedCreator.CreateAsync(tbaWebhookMessage, highlightTeam, cancellationToken))
         {
-            yield return i;
+            if (i is not null)
+            {
+                yield return i;
+            }
         }
     }
 }

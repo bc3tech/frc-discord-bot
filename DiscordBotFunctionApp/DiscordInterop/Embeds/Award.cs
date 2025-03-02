@@ -23,7 +23,7 @@ internal sealed class Award(IEventApi tbaApi, BlobContainerClient imageBlobs, Em
 {
     public static NotificationType TargetType { get; } = NotificationType.awards_posted;
 
-    public async IAsyncEnumerable<SubscriptionEmbedding> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var baseBuilder = builderFactory.GetBuilder();
         var notification = msg.GetDataAs<AwardsPosted>();

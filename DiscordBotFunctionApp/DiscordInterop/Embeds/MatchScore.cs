@@ -24,7 +24,7 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBu
 {
     public static NotificationType TargetType { get; } = NotificationType.match_score;
 
-    public async IAsyncEnumerable<SubscriptionEmbedding> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         logger.CreatingMatchScoreEmbedForMsg(msg);
         var baseBuilder = builderFactory.GetBuilder();
@@ -41,6 +41,13 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBu
         {
             logger.FailedToRetrieveDetailedMatchDataForMatchKey(notification.match_key ?? notification.match?.Key ?? "UNKNOWN");
             yield return new(baseBuilder.Build());
+            yield break;
+        }
+
+        if (detailedMatch.Alliances.Red.Score is -1)
+        {
+            logger.LogWarning("Bad data for match {MatchKey} - {MatchData}", detailedMatch.Key, JsonSerializer.Serialize(detailedMatch));
+            yield return null;
             yield break;
         }
 

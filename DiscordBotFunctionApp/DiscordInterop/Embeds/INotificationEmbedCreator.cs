@@ -10,7 +10,7 @@ internal interface IEmbedCreator<TInput> : IEmbedCreator<TInput, ResponseEmbeddi
 
 internal interface IEmbedCreator<TInput, TResponse> : IEmbedCreator where TResponse : ResponseEmbedding
 {
-    IAsyncEnumerable<TResponse> CreateAsync(TInput input, ushort? highlightTeam = null, CancellationToken cancellationToken = default);
+    IAsyncEnumerable<TResponse?> CreateAsync(TInput input, ushort? highlightTeam = null, CancellationToken cancellationToken = default);
 }
 
 internal interface IEmbedCreator { }

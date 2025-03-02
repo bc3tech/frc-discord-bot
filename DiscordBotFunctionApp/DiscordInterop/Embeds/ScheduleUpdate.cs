@@ -11,7 +11,7 @@ internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger
 {
     public static NotificationType TargetType { get; } = NotificationType.schedule_updated;
 
-    public async IAsyncEnumerable<SubscriptionEmbedding> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var baseBuilder = builderFactory.GetBuilder();
         var notification = msg.GetDataAs<TbaInterop.Models.Notifications.ScheduleUpdate>();

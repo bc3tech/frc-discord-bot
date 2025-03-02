@@ -17,7 +17,7 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IMatchApi tbaApi, TheBlu
 {
     public static NotificationType TargetType { get; } = NotificationType.upcoming_match;
 
-    public async IAsyncEnumerable<SubscriptionEmbedding> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var baseBuilder = builderFactory.GetBuilder();
         var notification = msg.GetDataAs<TbaInterop.Models.Notifications.UpcomingMatch>();
@@ -94,7 +94,7 @@ View more match details [here](https://www.thebluealliance.com/match/{detailedMa
         yield return new(embedding);
     }
 
-    public async IAsyncEnumerable<ResponseEmbedding> CreateAsync(string matchKey, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync(string matchKey, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var baseBuilder = builderFactory.GetBuilder();
 

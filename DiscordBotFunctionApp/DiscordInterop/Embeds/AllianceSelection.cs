@@ -19,7 +19,7 @@ internal sealed class AllianceSelection(TeamRepository teams, IEventApi tbaClien
 {
     public static NotificationType TargetType { get; } = NotificationType.alliance_selection;
 
-    public async IAsyncEnumerable<SubscriptionEmbedding> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var baseBuilder = builderFactory.GetBuilder();
         var notification = msg.GetDataAs<TbaInterop.Models.Notifications.AllianceSelection>();
