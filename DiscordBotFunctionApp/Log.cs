@@ -229,4 +229,7 @@ static partial class Log
 
     [LoggerMessage(72, LogLevel.Debug, "Interaction already acknowledged, skipping response.")]
     internal static partial void InteractionAlreadyAcknowledgedSkippingResponse(this ILogger logger);
+
+    [LoggerMessage(73, LogLevel.Error, "Error responding with match data for Event {EventKey} match key {MatchKey}")]
+    internal static partial void ErrorRespondingWithMatchDataForEventEventKeyMatchKeyMatchKey(this ILogger logger, Exception exception, string EventKey, string MatchKey);
 }

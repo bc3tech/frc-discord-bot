@@ -16,6 +16,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Extensions;
 using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchExtensions;
 using TheBlueAlliance.Model.MatchScoreBreakdown2025AllianceExtensions;
@@ -91,9 +92,10 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EventRe
 - Endgame: ({scoreBreakdown.Red.EndGameRobot1.ToGlyph()}/{scoreBreakdown.Red.EndGameRobot2.ToGlyph()}/{scoreBreakdown.Red.EndGameRobot3.ToGlyph()}) {scoreBreakdown.Red.EndGameBargePoints}pts
 - Algae (net/wall): {scoreBreakdown.Red.NetAlgaeCount}/{scoreBreakdown.Red.WallAlgaeCount} - {scoreBreakdown.Red.AlgaePoints}pts
 - {scoreBreakdown.Red.CoopertitionCriteriaMet.ToGlyph()} Coopertition
-- {scoreBreakdown.Red.AutoBonusAchieved.ToGlyph()} Auto Bonus ({scoreBreakdown.Red.AutoLineRobot1.ToGlyph()}/{scoreBreakdown.Red.AutoLineRobot2.ToGlyph()}/{scoreBreakdown.Red.AutoLineRobot3.ToGlyph()})
-- {scoreBreakdown.Red.BargeBonusAchieved.ToGlyph()} Barge Bonus
-- {scoreBreakdown.Red.CoralBonusAchieved.ToGlyph()} Coral Bonus";
+- {scoreBreakdown.Red.AutoBonusAchieved.ToGlyph()} Auto RP (1) ({scoreBreakdown.Red.AutoLineRobot1.ToGlyph()}/{scoreBreakdown.Red.AutoLineRobot2.ToGlyph()}/{scoreBreakdown.Red.AutoLineRobot3.ToGlyph()})
+- {scoreBreakdown.Red.BargeBonusAchieved.ToGlyph()} Barge RP (1)
+- {scoreBreakdown.Red.CoralBonusAchieved.ToGlyph()} Coral RP (1)
+- {winningAlliance.ToGlyph(Match.WinningAllianceEnum.Red)} Win RP (3)";
         }
 
         if (scoreBreakdown?.Blue is not null)
@@ -107,9 +109,11 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EventRe
 - Endgame: ({scoreBreakdown.Blue.EndGameRobot1.ToGlyph()}/{scoreBreakdown.Blue.EndGameRobot2.ToGlyph()}/{scoreBreakdown.Blue.EndGameRobot3.ToGlyph()}) {scoreBreakdown.Blue.EndGameBargePoints}pts
 - Algae (net/wall): {scoreBreakdown.Blue.NetAlgaeCount}/{scoreBreakdown.Blue.WallAlgaeCount} - {scoreBreakdown.Blue.AlgaePoints}pts
 - {scoreBreakdown.Blue.CoopertitionCriteriaMet.ToGlyph()} Coopertition
-- {scoreBreakdown.Blue.AutoBonusAchieved.ToGlyph()} Auto Bonus ({scoreBreakdown.Blue.AutoLineRobot1.ToGlyph()}/{scoreBreakdown.Blue.AutoLineRobot2.ToGlyph()}/{scoreBreakdown.Blue.AutoLineRobot3.ToGlyph()})
-- {scoreBreakdown.Blue.BargeBonusAchieved.ToGlyph()} Barge Bonus
-- {scoreBreakdown.Blue.CoralBonusAchieved.ToGlyph()} Coral Bonus";
+- {scoreBreakdown.Blue.AutoBonusAchieved.ToGlyph()} Auto RP (1) ({scoreBreakdown.Blue.AutoLineRobot1.ToGlyph()}/{scoreBreakdown.Blue.AutoLineRobot2.ToGlyph()}/{scoreBreakdown.Blue.AutoLineRobot3.ToGlyph()})
+- {scoreBreakdown.Blue.BargeBonusAchieved.ToGlyph()} Barge RP (1)
+- {scoreBreakdown.Blue.CoralBonusAchieved.ToGlyph()} Coral RP (1)
+- {winningAlliance.ToGlyph(Match.WinningAllianceEnum.Blue)} Win RP (3)";
+
         }
 
         Debug.Assert(detailedMatch.Videos is not null);

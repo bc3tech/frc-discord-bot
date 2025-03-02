@@ -107,7 +107,7 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         }
         catch (Exception ex)
         {
-            _logger.LogError("Error responding with match data for Event {EventKey} match key {MatchKey}", eventKey, matchKey);
+            _logger.ErrorRespondingWithMatchDataForEventEventKeyMatchKeyMatchKey(ex, eventKey, matchKey);
             await this.ModifyOriginalResponseAsync(p => p.Content = "Sorry, I encountered an error processing your request. Maybe try again? Or contact your admin with this news so they can troubleshoot.").ConfigureAwait(false);
         }
     }
