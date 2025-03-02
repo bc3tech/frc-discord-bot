@@ -17,6 +17,11 @@ public abstract class CommandModuleBase : InteractionModuleBase
         ResponseEmbedding[] embeds = [];
         await foreach (var m in embeddingCreator.CreateAsync(input, cancellationToken: cancellationToken).ConfigureAwait(false))
         {
+            if (m is null)
+            {
+                continue;
+            }
+
             cancellationToken.ThrowIfCancellationRequested();
 
             embeds = [.. embeds, m];
