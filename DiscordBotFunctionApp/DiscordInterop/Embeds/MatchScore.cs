@@ -46,7 +46,7 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBu
 
         if (detailedMatch.Alliances.Red.Score is -1)
         {
-            logger.LogWarning("Bad data for match {MatchKey} - {MatchData}", detailedMatch.Key, JsonSerializer.Serialize(detailedMatch));
+            logger.BadDataForMatchMatchKeyMatchData(detailedMatch.Key, JsonSerializer.Serialize(detailedMatch));
             yield return null;
             yield break;
         }
@@ -98,8 +98,7 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBu
 $@"# Scores are in!
 ## {notification.event_name}: {compLevelHeader} - {matchHeader}
 Predicted start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PredictedTime.GetValueOrDefault(0)).ToPacificTime():t}
-Actual start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.ActualTime.GetValueOrDefault(0)).ToPacificTime():t}
-{(detailedMatch.PostResultTime.HasValue ? $"Results posted at {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PostResultTime.Value).ToPacificTime():t}\n" : string.Empty)}
+Actual start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.ActualTime.GetValueOrDefault(0)).ToPacificTime():t}{(detailedMatch.PostResultTime.HasValue ? $"\nResults posted at {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PostResultTime.Value).ToPacificTime():t}" : string.Empty)}
 ### {(detailedMatch.WinningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)} Red Alliance - {detailedMatch.Alliances.Red.Score} (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red) ?? '?'})
 {string.Join("\n", detailedMatch.Alliances.Red.TeamKeys.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
 {redScoreBreakdownText ?? string.Empty}
