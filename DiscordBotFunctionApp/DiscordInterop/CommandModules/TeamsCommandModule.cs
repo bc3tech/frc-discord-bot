@@ -27,6 +27,12 @@ public class TeamsCommandModule(IServiceProvider services) : CommandModuleBase
             return;
         }
 
+        // In case the user just gives us team number
+        if (int.TryParse(teamKey, out var teamNumber))
+        {
+            teamKey = $"frc{teamNumber}";
+        }
+
         await GenerateResponseAsync(_embedCreator, teamKey).ConfigureAwait(false);
     }
 }

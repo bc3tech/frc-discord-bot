@@ -34,6 +34,12 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         using var scope = _logger.CreateMethodScope();
         try
         {
+            // In case the user just gives us team number
+            if (int.TryParse(teamKey, out var teamNumber))
+            {
+                teamKey = $"frc{teamNumber}";
+            }
+
             var matches = await _matchApi.GetTeamEventMatchesAsync(eventKey, teamKey);
             if (matches is not null)
             {

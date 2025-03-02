@@ -16,7 +16,9 @@ public class EventsCommandModule(IServiceProvider services) : CommandModuleBase
     private readonly ILogger _logger = services.GetRequiredService<ILogger<EventsCommandModule>>();
 
     [SlashCommand("get-details", "Gets details about an event")]
-    public async Task ShowAsync([Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string eventKey, [Summary("post", "`true` to post response publicly")] bool post = false)
+    public async Task ShowAsync(
+        [Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string eventKey, 
+        [Summary("post", "`true` to post response publicly")] bool post = false)
     {
         await this.DeferAsync(ephemeral: !post).ConfigureAwait(false);
 
