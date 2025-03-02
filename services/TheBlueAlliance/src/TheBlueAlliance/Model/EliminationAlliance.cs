@@ -65,7 +65,7 @@
               /// <value>List of teams that declined the alliance.</value>
                 [JsonRequired]
                   [JsonPropertyName("declines")]
-                  public Collection<string> Declines { get; set; }
+                  public Collection<string>? Declines { get; set; }
                   
               /// <summary>
               /// Alliance name, may be null.
