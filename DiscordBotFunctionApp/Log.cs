@@ -223,4 +223,10 @@ static partial class Log
 
     [LoggerMessage(70, LogLevel.Warning, "Bad data for match {MatchKey} - {MatchData}")]
     internal static partial void BadDataForMatchMatchKeyMatchData(this ILogger logger, string MatchKey, string MatchData);
+
+    [LoggerMessage(71, LogLevel.Error, "Error getting next match for {teamKey} at {eventKey}")]
+    internal static partial void ErrorGettingNextMatchForTeamKeyAtEventKey(this ILogger logger, Exception exception, string teamKey, string eventKey);
+
+    [LoggerMessage(72, LogLevel.Debug, "Interaction already acknowledged, skipping response.")]
+    internal static partial void InteractionAlreadyAcknowledgedSkippingResponse(this ILogger logger);
 }

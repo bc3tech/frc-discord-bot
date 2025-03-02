@@ -96,6 +96,8 @@ View more match details [here](https://www.thebluealliance.com/match/{detailedMa
         yield return new(embedding);
     }
 
+    public IAsyncEnumerable<ResponseEmbedding?> CreateNextMatchEmbeddingsAsync(string matchKey, ushort? highlightTeam = null, CancellationToken cancellationToken = default) => CreateAsync(matchKey, highlightTeam, cancellationToken);
+
     public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync(string matchKey, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var baseBuilder = builderFactory.GetBuilder();
@@ -149,7 +151,7 @@ View more match details [here](https://www.thebluealliance.com/match/{detailedMa
 
         var embedding = baseBuilder
             .WithDescription(
-$@"# Match starting soon!
+$@"# Next Match for {teams.GetLabelForTeam(highlightTeam)}
 ## {events.GetLabelForEvent(detailedMatch.EventKey)}: {compLevelHeader} - {matchHeader}
 Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.Time.GetValueOrDefault(0)!).ToPacificTime():t}
 **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PredictedTime.GetValueOrDefault(0)).ToPacificTime():t}**
