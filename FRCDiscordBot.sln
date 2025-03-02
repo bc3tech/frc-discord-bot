@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIRST", "services\FIRST\src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBlueAlliance", "services\TheBlueAlliance\src\TheBlueAlliance\TheBlueAlliance.csproj", "{2A5C19E4-4CB2-952F-ECAA-A99022F36794}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TbaDataDumper", "TbaDataDumper\TbaDataDumper.csproj", "{EA9C770B-7D25-453A-A624-4B534B84DD72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{2A5C19E4-4CB2-952F-ECAA-A99022F36794}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A5C19E4-4CB2-952F-ECAA-A99022F36794}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A5C19E4-4CB2-952F-ECAA-A99022F36794}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA9C770B-7D25-453A-A624-4B534B84DD72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA9C770B-7D25-453A-A624-4B534B84DD72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA9C770B-7D25-453A-A624-4B534B84DD72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA9C770B-7D25-453A-A624-4B534B84DD72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

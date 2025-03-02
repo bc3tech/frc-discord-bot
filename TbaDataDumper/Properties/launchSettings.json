@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "TbaDataDumper": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development",
+        "AZURE_TENANT_ID": "4d5d86da-da2f-4f9b-addc-3a30df210d60"
+      }
+    }
+  }
+}
