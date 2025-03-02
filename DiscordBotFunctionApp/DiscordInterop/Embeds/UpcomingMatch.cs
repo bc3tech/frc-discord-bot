@@ -1,5 +1,7 @@
 ﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
 
+using Common.Extensions;
+
 using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.TbaInterop;
 using DiscordBotFunctionApp.TbaInterop.Models;
@@ -83,10 +85,10 @@ Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.sch
 **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToPacificTime():t}**
 ### Alliances
 **Red Alliance**
-{string.Join("\n", detailedMatch.Alliances!.Red!.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
+{string.Join("\n", detailedMatch.Alliances.Red.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
 
 **Blue Alliance**
-{string.Join("\n", detailedMatch.Alliances.Blue!.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}{prediction}
+{string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}{prediction}
 
 View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})")
             .Build();
