@@ -40,8 +40,8 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
         List<Task> notifications = [];
 
-        await SendNotificationsAsync<TeamSubscriptionEntity>(teamSubscriptions, teamRecordsToFind, i => i.Item1 != CommonConstants.ALL ? i.Item1.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
-        await SendNotificationsAsync<EventSubscriptionEntity>(eventSubscriptions, eventRecordsToFind, i => i.Item2 != CommonConstants.ALL ? i.Item2.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
+        await SendNotificationsAsync<TeamSubscriptionEntity>(teamSubscriptions, teamRecordsToFind, i => i.Item1 is not CommonConstants.ALL ? i.Item1.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
+        await SendNotificationsAsync<EventSubscriptionEntity>(eventSubscriptions, eventRecordsToFind, i => i.Item2 is not CommonConstants.ALL ? i.Item2.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
 
         logger.WaitingForNotificationsToBeSent();
 
