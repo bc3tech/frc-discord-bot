@@ -44,7 +44,25 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EmbedBu
             yield break;
         }
 
-        if (detailedMatch.Alliances.Red.Score is -1)
+        var blueScore = detailedMatch.Alliances.Blue.Score;
+        if (blueScore is -1)
+        {
+            if (detailedMatch.ScoreBreakdown?.GetMatchScoreBreakdown2025()?.Blue.TotalPoints.HasValue is true)
+            {
+                blueScore = detailedMatch.ScoreBreakdown.GetMatchScoreBreakdown2025()!.Blue.TotalPoints!.Value;
+            }
+        }
+
+        var redScore = detailedMatch.Alliances.Red.Score;
+        if (redScore is -1)
+        {
+            if (detailedMatch.ScoreBreakdown?.GetMatchScoreBreakdown2025()?.Red.TotalPoints.HasValue is true)
+            {
+                redScore = detailedMatch.ScoreBreakdown.GetMatchScoreBreakdown2025()!.Red.TotalPoints!.Value;
+            }
+        }
+
+        if (redScore is -1 || blueScore is -1)
         {
             logger.BadDataForMatchMatchKeyMatchData(detailedMatch.Key, JsonSerializer.Serialize(detailedMatch));
             yield return null;
