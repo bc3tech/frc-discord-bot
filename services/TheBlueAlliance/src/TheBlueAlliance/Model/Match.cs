@@ -123,6 +123,7 @@ public partial record Match
         {
             "red" => WinningAllianceEnum.Red,
             "blue" => WinningAllianceEnum.Blue,
+            "Empty" => WinningAllianceEnum.Empty,
             "" => WinningAllianceEnum.Empty,
             _ => null
         };
