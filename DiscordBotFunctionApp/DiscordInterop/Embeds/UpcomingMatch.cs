@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.Json;
 
 using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchSimpleExtensions;
@@ -45,10 +46,14 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IMatchApi tbaApi, TheBlu
             yield break;
         }
 
+        logger.LogDebug("Creating Upcoming Match embedding for {WebhookMessage}: {Notification}", JsonSerializer.Serialize(msg), JsonSerializer.Serialize(notification));
+
         var compLevelHeader = $"{Translator.CompLevelToShortString(detailedMatch.CompLevel.ToInvariantString()!)} {detailedMatch.SetNumber}";
         var matchHeader = $"Match {detailedMatch.MatchNumber}";
         var ranks = (await eventInsights.GetEventRankingsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))!.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
+        logger.LogDebug("Rankings: {Rankings}", ranks is not null ? JsonSerializer.Serialize(ranks) : "[null]");
         var stats = await matchStats.ReadMatchV3MatchMatchGetAsync(notification.match_key, cancellationToken: cancellationToken).ConfigureAwait(false);
+        logger.LogDebug("Match Stats: {MatchStats}", stats is not null ? JsonSerializer.Serialize(stats) : "[null]");
         MatchSimple.WinningAllianceEnum? predictedWinner = stats?.Pred?.Winner is not null ? MatchSimple.WinningAllianceEnumFromStringOrDefault(stats.Pred.Winner).GetValueOrDefault(MatchSimple.WinningAllianceEnum.Empty) : null;
         var allAlliancesInMatch = (stats?.Alliances?.Blue?.TeamKeys ?? [])
             .Concat(stats?.Alliances?.Blue?.DqTeamKeys ?? [])
@@ -75,6 +80,8 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IMatchApi tbaApi, TheBlu
             prediction
                 .AppendLine()
                 .AppendLine($"- Score: [Red] {stats.Pred!.RedScore} - [Blue] {stats.Pred.BlueScore}");
+
+            logger.LogDebug("Prediction: {Prediction}", prediction);
         }
 
         var embedding = baseBuilder

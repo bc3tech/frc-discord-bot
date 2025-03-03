@@ -70,6 +70,7 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EventRe
             yield break;
         }
 
+        logger.LogDebug("Creating match score embed for {WebhookMessage}", JsonSerializer.Serialize(msg));
         var winningAlliance = detailedMatch.WinningAlliance;
         if (winningAlliance is Match.WinningAllianceEnum.Empty)
         {
@@ -79,7 +80,9 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EventRe
         var compLevelHeader = $"{Translator.CompLevelToShortString(notification.match!.CompLevel!.ToInvariantString()!)} {notification.match.SetNumber}";
         var matchHeader = $"Match {notification.match.MatchNumber}";
         var ranks = (await eventApi.GetEventRankingsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))!.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
+        logger.LogDebug("Rankings: {Rankings}", JsonSerializer.Serialize(ranks));
         var scoreBreakdown = detailedMatch.ScoreBreakdown?.GetMatchScoreBreakdown2025();
+        logger.LogDebug("Score breakdown: {ScoreBreakdown}", JsonSerializer.Serialize(scoreBreakdown));
         string? redScoreBreakdownText = default, blueScoreBreakdownText = default;
         if (scoreBreakdown?.Red is not null)
         {
@@ -96,6 +99,8 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EventRe
 - {scoreBreakdown.Red.BargeBonusAchieved.ToGlyph()} Barge RP (1)
 - {scoreBreakdown.Red.CoralBonusAchieved.ToGlyph()} Coral RP (1)
 - {winningAlliance.ToGlyph(Match.WinningAllianceEnum.Red)} Win RP (3)";
+
+            logger.LogDebug("Red score breakdown: {RedScoreBreakdown}", redScoreBreakdownText);
         }
 
         if (scoreBreakdown?.Blue is not null)
@@ -114,6 +119,7 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EventRe
 - {scoreBreakdown.Blue.CoralBonusAchieved.ToGlyph()} Coral RP (1)
 - {winningAlliance.ToGlyph(Match.WinningAllianceEnum.Blue)} Win RP (3)";
 
+            logger.LogDebug("Blue score breakdown: {BlueScoreBreakdown}", blueScoreBreakdownText);
         }
 
         Debug.Assert(detailedMatch.Videos is not null);
