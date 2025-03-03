@@ -17,7 +17,12 @@ using System.Text.Json;
 
 using TheBlueAlliance.Api;
 
-internal sealed class TeamDetail(RESTCountries _countryCodeLookup, EmbedBuilderFactory builderFactory, TeamRepository _teamsRepo, Statbotics.Api.ITeamApi teamStats, IDistrictApi districts, ILogger<TeamDetail> logger) : IEmbedCreator<string>
+internal sealed class TeamDetail(RESTCountries _countryCodeLookup,
+                                 EmbedBuilderFactory builderFactory,
+                                 TeamRepository _teamsRepo,
+                                 Statbotics.Api.ITeamApi teamStats,
+                                 IDistrictApi districts,
+                                 ILogger<TeamDetail> logger) : IEmbedCreator<string>
 {
     public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync(string teamKey, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
