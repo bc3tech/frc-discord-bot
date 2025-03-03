@@ -14,6 +14,7 @@ public abstract class CommandModuleBase : InteractionModuleBase
 {
     internal virtual async Task GenerateResponseAsync<T>(IEmbedCreator<T> embeddingCreator, T input, Func<ImmutableArray<Embed>, Task>? modifyCallback = null, CancellationToken cancellationToken = default)
     {
+        using var typing = this.Context.Channel.EnterTypingState();
         ResponseEmbedding[] embeds = [];
         await foreach (var m in embeddingCreator.CreateAsync(input, cancellationToken: cancellationToken).ConfigureAwait(false))
         {
