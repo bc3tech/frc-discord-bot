@@ -13,16 +13,25 @@ internal static class DependencyInjectionExtensions
         var httpClient = new HttpClient();
 
         return services
+            .AddSingleton(sp =>
+            {
+                var appConfig = sp.GetRequiredService<IConfiguration>();
+                return new Configuration
+                {
+                    BasePath = "https://frc-api.firstinspires.org/v3.0",
+                    Username = appConfig.GetValue<string>(Constants.Configuration.FIRST.Username),
+                    Password = appConfig.GetValue<string>(Constants.Configuration.FIRST.Password)
+                };
+            })
             .AddSingleton<IScheduleApi>(sp =>
              {
-                 var appConfig = sp.GetRequiredService<IConfiguration>();
-                 return new ScheduleApi(httpClient,
-                     new Configuration
-                     {
-                         BasePath = "https://frc-api.firstinspires.org/v3.0",
-                         Username = appConfig.GetValue<string>(Constants.Configuration.FIRST.Username),
-                         Password = appConfig.GetValue<string>(Constants.Configuration.FIRST.Password)
-                     });
-             });
+                 var config = sp.GetRequiredService<Configuration>();
+                 return new ScheduleApi(httpClient, config);
+             })
+            .AddSingleton<IRankingsApi>(sp =>
+            {
+                var config = sp.GetRequiredService<Configuration>();
+                return new RankingsApi(httpClient, config);
+            });
     }
 }

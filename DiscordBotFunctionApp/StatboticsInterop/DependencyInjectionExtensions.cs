@@ -17,6 +17,7 @@ internal static class DependencyInjectionExtensions
             .AddSingleton<IMatchApi>(new MatchApi(httpClient, config))
             .AddSingleton<ITeamApi>(new TeamApi(httpClient, config))
             .AddSingleton<ITeamMatchApi>(new TeamMatchApi(httpClient, config))
+            .AddSingleton<ITeamYearApi>(new TeamYearApi(httpClient, config))
             .AddSingleton<ITeamEventApi>(new TeamEventApi(httpClient, config));
     }
 }

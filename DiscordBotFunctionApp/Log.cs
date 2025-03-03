@@ -232,4 +232,7 @@ static partial class Log
 
     [LoggerMessage(73, LogLevel.Error, "Error responding with match data for Event {EventKey} match key {MatchKey}")]
     internal static partial void ErrorRespondingWithMatchDataForEventEventKeyMatchKeyMatchKey(this ILogger logger, Exception exception, string EventKey, string MatchKey);
+
+    [LoggerMessage(74, LogLevel.Error, "Unable to get team number from key {TeamKey}")]
+    internal static partial void UnableToGetTeamNumberFromKeyTeamKey(this ILogger logger, string TeamKey);
 }

@@ -96,6 +96,7 @@ internal static class DependencyInjectionExtensions
         .AddKeyedSingleton<IEmbedCreator<string>, EventDetail>(nameof(EventDetail))
         .AddKeyedSingleton<IEmbedCreator<string>, UpcomingMatch>(nameof(UpcomingMatch))
         .AddKeyedSingleton<IEmbedCreator<string>, MatchScore>(nameof(MatchScore))
+        .AddKeyedSingleton<IEmbedCreator<(int? Year, string TeamKey, string? EventKey)>, TeamRank>(nameof(TeamRank))
         .AddKeyedSingleton<IEmbedCreator<string>, TeamDetail>(nameof(TeamDetail));
 
         return services;
