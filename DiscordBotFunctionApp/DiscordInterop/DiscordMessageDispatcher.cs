@@ -97,10 +97,12 @@ internal sealed partial class DiscordMessageDispatcher(
                 if (entity.HasValue && entity.Value is not null)
                 {
                     embedsToSend = await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false);
-                    foreach (var (chanId, threadId) in entity.Value.ThreadIdList)
+                    foreach (var t in entity.Value.ThreadIdList)
                     {
+                        var chanId = t.ChannelId;
+                        var threadId = t.ThreadId;
                         await ((IMessageChannel)_discordClient.GetChannel(threadId))
-                            .SendMessageAsync(embeds: embedsToSend, options: discordRequestOptions).ConfigureAwait(false);
+                            .SendMessageAsync(embeds: embedsToSend, messageReference: new(t.MessageId), options: discordRequestOptions).ConfigureAwait(false);
                         channelsWhereWeAlreadyPostedIntoThreads.Add(chanId);
                     }
                 }
@@ -124,10 +126,13 @@ internal sealed partial class DiscordMessageDispatcher(
                     logger.SendingNotificationToChannelChannelIdChannelName(subscriberChannelId, targetChannel.Name);
                     var embedChunks = (await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false)).Chunk(MAX_EMBEDS_PER_MESSAGE);
                     var threadForMessage = await CreateThreadForMessageAsync(message, msgChan, cancellationToken);
+                    ulong? replyToMessageId = null;
                     foreach (var i in embedChunks)
                     {
-                        await threadForMessage.SendMessageAsync(embeds: i, options: discordRequestOptions).ConfigureAwait(false);
+                        replyToMessageId ??= (await threadForMessage.SendMessageAsync(embeds: i, options: discordRequestOptions).ConfigureAwait(false)).Id;
                     }
+
+                    await StoreReplyToMessageAsync(message, msgChan, threadForMessage, replyToMessageId, cancellationToken);
 
                     logger.LogMetric("NotificationSent", 1, new Dictionary<string, object>() { { "ChannelId", subscriberChannelId }, { "ChannelName", targetChannel.Name } });
                 }
@@ -137,6 +142,16 @@ internal sealed partial class DiscordMessageDispatcher(
                 }
             }
         }
+    }
+
+    private async Task StoreReplyToMessageAsync(WebhookMessage msg, IMessageChannel channel, IMessageChannel thread, ulong? replyToMessageId, CancellationToken cancellationToken)
+    {
+        var threadDetails = msg.GetThreadDetails()!;
+        var entity = (await threadsTable.GetEntityAsync<ThreadTableEntity>(threadDetails.Value.PartitionKey, threadDetails.Value.RowKey, cancellationToken: cancellationToken).ConfigureAwait(false)).Value;
+        var i = entity.ThreadIdList.First(i => i.ChannelId == channel.Id && i.ThreadId == thread.Id);
+        i.MessageId = replyToMessageId;
+
+        await threadsTable.UpdateEntityAsync(entity, ETag.All, mode: TableUpdateMode.Replace, cancellationToken).ConfigureAwait(false);
     }
 
     private async Task<IMessageChannel> CreateThreadForMessageAsync(WebhookMessage message, IMessageChannel msgChan, CancellationToken cancellationToken)
@@ -248,19 +263,40 @@ sealed record ThreadTableEntity() : ITableEntity
     [JsonIgnore]
     internal List<ThreadDetail> ThreadIdList { get; private set; } = [];
 
-    public record struct ThreadDetail([property: JsonIgnore] ulong ChannelId, [property: JsonIgnore] ulong ThreadId)
+    public sealed record ThreadDetail
     {
+        public ThreadDetail(ulong chan, ulong thread)
+        {
+            this.ChannelId = chan;
+            this.ThreadId = thread;
+        }
+
+        [JsonIgnore]
+        public ulong ChannelId { get; set; }
+
+        [JsonIgnore]
+        public ulong ThreadId { get; set; }
+
+        [JsonIgnore]
+        public ulong? MessageId { get; set; }
+
         // We have to store these as strings because Table SDK doesn't support ulong types
         public string Channel
         {
-            readonly get => ChannelId.ToString();
+            get => ChannelId.ToString();
             set => ChannelId = ulong.Parse(value);
         }
 
         public string Thread
         {
-            readonly get => ThreadId.ToString();
+            get => ThreadId.ToString();
             set => ThreadId = ulong.Parse(value);
+        }
+
+        public string? Message
+        {
+            get => MessageId?.ToString();
+            set => MessageId = value is not null ? ulong.Parse(value) : null;
         }
     }
 }
