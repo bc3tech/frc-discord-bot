@@ -239,6 +239,33 @@ static partial class Log
     [LoggerMessage(75, LogLevel.Trace, "Skipping posting to subscriber {ChannelId} because we already posted to a thread in that channel.")]
     internal static partial void SkippingPostingToSubscriberChannelIdBecauseWeAlreadyPostedToAThreadInThatChannel(this ILogger logger, ulong ChannelId);
 
-    [LoggerMessage(76, LogLevel.Warning, "Unknown video type {Type} for match {MatchKey}")]
-    internal static partial void UnknownVideoTypeTypeForMatchMatchKey(this ILogger? logger, string Type, string MatchKey);
+    [LoggerMessage(77, LogLevel.Warning, "Error while trying to create thread in channel {ChannelId} '{ChannelName}': {Message}")]
+    internal static partial void ErrorWhileTryingToCreateThreadInChannelChannelIdChannelNameMessage(this ILogger logger, Exception exception, ulong ChannelId, string ChannelName, string Message);
+
+    [LoggerMessage(78, LogLevel.Debug, "Prediction: {Prediction}")]
+    internal static partial void PredictionPrediction(this ILogger logger, System.Text.StringBuilder Prediction);
+
+    [LoggerMessage(79, LogLevel.Debug, "Webcasts: {Webcasts}")]
+    internal static partial void WebcastsWebcasts(this ILogger logger, System.Text.StringBuilder Webcasts);
+
+    [LoggerMessage(80, LogLevel.Debug, "Creating Upcoming Match embedding for {WebhookMessage}: {Notification}")]
+    internal static partial void CreatingUpcomingMatchEmbeddingForWebhookMessageNotification(this ILogger logger, string WebhookMessage, string Notification);
+
+    [LoggerMessage(81, LogLevel.Debug, "Rankings: {Rankings}")]
+    internal static partial void RankingsRankings(this ILogger logger, string Rankings);
+
+    [LoggerMessage(82, LogLevel.Debug, "Match Stats: {MatchStats}")]
+    internal static partial void MatchStatsMatchStats(this ILogger logger, string MatchStats);
+
+    [LoggerMessage(83, LogLevel.Debug, "Creating match score embed for {WebhookMessage}")]
+    internal static partial void CreatingMatchScoreEmbedForWebhookMessage(this ILogger logger, string WebhookMessage);
+
+    [LoggerMessage(84, LogLevel.Debug, "Score breakdown: {ScoreBreakdown}")]
+    internal static partial void ScoreBreakdownScoreBreakdown(this ILogger logger, string ScoreBreakdown);
+
+    [LoggerMessage(85, LogLevel.Debug, "Red score breakdown: {RedScoreBreakdown}")]
+    internal static partial void RedScoreBreakdownRedScoreBreakdown(this ILogger logger, string RedScoreBreakdown);
+
+    [LoggerMessage(86, LogLevel.Debug, "Blue score breakdown: {BlueScoreBreakdown}")]
+    internal static partial void BlueScoreBreakdownBlueScoreBreakdown(this ILogger logger, string BlueScoreBreakdown);
 }

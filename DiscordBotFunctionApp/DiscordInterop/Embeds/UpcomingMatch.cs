@@ -4,11 +4,13 @@ using Common.Extensions;
 
 using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.TbaInterop;
+using DiscordBotFunctionApp.TbaInterop.Extensions;
 using DiscordBotFunctionApp.TbaInterop.Models;
 using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
@@ -46,14 +48,18 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IMatchApi tbaApi, TheBlu
             yield break;
         }
 
-        logger.LogDebug("Creating Upcoming Match embedding for {WebhookMessage}: {Notification}", JsonSerializer.Serialize(msg), JsonSerializer.Serialize(notification));
+        logger.CreatingUpcomingMatchEmbeddingForWebhookMessageNotification(JsonSerializer.Serialize(msg), JsonSerializer.Serialize(notification));
 
         var compLevelHeader = $"{Translator.CompLevelToShortString(detailedMatch.CompLevel.ToInvariantString()!)} {detailedMatch.SetNumber}";
         var matchHeader = $"Match {detailedMatch.MatchNumber}";
         var ranks = (await eventInsights.GetEventRankingsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))!.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
-        logger.LogDebug("Rankings: {Rankings}", ranks is not null ? JsonSerializer.Serialize(ranks) : "[null]");
+        Debug.Assert(ranks is not null);
+        logger.RankingsRankings(ranks is not null ? JsonSerializer.Serialize(ranks) : "[null]");
+
         var stats = await matchStats.ReadMatchV3MatchMatchGetAsync(notification.match_key, cancellationToken: cancellationToken).ConfigureAwait(false);
-        logger.LogDebug("Match Stats: {MatchStats}", stats is not null ? JsonSerializer.Serialize(stats) : "[null]");
+        Debug.Assert(stats is not null);
+        logger.MatchStatsMatchStats(stats is not null ? JsonSerializer.Serialize(stats) : "[null]");
+
         MatchSimple.WinningAllianceEnum? predictedWinner = stats?.Pred?.Winner is not null ? MatchSimple.WinningAllianceEnumFromStringOrDefault(stats.Pred.Winner).GetValueOrDefault(MatchSimple.WinningAllianceEnum.Empty) : null;
         var allAlliancesInMatch = (stats?.Alliances?.Blue?.TeamKeys ?? [])
             .Concat(stats?.Alliances?.Blue?.DqTeamKeys ?? [])
@@ -81,7 +87,20 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IMatchApi tbaApi, TheBlu
                 .AppendLine()
                 .AppendLine($"- Score: [Red] {stats.Pred!.RedScore} - [Blue] {stats.Pred.BlueScore}");
 
-            logger.LogDebug("Prediction: {Prediction}", prediction);
+            logger.PredictionPrediction(prediction);
+        }
+
+        StringBuilder webcasts = new();
+        if (notification.webcast is not null)
+        {
+            var (source, url) = notification.webcast.GetFullUrl();
+            var link = !string.IsNullOrWhiteSpace(notification.webcast.StreamTitle)
+                ? $"[{notification.webcast.StreamTitle}]({url})"
+                : $"[{source}]({url})";
+
+            webcasts.AppendLine("\n\n### Where to watch")
+                .AppendLine($"- {link} {notification.webcast.ViewerCount} current viewer(s)");
+            logger.WebcastsWebcasts(webcasts);
         }
 
         var embedding = baseBuilder
@@ -95,7 +114,7 @@ Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.sch
 {string.Join("\n", detailedMatch.Alliances.Red.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
 
 **Blue Alliance**
-{string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}{prediction}
+{string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}{prediction}{webcasts}
 
 View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})")
             .Build();

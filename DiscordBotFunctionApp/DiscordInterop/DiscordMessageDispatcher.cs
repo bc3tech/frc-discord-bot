@@ -124,40 +124,13 @@ internal sealed partial class DiscordMessageDispatcher(
                 {
                     logger.SendingNotificationToChannelChannelIdChannelName(subscriberChannelId, targetChannel.Name);
                     var embedChunks = (await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false)).Chunk(MAX_EMBEDS_PER_MESSAGE);
-                    var threadForMessage = await createThreadForMessageAsync();
+                    var threadForMessage = await CreateThreadForMessageAsync(message, msgChan, cancellationToken);
                     foreach (var i in embedChunks)
                     {
                         await threadForMessage.SendMessageAsync(embeds: i, options: discordRequestOptions).ConfigureAwait(false);
                     }
 
                     logger.LogMetric("NotificationSent", 1, new Dictionary<string, object>() { { "ChannelId", subscriberChannelId }, { "ChannelName", targetChannel.Name } });
-
-                    async Task<IMessageChannel> createThreadForMessageAsync()
-                    {
-                        var threadDetails = message.GetThreadDetails();
-                        if (threadDetails is null || !threadDetails.HasValue)
-                        {
-                            return msgChan;
-                        }
-
-                        if (_discordClient.GetChannel(msgChan.Id) is ITextChannel threadableChannel)
-                        {
-                            var newThread = await threadableChannel.CreateThreadAsync(threadDetails.Value.Title);
-                            var tableResponse = await threadsTable.GetEntityIfExistsAsync<ThreadTableEntity>(threadDetails.Value.PartitionKey, threadDetails.Value.RowKey, cancellationToken: cancellationToken).ConfigureAwait(false);
-                            ThreadTableEntity tableEntity = tableResponse is not null && tableResponse.HasValue
-                                ? tableResponse.Value!
-                                : new()
-                                {
-                                    PartitionKey = threadDetails.Value.PartitionKey,
-                                    RowKey = threadDetails.Value.RowKey,
-                                };
-                            tableEntity.ThreadIdList.Add(new(msgChan.Id, newThread.Id));
-                            await threadsTable.UpsertEntityAsync(tableEntity, mode: TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
-                            return newThread;
-                        }
-
-                        return msgChan;
-                    }
                 }
                 else
                 {
@@ -165,6 +138,41 @@ internal sealed partial class DiscordMessageDispatcher(
                 }
             }
         }
+    }
+
+    private async Task<IMessageChannel> CreateThreadForMessageAsync(WebhookMessage message, IMessageChannel msgChan, CancellationToken cancellationToken)
+    {
+        var threadDetails = message.GetThreadDetails();
+        if (threadDetails is null || !threadDetails.HasValue)
+        {
+            return msgChan;
+        }
+
+        if (_discordClient.GetChannel(msgChan.Id) is ITextChannel threadableChannel)
+        {
+            try
+            {
+                var newThread = await threadableChannel.CreateThreadAsync(threadDetails.Value.Title);
+                var tableResponse = await threadsTable.GetEntityIfExistsAsync<ThreadTableEntity>(threadDetails.Value.PartitionKey, threadDetails.Value.RowKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+                ThreadTableEntity tableEntity = tableResponse is not null && tableResponse.HasValue
+                    ? tableResponse.Value!
+                    : new()
+                    {
+                        PartitionKey = threadDetails.Value.PartitionKey,
+                        RowKey = threadDetails.Value.RowKey,
+                    };
+                tableEntity.ThreadIdList.Add(new(msgChan.Id, newThread.Id));
+                await threadsTable.UpsertEntityAsync(tableEntity, mode: TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
+                return newThread;
+            }
+            catch (Exception ex)
+            {
+                logger.ErrorWhileTryingToCreateThreadInChannelChannelIdChannelNameMessage(ex, msgChan.Id, msgChan.Name, ex.Message);
+                Debug.Fail(ex.Message);
+            }
+        }
+
+        return msgChan;
     }
 
     private static (IReadOnlySet<string> Teams, IReadOnlySet<string> Events) GetTeamsAndEventsInMessage(JsonElement messageData)

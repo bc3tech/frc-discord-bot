@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchExtensions;
 
-internal static class MatchModelExtensions
+public static class MatchModelExtensions
 {
     public static int? GetAllianceRankingPoints(this Match match, Match.WinningAllianceEnum allianceColor)
     {
@@ -28,7 +28,7 @@ internal static class MatchModelExtensions
             }
             else
             {
-                log.UnknownVideoTypeTypeForMatchMatchKey(v.Type, match.Key);
+                log?.LogWarning("Unknown video type {Type} for match {MatchKey}", v.Type, match.Key);
             }
         }
     }
