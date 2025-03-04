@@ -160,7 +160,7 @@ View more match details [here](https://www.thebluealliance.com/match/{detailedMa
         if (predictedWinner is not null and not MatchSimple.WinningAllianceEnum.Empty && predictedWinner.HasValue)
         {
             prediction
-                .AppendLine("\n\n## Prediction")
+                .AppendLine("\n## Prediction")
                 .Append($"- Winner: {predictedWinner.Value.ToInvariantString()} Alliance ({(predictedWinner is MatchSimple.WinningAllianceEnum.Red ? stats!.Pred!.RedWinProb : (1 - stats!.Pred!.RedWinProb)):P2})");
             if (containsHighlightedTeam)
             {
