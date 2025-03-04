@@ -37,10 +37,10 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EventRe
             yield break;
         }
 
-        var detailedMatch = await matchApi.GetMatchAsync(notification.match_key ?? Throws.IfNullOrWhiteSpace(notification.match?.Key), cancellationToken: cancellationToken).ConfigureAwait(false);
+        var detailedMatch = await matchApi.GetMatchAsync(notification.match_key, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (detailedMatch is null)
         {
-            logger.FailedToRetrieveDetailedMatchDataForMatchKey(notification.match_key ?? notification.match?.Key ?? "UNKNOWN");
+            logger.FailedToRetrieveDetailedMatchDataForMatchKey(notification.match_key);
             yield return new(baseBuilder.Build());
             yield break;
         }
@@ -70,7 +70,7 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EventRe
             yield break;
         }
 
-        logger.LogDebug("Creating match score embed for {WebhookMessage}", JsonSerializer.Serialize(msg));
+        logger.CreatingMatchScoreEmbedForWebhookMessage(JsonSerializer.Serialize(msg));
         var winningAlliance = detailedMatch.WinningAlliance;
         if (winningAlliance is Match.WinningAllianceEnum.Empty)
         {
@@ -80,9 +80,13 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EventRe
         var compLevelHeader = $"{Translator.CompLevelToShortString(notification.match!.CompLevel!.ToInvariantString()!)} {notification.match.SetNumber}";
         var matchHeader = $"Match {notification.match.MatchNumber}";
         var ranks = (await eventApi.GetEventRankingsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))!.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
-        logger.LogDebug("Rankings: {Rankings}", JsonSerializer.Serialize(ranks));
+        Debug.Assert(ranks is not null);
+        logger.RankingsRankings(JsonSerializer.Serialize(ranks));
+
         var scoreBreakdown = detailedMatch.ScoreBreakdown?.GetMatchScoreBreakdown2025();
-        logger.LogDebug("Score breakdown: {ScoreBreakdown}", JsonSerializer.Serialize(scoreBreakdown));
+        Debug.Assert(scoreBreakdown is not null);
+        logger.ScoreBreakdownScoreBreakdown(JsonSerializer.Serialize(scoreBreakdown));
+
         string? redScoreBreakdownText = default, blueScoreBreakdownText = default;
         if (scoreBreakdown?.Red is not null)
         {
@@ -100,7 +104,7 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EventRe
 - {scoreBreakdown.Red.CoralBonusAchieved.ToGlyph()} Coral RP (1)
 - {winningAlliance.ToGlyph(Match.WinningAllianceEnum.Red)} Win RP (3)";
 
-            logger.LogDebug("Red score breakdown: {RedScoreBreakdown}", redScoreBreakdownText);
+            logger.RedScoreBreakdownRedScoreBreakdown(redScoreBreakdownText);
         }
 
         if (scoreBreakdown?.Blue is not null)
@@ -119,7 +123,7 @@ internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EventRe
 - {scoreBreakdown.Blue.CoralBonusAchieved.ToGlyph()} Coral RP (1)
 - {winningAlliance.ToGlyph(Match.WinningAllianceEnum.Blue)} Win RP (3)";
 
-            logger.LogDebug("Blue score breakdown: {BlueScoreBreakdown}", blueScoreBreakdownText);
+            logger.BlueScoreBreakdownBlueScoreBreakdown(blueScoreBreakdownText);
         }
 
         Debug.Assert(detailedMatch.Videos is not null);
@@ -156,7 +160,7 @@ View more match details [here](https://www.thebluealliance.com/match/{detailedMa
         var detailedMatch = await matchApi.GetMatchAsync(Throws.IfNullOrWhiteSpace(matchKey), cancellationToken: cancellationToken).ConfigureAwait(false);
         if (detailedMatch is null)
         {
-            logger.FailedToRetrieveDetailedMatchDataForMatchKey(matchKey ?? "UNKNOWN");
+            logger.FailedToRetrieveDetailedMatchDataForMatchKey(matchKey);
             yield return new(baseBuilder.Build());
             yield break;
         }
