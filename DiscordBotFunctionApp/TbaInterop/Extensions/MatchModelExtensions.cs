@@ -1,4 +1,7 @@
 ﻿namespace DiscordBotFunctionApp.TbaInterop.Extensions;
+
+using Microsoft.Extensions.Logging;
+
 using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchExtensions;
 
@@ -9,5 +12,24 @@ internal static class MatchModelExtensions
         var alliance = match.ScoreBreakdown?.ActualInstance!.GetType().GetProperty(allianceColor.ToInvariantString())!.GetValue(match.ScoreBreakdown.ActualInstance);
         var rpValue = (int?)alliance?.GetType().GetProperty("Rp")?.GetValue(alliance);
         return rpValue;
+    }
+
+    public static IEnumerable<string> GetVideoUrls(this Match match, ILogger? log = null)
+    {
+        foreach (var v in match.Videos)
+        {
+            if (v.Type is "youtube")
+            {
+                yield return $"https://youtube.com/watch?v={v.Key}";
+            }
+            else if (v.Type is "tba")
+            {
+                yield return $"https://twitch.tv/{v.Key}";
+            }
+            else
+            {
+                log.UnknownVideoTypeTypeForMatchMatchKey(v.Type, match.Key);
+            }
+        }
     }
 }

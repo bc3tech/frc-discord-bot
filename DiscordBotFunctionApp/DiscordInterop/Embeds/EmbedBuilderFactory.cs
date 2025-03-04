@@ -15,10 +15,15 @@ internal sealed class EmbedBuilderFactory(ITeamApi teamColorFetcher)
         return n.HasValue ? GetBuilder(n.Value) : GetBuilderInternal();
     }
 
-    public EmbedBuilder GetBuilder(ushort teamNumber)
+    public EmbedBuilder GetBuilder(ushort? teamNumber)
     {
-        var teamDetail = teamColorFetcher.ReadTeamV3TeamTeamGet(teamNumber.ToString()!);
-        return GetBuilderInternal(teamDetail?.Colors);
+        if (teamNumber.HasValue)
+        {
+            var teamDetail = teamColorFetcher.ReadTeamV3TeamTeamGet(teamNumber.ToString()!);
+            return GetBuilderInternal(teamDetail?.Colors);
+        }
+
+        return GetBuilderInternal(null);
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "DI-created singleton")]

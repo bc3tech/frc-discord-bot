@@ -34,7 +34,7 @@ internal sealed record WebhookMessage
                 {
                     var data = GetDataAs<MatchVideo>();
                     threadedEntity = data;
-                    Debug.Assert(string.IsNullOrWhiteSpace(data?.event_name), "Bad data!");
+                    Debug.Assert(!string.IsNullOrWhiteSpace(data?.event_name), "Bad data!");
                     if (data is not null)
                     {
                         threadTitle = $"{data.event_name!} | {Translator.CompLevelToShortString(data.match!.CompLevel.ToInvariantString())} {data.match.SetNumber}";

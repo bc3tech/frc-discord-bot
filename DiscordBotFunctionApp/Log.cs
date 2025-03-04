@@ -238,4 +238,7 @@ static partial class Log
 
     [LoggerMessage(75, LogLevel.Trace, "Skipping posting to subscriber {ChannelId} because we already posted to a thread in that channel.")]
     internal static partial void SkippingPostingToSubscriberChannelIdBecauseWeAlreadyPostedToAThreadInThatChannel(this ILogger logger, ulong ChannelId);
+
+    [LoggerMessage(76, LogLevel.Warning, "Unknown video type {Type} for match {MatchKey}")]
+    internal static partial void UnknownVideoTypeTypeForMatchMatchKey(this ILogger? logger, string Type, string MatchKey);
 }

@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 
 using AllianceSelection = Embeds.AllianceSelection;
 using MatchScore = Embeds.MatchScore;
+using MatchVideo = Embeds.MatchVideo;
 using ScheduleUpdate = Embeds.ScheduleUpdate;
 using UpcomingMatch = Embeds.UpcomingMatch;
 
@@ -93,9 +94,11 @@ internal static class DependencyInjectionExtensions
         .AddKeyedSingleton<INotificationEmbedCreator, UpcomingMatch>(UpcomingMatch.TargetType.ToInvariantString())
         .AddKeyedSingleton<INotificationEmbedCreator, ScheduleUpdate>(ScheduleUpdate.TargetType.ToInvariantString())
         .AddKeyedSingleton<INotificationEmbedCreator, Award>(Award.TargetType.ToInvariantString())
+        .AddKeyedSingleton<INotificationEmbedCreator, MatchVideo>(MatchVideo.TargetType.ToInvariantString())
         .AddKeyedSingleton<IEmbedCreator<string>, EventDetail>(nameof(EventDetail))
         .AddKeyedSingleton<IEmbedCreator<string>, UpcomingMatch>(nameof(UpcomingMatch))
         .AddKeyedSingleton<IEmbedCreator<string>, MatchScore>(nameof(MatchScore))
+        .AddKeyedSingleton<IEmbedCreator<string>, MatchVideo>(nameof(MatchVideo))
         .AddKeyedSingleton<IEmbedCreator<(int? Year, string TeamKey, string? EventKey)>, TeamRank>(nameof(TeamRank))
         .AddKeyedSingleton<IEmbedCreator<string>, TeamDetail>(nameof(TeamDetail));
 
