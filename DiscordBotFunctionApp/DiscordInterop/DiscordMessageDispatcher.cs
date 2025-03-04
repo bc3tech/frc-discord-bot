@@ -26,7 +26,6 @@ using System.Text.Json.Serialization;
 using System.Threading;
 
 internal sealed partial class DiscordMessageDispatcher(
-    EventRepository events,
     [FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptionsTable,
     [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptionsTable,
     [FromKeyedServices(Constants.ServiceKeys.TableClient_Threads)] TableClient threadsTable,
@@ -230,7 +229,7 @@ internal sealed partial class DiscordMessageDispatcher(
 }
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>")]
-record ThreadTableEntity() : ITableEntity
+sealed record ThreadTableEntity() : ITableEntity
 {
     internal ThreadTableEntity(IEnumerable<ThreadDetail> threadIds) : this() => this.ThreadIdList = [.. threadIds];
 
