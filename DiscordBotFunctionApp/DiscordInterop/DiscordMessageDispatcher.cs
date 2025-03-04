@@ -17,10 +17,12 @@ using DiscordBotFunctionApp.TbaInterop.Models;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Client;
 
 using System;
 using System.Diagnostics;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading;
 
 internal sealed partial class DiscordMessageDispatcher(
@@ -82,79 +84,86 @@ internal sealed partial class DiscordMessageDispatcher(
     {
         using var scope = logger.CreateMethodScope();
         var embeds = _embedGenerator.CreateEmbeddingsAsync(message, highlightTeam, cancellationToken: cancellationToken);
+        var discordRequestOptions = Utility.CreateCancelRequestOptions(cancellationToken);
         if (await embeds.AnyAsync(cancellationToken: cancellationToken).ConfigureAwait(false))
         {
-            foreach (var c in subscribers.SelectMany(i => i.Value))
+            Embed[]? embedsToSend = null;
+            // check to see if there are any threads already created for this message
+            var threadLocator = message.GetThreadDetails();
+            List<ulong?> channelsWhereWeAlreadyPostedIntoThreads = [];
+            if (threadLocator is not null)
             {
+                var (pk, rk, title) = threadLocator.Value;
+                var entity = await threadsTable.GetEntityIfExistsAsync<ThreadTableEntity>(pk, rk, cancellationToken: cancellationToken).ConfigureAwait(false);
+                if (entity.HasValue && entity.Value is not null)
+                {
+                    embedsToSend = await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false);
+                    foreach (var (chanId, threadId) in entity.Value.ThreadIdList)
+                    {
+                        await ((IMessageChannel)_discordClient.GetChannel(threadId))
+                            .SendMessageAsync(embeds: embedsToSend, options: discordRequestOptions).ConfigureAwait(false);
+                        channelsWhereWeAlreadyPostedIntoThreads.Add(chanId);
+                    }
+                }
+            }
+
+            foreach (var subscriberChannelId in subscribers.SelectMany(i => i.Value))
+            {
+                if (channelsWhereWeAlreadyPostedIntoThreads.Contains(subscriberChannelId))
+                {
+                    logger.SkippingPostingToSubscriberChannelIdBecauseWeAlreadyPostedToAThreadInThatChannel(subscriberChannelId);
+                    continue;
+                }
+
                 cancellationToken.ThrowIfCancellationRequested();
-                var targetChannel = await _discordClient.GetChannelAsync(c, Utility.CreateCancelRequestOptions(cancellationToken)).ConfigureAwait(false);
+                var targetChannel = await _discordClient.GetChannelAsync(subscriberChannelId, discordRequestOptions).ConfigureAwait(false);
                 Debug.Assert(targetChannel is not null);
-                logger.RetrievedChannelChannelIdChannelName(c, targetChannel.Name);
+                logger.RetrievedChannelChannelIdChannelName(subscriberChannelId, targetChannel.Name);
 
                 if (targetChannel is IMessageChannel msgChan)
                 {
-                    logger.SendingNotificationToChannelChannelIdChannelName(c, targetChannel.Name);
+                    logger.SendingNotificationToChannelChannelIdChannelName(subscriberChannelId, targetChannel.Name);
                     var embedChunks = (await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false)).Chunk(MAX_EMBEDS_PER_MESSAGE);
-                    var threadForMessage = message.ThreadReplies() ? await getThreadForMessageAsync() : null;
+                    var threadForMessage = await createThreadForMessageAsync();
                     foreach (var i in embedChunks)
                     {
-                        var createdMessage = await (threadForMessage ?? msgChan).SendMessageAsync(embeds: i, options: new RequestOptions { CancelToken = cancellationToken }).ConfigureAwait(false);
-                        if (threadForMessage is null && message.ThreadReplies())
-                        {
-                            threadForMessage = await createThreadForMessageAsync(message, new(messageId: createdMessage.Id, channelId: createdMessage.Channel.Id));
-                        }
+                        await threadForMessage.SendMessageAsync(embeds: i, options: discordRequestOptions).ConfigureAwait(false);
                     }
 
-                    logger.LogMetric("NotificationSent", 1, new Dictionary<string, object>() { { "ChannelId", c }, { "ChannelName", targetChannel.Name } });
+                    logger.LogMetric("NotificationSent", 1, new Dictionary<string, object>() { { "ChannelId", subscriberChannelId }, { "ChannelName", targetChannel.Name } });
+
+                    async Task<IMessageChannel> createThreadForMessageAsync()
+                    {
+                        var threadDetails = message.GetThreadDetails();
+                        if (threadDetails is null || !threadDetails.HasValue)
+                        {
+                            return msgChan;
+                        }
+
+                        if (_discordClient.GetChannel(msgChan.Id) is ITextChannel threadableChannel)
+                        {
+                            var newThread = await threadableChannel.CreateThreadAsync(threadDetails.Value.Title);
+                            var tableResponse = await threadsTable.GetEntityIfExistsAsync<ThreadTableEntity>(threadDetails.Value.PartitionKey, threadDetails.Value.RowKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+                            ThreadTableEntity tableEntity = tableResponse is not null && tableResponse.HasValue
+                                ? tableResponse.Value!
+                                : new()
+                                {
+                                    PartitionKey = threadDetails.Value.PartitionKey,
+                                    RowKey = threadDetails.Value.RowKey,
+                                };
+                            tableEntity.ThreadIdList.Add(new(msgChan.Id, newThread.Id));
+                            await threadsTable.UpsertEntityAsync(tableEntity, mode: TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
+                            return newThread;
+                        }
+
+                        return msgChan;
+                    }
                 }
                 else
                 {
-                    logger.ChannelChannelIdIsNotAMessageChannel(c);
+                    logger.ChannelChannelIdIsNotAMessageChannel(subscriberChannelId);
                 }
             }
-        }
-
-        async Task<ITextChannel?> getThreadForMessageAsync()
-        {
-            var threadLocator = message.GetThreadLocator();
-            if (threadLocator is null)
-            {
-                return null;
-            }
-
-            var (pk, rk) = threadLocator.Value;
-            var entity = await threadsTable.GetEntityIfExistsAsync<TableEntity>(pk, rk, cancellationToken: cancellationToken).ConfigureAwait(false);
-            var messageId = (ulong?)(entity.HasValue is true ? entity.Value!.GetInt64("ThreadId") : null);
-            return messageId.HasValue ? await _discordClient.GetChannelAsync(messageId!.Value) as ITextChannel : null;
-        }
-
-        async Task<ITextChannel?> createThreadForMessageAsync(WebhookMessage message, MessageReference threadId)
-        {
-            var threadLocator = message.GetThreadLocator();
-            if (threadLocator is null)
-            {
-                logger.LogWarning("Attempted to save thread ID for message that didn't return a locator value.");
-                return null;
-            }
-
-            var (pk, rk) = threadLocator.Value;
-            var name = message.MessageData.TryGetProperty("event_key", out var eventKey) ? events.GetLabelForEvent(eventKey.GetString()!) : "Match";
-            var channelForThread = await _discordClient.GetChannelAsync(threadId.ChannelId).ConfigureAwait(false) as ITextChannel;
-            Debug.Assert(channelForThread is not null);
-            var sourceMessage = await channelForThread.GetMessageAsync(threadId.MessageId.Value);
-            var newThread = await channelForThread.CreateThreadAsync(name, ThreadType.PublicThread, ThreadArchiveDuration.ThreeDays, sourceMessage).ConfigureAwait(false);
-
-            var entity = new TableEntity(pk, rk) { { "ThreadId", newThread.Id } };
-            try
-            {
-                await threadsTable.AddEntityAsync(entity, cancellationToken: cancellationToken).ConfigureAwait(false);
-            }
-            catch (RequestFailedException ex) when (ex.Status is 409)
-            {
-                logger.LogWarning("Thread ID for message already existed in table. Locator: {ThreadLocator}", threadLocator);
-            }
-
-            return newThread;
         }
     }
 
@@ -212,3 +221,39 @@ internal sealed partial class DiscordMessageDispatcher(
     }
 }
 
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>")]
+record ThreadTableEntity() : ITableEntity
+{
+    internal ThreadTableEntity(IEnumerable<ThreadDetail> threadIds) : this() => this.ThreadIdList = [.. threadIds];
+
+    public DateTimeOffset? Timestamp { get; set; } = TimeProvider.System.GetUtcNow();
+    public ETag ETag { get; set; } = ETag.All;
+
+    required public string PartitionKey { get; set; }
+    required public string RowKey { get; set; }
+
+    public string ThreadIds
+    {
+        get => JsonSerializer.Serialize(ThreadIdList);
+        set => ThreadIdList = JsonSerializer.Deserialize<List<ThreadDetail>>(value) ?? [];
+    }
+
+    [JsonIgnore]
+    internal List<ThreadDetail> ThreadIdList { get; private set; } = [];
+
+    public record struct ThreadDetail([property: JsonIgnore] ulong ChannelId, [property: JsonIgnore] ulong ThreadId)
+    {
+        // We have to store these as strings because Table SDK doesn't support ulong types
+        public string Channel
+        {
+            readonly get => ChannelId.ToString();
+            set => ChannelId = ulong.Parse(value);
+        }
+
+        public string Thread
+        {
+            readonly get => ThreadId.ToString();
+            set => ThreadId = ulong.Parse(value);
+        }
+    }
+}

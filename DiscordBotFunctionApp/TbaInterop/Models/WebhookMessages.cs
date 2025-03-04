@@ -2,8 +2,16 @@
 
 using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
+using Microsoft.Extensions.DependencyInjection;
+
+using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Model.MatchExtensions;
+
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 internal sealed record WebhookMessage
 {
@@ -15,31 +23,56 @@ internal sealed record WebhookMessage
 
     public T? GetDataAs<T>() => MessageData.Deserialize<T>();
 
-    public bool ThreadReplies() => 
-        MessageType is NotificationType.upcoming_match 
-        or NotificationType.event_match_video 
-        or NotificationType.match_score 
-        or NotificationType.match_video;
-
-    public (string PartitionKey, string RowKey)? GetThreadLocator()
+    public (string PartitionKey, string RowKey, string Title)? GetThreadDetails()
     {
         ThreadedEntity? threadedEntity;
+        string threadTitle = string.Empty;
         switch (this.MessageType)
         {
             case NotificationType.match_video:
             case NotificationType.event_match_video:
-                threadedEntity = GetDataAs<MatchVideo>();
+                {
+                    var data = GetDataAs<MatchVideo>();
+                    threadedEntity = data;
+                    Debug.Assert(string.IsNullOrWhiteSpace(data?.event_name), "Bad data!");
+                    if (data is not null)
+                    {
+                        threadTitle = $"{data.event_name!} | {Translator.CompLevelToShortString(data.match!.CompLevel.ToInvariantString())} {data.match.SetNumber}";
+                    }
+                }
+
                 break;
             case NotificationType.match_score:
-                threadedEntity = GetDataAs<MatchScore>();
+                {
+                    var data = GetDataAs<MatchScore>();
+                    threadedEntity = data;
+                    Debug.Assert(!string.IsNullOrWhiteSpace(data?.event_name), "Bad data!");
+                    if (data is not null)
+                    {
+                        threadTitle = $"{data.event_name!} | {Translator.CompLevelToShortString(data.match!.CompLevel.ToInvariantString())} {data.match.SetNumber}";
+                    }
+                }
+
                 break;
             case NotificationType.upcoming_match:
-                threadedEntity = GetDataAs<UpcomingMatch>();
+                {
+                    var data = GetDataAs<UpcomingMatch>();
+                    threadedEntity = data;
+                    Debug.Assert(!string.IsNullOrWhiteSpace(data?.event_name), "Bad data!");
+                    if (data is not null)
+                    {
+                        var matchData = Program.Services?.GetRequiredService<IMatchApi>().GetMatch(data.match_key);
+                        threadTitle = matchData is not null
+                            ? $"{data.event_name} | {Translator.CompLevelToShortString(matchData.CompLevel.ToInvariantString())} {matchData.SetNumber}"
+                            : data.event_name;
+                    }
+                }
+
                 break;
             default:
                 return null;
         }
 
-        return threadedEntity is null ? null : (threadedEntity.PartitionKey, threadedEntity.RowKey);
+        return threadedEntity is null ? null : (threadedEntity.PartitionKey, threadedEntity.RowKey, threadTitle);
     }
 }

@@ -21,6 +21,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
 
 using System;
+using System.Runtime.CompilerServices;
 
 using Throws = Common.Throws;
 
@@ -97,6 +98,10 @@ internal sealed class Program
                 .AddDebug())
             .Build();
 
+        Services = host.Services;
+
         await host.RunAsync().ConfigureAwait(false);
     }
+
+    internal static IServiceProvider? Services { get; private set; }
 }

@@ -1,5 +1,9 @@
 ﻿namespace DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
+using DiscordBotFunctionApp.Storage;
+
+using Microsoft.Extensions.DependencyInjection;
+
 using TheBlueAlliance.Model;
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Reduce boilerplate by just matching exact JSON body")]

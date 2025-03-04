@@ -235,4 +235,7 @@ static partial class Log
 
     [LoggerMessage(74, LogLevel.Error, "Unable to get team number from key {TeamKey}")]
     internal static partial void UnableToGetTeamNumberFromKeyTeamKey(this ILogger logger, string TeamKey);
+
+    [LoggerMessage(75, LogLevel.Trace, "Skipping posting to subscriber {ChannelId} because we already posted to a thread in that channel.")]
+    internal static partial void SkippingPostingToSubscriberChannelIdBecauseWeAlreadyPostedToAThreadInThatChannel(this ILogger logger, ulong ChannelId);
 }
