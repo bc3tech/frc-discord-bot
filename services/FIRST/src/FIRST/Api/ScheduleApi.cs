@@ -435,7 +435,7 @@ public interface IScheduleApiSync : IApiAccessor
     /// <param name="tournamentLevel">**(string)** tournamentLevel of desired match schedule.  Enum values: &#x60;&#x60;&#x60; 1. None 2. Practice 3. Qualification 4. Playoff &#x60;&#x60;&#x60; (optional)</param>
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Object)</returns>
-              public async Task<FIRST.Client.ApiResponse<Object?>> SeasonScheduleEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, TournamentLevel? tournamentLevel = default, CancellationToken cancellationToken = default)
+              public async Task<ApiResponse<object?>> SeasonScheduleEventCodeGetWithHttpInfoAsync(string eventCode, string season, string? end = default, string? ifModifiedSince = default, string? start = default, string? teamNumber = default, TournamentLevel? tournamentLevel = default, CancellationToken cancellationToken = default)
               {
                       // verify the required parameter 'eventCode' is set
                       if (eventCode is null)

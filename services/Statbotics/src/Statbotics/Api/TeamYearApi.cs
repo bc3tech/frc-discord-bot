@@ -29,7 +29,7 @@ public interface ITeamYearApiSync : IApiAccessor
     /// <remarks>
     /// Returns a single Team Year object. Requires a team number and year.
     /// </remarks>
-    /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+    /// <exception cref="ApiException">Thrown when fails to make API call</exception>
     /// <param name="team"></param>
     /// <param name="year"></param>
     /// <returns>Object</returns>
