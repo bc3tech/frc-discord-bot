@@ -25,6 +25,7 @@ using System.Runtime.CompilerServices;
 
 using Throws = Common.Throws;
 using DiscordBotFunctionApp.ChatBot;
+using DiscordBotFunctionApp.DiscordInterop.Embeds;
 
 internal sealed class Program
 {
@@ -56,6 +57,7 @@ internal sealed class Program
                     .ConfigureStatboticsApi()
                     .ConfigureFIRSTApi()
                     .ConfigureChatBotFunctionality()
+                    .AddSingleton(sp => new EmbeddingColorizer(new FRCColors.Client(sp.GetRequiredService<IHttpClientFactory>())))
                     .AddSingleton<EventRepository>()
                     .AddSingleton<TeamRepository>()
                     .AddSingleton<SubscriptionManager>()

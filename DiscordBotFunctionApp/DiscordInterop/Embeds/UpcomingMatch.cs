@@ -18,13 +18,13 @@ using System.Text.Json;
 using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchSimpleExtensions;
 
-internal sealed class UpcomingMatch(TheBlueAlliance.Api.IMatchApi tbaApi, TheBlueAlliance.Api.IEventApi eventInsights, Statbotics.Api.IMatchApi matchStats, EventRepository events, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<UpcomingMatch> logger) : INotificationEmbedCreator, IEmbedCreator<string>
+internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights, TheBlueAlliance.Api.IMatchApi tbaApi, Statbotics.Api.IMatchApi matchStats, EventRepository events, TeamRepository teams, EmbedBuilderFactory builderFactory, ILogger<UpcomingMatch> logger) : INotificationEmbedCreator, IEmbedCreator<string>
 {
     public static NotificationType TargetType { get; } = NotificationType.upcoming_match;
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var baseBuilder = builderFactory.GetBuilder();
+        var baseBuilder = builderFactory.GetBuilder(highlightTeam);
         var notification = msg.GetDataAs<TbaInterop.Models.Notifications.UpcomingMatch>();
         if (notification is null)
         {
@@ -116,17 +116,16 @@ Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.sch
 **Blue Alliance**
 {string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}{prediction}{webcasts}
 
-View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})")
-            .Build();
+View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})");
 
-        yield return new(embedding);
+        yield return new(embedding.Build());
     }
 
     public IAsyncEnumerable<ResponseEmbedding?> CreateNextMatchEmbeddingsAsync(string matchKey, ushort? highlightTeam = null, CancellationToken cancellationToken = default) => CreateAsync(matchKey, highlightTeam, cancellationToken);
 
     public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync(string matchKey, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var baseBuilder = builderFactory.GetBuilder();
+        var baseBuilder = builderFactory.GetBuilder(highlightTeam);
 
         if (string.IsNullOrWhiteSpace(matchKey))
         {

@@ -5,8 +5,6 @@ using Azure.Storage.Sas;
 
 using Common.Extensions;
 
-using Discord;
-
 using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.TbaInterop;
 using DiscordBotFunctionApp.TbaInterop.Models;
@@ -15,17 +13,16 @@ using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 using Microsoft.Extensions.Logging;
 
 using System.Runtime.CompilerServices;
-using System.Text.Json;
 
 using TheBlueAlliance.Api;
 
-internal sealed class Award(IEventApi tbaApi, BlobContainerClient imageBlobs, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<Award> logger) : INotificationEmbedCreator
+internal sealed class Award(IEventApi tbaApi, TeamRepository teams, EmbedBuilderFactory builderFactory, BlobContainerClient imageBlobs, ILogger<Award> logger) : INotificationEmbedCreator
 {
     public static NotificationType TargetType { get; } = NotificationType.awards_posted;
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var baseBuilder = builderFactory.GetBuilder();
+        var baseBuilder = builderFactory.GetBuilder(highlightTeam);
         var notification = msg.GetDataAs<AwardsPosted>();
         if (notification is null)
         {
@@ -77,10 +74,9 @@ internal sealed class Award(IEventApi tbaApi, BlobContainerClient imageBlobs, Em
 
 View more event awards [here](https://www.thebluealliance.com/event/{notification.event_key}#awards)
 ")
-                .WithThumbnailUrl(imageUri)
-                .Build();
+                .WithThumbnailUrl(imageUri);
 
-            yield return new(embedding);
+            yield return new(embedding.Build());
         }
     }
 }

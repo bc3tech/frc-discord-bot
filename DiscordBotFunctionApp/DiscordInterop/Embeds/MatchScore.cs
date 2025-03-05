@@ -21,14 +21,14 @@ using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchExtensions;
 using TheBlueAlliance.Model.MatchScoreBreakdown2025AllianceExtensions;
 
-internal sealed class MatchScore(IMatchApi matchApi, IEventApi eventApi, EventRepository events, EmbedBuilderFactory builderFactory, TeamRepository teams, ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<string>
+internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, EventRepository events, TeamRepository teams, EmbedBuilderFactory builderFactory, ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<string>
 {
     public static NotificationType TargetType { get; } = NotificationType.match_score;
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         logger.CreatingMatchScoreEmbedForMsg(msg);
-        var baseBuilder = builderFactory.GetBuilder();
+        var baseBuilder = builderFactory.GetBuilder(highlightTeam);
         var notification = msg.GetDataAs<TbaInterop.Models.Notifications.MatchScore>();
         if (notification is null)
         {
@@ -144,10 +144,9 @@ Actual start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.ActualTime.
 {string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
 {blueScoreBreakdownText ?? string.Empty}
 {videoSection}
-View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})")
-                    .Build();
+View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})");
 
-        yield return new(embedding);
+        yield return new(embedding.Build());
     }
 
     public IAsyncEnumerable<ResponseEmbedding?> GetMatchScoreAsync(string matchKey, ushort? highlightTeam = null, CancellationToken cancellationToken = default) => CreateAsync(matchKey, highlightTeam, cancellationToken);

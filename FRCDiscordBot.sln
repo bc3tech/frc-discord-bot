@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBlueAlliance", "services
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TbaDataDumper", "TbaDataDumper\TbaDataDumper.csproj", "{EA9C770B-7D25-453A-A624-4B534B84DD72}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FRCColors", "services\FRCColors\FRCColors.csproj", "{292B7250-3718-4640-9EDE-DA9346E95FEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{EA9C770B-7D25-453A-A624-4B534B84DD72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA9C770B-7D25-453A-A624-4B534B84DD72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA9C770B-7D25-453A-A624-4B534B84DD72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{292B7250-3718-4640-9EDE-DA9346E95FEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{292B7250-3718-4640-9EDE-DA9346E95FEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{292B7250-3718-4640-9EDE-DA9346E95FEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{292B7250-3718-4640-9EDE-DA9346E95FEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{C9E169EA-FAF8-4711-8EB5-081D7F36DE70} = {133082A9-3A13-4AD8-9837-77681F7FF6B4}
 		{B3DCFB9C-A240-3652-8E48-A2AD318891AA} = {133082A9-3A13-4AD8-9837-77681F7FF6B4}
 		{2A5C19E4-4CB2-952F-ECAA-A99022F36794} = {133082A9-3A13-4AD8-9837-77681F7FF6B4}
+		{292B7250-3718-4640-9EDE-DA9346E95FEF} = {133082A9-3A13-4AD8-9837-77681F7FF6B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DE58E923-9058-404E-B0F9-EDA4E1453163}

@@ -11,17 +11,16 @@ using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.Json;
 
 using TheBlueAlliance.Api;
 
-internal sealed class AllianceSelection(TeamRepository teams, IEventApi tbaClient, EmbedBuilderFactory builderFactory, ILogger<AllianceSelection> logger) : INotificationEmbedCreator
+internal sealed class AllianceSelection(IEventApi tbaClient, TeamRepository teams, EmbedBuilderFactory builderFactory, ILogger<AllianceSelection> logger) : INotificationEmbedCreator
 {
     public static NotificationType TargetType { get; } = NotificationType.alliance_selection;
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var baseBuilder = builderFactory.GetBuilder();
+        var baseBuilder = builderFactory.GetBuilder(highlightTeam);
         var notification = msg.GetDataAs<TbaInterop.Models.Notifications.AllianceSelection>();
         if (notification is null)
         {

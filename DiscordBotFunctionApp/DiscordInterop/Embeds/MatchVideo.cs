@@ -8,7 +8,6 @@ using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
-using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -16,14 +15,14 @@ using System.Threading;
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Model.MatchExtensions;
 
-internal sealed class MatchVideo(EmbedBuilderFactory builderFactory, IMatchApi matches, EventRepository eventRepo, ILogger<MatchVideo> logger) : INotificationEmbedCreator, IEmbedCreator<string>
+internal sealed class MatchVideo(EmbedBuilderFactory builderFactory, EmbeddingColorizer colorizer, IMatchApi matches, EventRepository eventRepo, ILogger<MatchVideo> logger) : INotificationEmbedCreator, IEmbedCreator<string>
 {
     public static NotificationType TargetType { get; } = NotificationType.match_video;
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously; to conform to interface
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var baseBuilder = builderFactory.GetBuilder();
+        var baseBuilder = builderFactory.GetBuilder(highlightTeam);
         var notification = msg.GetDataAs<TbaInterop.Models.Notifications.MatchVideo>();
         if (notification is null)
         {
