@@ -268,4 +268,10 @@ static partial class Log
 
     [LoggerMessage(86, LogLevel.Debug, "Blue score breakdown: {BlueScoreBreakdown}")]
     internal static partial void BlueScoreBreakdownBlueScoreBreakdown(this ILogger logger, string BlueScoreBreakdown);
+
+    [LoggerMessage(87, LogLevel.Error, "Error responding to DM from {DMUser}")]
+    internal static partial void ErrorRespondingToDMFromDMUser(this ILogger logger, Exception exception, string DMUser);
+
+    [LoggerMessage(88, LogLevel.Trace, "Message received from gateway ({GatewayMessage})")]
+    internal static partial void MessageReceivedFromGatewayGatewayMessage(this ILogger logger, Discord.WebSocket.SocketMessage GatewayMessage);
 }

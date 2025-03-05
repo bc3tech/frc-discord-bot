@@ -86,7 +86,7 @@ internal sealed partial class DiscordInitializationService(DiscordSocketClient c
 
         client.MessageReceived += async i =>
         {
-            _logger.LogTrace("Message received from gateway ({GatewayMessage})", i);
+            _logger.MessageReceivedFromGatewayGatewayMessage(i);
             if (i is SocketUserMessage msg && i.Channel is IDMChannel && i.Author.GlobalName is not null)
             {
                 await chatBot.HandleUserMessageAsync(msg).ConfigureAwait(false);

@@ -6,19 +6,23 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+		<PackageReference Include="Azure.AI.OpenAI" />
+		<PackageReference Include="Azure.AI.OpenAI.Assistants" />
 		<PackageReference Include="Azure.Data.Tables" />
 		<PackageReference Include="Azure.Storage.Blobs" />
-		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Timer" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" />
 		<PackageReference Include="Microsoft.ApplicationInsights.WorkerService" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.ApplicationInsights" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.AzureAI" />
+		<PackageReference Include="Microsoft.SemanticKernel.Agents.Core" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Common\Common.csproj" />
 	  <ProjectReference Include="..\services\FIRST\src\FIRST\FIRST.csproj" />
+	  <ProjectReference Include="..\services\FRCColors\FRCColors.csproj" />
 	  <ProjectReference Include="..\services\Statbotics\src\Statbotics\Statbotics.csproj" />
 	  <ProjectReference Include="..\services\TheBlueAlliance\src\TheBlueAlliance\TheBlueAlliance.csproj" />
 	</ItemGroup>

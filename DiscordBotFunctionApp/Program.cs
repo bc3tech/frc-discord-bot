@@ -5,7 +5,9 @@ using Azure.Identity;
 using Azure.Storage.Blobs;
 
 using DiscordBotFunctionApp.Apis;
+using DiscordBotFunctionApp.ChatBot;
 using DiscordBotFunctionApp.DiscordInterop;
+using DiscordBotFunctionApp.DiscordInterop.Embeds;
 using DiscordBotFunctionApp.Extensions;
 using DiscordBotFunctionApp.FIRSTInterop;
 using DiscordBotFunctionApp.StatboticsInterop;
@@ -21,11 +23,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
 
 using System;
-using System.Runtime.CompilerServices;
 
 using Throws = Common.Throws;
-using DiscordBotFunctionApp.ChatBot;
-using DiscordBotFunctionApp.DiscordInterop.Embeds;
 
 internal sealed class Program
 {
