@@ -1,25 +1,22 @@
 ﻿namespace DiscordBotFunctionApp.ChatBot;
 
-using Azure.AI.Inference;
 using Azure.AI.Projects;
+using Azure.Data.Tables;
 
 using Discord;
 using Discord.WebSocket;
 
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.SemanticKernel.Agents;
 using Microsoft.SemanticKernel.Agents.AzureAI;
 
-using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
 
 #pragma warning disable SKEXP0110 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIAgent agent, DiscordSocketClient discordClient, ILogger<MessageHandler> logger)
+internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIAgent agent, DiscordSocketClient discordClient, [FromKeyedServices(Constants.ServiceKeys.TableClient_UserChatAgentThreads)] TableClient userThreadMappings, ILogger<MessageHandler> logger)
 {
     private static readonly EmbedBuilder _embedBuilder = new();
 
-    private readonly ConcurrentDictionary<ulong, string> _threadIdMap = new();
     public async Task HandleUserMessageAsync(IUserMessage msg, CancellationToken cancellationToken = default)
     {
         var responseChannel = await discordClient.GetDMChannelAsync(msg.Channel.Id).ConfigureAwait(false);
@@ -28,14 +25,18 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
         try
         {
             AgentThread thread;
-            if (!_threadIdMap.TryGetValue(msg.Author.Id, out var threadId))
+            var existingThread = await userThreadMappings.GetEntityIfExistsAsync<TableEntity>(msg.Author.Id.ToString(), msg.Author.Id.ToString(), ["AgentThreadId"], cancellationToken: cancellationToken).ConfigureAwait(false);
+            if (!existingThread.HasValue || string.IsNullOrWhiteSpace(existingThread.Value?["AgentThreadId"]?.ToString()))
             {
                 thread = await agentsClient.CreateThreadAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
-                threadId = thread.Id;
-                threadId = _threadIdMap.GetOrAdd(msg.Author.Id, threadId);
+                await userThreadMappings.UpsertEntityAsync(new TableEntity(msg.Author.Id.ToString(), msg.Author.Id.ToString())
+                {
+                    ["AgentThreadId"] = thread.Id,
+                }, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
             }
             else
             {
+                var threadId = existingThread.Value!["AgentThreadId"].ToString();
                 thread = await agentsClient.GetThreadAsync(threadId, cancellationToken: cancellationToken).ConfigureAwait(false);
             }
 
