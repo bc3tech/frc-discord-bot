@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Statbotics.Model;
 
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.Json;
 
 internal sealed class EventDetail(RESTCountries _countryCodeLookup, EmbedBuilderFactory builderFactory, EventRepository _eventsRepo, Statbotics.Api.IEventApi eventStats, ILogger<EventDetail> logger) : IEmbedCreator<string>
@@ -27,11 +28,29 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup, EmbedBuilder
         {
             var countryCode = (await _countryCodeLookup.GetCountryCodeForFlagLookupAsync(eventDetails.Country, default).ConfigureAwait(false))!;
 
+            StringBuilder descriptionBuilder = new();
+            descriptionBuilder.AppendLine($"{eventDetails.Year} Week {eventDetails.Week.GetValueOrDefault(-1) + 1} {eventDetails.EventTypeString} competition");
+            #region Location URL section
+            if (!string.IsNullOrWhiteSpace(eventDetails.GmapsUrl))
+            {
+                descriptionBuilder.Append('[');
+            }
+
+            descriptionBuilder.Append(!string.IsNullOrWhiteSpace(eventDetails.LocationName) ? $"{eventDetails.LocationName}, " : string.Empty)
+                .Append(!string.IsNullOrWhiteSpace(eventDetails.City) ? $"{eventDetails.City}, " : string.Empty)
+                .Append(!string.IsNullOrWhiteSpace(eventDetails.StateProv) ? $"{eventDetails.StateProv}, " : string.Empty)
+                .Append(!string.IsNullOrWhiteSpace(eventDetails.Country) ? $"{eventDetails.Country}" : string.Empty);
+
+            if (!string.IsNullOrWhiteSpace(eventDetails.GmapsUrl))
+            {
+                descriptionBuilder.Append($"]({eventDetails.GmapsUrl})");
+            } 
+            #endregion
+
             var builder = builderFactory.GetBuilder()
                 .WithTitle($"**{eventDetails.Name}**")
                 .WithUrl(eventDetails.Website)
-                .WithDescription($@"{eventDetails.Year} Week {eventDetails.Week.GetValueOrDefault(-1) + 1} {eventDetails.EventTypeString} competition
-[{eventDetails.LocationName}, {eventDetails.City}, {eventDetails.StateProv}, {eventDetails.Country}]({eventDetails.GmapsUrl})");
+                .WithDescription(descriptionBuilder.ToString());
 
             if (!string.IsNullOrWhiteSpace(countryCode))
             {
@@ -43,8 +62,7 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup, EmbedBuilder
                 builder.AddField("District", eventDetails.District.DisplayName);
             }
 
-            builder
-                .AddField("Dates", $"{eventDetails.StartDate:MMMM d} - {eventDetails.EndDate:MMMM d, yyyy}", inline: true);
+            builder.AddField("Dates", $"{eventDetails.StartDate:MMMM d} - {eventDetails.EndDate:MMMM d, yyyy}", inline: true);
 
             if (eventDetails.Webcasts is not null and { Count: > 0 })
             {
@@ -71,10 +89,13 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup, EmbedBuilder
             {
                 builder.Fields.Insert(0, new EmbedFieldBuilder().WithName("Status").WithValue(stats.GetEventStatusStr()));
                 builder.Fields[^1].Value = stats.NumTeams is not null and not 0
-                    ? $@"{stats.NumTeams} teams
-Max EPA: {stats.EpaVal?.Max}*
-Avg EPA: {stats.EpaVal?.Mean}*
--# \* This is a prediction if the event has not yet started"
+                    ? $"""
+                       {stats.NumTeams} teams
+                       
+                       Max EPA: {stats.EpaVal?.Max}*
+                       Avg EPA: {stats.EpaVal?.Mean}*
+                       -# \* This is a prediction if the event has not yet started
+                       """
                     : "No stats available.";
             }
             else

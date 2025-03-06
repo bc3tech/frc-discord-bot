@@ -46,12 +46,12 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
         yield return new(new EmbedBuilder().WithTitle($"{targetYear} Ranking detail for {teams.GetLabelForTeam(teamKey)}").WithUrl($"https://www.thebluealliance.com/team/{highlightTeam}").Build());
 
         var embedding = builderFactory.GetBuilder(teamKey);
-        var description = new StringBuilder();
+        var descriptionBuilder = new StringBuilder();
 
         var frcTeamRankings = await rankings.SeasonRankingsDistrictGetAsync(targetYear.ToString(), teamNumber: teamNumberStr, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (frcTeamRankings is null or { DistrictRanks: null or { Length: 0 } })
         {
-            description.AppendLine($"No district ranking data found for {teams.GetLabelForTeam(teamKey)}");
+            descriptionBuilder.AppendLine($"No district ranking data found for {teams.GetLabelForTeam(teamKey)}");
         }
         else
         {
@@ -60,16 +60,16 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
             {
                 if (teamYearStats.Epa.TotalPoints?.Mean is not null)
                 {
-                    description.AppendLine($"## EPA ({teamYearStats.Epa.TotalPoints.Mean:0.##}) rank");
+                    descriptionBuilder.AppendLine($"## EPA ({teamYearStats.Epa.TotalPoints.Mean:0.##}) rank");
                 }
                 else
                 {
-                    description.AppendLine($"## EPA rank");
+                    descriptionBuilder.AppendLine($"## EPA rank");
                 }
 
                 if (teamYearStats.Epa.Ranks.State is not null)
                 {
-                    description.AppendLine($"State{(!string.IsNullOrWhiteSpace(teamYearStats.State) ? $" ({teamYearStats.State})" : string.Empty)}: {teamYearStats.Epa.Ranks.State.Rank}/{teamYearStats.Epa.Ranks.State.TeamCount} ({teamYearStats.Epa.Ranks.State.Percentile:P2}ile)");
+                    descriptionBuilder.AppendLine($"State{(!string.IsNullOrWhiteSpace(teamYearStats.State) ? $" ({teamYearStats.State})" : string.Empty)}: {teamYearStats.Epa.Ranks.State.Rank}/{teamYearStats.Epa.Ranks.State.TeamCount} ({teamYearStats.Epa.Ranks.State.Percentile:P2}ile)");
                 }
 
                 if (teamYearStats.Epa.Ranks.District is not null)
@@ -77,22 +77,22 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                     var districtDetail = tbaDistrictData.GetDistrictsByYear(targetYear)?.FirstOrDefault(d => d.Abbreviation.Equals(teamYearStats.District, StringComparison.OrdinalIgnoreCase));
                     if (!string.IsNullOrWhiteSpace(districtDetail?.DisplayName))
                     {
-                        description.AppendLine($"District ({districtDetail.DisplayName}): {teamYearStats.Epa.Ranks.District.Rank} / {teamYearStats.Epa.Ranks.District.TeamCount} ({teamYearStats.Epa.Ranks.District.Percentile:P2}ile)");
+                        descriptionBuilder.AppendLine($"District ({districtDetail.DisplayName}): {teamYearStats.Epa.Ranks.District.Rank} / {teamYearStats.Epa.Ranks.District.TeamCount} ({teamYearStats.Epa.Ranks.District.Percentile:P2}ile)");
                     }
                     else
                     {
-                        description.AppendLine($"District: {teamYearStats.Epa.Ranks.District.Rank} / {teamYearStats.Epa.Ranks.District.TeamCount} ({teamYearStats.Epa.Ranks.District.Percentile:P2}ile)");
+                        descriptionBuilder.AppendLine($"District: {teamYearStats.Epa.Ranks.District.Rank} / {teamYearStats.Epa.Ranks.District.TeamCount} ({teamYearStats.Epa.Ranks.District.Percentile:P2}ile)");
                     }
                 }
 
                 if (teamYearStats.Epa.Ranks.Country is not null)
                 {
-                    description.AppendLine($"Country ({teamYearStats.Country}): {teamYearStats.Epa.Ranks.Country.Rank} / {teamYearStats.Epa.Ranks.Country.TeamCount} ({teamYearStats.Epa.Ranks.Country.Percentile:P2}ile)");
+                    descriptionBuilder.AppendLine($"Country ({teamYearStats.Country}): {teamYearStats.Epa.Ranks.Country.Rank} / {teamYearStats.Epa.Ranks.Country.TeamCount} ({teamYearStats.Epa.Ranks.Country.Percentile:P2}ile)");
                 }
 
                 if (teamYearStats.Epa.Ranks.Total is not null)
                 {
-                    description.AppendLine($"World: {teamYearStats.Epa.Ranks.Total.Rank} / {teamYearStats.Epa.Ranks.Total.TeamCount} ({teamYearStats.Epa.Ranks.Total.Percentile:P2}ile)");
+                    descriptionBuilder.AppendLine($"World: {teamYearStats.Epa.Ranks.Total.Rank} / {teamYearStats.Epa.Ranks.Total.TeamCount} ({teamYearStats.Epa.Ranks.Total.Percentile:P2}ile)");
                 }
             }
 
@@ -100,29 +100,29 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
             {
                 var districtDetail = await tbaDistrictData.GetDistrictsByYearAsync(targetYear, cancellationToken: cancellationToken);
                 var district = districtDetail?.FirstOrDefault(i => i.Abbreviation.Equals(d.DistrictCode, StringComparison.OrdinalIgnoreCase));
-                description.AppendLine($"## {(district is not null ? district.DisplayName : d.DistrictCode)} District rank");
-                description.AppendLine($"Current Rank: {d.Rank}");
-                description.AppendLine($"District Points: {d.TotalPoints} (Adjusted - {d.AdjustmentPoints})");
-                yield return new(embedding.WithDescription(description.ToString()).Build());
+                descriptionBuilder.AppendLine($"## {(district is not null ? district.DisplayName : d.DistrictCode)} District rank");
+                descriptionBuilder.AppendLine($"Current Rank: {d.Rank}");
+                descriptionBuilder.AppendLine($"District Points: {d.TotalPoints} (Adjusted - {d.AdjustmentPoints})");
+                yield return new(embedding.WithDescription(descriptionBuilder.ToString()).Build());
 
-                description.Clear();
+                descriptionBuilder.Clear();
                 if (district is not null)
                 {
                     var tbaRanks = await tbaDistrictData.GetDistrictRankingsAsync(district.Key, cancellationToken: cancellationToken).ConfigureAwait(false);
                     var tbaTeamRank = tbaRanks?.FirstOrDefault(tbaRanks => tbaRanks.TeamKey == teamKey);
                     if (tbaTeamRank is not null and { EventPoints: not null and { Count: > 0 } })
                     {
-                        description.AppendLine($"### District Point breakdown by Event");
+                        descriptionBuilder.AppendLine($"### District Point breakdown by Event");
                         foreach (var e in tbaTeamRank.EventPoints)
                         {
-                            description.AppendLine($"**{events.GetLabelForEvent(e.EventKey)}**");
-                            description.AppendLine($"- Alliance: {e.AlliancePoints}");
-                            description.AppendLine($"- Quals: {e.QualPoints}");
-                            description.AppendLine($"- Elims: {e.ElimPoints}");
-                            description.AppendLine($"- Awards: {e.AwardPoints}");
+                            descriptionBuilder.AppendLine($"**{events.GetLabelForEvent(e.EventKey)}**");
+                            descriptionBuilder.AppendLine($"- Alliance: {e.AlliancePoints}");
+                            descriptionBuilder.AppendLine($"- Quals: {e.QualPoints}");
+                            descriptionBuilder.AppendLine($"- Elims: {e.ElimPoints}");
+                            descriptionBuilder.AppendLine($"- Awards: {e.AwardPoints}");
 
-                            yield return new(embedding.WithDescription(description.ToString()).Build());
-                            description.Clear();
+                            yield return new(embedding.WithDescription(descriptionBuilder.ToString()).Build());
+                            descriptionBuilder.Clear();
                         }
                     }
                 }
@@ -131,12 +131,12 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
 
         if (!string.IsNullOrWhiteSpace(input.EventKey))
         {
-            description.AppendLine($"## {events.GetLabelForEvent(input.EventKey)}");
+            descriptionBuilder.AppendLine($"## {events.GetLabelForEvent(input.EventKey)}");
             var eventDetail = await tbaEventData.GetEventSimpleAsync(input.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
             Debug.Assert(eventDetail is not null);
             if (eventDetail is null)
             {
-                description.AppendLine($"No data found for {teams.GetLabelForTeam(teamKey)} at {events.GetLabelForEvent(input.EventKey)}");
+                descriptionBuilder.AppendLine($"No data found for {teams.GetLabelForTeam(teamKey)} at {events.GetLabelForEvent(input.EventKey)}");
             }
             else
             {
@@ -144,7 +144,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                 Debug.Assert(eventRankings is not null);
                 if (eventRankings is null)
                 {
-                    description.AppendLine($"No data found for {teams.GetLabelForTeam(teamKey)} at {events.GetLabelForEvent(input.EventKey)}");
+                    descriptionBuilder.AppendLine($"No data found for {teams.GetLabelForTeam(teamKey)} at {events.GetLabelForEvent(input.EventKey)}");
                 }
                 else
                 {
@@ -152,19 +152,19 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                     Debug.Assert(teamRanking is not null);
                     if (teamRanking is null)
                     {
-                        description.AppendLine($"No data found for {teams.GetLabelForTeam(teamKey)} at {events.GetLabelForEvent(input.EventKey)}");
+                        descriptionBuilder.AppendLine($"No data found for {teams.GetLabelForTeam(teamKey)} at {events.GetLabelForEvent(input.EventKey)}");
                     }
                     else
                     {
-                        description.AppendLine($"Rank: {teamRanking.Rank}");
-                        description.AppendLine($"Record: {teamRanking.Wins}-{teamRanking.Losses}-{teamRanking.Ties}");
-                        description.AppendLine($"Avg Qual Match Score: {teamRanking.QualAverage}");
-                        description.AppendLine($"DQ count: {teamRanking.Dq}");
+                        descriptionBuilder.AppendLine($"Rank: {teamRanking.Rank}");
+                        descriptionBuilder.AppendLine($"Record: {teamRanking.Wins}-{teamRanking.Losses}-{teamRanking.Ties}");
+                        descriptionBuilder.AppendLine($"Avg Qual Match Score: {teamRanking.QualAverage}");
+                        descriptionBuilder.AppendLine($"DQ count: {teamRanking.Dq}");
                     }
                 }
             }
 
-            yield return new(embedding.WithDescription(description.ToString()).Build());
+            yield return new(embedding.WithDescription(descriptionBuilder.ToString()).Build());
         }
     }
 }

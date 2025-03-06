@@ -66,14 +66,14 @@ internal sealed class Award(IEventApi tbaApi, TeamRepository teams, EmbedBuilder
 
             var embedding = baseBuilder
                 .WithDescription(
-    $@"# Award!
-## {notification.event_name}: {latestAward.Name}
-### {(latestAward.RecipientList.Count > 1 ? "Recipients" : "Recipient")}
-{string.Join("\n", latestAward.RecipientList!
-        .Select(t => $"- {teams.GetTeamLabelWithHighlight(t.TeamKey, highlightTeam)}{(!string.IsNullOrWhiteSpace(t.Awardee) ? $" [{t.Awardee}]" : string.Empty)}"))}
-
-View more event awards [here](https://www.thebluealliance.com/event/{notification.event_key}#awards)
-")
+                    $"""
+                        # Award!
+                        ## {notification.event_name}: {latestAward.Name}
+                        ### {(latestAward.RecipientList.Count > 1 ? "Recipients" : "Recipient")}
+                        {string.Join("\n", latestAward.RecipientList!.Select(t => $"- {teams.GetTeamLabelWithHighlight(t.TeamKey, highlightTeam)}{(!string.IsNullOrWhiteSpace(t.Awardee) ? $" [{t.Awardee}]" : string.Empty)}"))}
+                
+                        View more event awards [here](https://www.thebluealliance.com/event/{notification.event_key}#awards)
+                    """)
                 .WithThumbnailUrl(imageUri);
 
             yield return new(embedding.Build());

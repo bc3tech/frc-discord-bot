@@ -5,7 +5,6 @@ using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 using Microsoft.Extensions.Logging;
 
 using System.Runtime.CompilerServices;
-using System.Text.Json;
 
 internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger<ScheduleUpdate> logger) : INotificationEmbedCreator
 {
@@ -23,13 +22,14 @@ internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger
 
         var embedding = baseBuilder
             .WithDescription(
-$@"# Schedule Update
-## {notification.event_name}
-Next match start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.first_match_time!).ToPacificTime():t}
+                $"""
+                # Schedule Update
+                ## {notification.event_name}
+                Next match start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.first_match_time!).ToPacificTime():t}
 
-View the detailed event schedule [here](https://www.thebluealliance.com/event/{notification.event_key})")
-            .Build();
+                View the detailed event schedule[here](https://www.thebluealliance.com/event/{notification.event_key})
+                """);
 
-        yield return await Task.FromResult<SubscriptionEmbedding>(new(embedding));
+        yield return await Task.FromResult<SubscriptionEmbedding>(new(embedding.Build()));
     }
 }
