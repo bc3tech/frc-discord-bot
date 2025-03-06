@@ -286,4 +286,13 @@ static partial class Log
 
     [LoggerMessage(92, LogLevel.Trace, "Created new agent with ID {AgentId}")]
     internal static partial void CreatedNewAgentWithIDAgentId(this ILogger logger, string AgentId);
+
+    [LoggerMessage(93, LogLevel.Debug, "Loading Team Match Summaries PDF from Google Docs")]
+    internal static partial void LoadingTeamMatchSummariesPDFFromGoogleDocs(this ILogger logger);
+
+    [LoggerMessage(94, LogLevel.Debug, "Uploading Team Match Summaries PDF to Azure AI")]
+    internal static partial void UploadingTeamMatchSummariesPDFToAzureAI(this ILogger logger);
+
+    [LoggerMessage(95, LogLevel.Information, "Uploaded Team Match Summaries PDF to Azure AI")]
+    internal static partial void UploadedTeamMatchSummariesPDFToAzureAI(this ILogger logger);
 }

@@ -2,6 +2,7 @@
 
 using Azure.AI.Projects;
 using Azure.Core;
+using Azure.Identity;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -57,7 +58,16 @@ internal static class DependencyInjectionExtensions
 #pragma warning disable SKEXP0110 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
         return services
             .AddSingleton<MessageHandler>()
-            .AddSingleton(sp => new AIProjectClient(Throws.IfNullOrWhiteSpace(sp.GetRequiredService<IConfiguration>()[Constants.Configuration.Azure.AI.ProjectConnectionString]), sp.GetRequiredService<TokenCredential>()))
+            .AddSingleton(sp =>
+            {
+                var config = sp.GetRequiredService<IConfiguration>();
+                var credential = new ClientSecretCredential(
+                    Throws.IfNullOrWhiteSpace(config[Constants.Configuration.Azure.AI.Project.Credentials.TenantId]),
+                    Throws.IfNullOrWhiteSpace(config[Constants.Configuration.Azure.AI.Project.Credentials.ClientId]),
+                    Throws.IfNullOrWhiteSpace(config[Constants.Configuration.Azure.AI.Project.Credentials.ClientSecret]));
+
+                return new AIProjectClient(Throws.IfNullOrWhiteSpace(config[Constants.Configuration.Azure.AI.Project.ConnectionString]), credential);
+            })
             .AddSingleton(sp => sp.GetRequiredService<AIProjectClient>().GetAgentsClient())
             .AddSingleton(sp =>
             {
@@ -86,11 +96,15 @@ internal static class DependencyInjectionExtensions
                     logger.FoundExistingAgentUpdatingWithLatestConfiguration();
                     agent = client.GetAgent(existingAgentId).Value;
 
+                    logger.LoadingTeamMatchSummariesPDFFromGoogleDocs();
                     var request = new HttpRequestMessage(HttpMethod.Get, "https://docs.google.com/document/d/1YuasuyfGCvs9OfcBIBOaM_EVl1Y7GbXukFehU7M87kg/export?format=pdf");
                     var response = sp.GetRequiredService<IHttpClientFactory>().CreateClient("GoogleDocs").Send(request);
                     //var newFile = //, dataSource: new VectorStoreDataSource(, VectorStoreDataSourceAssetType.UriAsset));
+
+                    logger.UploadingTeamMatchSummariesPDFToAzureAI();
                     var newFile = client.UploadFile(response.Content.ReadAsStream(), AgentFilePurpose.Agents, "Match Summaries 2025.pdf");
                     client.CreateVectorStoreFile(agent.ToolResources.FileSearch.VectorStoreIds[0], newFile.Value.Id);
+                    logger.UploadedTeamMatchSummariesPDFToAzureAI();
 
                     // TODO: How do we update an agent? This blows up because "tools must have unique names"
                     //client.UpdateAgent(agent.Id, instructions: AgentInstructions,

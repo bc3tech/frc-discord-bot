@@ -60,6 +60,21 @@ internal static class Constants
                 public static readonly string ProjectConnectionString = ConfigurationPath.Combine(_Name, nameof(ProjectConnectionString));
                 public static readonly string ApiKey = ConfigurationPath.Combine(_Name, nameof(ApiKey));
 
+                public static class Project
+                {
+                    public static readonly string _Name = ConfigurationPath.Combine(AI._Name, nameof(Project));
+                    public static readonly string ConnectionString = ConfigurationPath.Combine(_Name, nameof(ConnectionString));
+
+                    public static class Credentials
+                    {
+                        public static readonly string _Name = ConfigurationPath.Combine(Project._Name, nameof(Credentials));
+
+                        public static readonly string TenantId = ConfigurationPath.Combine(_Name, nameof(TenantId));
+                        public static readonly string ClientId = ConfigurationPath.Combine(_Name, nameof(ClientId));
+                        public static readonly string ClientSecret = ConfigurationPath.Combine(_Name, nameof(ClientSecret));
+                    }
+                }
+
                 public static class Agents
                 {
                     public static readonly string _Name = ConfigurationPath.Combine(AI._Name, nameof(Agents));

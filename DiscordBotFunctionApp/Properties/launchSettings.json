@@ -3,9 +3,6 @@
     "DiscordBotFunctionApp": {
       "commandName": "Project",
       "commandLineArgs": "--port 7240 --language-worker dotnet-isolated",
-      "environmentVariables": {
-        "AZURE_TENANT_ID": "16b3c013-d300-468d-ac64-7eda0820b6d3"
-      }
     }
   }
 }

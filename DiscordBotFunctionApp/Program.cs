@@ -32,6 +32,9 @@ internal sealed class Program
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Required for main()")]
     private static async Task Main(string[] args)
     {
+        AppContext.SetSwitch("Azure.Experimental.EnableActivitySource", true);
+        AppContext.SetSwitch("Azure.Experimental.TraceGenAIMessageContent", true);
+
         var host = new HostBuilder()
             .ConfigureFunctionsWorkerDefaults()
             .ConfigureAppConfiguration(b =>
@@ -97,6 +100,7 @@ internal sealed class Program
             })
             .ConfigureLogging((context, builder) => builder
                 .AddConfiguration(context.Configuration.GetSection("Logging"))
+                .AddOpenTelemetry()
                 .AddApplicationInsights()
                 .AddDebug())
             .Build();
