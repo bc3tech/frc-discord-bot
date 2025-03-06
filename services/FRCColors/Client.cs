@@ -35,9 +35,7 @@ public sealed class Client(IHttpClientFactory clientFactory)
     {
         if (teamNumber.HasValue)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://api.frc-colors.com/v1/team/{teamNumber.Value}");
-            var response = _client.Send(request, cancellationToken);
-            var resp = JsonSerializer.Deserialize<SingleTeamColors>(new StreamReader(response.Content.ReadAsStream(cancellationToken)).ReadToEnd());
+            var resp = _client.GetFromJson<SingleTeamColors>(new($"https://api.frc-colors.com/v1/team/{teamNumber.Value}"), cancellationToken);
             (bool flowControl, (Color? primaryColor, Color? secondaryColor) value) = ParseColors(resp);
             if (!flowControl)
             {
