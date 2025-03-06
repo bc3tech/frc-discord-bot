@@ -4,6 +4,7 @@ using Discord;
 using Discord.Interactions;
 
 using DiscordBotFunctionApp.DiscordInterop.Embeds;
+using DiscordBotFunctionApp.Extensions;
 
 using System;
 using System.Collections.Immutable;
@@ -38,7 +39,7 @@ public abstract class CommandModuleBase : InteractionModuleBase
             }
             else
             {
-                await this.ModifyOriginalResponseAsync(p => p.Embeds = discordEmbeds).ConfigureAwait(false);
+                await this.ModifyOriginalResponseAsync(p => p.Embeds = discordEmbeds, options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             }
         }
     }

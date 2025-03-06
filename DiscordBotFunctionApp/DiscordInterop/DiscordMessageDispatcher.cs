@@ -11,6 +11,7 @@ using Discord.WebSocket;
 
 using DiscordBotFunctionApp;
 using DiscordBotFunctionApp.DiscordInterop.Embeds;
+using DiscordBotFunctionApp.Extensions;
 using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.Storage.TableEntities;
 using DiscordBotFunctionApp.TbaInterop.Models;
@@ -83,7 +84,7 @@ internal sealed partial class DiscordMessageDispatcher(
     {
         using var scope = logger.CreateMethodScope();
         var embeds = _embedGenerator.CreateEmbeddingsAsync(message, highlightTeam, cancellationToken: cancellationToken);
-        var discordRequestOptions = Utility.CreateCancelRequestOptions(cancellationToken);
+        var discordRequestOptions = cancellationToken.ToRequestOptions();
         if (await embeds.AnyAsync(cancellationToken: cancellationToken).ConfigureAwait(false))
         {
             Embed[]? embedsToSend = null;

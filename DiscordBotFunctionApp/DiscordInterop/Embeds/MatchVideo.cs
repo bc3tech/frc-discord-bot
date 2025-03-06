@@ -15,7 +15,7 @@ using System.Threading;
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Model.MatchExtensions;
 
-internal sealed class MatchVideo(EmbedBuilderFactory builderFactory, EmbeddingColorizer colorizer, IMatchApi matches, EventRepository eventRepo, ILogger<MatchVideo> logger) : INotificationEmbedCreator, IEmbedCreator<string>
+internal sealed class MatchVideo(IMatchApi matches, EventRepository eventRepo, EmbedBuilderFactory builderFactory, ILogger<MatchVideo> logger) : INotificationEmbedCreator, IEmbedCreator<string>
 {
     public static NotificationType TargetType { get; } = NotificationType.match_video;
 

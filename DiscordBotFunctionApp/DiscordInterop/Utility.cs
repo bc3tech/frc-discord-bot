@@ -4,8 +4,6 @@ using Discord;
 
 internal static class Utility
 {
-    public static RequestOptions CreateCancelRequestOptions(CancellationToken cancellationToken) => new() { CancelToken = cancellationToken };
-
     public static string CreateCountryFlagEmojiRef(string countryCode) => countryCode.Length is not 2
         ? throw new ArgumentException("Country code must be exactly 2 characters long", nameof(countryCode))
         : $":flag_{countryCode.ToLowerInvariant()}:";

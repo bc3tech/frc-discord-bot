@@ -6,10 +6,14 @@ using Azure.Data.Tables;
 using Discord;
 using Discord.WebSocket;
 
+using DiscordBotFunctionApp.Extensions;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel.Agents.AzureAI;
 
+using System.Diagnostics;
+using System.Text;
 using System.Text.RegularExpressions;
 
 #pragma warning disable SKEXP0110 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
@@ -21,6 +25,7 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
     {
         var responseChannel = await discordClient.GetDMChannelAsync(msg.Channel.Id).ConfigureAwait(false);
         using var typing = responseChannel.EnterTypingState();
+        CancellationTokenSource sorryForTheDelayCanceler = new();
 
         try
         {
@@ -41,33 +46,125 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
             }
 
             await agent.AddChatMessageAsync(thread.Id, new(Microsoft.SemanticKernel.ChatCompletion.AuthorRole.User, msg.CleanContent), cancellationToken).ConfigureAwait(false);
-            await foreach (var response in agent.InvokeAsync(thread.Id, cancellationToken: cancellationToken).ConfigureAwait(false))
+            IUserMessage? firstMessage = null, latestMessage = null, thinkingMessage = null;
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed; We intend for this to run in the background until canceled
+            Task.Run(async () =>
             {
-                foreach (var c in response.Items.OfType<Microsoft.SemanticKernel.TextContent>())
+                try
                 {
-                    var sanitized = c.ToString();
-                    var annotations = AnnotationFinder().Matches(sanitized);
-                    foreach (Match annotation in annotations)
+                    await Task.Delay(5000, sorryForTheDelayCanceler.Token).ConfigureAwait(false);
+
+                    for (int numDots = 3; !sorryForTheDelayCanceler.IsCancellationRequested; numDots++)
                     {
-                        sanitized = sanitized.Replace(annotation.Value, string.Empty);
+                        if (!sorryForTheDelayCanceler.IsCancellationRequested)
+                        {
+                            if (thinkingMessage is null)
+                            {
+                                thinkingMessage = await responseChannel.SendMessageAsync($"-# Sorry, still thinking...", options: sorryForTheDelayCanceler.Token.ToRequestOptions());
+                            }
+                            else
+                            {
+                                await thinkingMessage.ModifyAsync(p => p.Content = $"-# Sorry, still thinking{new string('.', numDots)}", options: sorryForTheDelayCanceler.Token.ToRequestOptions());
+                            }
+
+                            await Task.Delay(2000, sorryForTheDelayCanceler.Token).ConfigureAwait(false);
+                        }
+                    }
+                }
+                catch (Exception e) when (e is OperationCanceledException or TaskCanceledException) { }
+            }, sorryForTheDelayCanceler.Token);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+
+            try
+            {
+                await foreach (var response in agent.InvokeAsync(thread.Id, cancellationToken: cancellationToken).ConfigureAwait(false))
+                {
+                    if (response.Metadata?.TryGetValue("code", out var codeValue) is true && codeValue is true)
+                    {
+#if !DEBUG
+                        continue;
+#endif
                     }
 
-                    cancellationToken.ThrowIfCancellationRequested();
-                    await responseChannel.SendMessageAsync(
-                        $"""
-                        {sanitized}
+                    await sorryForTheDelayCanceler.CancelAsync();
+                    if (thinkingMessage is not null)
+                    {
+                        try
+                        {
+                            await thinkingMessage.DeleteAsync();
+                            thinkingMessage = null;
+                        }
+                        catch { }
+                    }
 
-                        -# AI generated response; may have mistakes.                        
-                        """, flags: MessageFlags.SuppressEmbeds);
+                    foreach (var i in response.Items.OfType<Microsoft.SemanticKernel.TextContent>())
+                    {
+                        if (string.IsNullOrEmpty(i.Text))
+                        {
+                            continue;
+                        }
+
+                        var sanitized = i.Text;
+                        var annotations = AnnotationFinder().Matches(sanitized);
+                        foreach (Match annotation in annotations)
+                        {
+                            sanitized = sanitized.Replace(annotation.Value, string.Empty);
+                        }
+
+                        cancellationToken.ThrowIfCancellationRequested();
+
+                        if (sanitized.Length > 2000)
+                        {
+                            foreach (var bit in sanitized.Chunk(2000))
+                            {
+                                await postAsync(new(bit), response.Metadata?.TryGetValue("code", out var isCode) is true && isCode is true);
+                            }
+                        }
+                        else
+                        {
+                            await postAsync(sanitized, response.Metadata?.TryGetValue("code", out var isCode) is true && isCode is true);
+                        }
+                    }
+                }
+
+                async Task postAsync(string msg, bool isCode)
+                {
+                    msg = isCode ? $"```\n{msg}\n```" : msg;
+                    if (firstMessage is null)
+                    {
+                        firstMessage = latestMessage = await responseChannel.SendMessageAsync(msg, flags: MessageFlags.SuppressEmbeds, options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        latestMessage = await firstMessage.ReplyAsync(msg, flags: MessageFlags.SuppressEmbeds, options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+                    }
                 }
             }
+            catch (NullReferenceException nre)
+            {
+                // There's a bug in SK during streaming that, when it goes to annotate stuff, it bombs out. So, when this happens we just assume we're all done with the response for now.
+                logger.NullRefHitWhileStreamingResponseBackFromAgent(nre);
+            }
+
+            Debug.Assert(latestMessage is not null);
+            await latestMessage.ReplyAsync("-# AI generated response; may have mistakes.", options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
         }
         catch (Exception e)
         {
             logger.ErrorRespondingToDMFromDMUser(e, msg.Author.GlobalName);
             await responseChannel.SendMessageAsync(embed: _embedBuilder
-                .WithDescription("Oh no! I hit an error when trying to answer you, sorry! Try again or let your admin know about this so they can investigate.")
+                .WithDescription("Oh no! I hit an error when trying to answer you, sorry! Try again or let your admin know about this so they can investigate."
+#if DEBUG
+                + $"\n\n```\n{e}\n```"
+#endif
+                )
                 .WithColor(Color.Red).Build());
+        }
+        finally
+        {
+            await sorryForTheDelayCanceler.CancelAsync().ConfigureAwait(false);
+            sorryForTheDelayCanceler.Dispose();
+            typing.Dispose();
         }
     }
 

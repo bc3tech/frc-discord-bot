@@ -274,4 +274,16 @@ static partial class Log
 
     [LoggerMessage(88, LogLevel.Trace, "Message received from gateway ({GatewayMessage})")]
     internal static partial void MessageReceivedFromGatewayGatewayMessage(this ILogger logger, Discord.WebSocket.SocketMessage GatewayMessage);
+
+    [LoggerMessage(89, LogLevel.Error, "NullRef hit while streaming response back from agent.")]
+    internal static partial void NullRefHitWhileStreamingResponseBackFromAgent(this ILogger logger, Exception exception);
+
+    [LoggerMessage(90, LogLevel.Debug, "Found existing agent, updating with latest configuration...")]
+    internal static partial void FoundExistingAgentUpdatingWithLatestConfiguration(this ILogger logger);
+
+    [LoggerMessage(91, LogLevel.Debug, "Creating new agent...")]
+    internal static partial void CreatingNewAgent(this ILogger logger);
+
+    [LoggerMessage(92, LogLevel.Trace, "Created new agent with ID {AgentId}")]
+    internal static partial void CreatedNewAgentWithIDAgentId(this ILogger logger, string AgentId);
 }
