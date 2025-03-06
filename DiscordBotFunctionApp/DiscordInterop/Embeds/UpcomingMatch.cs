@@ -52,11 +52,103 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
 
         var compLevelHeader = $"{Translator.CompLevelToShortString(detailedMatch.CompLevel.ToInvariantString()!)} {detailedMatch.SetNumber}";
         var matchHeader = $"Match {detailedMatch.MatchNumber}";
+
+        StringBuilder descriptionBuilder = new();
+        descriptionBuilder.AppendLine(
+            $"""
+                # Match starting soon!
+                ## {events.GetLabelForEvent(detailedMatch.EventKey)}: {compLevelHeader} - {matchHeader}
+                Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.scheduled_time!).ToPacificTime():t}
+                **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToPacificTime():t}**
+            """);
+
+        await BuildDescriptionAsync(descriptionBuilder, highlightTeam, detailedMatch, cancellationToken, beforeFooter: addWebcastDetail).ConfigureAwait(false);
+
+        void addWebcastDetail(StringBuilder sb)
+        {
+            if (notification.webcast is not null)
+            {
+                var (source, url) = notification.webcast.GetFullUrl(logger);
+                var link = !string.IsNullOrWhiteSpace(notification.webcast.StreamTitle)
+                    ? $"[{notification.webcast.StreamTitle}]({url})"
+                    : $"[{source}]({url})";
+
+                descriptionBuilder.AppendLine(
+                    $"""
+
+                    ### Watch live
+                    - {link} {notification.webcast.ViewerCount} current viewer(s)
+                """);
+            }
+        }
+
+        var embedding = baseBuilder
+            .WithDescription(descriptionBuilder.ToString());
+
+        yield return new(embedding.Build());
+    }
+
+    public IAsyncEnumerable<ResponseEmbedding?> CreateNextMatchEmbeddingsAsync(string matchKey, ushort? highlightTeam = null, CancellationToken cancellationToken = default) => CreateAsync(matchKey, highlightTeam, cancellationToken);
+
+    public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync(string matchKey, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    {
+        var baseBuilder = builderFactory.GetBuilder(highlightTeam);
+
+        if (string.IsNullOrWhiteSpace(matchKey))
+        {
+            logger.MatchKeyIsMissingFromNotificationData();
+            yield return new(baseBuilder.Build());
+            yield break;
+        }
+
+        var simpleMatch = await tbaApi.GetMatchSimpleAsync(matchKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+        if (simpleMatch is null)
+        {
+            logger.FailedToRetrieveDetailedMatchDataForMatchKey(matchKey);
+            yield return new(baseBuilder.Build());
+            yield break;
+        }
+
+        var compLevelHeader = $"{Translator.CompLevelToShortString(simpleMatch.CompLevel.ToInvariantString()!)} {simpleMatch.SetNumber}";
+
+        StringBuilder descriptionBuilder = new();
+        descriptionBuilder.AppendLine(
+            $"""
+                # Next Match for {teams.GetLabelForTeam(highlightTeam)}
+                ## {events.GetLabelForEvent(simpleMatch.EventKey)}: {compLevelHeader} - Match {simpleMatch.MatchNumber}
+                Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds(simpleMatch.Time.GetValueOrDefault(0)!).ToPacificTime():t}
+                **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds(simpleMatch.PredictedTime.GetValueOrDefault(0)).ToPacificTime():t}**
+            """
+            );
+
+        var matchVideoData = await tbaApi.GetMatchAsync(simpleMatch.Key, cancellationToken: cancellationToken).ConfigureAwait(false);
+        await BuildDescriptionAsync(descriptionBuilder, highlightTeam, simpleMatch, cancellationToken, beforeFooter: addMatchVideos);
+
+        void addMatchVideos(StringBuilder builder)
+        {
+            var videoUrls = matchVideoData?.GetVideoUrls();
+            if (videoUrls?.Any() is true)
+            {
+                builder.AppendLine(
+                    $"""
+                        ### Match videos
+                        {string.Join("\n", videoUrls.Select(i => $"- [{i.Name}]({i.Link})"))}
+                    """);
+            }
+        }
+
+        var embedding = baseBuilder.WithDescription(descriptionBuilder.ToString()).Build();
+
+        yield return new(embedding);
+    }
+
+    private async Task<StringBuilder> BuildDescriptionAsync(StringBuilder descriptionBuilder, ushort? highlightTeam, MatchSimple detailedMatch, CancellationToken cancellationToken, Action<StringBuilder>? beforeFooter = null)
+    {
         var ranks = (await eventInsights.GetEventRankingsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))!.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
         Debug.Assert(ranks is not null);
         logger.RankingsRankings(ranks is not null ? JsonSerializer.Serialize(ranks) : "[null]");
 
-        var stats = await matchStats.ReadMatchV3MatchMatchGetAsync(notification.match_key, cancellationToken: cancellationToken).ConfigureAwait(false);
+        var stats = await matchStats.ReadMatchV3MatchMatchGetAsync(detailedMatch.Key, cancellationToken: cancellationToken).ConfigureAwait(false);
         Debug.Assert(stats is not null);
         logger.MatchStatsMatchStats(stats is not null ? JsonSerializer.Serialize(stats) : "[null]");
 
@@ -69,17 +161,9 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
             .Concat(stats?.Alliances?.Red?.SurrogateTeamKeys ?? []);
         var containsHighlightedTeam = highlightTeam.HasValue && allAlliancesInMatch.Contains(highlightTeam.Value);
 
-        StringBuilder descriptionBuilder = new();
         descriptionBuilder.AppendLine(
-            $"""
-                # Match starting soon!
-                ## {notification.event_name}: {compLevelHeader} - {matchHeader}
-                Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.scheduled_time!).ToPacificTime():t}
-                **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToPacificTime():t}**
+                $"""
                 ### Alliances
-            """);
-        descriptionBuilder.AppendLine(
-            $"""
                 **Red Alliance**
                 {string.Join("\n", detailedMatch.Alliances.Red.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
 
@@ -108,102 +192,14 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
 
             descriptionBuilder
                 .AppendLine()
-                .AppendLine($"- Score: [Red] {stats.Pred!.RedScore} - [Blue] {stats.Pred.BlueScore}");
+                            .AppendLine($"- Score: [Red] {stats.Pred!.RedScore} - [Blue] {stats.Pred.BlueScore}");
         }
 
-        if (notification.webcast is not null)
-        {
-            var (source, url) = notification.webcast.GetFullUrl();
-            var link = !string.IsNullOrWhiteSpace(notification.webcast.StreamTitle)
-                ? $"[{notification.webcast.StreamTitle}]({url})"
-                : $"[{source}]({url})";
-
-            descriptionBuilder.AppendLine(
-                $"""
-
-                    ### Where to watch
-                    - {link} {notification.webcast.ViewerCount} current viewer(s)
-                """);
-        }
+        beforeFooter?.Invoke(descriptionBuilder);
 
         descriptionBuilder.AppendLine()
             .Append($"View more match details[here](https://www.thebluealliance.com/match/{detailedMatch.Key})");
 
-        var embedding = baseBuilder
-            .WithDescription(descriptionBuilder.ToString());
-
-        yield return new(embedding.Build());
-    }
-
-    public IAsyncEnumerable<ResponseEmbedding?> CreateNextMatchEmbeddingsAsync(string matchKey, ushort? highlightTeam = null, CancellationToken cancellationToken = default) => CreateAsync(matchKey, highlightTeam, cancellationToken);
-
-    public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync(string matchKey, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
-    {
-        var baseBuilder = builderFactory.GetBuilder(highlightTeam);
-
-        if (string.IsNullOrWhiteSpace(matchKey))
-        {
-            logger.MatchKeyIsMissingFromNotificationData();
-            yield return new(baseBuilder.Build());
-            yield break;
-        }
-
-        var detailedMatch = await tbaApi.GetMatchSimpleAsync(matchKey, cancellationToken: cancellationToken).ConfigureAwait(false);
-        if (detailedMatch is null)
-        {
-            logger.FailedToRetrieveDetailedMatchDataForMatchKey(matchKey);
-            yield return new(baseBuilder.Build());
-            yield break;
-        }
-
-        var compLevelHeader = $"{Translator.CompLevelToShortString(detailedMatch.CompLevel.ToInvariantString()!)} {detailedMatch.SetNumber}";
-        var matchHeader = $"Match {detailedMatch.MatchNumber}";
-        var ranks = (await eventInsights.GetEventRankingsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))!.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
-        var stats = await matchStats.ReadMatchV3MatchMatchGetAsync(matchKey, cancellationToken: cancellationToken).ConfigureAwait(false);
-        MatchSimple.WinningAllianceEnum? predictedWinner = stats?.Pred?.Winner is not null ? MatchSimple.WinningAllianceEnumFromStringOrDefault(stats.Pred.Winner).GetValueOrDefault(MatchSimple.WinningAllianceEnum.Empty) : null;
-        var allAlliancesInMatch = (stats?.Alliances?.Blue?.TeamKeys ?? [])
-            .Concat(stats?.Alliances?.Blue?.DqTeamKeys ?? [])
-            .Concat(stats?.Alliances?.Blue?.SurrogateTeamKeys ?? [])
-            .Concat(stats?.Alliances?.Red?.TeamKeys ?? [])
-            .Concat(stats?.Alliances?.Red?.DqTeamKeys ?? [])
-            .Concat(stats?.Alliances?.Red?.SurrogateTeamKeys ?? []);
-        var containsHighlightedTeam = highlightTeam.HasValue && allAlliancesInMatch.Contains(highlightTeam.Value);
-
-        var prediction = new StringBuilder();
-        if (predictedWinner is not null and not MatchSimple.WinningAllianceEnum.Empty && predictedWinner.HasValue)
-        {
-            prediction
-                .AppendLine("\n## Prediction")
-                .Append($"- Winner: {predictedWinner.Value.ToInvariantString()} Alliance ({(predictedWinner is MatchSimple.WinningAllianceEnum.Red ? stats!.Pred!.RedWinProb : (1 - stats!.Pred!.RedWinProb)):P2})");
-            if (containsHighlightedTeam)
-            {
-                prediction
-                    .Append(((predictedWinner is MatchSimple.WinningAllianceEnum.Red && stats.Alliances!.Red?.TeamKeys?.Contains(highlightTeam!.Value) is true)
-                        || (predictedWinner is MatchSimple.WinningAllianceEnum.Blue && stats.Alliances!.Blue?.TeamKeys?.Contains(highlightTeam!.Value) is true))
-                        ? " 🤞🤞" : " 💪💪");
-            }
-
-            prediction
-                .AppendLine()
-                .AppendLine($"- Score: [Red] {stats.Pred!.RedScore} - [Blue] {stats.Pred.BlueScore}");
-        }
-
-        var embedding = baseBuilder
-            .WithDescription(
-$@"# Next Match for {teams.GetLabelForTeam(highlightTeam)}
-## {events.GetLabelForEvent(detailedMatch.EventKey)}: {compLevelHeader} - {matchHeader}
-Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.Time.GetValueOrDefault(0)!).ToPacificTime():t}
-**Predicted start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PredictedTime.GetValueOrDefault(0)).ToPacificTime():t}**
-### Alliances
-**Red Alliance**
-{string.Join("\n", detailedMatch.Alliances!.Red!.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
-
-**Blue Alliance**
-{string.Join("\n", detailedMatch.Alliances.Blue!.TeamKeys!.Order().Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}{prediction}
-
-View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})")
-            .Build();
-
-        yield return new(embedding);
+        return descriptionBuilder;
     }
 }

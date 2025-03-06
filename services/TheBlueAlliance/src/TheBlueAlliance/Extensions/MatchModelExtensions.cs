@@ -14,17 +14,17 @@ public static class MatchModelExtensions
         return rpValue;
     }
 
-    public static IEnumerable<string> GetVideoUrls(this Match match, ILogger? log = null)
+    public static IEnumerable<(string Name, Uri Link)> GetVideoUrls(this Match match, ILogger? log = null)
     {
-        foreach (var v in match.Videos)
+        foreach (var v in match.Videos ?? [])
         {
             if (v.Type is "youtube")
             {
-                yield return $"https://youtube.com/watch?v={v.Key}";
+                yield return ("YouTube", new($"https://youtube.com/watch?v={v.Key}"));
             }
             else if (v.Type is "tba")
             {
-                yield return $"https://twitch.tv/{v.Key}";
+                yield return ("Blue Alliance", new($"https://twitch.tv/{v.Key}"));
             }
             else
             {

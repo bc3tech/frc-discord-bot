@@ -44,7 +44,7 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup, EmbedBuilder
             if (!string.IsNullOrWhiteSpace(eventDetails.GmapsUrl))
             {
                 descriptionBuilder.Append($"]({eventDetails.GmapsUrl})");
-            } 
+            }
             #endregion
 
             var builder = builderFactory.GetBuilder()
@@ -66,7 +66,7 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup, EmbedBuilder
 
             if (eventDetails.Webcasts is not null and { Count: > 0 })
             {
-                builder.AddField("Where to watch", string.Join('\n', eventDetails.Webcasts.Select(i => $"- {i.GetFullUrl()}")));
+                builder.AddField("Where to watch", string.Join('\n', eventDetails.Webcasts.Select(i => $"- {i.GetFullUrl(logger)}")));
             }
 
             builder
