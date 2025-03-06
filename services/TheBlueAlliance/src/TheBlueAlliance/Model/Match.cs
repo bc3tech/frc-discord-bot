@@ -289,7 +289,7 @@ public partial record Match
     /// <value>Array of video objects associated with this match.</value>
     [JsonRequired]
     [JsonPropertyName("videos")]
-    public Collection<MatchVideosInner> Videos { get; set; }
+    public Collection<MatchVideosInner>? Videos { get; set; }
 
     /// <summary>
     /// Returns the JSON string presentation of the object
