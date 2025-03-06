@@ -18,9 +18,10 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-internal sealed partial class DiscordInitializationService(DiscordSocketClient client, InteractionService interactionService, ChatBot.MessageHandler chatBot, IConfiguration appConfig, ILoggerFactory logFactory, IServiceProvider services) : IHostedService
+internal sealed partial class DiscordInitializationService(IDiscordClient discordClient, InteractionService interactionService, ChatBot.MessageHandler chatBot, IConfiguration appConfig, ILoggerFactory logFactory, IServiceProvider services) : IHostedService
 {
     private readonly ILogger _logger = logFactory.CreateLogger<DiscordInitializationService>();
+    private readonly DiscordSocketClient client = discordClient as DiscordSocketClient ?? throw new ArgumentException(nameof(discordClient));
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
@@ -123,14 +124,14 @@ internal sealed partial class DiscordInitializationService(DiscordSocketClient c
 
         cancellationToken.ThrowIfCancellationRequested();
 
-        _logger.AddingModulesGlobally();
+        _logger.AddingModulesToGuilds();
+        var modulesArray = m.ToArray();
         foreach (var g in client.Guilds)
         {
-            await interactionService.RemoveModulesFromGuildAsync(g);
+            await interactionService.AddCommandsToGuildAsync(g, deleteMissing: true);
+            var r = await interactionService.AddModulesToGuildAsync(g, true, modulesArray);
+            _logger.NumCommandsCommandsAddedToGuildGuildNameGuildIdGloballyAvailableCommands(r.Count, g.Name, g.Id, string.Join(", ", r.Select(i => i.Name)));
         }
-
-        var r = await interactionService.AddModulesGloballyAsync(deleteMissing: true, [.. m]).ConfigureAwait(false);
-        _logger.NumCommandsCommandsAddedGloballyAvailableCommands(r.Count, string.Join(", ", r.Select(i => i.Name)));
     }
 
     private void LogMessageExecuted(SocketMessageCommand msg)

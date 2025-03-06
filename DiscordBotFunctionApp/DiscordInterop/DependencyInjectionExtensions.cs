@@ -35,7 +35,7 @@ internal static class DependencyInjectionExtensions
                 HandlerTimeout = 10_000,
                 LogLevel = Enum.Parse<LogSeverity>(discordLogLevel),
                 LogGatewayIntentWarnings = true,
-                GatewayIntents = GatewayIntents.Guilds | GatewayIntents.GuildMessages | GatewayIntents.DirectMessages,
+                GatewayIntents = GatewayIntents.AllUnprivileged,
             };
         })
         .AddSingleton<EmbedBuilderFactory>()
@@ -47,17 +47,8 @@ internal static class DependencyInjectionExtensions
             {
                 LogLevel = Enum.Parse<LogSeverity>(discordLogLevel)
             };
-        }).AddSingleton(sp =>
-        {
-            var c = new DiscordRestClient(sp.GetRequiredService<DiscordRestConfig>());
-            c.Log += m =>
-            {
-                sp.GetRequiredService<ILogger<DiscordRestClient>>().Log(m.Severity.ToLogLevel(), m.Message);
-                return Task.CompletedTask;
-            };
-            return c;
         })
-        .AddSingleton(sp =>
+        .AddSingleton<IDiscordClient>(sp =>
         {
             var c = new DiscordSocketClient(sp.GetRequiredService<DiscordSocketConfig>());
             c.Log += m =>
@@ -72,7 +63,7 @@ internal static class DependencyInjectionExtensions
         {
             var logger = sp.GetRequiredService<ILoggerFactory>().CreateLogger<InteractionService>();
             var discordLogLevel = sp.GetRequiredService<IConfiguration>()[Constants.Configuration.Discord.LogLevel] ?? "Info";
-            var i = new InteractionService(sp.GetRequiredService<DiscordSocketClient>().Rest, new InteractionServiceConfig
+            var i = new InteractionService(((DiscordSocketClient)sp.GetRequiredService<IDiscordClient>()).Rest, new InteractionServiceConfig
             {
                 UseCompiledLambda = true,
                 EnableAutocompleteHandlers = true,

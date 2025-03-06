@@ -179,8 +179,8 @@ static partial class Log
     [LoggerMessage(55, LogLevel.Debug, "{NumCommands} command modules loaded")]
     internal static partial void NumCommandsCommandModulesLoaded(this ILogger logger, int NumCommands);
 
-    [LoggerMessage(56, LogLevel.Trace, "Adding modules globally...")]
-    internal static partial void AddingModulesGlobally(this ILogger logger);
+    [LoggerMessage(56, LogLevel.Trace, "Adding modules to guilds...")]
+    internal static partial void AddingModulesToGuilds(this ILogger logger);
 
     [LoggerMessage(57, LogLevel.Debug, "{NumCommands} commands added globally ({AvailableCommands})")]
     internal static partial void NumCommandsCommandsAddedGloballyAvailableCommands(this ILogger logger, int NumCommands, string AvailableCommands);
@@ -295,4 +295,16 @@ static partial class Log
 
     [LoggerMessage(95, LogLevel.Information, "Uploaded Team Match Summaries PDF to Azure AI")]
     internal static partial void UploadedTeamMatchSummariesPDFToAzureAI(this ILogger logger);
+
+    [LoggerMessage(96, LogLevel.Debug, "{NumCommands} commands added to Guild {GuildName}({GuildId}) globally ({AvailableCommands})")]
+    internal static partial void NumCommandsCommandsAddedToGuildGuildNameGuildIdGloballyAvailableCommands(this ILogger logger, int NumCommands, string GuildName, ulong GuildId, string AvailableCommands);
+
+    [LoggerMessage(98, LogLevel.Error, "Error deleting thread for {UserName}({UserId}")]
+    internal static partial void ErrorDeletingThreadForUserNameUserId(this ILogger? logger, Exception exception, string UserName, ulong UserId);
+
+    [LoggerMessage(99, LogLevel.Error, "Discord error while trying to modify original response")]
+    internal static partial void DiscordErrorWhileTryingToModifyOriginalResponse(this ILogger? logger, Exception exception);
+
+    [LoggerMessage(100, LogLevel.Warning, "Unknown button clicked: {ButtonId}")]
+    internal static partial void UnknownButtonClickedButtonId(this ILogger? logger, string ButtonId);
 }

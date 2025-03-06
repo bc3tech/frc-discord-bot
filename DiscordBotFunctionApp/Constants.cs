@@ -22,7 +22,7 @@ internal static class Constants
     public static class Configuration
     {
         public const string TbaApiKey = nameof(TbaApiKey);
-        public const string SignalREndpoint = nameof(SignalREndpoint);
+        public const string MatchSummariesDocumentUrl = nameof(MatchSummariesDocumentUrl);
 
         public static class Discord
         {

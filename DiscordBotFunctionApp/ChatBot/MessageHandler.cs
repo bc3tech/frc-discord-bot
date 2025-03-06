@@ -17,8 +17,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 #pragma warning disable SKEXP0110 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIAgent agent, DiscordSocketClient discordClient, [FromKeyedServices(Constants.ServiceKeys.TableClient_UserChatAgentThreads)] TableClient userThreadMappings, ILogger<MessageHandler> logger)
+internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIAgent agent, IDiscordClient discordClient, [FromKeyedServices(Constants.ServiceKeys.TableClient_UserChatAgentThreads)] TableClient userThreadMappings, ILogger<MessageHandler> logger)
 {
+    private const string DisclaimerText = "-# AI generated response; may have mistakes.";
     private static readonly EmbedBuilder _embedBuilder = new();
 
     public async Task HandleUserMessageAsync(IUserMessage msg, CancellationToken cancellationToken = default)
@@ -37,6 +38,8 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
                 await userThreadMappings.UpsertEntityAsync(new TableEntity(msg.Author.Id.ToString(), msg.Author.Id.ToString())
                 {
                     ["AgentThreadId"] = thread.Id,
+                    ["Username"] = msg.Author.Username,
+                    ["GlobalName"] = msg.Author.GlobalName
                 }, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
             }
             else
@@ -147,7 +150,14 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
             }
 
             Debug.Assert(latestMessage is not null);
-            await latestMessage.ReplyAsync("-# AI generated response; may have mistakes.", options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            if (latestMessage.Content.Length + DisclaimerText.Length + 2 > 2000)    // +2 for the line breaks we add if we can
+            {
+                await latestMessage.ReplyAsync(DisclaimerText, options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            }
+            else
+            {
+                await latestMessage.ModifyAsync(p => p.Content = $"{latestMessage.Content}\n\n{DisclaimerText}", options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            }
         }
         catch (Exception e)
         {
@@ -168,7 +178,7 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
         }
     }
 
-    [GeneratedRegex("【[^】]+】", RegexOptions.Compiled)]
+    [GeneratedRegex(@"\w*【[^】]+】\w*", RegexOptions.Compiled)]
     private static partial Regex AnnotationFinder();
 }
 #pragma warning restore SKEXP0110 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
