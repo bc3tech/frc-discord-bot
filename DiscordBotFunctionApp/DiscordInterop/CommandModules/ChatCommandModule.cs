@@ -15,7 +15,7 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-[Group("chat", "Manages private chat commands")]
+[Group("chat", "Manages private chats between me & you")]
 public sealed class ChatCommandModule : CommandModuleBase
 {
     private const string ChatResetConfirmButtonId = "chat-reset-confirm";
@@ -23,7 +23,7 @@ public sealed class ChatCommandModule : CommandModuleBase
 
     private static readonly EmbedBuilder _embedBuilder = new();
 
-    [SlashCommand("reset", "Resets your chat thread; makes me forget everything we've talked about!")]
+    [SlashCommand("reset", "Resets your personal (DM) chat thread; makes me forget everything we've talked about!")]
     public async Task ResetThreadAsync()
     {
         var ephemeral = this.Context.Channel is not IDMChannel;
