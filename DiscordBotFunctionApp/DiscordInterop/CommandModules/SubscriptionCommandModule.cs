@@ -70,15 +70,15 @@ public class SubscriptionCommandModule(IServiceProvider services) : InteractionM
                 await _subscriptionManager.SaveSubscriptionAsync(new SubscriptionRequest(this.Context.Interaction.GuildId!.Value, this.Context.Interaction.ChannelId!.Value, eventKey, teamNumber), default).ConfigureAwait(false);
                 if (!string.IsNullOrWhiteSpace(eventKey) && teamNumber is not null)
                 {
-                    await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo.GetLabelForTeam(teamNumber)}** at the **{_eventsRepo.GetLabelForEvent(eventKey)}** event.").ConfigureAwait(false);
+                    await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo.GetLabelForTeam(teamNumber, includeLocation: false)}** at the **{_eventsRepo.GetLabelForEvent(eventKey, includeYear: true)}** event.").ConfigureAwait(false);
                 }
                 else if (!string.IsNullOrWhiteSpace(eventKey))
                 {
-                    await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to the **{_eventsRepo.GetLabelForEvent(eventKey)}** event.").ConfigureAwait(false);
+                    await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to the **{_eventsRepo.GetLabelForEvent(eventKey, includeYear: true)}** event.").ConfigureAwait(false);
                 }
                 else
                 {
-                    await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo.GetLabelForTeam(teamNumber)}**.").ConfigureAwait(false);
+                    await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo.GetLabelForTeam(teamNumber, includeLocation: false)}**.").ConfigureAwait(false);
                 }
             }
             catch (Exception ex)

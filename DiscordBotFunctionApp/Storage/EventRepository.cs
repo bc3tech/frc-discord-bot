@@ -74,7 +74,7 @@ internal sealed class EventRepository(IEventApi apiClient, ILogger<EventReposito
                 location.Append(e.Country);
             }
 
-            return $"{(includeYear ? e.Year : string.Empty)}{(shortName ? e.ShortName : e.Name)}{(location.Length > 0 ? $" - {location}" : string.Empty)}";
+            return $"{(includeYear ? $"{e.Year} " : string.Empty)}{(shortName ? e.ShortName : e.Name)}{(location.Length > 0 ? $" - {location}" : string.Empty)}";
         }
 
         logger.EventEventKeyNotFoundInCache(eventKey);
