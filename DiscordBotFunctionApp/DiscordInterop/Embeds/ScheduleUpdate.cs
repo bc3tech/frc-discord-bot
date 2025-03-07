@@ -27,7 +27,7 @@ internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger
 
                 ## {notification.event_name}
 
-                Next match start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.first_match_time!).ToPacificTime():T}
+                Next match start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.first_match_time!).ToPacificTime():t}
 
                 View the detailed event schedule [here](https://www.thebluealliance.com/event/{notification.event_key})
                 """);

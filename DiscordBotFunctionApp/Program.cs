@@ -23,6 +23,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
 
 using System;
+using System.Globalization;
 
 using Throws = Common.Throws;
 
@@ -32,6 +33,8 @@ internal sealed class Program
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Required for main()")]
     private static async Task Main(string[] args)
     {
+        CultureInfo.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+
         AppContext.SetSwitch("Azure.Experimental.EnableActivitySource", true);
         AppContext.SetSwitch("Azure.Experimental.TraceGenAIMessageContent", true);
 
