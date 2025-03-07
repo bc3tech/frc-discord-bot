@@ -18,8 +18,8 @@ internal sealed class MatchSummariesUpdater(AgentsClient client,
                                             IHttpClientFactory httpClientFactory, IConfiguration appConfig,
                                             ILogger<MatchSummariesUpdater> logger)
 {
-    private const string httpClientName = "GoogleDocs";
-    private const string matchSummariesPdfName = "Match Summaries 2025.pdf";
+    private const string HttpClientName = "GoogleDocs";
+    private const string MatchSummariesPdfName = "2025 Season Bear Metal Match Summaries.pdf";
 
     [Function("MatchSummariesUpdater")]
     public async Task RunAsync([TimerTrigger("*/15 * * * *"
@@ -63,13 +63,13 @@ internal sealed class MatchSummariesUpdater(AgentsClient client,
                     var matchSummariesDocUrl = new Uri(matchSummariesDocUrlConfigVal);
                     var vectorStoreId = agent.ToolResources.FileSearch.VectorStoreIds[0];
 
-                    var summariesUploadTrackingRecord = await filesTable.GetEntityIfExistsAsync<TableEntity>(vectorStoreId, matchSummariesPdfName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    var summariesUploadTrackingRecord = await filesTable.GetEntityIfExistsAsync<TableEntity>(vectorStoreId, MatchSummariesPdfName, cancellationToken: cancellationToken).ConfigureAwait(false);
                     if (!summariesUploadTrackingRecord.HasValue)
                     {
                         logger.NoTrackingRecordFoundInTableUploadingNewFile();
                         var newFile = (await UploadMatchSummariesAsync(agent, matchSummariesDocUrl, cancellationToken: cancellationToken).ConfigureAwait(false))!;
 
-                        await filesTable.AddEntityAsync(new TableEntity(vectorStoreId, matchSummariesPdfName)
+                        await filesTable.AddEntityAsync(new TableEntity(vectorStoreId, MatchSummariesPdfName)
                         {
                             ["FileId"] = newFile.Id,
                             ["FilePurpose"] = newFile.Purpose.ToString(),
@@ -98,7 +98,7 @@ internal sealed class MatchSummariesUpdater(AgentsClient client,
                             if (newFile is not null)
                             {
                                 Debug.Assert(newFile.Size != existingFilesize);
-                                await filesTable.UpdateEntityAsync(new TableEntity(vectorStoreId, matchSummariesPdfName)
+                                await filesTable.UpdateEntityAsync(new TableEntity(vectorStoreId, MatchSummariesPdfName)
                                 {
                                     ["FileId"] = newFile.Id,
                                     ["FilePurpose"] = newFile.Purpose.ToString(),
@@ -115,7 +115,7 @@ internal sealed class MatchSummariesUpdater(AgentsClient client,
     private async Task<AgentFile?> UploadMatchSummariesAsync(Agent agent, Uri matchSummariesDocUrl, int? existingFilesize = null, CancellationToken cancellationToken = default)
     {
         logger.LoadingTeamMatchSummariesPDFFromGoogleDocs();
-        var response = await httpClientFactory.CreateClient(httpClientName).GetAsync(matchSummariesDocUrl, cancellationToken).ConfigureAwait(false);
+        var response = await httpClientFactory.CreateClient(HttpClientName).GetAsync(matchSummariesDocUrl, cancellationToken).ConfigureAwait(false);
 
         if (existingFilesize.HasValue && response.Content.Headers.ContentLength == existingFilesize)
         {
@@ -124,7 +124,7 @@ internal sealed class MatchSummariesUpdater(AgentsClient client,
         }
 
         logger.UploadingTeamMatchSummariesPDFToAzureAI();
-        var newFile = await client.UploadFileAsync(await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false), AgentFilePurpose.Agents, matchSummariesPdfName, cancellationToken).ConfigureAwait(false);
+        var newFile = await client.UploadFileAsync(await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false), AgentFilePurpose.Agents, MatchSummariesPdfName, cancellationToken).ConfigureAwait(false);
         var newVectorStoreFile = await client.CreateVectorStoreFileAsync(agent.ToolResources.FileSearch.VectorStoreIds[0], newFile.Value.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
         var ingestStartTime = TimeProvider.System.GetUtcNow();
         logger.UploadedTeamMatchSummariesPDFToAzureAI();
