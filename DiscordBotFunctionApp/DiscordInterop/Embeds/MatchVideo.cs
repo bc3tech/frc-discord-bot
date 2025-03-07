@@ -30,11 +30,15 @@ internal sealed class MatchVideo(IMatchApi matches, EventRepository eventRepo, E
             yield break;
         }
 
-        var embedding = baseBuilder
-            .WithTitle($"New video for {notification.event_name} | {Translator.CompLevelToShortString(notification.match!.CompLevel.ToInvariantString())} {notification.match.SetNumber}.{notification.match.MatchNumber}")
-            .WithDescription(string.Join('\n', notification.match.GetVideoUrls().Select(i => $"- {i.Link}")));
+        var videoUrls = notification.match?.GetVideoUrls();
+        if (videoUrls is not null && videoUrls.Any())
+        {
+            var embedding = baseBuilder
+                .WithTitle($"New video{(videoUrls.Count() > 1 ? 's' : string.Empty)} posted")
+                .WithDescription(string.Join('\n', videoUrls.Select(i => $"- {i.Link}")));
 
-        yield return new(embedding.Build());
+            yield return new(embedding.Build());
+        }
     }
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
