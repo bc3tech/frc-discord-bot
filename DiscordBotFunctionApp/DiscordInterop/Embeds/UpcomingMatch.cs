@@ -50,15 +50,12 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
 
         logger.CreatingUpcomingMatchEmbeddingForWebhookMessageNotification(JsonSerializer.Serialize(msg), JsonSerializer.Serialize(notification));
 
-        var compLevelHeader = $"{Translator.CompLevelToShortString(detailedMatch.CompLevel.ToInvariantString()!)} {detailedMatch.SetNumber}";
-        var matchHeader = $"Match {detailedMatch.MatchNumber}";
-
         StringBuilder descriptionBuilder = new();
         descriptionBuilder.AppendLine(
             $"""
             # Match starting soon!
 
-            ## {events.GetLabelForEvent(detailedMatch.EventKey)}: {compLevelHeader} - {matchHeader}
+            ## {Translator.CompLevelToShortString(detailedMatch.CompLevel.ToInvariantString()!)} {detailedMatch.SetNumber} - Match {detailedMatch.MatchNumber}
 
             Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.scheduled_time!).ToPacificTime():t}
             **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToPacificTime():t}**
@@ -117,8 +114,8 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
         StringBuilder descriptionBuilder = new();
         descriptionBuilder.AppendLine(
             $"""
-            # Next Match for {teams.GetLabelForTeam(highlightTeam, includeLocation: false)}
-            ## {events.GetLabelForEvent(simpleMatch.EventKey)}: {compLevelHeader} - Match {simpleMatch.MatchNumber}
+            # Next Match for {teams.GetLabelForTeam(highlightTeam, includeLocation: false)} at {events.GetLabelForEvent(simpleMatch.EventKey, shortName: true)}
+            ## {compLevelHeader} - Match {simpleMatch.MatchNumber}
 
             Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds(simpleMatch.Time.GetValueOrDefault(0)!).ToPacificTime():t}
             **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds(simpleMatch.PredictedTime.GetValueOrDefault(0)).ToPacificTime():t}**
