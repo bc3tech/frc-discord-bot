@@ -11,6 +11,19 @@ public static class MatchModelExtensions
     {
         var alliance = match.ScoreBreakdown?.ActualInstance!.GetType().GetProperty(allianceColor.ToInvariantString())!.GetValue(match.ScoreBreakdown.ActualInstance);
         var rpValue = (int?)alliance?.GetType().GetProperty("Rp")?.GetValue(alliance);
+        return CorrectRpValue(rpValue);
+    }
+
+    private static int? CorrectRpValue(int? rpValue)
+    {
+        if (rpValue is not null)
+        {
+            if (rpValue > 6 || rpValue < 0)
+            {
+                return null;
+            }
+        }
+
         return rpValue;
     }
 
