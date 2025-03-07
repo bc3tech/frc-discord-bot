@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 using System.Threading.Tasks;
 
 using TheBlueAlliance.Api;
@@ -47,7 +48,7 @@ internal sealed class EventRepository(IEventApi apiClient, ILogger<EventReposito
         return _events;
     }
 
-    public string GetLabelForEvent(string eventKey)
+    public string GetLabelForEvent(string eventKey, bool shortName = false, bool includeYear = false, bool includeCity = false, bool includeCountry = false)
     {
         using var scope = logger.CreateMethodScope();
         if (eventKey is CommonConstants.ALL)
@@ -57,7 +58,23 @@ internal sealed class EventRepository(IEventApi apiClient, ILogger<EventReposito
 
         if (_events.TryGetValue(eventKey, out var e) is true && e is not null)
         {
-            return $"{(!string.IsNullOrWhiteSpace(e.Name) ? $"{e.Year} {e.Name}" : string.Empty)}{(!string.IsNullOrWhiteSpace(e.City) && !string.IsNullOrWhiteSpace(e.Country) ? $" - {e.City}, {e.Country}" : string.Empty)}";
+            var location = new StringBuilder();
+            if (includeCity && !string.IsNullOrEmpty(e.City))
+            {
+                location.Append(e.City);
+            }
+
+            if (includeCountry && !string.IsNullOrEmpty(e.Country))
+            {
+                if (location.Length > 0)
+                {
+                    location.Append(", ");
+                }
+
+                location.Append(e.Country);
+            }
+
+            return $"{(includeYear ? e.Year : string.Empty)}{(shortName ? e.ShortName : e.Name)}{(location.Length > 0 ? $" - {location}" : string.Empty)}";
         }
 
         logger.EventEventKeyNotFoundInCache(eventKey);
