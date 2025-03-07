@@ -31,7 +31,7 @@ internal sealed class MatchVideo(IMatchApi matches, EventRepository eventRepo, E
         }
 
         var embedding = baseBuilder
-            .WithTitle($"New video for {notification.event_name} | {Translator.CompLevelToShortString(notification.match!.CompLevel.ToInvariantString())} {notification.match.SetNumber}-{notification.match.MatchNumber}")
+            .WithTitle($"New video for {notification.event_name} | {Translator.CompLevelToShortString(notification.match!.CompLevel.ToInvariantString())} {notification.match.SetNumber}.{notification.match.MatchNumber}")
             .WithDescription(string.Join('\n', notification.match.GetVideoUrls().Select(i => $"- {i.Link}")));
 
         yield return new(embedding.Build());
@@ -46,7 +46,7 @@ internal sealed class MatchVideo(IMatchApi matches, EventRepository eventRepo, E
         if (match is not null)
         {
             var embedding = baseBuilder
-                .WithTitle($"Videos for {eventRepo.GetLabelForEvent(match.EventKey)} | {Translator.CompLevelToShortString(match.CompLevel.ToInvariantString())} {match.SetNumber}-{match.MatchNumber}")
+                .WithTitle($"Videos for {eventRepo.GetLabelForEvent(match.EventKey)} | {Translator.CompLevelToShortString(match.CompLevel.ToInvariantString())} {match.SetNumber}.{match.MatchNumber}")
                 .WithDescription(string.Join('\n', match.GetVideoUrls().Select(i => $"- [{i.Name}]({i.Link})")));
 
             yield return new(embedding.Build());

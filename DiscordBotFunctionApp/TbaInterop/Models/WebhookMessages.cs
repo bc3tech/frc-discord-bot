@@ -37,7 +37,7 @@ internal sealed record WebhookMessage
                     Debug.Assert(!string.IsNullOrWhiteSpace(data?.event_name), "Bad data!");
                     if (data is not null)
                     {
-                        threadTitle = $"{data.event_name!} | {Translator.CompLevelToShortString(data.match!.CompLevel.ToInvariantString())} {data.match.SetNumber}-{data.match.MatchNumber}";
+                        threadTitle = $"{data.event_name!} | {Translator.CompLevelToShortString(data.match!.CompLevel.ToInvariantString())} {data.match.SetNumber}.{data.match.MatchNumber}";
                     }
                 }
 
@@ -49,7 +49,7 @@ internal sealed record WebhookMessage
                     Debug.Assert(!string.IsNullOrWhiteSpace(data?.event_name), "Bad data!");
                     if (data is not null)
                     {
-                        threadTitle = $"{data.event_name!} | {Translator.CompLevelToShortString(data.match!.CompLevel.ToInvariantString())} {data.match.SetNumber}-{data.match.MatchNumber}";
+                        threadTitle = $"{data.event_name!} | {Translator.CompLevelToShortString(data.match!.CompLevel.ToInvariantString())} {data.match.SetNumber}.{data.match.MatchNumber}";
                     }
                 }
 
@@ -63,7 +63,7 @@ internal sealed record WebhookMessage
                     {
                         var matchData = Program.Services?.GetRequiredService<IMatchApi>().GetMatch(data.match_key);
                         threadTitle = matchData is not null
-                            ? $"{data.event_name} | {Translator.CompLevelToShortString(matchData.CompLevel.ToInvariantString())} {matchData.SetNumber}-{matchData.MatchNumber}"
+                            ? $"{data.event_name} | {Translator.CompLevelToShortString(matchData.CompLevel.ToInvariantString())} {matchData.SetNumber}.{matchData.MatchNumber}"
                             : data.event_name;
                     }
                 }
