@@ -7,6 +7,7 @@ using Discord.Interactions;
 using Discord.WebSocket;
 
 using DiscordBotFunctionApp;
+using DiscordBotFunctionApp.Extensions;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.Logging;
 
 using System;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -119,19 +121,31 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
         cancellationToken.ThrowIfCancellationRequested();
 
         _logger.LoadingCommandModules();
-        var m = await interactionService.AddModulesAsync(Assembly.GetExecutingAssembly(), services).ConfigureAwait(false);
+
+        var discoveredModules = await interactionService.AddModulesAsync(Assembly.GetExecutingAssembly(), services).ConfigureAwait(false);
         _logger.NumCommandsCommandModulesLoaded(interactionService.Modules.Count);
 
-        cancellationToken.ThrowIfCancellationRequested();
+        await interactionService.RegisterCommandsGloballyAsync();
 
-        _logger.AddingModulesToGuilds();
-        var modulesArray = m.ToArray();
-        foreach (var g in client.Guilds)
-        {
-            await interactionService.AddCommandsToGuildAsync(g, deleteMissing: true);
-            var r = await interactionService.AddModulesToGuildAsync(g, true, modulesArray);
-            _logger.NumCommandsCommandsAddedToGuildGuildNameGuildIdGloballyAvailableCommands(r.Count, g.Name, g.Id, string.Join(", ", r.Select(i => i.Name)));
-        }
+        //foreach (var g in client.Guilds)
+        //{
+        //    while (true)
+        //    {
+        //        try
+        //        {
+        //            var registeredCommands = await interactionService.AddModulesToGuildAsync(g, deleteMissing: true, modules: [.. discoveredModules]).ConfigureAwait(false);
+        //            _logger.NumCommandsCommandsAddedToGuildGuildNameGuildIdGloballyAvailableCommands(registeredCommands.Count, g.Name, g.Id, string.Join(", ", registeredCommands.Select(i => i.Name)));
+        //            break;
+        //        }
+        //        catch (Exception e) when (e is TimeoutException or OperationCanceledException)
+        //        {
+        //            _logger.LogError(e, "Error while trying to do command installation for guild {GuildName} ({GuildId})", g.Name, g.Id);
+        //            // When this happens, we usually have seen a throttling error from Discord which requires us to wait anywhere up to 1m. So, just pause for a minute and try again.
+
+        //            await Task.Delay(TimeSpan.FromMinutes(1)).ConfigureAwait(false);
+        //        }
+        //    }
+        //}
     }
 
     private void LogMessageExecuted(SocketMessageCommand msg)
