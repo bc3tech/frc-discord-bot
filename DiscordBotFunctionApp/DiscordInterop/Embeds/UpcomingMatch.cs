@@ -80,7 +80,7 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
 
                     ### Watch live
 
-                    - {link} ({notification.webcast.ViewerCount} current viewer(s))
+                    - {link} ({notification.webcast.ViewerCount} current viewer{(notification.webcast.ViewerCount is not 1 ? "s" : string.Empty)})
                     """);
             }
         }
