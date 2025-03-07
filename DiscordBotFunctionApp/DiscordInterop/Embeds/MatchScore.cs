@@ -199,7 +199,7 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, EventRe
         descriptionBuilder.AppendLine($"{string.Join("\n", detailedMatch.Alliances.Red.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}");
         if (scoreBreakdown?.Red is null)
         {
-            descriptionBuilder.AppendLine("No score breakdown available");
+            descriptionBuilder.AppendLine("No score breakdown given");
         }
         else
         {
@@ -231,7 +231,7 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, EventRe
         descriptionBuilder.AppendLine($"{string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}");
         if (scoreBreakdown?.Red is null)
         {
-            descriptionBuilder.AppendLine("No score breakdown available");
+            descriptionBuilder.AppendLine("No score breakdown given");
         }
         else
         {
