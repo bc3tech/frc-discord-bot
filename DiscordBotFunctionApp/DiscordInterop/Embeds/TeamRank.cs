@@ -60,11 +60,11 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
             {
                 if (teamYearStats.Epa.TotalPoints?.Mean is not null)
                 {
-                    descriptionBuilder.AppendLine($"## EPA ({teamYearStats.Epa.TotalPoints.Mean:0.##}) rank");
+                    descriptionBuilder.AppendLine($"## EPA ({teamYearStats.Epa.TotalPoints.Mean:0.##}) rank\n");
                 }
                 else
                 {
-                    descriptionBuilder.AppendLine($"## EPA rank");
+                    descriptionBuilder.AppendLine($"## EPA rank\n");
                 }
 
                 if (teamYearStats.Epa.Ranks.State is not null)
@@ -100,7 +100,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
             {
                 var districtDetail = await tbaDistrictData.GetDistrictsByYearAsync(targetYear, cancellationToken: cancellationToken);
                 var district = districtDetail?.FirstOrDefault(i => i.Abbreviation.Equals(d.DistrictCode, StringComparison.OrdinalIgnoreCase));
-                descriptionBuilder.AppendLine($"## {(district is not null ? district.DisplayName : d.DistrictCode)} District rank");
+                descriptionBuilder.AppendLine($"## {(district is not null ? district.DisplayName : d.DistrictCode)} District rank\n");
                 descriptionBuilder.AppendLine($"Current Rank: {d.Rank}");
                 descriptionBuilder.AppendLine($"District Points: {d.TotalPoints} (Adjusted - {d.AdjustmentPoints})");
                 yield return new(embedding.WithDescription(descriptionBuilder.ToString()).Build());
@@ -112,7 +112,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                     var tbaTeamRank = tbaRanks?.FirstOrDefault(tbaRanks => tbaRanks.TeamKey == teamKey);
                     if (tbaTeamRank is not null and { EventPoints: not null and { Count: > 0 } })
                     {
-                        descriptionBuilder.AppendLine($"### District Point breakdown by Event");
+                        descriptionBuilder.AppendLine($"### District Point breakdown by Event\n");
                         foreach (var e in tbaTeamRank.EventPoints)
                         {
                             descriptionBuilder.AppendLine($"**{events.GetLabelForEvent(e.EventKey)}**");
@@ -131,7 +131,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
 
         if (!string.IsNullOrWhiteSpace(input.EventKey))
         {
-            descriptionBuilder.AppendLine($"## {events.GetLabelForEvent(input.EventKey)}");
+            descriptionBuilder.AppendLine($"## {events.GetLabelForEvent(input.EventKey)}\n");
             var eventDetail = await tbaEventData.GetEventSimpleAsync(input.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
             Debug.Assert(eventDetail is not null);
             if (eventDetail is null)

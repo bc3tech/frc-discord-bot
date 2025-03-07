@@ -27,11 +27,10 @@ internal sealed class MatchVideo(IMatchApi matches, EventRepository eventRepo, E
         if (notification is null)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
-            yield return new(baseBuilder.Build());
             yield break;
         }
 
-        var embedding = builderFactory.GetBuilder()
+        var embedding = baseBuilder
             .WithTitle($"New video for {notification.event_name} | {Translator.CompLevelToShortString(notification.match!.CompLevel.ToInvariantString())} {notification.match.SetNumber}-{notification.match.MatchNumber}")
             .WithDescription(string.Join('\n', notification.match.GetVideoUrls().Select(i => $"- {i}")));
 
@@ -46,7 +45,7 @@ internal sealed class MatchVideo(IMatchApi matches, EventRepository eventRepo, E
         var match = await matches.GetMatchAsync(matchKey, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (match is not null)
         {
-            var embedding = builderFactory.GetBuilder()
+            var embedding = baseBuilder
                 .WithTitle($"Videos for {eventRepo.GetLabelForEvent(match.EventKey)} | {Translator.CompLevelToShortString(match.CompLevel.ToInvariantString())} {match.SetNumber}-{match.MatchNumber}")
                 .WithDescription(string.Join('\n', match.GetVideoUrls().Select(i => $"- [{i.Name}]({i.Link})")));
 

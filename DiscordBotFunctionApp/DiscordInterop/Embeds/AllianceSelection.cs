@@ -52,7 +52,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient, TeamRepository team
         for (int i = 0; i < alliances.Count; i++)
         {
             var alliance = alliances[i];
-            descriptionBuilder.AppendLine($"### Alliance {i + 1}");
+            descriptionBuilder.AppendLine($"### Alliance {i + 1}\n");
             foreach (var team in alliance.Picks!.OrderBy(t => t.ToTeamNumber()))
             {
                 descriptionBuilder.AppendLine($"- {teams.GetTeamLabelWithHighlight(team, highlightTeam)} (#{ranks[team]})");

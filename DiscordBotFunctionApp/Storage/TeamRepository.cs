@@ -52,14 +52,14 @@ internal sealed class TeamRepository(ITeamApi tbaApiClient, ILogger<TeamReposito
         return _teams;
     }
 
-    public string GetLabelForTeam(ushort? teamNumber) => teamNumber.HasValue ? teamNumber.Value is 0 ? "All" : GetLabelForTeam($"frc{teamNumber.Value}") : string.Empty;
+    public string GetLabelForTeam(ushort? teamNumber, bool includeNumber = true, bool includeName = true, bool includeLocation = true) => teamNumber.HasValue ? teamNumber.Value is 0 ? "All" : GetLabelForTeam($"frc{teamNumber.Value}", includeNumber, includeName, includeLocation) : string.Empty;
 
-    public string GetLabelForTeam(string teamKey)
+    public string GetLabelForTeam(string teamKey, bool includeNumber = true, bool includeName = true, bool includeLocation = true)
     {
         using var scope = logger.CreateMethodScope();
         if (_teams?.TryGetValue(teamKey, out var t) is true && t is not null)
         {
-            return $"{t.TeamNumber} {(!string.IsNullOrWhiteSpace(t.Nickname) ? t.Nickname : string.Empty)}{(!string.IsNullOrWhiteSpace(t.City) && !string.IsNullOrWhiteSpace(t.Country) ? $" - {t.City}, {t.Country}" : string.Empty)}";
+            return $"{(includeNumber ? $"{t.TeamNumber} " : string.Empty)}{(includeName && !string.IsNullOrWhiteSpace(t.Nickname) ? t.Nickname : string.Empty)}{(includeLocation && !string.IsNullOrWhiteSpace(t.City) && !string.IsNullOrWhiteSpace(t.Country) ? $" - {t.City}, {t.Country}" : string.Empty)}";
         }
 
         logger.TeamTeamNumberNotFoundInCache(teamKey);

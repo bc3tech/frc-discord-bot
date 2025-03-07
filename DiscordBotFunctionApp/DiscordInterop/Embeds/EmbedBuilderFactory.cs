@@ -6,13 +6,11 @@ using Discord;
 
 internal sealed class EmbedBuilderFactory(EmbeddingColorizer colorizer)
 {
-    private static readonly EmbedBuilder _defaultBuilder = new();
-
     public EmbedBuilder GetBuilder(string teamKey) => GetBuilder(teamKey.ToTeamNumber());
 
     public EmbedBuilder GetBuilder(ushort? teamNumber = null)
     {
-        var r = _defaultBuilder
+        var r = new EmbedBuilder()
         .WithFooter(
 #if DEBUG
         "**DEVELOPMENT MODE** " +

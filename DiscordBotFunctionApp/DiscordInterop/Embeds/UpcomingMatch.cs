@@ -56,10 +56,12 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
         StringBuilder descriptionBuilder = new();
         descriptionBuilder.AppendLine(
             $"""
-                # Match starting soon!
-                ## {events.GetLabelForEvent(detailedMatch.EventKey)}: {compLevelHeader} - {matchHeader}
-                Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.scheduled_time!).ToPacificTime():t}
-                **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToPacificTime():t}**
+            # Match starting soon!
+
+            ## {events.GetLabelForEvent(detailedMatch.EventKey)}: {compLevelHeader} - {matchHeader}
+
+            Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.scheduled_time!).ToPacificTime():t}
+            **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToPacificTime():t}**
             """);
 
         await BuildDescriptionAsync(descriptionBuilder, highlightTeam, detailedMatch, cancellationToken, beforeFooter: addWebcastDetail).ConfigureAwait(false);
@@ -77,8 +79,9 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
                     $"""
 
                     ### Watch live
+
                     - {link} {notification.webcast.ViewerCount} current viewer(s)
-                """);
+                    """);
             }
         }
 
@@ -114,12 +117,12 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
         StringBuilder descriptionBuilder = new();
         descriptionBuilder.AppendLine(
             $"""
-                # Next Match for {teams.GetLabelForTeam(highlightTeam)}
-                ## {events.GetLabelForEvent(simpleMatch.EventKey)}: {compLevelHeader} - Match {simpleMatch.MatchNumber}
-                Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds(simpleMatch.Time.GetValueOrDefault(0)!).ToPacificTime():t}
-                **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds(simpleMatch.PredictedTime.GetValueOrDefault(0)).ToPacificTime():t}**
-            """
-            );
+            # Next Match for {teams.GetLabelForTeam(highlightTeam, includeLocation: false)}
+            ## {events.GetLabelForEvent(simpleMatch.EventKey)}: {compLevelHeader} - Match {simpleMatch.MatchNumber}
+
+            Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds(simpleMatch.Time.GetValueOrDefault(0)!).ToPacificTime():t}
+            **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds(simpleMatch.PredictedTime.GetValueOrDefault(0)).ToPacificTime():t}**
+            """);
 
         var matchVideoData = await tbaApi.GetMatchAsync(simpleMatch.Key, cancellationToken: cancellationToken).ConfigureAwait(false);
         await BuildDescriptionAsync(descriptionBuilder, highlightTeam, simpleMatch, cancellationToken, beforeFooter: addMatchVideos);
@@ -131,8 +134,9 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
             {
                 builder.AppendLine(
                     $"""
-                        ### Match videos
-                        {string.Join("\n", videoUrls.Select(i => $"- [{i.Name}]({i.Link})"))}
+                    ### Match videos
+
+                    {string.Join("\n", videoUrls.Select(i => $"- [{i.Name}]({i.Link})"))}
                     """);
             }
         }
@@ -164,41 +168,44 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
         descriptionBuilder.AppendLine(
                 $"""
                 ### Alliances
-                **Red Alliance**
-                {string.Join("\n", detailedMatch.Alliances.Red.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
 
-            """);
+                **Red Alliance**
+                {string.Join("\n", detailedMatch.Alliances.Red.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}
+
+                """);
         descriptionBuilder.AppendLine(
             $"""
-                **Blue Alliance**
-                {string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)} (#{ranks[t]})"))}
+            **Blue Alliance**
+            {string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}
             """);
 
         if (predictedWinner is not null and not MatchSimple.WinningAllianceEnum.Empty && predictedWinner.HasValue)
         {
+            var certainty = predictedWinner is MatchSimple.WinningAllianceEnum.Red ? stats!.Pred!.RedWinProb : (1 - stats!.Pred!.RedWinProb);
             descriptionBuilder.Append(
                 $"""
+                ## Prediction
 
-                    ## Prediction
-                    - Winner: {predictedWinner.Value.ToInvariantString()} Alliance ({(predictedWinner is MatchSimple.WinningAllianceEnum.Red ? stats!.Pred!.RedWinProb : (1 - stats!.Pred!.RedWinProb)):P2})
+                - Winner: {predictedWinner.Value.ToInvariantString()} Alliance{(certainty.HasValue ? $" ({certainty:P2})" : string.Empty)}
                 """);
             if (containsHighlightedTeam)
             {
+                var highlightShouldWin = (predictedWinner is MatchSimple.WinningAllianceEnum.Red && stats.Alliances!.Red?.TeamKeys?.Contains(highlightTeam!.Value) is true)
+                        || (predictedWinner is MatchSimple.WinningAllianceEnum.Blue && stats.Alliances!.Blue?.TeamKeys?.Contains(highlightTeam!.Value) is true);
+                var nailBiter = certainty.HasValue && certainty >= .45f && certainty <= .55f;
                 descriptionBuilder
-                    .Append(((predictedWinner is MatchSimple.WinningAllianceEnum.Red && stats.Alliances!.Red?.TeamKeys?.Contains(highlightTeam!.Value) is true)
-                        || (predictedWinner is MatchSimple.WinningAllianceEnum.Blue && stats.Alliances!.Blue?.TeamKeys?.Contains(highlightTeam!.Value) is true))
-                        ? " 🤞🤞" : " 💪💪");
+                    .Append(highlightShouldWin ? $" 🤞{(nailBiter ? "😬" : "🤞")}" : $" 💪{(nailBiter ? "😬" : "💪")}");
             }
 
             descriptionBuilder
                 .AppendLine()
-                            .AppendLine($"- Score: [Red] {stats.Pred!.RedScore} - [Blue] {stats.Pred.BlueScore}");
+                            .AppendLine($"- Score: [Red] {stats.Pred!.RedScore} | [Blue] {stats.Pred.BlueScore}");
         }
 
         beforeFooter?.Invoke(descriptionBuilder);
 
         descriptionBuilder.AppendLine()
-            .Append($"View more match details[here](https://www.thebluealliance.com/match/{detailedMatch.Key})");
+            .Append($"View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})");
 
         return descriptionBuilder;
     }

@@ -293,7 +293,7 @@ static partial class Log
     [LoggerMessage(94, LogLevel.Trace, "Uploading Team Match Summaries PDF to Azure AI")]
     internal static partial void UploadingTeamMatchSummariesPDFToAzureAI(this ILogger logger);
 
-    [LoggerMessage(95, LogLevel.Information, "Uploaded Team Match Summaries PDF to Azure AI")]
+    [LoggerMessage(95, LogLevel.Information, "Uploaded Team Match Summaries PDF to Azure AI Vector Store, waiting for it to be ready...")]
     internal static partial void UploadedTeamMatchSummariesPDFToAzureAI(this ILogger logger);
 
     [LoggerMessage(96, LogLevel.Debug, "{NumCommands} commands added to Guild {GuildName}({GuildId}) globally ({AvailableCommands})")]
@@ -328,4 +328,37 @@ static partial class Log
 
     [LoggerMessage(107, LogLevel.Debug, "Outside normal match hours, skipping update.")]
     internal static partial void OutsideNormalMatchHoursSkippingUpdate(this ILogger logger);
+
+    [LoggerMessage(108, LogLevel.Error, "Failed to register commands to guild {GuildName}({GuildId}) after 10 attempts. Please check the logs for more details.")]
+    internal static partial void FailedToRegisterCommandsToGuildGuildNameGuildIdAfter10AttemptsPleaseCheckTheLogsForMoreDetails(this ILogger logger, string GuildName, ulong GuildId);
+
+    [LoggerMessage(109, LogLevel.Warning, "[{RetryAttempt}] Operation cancelled while trying to register commands to guild {GuildName}({GuildId}) - assuming throttling, waiting 1m for retry.")]
+    internal static partial void RetryAttemptOperationCancelledWhileTryingToRegisterCommandsToGuildGuildNameGuildIdAssumingThrottlingWaiting1mForRetry(this ILogger logger, int RetryAttempt, string GuildName, ulong GuildId);
+
+    [LoggerMessage(110, LogLevel.Debug, "Removed {NumCommands} from guild {GuildName} ({GuildId})")]
+    internal static partial void RemovedNumCommandsFromGuildGuildNameGuildId(this ILogger logger, int NumCommands, string GuildName, ulong GuildId);
+
+    [LoggerMessage(111, LogLevel.Debug, "Deleted {GuildCommands} commands from guild {GuildName}({GuildId})")]
+    internal static partial void DeletedGuildCommandsCommandsFromGuildGuildNameGuildId(this ILogger logger, int GuildCommands, string GuildName, ulong GuildId);
+
+    [LoggerMessage(112, LogLevel.Trace, "Still waiting for file to be processed...")]
+    internal static partial void StillWaitingForFileToBeProcessed(this ILogger logger);
+
+    [LoggerMessage(113, LogLevel.Information, "File {FileId} has been processed successfully.")]
+    internal static partial void FileFileIdHasBeenProcessedSuccessfully(this ILogger logger, string FileId);
+
+    [LoggerMessage(114, LogLevel.Error, "Failed to uplooad Match Summaries file: {FileId} with status: {Status}")]
+    internal static partial void FailedToUplooadMatchSummariesFileFileIdWithStatusStatus(this ILogger logger, string FileId, Azure.AI.Projects.VectorStoreFileStatus Status);
+
+    [LoggerMessage(115, LogLevel.Warning, "Unknown file status: {Status}")]
+    internal static partial void UnknownFileStatusStatus(this ILogger logger, Azure.AI.Projects.VectorStoreFileStatus Status);
+
+    [LoggerMessage(116, LogLevel.Warning, "Vector store processing is taking a VERY long time. This may be a sign of a problem. File: {FileId}")]
+    internal static partial void VectorStoreProcessingIsTakingAVERYLongTimeThisMayBeASignOfAProblemFileFileId(this ILogger logger, string FileId);
+
+    [LoggerMessage(117, LogLevel.Error, "Vector store processing has taken over 10 minutes. Bailing. File: {FileId}")]
+    internal static partial void VectorStoreProcessingHasTakenOver10MinutesBailingFileFileId(this ILogger logger, string FileId);
+
+    [LoggerMessage(118, LogLevel.Trace, "Response: {Response}")]
+    internal static partial void ResponseResponse(this ILogger logger, string Response);
 }
