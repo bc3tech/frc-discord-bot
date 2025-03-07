@@ -83,7 +83,7 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
             {
                 await foreach (var response in agent.InvokeAsync(thread.Id, cancellationToken: cancellationToken).ConfigureAwait(false))
                 {
-                    logger.LogTrace("Response: {Response}", JsonSerializer.Serialize(response));
+                    logger.ResponseResponse(JsonSerializer.Serialize(response));
 
                     var usage = response.Metadata?["Usage"] as RunStepCompletionUsage;
                     if (usage is not null)
