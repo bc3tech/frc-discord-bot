@@ -4,7 +4,6 @@ using Azure.AI.Projects;
 using Azure.Data.Tables;
 
 using Discord;
-using Discord.WebSocket;
 
 using DiscordBotFunctionApp.Extensions;
 
@@ -13,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel.Agents.AzureAI;
 
 using System.Diagnostics;
-using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 #pragma warning disable SKEXP0110 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
@@ -24,9 +23,12 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
 
     public async Task HandleUserMessageAsync(IUserMessage msg, CancellationToken cancellationToken = default)
     {
+        var interactionStartTime = TimeProvider.System.GetUtcNow();
         var responseChannel = await discordClient.GetDMChannelAsync(msg.Channel.Id).ConfigureAwait(false);
         using var typing = responseChannel.EnterTypingState();
         CancellationTokenSource sorryForTheDelayCanceler = new();
+
+        var serializedAuthor = JsonSerializer.Serialize(msg.Author);
 
         try
         {
@@ -38,8 +40,7 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
                 await userThreadMappings.UpsertEntityAsync(new TableEntity(msg.Author.Id.ToString(), msg.Author.Id.ToString())
                 {
                     ["AgentThreadId"] = thread.Id,
-                    ["Username"] = msg.Author.Username,
-                    ["GlobalName"] = msg.Author.GlobalName
+                    ["Author"] = serializedAuthor,
                 }, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
             }
             else
@@ -55,7 +56,7 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
             {
                 try
                 {
-                    await Task.Delay(5000, sorryForTheDelayCanceler.Token).ConfigureAwait(false);
+                    await Task.Delay(10_000, sorryForTheDelayCanceler.Token).ConfigureAwait(false);
 
                     for (int numDots = 3; !sorryForTheDelayCanceler.IsCancellationRequested; numDots++)
                     {
@@ -82,6 +83,20 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
             {
                 await foreach (var response in agent.InvokeAsync(thread.Id, cancellationToken: cancellationToken).ConfigureAwait(false))
                 {
+                    logger.LogTrace("Response: {Response}", JsonSerializer.Serialize(response));
+
+                    var usage = response.Metadata?["Usage"] as RunStepCompletionUsage;
+                    if (usage is not null)
+                    {
+                        logger.LogMetric("TokenUsage", usage.TotalTokens, new Dictionary<string, object>
+                        {
+                            ["ThreadId"] = thread.Id,
+                            ["Usage"] = JsonSerializer.Serialize(usage),
+                            ["RunId"] = response.Metadata!["RunId"]?.ToString() ?? "Unknown",
+                            ["Author"] = serializedAuthor
+                        });
+                    }
+
                     if (response.Metadata?.TryGetValue("code", out var codeValue) is true && codeValue is true)
                     {
 #if !DEBUG
@@ -136,6 +151,7 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
                     if (firstMessage is null)
                     {
                         firstMessage = latestMessage = await responseChannel.SendMessageAsync(msg, flags: MessageFlags.SuppressEmbeds, options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+                        logger.LogMetric("AgentFirstMessageDelaySec", (TimeProvider.System.GetUtcNow() - interactionStartTime).TotalSeconds);
                     }
                     else
                     {
@@ -176,6 +192,8 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
             sorryForTheDelayCanceler.Dispose();
             typing.Dispose();
         }
+
+        logger.LogMetric("InteractionTimeSec", (TimeProvider.System.GetUtcNow() - interactionStartTime).TotalSeconds);
     }
 
     [GeneratedRegex(@"\w*【[^】]+】\w*", RegexOptions.Compiled)]
