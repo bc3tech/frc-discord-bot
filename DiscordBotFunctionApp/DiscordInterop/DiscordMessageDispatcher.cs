@@ -93,7 +93,7 @@ internal sealed partial class DiscordMessageDispatcher(
             List<ulong?> channelsWhereWeAlreadyPostedIntoThreads = [];
             if (threadLocator is not null)
             {
-                var (pk, rk, title) = threadLocator.Value;
+                var (pk, rk, _) = threadLocator.Value;
                 var entity = await threadsTable.GetEntityIfExistsAsync<ThreadTableEntity>(pk, rk, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (entity.HasValue && entity.Value is not null)
                 {
