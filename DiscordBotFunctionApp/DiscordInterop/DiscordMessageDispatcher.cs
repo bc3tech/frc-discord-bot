@@ -12,13 +12,11 @@ using Discord.WebSocket;
 using DiscordBotFunctionApp;
 using DiscordBotFunctionApp.DiscordInterop.Embeds;
 using DiscordBotFunctionApp.Extensions;
-using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.Storage.TableEntities;
 using DiscordBotFunctionApp.TbaInterop.Models;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Client;
 
 using System;
 using System.Diagnostics;
@@ -30,9 +28,11 @@ internal sealed partial class DiscordMessageDispatcher(
     [FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptionsTable,
     [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptionsTable,
     [FromKeyedServices(Constants.ServiceKeys.TableClient_Threads)] TableClient threadsTable,
-    DiscordSocketClient _discordClient, WebhookEmbeddingGenerator _embedGenerator,
+    IDiscordClient discordClient, WebhookEmbeddingGenerator _embedGenerator,
     ILogger<DiscordMessageDispatcher> logger)
 {
+    private readonly DiscordSocketClient _discordClient = (discordClient as DiscordSocketClient) ?? throw new ArgumentException(nameof(discordClient));
+
     public async Task<bool> ProcessWebhookMessageAsync(WebhookMessage message, CancellationToken cancellationToken)
     {
         using var scope = logger.CreateMethodScope();
