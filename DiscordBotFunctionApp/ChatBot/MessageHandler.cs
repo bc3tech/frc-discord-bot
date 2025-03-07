@@ -63,11 +63,11 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
                         {
                             if (thinkingMessage is null)
                             {
-                                thinkingMessage = await responseChannel.SendMessageAsync($"-# Sorry, still thinking...", options: sorryForTheDelayCanceler.Token.ToRequestOptions());
+                                thinkingMessage = await responseChannel.SendMessageAsync($"-# Working on it...", options: sorryForTheDelayCanceler.Token.ToRequestOptions());
                             }
                             else
                             {
-                                await thinkingMessage.ModifyAsync(p => p.Content = $"-# Sorry, still thinking{new string('.', numDots)}", options: sorryForTheDelayCanceler.Token.ToRequestOptions());
+                                await thinkingMessage.ModifyAsync(p => p.Content = $"-# Working on it{new string('.', numDots)}", options: sorryForTheDelayCanceler.Token.ToRequestOptions());
                             }
 
                             await Task.Delay(2000, sorryForTheDelayCanceler.Token).ConfigureAwait(false);

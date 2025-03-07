@@ -290,7 +290,7 @@ static partial class Log
     [LoggerMessage(93, LogLevel.Debug, "Loading Team Match Summaries PDF from Google Docs")]
     internal static partial void LoadingTeamMatchSummariesPDFFromGoogleDocs(this ILogger logger);
 
-    [LoggerMessage(94, LogLevel.Debug, "Uploading Team Match Summaries PDF to Azure AI")]
+    [LoggerMessage(94, LogLevel.Trace, "Uploading Team Match Summaries PDF to Azure AI")]
     internal static partial void UploadingTeamMatchSummariesPDFToAzureAI(this ILogger logger);
 
     [LoggerMessage(95, LogLevel.Information, "Uploaded Team Match Summaries PDF to Azure AI")]
@@ -307,4 +307,25 @@ static partial class Log
 
     [LoggerMessage(100, LogLevel.Warning, "Unknown button clicked: {ButtonId}")]
     internal static partial void UnknownButtonClickedButtonId(this ILogger? logger, string ButtonId);
+
+    [LoggerMessage(101, LogLevel.Debug, "Match Summaries PDF already uploaded and is the same size as the existing file. No need to re-upload.")]
+    internal static partial void MatchSummariesPDFAlreadyUploadedAndIsTheSameSizeAsTheExistingFileNoNeedToReUpload(this ILogger logger);
+
+    [LoggerMessage(102, LogLevel.Debug, "Didn't find the target agent to update. Waiting for it to be available...")]
+    internal static partial void DidnTFindTheTargetAgentToUpdateWaitingForItToBeAvailable(this ILogger logger);
+
+    [LoggerMessage(103, LogLevel.Information, "Running Match Summary doc update...")]
+    internal static partial void RunningMatchSummaryDocUpdate(this ILogger logger);
+
+    [LoggerMessage(104, LogLevel.Trace, "No tracking record found in table, uploading new file")]
+    internal static partial void NoTrackingRecordFoundInTableUploadingNewFile(this ILogger logger);
+
+    [LoggerMessage(105, LogLevel.Trace, "Found tracking record in table, checking if reupload is needed")]
+    internal static partial void FoundTrackingRecordInTableCheckingIfReuploadIsNeeded(this ILogger logger);
+
+    [LoggerMessage(106, LogLevel.Debug, "Not running on Friday, Saturday, or Sunday. Skipping match summaries update.")]
+    internal static partial void NotRunningOnFridaySaturdayOrSundaySkippingMatchSummariesUpdate(this ILogger logger);
+
+    [LoggerMessage(107, LogLevel.Debug, "Outside normal match hours, skipping update.")]
+    internal static partial void OutsideNormalMatchHoursSkippingUpdate(this ILogger logger);
 }
