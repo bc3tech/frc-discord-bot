@@ -125,8 +125,48 @@ internal sealed class MatchSummariesUpdater(AgentsClient client,
 
         logger.UploadingTeamMatchSummariesPDFToAzureAI();
         var newFile = await client.UploadFileAsync(await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false), AgentFilePurpose.Agents, matchSummariesPdfName, cancellationToken).ConfigureAwait(false);
-        await client.CreateVectorStoreFileAsync(agent.ToolResources.FileSearch.VectorStoreIds[0], newFile.Value.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
+        var newVectorStoreFile = await client.CreateVectorStoreFileAsync(agent.ToolResources.FileSearch.VectorStoreIds[0], newFile.Value.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
+        var ingestStartTime = TimeProvider.System.GetUtcNow();
         logger.UploadedTeamMatchSummariesPDFToAzureAI();
-        return newFile.Value;
+
+        bool fiveMinWarningGiven = false;
+        while (!cancellationToken.IsCancellationRequested)
+        {
+            var fileStatus = (await client.GetVectorStoreFileAsync(newVectorStoreFile.Value.VectorStoreId, newVectorStoreFile.Value.Id, cancellationToken).ConfigureAwait(false)).Value.Status;
+            if (fileStatus == VectorStoreFileStatus.InProgress)
+            {
+                logger.StillWaitingForFileToBeProcessed();
+
+                if (!fiveMinWarningGiven && (TimeProvider.System.GetUtcNow() - ingestStartTime).TotalMinutes > 5)
+                {
+                    logger.VectorStoreProcessingIsTakingAVERYLongTimeThisMayBeASignOfAProblemFileFileId(newVectorStoreFile.Value.Id);
+                    fiveMinWarningGiven = true;
+                }
+                else if (fiveMinWarningGiven && (TimeProvider.System.GetUtcNow() - ingestStartTime).TotalMinutes > 10)
+                {
+                    logger.VectorStoreProcessingHasTakenOver10MinutesBailingFileFileId(newVectorStoreFile.Value.Id);
+                    return null;
+                }
+
+                await Task.Delay(1000, cancellationToken).ConfigureAwait(false);
+            }
+            else if (fileStatus == VectorStoreFileStatus.Completed)
+            {
+                logger.FileFileIdHasBeenProcessedSuccessfully(newVectorStoreFile.Value.Id);
+                return newFile.Value;
+            }
+            else if (fileStatus == VectorStoreFileStatus.Failed || fileStatus == VectorStoreFileStatus.Cancelled)
+            {
+                logger.FailedToUplooadMatchSummariesFileFileIdWithStatusStatus(newVectorStoreFile.Value.Id, fileStatus);
+                break;
+            }
+            else
+            {
+                logger.UnknownFileStatusStatus(fileStatus);
+                break;
+            }
+        }
+
+        return null;
     }
 }
