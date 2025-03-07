@@ -78,6 +78,7 @@ internal static class DependencyInjectionExtensions
                 Debug.Assert(agent is not null);
                 return new AzureAIAgent(agent, client, templateFactory: sp.GetService<IPromptTemplateFactory>());
             })
+            .AddSingleton<ChatRunner>()
             .AddHostedService<ChatBotInitializationService>();
 #pragma warning restore SKEXP0110 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
     }

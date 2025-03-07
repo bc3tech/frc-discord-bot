@@ -3,6 +3,7 @@
 using Common;
 using Common.Extensions;
 
+using DiscordBotFunctionApp.ChatBot;
 using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.TbaInterop;
 using DiscordBotFunctionApp.TbaInterop.Extensions;
@@ -24,7 +25,7 @@ using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchExtensions;
 using TheBlueAlliance.Model.MatchScoreBreakdown2025AllianceExtensions;
 
-internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, EventRepository events, TeamRepository teams, EmbedBuilderFactory builderFactory, ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<string>
+internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, EventRepository events, TeamRepository teams, EmbedBuilderFactory builderFactory, ChatRunner gpt, ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<string>
 {
     public static NotificationType TargetType { get; } = NotificationType.match_score;
 
@@ -157,6 +158,29 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, EventRe
             .Build();
 
         yield return new(embedding);
+
+        bool first = true;
+        var prompt = $"Create a narrative for match {detailedMatch.Key}";
+        yield return new ResponseEmbedding(baseBuilder.WithDescription("Generating match summary... 🤖").Build());
+        await foreach (var completion in gpt.GetCompletionsAsync(prompt, cancellationToken))
+        {
+            var builder = builderFactory.GetBuilder(highlightTeam);
+            if (first)
+            {
+                builder.Title = "AI Match Summary";
+                first = false;
+            }
+
+            foreach (var descriptionChunk in completion.Chunk(4096))
+            {
+                yield return new(builder.WithDescription(new(descriptionChunk)).Build());
+            }
+        }
+
+        if (first)
+        {
+            yield return new(baseBuilder.WithDescription("No summary generated. 🥺").Build());
+        }
     }
 
     private async Task BuildDescriptionAsync(ushort? highlightTeam, Match detailedMatch, StringBuilder descriptionBuilder, (int redScore, int blueScore) scores, CancellationToken cancellationToken)
