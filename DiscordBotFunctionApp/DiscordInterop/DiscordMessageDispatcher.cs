@@ -103,7 +103,7 @@ internal sealed partial class DiscordMessageDispatcher(
                         var chanId = t.ChannelId;
                         var threadId = t.ThreadId;
                         await ((IMessageChannel)_discordClient.GetChannel(threadId))
-                            .SendMessageAsync(embeds: embedsToSend, messageReference: new(t.MessageId), options: discordRequestOptions).ConfigureAwait(false);
+                            .SendMessageAsync(embeds: embedsToSend, messageReference: t.MessageId is not null ? new(t.MessageId) : null, options: discordRequestOptions).ConfigureAwait(false);
                         channelsWhereWeAlreadyPostedIntoThreads.Add(chanId);
                     }
                 }
