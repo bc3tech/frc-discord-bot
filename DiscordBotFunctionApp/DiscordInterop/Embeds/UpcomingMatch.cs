@@ -55,8 +55,6 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
             $"""
             # Match starting soon!
 
-            ## {Translator.CompLevelToShortString(detailedMatch.CompLevel.ToInvariantString()!)} {detailedMatch.SetNumber} - Match {detailedMatch.MatchNumber}
-
             Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.scheduled_time!).ToPacificTime():t}
             **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToPacificTime():t}**
             """);
