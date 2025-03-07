@@ -266,9 +266,17 @@ sealed record ThreadTableEntity() : ITableEntity
 
     public sealed record ThreadDetail
     {
-        public ThreadDetail(ulong chan, ulong thread)
+        [JsonConstructor]
+        public ThreadDetail(string channel, string thread, string? message)
         {
-            this.ChannelId = chan;
+            this.Channel = channel;
+            this.Thread = thread;
+            this.Message = message;
+        }
+
+        public ThreadDetail(ulong channel, ulong thread)
+        {
+            this.ChannelId = channel;
             this.ThreadId = thread;
         }
 
