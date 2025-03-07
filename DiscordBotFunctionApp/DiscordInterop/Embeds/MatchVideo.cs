@@ -32,7 +32,7 @@ internal sealed class MatchVideo(IMatchApi matches, EventRepository eventRepo, E
 
         var embedding = baseBuilder
             .WithTitle($"New video for {notification.event_name} | {Translator.CompLevelToShortString(notification.match!.CompLevel.ToInvariantString())} {notification.match.SetNumber}-{notification.match.MatchNumber}")
-            .WithDescription(string.Join('\n', notification.match.GetVideoUrls().Select(i => $"- {i}")));
+            .WithDescription(string.Join('\n', notification.match.GetVideoUrls().Select(i => $"- {i.Link}")));
 
         yield return new(embedding.Build());
     }
