@@ -80,7 +80,7 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
 
                     ### Watch live
 
-                    - {link} {notification.webcast.ViewerCount} current viewer(s)
+                    - {link} ({notification.webcast.ViewerCount} current viewer(s))
                     """);
             }
         }
@@ -182,6 +182,7 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
         if (predictedWinner is not null and not MatchSimple.WinningAllianceEnum.Empty && predictedWinner.HasValue)
         {
             var certainty = predictedWinner is MatchSimple.WinningAllianceEnum.Red ? stats!.Pred!.RedWinProb : (1 - stats!.Pred!.RedWinProb);
+            bool redWins = predictedWinner is MatchSimple.WinningAllianceEnum.Red;
             descriptionBuilder.Append(
                 $"""
                 ## Prediction
@@ -199,7 +200,12 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
 
             descriptionBuilder
                 .AppendLine()
-                            .AppendLine($"- Score: [Red] {stats.Pred!.RedScore} | [Blue] {stats.Pred.BlueScore}");
+                .AppendLine(
+                $"""
+                - Score:
+                  - {(redWins ? "**" : string.Empty)}[Red] {stats.Pred!.RedScore}{(redWins ? "**" : string.Empty)}
+                  - {(!redWins ? "**" : string.Empty)}[Blue] {stats.Pred.BlueScore}{(!redWins ? "**" : string.Empty)}
+                """);
         }
 
         beforeFooter?.Invoke(descriptionBuilder);
