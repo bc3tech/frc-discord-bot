@@ -198,8 +198,8 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
                 .AppendLine(
                 $"""
                 - Score:
-                  - {(redWins ? "**" : string.Empty)}[Red] {stats.Pred!.RedScore}{(redWins ? "**" : string.Empty)}
-                  - {(!redWins ? "**" : string.Empty)}[Blue] {stats.Pred.BlueScore}{(!redWins ? "**" : string.Empty)}
+                  - {(redWins ? "**" : string.Empty)}Red: {stats.Pred!.RedScore}{(redWins ? "**" : string.Empty)}
+                  - {(!redWins ? "**" : string.Empty)}Blue: {stats.Pred.BlueScore}{(!redWins ? "**" : string.Empty)}
                 """);
         }
 
