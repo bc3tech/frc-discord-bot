@@ -195,7 +195,7 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, EventRe
             .ToDictionary(i => i.TeamKey, i => i.Rank);
 
         #region Red Score Breakdown
-        descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)}Red Alliance - {detailedMatch.Alliances.Red.Score}{(detailedMatch.CompLevel is Match.CompLevelEnum.Qm ? $" (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red) ?? '?'})" : string.Empty)}");
+        descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)}Red Alliance - {detailedMatch.Alliances.Red.Score}{(detailedMatch.CompLevel is Match.CompLevelEnum.Qm ? $" (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red).ToString() ?? "?"})" : string.Empty)}");
         descriptionBuilder.AppendLine($"{string.Join("\n", detailedMatch.Alliances.Red.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}");
         if (scoreBreakdown?.Red is null)
         {
@@ -227,7 +227,7 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, EventRe
         #endregion
 
         #region Blue Score Breakdown
-        descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)}Blue Alliance - {detailedMatch.Alliances.Blue.Score}{(detailedMatch.CompLevel is Match.CompLevelEnum.Qm ? $" (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue) ?? '?'})" : string.Empty)}");
+        descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)}Blue Alliance - {detailedMatch.Alliances.Blue.Score}{(detailedMatch.CompLevel is Match.CompLevelEnum.Qm ? $" (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue).ToString() ?? "?"})" : string.Empty)}");
         descriptionBuilder.AppendLine($"{string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}");
         if (scoreBreakdown?.Red is null)
         {
