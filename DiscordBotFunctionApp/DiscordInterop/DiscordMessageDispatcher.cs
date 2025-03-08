@@ -46,8 +46,8 @@ internal sealed partial class DiscordMessageDispatcher(
 
         List<Task> notifications = [];
 
-        await SendNotificationsAsync<TeamSubscriptionEntity>(teamSubscriptionsTable, teamRecordsToFind, i => i.Item1 is not CommonConstants.ALL ? i.Item1.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
-        await SendNotificationsAsync<EventSubscriptionEntity>(eventSubscriptionsTable, eventRecordsToFind, i => i.Item2 is not CommonConstants.ALL ? i.Item2.ToTeamNumber() : null, logger, message, cancellationToken).ConfigureAwait(false);
+        await SendNotificationsAsync<TeamSubscriptionEntity>(message, teamSubscriptionsTable, teamRecordsToFind, i => i.Item1 is not CommonConstants.ALL ? i.Item1.ToTeamNumber() : null, logger, cancellationToken).ConfigureAwait(false);
+        await SendNotificationsAsync<EventSubscriptionEntity>(message, eventSubscriptionsTable, eventRecordsToFind, i => i.Item2 is not CommonConstants.ALL ? i.Item2.ToTeamNumber() : null, logger, cancellationToken).ConfigureAwait(false);
 
         logger.WaitingForNotificationsToBeSent();
 
@@ -56,7 +56,7 @@ internal sealed partial class DiscordMessageDispatcher(
         return true;
     }
 
-    private async Task SendNotificationsAsync<T>(TableClient sourceTable, IReadOnlyList<(string p, string r)> records, Func<(string, string), ushort?> teamFinder, ILogger<DiscordMessageDispatcher> logger, WebhookMessage message, CancellationToken cancellationToken) where T : class, ITableEntity, ISubscriptionEntity
+    private async Task SendNotificationsAsync<T>(WebhookMessage message, TableClient sourceTable, IReadOnlyList<(string p, string r)> records, Func<(string, string), ushort?> teamFinder, ILogger<DiscordMessageDispatcher> logger, CancellationToken cancellationToken) where T : class, ITableEntity, ISubscriptionEntity
     {
         using var scope = logger.CreateMethodScope();
         foreach (var i in records)

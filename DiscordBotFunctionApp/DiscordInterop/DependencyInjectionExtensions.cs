@@ -50,10 +50,11 @@ internal static class DependencyInjectionExtensions
         })
         .AddSingleton<IDiscordClient>(sp =>
         {
+            var logger = sp.GetService<ILogger<DiscordSocketClient>>();
             var c = new DiscordSocketClient(sp.GetRequiredService<DiscordSocketConfig>());
             c.Log += m =>
             {
-                sp.GetRequiredService<ILogger<DiscordSocketClient>>().Log(m.Severity.ToLogLevel(), m.Message);
+                logger?.Log(m.Severity.ToLogLevel(), m.Message);
                 return Task.CompletedTask;
             };
             return c;
@@ -61,7 +62,7 @@ internal static class DependencyInjectionExtensions
         .AddSingleton<DiscordMessageDispatcher>()
         .AddSingleton(sp =>
         {
-            var logger = sp.GetRequiredService<ILoggerFactory>().CreateLogger<InteractionService>();
+            var logger = sp.GetService<ILogger<InteractionService>>();
             var discordLogLevel = sp.GetRequiredService<IConfiguration>()[Constants.Configuration.Discord.LogLevel] ?? "Info";
             var i = new InteractionService(((DiscordSocketClient)sp.GetRequiredService<IDiscordClient>()).Rest, new InteractionServiceConfig
             {
@@ -73,7 +74,7 @@ internal static class DependencyInjectionExtensions
 
             i.Log += m =>
             {
-                logger.Log(m.Severity.ToLogLevel(), m.Exception, $"[{m.Source}]: {m.Message}");
+                logger?.Log(m.Severity.ToLogLevel(), m.Exception, $"[{m.Source}]: {m.Message}");
                 return Task.CompletedTask;
             };
 

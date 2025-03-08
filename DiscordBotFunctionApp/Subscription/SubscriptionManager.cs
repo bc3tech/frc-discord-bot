@@ -14,13 +14,13 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
-internal sealed record SubscriptionRequest([property: JsonPropertyName("guildId")] ulong GuildId, [property: JsonPropertyName("channelId")] ulong ChannelId, [property: JsonPropertyName("event")] string? Event, [property: JsonPropertyName("team")] uint? Team);
+internal sealed record SubscriptionRequest([property: JsonPropertyName("guildId")] ulong? GuildId, [property: JsonPropertyName("channelId")] ulong ChannelId, [property: JsonPropertyName("event")] string? Event, [property: JsonPropertyName("team")] uint? Team);
 
 internal sealed class SubscriptionManager([FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptions,
     [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptions,
     ILogger<SubscriptionManager> logger)
 {
-    public async IAsyncEnumerable<(ulong ChannelId, string EventKey, ushort? TeamNumber)> GetSubscriptionsForGuildAsync(ulong guildId, [EnumeratorCancellation] CancellationToken cancellationToken)
+    public async IAsyncEnumerable<(ulong ChannelId, string EventKey, ushort? TeamNumber)> GetSubscriptionsForGuildAsync(ulong? guildId, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         await foreach (var e in teamSubscriptions.QueryAsync<TeamSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
         {
@@ -78,12 +78,12 @@ internal sealed class SubscriptionManager([FromKeyedServices(Constants.ServiceKe
                 var teamString = sub.Team?.ToString(CultureInfo.InvariantCulture) ?? CommonConstants.ALL;
                 logger.CreatingNewSubscriptionForEventSubscriptionEventAndTeamSubscriptionTeam(sub.Event, teamString);
 
-                r = await teamSubscriptions.GetEntityIfExistsAsync<EventSubscriptionEntity>(sub.Event, teamString, cancellationToken: cancellationToken).ConfigureAwait(false);
-                var teamSubscription = r.HasValue ? r.Value : null;
-                teamSubscription ??= new EventSubscriptionEntity { PartitionKey = sub.Event, RowKey = teamString };
+                r = await eventSubscriptions.GetEntityIfExistsAsync<EventSubscriptionEntity>(sub.Event, teamString, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var eventSubscription = r.HasValue ? r.Value : null;
+                eventSubscription ??= new EventSubscriptionEntity { PartitionKey = sub.Event, RowKey = teamString };
 
-                teamSubscription.Subscribers.AddSubscription(sub.GuildId, sub.ChannelId);
-                var result = await eventSubscriptions.UpsertEntityAsync(teamSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
+                eventSubscription.Subscribers.AddSubscription(sub.GuildId, sub.ChannelId);
+                var result = await eventSubscriptions.UpsertEntityAsync(eventSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (result.IsError)
                 {
                     logger.FailedToUpsertSubscriptionForEventSubscriptionEventAndTeamSubscriptionTeamStatusCodeReason(sub.Event, teamString, result.Status, result.ReasonPhrase);

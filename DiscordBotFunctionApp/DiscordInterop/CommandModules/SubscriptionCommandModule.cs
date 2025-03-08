@@ -24,7 +24,7 @@ public class SubscriptionCommandModule(IServiceProvider services) : InteractionM
         await this.DeferAsync(ephemeral: true).ConfigureAwait(false);
 
         HashSet<(string, ushort?)> currentSubs = [];
-        await foreach (var (channelId, eventKey, teamNumber) in _subscriptionManager.GetSubscriptionsForGuildAsync(this.Context.Interaction.GuildId!.Value, default)
+        await foreach (var (channelId, eventKey, teamNumber) in _subscriptionManager.GetSubscriptionsForGuildAsync(this.Context.Interaction.GuildId, default)
             .Where(i => i.ChannelId == this.Context.Interaction.ChannelId!.Value))
         {
             currentSubs.Add((eventKey, teamNumber));
@@ -60,14 +60,13 @@ public class SubscriptionCommandModule(IServiceProvider services) : InteractionM
         else
         {
             Debug.Assert(_subscriptionManager is not null);
-            Debug.Assert(this.Context.Interaction.GuildId.HasValue);
             Debug.Assert(this.Context.Interaction.ChannelId.HasValue);
 
             var teamNumber = teamKey.ToTeamNumber();
 
             try
             {
-                await _subscriptionManager.SaveSubscriptionAsync(new SubscriptionRequest(this.Context.Interaction.GuildId!.Value, this.Context.Interaction.ChannelId!.Value, eventKey, teamNumber), default).ConfigureAwait(false);
+                await _subscriptionManager.SaveSubscriptionAsync(new SubscriptionRequest(this.Context.Interaction.GuildId, this.Context.Interaction.ChannelId!.Value, eventKey, teamNumber), default).ConfigureAwait(false);
                 if (!string.IsNullOrWhiteSpace(eventKey) && teamNumber is not null)
                 {
                     await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo.GetLabelForTeam(teamNumber, includeLocation: false)}** at the **{_eventsRepo.GetLabelForEvent(eventKey, includeYear: true)}** event.").ConfigureAwait(false);
