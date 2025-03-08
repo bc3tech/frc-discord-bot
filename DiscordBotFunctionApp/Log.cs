@@ -1,6 +1,8 @@
 ﻿
 namespace DiscordBotFunctionApp;
 
+using DiscordBotFunctionApp.TbaInterop.Models;
+
 #pragma warning disable CS8019
 using Microsoft.Extensions.Logging;
 
@@ -199,8 +201,8 @@ static partial class Log
     [LoggerMessage(61, LogLevel.Trace, "Command data: {CommandData}")]
     internal static partial void CommandDataCommandData(this ILogger logger, string CommandData);
 
-    [LoggerMessage(62, LogLevel.Debug, "Creating match score embed")]
-    internal static partial void CreatingMatchScoreEmbed(this ILogger logger);
+    [LoggerMessage(62, LogLevel.Debug, "Creating match score embed {WebhookMessage}")]
+    internal static partial void CreatingMatchScoreEmbed(this ILogger logger, WebhookMessage WebhookMessage);
 
     [LoggerMessage(63, LogLevel.Trace, "Keepalive ({arg0})")]
     internal static partial void KeepaliveArg0(this ILogger logger, DateTimeOffset arg0);
@@ -260,7 +262,7 @@ static partial class Log
     internal static partial void MatchStatsMatchStats(this ILogger logger, string MatchStats);
 
     [LoggerMessage(83, LogLevel.Debug, "Creating match score embed for match {Match}")]
-    internal static partial void CreatingMatchScoreEmbedForMatch(this ILogger logger, Match? Match);
+    internal static partial void CreatingMatchScoreEmbedForMatch(this ILogger logger, string? Match);
 
     [LoggerMessage(84, LogLevel.Debug, "Score breakdown: {ScoreBreakdown}")]
     internal static partial void ScoreBreakdownScoreBreakdown(this ILogger logger, string ScoreBreakdown);

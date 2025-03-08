@@ -30,7 +30,7 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, EventRe
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        logger.CreatingMatchScoreEmbed();
+        logger.CreatingMatchScoreEmbed(msg);
         var baseBuilder = builderFactory.GetBuilder(highlightTeam);
         var notification = msg.GetDataAs<TbaInterop.Models.Notifications.MatchScore>();
         if (notification is null)
@@ -73,7 +73,7 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, EventRe
             yield break;
         }
 
-        logger.CreatingMatchScoreEmbedForMatch(detailedMatch);
+        logger.CreatingMatchScoreEmbedForMatch(JsonSerializer.Serialize(detailedMatch));
 
         StringBuilder descriptionBuilder = new();
 
