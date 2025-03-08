@@ -102,9 +102,17 @@ internal sealed partial class DiscordMessageDispatcher(
                     {
                         var chanId = t.ChannelId;
                         var threadId = t.ThreadId;
-                        await ((IMessageChannel)_discordClient.GetChannel(threadId))
-                            .SendMessageAsync(embeds: embedsToSend, messageReference: t.MessageId is not null ? new(t.MessageId) : null, options: discordRequestOptions).ConfigureAwait(false);
-                        channelsWhereWeAlreadyPostedIntoThreads.Add(chanId);
+                        IMessageChannel? rawChan = _discordClient.GetChannel(threadId) as IMessageChannel ?? await _discordClient.GetDMChannelAsync(threadId) as IMessageChannel;
+                        if (rawChan is not null)
+                        {
+                            await rawChan.SendMessageAsync(embeds: embedsToSend, messageReference: t.MessageId is not null ? new(t.MessageId) : null, options: discordRequestOptions).ConfigureAwait(false);
+
+                            channelsWhereWeAlreadyPostedIntoThreads.Add(chanId);
+                        }
+                        else
+                        {
+                            logger.LogWarning("Didn't get a MessageChannel from thread {ThreadId}", threadId);
+                        }
                     }
                 }
             }
@@ -163,31 +171,28 @@ internal sealed partial class DiscordMessageDispatcher(
             return msgChan;
         }
 
-        if (_discordClient.GetChannel(msgChan.Id) is ITextChannel threadableChannel)
+        var thread = (msgChan is ITextChannel threadableChannel) ? await threadableChannel.CreateThreadAsync(threadDetails.Value.Title) : msgChan;
+        try
         {
-            try
-            {
-                var newThread = await threadableChannel.CreateThreadAsync(threadDetails.Value.Title);
-                var tableResponse = await threadsTable.GetEntityIfExistsAsync<ThreadTableEntity>(threadDetails.Value.PartitionKey, threadDetails.Value.RowKey, cancellationToken: cancellationToken).ConfigureAwait(false);
-                ThreadTableEntity tableEntity = tableResponse is not null && tableResponse.HasValue
-                    ? tableResponse.Value!
-                    : new()
-                    {
-                        PartitionKey = threadDetails.Value.PartitionKey,
-                        RowKey = threadDetails.Value.RowKey,
-                    };
-                tableEntity.ThreadIdList.Add(new(msgChan.Id, newThread.Id));
-                await threadsTable.UpsertEntityAsync(tableEntity, mode: TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
-                return newThread;
-            }
-            catch (Exception ex)
-            {
-                logger.ErrorWhileTryingToCreateThreadInChannelChannelIdChannelNameMessage(ex, msgChan.Id, msgChan.Name, ex.Message);
-                Debug.Fail(ex.Message);
-            }
+            var tableResponse = await threadsTable.GetEntityIfExistsAsync<ThreadTableEntity>(threadDetails.Value.PartitionKey, threadDetails.Value.RowKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+            ThreadTableEntity tableEntity = tableResponse is not null && tableResponse.HasValue
+                ? tableResponse.Value!
+                : new()
+                {
+                    PartitionKey = threadDetails.Value.PartitionKey,
+                    RowKey = threadDetails.Value.RowKey,
+                };
+            tableEntity.ThreadIdList.Add(new(msgChan.Id, thread.Id));
+            await threadsTable.UpsertEntityAsync(tableEntity, mode: TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
+            return thread;
+        }
+        catch (Exception ex)
+        {
+            logger.ErrorWhileTryingToCreateThreadInChannelChannelIdChannelNameMessage(ex, msgChan.Id, msgChan.Name, ex.Message);
+            Debug.Fail(ex.Message);
         }
 
-        return msgChan;
+        return thread;
     }
 
     private static (IReadOnlySet<string> Teams, IReadOnlySet<string> Events) GetTeamsAndEventsInMessage(JsonElement messageData)
