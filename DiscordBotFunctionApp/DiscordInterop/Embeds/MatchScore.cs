@@ -158,8 +158,8 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, EventRe
         yield return new(embedding);
 
         bool first = true;
-        var prompt = $"Create a narrative for match {detailedMatch.Key}";
-        yield return new ResponseEmbedding(baseBuilder.WithDescription("Generating match summary... 🤖").Build());
+        var prompt = $"Create a narrative for this match:\n\n```json{JsonSerializer.Serialize(detailedMatch)}\n```";
+        yield return new ResponseEmbedding(baseBuilder.WithDescription("Generating match summary... 🤖").Build(), Transient: true);
         await foreach (var completion in gpt.GetCompletionsAsync(prompt, cancellationToken))
         {
             var builder = builderFactory.GetBuilder(highlightTeam);
