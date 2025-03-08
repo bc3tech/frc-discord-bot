@@ -1,7 +1,5 @@
 ﻿namespace DiscordBotFunctionApp.DiscordInterop;
 
-using Common.Extensions;
-
 using Discord;
 using Discord.Interactions;
 using Discord.Net;
@@ -20,6 +18,10 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
+using TheBlueAlliance.Model.MatchExtensions;
+
+using CompLevelEnum = TheBlueAlliance.Model.Match.CompLevelEnum;
+
 internal sealed class AutoCompleteHandlers
 {
     const ushort MAX_RESULTS = 25;  // Discord spec
@@ -28,7 +30,7 @@ internal sealed class AutoCompleteHandlers
     [return: NotNullIfNotNull(nameof(val))]
     static string? Ellipsify(string? val) => val?.Length > MAX_LENGTH ? $"{val.Take(MAX_LENGTH)}..." : val;
 
-    public sealed class EventsAutoCompleteHandler : AutocompleteHandler
+    internal sealed class EventsAutoCompleteHandler : AutocompleteHandler
     {
         private ILogger<EventsAutoCompleteHandler>? _logger;
 
@@ -109,6 +111,18 @@ internal sealed class AutoCompleteHandlers
             return Task.FromResult(AutocompletionResult.FromSuccess(_frcMatchTypes
                 .Where(i => i.ToInvariantString().Contains(userSearchString, StringComparison.OrdinalIgnoreCase))
                 .Select(i => new AutocompleteResult(i.ToInvariantString(), i))));
+        }
+    }
+
+    internal sealed class CompStageAutocompleteHandler : AutocompleteHandler
+    {
+        public override Task<AutocompletionResult> GenerateSuggestionsAsync(IInteractionContext context, IAutocompleteInteraction autocompleteInteraction, IParameterInfo parameter, IServiceProvider services)
+        {
+            return Task.FromResult(AutocompletionResult.FromSuccess([
+                new AutocompleteResult("Qualifications", (int)CompLevelEnum.Qm),
+                new AutocompleteResult("Playoffs/Eliminations", (int)CompLevelEnum.Sf),
+                new AutocompleteResult("Finals", (int)CompLevelEnum.F),
+            ]));
         }
     }
 }

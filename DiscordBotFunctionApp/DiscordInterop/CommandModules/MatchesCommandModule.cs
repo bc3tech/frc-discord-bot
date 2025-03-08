@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Model;
 
 [Group("matches", "Gets information about FRC matches")]
 public sealed class MatchesCommandModule(IServiceProvider services) : CommandModuleBase
@@ -80,16 +81,25 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
     }
 
     [SlashCommand("result", "Gets the result for a match")]
-    public async Task GetResultAsync([Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string eventKey,
-        [Summary("match", "ID of the match, e.g quals: 'qm42', playoffs: 'sf#', finals: 'fm#'")]
-        string matchKey,
+    public async Task GetResultAsync(
+        [Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string eventKey,
+        [Summary("stage", "The stage of the competition"), Autocomplete(typeof(AutoCompleteHandlers.CompStageAutocompleteHandler))] int compLevel,
+        [Summary("match", "Match number")] uint matchNumber,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
         await this.DeferAsync(ephemeral: !post).ConfigureAwait(false);
         using var scope = _logger.CreateMethodScope();
+        string matchKey = (Match.CompLevelEnum)compLevel switch
+        {
+            Match.CompLevelEnum.Qm => $"qm{matchNumber}",
+            Match.CompLevelEnum.Sf => $"sf{matchNumber}m1",
+            Match.CompLevelEnum.F => $"f1m{matchNumber}",
+            _ => throw new ArgumentOutOfRangeException(nameof(compLevel), compLevel, null)
+        };
         try
         {
             ResponseEmbedding[] embeds = [];
+
             await foreach (var m in matchScoreEmbeddingGenerator.GetMatchScoreAsync($"{eventKey}_{matchKey}").ConfigureAwait(false))
             {
                 if (m is null)

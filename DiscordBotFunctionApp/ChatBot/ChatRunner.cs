@@ -1,10 +1,6 @@
 ﻿namespace DiscordBotFunctionApp.ChatBot;
-
-using Azure;
-using Azure.AI.Inference;
 using Azure.AI.Projects;
 
-using Microsoft.AspNetCore.Http.Metadata;
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Agents.AzureAI;
@@ -14,7 +10,7 @@ using System.Text.Json;
 using System.Threading;
 
 #pragma warning disable SKEXP0110 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-internal class ChatRunner(AgentsClient agentsClient, AzureAIAgent agent, ILogger<ChatRunner> logger)
+internal sealed class ChatRunner(AgentsClient agentsClient, AzureAIAgent agent, ILogger<ChatRunner> logger)
 {
     public async IAsyncEnumerable<string> GetCompletionsAsync(string prompt, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
