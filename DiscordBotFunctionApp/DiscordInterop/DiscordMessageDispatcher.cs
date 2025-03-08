@@ -111,7 +111,7 @@ internal sealed partial class DiscordMessageDispatcher(
                         }
                         else
                         {
-                            logger.LogWarning("Didn't get a MessageChannel from thread {ThreadId}", threadId);
+                            logger.DidnTGetAMessageChannelFromThreadThreadId(threadId);
                         }
                     }
                 }

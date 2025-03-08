@@ -90,7 +90,9 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, IDistri
 
         await BuildDescriptionAsync(highlightTeam, detailedMatch, descriptionBuilder, (redScore, blueScore), cancellationToken);
 
-        var embedding = baseBuilder.WithDescription(descriptionBuilder.ToString());
+        var embedding = baseBuilder
+            .WithTitle($"{notification.event_name}: {Translator.CompLevelToShortString(notification.match!.CompLevel!.ToInvariantString()!)} {notification.match.SetNumber} - Match {notification.match.MatchNumber}")
+            .WithDescription(descriptionBuilder.ToString());
 
         yield return new(embedding.Build());
     }

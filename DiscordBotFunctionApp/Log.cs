@@ -365,4 +365,7 @@ static partial class Log
 
     [LoggerMessage(118, LogLevel.Trace, "Response: {Response}")]
     internal static partial void ResponseResponse(this ILogger logger, string Response);
+
+    [LoggerMessage(119, LogLevel.Warning, "Didn't get a MessageChannel from thread {ThreadId}")]
+    internal static partial void DidnTGetAMessageChannelFromThreadThreadId(this ILogger logger, ulong ThreadId);
 }

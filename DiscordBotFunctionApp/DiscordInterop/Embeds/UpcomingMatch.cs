@@ -81,6 +81,7 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
         }
 
         var embedding = baseBuilder
+            .WithTitle($"{events.GetLabelForEvent(detailedMatch.EventKey)}: {Translator.CompLevelToShortString(detailedMatch.CompLevel.ToInvariantString()!)} {detailedMatch.SetNumber} - Match {detailedMatch.MatchNumber}")
             .WithDescription(descriptionBuilder.ToString());
 
         yield return new(embedding.Build());

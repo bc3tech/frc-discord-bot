@@ -34,8 +34,8 @@ internal sealed class MatchVideo(IMatchApi matches, EventRepository eventRepo, E
         if (videoUrls is not null && videoUrls.Any())
         {
             var embedding = baseBuilder
-                .WithTitle($"New video{(videoUrls.Count() > 1 ? 's' : string.Empty)} posted")
-                .WithDescription(string.Join('\n', videoUrls.Select(i => $"- {i.Link}")));
+                .WithTitle($"{notification.event_name} | {Translator.CompLevelToShortString(notification.match!.CompLevel.ToInvariantString())} {notification.match.SetNumber}.{notification.match.MatchNumber}")
+                .WithDescription($"### New video{(videoUrls.Count() > 1 ? 's' : string.Empty)} posted\n\n{string.Join('\n', videoUrls.Select(i => $"- {i.Link}"))}");
 
             yield return new(embedding.Build());
         }
