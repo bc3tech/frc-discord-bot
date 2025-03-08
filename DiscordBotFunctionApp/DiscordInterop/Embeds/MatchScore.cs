@@ -24,7 +24,7 @@ using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchExtensions;
 using TheBlueAlliance.Model.MatchScoreBreakdown2025AllianceExtensions;
 
-internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, EventRepository events, TeamRepository teams, EmbedBuilderFactory builderFactory, ChatRunner gpt, ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<string>
+internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, IDistrictApi districtApi, EventRepository events, TeamRepository teams, EmbedBuilderFactory builderFactory, ChatRunner gpt, ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<string>
 {
     public static NotificationType TargetType { get; } = NotificationType.match_score;
 
@@ -193,10 +193,11 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, EventRe
         var ranks = (await eventApi.GetEventRankingsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))?.Rankings
             .Where(i => detailedMatch.Alliances.Red.TeamKeys.Concat(detailedMatch.Alliances.Blue.TeamKeys).Contains(i.TeamKey))
             .ToDictionary(i => i.TeamKey, i => i.Rank);
+        var districtPoints = await ComputeDistrictPointsForTeamsAsync(detailedMatch, cancellationToken);
 
         #region Red Score Breakdown
         descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)}Red Alliance - {detailedMatch.Alliances.Red.Score}{(detailedMatch.CompLevel is Match.CompLevelEnum.Qm ? $" (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red).ToString() ?? "?"})" : string.Empty)}");
-        descriptionBuilder.AppendLine($"{string.Join("\n", detailedMatch.Alliances.Red.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}");
+        descriptionBuilder.AppendLine($"{string.Join("\n", detailedMatch.Alliances.Red.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]}, +{districtPoints[t]}dp) " : string.Empty)}"))}");
         if (scoreBreakdown?.Red is null)
         {
             descriptionBuilder.AppendLine("No score breakdown given");
@@ -226,9 +227,11 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, EventRe
         }
         #endregion
 
+        cancellationToken.ThrowIfCancellationRequested();
+
         #region Blue Score Breakdown
         descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)}Blue Alliance - {detailedMatch.Alliances.Blue.Score}{(detailedMatch.CompLevel is Match.CompLevelEnum.Qm ? $" (+{detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue).ToString() ?? "?"})" : string.Empty)}");
-        descriptionBuilder.AppendLine($"{string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}");
+        descriptionBuilder.AppendLine($"{string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]}, +{districtPoints[t]}dp)" : string.Empty)}"))}");
         if (scoreBreakdown?.Red is null)
         {
             descriptionBuilder.AppendLine("No score breakdown given");
@@ -265,5 +268,31 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, EventRe
         }
 
         descriptionBuilder.AppendLine($"\nView more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})");
+    }
+
+    private async Task<IReadOnlyDictionary<string, int>> ComputeDistrictPointsForTeamsAsync(Match detailedMatch, CancellationToken cancellationToken)
+    {
+        var districtPoints = await districtApi.GetEventDistrictPointsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+        Dictionary<string, int> retVal = [];
+        if (districtPoints is null)
+        {
+            return retVal;
+        }
+
+        foreach (var teamKey in detailedMatch.Alliances.Red.TeamKeys.Concat(detailedMatch.Alliances.Blue.TeamKeys))
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            if (!districtPoints.Points.TryGetValue(teamKey, out var dpEntry))
+            {
+                retVal.Add(teamKey, 0);
+            }
+            else
+            {
+                retVal.Add(teamKey, dpEntry.Total);
+            }
+        }
+
+        return retVal.AsReadOnly();
     }
 }
