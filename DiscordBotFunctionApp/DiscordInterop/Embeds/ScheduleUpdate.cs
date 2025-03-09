@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger<ScheduleUpdate> logger) : INotificationEmbedCreator
 {
-    public static NotificationType TargetType { get; } = NotificationType.schedule_updated;
+    public const NotificationType TargetType = NotificationType.schedule_updated;
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {

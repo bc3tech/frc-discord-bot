@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using AllianceSelection = Embeds.AllianceSelection;
+using CompLevelStarting = Embeds.CompLevelStarting;
 using MatchScore = Embeds.MatchScore;
 using MatchVideo = Embeds.MatchVideo;
 using ScheduleUpdate = Embeds.ScheduleUpdate;
@@ -87,6 +88,7 @@ internal static class DependencyInjectionExtensions
         .AddKeyedSingleton<INotificationEmbedCreator, ScheduleUpdate>(ScheduleUpdate.TargetType.ToInvariantString())
         .AddKeyedSingleton<INotificationEmbedCreator, Award>(Award.TargetType.ToInvariantString())
         .AddKeyedSingleton<INotificationEmbedCreator, MatchVideo>(MatchVideo.TargetType.ToInvariantString())
+        .AddKeyedSingleton<INotificationEmbedCreator, CompLevelStarting>(CompLevelStarting.TargetType.ToInvariantString())
         .AddKeyedSingleton<IEmbedCreator<string>, EventDetail>(nameof(EventDetail))
         .AddKeyedSingleton<IEmbedCreator<string>, UpcomingMatch>(nameof(UpcomingMatch))
         .AddKeyedSingleton<IEmbedCreator<string>, MatchScore>(nameof(MatchScore))

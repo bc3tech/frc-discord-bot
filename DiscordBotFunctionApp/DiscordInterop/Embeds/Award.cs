@@ -18,7 +18,7 @@ using TheBlueAlliance.Api;
 
 internal sealed class Award(IEventApi tbaApi, TeamRepository teams, EmbedBuilderFactory builderFactory, BlobContainerClient imageBlobs, ILogger<Award> logger) : INotificationEmbedCreator
 {
-    public static NotificationType TargetType { get; } = NotificationType.awards_posted;
+    public const NotificationType TargetType = NotificationType.awards_posted;
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {

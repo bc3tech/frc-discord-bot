@@ -7,7 +7,7 @@ internal static class Translator
         {
             "qm" => "Quals",
             "qf" => "Quarters",
-            "sf" => "Semis",
+            "sf" => "Elims",
             "f" => "Finals",
             _ => compLevel
         };
@@ -17,9 +17,9 @@ internal static class Translator
     {
         return compLevel.ToLowerInvariant() switch
         {
-            "qm" => "Qualification",
+            "qm" => "Qualifications",
             "qf" => "Quarterfinals",
-            "sf" => "Semifinals",
+            "sf" => "Playoffs",
             "f" => "Finals",
             _ => compLevel
         };

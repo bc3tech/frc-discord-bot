@@ -20,7 +20,7 @@ using TheBlueAlliance.Model.MatchSimpleExtensions;
 
 internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights, TheBlueAlliance.Api.IMatchApi tbaApi, Statbotics.Api.IMatchApi matchStats, EventRepository events, TeamRepository teams, EmbedBuilderFactory builderFactory, ILogger<UpcomingMatch> logger) : INotificationEmbedCreator, IEmbedCreator<string>
 {
-    public static NotificationType TargetType { get; } = NotificationType.upcoming_match;
+    public const NotificationType TargetType = NotificationType.upcoming_match;
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {

@@ -16,7 +16,7 @@ using TheBlueAlliance.Api;
 
 internal sealed class AllianceSelection(IEventApi tbaClient, TeamRepository teams, EmbedBuilderFactory builderFactory, ILogger<AllianceSelection> logger) : INotificationEmbedCreator
 {
-    public static NotificationType TargetType { get; } = NotificationType.alliance_selection;
+    public const NotificationType TargetType = NotificationType.alliance_selection;
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {

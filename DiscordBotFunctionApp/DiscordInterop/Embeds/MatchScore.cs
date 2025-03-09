@@ -26,7 +26,7 @@ using TheBlueAlliance.Model.MatchScoreBreakdown2025AllianceExtensions;
 
 internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, IDistrictApi districtApi, EventRepository events, TeamRepository teams, EmbedBuilderFactory builderFactory, ChatRunner gpt, ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<string>
 {
-    public static NotificationType TargetType { get; } = NotificationType.match_score;
+    public const NotificationType TargetType = NotificationType.match_score;
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {

@@ -17,7 +17,7 @@ using TheBlueAlliance.Model.MatchExtensions;
 
 internal sealed class MatchVideo(IMatchApi matches, EventRepository eventRepo, EmbedBuilderFactory builderFactory, ILogger<MatchVideo> logger) : INotificationEmbedCreator, IEmbedCreator<string>
 {
-    public static NotificationType TargetType { get; } = NotificationType.match_video;
+    public const NotificationType TargetType = NotificationType.match_video;
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously; to conform to interface
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
