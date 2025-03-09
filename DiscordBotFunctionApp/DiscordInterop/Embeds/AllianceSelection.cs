@@ -20,12 +20,14 @@ internal sealed class AllianceSelection(IEventApi tbaClient, TeamRepository team
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
+        logger.CreatingAllianceSelectionEmbedWebhookMessage(msg);
+
         var baseBuilder = builderFactory.GetBuilder(highlightTeam);
         var notification = msg.GetDataAs<TbaInterop.Models.Notifications.AllianceSelection>();
         if (notification is null)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
-            yield return new(baseBuilder.Build());
+            yield return null;
             yield break;
         }
 
@@ -33,7 +35,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient, TeamRepository team
         if (string.IsNullOrWhiteSpace(eventKey))
         {
             logger.EventKeyIsMissingFromNotificationData();
-            yield return new(baseBuilder.Build());
+            yield return null;
             yield break;
         }
 
@@ -41,7 +43,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient, TeamRepository team
         if (alliances?.Count is null or 0)
         {
             logger.FailedToRetrieveAllianceSelectionDataForEventKey(eventKey);
-            yield return new(baseBuilder.Build());
+            yield return null;
             yield break;
         }
 

@@ -367,4 +367,7 @@ static partial class Log
 
     [LoggerMessage(119, LogLevel.Warning, "Didn't get a MessageChannel from thread {ThreadId}")]
     internal static partial void DidnTGetAMessageChannelFromThreadThreadId(this ILogger logger, ulong ThreadId);
+
+    [LoggerMessage(120, LogLevel.Debug, "Creating Alliance Selection embed {WebhookMessage}")]
+    internal static partial void CreatingAllianceSelectionEmbedWebhookMessage(this ILogger logger, WebhookMessage WebhookMessage);
 }
