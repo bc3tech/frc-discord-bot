@@ -14,11 +14,12 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchSimpleExtensions;
 
-internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights, TheBlueAlliance.Api.IMatchApi tbaApi, Statbotics.Api.IMatchApi matchStats, EventRepository events, TeamRepository teams, EmbedBuilderFactory builderFactory, ILogger<UpcomingMatch> logger) : INotificationEmbedCreator, IEmbedCreator<string>
+internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights, TheBlueAlliance.Api.IMatchApi tbaApi, Statbotics.Api.IMatchApi matchStats, EventRepository events, TeamRepository teams, EmbedBuilderFactory builderFactory, ILogger<UpcomingMatch> logger) : INotificationEmbedCreator, IEmbedCreator<string>
 {
     public const NotificationType TargetType = NotificationType.upcoming_match;
 
@@ -161,17 +162,19 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
             .Concat(stats?.Alliances?.Red?.SurrogateTeamKeys ?? []);
         var containsHighlightedTeam = highlightTeam.HasValue && allAlliancesInMatch.Contains(highlightTeam.Value);
 
+        int[] allianceRanks = await GetAllianceRankAsync(detailedMatch, cancellationToken).ConfigureAwait(false);
+
         descriptionBuilder.AppendLine(
                 $"""
                 ### Alliances
 
-                **Red Alliance**
+                **Red Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red]})" : string.Empty)}**
                 {string.Join("\n", detailedMatch.Alliances.Red.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}
 
                 """);
         descriptionBuilder.AppendLine(
             $"""
-            **Blue Alliance**
+            **Blue Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue]})" : string.Empty)}**
             {string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}
             """);
 
@@ -210,5 +213,32 @@ internal sealed class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
             .Append($"View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})");
 
         return descriptionBuilder;
+    }
+
+    [GeneratedRegex(@"\d+")]
+    private static partial Regex AllianceRankRegex();
+
+    private async Task<int[]> GetAllianceRankAsync(MatchSimple detailedMatch, CancellationToken cancellationToken)
+    {
+        var retVal = new int[] { 0, 0, 0 };
+        if (detailedMatch.CompLevel is not MatchSimple.CompLevelEnum.Qm)
+        {
+            var eventAlliances = await eventInsights.GetEventAlliancesAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+            foreach (var eliminationAlliance in eventAlliances ?? [])
+            {
+                if (!eliminationAlliance.Picks.Except(detailedMatch.Alliances.Red.TeamKeys).Any())
+                {
+                    retVal[(int)MatchSimple.WinningAllianceEnum.Red] = int.Parse(AllianceRankRegex().Match(eliminationAlliance.Name ?? "0").Value);
+                    continue;
+                }
+                else if (!eliminationAlliance.Picks.Except(detailedMatch.Alliances.Blue.TeamKeys).Any())
+                {
+                    retVal[(int)MatchSimple.WinningAllianceEnum.Blue] = int.Parse(AllianceRankRegex().Match(eliminationAlliance.Name ?? "0").Value);
+                    continue;
+                }
+            }
+        }
+
+        return retVal;
     }
 }
