@@ -48,7 +48,7 @@ internal sealed class EventRepository(IEventApi apiClient, ILogger<EventReposito
         return _events;
     }
 
-    public string GetLabelForEvent(string eventKey, bool shortName = false, bool includeYear = false, bool includeCity = false, bool includeCountry = false)
+    public string GetLabelForEvent(string eventKey, bool shortName = false, bool includeYear = false, bool includeCity = false, bool includeStateProv=false, bool includeCountry = false)
     {
         using var scope = logger.CreateMethodScope();
         if (eventKey is CommonConstants.ALL)
@@ -62,6 +62,16 @@ internal sealed class EventRepository(IEventApi apiClient, ILogger<EventReposito
             if (includeCity && !string.IsNullOrEmpty(e.City))
             {
                 location.Append(e.City);
+            }
+
+            if (includeStateProv && !string.IsNullOrEmpty(e.StateProv))
+            {
+                if (location.Length > 0)
+                {
+                    location.Append(", ");
+                }
+
+                location.Append(e.StateProv);
             }
 
             if (includeCountry && !string.IsNullOrEmpty(e.Country))
