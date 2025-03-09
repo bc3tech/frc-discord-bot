@@ -11,10 +11,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 internal sealed class WebhookEmbeddingGenerator(IServiceProvider services, ILogger<WebhookEmbeddingGenerator> logger)
 {
+    [return: NotNull]
     public async IAsyncEnumerable<Embed> CreateEmbeddingsAsync(WebhookMessage tbaWebhookMessage, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         using var scope = logger.CreateMethodScope();
@@ -22,15 +24,16 @@ internal sealed class WebhookEmbeddingGenerator(IServiceProvider services, ILogg
         if (embedCreator is null)
         {
             logger.NoEmbeddingCreatorRegisteredForMessageTypeMessageType(tbaWebhookMessage.MessageType);
-            yield break;
         }
-
-        logger.GeneratingEmbeddingsForWebhookMessageTypeWebhookMessageType(tbaWebhookMessage.MessageType);
-        await foreach (var i in embedCreator.CreateAsync(tbaWebhookMessage, highlightTeam, cancellationToken))
+        else
         {
-            if (i is not null)
+            logger.GeneratingEmbeddingsForWebhookMessageTypeWebhookMessageType(tbaWebhookMessage.MessageType);
+            await foreach (var i in embedCreator.CreateAsync(tbaWebhookMessage, highlightTeam, cancellationToken))
             {
-                yield return i;
+                if (i is not null)
+                {
+                    yield return i;
+                }
             }
         }
     }

@@ -1,5 +1,4 @@
-﻿
-namespace DiscordBotFunctionApp;
+﻿namespace DiscordBotFunctionApp;
 
 using DiscordBotFunctionApp.TbaInterop.Models;
 
