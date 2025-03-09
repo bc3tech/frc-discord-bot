@@ -25,7 +25,7 @@ internal sealed class CompLevelStarting(EmbedBuilderFactory builderFactory) : IN
         var compLevel = notification.comp_level;
         var eventName = notification.event_name;
         var embed = builderFactory.GetBuilder(highlightTeam)
-            .WithDescription($"# {eventName} {Translator.CompLevelToLongString(compLevel)} are starting soon!\n\nScheduled start time: {DateTimeOffset.FromUnixTimeSeconds(notification.scheduled_time ?? 0):t}");
+            .WithDescription($"# {eventName} {Translator.CompLevelToLongString(compLevel)} are starting soon!\n\nScheduled start time: {DateTimeOffset.FromUnixTimeSeconds(notification.scheduled_time ?? 0).ToPacificTime():t}");
 
         yield return new(embed.Build());
     }
