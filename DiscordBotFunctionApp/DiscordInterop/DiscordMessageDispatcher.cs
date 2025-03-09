@@ -87,7 +87,6 @@ internal sealed partial class DiscordMessageDispatcher(
         var discordRequestOptions = cancellationToken.ToRequestOptions();
         if (await embeds.AnyAsync(cancellationToken: cancellationToken).ConfigureAwait(false))
         {
-            Embed[]? embedsToSend = null;
             // check to see if there are any threads already created for this message
             var threadLocator = message.GetThreadDetails();
             List<ulong?> channelsWhereWeAlreadyPostedIntoThreads = [];
@@ -97,7 +96,7 @@ internal sealed partial class DiscordMessageDispatcher(
                 var entity = await threadsTable.GetEntityIfExistsAsync<ThreadTableEntity>(pk, rk, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (entity.HasValue && entity.Value is not null)
                 {
-                    embedsToSend = await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false);
+                    var embedsToSend = await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false);
                     foreach (var t in entity.Value.ThreadIdList)
                     {
                         var chanId = t.ChannelId;
