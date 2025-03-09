@@ -80,6 +80,13 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         }
     }
 
+    [SlashCommand("score", "Gets the score of a match")]
+    public Task GetScoreAsync(
+        [Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string eventKey,
+        [Summary("stage", "The stage of the competition"), Autocomplete(typeof(AutoCompleteHandlers.CompStageAutocompleteHandler))] int compLevel,
+        [Summary("match", "Match number")] uint matchNumber,
+        [Summary("post", "`true` to post response publicly")] bool post = false) => GetResultAsync(eventKey, compLevel, matchNumber, post);
+
     [SlashCommand("result", "Gets the result for a match")]
     public async Task GetResultAsync(
         [Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string eventKey,
