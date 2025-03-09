@@ -189,7 +189,7 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, IDistri
 
         #region Red Score Breakdown
         descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)}Red Alliance - {alliances.Red.Score}{((notificationMatch?.CompLevel ?? detailedMatch.CompLevel) is Match.CompLevelEnum.Qm ? $" (+{(notificationMatch ?? detailedMatch).GetAllianceRankingPoints(Match.WinningAllianceEnum.Red).ToString() ?? "?"})" : string.Empty)}");
-        descriptionBuilder.AppendLine($"{string.Join("\n", alliances.Red.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]}, +{districtPoints[t]}dp) " : string.Empty)}"))}");
+        descriptionBuilder.AppendLine($"{string.Join("\n", alliances.Red.TeamKeys.Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]}, +{districtPoints[t]}dp) " : string.Empty)}"))}");
         if (scoreBreakdown?.Red is null)
         {
             descriptionBuilder.AppendLine("No score breakdown given");
@@ -222,7 +222,7 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, IDistri
 
         #region Blue Score Breakdown
         descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)}Blue Alliance - {alliances.Blue.Score}{((notificationMatch?.CompLevel ?? detailedMatch.CompLevel) is Match.CompLevelEnum.Qm ? $" (+{(notificationMatch ?? detailedMatch).GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue).ToString() ?? "?"})" : string.Empty)}");
-        descriptionBuilder.AppendLine($"{string.Join("\n", alliances.Blue.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]}, +{districtPoints[t]}dp)" : string.Empty)}"))}");
+        descriptionBuilder.AppendLine($"{string.Join("\n", alliances.Blue.TeamKeys.Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]}, +{districtPoints[t]}dp)" : string.Empty)}"))}");
         if (scoreBreakdown?.Red is null)
         {
             descriptionBuilder.AppendLine("No score breakdown given");
