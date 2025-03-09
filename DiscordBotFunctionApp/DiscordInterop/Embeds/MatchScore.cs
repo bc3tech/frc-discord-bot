@@ -16,6 +16,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 using TheBlueAlliance.Api;
@@ -24,7 +25,9 @@ using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchExtensions;
 using TheBlueAlliance.Model.MatchScoreBreakdown2025AllianceExtensions;
 
-internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, IDistrictApi districtApi, EventRepository events, TeamRepository teams, EmbedBuilderFactory builderFactory, ChatRunner gpt, ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<string>
+using Match = TheBlueAlliance.Model.Match;
+
+internal sealed partial class MatchScore(IEventApi eventApi, IMatchApi matchApi, IDistrictApi districtApi, EventRepository events, TeamRepository teams, EmbedBuilderFactory builderFactory, ChatRunner gpt, ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<string>
 {
     public const NotificationType TargetType = NotificationType.match_score;
 
@@ -181,6 +184,8 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, IDistri
         var alliances = notificationMatch?.Alliances ?? detailedMatch.Alliances;
         var allTeamKeys = alliances.Red.TeamKeys.Concat(alliances.Blue.TeamKeys).ToHashSet();
 
+        int[] allianceRanks = await GetAllianceRanksAsync(detailedMatch, alliances, cancellationToken).ConfigureAwait(false);
+
         var scoreBreakdown = notificationMatch?.ScoreBreakdown?.GetMatchScoreBreakdown2025() ?? detailedMatch.ScoreBreakdown?.GetMatchScoreBreakdown2025();
         var ranks = (await eventApi.GetEventRankingsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))?.Rankings
             .Where(i => allTeamKeys.Contains(i.TeamKey))
@@ -188,7 +193,7 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, IDistri
         var districtPoints = await ComputeDistrictPointsForTeamsAsync(notificationMatch?.EventKey ?? detailedMatch.EventKey, allTeamKeys, cancellationToken);
 
         #region Red Score Breakdown
-        descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)}Red Alliance - {alliances.Red.Score}{((notificationMatch?.CompLevel ?? detailedMatch.CompLevel) is Match.CompLevelEnum.Qm ? $" (+{(notificationMatch ?? detailedMatch).GetAllianceRankingPoints(Match.WinningAllianceEnum.Red).ToString() ?? "?"})" : string.Empty)}");
+        descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)}Red Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red]})" : string.Empty)} - {alliances.Red.Score}{((notificationMatch?.CompLevel ?? detailedMatch.CompLevel) is Match.CompLevelEnum.Qm ? $" (+{(notificationMatch ?? detailedMatch).GetAllianceRankingPoints(Match.WinningAllianceEnum.Red).ToString() ?? "?"})" : string.Empty)}");
         descriptionBuilder.AppendLine($"{string.Join("\n", alliances.Red.TeamKeys.Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]}, +{districtPoints[t]}dp) " : string.Empty)}"))}");
         if (scoreBreakdown?.Red is null)
         {
@@ -221,7 +226,7 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, IDistri
         cancellationToken.ThrowIfCancellationRequested();
 
         #region Blue Score Breakdown
-        descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)}Blue Alliance - {alliances.Blue.Score}{((notificationMatch?.CompLevel ?? detailedMatch.CompLevel) is Match.CompLevelEnum.Qm ? $" (+{(notificationMatch ?? detailedMatch).GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue).ToString() ?? "?"})" : string.Empty)}");
+        descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)}Blue Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue]})" : string.Empty)} - {alliances.Blue.Score}{((notificationMatch?.CompLevel ?? detailedMatch.CompLevel) is Match.CompLevelEnum.Qm ? $" (+{(notificationMatch ?? detailedMatch).GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue).ToString() ?? "?"})" : string.Empty)}");
         descriptionBuilder.AppendLine($"{string.Join("\n", alliances.Blue.TeamKeys.Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]}, +{districtPoints[t]}dp)" : string.Empty)}"))}");
         if (scoreBreakdown?.Red is null)
         {
@@ -261,6 +266,33 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, IDistri
         }
 
         descriptionBuilder.AppendLine($"\nView more match details [here](https://www.thebluealliance.com/match/{notificationMatch?.Key ?? detailedMatch.Key})");
+    }
+
+    [GeneratedRegex(@"\d+")]
+    private static partial Regex AllianceRankRegex();
+
+    private async Task<int[]> GetAllianceRanksAsync(Match match, MatchSimpleAlliances alliances, CancellationToken cancellationToken)
+    {
+        var retVal = new int[] { 0, 0, 0 };
+        if (match.CompLevel is not Match.CompLevelEnum.Qm)
+        {
+            var eventAlliances = await eventApi.GetEventAlliancesAsync(match.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+            foreach (var eliminationAlliance in eventAlliances ?? [])
+            {
+                if (!eliminationAlliance.Picks.Except(alliances.Red.TeamKeys).Any())
+                {
+                    retVal[(int)MatchSimple.WinningAllianceEnum.Red] = int.Parse(AllianceRankRegex().Match(eliminationAlliance.Name ?? "0").Value);
+                    continue;
+                }
+                else if (!eliminationAlliance.Picks.Except(alliances.Blue.TeamKeys).Any())
+                {
+                    retVal[(int)MatchSimple.WinningAllianceEnum.Blue] = int.Parse(AllianceRankRegex().Match(eliminationAlliance.Name ?? "0").Value);
+                    continue;
+                }
+            }
+        }
+
+        return retVal;
     }
 
     private async Task AddEventWrapupAsync(StringBuilder descriptionBuilder, Match? notificationMatch, Match detailedMatch, Match.WinningAllianceEnum winningAlliance, CancellationToken cancellationToken)

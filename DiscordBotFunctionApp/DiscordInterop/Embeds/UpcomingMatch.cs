@@ -162,7 +162,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
             .Concat(stats?.Alliances?.Red?.SurrogateTeamKeys ?? []);
         var containsHighlightedTeam = highlightTeam.HasValue && allAlliancesInMatch.Contains(highlightTeam.Value);
 
-        int[] allianceRanks = await GetAllianceRankAsync(detailedMatch, cancellationToken).ConfigureAwait(false);
+        int[] allianceRanks = await GetAllianceRanksAsync(detailedMatch, cancellationToken).ConfigureAwait(false);
 
         descriptionBuilder.AppendLine(
                 $"""
@@ -218,7 +218,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
     [GeneratedRegex(@"\d+")]
     private static partial Regex AllianceRankRegex();
 
-    private async Task<int[]> GetAllianceRankAsync(MatchSimple detailedMatch, CancellationToken cancellationToken)
+    private async Task<int[]> GetAllianceRanksAsync(MatchSimple detailedMatch, CancellationToken cancellationToken)
     {
         var retVal = new int[] { 0, 0, 0 };
         if (detailedMatch.CompLevel is not MatchSimple.CompLevelEnum.Qm)
