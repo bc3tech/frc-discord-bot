@@ -250,6 +250,8 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, IDistri
         }
         #endregion
 
+        await AddEventWrapupAsync(descriptionBuilder, notificationMatch, detailedMatch, winningAlliance, cancellationToken).ConfigureAwait(false);
+
         var videos = (notificationMatch?.Videos ?? detailedMatch.Videos)?.Where(v => v.Type is "youtube" && v.Key is not null).Select(v => $"- https://www.youtube.com/watch?v={v.Key}");
         if (videos?.Any() is true)
         {
@@ -259,6 +261,38 @@ internal sealed class MatchScore(IEventApi eventApi, IMatchApi matchApi, IDistri
         }
 
         descriptionBuilder.AppendLine($"\nView more match details [here](https://www.thebluealliance.com/match/{notificationMatch?.Key ?? detailedMatch.Key})");
+    }
+
+    private async Task AddEventWrapupAsync(StringBuilder descriptionBuilder, Match? notificationMatch, Match detailedMatch, Match.WinningAllianceEnum winningAlliance, CancellationToken cancellationToken)
+    {
+        var currentMatchNumber = notificationMatch?.MatchNumber ?? detailedMatch.MatchNumber;
+        var isPossibleEventEnd = (notificationMatch?.CompLevel ?? detailedMatch.CompLevel) is Match.CompLevelEnum.F && currentMatchNumber > 1;
+
+        if (isPossibleEventEnd)
+        {
+            var winCounts = new int[3] { 0, 0, 0 };
+            winCounts[(int)winningAlliance]++;
+
+            var match = await matchApi.GetMatchAsync($"{detailedMatch.EventKey}_f1m1", cancellationToken: cancellationToken).ConfigureAwait(false);
+            Debug.Assert(match is not null);
+
+            winCounts[(int)match.WinningAlliance]++;
+
+            if (currentMatchNumber is 3)
+            {
+                match = await matchApi.GetMatchAsync($"{detailedMatch.EventKey}_f1m1", cancellationToken: cancellationToken).ConfigureAwait(false);
+                Debug.Assert(match is not null);
+
+                winCounts[(int)match.WinningAlliance]++;
+            }
+
+            // check if blue or red has a count of 2
+            // if so, then the event is over
+            if (winCounts[1] is 2 || winCounts[2] is 2)
+            {
+                descriptionBuilder.AppendLine($"### 🎉{(winCounts[1] is 2 ? "Red" : "Blue")} Alliance wins the event! Congratulations!!🎉");
+            }
+        }
     }
 
     private async Task<IReadOnlyDictionary<string, int>> ComputeDistrictPointsForTeamsAsync(string eventKey, IEnumerable<string> allTeamKeys, CancellationToken cancellationToken)
