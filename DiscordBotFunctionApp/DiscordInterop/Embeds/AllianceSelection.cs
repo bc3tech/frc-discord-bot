@@ -8,6 +8,7 @@ using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -17,6 +18,8 @@ using TheBlueAlliance.Api;
 internal sealed class AllianceSelection(IEventApi tbaClient, TeamRepository teams, EmbedBuilderFactory builderFactory, ILogger<AllianceSelection> logger) : INotificationEmbedCreator
 {
     public const NotificationType TargetType = NotificationType.alliance_selection;
+
+    private static readonly ConcurrentDictionary<string, bool> ProcessedEvents = new();
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
@@ -39,6 +42,13 @@ internal sealed class AllianceSelection(IEventApi tbaClient, TeamRepository team
             yield break;
         }
 
+        if (!ProcessedEvents.TryAdd(eventKey, true))
+        {
+            logger.AlreadyProcessedAllianceSelectionForEventEventKey(eventKey);
+            yield return null;
+            yield break;
+        }
+
         var alliances = await tbaClient.GetEventAlliancesAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (alliances?.Count is null or 0)
         {
@@ -55,7 +65,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient, TeamRepository team
         {
             var alliance = alliances[i];
             descriptionBuilder.AppendLine($"### Alliance {i + 1}\n");
-            foreach (var team in alliance.Picks!.OrderBy(t => t.ToTeamNumber()))
+            foreach (var team in alliance.Picks!)
             {
                 descriptionBuilder.AppendLine($"- {teams.GetTeamLabelWithHighlight(team, highlightTeam)} (#{ranks[team]})");
             }
@@ -63,7 +73,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient, TeamRepository team
             if (alliance.Declines?.Count is not null and not 0)
             {
                 descriptionBuilder.AppendLine($"__Declining Team{(alliance.Declines!.Count > 1 ? "s" : string.Empty)}__");
-                foreach (var team in alliance.Declines!.OrderBy(t => t.ToTeamNumber()))
+                foreach (var team in alliance.Declines!)
                 {
                     descriptionBuilder.AppendLine($"- {teams.GetTeamLabelWithHighlight(team, highlightTeam)} (#{ranks[team]})");
                 }

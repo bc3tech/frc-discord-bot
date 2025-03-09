@@ -370,4 +370,7 @@ static partial class Log
 
     [LoggerMessage(120, LogLevel.Debug, "Creating Alliance Selection embed {WebhookMessage}")]
     internal static partial void CreatingAllianceSelectionEmbedWebhookMessage(this ILogger logger, WebhookMessage WebhookMessage);
+
+    [LoggerMessage(121, LogLevel.Trace, "Already processed alliance selection for event {EventKey}")]
+    internal static partial void AlreadyProcessedAllianceSelectionForEventEventKey(this ILogger logger, string EventKey);
 }
