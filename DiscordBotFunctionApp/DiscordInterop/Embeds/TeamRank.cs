@@ -25,12 +25,13 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                         EventRepository events,
                         Statbotics.Api.ITeamYearApi teamStats,
                         IRankingsApi rankings,
+                        TimeProvider time,
                         ILogger<TeamRank> logger) : IEmbedCreator<(int? Year, string TeamKey, string? EventKey)>
 {
     public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync((int? Year, string TeamKey, string? EventKey) input, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var teamKey = input.TeamKey;
-        var targetYear = input.Year ?? TimeProvider.System.GetLocalNow().Year;
+        var targetYear = input.Year ?? time.GetLocalNow().Year;
         var inputTeamNum = teamKey.ToTeamNumber();
         if (inputTeamNum is null || !inputTeamNum.HasValue)
         {

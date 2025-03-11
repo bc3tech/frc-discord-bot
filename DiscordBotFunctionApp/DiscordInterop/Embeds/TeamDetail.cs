@@ -22,6 +22,7 @@ internal sealed class TeamDetail(RESTCountries _countryCodeLookup,
                                  TeamRepository _teamsRepo,
                                  Statbotics.Api.ITeamApi teamStats,
                                  IDistrictApi districts,
+                                 TimeProvider time,
                                  ILogger<TeamDetail> logger) : IEmbedCreator<string>
 {
     public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync(string teamKey, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
@@ -36,7 +37,7 @@ internal sealed class TeamDetail(RESTCountries _countryCodeLookup,
             var builder = builderFactory.GetBuilder()
                 .WithTitle($"**{teamDetails.Nickname}**")
                 .WithUrl(teamDetails.Website)
-                .WithThumbnailUrl($"https://www.thebluealliance.com/avatar/{TimeProvider.System.GetLocalNow().Year - 1}/{teamKey}.png")
+                .WithThumbnailUrl($"https://www.thebluealliance.com/avatar/{time.GetLocalNow().Year - 1}/{teamKey}.png")
                 .WithDescription(teamDetails.Name)
                 .AddField("Location", locationString)
                 .AddField("Active?", teamResult.Active ? "Yes" : "No");

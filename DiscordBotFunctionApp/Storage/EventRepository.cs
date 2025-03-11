@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Model;
 
-internal sealed class EventRepository(IEventApi apiClient, ILogger<EventRepository> logger)
+internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, ILogger<EventRepository> logger)
 {
     private Dictionary<string, Event> _events = [];
 
@@ -21,7 +21,7 @@ internal sealed class EventRepository(IEventApi apiClient, ILogger<EventReposito
         using var scope = logger.CreateMethodScope();
         if (_events.Count is 0)
         {
-            for (int i = 0, currentYear = TimeProvider.System.GetLocalNow().Year; i < 4; i++, currentYear--)
+            for (int i = 0, currentYear = time.GetLocalNow().Year; i < 4; i++, currentYear--)
             {
                 logger.LoadingEventsFromTBAForEventYear(currentYear);
                 try

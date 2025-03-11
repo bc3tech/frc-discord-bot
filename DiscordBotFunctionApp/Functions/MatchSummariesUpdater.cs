@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 internal sealed class MatchSummariesUpdater(AgentsClient client,
                                             [FromKeyedServices(Constants.ServiceKeys.TableClient_VectorStoreFiles)] TableClient filesTable,
                                             IHttpClientFactory httpClientFactory, IConfiguration appConfig,
+                                            TimeProvider time,
                                             ILogger<MatchSummariesUpdater> logger)
 {
     private const string HttpClientName = "GoogleDocs";
@@ -29,7 +30,7 @@ internal sealed class MatchSummariesUpdater(AgentsClient client,
         )] TimerInfo myTimer, CancellationToken cancellationToken)
     {
 #if !DEBUG
-        var currentTime = TimeProvider.System.GetLocalNow();
+        var currentTime = time.GetLocalNow();
         if (currentTime.DayOfWeek is not DayOfWeek.Friday and not DayOfWeek.Saturday and not DayOfWeek.Sunday)
         {
             logger.NotRunningOnFridaySaturdayOrSundaySkippingMatchSummariesUpdate();
@@ -50,7 +51,7 @@ internal sealed class MatchSummariesUpdater(AgentsClient client,
         while (existingAgentId is null && !cancellationToken.IsCancellationRequested)
         {
             logger.DidnTFindTheTargetAgentToUpdateWaitingForItToBeAvailable();
-            await Task.Delay(1000, cancellationToken).ConfigureAwait(false);
+            await Task.Delay(TimeSpan.FromSeconds(1), time, cancellationToken).ConfigureAwait(false);
         }
 
         if (existingAgentId is not null)
@@ -126,7 +127,7 @@ internal sealed class MatchSummariesUpdater(AgentsClient client,
         logger.UploadingTeamMatchSummariesPDFToAzureAI();
         var newFile = await client.UploadFileAsync(await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false), AgentFilePurpose.Agents, MatchSummariesPdfName, cancellationToken).ConfigureAwait(false);
         var newVectorStoreFile = await client.CreateVectorStoreFileAsync(agent.ToolResources.FileSearch.VectorStoreIds[0], newFile.Value.Id, cancellationToken: cancellationToken).ConfigureAwait(false);
-        var ingestStartTime = TimeProvider.System.GetUtcNow();
+        var ingestStartTime = time.GetUtcNow();
         logger.UploadedTeamMatchSummariesPDFToAzureAI();
 
         bool fiveMinWarningGiven = false;
@@ -137,18 +138,18 @@ internal sealed class MatchSummariesUpdater(AgentsClient client,
             {
                 logger.StillWaitingForFileToBeProcessed();
 
-                if (!fiveMinWarningGiven && (TimeProvider.System.GetUtcNow() - ingestStartTime).TotalMinutes > 5)
+                if (!fiveMinWarningGiven && (time.GetUtcNow() - ingestStartTime).TotalMinutes > 5)
                 {
                     logger.VectorStoreProcessingIsTakingAVERYLongTimeThisMayBeASignOfAProblemFileFileId(newVectorStoreFile.Value.Id);
                     fiveMinWarningGiven = true;
                 }
-                else if (fiveMinWarningGiven && (TimeProvider.System.GetUtcNow() - ingestStartTime).TotalMinutes > 10)
+                else if (fiveMinWarningGiven && (time.GetUtcNow() - ingestStartTime).TotalMinutes > 10)
                 {
                     logger.VectorStoreProcessingHasTakenOver10MinutesBailingFileFileId(newVectorStoreFile.Value.Id);
                     return null;
                 }
 
-                await Task.Delay(1000, cancellationToken).ConfigureAwait(false);
+                await Task.Delay(TimeSpan.FromSeconds(1), time, cancellationToken).ConfigureAwait(false);
             }
             else if (fileStatus == VectorStoreFileStatus.Completed)
             {

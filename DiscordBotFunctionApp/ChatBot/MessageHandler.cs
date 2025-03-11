@@ -16,14 +16,14 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 
 #pragma warning disable SKEXP0110 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIAgent agent, IDiscordClient discordClient, [FromKeyedServices(Constants.ServiceKeys.TableClient_UserChatAgentThreads)] TableClient userThreadMappings, ILogger<MessageHandler> logger)
+internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIAgent agent, IDiscordClient discordClient, [FromKeyedServices(Constants.ServiceKeys.TableClient_UserChatAgentThreads)] TableClient userThreadMappings, TimeProvider time, ILogger<MessageHandler> logger)
 {
     private const string DisclaimerText = "-# AI generated response; may have mistakes.";
     private static readonly EmbedBuilder _embedBuilder = new();
 
     public async Task HandleUserMessageAsync(IUserMessage msg, CancellationToken cancellationToken = default)
     {
-        var interactionStartTime = TimeProvider.System.GetUtcNow();
+        var interactionStartTime = time.GetUtcNow();
         var responseChannel = await discordClient.GetDMChannelAsync(msg.Channel.Id).ConfigureAwait(false);
         using var typing = responseChannel.EnterTypingState();
         CancellationTokenSource sorryForTheDelayCanceler = new();
@@ -56,7 +56,7 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
             {
                 try
                 {
-                    await Task.Delay(10_000, sorryForTheDelayCanceler.Token).ConfigureAwait(false);
+                    await Task.Delay(TimeSpan.FromSeconds(10), time, sorryForTheDelayCanceler.Token).ConfigureAwait(false);
 
                     for (int numDots = 3; !sorryForTheDelayCanceler.IsCancellationRequested; numDots++)
                     {
@@ -71,7 +71,7 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
                                 await thinkingMessage.ModifyAsync(p => p.Content = $"-# Working on it{new string('.', numDots)}", options: sorryForTheDelayCanceler.Token.ToRequestOptions());
                             }
 
-                            await Task.Delay(2000, sorryForTheDelayCanceler.Token).ConfigureAwait(false);
+                            await Task.Delay(TimeSpan.FromSeconds(2), time, sorryForTheDelayCanceler.Token).ConfigureAwait(false);
                         }
                     }
                 }
@@ -151,7 +151,7 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
                     if (firstMessage is null)
                     {
                         firstMessage = latestMessage = await responseChannel.SendMessageAsync(msg, flags: MessageFlags.SuppressEmbeds, options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
-                        logger.LogMetric("AgentFirstMessageDelaySec", (TimeProvider.System.GetUtcNow() - interactionStartTime).TotalSeconds);
+                        logger.LogMetric("AgentFirstMessageDelaySec", (time.GetUtcNow() - interactionStartTime).TotalSeconds);
                     }
                     else
                     {
@@ -193,7 +193,7 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
             typing.Dispose();
         }
 
-        logger.LogMetric("InteractionTimeSec", (TimeProvider.System.GetUtcNow() - interactionStartTime).TotalSeconds);
+        logger.LogMetric("InteractionTimeSec", (time.GetUtcNow() - interactionStartTime).TotalSeconds);
     }
 
     [GeneratedRegex(@"\w*【[^】]+】\w*", RegexOptions.Compiled)]

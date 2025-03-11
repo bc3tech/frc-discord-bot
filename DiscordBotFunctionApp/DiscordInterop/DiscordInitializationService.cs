@@ -20,14 +20,14 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-internal sealed partial class DiscordInitializationService(IDiscordClient discordClient, InteractionService interactionService, ChatBot.MessageHandler chatBot, IConfiguration appConfig, ILoggerFactory logFactory, IServiceProvider services) : IHostedService
+internal sealed partial class DiscordInitializationService(IDiscordClient discordClient, InteractionService interactionService, ChatBot.MessageHandler chatBot, TimeProvider time, IConfiguration appConfig, ILoggerFactory logFactory, IServiceProvider services) : IHostedService
 {
     private readonly ILogger _logger = logFactory.CreateLogger<DiscordInitializationService>();
     private readonly DiscordSocketClient client = discordClient as DiscordSocketClient ?? throw new ArgumentException(nameof(discordClient));
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        var startTime = TimeProvider.System.GetTimestamp();
+        var startTime = time.GetTimestamp();
         var tsc = new TaskCompletionSource();
         client.Ready += () =>
         {
@@ -57,7 +57,7 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
 
         await InstallCommandsAsync(cancellationToken).ConfigureAwait(false);
 
-        var initTime = TimeProvider.System.GetElapsedTime(startTime).TotalSeconds;
+        var initTime = time.GetElapsedTime(startTime).TotalSeconds;
         _logger.DiscordInitializationTimeDiscordInitTimeS(initTime);
         _logger.LogMetric("DiscordInitTime", initTime);
 

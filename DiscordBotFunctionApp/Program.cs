@@ -100,6 +100,8 @@ internal sealed class Program
 
                     return blobContainer;
                 });
+
+                services.AddSingleton(TimeProvider.System);
             })
             .ConfigureLogging((context, builder) => builder
                 .AddConfiguration(context.Configuration.GetSection("Logging"))

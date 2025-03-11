@@ -23,13 +23,14 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
+using System.Timers;
 
 internal sealed partial class DiscordMessageDispatcher(
     [FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptionsTable,
     [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptionsTable,
     [FromKeyedServices(Constants.ServiceKeys.TableClient_Threads)] TableClient threadsTable,
     IDiscordClient discordClient, WebhookEmbeddingGenerator _embedGenerator,
-    ILogger<DiscordMessageDispatcher> logger)
+    TimeProvider time, ILogger<DiscordMessageDispatcher> logger)
 {
     private readonly DiscordSocketClient _discordClient = (discordClient as DiscordSocketClient) ?? throw new ArgumentException(nameof(discordClient));
 
@@ -179,7 +180,7 @@ internal sealed partial class DiscordMessageDispatcher(
             var tableResponse = await threadsTable.GetEntityIfExistsAsync<ThreadTableEntity>(threadDetails.Value.PartitionKey, threadDetails.Value.RowKey, cancellationToken: cancellationToken).ConfigureAwait(false);
             ThreadTableEntity tableEntity = tableResponse is not null && tableResponse.HasValue
                 ? tableResponse.Value!
-                : new()
+                : new(time)
                 {
                     PartitionKey = threadDetails.Value.PartitionKey,
                     RowKey = threadDetails.Value.RowKey,
@@ -252,11 +253,17 @@ internal sealed partial class DiscordMessageDispatcher(
 }
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "<Pending>")]
-sealed record ThreadTableEntity() : ITableEntity
+sealed record ThreadTableEntity : ITableEntity
 {
-    internal ThreadTableEntity(IEnumerable<ThreadDetail> threadIds) : this() => this.ThreadIdList = [.. threadIds];
+    [JsonConstructor]
+    public ThreadTableEntity() : this(TimeProvider.System) { }
 
-    public DateTimeOffset? Timestamp { get; set; } = TimeProvider.System.GetUtcNow();
+    internal ThreadTableEntity(TimeProvider time)
+    {
+        this.Timestamp = time.GetUtcNow();
+    }
+
+    public DateTimeOffset? Timestamp { get; set; }
     public ETag ETag { get; set; } = ETag.All;
 
     required public string PartitionKey { get; set; }
