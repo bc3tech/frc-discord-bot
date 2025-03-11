@@ -10,6 +10,9 @@ using DiscordBotFunctionApp.TbaInterop.Extensions;
 using DiscordBotFunctionApp.TbaInterop.Models;
 using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
+using FIRST.Api;
+using FIRST.Model;
+
 using Microsoft.Extensions.Logging;
 
 using System.Diagnostics;
@@ -27,7 +30,7 @@ using TheBlueAlliance.Model.MatchScoreBreakdown2025AllianceExtensions;
 
 using Match = TheBlueAlliance.Model.Match;
 
-internal sealed partial class MatchScore(IEventApi eventApi, IMatchApi matchApi, IDistrictApi districtApi, EventRepository events, TeamRepository teams, EmbedBuilderFactory builderFactory, ChatRunner gpt, ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<string>
+internal sealed partial class MatchScore(IEventApi eventApi, IMatchApi matchApi, IDistrictApi districtApi, IScheduleApi schedule, EventRepository events, TeamRepository teams, EmbedBuilderFactory builderFactory, ChatRunner gpt, ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<string>
 {
     public const NotificationType TargetType = NotificationType.match_score;
 
@@ -262,7 +265,7 @@ internal sealed partial class MatchScore(IEventApi eventApi, IMatchApi matchApi,
         }
         #endregion
 
-        await AddEventWrapupAsync(descriptionBuilder, notificationMatch, detailedMatch, winningAlliance, cancellationToken).ConfigureAwait(false);
+        await AddEventOrDayWrapupAsync(descriptionBuilder, notificationMatch, detailedMatch, winningAlliance, cancellationToken).ConfigureAwait(false);
 
         var videos = (notificationMatch?.Videos ?? detailedMatch.Videos)?.Where(v => v.Type is "youtube" && v.Key is not null).Select(v => $"- https://www.youtube.com/watch?v={v.Key}");
         if (videos?.Any() is true)
@@ -302,7 +305,7 @@ internal sealed partial class MatchScore(IEventApi eventApi, IMatchApi matchApi,
         return retVal;
     }
 
-    private async Task AddEventWrapupAsync(StringBuilder descriptionBuilder, Match? notificationMatch, Match detailedMatch, Match.WinningAllianceEnum winningAlliance, CancellationToken cancellationToken)
+    private async Task AddEventOrDayWrapupAsync(StringBuilder descriptionBuilder, Match? notificationMatch, Match detailedMatch, Match.WinningAllianceEnum winningAlliance, CancellationToken cancellationToken)
     {
         var currentMatchNumber = notificationMatch?.MatchNumber ?? detailedMatch.MatchNumber;
         var isPossibleEventEnd = (notificationMatch?.CompLevel ?? detailedMatch.CompLevel) is Match.CompLevelEnum.F && currentMatchNumber > 1;
@@ -332,7 +335,46 @@ internal sealed partial class MatchScore(IEventApi eventApi, IMatchApi matchApi,
                 descriptionBuilder.AppendLine($"### 🎉{(winCounts[1] is 2 ? "Red" : "Blue")} Alliance wins the event! Congratulations!!🎉");
             }
         }
+        else
+        {
+            var eventPieces = EventPartsRegex().Match(notificationMatch?.EventKey ?? detailedMatch.EventKey);
+            Debug.Assert(eventPieces.Success);
+            var eventCode = eventPieces.Groups[2].Value;
+            var season = eventPieces.Groups[1].Value;
+
+            var firstTourneyLevel = ((notificationMatch?.CompLevel ?? detailedMatch.CompLevel) is Match.CompLevelEnum.Qm) ? TournamentLevel.Qualification : TournamentLevel.Playoff;
+            var eventSchedule = await schedule.SeasonScheduleEventCodeGetAsync(eventCode, season, tournamentLevel: firstTourneyLevel, cancellationToken: cancellationToken);
+            Debug.Assert(eventSchedule is not null, "We expect to find the event in the schedule using the event code & season");
+            if (eventSchedule is not null)
+            {
+                string compLevel = notificationMatch?.CompLevel.ToInvariantString() ?? detailedMatch.CompLevel.ToInvariantString();
+                var matchNumber = notificationMatch?.MatchNumber ?? detailedMatch.MatchNumber;
+                var thisMatch = eventSchedule.Schedule.FirstOrDefault(i => i.MatchNumber == matchNumber);
+                Debug.Assert(thisMatch is not null, "We expect to find the match in the schedule using the comp level & the match number");
+                if (thisMatch is not null)
+                {
+                    var lastEventOfEachDay = eventSchedule.Schedule
+                        .GroupBy(i => i.StartTime.GetValueOrDefault(DateTimeOffset.MinValue).Date)
+                        .Select(i => i.MaxBy(j => j.StartTime.GetValueOrDefault(DateTimeOffset.MinValue))!);
+                    if (lastEventOfEachDay.Any(i => i.MatchNumber == thisMatch.MatchNumber))
+                    {
+                        descriptionBuilder.AppendLine("### That's it for today! Matches will continue tomorrow.");
+                    }
+                }
+                else
+                {
+                    logger.WeCouldNotFindTheMatchInTheScheduleUsingTheCompLevelCompLevelTheMatchNumberMatchNumber(compLevel, matchNumber);
+                }
+            }
+            else
+            {
+                logger.WeCouldNotFindTheEventInTheScheduleUsingTheEventCodeEventCodeSeasonSeason(eventCode, season);
+            }
+        }
     }
+
+    [GeneratedRegex(@"(\d+)(\w+)", RegexOptions.Compiled | RegexOptions.Singleline)]
+    private static partial Regex EventPartsRegex();
 
     private async Task<IReadOnlyDictionary<string, int>> ComputeDistrictPointsForTeamsAsync(string eventKey, IEnumerable<string> allTeamKeys, CancellationToken cancellationToken)
     {

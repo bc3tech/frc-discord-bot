@@ -373,4 +373,13 @@ static partial class Log
 
     [LoggerMessage(121, LogLevel.Trace, "Already processed alliance selection for event {EventKey}")]
     internal static partial void AlreadyProcessedAllianceSelectionForEventEventKey(this ILogger logger, string EventKey);
+
+    [LoggerMessage(122, LogLevel.Warning, "We could not find the match in the schedule using the comp level ({CompLevel}) & the match number ({MatchNumber})")]
+    internal static partial void WeCouldNotFindTheMatchInTheScheduleUsingTheCompLevelCompLevelTheMatchNumberMatchNumber(this ILogger logger, string CompLevel, int MatchNumber);
+
+    [LoggerMessage(123, LogLevel.Warning, "We could not find the event in the schedule using the event code ({EventCode}) & season ({Season})")]
+    internal static partial void WeCouldNotFindTheEventInTheScheduleUsingTheEventCodeEventCodeSeasonSeason(this ILogger logger, string EventCode, string Season);
+
+    [LoggerMessage(124, LogLevel.Debug, "Webhook payload deserialized into {WebhookMessage} {SerializedWebhookMessage}")]
+    internal static partial void WebhookPayloadDeserializedIntoWebhookMessageSerializedWebhookMessage(this ILogger logger, WebhookMessage WebhookMessage, string SerializedWebhookMessage);
 }
