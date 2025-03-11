@@ -28,6 +28,8 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILo
         var message = JsonSerializer.Deserialize<WebhookMessage>(bodyContent);
         if (message is not null)
         {
+            logger.WebhookPayloadDeserializedIntoWebhookMessageSerializedWebhookMessage(message, JsonSerializer.Serialize(message));
+
             if (message.MessageType is NotificationType.verification)
             {
                 logger.ReceivedVerificationMessageFromTheBlueAllianceKeyVerificationKey(message.GetDataAs<Verification>()!.verification_key);
