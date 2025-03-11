@@ -175,6 +175,7 @@ internal sealed partial class MatchScore(IEventApi eventApi, IMatchApi matchApi,
 
     private async Task BuildDescriptionAsync(ushort? highlightTeam, Match? notificationMatch, Match detailedMatch, StringBuilder descriptionBuilder, (int redScore, int blueScore) scores, CancellationToken cancellationToken)
     {
+        var preferredMatch = notificationMatch ?? detailedMatch;
         var winningAlliance = notificationMatch?.WinningAlliance ?? detailedMatch.WinningAlliance;
         if (winningAlliance is Match.WinningAllianceEnum.Empty)
         {
@@ -193,11 +194,14 @@ internal sealed partial class MatchScore(IEventApi eventApi, IMatchApi matchApi,
         var districtPoints = await ComputeDistrictPointsForTeamsAsync(notificationMatch?.EventKey ?? detailedMatch.EventKey, allTeamKeys, cancellationToken);
 
         #region Red Score Breakdown
-        descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)}Red Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red]})" : string.Empty)} - {alliances.Red.Score}{((notificationMatch?.CompLevel ?? detailedMatch.CompLevel) is Match.CompLevelEnum.Qm ? $" (+{(notificationMatch ?? detailedMatch).GetAllianceRankingPoints(Match.WinningAllianceEnum.Red).ToString() ?? "?"})" : string.Empty)}");
+        string? rankingPointsValue = preferredMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red)?.ToString();
+        string rankingPointsStr = $" (+{(string.IsNullOrWhiteSpace(rankingPointsValue) ? "?" : rankingPointsValue)})";
+        descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)}Red Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red]})" : string.Empty)} - {alliances.Red.Score}{(preferredMatch.CompLevel is Match.CompLevelEnum.Qm ? rankingPointsStr : string.Empty)}");
         descriptionBuilder.AppendLine($"{string.Join("\n", alliances.Red.TeamKeys.Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]}, +{districtPoints[t]}dp) " : string.Empty)}"))}");
         if (scoreBreakdown?.Red is null)
         {
             descriptionBuilder.AppendLine("No score breakdown given");
+            logger.LogMetric("NoRedScoreBreakdown", 1);
         }
         else
         {
@@ -226,11 +230,14 @@ internal sealed partial class MatchScore(IEventApi eventApi, IMatchApi matchApi,
         cancellationToken.ThrowIfCancellationRequested();
 
         #region Blue Score Breakdown
-        descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)}Blue Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue]})" : string.Empty)} - {alliances.Blue.Score}{((notificationMatch?.CompLevel ?? detailedMatch.CompLevel) is Match.CompLevelEnum.Qm ? $" (+{(notificationMatch ?? detailedMatch).GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue).ToString() ?? "?"})" : string.Empty)}");
+        rankingPointsValue = preferredMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue)?.ToString();
+        rankingPointsStr = $" (+{(string.IsNullOrWhiteSpace(rankingPointsValue) ? "?" : rankingPointsValue)})";
+        descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)}Blue Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue]})" : string.Empty)} - {alliances.Blue.Score}{(preferredMatch.CompLevel is Match.CompLevelEnum.Qm ? rankingPointsStr : string.Empty)}");
         descriptionBuilder.AppendLine($"{string.Join("\n", alliances.Blue.TeamKeys.Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]}, +{districtPoints[t]}dp)" : string.Empty)}"))}");
         if (scoreBreakdown?.Red is null)
         {
             descriptionBuilder.AppendLine("No score breakdown given");
+            logger.LogMetric("NoBlueScoreBreakdown", 1);
         }
         else
         {
