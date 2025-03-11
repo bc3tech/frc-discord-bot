@@ -52,8 +52,8 @@ public sealed class ChatCommandModule : CommandModuleBase
             bool successful = false;
             try
             {
-                await DeleteThreadRecordForUserAsync(services, button.User.Id).ConfigureAwait(false);
-                successful = true;
+                var r = await DeleteThreadRecordForUserAsync(services, button.User.Id).ConfigureAwait(false);
+                successful = !r.IsError;
             }
             catch (Exception e)
             {
@@ -95,5 +95,5 @@ public sealed class ChatCommandModule : CommandModuleBase
         }
     }
 
-    private static Task DeleteThreadRecordForUserAsync(IServiceProvider services, ulong userId, CancellationToken cancellationToken = default) => services.GetRequiredKeyedService<TableClient>(Constants.ServiceKeys.TableClient_UserChatAgentThreads).DeleteEntityAsync(partitionKey: userId.ToString(), rowKey: userId.ToString(), cancellationToken: cancellationToken);
+    private static Task<Azure.Response> DeleteThreadRecordForUserAsync(IServiceProvider services, ulong userId, CancellationToken cancellationToken = default) => services.GetRequiredKeyedService<TableClient>(Constants.ServiceKeys.TableClient_UserChatAgentThreads).DeleteEntityAsync(partitionKey: userId.ToString(), rowKey: userId.ToString(), cancellationToken: cancellationToken);
 }
