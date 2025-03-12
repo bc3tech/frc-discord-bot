@@ -11,9 +11,9 @@ internal sealed class TbaInitializationService(EventRepository eventsRepo, TeamR
 {
     public Task StartAsync(CancellationToken cancellationToken) => Task.WhenAll(
             // Preload the events so Autocomplete is fast
-            eventsRepo.GetEventsAsync(cancellationToken).AsTask(),
+            eventsRepo.InitializeAsync(cancellationToken).AsTask(),
             // Preload the teams so Autocomplete is fast
-            teamsRepo.GetTeamsAsync(cancellationToken).AsTask()
+            teamsRepo.InitializeAsync(cancellationToken).AsTask()
         );
 
     public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;

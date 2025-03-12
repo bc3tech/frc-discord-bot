@@ -19,13 +19,13 @@ using System.Threading;
 using TheBlueAlliance.Api;
 
 internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
-                        TeamRepository teams,
-                        IDistrictApi tbaDistrictData,
-                        EventRepository events,
-                        Statbotics.Api.ITeamYearApi teamStats,
-                        IRankingsApi rankings,
-                        TimeProvider time,
-                        ILogger<TeamRank> logger) : IEmbedCreator<(int? Year, string TeamKey, string? EventKey)>
+                               TeamRepository teams,
+                               IDistrictApi tbaDistrictData,
+                               EventRepository events,
+                               Statbotics.Api.ITeamYearApi teamStats,
+                               IRankingsApi rankings,
+                               TimeProvider time,
+                               ILogger<TeamRank> logger) : IEmbedCreator<(int? Year, string TeamKey, string? EventKey)>
 {
     public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync((int? Year, string TeamKey, string? EventKey) input, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
@@ -132,7 +132,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
         if (!string.IsNullOrWhiteSpace(input.EventKey))
         {
             descriptionBuilder.AppendLine($"## {events.GetLabelForEvent(input.EventKey)}\n");
-            var eventDetail = await tbaEventData.GetEventSimpleAsync(input.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var eventDetail = events[input.EventKey];
             Debug.Assert(eventDetail is not null);
             if (eventDetail is null)
             {

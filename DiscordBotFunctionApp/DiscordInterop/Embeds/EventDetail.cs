@@ -25,86 +25,85 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup,
     {
         using var scope = logger.CreateMethodScope();
 
-        if ((await _eventsRepo.GetEventsAsync(default).ConfigureAwait(false)).TryGetValue(eventKey, out var eventDetails) && eventDetails is not null)
+        var eventDetails = _eventsRepo[eventKey];
+        var countryCode = (await _countryCodeLookup.GetCountryCodeForFlagLookupAsync(eventDetails.Country, default).ConfigureAwait(false))!;
+
+        StringBuilder descriptionBuilder = new();
+        descriptionBuilder.AppendLine($"{eventDetails.Year} Week {eventDetails.Week.GetValueOrDefault(-1) + 1} {eventDetails.EventTypeString} competition");
+
+        #region Location URL section
+        if (!string.IsNullOrWhiteSpace(eventDetails.GmapsUrl))
         {
-            var countryCode = (await _countryCodeLookup.GetCountryCodeForFlagLookupAsync(eventDetails.Country, default).ConfigureAwait(false))!;
+            descriptionBuilder.Append('[');
+        }
 
-            StringBuilder descriptionBuilder = new();
-            descriptionBuilder.AppendLine($"{eventDetails.Year} Week {eventDetails.Week.GetValueOrDefault(-1) + 1} {eventDetails.EventTypeString} competition");
-            #region Location URL section
-            if (!string.IsNullOrWhiteSpace(eventDetails.GmapsUrl))
-            {
-                descriptionBuilder.Append('[');
-            }
+        descriptionBuilder.Append(!string.IsNullOrWhiteSpace(eventDetails.LocationName) ? $"{eventDetails.LocationName}, " : string.Empty)
+            .Append(!string.IsNullOrWhiteSpace(eventDetails.City) ? $"{eventDetails.City}, " : string.Empty)
+            .Append(!string.IsNullOrWhiteSpace(eventDetails.StateProv) ? $"{eventDetails.StateProv}, " : string.Empty)
+            .Append(!string.IsNullOrWhiteSpace(eventDetails.Country) ? $"{eventDetails.Country}" : string.Empty);
 
-            descriptionBuilder.Append(!string.IsNullOrWhiteSpace(eventDetails.LocationName) ? $"{eventDetails.LocationName}, " : string.Empty)
-                .Append(!string.IsNullOrWhiteSpace(eventDetails.City) ? $"{eventDetails.City}, " : string.Empty)
-                .Append(!string.IsNullOrWhiteSpace(eventDetails.StateProv) ? $"{eventDetails.StateProv}, " : string.Empty)
-                .Append(!string.IsNullOrWhiteSpace(eventDetails.Country) ? $"{eventDetails.Country}" : string.Empty);
+        if (!string.IsNullOrWhiteSpace(eventDetails.GmapsUrl))
+        {
+            descriptionBuilder.Append($"]({eventDetails.GmapsUrl})");
+        }
+        #endregion
 
-            if (!string.IsNullOrWhiteSpace(eventDetails.GmapsUrl))
-            {
-                descriptionBuilder.Append($"]({eventDetails.GmapsUrl})");
-            }
-            #endregion
+        var builder = builderFactory.GetBuilder()
+            .WithTitle($"**{eventDetails.Name}**")
+            .WithUrl(eventDetails.Website)
+            .WithDescription(descriptionBuilder.ToString());
 
-            var builder = builderFactory.GetBuilder()
-                .WithTitle($"**{eventDetails.Name}**")
-                .WithUrl(eventDetails.Website)
-                .WithDescription(descriptionBuilder.ToString());
+        if (!string.IsNullOrWhiteSpace(countryCode))
+        {
+            builder.ThumbnailUrl = Utility.CreateCountryFlagUrl(countryCode).ToString();
+        }
 
-            if (!string.IsNullOrWhiteSpace(countryCode))
-            {
-                builder.ThumbnailUrl = Utility.CreateCountryFlagUrl(countryCode).ToString();
-            }
+        if (eventDetails.District is not null && !string.IsNullOrWhiteSpace(eventDetails.District.DisplayName))
+        {
+            builder.AddField("District", eventDetails.District.DisplayName);
+        }
 
-            if (eventDetails.District is not null && !string.IsNullOrWhiteSpace(eventDetails.District.DisplayName))
-            {
-                builder.AddField("District", eventDetails.District.DisplayName);
-            }
+        builder.AddField("Dates", $"{eventDetails.StartDate:MMMM d} - {eventDetails.EndDate:MMMM d, yyyy}", inline: true);
 
-            builder.AddField("Dates", $"{eventDetails.StartDate:MMMM d} - {eventDetails.EndDate:MMMM d, yyyy}", inline: true);
+        if (eventDetails.Webcasts is not null and { Count: > 0 })
+        {
+            builder.AddField("Where to watch", string.Join('\n', eventDetails.Webcasts.Select(i => $"- {i.GetFullUrl(logger)}")));
+        }
 
-            if (eventDetails.Webcasts is not null and { Count: > 0 })
-            {
-                builder.AddField("Where to watch", string.Join('\n', eventDetails.Webcasts.Select(i => $"- {i.GetFullUrl(logger)}")));
-            }
+        builder
+            .AddField("Event details on TBA", $"https://thebluealliance.com/event/{eventDetails.Key}")
+            .AddField("Stats", "Checking for statistics...", inline: true);
 
-            builder
-                .AddField("Event details on TBA", $"https://thebluealliance.com/event/{eventDetails.Key}")
-                .AddField("Stats", "Checking for statistics...", inline: true);
+        yield return new(builder.Build(), Transient: true);
 
-            yield return new(builder.Build(), Transient: true);
+        Event? stats = default;
+        try
+        {
+            stats = await eventStats.ReadEventV3EventEventGetAsync(eventKey, cancellationToken).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            logger.ErrorGettingDataFromStatboticsForEventKey(ex, eventKey);
+        }
 
-            Event? stats = default;
-            try
-            {
-                stats = await eventStats.ReadEventV3EventEventGetAsync(eventKey, cancellationToken).ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                logger.ErrorGettingDataFromStatboticsForEventKey(ex, eventKey);
-            }
-
-            if (stats is not null)
-            {
-                builder.Fields.Insert(0, new EmbedFieldBuilder().WithName("Status").WithValue(stats.GetEventStatusStr()));
-                builder.Fields[^1].Value = stats.NumTeams is not null and not 0
-                    ? $"""
+        if (stats is not null)
+        {
+            builder.Fields.Insert(0, new EmbedFieldBuilder().WithName("Status").WithValue(stats.GetEventStatusStr()));
+            builder.Fields[^1].Value = stats.NumTeams is not null and not 0
+                ? $"""
                        {stats.NumTeams} teams
                        
                        Max EPA: {stats.EpaVal?.Max}*
                        Avg EPA: {stats.EpaVal?.Mean}*
                        -# \* This is a prediction if the event has not yet started
                        """
-                    : "No stats available.";
-            }
-            else
-            {
-                builder.Fields[^1].Value = "No stats available.";
-            }
-
-            yield return new(builder.Build());
+                : "No stats available.";
         }
+        else
+        {
+            builder.Fields[^1].Value = "No stats available.";
+        }
+
+        yield return new(builder.Build());
     }
 }

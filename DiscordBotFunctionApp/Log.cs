@@ -41,8 +41,8 @@ static partial class Log
     [LoggerMessage(8, LogLevel.Debug, "Loading Events from TBA for {EventYear}...")]
     internal static partial void LoadingEventsFromTBAForEventYear(this ILogger logger, int EventYear);
 
-    [LoggerMessage(9, LogLevel.Trace, "Loaded {EventCount} events")]
-    internal static partial void LoadedEventCountEvents(this ILogger logger, int EventCount);
+    [LoggerMessage(9, LogLevel.Trace, "Retrieved {EventCount} events")]
+    internal static partial void RetrievedEventCountEvents(this ILogger logger, int EventCount);
 
     [LoggerMessage(10, LogLevel.Error, "An error occurred while loading events from the TBA API: {ErrorMessage}")]
     internal static partial void AnErrorOccurredWhileLoadingEventsFromTheTBAAPIErrorMessage(this ILogger logger, Exception exception, string ErrorMessage);
@@ -388,4 +388,13 @@ static partial class Log
 
     [LoggerMessage(126, LogLevel.Warning, "Team {TeamKey} not known at all!")]
     internal static partial void TeamTeamKeyNotKnownAtAll(this ILogger logger, string TeamKey);
+
+    [LoggerMessage(127, LogLevel.Information, "Cached {TeamCount} teams from TBA")]
+    internal static partial void CachedTeamCountTeamsFromTBA(this ILogger logger, int TeamCount);
+
+    [LoggerMessage(128, LogLevel.Information, "Cached {EventCount} teams from TBA")]
+    internal static partial void CachedEventCountTeamsFromTBA(this ILogger logger, int EventCount);
+
+    [LoggerMessage(129, LogLevel.Debug, "{EmbeddingName} built: {EmbeddingDetail}")]
+    internal static partial void EmbeddingNameBuiltEmbeddingDetail(this ILogger logger, string EmbeddingName, string EmbeddingDetail);
 }

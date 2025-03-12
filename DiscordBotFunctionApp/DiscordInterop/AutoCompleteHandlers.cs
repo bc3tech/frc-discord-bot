@@ -34,7 +34,7 @@ internal sealed class AutoCompleteHandlers
     {
         private ILogger<EventsAutoCompleteHandler>? _logger;
 
-        public async override Task<AutocompletionResult> GenerateSuggestionsAsync(IInteractionContext context, IAutocompleteInteraction autocompleteInteraction, IParameterInfo parameter, IServiceProvider services)
+        public override Task<AutocompletionResult> GenerateSuggestionsAsync(IInteractionContext context, IAutocompleteInteraction autocompleteInteraction, IParameterInfo parameter, IServiceProvider services)
         {
             _logger ??= services.GetRequiredService<ILoggerFactory>().CreateLogger<EventsAutoCompleteHandler>();
 
@@ -43,10 +43,9 @@ internal sealed class AutoCompleteHandlers
                 var userSearchString = autocompleteInteraction.Data.Current.Value as string ?? string.Empty;
                 var eventsRepo = services.GetService<EventRepository>();
                 Debug.Assert(eventsRepo is not null);
-                var frcEvents = await eventsRepo.GetEventsAsync(default).ConfigureAwait(false);
 #pragma warning disable EA0011 // Consider removing unnecessary conditional access operator (?) - found instances where, even though decorated with [JsonRequired] and not nullable, values were coming through as `null`
-                return AutocompletionResult.FromSuccess(
-                    frcEvents.Where(i => i.Key.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
+                return Task.FromResult(AutocompletionResult.FromSuccess(
+                    eventsRepo.AllEvents.Where(i => i.Key.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
                         || i.Value.Name?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
                         || i.Value.Year.ToString(CultureInfo.InvariantCulture).Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
                         || i.Value.City?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
@@ -54,7 +53,7 @@ internal sealed class AutoCompleteHandlers
                         || i.Value.StateProv?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
                         || i.Value.LocationName?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true)
                     .Take(MAX_RESULTS)
-                    .Select(i => new AutocompleteResult(Ellipsify(eventsRepo.GetLabelForEvent(i.Key, includeYear: true, includeCity: true, includeStateProv: true, includeCountry: true)), i.Key)));
+                    .Select(i => new AutocompleteResult(Ellipsify(eventsRepo.GetLabelForEvent(i.Key, includeYear: true, includeCity: true, includeStateProv: true, includeCountry: true)), i.Key))));
 #pragma warning restore EA0011 // Consider removing unnecessary conditional access operator (?)
             }
             catch (Exception ex) when (ex is HttpException { DiscordCode: DiscordErrorCode.UnknownInteraction or DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged }
@@ -63,14 +62,14 @@ internal sealed class AutoCompleteHandlers
                 _logger.InteractionAlreadyAcknowledgedSkippingResponse();
             }
 
-            return AutocompletionResult.FromSuccess();
+            return Task.FromResult(AutocompletionResult.FromSuccess());
         }
     }
 
     internal sealed class TeamsAutoCompleteHandler : AutocompleteHandler
     {
         private ILogger<TeamsAutoCompleteHandler>? _logger;
-        public override async Task<AutocompletionResult> GenerateSuggestionsAsync(IInteractionContext context, IAutocompleteInteraction autocompleteInteraction, IParameterInfo parameter, IServiceProvider services)
+        public override Task<AutocompletionResult> GenerateSuggestionsAsync(IInteractionContext context, IAutocompleteInteraction autocompleteInteraction, IParameterInfo parameter, IServiceProvider services)
         {
             _logger ??= services.GetRequiredService<ILoggerFactory>().CreateLogger<TeamsAutoCompleteHandler>();
 
@@ -79,9 +78,8 @@ internal sealed class AutoCompleteHandlers
                 var userSearchString = autocompleteInteraction.Data.Current.Value as string ?? string.Empty;
                 var teamsRepo = services.GetService<TeamRepository>();
                 Debug.Assert(teamsRepo is not null);
-                var frcTeams = await teamsRepo.GetTeamsAsync(default).ConfigureAwait(false);
 #pragma warning disable EA0011 // Consider removing unnecessary conditional access operator (?) - found instances where, even though decorated with [JsonRequired] and not nullable, values were coming through as `null`
-                return AutocompletionResult.FromSuccess(frcTeams
+                return Task.FromResult(AutocompletionResult.FromSuccess(teamsRepo.AllTeams
                     .Where(i => i.Value.Name?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
                         || i.Value.Nickname?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
                         || i.Value.TeamNumber.ToString(CultureInfo.InvariantCulture).Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
@@ -89,7 +87,7 @@ internal sealed class AutoCompleteHandlers
                         || i.Value.Country?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
                         || i.Value.StateProv?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true)
                     .Take(MAX_RESULTS)
-                    .Select(i => new AutocompleteResult(Ellipsify(teamsRepo.GetLabelForTeam(i.Key)), i.Key)));
+                    .Select(i => new AutocompleteResult(Ellipsify(teamsRepo.GetLabelForTeam(i.Key)), i.Key))));
 #pragma warning restore EA0011 // Consider removing unnecessary conditional access operator (?)
             }
             catch (Exception ex) when (ex is HttpException { DiscordCode: DiscordErrorCode.UnknownInteraction or DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged }
@@ -98,7 +96,7 @@ internal sealed class AutoCompleteHandlers
                 _logger.InteractionAlreadyAcknowledgedSkippingResponse();
             }
 
-            return AutocompletionResult.FromSuccess();
+            return Task.FromResult(AutocompletionResult.FromSuccess());
         }
     }
 

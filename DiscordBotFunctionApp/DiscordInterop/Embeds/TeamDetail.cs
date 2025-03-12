@@ -29,82 +29,81 @@ internal sealed class TeamDetail(RESTCountries _countryCodeLookup,
     {
         using var scope = logger.CreateMethodScope();
 
-        if ((await _teamsRepo.GetTeamsAsync(default).ConfigureAwait(false)).TryGetValue(teamKey, out var teamDetails) && teamDetails is not null)
+        var teamDetails = _teamsRepo[teamKey];
+
+        var jsonResult = JsonSerializer.Serialize(await teamStats.ReadTeamV3TeamTeamGetAsync(teamKey.ToTeamNumber()!.ToString()!, cancellationToken).ConfigureAwait(false));
+        var teamResult = JsonSerializer.Deserialize<Team>(jsonResult)!;
+        var locationString = await createLocationStringAsync(teamDetails, _countryCodeLookup).ConfigureAwait(false);
+        var builder = builderFactory.GetBuilder()
+            .WithTitle($"**{teamDetails.Nickname}**")
+            .WithUrl(teamDetails.Website)
+            .WithThumbnailUrl($"https://www.thebluealliance.com/avatar/{time.GetLocalNow().Year - 1}/{teamKey}.png")
+            .WithDescription(teamDetails.Name)
+            .AddField("Location", locationString)
+            .AddField("Active?", teamResult.Active ? "Yes" : "No");
+
+        var lightestColor = Utility.GetLightestColorOf(
+            teamResult.Colors?.Primary is not null ? Color.Parse(teamResult.Colors.Primary) : null,
+            teamResult.Colors?.Secondary is not null ? Color.Parse(teamResult.Colors.Secondary) : null);
+        if (lightestColor is not null)
         {
-            var jsonResult = JsonSerializer.Serialize(await teamStats.ReadTeamV3TeamTeamGetAsync(teamKey.ToTeamNumber()!.ToString()!, cancellationToken).ConfigureAwait(false));
-            var teamResult = JsonSerializer.Deserialize<Team>(jsonResult)!;
-            var locationString = await createLocationStringAsync(teamDetails, _countryCodeLookup).ConfigureAwait(false);
-            var builder = builderFactory.GetBuilder()
-                .WithTitle($"**{teamDetails.Nickname}**")
-                .WithUrl(teamDetails.Website)
-                .WithThumbnailUrl($"https://www.thebluealliance.com/avatar/{time.GetLocalNow().Year - 1}/{teamKey}.png")
-                .WithDescription(teamDetails.Name)
-                .AddField("Location", locationString)
-                .AddField("Active?", teamResult.Active ? "Yes" : "No");
+            builder.WithColor(lightestColor.Value);
+        }
 
-            var lightestColor = Utility.GetLightestColorOf(
-                teamResult.Colors?.Primary is not null ? Color.Parse(teamResult.Colors.Primary) : null,
-                teamResult.Colors?.Secondary is not null ? Color.Parse(teamResult.Colors.Secondary) : null);
-            if (lightestColor is not null)
+        var district = (await districts.GetTeamDistrictsAsync(teamKey, cancellationToken: cancellationToken).ConfigureAwait(false))?.FirstOrDefault();
+        if (district is not null && !string.IsNullOrWhiteSpace(district.DisplayName))
+        {
+            builder.AddField("District", district.DisplayName);
+        }
+
+        if (!string.IsNullOrWhiteSpace(teamDetails.SchoolName))
+        {
+            builder.AddField("School", teamDetails.SchoolName);
+        }
+
+        if (teamDetails.RookieYear.HasValue)
+        {
+            builder.AddField("Rookie Year", $"{teamDetails.RookieYear}");
+        }
+
+        var fullRecord = teamResult.Records?.Full;
+        if (fullRecord is not null)
+        {
+            builder.AddField("All-time Record", $"{fullRecord.Wins}-{fullRecord.Losses}-{fullRecord.Ties} ({fullRecord.Wins / ((float)fullRecord.Wins + fullRecord.Losses + fullRecord.Ties):.000})");
+        }
+
+        yield return new(builder.Build());
+
+        async static Task<string> createLocationStringAsync(TheBlueAlliance.Model.Team teamDetail, RESTCountries _countryCodeLookup)
+        {
+            StringBuilder sb = new();
+            if (!string.IsNullOrWhiteSpace(teamDetail.LocationName))
             {
-                builder.WithColor(lightestColor.Value);
+                sb.Append($"{teamDetail.LocationName}, ");
             }
 
-            var district = (await districts.GetTeamDistrictsAsync(teamKey, cancellationToken: cancellationToken).ConfigureAwait(false))?.FirstOrDefault();
-            if (district is not null && !string.IsNullOrWhiteSpace(district.DisplayName))
+            if (!string.IsNullOrWhiteSpace(teamDetail.City))
             {
-                builder.AddField("District", district.DisplayName);
+                sb.Append($"{teamDetail.City}, ");
             }
 
-            if (!string.IsNullOrWhiteSpace(teamDetails.SchoolName))
+            if (!string.IsNullOrWhiteSpace(teamDetail.StateProv))
             {
-                builder.AddField("School", teamDetails.SchoolName);
+                sb.Append($"{teamDetail.StateProv}, ");
             }
 
-            if (teamDetails.RookieYear.HasValue)
+            if (!string.IsNullOrWhiteSpace(teamDetail.Country))
             {
-                builder.AddField("Rookie Year", $"{teamDetails.RookieYear}");
-            }
+                sb.Append($"{teamDetail.Country}");
 
-            var fullRecord = teamResult.Records?.Full;
-            if (fullRecord is not null)
-            {
-                builder.AddField("All-time Record", $"{fullRecord.Wins}-{fullRecord.Losses}-{fullRecord.Ties} ({fullRecord.Wins / ((float)fullRecord.Wins + fullRecord.Losses + fullRecord.Ties):.000})");
-            }
-
-            yield return new(builder.Build());
-
-            async static Task<string> createLocationStringAsync(TheBlueAlliance.Model.Team teamDetail, RESTCountries _countryCodeLookup)
-            {
-                StringBuilder sb = new();
-                if (!string.IsNullOrWhiteSpace(teamDetail.LocationName))
+                var countryCode = (await _countryCodeLookup.GetCountryCodeForFlagLookupAsync(teamDetail.Country, default).ConfigureAwait(false))!;
+                if (!string.IsNullOrWhiteSpace(countryCode))
                 {
-                    sb.Append($"{teamDetail.LocationName}, ");
+                    sb.Append($" {Utility.CreateCountryFlagEmojiRef(countryCode)}");
                 }
-
-                if (!string.IsNullOrWhiteSpace(teamDetail.City))
-                {
-                    sb.Append($"{teamDetail.City}, ");
-                }
-
-                if (!string.IsNullOrWhiteSpace(teamDetail.StateProv))
-                {
-                    sb.Append($"{teamDetail.StateProv}, ");
-                }
-
-                if (!string.IsNullOrWhiteSpace(teamDetail.Country))
-                {
-                    sb.Append($"{teamDetail.Country}");
-
-                    var countryCode = (await _countryCodeLookup.GetCountryCodeForFlagLookupAsync(teamDetail.Country, default).ConfigureAwait(false))!;
-                    if (!string.IsNullOrWhiteSpace(countryCode))
-                    {
-                        sb.Append($" {Utility.CreateCountryFlagEmojiRef(countryCode)}");
-                    }
-                }
-
-                return sb.ToString();
             }
+
+            return sb.ToString();
         }
     }
 }

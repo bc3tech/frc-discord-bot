@@ -15,39 +15,67 @@ using TheBlueAlliance.Model;
 
 internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, ILogger<EventRepository> logger)
 {
-    private ConcurrentDictionary<string, Event> _events = [];
+    private static readonly ConcurrentDictionary<string, Event> _events = [];
 
-    public async ValueTask<IReadOnlyDictionary<string, Event>> GetEventsAsync(CancellationToken cancellationToken)
+    public async ValueTask InitializeAsync(CancellationToken cancellationToken)
     {
         using var scope = logger.CreateMethodScope();
-        if (_events.IsEmpty)
+        for (int i = 0, currentYear = time.GetLocalNow().Year; i < 4; i++, currentYear--)
         {
-            for (int i = 0, currentYear = time.GetLocalNow().Year; i < 4; i++, currentYear--)
+            logger.LoadingEventsFromTBAForEventYear(currentYear);
+            try
             {
-                logger.LoadingEventsFromTBAForEventYear(currentYear);
-                try
+                var newEvents = await apiClient.GetEventsByYearAsync(currentYear, cancellationToken: cancellationToken).ConfigureAwait(false);
+                if (newEvents?.Count is null or 0)
                 {
-                    var newEvents = await apiClient.GetEventsByYearAsync(currentYear, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    if (newEvents?.Count is null or 0)
-                    {
-                        return _events = [];
-                    }
+                    break;
+                }
 
-                    logger.LoadedEventCountEvents(newEvents.Count);
-                    logger.LogMetric("EventCount", newEvents.Count, new Dictionary<string, object>() { { "Year", currentYear } });
-                    _events = new([.. _events, .. newEvents.ToDictionary(t => t.Key!)]);
-                }
-                catch (Exception ex)
+                logger.RetrievedEventCountEvents(newEvents.Count);
+
+                foreach (var e in newEvents)
                 {
-                    Debug.Fail(ex.Message);
-                    logger.AnErrorOccurredWhileLoadingEventsFromTheTBAAPIErrorMessage(ex, ex.Message);
-                    _events = [];
+                    cancellationToken.ThrowIfCancellationRequested();
+                    if (_events.TryAdd(e.Key!, e))
+                    {
+                        logger.LogMetric("EventAdded", 1);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Debug.Fail(ex.Message);
+                logger.AnErrorOccurredWhileLoadingEventsFromTheTBAAPIErrorMessage(ex, ex.Message);
             }
         }
 
-        return _events;
+        logger.CachedEventCountTeamsFromTBA(_events.Count);
     }
+
+    /// <summary>
+    /// Gets the event associated with the specified event key.
+    /// If the event is not found in the cache, it retrieves the event from the TBA API and adds it to the cache.
+    /// </summary>
+    /// <param name="eventKey">The key of the event to retrieve.</param>
+    /// <returns>The event associated with the specified event key.</returns>
+    /// <exception cref="KeyNotFoundException">Thrown when the event is not found in the cache or the TBA API.</exception>
+    public Event this[string eventKey]
+    {
+        get
+        {
+            if (_events.TryGetValue(eventKey, out var t) && t is not null)
+            {
+                return t;
+            }
+
+            logger.EventEventKeyNotFoundInCache(eventKey);
+            t = apiClient.GetEvent(eventKey);
+            return t is not null ? _events.GetOrAdd(eventKey, t) : throw new KeyNotFoundException();
+        }
+    }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Not the API we're going for")]
+    public IReadOnlyDictionary<string, Event> AllEvents => _events;
 
     public string GetLabelForEvent(string eventKey, bool shortName = false, bool includeYear = false, bool includeCity = false, bool includeStateProv = false, bool includeCountry = false)
     {
