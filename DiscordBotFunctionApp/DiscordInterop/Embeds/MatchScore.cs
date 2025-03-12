@@ -30,7 +30,15 @@ using TheBlueAlliance.Model.MatchScoreBreakdown2025AllianceExtensions;
 
 using Match = TheBlueAlliance.Model.Match;
 
-internal sealed partial class MatchScore(IEventApi eventApi, IMatchApi matchApi, IDistrictApi districtApi, IScheduleApi schedule, EventRepository events, TeamRepository teams, EmbedBuilderFactory builderFactory, ChatRunner gpt, ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<string>
+internal sealed partial class MatchScore(IEventApi eventApi,
+                                         IMatchApi matchApi,
+                                         IDistrictApi districtApi,
+                                         IScheduleApi schedule,
+                                         EventRepository events,
+                                         TeamRepository teams,
+                                         EmbedBuilderFactory builderFactory,
+                                         ChatRunner gpt,
+                                         ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<string>
 {
     public const NotificationType TargetType = NotificationType.match_score;
 

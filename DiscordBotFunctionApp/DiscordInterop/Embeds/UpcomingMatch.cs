@@ -19,7 +19,13 @@ using System.Text.RegularExpressions;
 using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchSimpleExtensions;
 
-internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights, TheBlueAlliance.Api.IMatchApi tbaApi, Statbotics.Api.IMatchApi matchStats, EventRepository events, TeamRepository teams, EmbedBuilderFactory builderFactory, ILogger<UpcomingMatch> logger) : INotificationEmbedCreator, IEmbedCreator<string>
+internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
+                                            TheBlueAlliance.Api.IMatchApi tbaApi,
+                                            Statbotics.Api.IMatchApi matchStats,
+                                            EventRepository events,
+                                            TeamRepository teams,
+                                            EmbedBuilderFactory builderFactory,
+                                            ILogger<UpcomingMatch> logger) : INotificationEmbedCreator, IEmbedCreator<string>
 {
     public const NotificationType TargetType = NotificationType.upcoming_match;
 

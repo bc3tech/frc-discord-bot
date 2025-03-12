@@ -4,6 +4,7 @@ using Common.Extensions;
 
 using Microsoft.Extensions.Logging;
 
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
@@ -14,12 +15,12 @@ using TheBlueAlliance.Model;
 
 internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, ILogger<EventRepository> logger)
 {
-    private Dictionary<string, Event> _events = [];
+    private ConcurrentDictionary<string, Event> _events = [];
 
     public async ValueTask<IReadOnlyDictionary<string, Event>> GetEventsAsync(CancellationToken cancellationToken)
     {
         using var scope = logger.CreateMethodScope();
-        if (_events.Count is 0)
+        if (_events.IsEmpty)
         {
             for (int i = 0, currentYear = time.GetLocalNow().Year; i < 4; i++, currentYear--)
             {
@@ -34,7 +35,7 @@ internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, IL
 
                     logger.LoadedEventCountEvents(newEvents.Count);
                     logger.LogMetric("EventCount", newEvents.Count, new Dictionary<string, object>() { { "Year", currentYear } });
-                    _events = new Dictionary<string, Event>([.. _events, .. newEvents.ToDictionary(t => t.Key!)]);
+                    _events = new([.. _events, .. newEvents.ToDictionary(t => t.Key!)]);
                 }
                 catch (Exception ex)
                 {
@@ -48,7 +49,7 @@ internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, IL
         return _events;
     }
 
-    public string GetLabelForEvent(string eventKey, bool shortName = false, bool includeYear = false, bool includeCity = false, bool includeStateProv=false, bool includeCountry = false)
+    public string GetLabelForEvent(string eventKey, bool shortName = false, bool includeYear = false, bool includeCity = false, bool includeStateProv = false, bool includeCountry = false)
     {
         using var scope = logger.CreateMethodScope();
         if (eventKey is CommonConstants.ALL)
@@ -56,7 +57,17 @@ internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, IL
             return "All Events";
         }
 
-        if (_events.TryGetValue(eventKey, out var e) is true && e is not null)
+        if (_events.TryGetValue(eventKey, out var e) is not true || e is null)
+        {
+            logger.EventEventKeyNotFoundInCache(eventKey);
+            var liveEvent = apiClient.GetEvent(eventKey);
+            if (liveEvent is not null)
+            {
+                e = _events.GetOrAdd(eventKey, liveEvent);
+            }
+        }
+
+        if (e is not null)
         {
             var location = new StringBuilder();
             if (includeCity && !string.IsNullOrEmpty(e.City))
@@ -87,7 +98,7 @@ internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, IL
             return $"{(includeYear ? $"{e.Year} " : string.Empty)}{(shortName ? e.ShortName : e.Name)}{(location.Length > 0 ? $" - {location}" : string.Empty)}";
         }
 
-        logger.EventEventKeyNotFoundInCache(eventKey);
+        logger.EventEventKeyNotKnownAtAll(eventKey);
 
         return string.Empty;
     }

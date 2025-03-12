@@ -16,7 +16,11 @@ using System.Runtime.CompilerServices;
 
 using TheBlueAlliance.Api;
 
-internal sealed class Award(IEventApi tbaApi, TeamRepository teams, EmbedBuilderFactory builderFactory, BlobContainerClient imageBlobs, ILogger<Award> logger) : INotificationEmbedCreator
+internal sealed class Award(IEventApi tbaApi,
+                            TeamRepository teams,
+                            EmbedBuilderFactory builderFactory,
+                            BlobContainerClient imageBlobs,
+                            ILogger<Award> logger) : INotificationEmbedCreator
 {
     public const NotificationType TargetType = NotificationType.awards_posted;
 

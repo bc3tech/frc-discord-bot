@@ -4,14 +4,17 @@ using Common.Extensions;
 
 using Microsoft.Extensions.Logging;
 
+using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
 
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Model;
 
 internal sealed class TeamRepository(ITeamApi tbaApiClient, ILogger<TeamRepository> logger)
 {
-    private Dictionary<string, Team>? _teams;
+    private ConcurrentDictionary<string, Team>? _teams;
 
     public Team? this[string teamKey] => _teams?[teamKey];
 
@@ -39,7 +42,7 @@ internal sealed class TeamRepository(ITeamApi tbaApiClient, ILogger<TeamReposito
 
                 logger.RetrievedTeamCountTeams(teams.Count);
                 logger.LogMetric("TeamCount", teams.Count);
-                _teams = teams.ToDictionary(t => t.Key!);
+                _teams = new(teams.ToDictionary(t => t.Key!));
             }
             catch (Exception ex)
             {
@@ -57,12 +60,72 @@ internal sealed class TeamRepository(ITeamApi tbaApiClient, ILogger<TeamReposito
     public string GetLabelForTeam(string teamKey, bool includeNumber = true, bool includeName = true, bool includeLocation = true)
     {
         using var scope = logger.CreateMethodScope();
-        if (_teams?.TryGetValue(teamKey, out var t) is true && t is not null)
+        if (_teams?.TryGetValue(teamKey, out var t) is not true || t is null)
         {
-            return $"{(includeNumber ? $"{t.TeamNumber} " : string.Empty)}{(includeName && !string.IsNullOrWhiteSpace(t.Nickname) ? t.Nickname : string.Empty)}{(includeLocation && !string.IsNullOrWhiteSpace(t.City) && !string.IsNullOrWhiteSpace(t.Country) ? $" - {t.City}, {t.Country}" : string.Empty)}";
+            logger.TeamTeamNumberNotFoundInCache(teamKey);
+            t = tbaApiClient.GetTeam(teamKey);
+            if (t is not null)
+            {
+                t = _teams?.GetOrAdd(teamKey, t);
+            }
         }
 
-        logger.TeamTeamNumberNotFoundInCache(teamKey);
+        if (t is not null)
+        {
+            var details = new StringBuilder();
+            if (includeNumber)
+            {
+                details.Append($"{t.TeamNumber}");
+            }
+
+            if (includeName && !string.IsNullOrEmpty(t.Nickname))
+            {
+                if (details.Length > 0)
+                {
+                    details.Append(' ');
+                }
+
+                details.Append(t.Nickname);
+            }
+
+            if (includeLocation)
+            {
+                var location = new StringBuilder();
+                if (!string.IsNullOrEmpty(t.City))
+                {
+                    location.Append(t.City);
+                }
+
+                if (!string.IsNullOrWhiteSpace(t.StateProv))
+                {
+                    if (location.Length > 0)
+                    {
+                        location.Append(", ");
+                    }
+
+                    location.Append(t.StateProv);
+                }
+
+                if (!string.IsNullOrWhiteSpace(t.Country))
+                {
+                    if (location.Length > 0)
+                    {
+                        location.Append(", ");
+                    }
+
+                    location.Append(t.Country);
+                }
+
+                if (location.Length > 0)
+                {
+                    details.Append($" - {location}");
+                }
+            }
+
+            details.ToString();
+        }
+
+        logger.TeamTeamKeyNotKnownAtAll(teamKey);
 
         return string.Empty;
     }

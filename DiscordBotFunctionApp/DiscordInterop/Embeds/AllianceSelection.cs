@@ -1,7 +1,5 @@
 ﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
 
-using Common.Extensions;
-
 using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.TbaInterop.Models;
 using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
@@ -15,7 +13,10 @@ using System.Text;
 
 using TheBlueAlliance.Api;
 
-internal sealed class AllianceSelection(IEventApi tbaClient, TeamRepository teams, EmbedBuilderFactory builderFactory, ILogger<AllianceSelection> logger) : INotificationEmbedCreator
+internal sealed class AllianceSelection(IEventApi tbaClient,
+                                        TeamRepository teams,
+                                        EmbedBuilderFactory builderFactory,
+                                        ILogger<AllianceSelection> logger) : INotificationEmbedCreator
 {
     public const NotificationType TargetType = NotificationType.alliance_selection;
 

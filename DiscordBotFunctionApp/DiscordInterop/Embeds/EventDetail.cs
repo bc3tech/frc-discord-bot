@@ -14,12 +14,13 @@ using Statbotics.Model;
 
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.Json;
 
-internal sealed class EventDetail(RESTCountries _countryCodeLookup, EmbedBuilderFactory builderFactory, EventRepository _eventsRepo, Statbotics.Api.IEventApi eventStats, ILogger<EventDetail> logger) : IEmbedCreator<string>
+internal sealed class EventDetail(RESTCountries _countryCodeLookup,
+                                  EmbedBuilderFactory builderFactory,
+                                  EventRepository _eventsRepo,
+                                  Statbotics.Api.IEventApi eventStats,
+                                  ILogger<EventDetail> logger) : IEmbedCreator<string>
 {
-    private static readonly JsonSerializerOptions _jsonOptions = new(JsonSerializerDefaults.Web);
-
     public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync(string eventKey, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         using var scope = logger.CreateMethodScope();

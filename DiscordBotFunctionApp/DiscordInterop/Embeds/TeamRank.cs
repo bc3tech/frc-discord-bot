@@ -20,7 +20,6 @@ using TheBlueAlliance.Api;
 
 internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                         TeamRepository teams,
-                        IEventApi tbaEventData,
                         IDistrictApi tbaDistrictData,
                         EventRepository events,
                         Statbotics.Api.ITeamYearApi teamStats,

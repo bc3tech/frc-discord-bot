@@ -23,14 +23,14 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
-using System.Timers;
 
-internal sealed partial class DiscordMessageDispatcher(
-    [FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptionsTable,
-    [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptionsTable,
-    [FromKeyedServices(Constants.ServiceKeys.TableClient_Threads)] TableClient threadsTable,
-    IDiscordClient discordClient, WebhookEmbeddingGenerator _embedGenerator,
-    TimeProvider time, ILogger<DiscordMessageDispatcher> logger)
+internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptionsTable,
+                                                       [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptionsTable,
+                                                       [FromKeyedServices(Constants.ServiceKeys.TableClient_Threads)] TableClient threadsTable,
+                                                       IDiscordClient discordClient,
+                                                       WebhookEmbeddingGenerator _embedGenerator,
+                                                       TimeProvider time,
+                                                       ILogger<DiscordMessageDispatcher> logger)
 {
     private readonly DiscordSocketClient _discordClient = (discordClient as DiscordSocketClient) ?? throw new ArgumentException(nameof(discordClient));
 

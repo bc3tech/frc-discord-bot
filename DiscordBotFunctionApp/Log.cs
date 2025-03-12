@@ -47,7 +47,7 @@ static partial class Log
     [LoggerMessage(10, LogLevel.Error, "An error occurred while loading events from the TBA API: {ErrorMessage}")]
     internal static partial void AnErrorOccurredWhileLoadingEventsFromTheTBAAPIErrorMessage(this ILogger logger, Exception exception, string ErrorMessage);
 
-    [LoggerMessage(11, LogLevel.Warning, "Event {EventKey} not found in cache")]
+    [LoggerMessage(11, LogLevel.Debug, "Event {EventKey} not found in cache, fetching...")]
     internal static partial void EventEventKeyNotFoundInCache(this ILogger logger, string EventKey);
 
     [LoggerMessage(12, LogLevel.Warning, "No country found for {Country}")]
@@ -382,4 +382,10 @@ static partial class Log
 
     [LoggerMessage(124, LogLevel.Debug, "Webhook payload deserialized into {WebhookMessage} {SerializedWebhookMessage}")]
     internal static partial void WebhookPayloadDeserializedIntoWebhookMessageSerializedWebhookMessage(this ILogger logger, WebhookMessage WebhookMessage, string SerializedWebhookMessage);
+
+    [LoggerMessage(125, LogLevel.Warning, "Event {EventKey} not known at all!")]
+    internal static partial void EventEventKeyNotKnownAtAll(this ILogger logger, string EventKey);
+
+    [LoggerMessage(126, LogLevel.Warning, "Team {TeamKey} not known at all!")]
+    internal static partial void TeamTeamKeyNotKnownAtAll(this ILogger logger, string TeamKey);
 }

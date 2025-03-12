@@ -11,8 +11,6 @@ using System.Text.Json.Serialization;
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Model.MatchExtensions;
 
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
 internal sealed record WebhookMessage
 {
     [JsonPropertyName("message_type")]
