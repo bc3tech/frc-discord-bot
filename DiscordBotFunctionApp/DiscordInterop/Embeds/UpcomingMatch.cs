@@ -143,39 +143,49 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
         yield return new(embedding);
     }
 
-    private async Task<StringBuilder> BuildDescriptionAsync(StringBuilder descriptionBuilder, ushort? highlightTeam, MatchSimple detailedMatch, CancellationToken cancellationToken, Action<StringBuilder>? beforeFooter = null)
+    private async Task<StringBuilder> BuildDescriptionAsync(StringBuilder descriptionBuilder, ushort? highlightTeam, MatchSimple matchDetails, CancellationToken cancellationToken, Action<StringBuilder>? beforeFooter = null)
     {
-        var ranks = (await eventInsights.GetEventRankingsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))!.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
+        var ranks = (await eventInsights.GetEventRankingsAsync(matchDetails.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))!.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
         Debug.Assert(ranks is not null);
         logger.RankingsRankings(ranks is not null ? JsonSerializer.Serialize(ranks) : "[null]");
 
-        var stats = await matchStats.ReadMatchV3MatchMatchGetAsync(detailedMatch.Key, cancellationToken: cancellationToken).ConfigureAwait(false);
+        var stats = await matchStats.ReadMatchV3MatchMatchGetAsync(matchDetails.Key, cancellationToken: cancellationToken).ConfigureAwait(false);
         Debug.Assert(stats is not null);
         logger.MatchStatsMatchStats(stats is not null ? JsonSerializer.Serialize(stats) : "[null]");
 
         MatchSimple.WinningAllianceEnum? predictedWinner = stats?.Pred?.Winner is not null ? MatchSimple.WinningAllianceEnumFromStringOrDefault(stats.Pred.Winner).GetValueOrDefault(MatchSimple.WinningAllianceEnum.Empty) : null;
-        var allAlliancesInMatch = (stats?.Alliances?.Blue?.TeamKeys ?? [])
+        var matchSimpleAlliances = matchDetails.Alliances.Blue.TeamKeys
+            .Concat(matchDetails.Alliances.Red.TeamKeys)
+            .Concat(matchDetails.Alliances.Blue.DqTeamKeys)
+            .Concat(matchDetails.Alliances.Red.DqTeamKeys)
+            .Concat(matchDetails.Alliances.Blue.SurrogateTeamKeys)
+            .Concat(matchDetails.Alliances.Red.SurrogateTeamKeys)
+            .Where(t => !string.IsNullOrWhiteSpace(t))
+            .Select(t => t.ToTeamNumber()!.Value);
+
+        var allAlliancesInMatch = matchSimpleAlliances.Concat(stats?.Alliances?.Blue?.TeamKeys ?? [])
             .Concat(stats?.Alliances?.Blue?.DqTeamKeys ?? [])
             .Concat(stats?.Alliances?.Blue?.SurrogateTeamKeys ?? [])
             .Concat(stats?.Alliances?.Red?.TeamKeys ?? [])
             .Concat(stats?.Alliances?.Red?.DqTeamKeys ?? [])
-            .Concat(stats?.Alliances?.Red?.SurrogateTeamKeys ?? []);
+            .Concat(stats?.Alliances?.Red?.SurrogateTeamKeys ?? [])
+            .ToHashSet();
         var containsHighlightedTeam = highlightTeam.HasValue && allAlliancesInMatch.Contains(highlightTeam.Value);
 
-        int[] allianceRanks = await GetAllianceRanksAsync(detailedMatch, cancellationToken).ConfigureAwait(false);
+        int[] allianceRanks = await GetAllianceRanksAsync(matchDetails, cancellationToken).ConfigureAwait(false);
 
         descriptionBuilder.AppendLine(
                 $"""
                 ### Alliances
 
                 **Red Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red]})" : string.Empty)}**
-                {string.Join("\n", detailedMatch.Alliances.Red.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}
+                {string.Join("\n", matchDetails.Alliances.Red.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}
 
                 """);
         descriptionBuilder.AppendLine(
             $"""
             **Blue Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue]})" : string.Empty)}**
-            {string.Join("\n", detailedMatch.Alliances.Blue.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}
+            {string.Join("\n", matchDetails.Alliances.Blue.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}
             """);
 
         if (predictedWinner is not null and not MatchSimple.WinningAllianceEnum.Empty && predictedWinner.HasValue)
@@ -210,7 +220,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
         beforeFooter?.Invoke(descriptionBuilder);
 
         descriptionBuilder.AppendLine()
-            .Append($"View more match details [here](https://www.thebluealliance.com/match/{detailedMatch.Key})");
+            .Append($"View more match details [here](https://www.thebluealliance.com/match/{matchDetails.Key})");
 
         return descriptionBuilder;
     }
