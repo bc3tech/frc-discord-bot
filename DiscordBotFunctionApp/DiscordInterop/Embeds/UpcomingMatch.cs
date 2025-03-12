@@ -228,6 +228,10 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
         descriptionBuilder.AppendLine()
             .Append($"View more match details [here](https://www.thebluealliance.com/match/{matchDetails.Key})");
 
+#pragma warning disable EA0001 // Perform message formatting in the body of the logging method
+        logger.EmbeddingNameBuiltEmbeddingDetail(nameof(UpcomingMatch), descriptionBuilder.ToString());
+#pragma warning restore EA0001 // Perform message formatting in the body of the logging method
+
         return descriptionBuilder;
     }
 

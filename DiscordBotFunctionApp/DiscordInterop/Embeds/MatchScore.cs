@@ -284,6 +284,10 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         }
 
         descriptionBuilder.AppendLine($"\nView more match details [here](https://www.thebluealliance.com/match/{notificationMatch?.Key ?? detailedMatch.Key})");
+
+#pragma warning disable EA0001 // Perform message formatting in the body of the logging method
+        logger.EmbeddingNameBuiltEmbeddingDetail(nameof(MatchScore), descriptionBuilder.ToString());
+#pragma warning restore EA0001 // Perform message formatting in the body of the logging method
     }
 
     [GeneratedRegex(@"\d+")]

@@ -83,6 +83,10 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
 
         descriptionBuilder.AppendLine($"\nYou can find more alliance details on the [Event Results](https://www.thebluealliance.com/event/{eventKey}#results) page");
 
+#pragma warning disable EA0001 // Perform message formatting in the body of the logging method
+        logger.EmbeddingNameBuiltEmbeddingDetail(nameof(AllianceSelection), descriptionBuilder.ToString());
+#pragma warning restore EA0001 // Perform message formatting in the body of the logging method
+
         yield return new(baseBuilder
             .WithDescription(descriptionBuilder.ToString())
             .Build());
