@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 
 using System.Collections.Concurrent;
 using System.Diagnostics;
-using System.Text;
 
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Model;
@@ -77,71 +76,4 @@ internal sealed class TeamRepository(ITeamApi _apiClient, ILogger<TeamRepository
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Not the API we're going for")]
     public IReadOnlyDictionary<string, Team> AllTeams => _teams;
-
-    public string GetLabelForTeam(ushort? teamNumber, bool includeNumber = true, bool includeName = true, bool includeLocation = true) => teamNumber.HasValue ? teamNumber.Value is 0 ? "All" : GetLabelForTeam($"frc{teamNumber.Value}", includeNumber, includeName, includeLocation) : string.Empty;
-
-    public string GetLabelForTeam(string teamKey, bool includeNumber = true, bool includeName = true, bool includeLocation = true)
-    {
-        using var scope = _logger.CreateMethodScope();
-        var t = this[teamKey];
-        var details = new StringBuilder();
-        if (includeNumber)
-        {
-            details.Append($"{t.TeamNumber}");
-        }
-
-        if (includeName && !string.IsNullOrEmpty(t.Nickname))
-        {
-            if (details.Length > 0)
-            {
-                details.Append(' ');
-            }
-
-            details.Append(t.Nickname);
-        }
-
-        if (includeLocation)
-        {
-            var location = new StringBuilder();
-            if (!string.IsNullOrEmpty(t.City))
-            {
-                location.Append(t.City);
-            }
-
-            if (!string.IsNullOrWhiteSpace(t.StateProv))
-            {
-                if (location.Length > 0)
-                {
-                    location.Append(", ");
-                }
-
-                location.Append(t.StateProv);
-            }
-
-            if (!string.IsNullOrWhiteSpace(t.Country))
-            {
-                if (location.Length > 0)
-                {
-                    location.Append(", ");
-                }
-
-                location.Append(t.Country);
-            }
-
-            if (location.Length > 0)
-            {
-                details.Append($" - {location}");
-            }
-        }
-
-        return details.ToString();
-    }
-
-    public string GetTeamLabelWithHighlight(string teamKey, ulong? highlightIfIsTeamNumber)
-    {
-        var teamLabel = GetLabelForTeam(teamKey);
-        return highlightIfIsTeamNumber is not null && teamLabel.StartsWith(highlightIfIsTeamNumber.ToString()!, StringComparison.Ordinal)
-            ? $"**{teamLabel}**"
-            : teamLabel;
-    }
 }

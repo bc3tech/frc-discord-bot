@@ -52,7 +52,7 @@ internal sealed class MatchVideo(IMatchApi matches,
         if (match is not null)
         {
             var embedding = baseBuilder
-                .WithTitle($"Videos for {eventRepo.GetLabelForEvent(match.EventKey)} | {Translator.CompLevelToShortString(match.CompLevel.ToInvariantString())} {match.SetNumber}.{match.MatchNumber}")
+                .WithTitle($"Videos for {eventRepo[match.EventKey].GetLabel()} | {Translator.CompLevelToShortString(match.CompLevel.ToInvariantString())} {match.SetNumber}.{match.MatchNumber}")
                 .WithDescription(string.Join('\n', match.GetVideoUrls().Select(i => $"- [{i.Name}]({i.Link})")));
 
             yield return new(embedding.Build());

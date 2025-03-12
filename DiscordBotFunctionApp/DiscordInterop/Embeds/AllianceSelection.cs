@@ -66,9 +66,9 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
         {
             var alliance = alliances[i];
             descriptionBuilder.AppendLine($"### Alliance {i + 1}\n");
-            foreach (var team in alliance.Picks)
+            foreach (var teamKey in alliance.Picks)
             {
-                descriptionBuilder.AppendLine($"- {teams.GetTeamLabelWithHighlight(team, highlightTeam)}{(ranks is not null ? $" (#{ranks[team]})" : string.Empty)}");
+                descriptionBuilder.AppendLine($"- {teams[teamKey].GetLabelWithHighlight(highlightTeam)}{(ranks is not null ? $" (#{ranks[teamKey]})" : string.Empty)}");
             }
 
             if (alliance.Declines?.Count is not null and not 0)
@@ -76,7 +76,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
                 descriptionBuilder.AppendLine($"__Declining Team{(alliance.Declines.Count > 1 ? "s" : string.Empty)}__");
                 foreach (var team in alliance.Declines)
                 {
-                    descriptionBuilder.AppendLine($"- {teams.GetTeamLabelWithHighlight(team, highlightTeam)}{(ranks is not null ? $" (#{ranks[team]})" : string.Empty)}");
+                    descriptionBuilder.AppendLine($"- {teams[team].GetLabelWithHighlight(highlightTeam)}{(ranks is not null ? $" (#{ranks[team]})" : string.Empty)}");
                 }
             }
         }

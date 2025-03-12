@@ -40,8 +40,8 @@ public class SubscriptionCommandModule(IServiceProvider services) : InteractionM
             // Create a string that starts withe the group key then lists all the group values on subsequent lines
             // This is a bit more complex than it needs to be because we want to show the team number if it's not 'all'
             // and we want to show the event key if it's not 'all'
-            var output = groupedSubscriptions.Select(i => $@"- **{_eventsRepo.GetLabelForEvent(i.Key)}**:
-{string.Join('\n', i.Select(j => $"  - {(j.Item2.HasValue ? _teamsRepo.GetLabelForTeam(j.Item2) : "All Teams")}"))}");
+            var output = groupedSubscriptions.Select(i => $@"- **{_eventsRepo[i.Key].GetLabel()}**:
+{string.Join('\n', i.Select(j => $"  - {(j.Item2.HasValue ? _teamsRepo[j.Item2.Value.ToTeamKey()].GetLabel() : "All Teams")}"))}");
             await this.ModifyOriginalResponseAsync(p => p.Content = $@"Subscriptions for this channel include:
 {string.Join('\n', output)}").ConfigureAwait(false);
         }
@@ -67,17 +67,17 @@ public class SubscriptionCommandModule(IServiceProvider services) : InteractionM
             try
             {
                 await _subscriptionManager.SaveSubscriptionAsync(new SubscriptionRequest(this.Context.Interaction.GuildId, this.Context.Interaction.ChannelId!.Value, eventKey, teamNumber), default).ConfigureAwait(false);
-                if (!string.IsNullOrWhiteSpace(eventKey) && teamNumber is not null)
+                if (!string.IsNullOrWhiteSpace(eventKey) && !string.IsNullOrWhiteSpace(teamKey))
                 {
-                    await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo.GetLabelForTeam(teamNumber, includeLocation: false)}** at the **{_eventsRepo.GetLabelForEvent(eventKey, includeYear: true)}** event.").ConfigureAwait(false);
+                    await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo[teamKey].GetLabel(includeLocation: false)}** at the **{_eventsRepo[eventKey].GetLabel(includeYear: true)}** event.").ConfigureAwait(false);
                 }
                 else if (!string.IsNullOrWhiteSpace(eventKey))
                 {
-                    await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to the **{_eventsRepo.GetLabelForEvent(eventKey, includeYear: true)}** event.").ConfigureAwait(false);
+                    await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to the **{_eventsRepo[eventKey].GetLabel(includeYear: true)}** event.").ConfigureAwait(false);
                 }
                 else
                 {
-                    await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo.GetLabelForTeam(teamNumber, includeLocation: false)}**.").ConfigureAwait(false);
+                    await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo[teamKey!].GetLabel(includeLocation: false)}**.").ConfigureAwait(false);
                 }
             }
             catch (Exception ex)

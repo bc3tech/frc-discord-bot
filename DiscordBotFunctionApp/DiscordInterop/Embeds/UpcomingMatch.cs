@@ -87,7 +87,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
         }
 
         var embedding = baseBuilder
-            .WithTitle($"{events.GetLabelForEvent(detailedMatch.EventKey)}: {Translator.CompLevelToShortString(detailedMatch.CompLevel.ToInvariantString()!)} {detailedMatch.SetNumber} - Match {detailedMatch.MatchNumber}")
+            .WithTitle($"{events[detailedMatch.EventKey].GetLabel()}: {Translator.CompLevelToShortString(detailedMatch.CompLevel.ToInvariantString()!)} {detailedMatch.SetNumber} - Match {detailedMatch.MatchNumber}")
             .WithDescription(descriptionBuilder.ToString());
 
         yield return new(embedding.Build());
@@ -119,7 +119,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
         StringBuilder descriptionBuilder = new();
         descriptionBuilder.AppendLine(
             $"""
-            # Next Match for {teams.GetLabelForTeam(highlightTeam, includeLocation: false)} at {events.GetLabelForEvent(simpleMatch.EventKey, shortName: true)}
+            # Next Match for {teams[highlightTeam!.Value.ToTeamKey()].GetLabel(includeLocation: false)} at {events[simpleMatch.EventKey].GetLabel(shortName: true)}
             ## {compLevelHeader} - Match {simpleMatch.MatchNumber}
 
             Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds(simpleMatch.Time.GetValueOrDefault(0)!).ToPacificTime():t}
@@ -184,13 +184,13 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
                 ### Alliances
 
                 **Red Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red]})" : string.Empty)}**
-                {string.Join("\n", matchDetails.Alliances.Red.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}
+                {string.Join("\n", matchDetails.Alliances.Red.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams[t].GetLabelWithHighlight(highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}
 
                 """);
         descriptionBuilder.AppendLine(
             $"""
             **Blue Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue]})" : string.Empty)}**
-            {string.Join("\n", matchDetails.Alliances.Blue.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}
+            {string.Join("\n", matchDetails.Alliances.Blue.TeamKeys.OrderBy(k => k.ToTeamNumber()).Select(t => $"- {teams[t].GetLabelWithHighlight(highlightTeam)}{(ranks is not null ? $" (#{ranks[t]})" : string.Empty)}"))}
             """);
 
         if (predictedWinner is not null and not MatchSimple.WinningAllianceEnum.Empty && predictedWinner.HasValue)

@@ -43,7 +43,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
         highlightTeam ??= inputTeamNum;
 
         var teamNumberStr = highlightTeam.Value.ToString();
-        yield return new(new EmbedBuilder().WithTitle($"{targetYear} Ranking detail for {teams.GetLabelForTeam(teamKey)}").WithUrl($"https://www.thebluealliance.com/team/{highlightTeam}").Build());
+        yield return new(new EmbedBuilder().WithTitle($"{targetYear} Ranking detail for {teams[teamKey].GetLabel()}").WithUrl($"https://www.thebluealliance.com/team/{highlightTeam}").Build());
 
         var embedding = builderFactory.GetBuilder(teamKey);
         var descriptionBuilder = new StringBuilder();
@@ -51,7 +51,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
         var frcTeamRankings = await rankings.SeasonRankingsDistrictGetAsync(targetYear.ToString(), teamNumber: teamNumberStr, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (frcTeamRankings is null or { DistrictRanks: null or { Length: 0 } })
         {
-            descriptionBuilder.AppendLine($"No district ranking data found for {teams.GetLabelForTeam(teamKey)}");
+            descriptionBuilder.AppendLine($"No district ranking data found for {teams[teamKey].GetLabel()}");
         }
         else
         {
@@ -115,7 +115,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                         descriptionBuilder.AppendLine($"### District Point breakdown by Event\n");
                         foreach (var e in tbaTeamRank.EventPoints)
                         {
-                            descriptionBuilder.AppendLine($"**{events.GetLabelForEvent(e.EventKey)}**");
+                            descriptionBuilder.AppendLine($"**{events[e.EventKey].GetLabel()}**");
                             descriptionBuilder.AppendLine($"- Alliance: {e.AlliancePoints}");
                             descriptionBuilder.AppendLine($"- Quals: {e.QualPoints}");
                             descriptionBuilder.AppendLine($"- Elims: {e.ElimPoints}");
@@ -131,12 +131,12 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
 
         if (!string.IsNullOrWhiteSpace(input.EventKey))
         {
-            descriptionBuilder.AppendLine($"## {events.GetLabelForEvent(input.EventKey)}\n");
+            descriptionBuilder.AppendLine($"## {events[input.EventKey].GetLabel()}\n");
             var eventDetail = events[input.EventKey];
             Debug.Assert(eventDetail is not null);
             if (eventDetail is null)
             {
-                descriptionBuilder.AppendLine($"No data found for {teams.GetLabelForTeam(teamKey)} at {events.GetLabelForEvent(input.EventKey)}");
+                descriptionBuilder.AppendLine($"No data found for {teams[teamKey].GetLabel()} at {events[input.EventKey].GetLabel()}");
             }
             else
             {
@@ -144,7 +144,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                 Debug.Assert(eventRankings is not null);
                 if (eventRankings is null)
                 {
-                    descriptionBuilder.AppendLine($"No data found for {teams.GetLabelForTeam(teamKey)} at {events.GetLabelForEvent(input.EventKey)}");
+                    descriptionBuilder.AppendLine($"No data found for {teams[teamKey].GetLabel()} at {events[input.EventKey].GetLabel()}");
                 }
                 else
                 {
@@ -152,7 +152,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                     Debug.Assert(teamRanking is not null);
                     if (teamRanking is null)
                     {
-                        descriptionBuilder.AppendLine($"No data found for {teams.GetLabelForTeam(teamKey)} at {events.GetLabelForEvent(input.EventKey)}");
+                        descriptionBuilder.AppendLine($"No data found for {teams[teamKey].GetLabel()} at {events[input.EventKey].GetLabel()}");
                     }
                     else
                     {

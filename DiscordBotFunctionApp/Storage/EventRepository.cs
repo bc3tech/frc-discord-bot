@@ -75,32 +75,4 @@ internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, IL
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Not the API we're going for")]
     public IReadOnlyDictionary<string, Event> AllEvents => _events;
-
-    public string GetLabelForEvent(string eventKey, bool shortName = false, bool includeYear = false, bool includeCity = false, bool includeStateProv = false, bool includeCountry = false)
-    {
-        using var scope = logger.CreateMethodScope();
-        if (eventKey is CommonConstants.ALL)
-        {
-            return "All Events";
-        }
-
-        if (_events.TryGetValue(eventKey, out var e) is not true || e is null)
-        {
-            logger.EventEventKeyNotFoundInCache(eventKey);
-            var liveEvent = apiClient.GetEvent(eventKey);
-            if (liveEvent is not null)
-            {
-                e = _events.GetOrAdd(eventKey, liveEvent);
-            }
-        }
-
-        if (e is not null)
-        {
-            return e.GetLabel(shortName, includeYear, includeCity, includeStateProv, includeCountry);
-        }
-
-        logger.EventEventKeyNotKnownAtAll(eventKey);
-
-        return string.Empty;
-    }
 }

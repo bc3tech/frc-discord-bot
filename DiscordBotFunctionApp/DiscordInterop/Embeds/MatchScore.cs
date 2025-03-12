@@ -145,7 +145,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             $"""
             # Match Result
 
-            ## {events.GetLabelForEvent(detailedMatch.EventKey)}: {compLevelHeader} - {matchHeader}
+            ## {events[detailedMatch.EventKey].GetLabel()}: {compLevelHeader} - {matchHeader}
             Predicted start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PredictedTime.GetValueOrDefault(0)).ToPacificTime():t}
             Actual start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.ActualTime.GetValueOrDefault(0)).ToPacificTime():t}{(detailedMatch.PostResultTime.HasValue ? $"\nResults posted at {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PostResultTime.Value).ToPacificTime():t}" : string.Empty)}
             """);
@@ -207,7 +207,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         string? rankingPointsValue = preferredMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red)?.ToString();
         string rankingPointsStr = $" (+{(string.IsNullOrWhiteSpace(rankingPointsValue) ? "?" : rankingPointsValue)})";
         descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)}Red Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red]})" : string.Empty)} - {alliances.Red.Score}{(preferredMatch.CompLevel is Match.CompLevelEnum.Qm ? rankingPointsStr : string.Empty)}");
-        descriptionBuilder.AppendLine($"{string.Join("\n", alliances.Red.TeamKeys.Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]}, +{districtPoints[t]}dp) " : string.Empty)}"))}");
+        descriptionBuilder.AppendLine($"{string.Join("\n", alliances.Red.TeamKeys.Select(t => $"- {teams[t].GetLabelWithHighlight(highlightTeam)}{(ranks is not null ? $" (#{ranks[t]}, +{districtPoints[t]}dp) " : string.Empty)}"))}");
         if (scoreBreakdown?.Red is null)
         {
             descriptionBuilder.AppendLine("No score breakdown given");
@@ -243,7 +243,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         rankingPointsValue = preferredMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue)?.ToString();
         rankingPointsStr = $" (+{(string.IsNullOrWhiteSpace(rankingPointsValue) ? "?" : rankingPointsValue)})";
         descriptionBuilder.AppendLine($"### {(winningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)}Blue Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue]})" : string.Empty)} - {alliances.Blue.Score}{(preferredMatch.CompLevel is Match.CompLevelEnum.Qm ? rankingPointsStr : string.Empty)}");
-        descriptionBuilder.AppendLine($"{string.Join("\n", alliances.Blue.TeamKeys.Select(t => $"- {teams.GetTeamLabelWithHighlight(t, highlightTeam)}{(ranks is not null ? $" (#{ranks[t]}, +{districtPoints[t]}dp)" : string.Empty)}"))}");
+        descriptionBuilder.AppendLine($"{string.Join("\n", alliances.Blue.TeamKeys.Select(t => $"- {teams[t].GetLabelWithHighlight(highlightTeam)}{(ranks is not null ? $" (#{ranks[t]}, +{districtPoints[t]}dp)" : string.Empty)}"))}");
         if (scoreBreakdown?.Red is null)
         {
             descriptionBuilder.AppendLine("No score breakdown given");
