@@ -163,8 +163,11 @@ public partial record Match
     /// <param name="winningAlliance">The color (red/blue) of the winning alliance. Will contain an empty string in the event of no winner, or a tie. (required).</param>
     public Match(long? actualTime, MatchSimpleAlliances alliances, CompLevelEnum compLevel, string eventKey, string key, int matchNumber, long? postResultTime, long? predictedTime, MatchScoreBreakdown scoreBreakdown, int setNumber, long? time, Collection<MatchVideosInner> videos, WinningAllianceEnum winningAlliance)
     {
-        // to ensure "actualTime" is required (not null)
-        ArgumentNullException.ThrowIfNull(actualTime);
+        if (!actualTime.HasValue)
+        {
+            throw new ArgumentNullException(nameof(actualTime));
+        }
+
         this.ActualTime = actualTime;
 
         // to ensure "alliances" is required (not null)
@@ -181,12 +184,17 @@ public partial record Match
         this.Key = key;
 
         this.MatchNumber = matchNumber;
-        // to ensure "postResultTime" is required (not null)
-        ArgumentNullException.ThrowIfNull(postResultTime);
-        this.PostResultTime = postResultTime;
+        if (!postResultTime.HasValue)
+        {
+            throw new ArgumentNullException(nameof(postResultTime));
+        }
 
-        // to ensure "predictedTime" is required (not null)
-        ArgumentNullException.ThrowIfNull(predictedTime);
+        this.PostResultTime = postResultTime;
+        if (!predictedTime.HasValue)
+        {
+            throw new ArgumentNullException(nameof(predictedTime));
+        }
+
         this.PredictedTime = predictedTime;
 
         // to ensure "scoreBreakdown" is required (not null)
@@ -194,8 +202,11 @@ public partial record Match
         this.ScoreBreakdown = scoreBreakdown;
 
         this.SetNumber = setNumber;
-        // to ensure "time" is required (not null)
-        ArgumentNullException.ThrowIfNull(time);
+        if (!time.HasValue)
+        {
+            throw new ArgumentNullException(nameof(time));
+        }
+
         this.Time = time;
 
         // to ensure "videos" is required (not null)

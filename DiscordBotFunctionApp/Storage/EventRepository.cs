@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Extensions;
 using TheBlueAlliance.Model;
 
 internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, ILogger<EventRepository> logger)
@@ -97,35 +98,8 @@ internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, IL
 
         if (e is not null)
         {
-            var location = new StringBuilder();
-            if (includeCity && !string.IsNullOrEmpty(e.City))
-            {
-                location.Append(e.City);
-            }
-
-            if (includeStateProv && !string.IsNullOrEmpty(e.StateProv))
-            {
-                if (location.Length > 0)
-                {
-                    location.Append(", ");
-                }
-
-                location.Append(e.StateProv);
-            }
-
-            if (includeCountry && !string.IsNullOrEmpty(e.Country))
-            {
-                if (location.Length > 0)
-                {
-                    location.Append(", ");
-                }
-
-                location.Append(e.Country);
-            }
-
-            return $"{(includeYear ? $"{e.Year} " : string.Empty)}{(shortName ? e.ShortName : e.Name)}{(location.Length > 0 ? $" - {location}" : string.Empty)}";
+            return e.GetLabel(shortName, includeYear, includeCity, includeStateProv, includeCountry);
         }
-
         logger.EventEventKeyNotKnownAtAll(eventKey);
 
         return string.Empty;

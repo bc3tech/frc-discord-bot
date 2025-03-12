@@ -1,15 +1,16 @@
-﻿namespace DiscordBotFunctionApp.TbaInterop.Extensions;
-
+﻿namespace TheBlueAlliance.Model;
 using Microsoft.Extensions.Logging;
 
-using TheBlueAlliance.Model;
+using System;
+using System.Collections.Generic;
+
 using TheBlueAlliance.Model.MatchExtensions;
 
-public static class MatchModelExtensions
+public partial record Match
 {
-    public static int? GetAllianceRankingPoints(this Match match, Match.WinningAllianceEnum allianceColor)
+    public int? GetAllianceRankingPoints(WinningAllianceEnum allianceColor)
     {
-        var alliance = match.ScoreBreakdown?.ActualInstance!.GetType().GetProperty(allianceColor.ToInvariantString())!.GetValue(match.ScoreBreakdown.ActualInstance);
+        var alliance = this.ScoreBreakdown?.ActualInstance!.GetType().GetProperty(allianceColor.ToInvariantString())!.GetValue(this.ScoreBreakdown.ActualInstance);
         var rpValue = (int?)alliance?.GetType().GetProperty("Rp")?.GetValue(alliance);
         return CorrectRpValue(rpValue);
     }
@@ -18,7 +19,7 @@ public static class MatchModelExtensions
     {
         if (rpValue is not null)
         {
-            if (rpValue > 6 || rpValue < 0)
+            if (rpValue is > 6 or < 0)
             {
                 return null;
             }
@@ -27,9 +28,9 @@ public static class MatchModelExtensions
         return rpValue;
     }
 
-    public static IEnumerable<(string Name, Uri Link)> GetVideoUrls(this Match match, ILogger? log = null)
+    public IEnumerable<(string Name, Uri Link)> GetVideoUrls(ILogger? log = null)
     {
-        foreach (var v in match.Videos ?? [])
+        foreach (var v in this.Videos ?? [])
         {
             if (v.Type is "youtube")
             {
@@ -41,7 +42,7 @@ public static class MatchModelExtensions
             }
             else
             {
-                log?.LogWarning("Unknown video type {Type} for match {MatchKey}", v.Type, match.Key);
+                log?.UnknownVideoTypeTypeForMatchMatchKey(v.Type, this.Key);
             }
         }
     }
