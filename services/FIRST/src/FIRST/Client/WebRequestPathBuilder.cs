@@ -16,28 +16,28 @@ using System.Collections.Generic;
 /// </summary>
 internal sealed class WebRequestPathBuilder(string baseUrl, string path)
 {
-  private readonly string _baseUrl = baseUrl;
-  private string _path = path;
-  private string _query = "?";
+    private readonly string _baseUrl = baseUrl;
+    private string _path = path;
+    private string _query = "?";
 
-  public void AddPathParameters(Dictionary<string, string?> parameters)
-  {
-    foreach (var parameter in parameters.Where(p => p.Value is not null))
+    public void AddPathParameters(Dictionary<string, string?> parameters)
     {
-      _path = _path.Replace("{" + parameter.Key + "}", Uri.EscapeDataString(parameter.Value!));
+        foreach (var parameter in parameters.Where(p => p.Value is not null))
+        {
+            _path = _path.Replace("{" + parameter.Key + "}", Uri.EscapeDataString(parameter.Value!));
+        }
     }
-  }
-  
-  public void AddQueryParameters(Multimap<string, string?> parameters)
-  {
-    foreach (var parameter in parameters.Where(p => p.Value is not null))
+
+    public void AddQueryParameters(Multimap<string, string?> parameters)
     {
-      foreach (var value in parameter.Value.Where(p => p is not null))
-      {
-        _query = _query + parameter.Key + "=" + Uri.EscapeDataString(value!) + "&";
-      }
+        foreach (var parameter in parameters.Where(p => p.Value is not null))
+        {
+            foreach (var value in parameter.Value.Where(p => p is not null))
+            {
+                _query = _query + parameter.Key + "=" + Uri.EscapeDataString(value!) + "&";
+            }
+        }
     }
-  }
-  
-  public string GetFullUri() => string.Concat(_baseUrl, _path, _query.AsSpan(0, _query.Length - 1));
+
+    public string GetFullUri() => string.Concat(_baseUrl, _path, _query.AsSpan(0, _query.Length - 1));
 }

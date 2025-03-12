@@ -1,9 +1,9 @@
 namespace DiscordBotFunctionApp.Functions;
 
-using System;
-
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
+
+using System;
 
 internal sealed class Keepalive(TimeProvider time, ILogger<Keepalive> logger)
 {

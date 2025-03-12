@@ -9,18 +9,17 @@
 
 namespace FIRST.Api;
 
-using System;
-using System.Net.Http;
-  using System.Collections.ObjectModel;
-  using System.Threading.Tasks;
-
 using FIRST.Client;
 
-  /// <summary>
-  /// Represents a collection of functions to interact with the API endpoints
-  /// </summary>
-  public interface IAllianceSelectionApiSync : IApiAccessor
-  {
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface IAllianceSelectionApiSync : IApiAccessor
+{
     #region Synchronous Operations
     /// <summary>
     /// Event Alliances
@@ -45,14 +44,14 @@ using FIRST.Client;
     /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
     /// <returns>ApiResponse of object(void)</returns>
     ApiResponse<object?> SeasonAlliancesEventCodeGetWithHttpInfo(string eventCode, string season);
-      #endregion Synchronous Operations
-    }
-    
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public interface IAllianceSelectionApiAsync : IApiAccessor
-      {
+    #endregion Synchronous Operations
+}
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface IAllianceSelectionApiAsync : IApiAccessor
+{
     #region Asynchronous Operations
     /// <summary>
     /// Event Alliances
@@ -79,192 +78,192 @@ using FIRST.Client;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse</returns>
     Task<ApiResponse<object?>> SeasonAlliancesEventCodeGetWithHttpInfoAsync(string eventCode, string season, CancellationToken cancellationToken = default);
-          #endregion Asynchronous Operations
-        }
-      
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public interface IAllianceSelectionApi : IAllianceSelectionApiSync, IAllianceSelectionApiAsync { }
-      
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public sealed partial class AllianceSelectionApi : IAllianceSelectionApi
-      {
-        private ExceptionFactory? _exceptionFactory = (name, response) => null;
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AllianceSelectionApi"/> class.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <returns></returns>
-        public AllianceSelectionApi() : this(basePath: default) { }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AllianceSelectionApi"/> class.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <param name="basePath">The target service's base path in URL format.</param>
-        /// <exception cref="ArgumentException"></exception>
-        /// <returns></returns>
-        public AllianceSelectionApi(string? basePath)
+    #endregion Asynchronous Operations
+}
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface IAllianceSelectionApi : IAllianceSelectionApiSync, IAllianceSelectionApiAsync { }
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public sealed partial class AllianceSelectionApi : IAllianceSelectionApi
+{
+    private ExceptionFactory? _exceptionFactory = (name, response) => null;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AllianceSelectionApi"/> class.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <returns></returns>
+    public AllianceSelectionApi() : this(basePath: default) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AllianceSelectionApi"/> class.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <param name="basePath">The target service's base path in URL format.</param>
+    /// <exception cref="ArgumentException"></exception>
+    /// <returns></returns>
+    public AllianceSelectionApi(string? basePath)
+    {
+        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
+        this.ApiClient = new ApiClient(this.Configuration.BasePath);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AllianceSelectionApi"/> class using Configuration object.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <param name="configuration">An instance of Configuration.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    public AllianceSelectionApi(Configuration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+
+        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
+        this.ApiClient = new ApiClient(this.Configuration.BasePath);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AllianceSelectionApi"/> class.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public AllianceSelectionApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AllianceSelectionApi"/> class.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="basePath">The target service's base path in URL format.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public AllianceSelectionApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
+        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AllianceSelectionApi"/> class using Configuration object.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="configuration">An instance of Configuration.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public AllianceSelectionApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+        ArgumentNullException.ThrowIfNull(client);
+
+        this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
+        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AllianceSelectionApi"/> class
+    /// using a Configuration object and client instance.
+    /// </summary>
+    /// <param name="client">The client interface for synchronous API access.</param>
+    /// <param name="asyncClient">The client interface for asynchronous API access.</param>
+    /// <param name="configuration">The configuration object.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    public AllianceSelectionApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        ArgumentNullException.ThrowIfNull(asyncClient);
+        this.AsynchronousClient = asyncClient;
+
+        ArgumentNullException.ThrowIfNull(configuration);
+        this.Configuration = configuration;
+
+        this.Client = client;
+        this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Holds the ApiClient if created
+    /// </summary>
+    public ApiClient? ApiClient { get; set; }
+
+    /// <summary>
+    /// The client for accessing this underlying API asynchronously.
+    /// </summary>
+    public IAsynchronousClient AsynchronousClient { get; set; }
+
+    /// <summary>
+    /// The client for accessing this underlying API synchronously.
+    /// </summary>
+    public ISynchronousClient Client { get; set; }
+
+    /// <summary>
+    /// Gets the base path of the API client.
+    /// </summary>
+    /// <value>The base path</value>
+    public string? GetBasePath() => this.Configuration.BasePath;
+
+    /// <summary>
+    /// Gets or sets the configuration object
+    /// </summary>
+    /// <value>An instance of the Configuration</value>
+    public IReadableConfiguration Configuration { get; set; }
+
+    /// <summary>
+    /// Provides a factory method hook for the creation of exceptions.
+    /// </summary>
+    public ExceptionFactory? ExceptionFactory
+    {
+        get
         {
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
-          this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AllianceSelectionApi"/> class using Configuration object.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <param name="configuration">An instance of Configuration.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        public AllianceSelectionApi(Configuration configuration)
-        {
-          ArgumentNullException.ThrowIfNull(configuration);
-          
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
-          this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AllianceSelectionApi"/> class.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public AllianceSelectionApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AllianceSelectionApi"/> class.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="basePath">The target service's base path in URL format.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public AllianceSelectionApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
-        {
-          ArgumentNullException.ThrowIfNull(client);
-          
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
-          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AllianceSelectionApi"/> class using Configuration object.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="configuration">An instance of Configuration.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public AllianceSelectionApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
-        {
-          ArgumentNullException.ThrowIfNull(configuration);
-          ArgumentNullException.ThrowIfNull(client);
-          
-          this.Configuration = FIRST.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
-          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AllianceSelectionApi"/> class
-        /// using a Configuration object and client instance.
-        /// </summary>
-        /// <param name="client">The client interface for synchronous API access.</param>
-        /// <param name="asyncClient">The client interface for asynchronous API access.</param>
-        /// <param name="configuration">The configuration object.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public AllianceSelectionApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
-        {
-          ArgumentNullException.ThrowIfNull(client);
-          
-            ArgumentNullException.ThrowIfNull(asyncClient);
-            this.AsynchronousClient = asyncClient;
-            
-          ArgumentNullException.ThrowIfNull(configuration);
-          this.Configuration = configuration;
-          
-          this.Client = client;
-          this.ExceptionFactory = FIRST.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Holds the ApiClient if created
-        /// </summary>
-        public ApiClient? ApiClient { get; set; }
-        
-          /// <summary>
-          /// The client for accessing this underlying API asynchronously.
-          /// </summary>
-          public IAsynchronousClient AsynchronousClient { get; set; }
-        
-        /// <summary>
-        /// The client for accessing this underlying API synchronously.
-        /// </summary>
-        public ISynchronousClient Client { get; set; }
-        
-        /// <summary>
-        /// Gets the base path of the API client.
-        /// </summary>
-        /// <value>The base path</value>
-        public string? GetBasePath() => this.Configuration.BasePath;
-        
-        /// <summary>
-        /// Gets or sets the configuration object
-        /// </summary>
-        /// <value>An instance of the Configuration</value>
-        public IReadableConfiguration Configuration { get; set; }
-        
-        /// <summary>
-        /// Provides a factory method hook for the creation of exceptions.
-        /// </summary>
-        public ExceptionFactory? ExceptionFactory
-        {
-          get
-          {
             return _exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1
             ? throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.")
             : _exceptionFactory;
-          }
-          set => _exceptionFactory = value;
         }
+        set => _exceptionFactory = value;
+    }
 
     /// <summary>
     /// Event Alliances The alliances API returns details about alliance selection at a particular event in a particular season.
@@ -274,9 +273,9 @@ using FIRST.Client;
     /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
     /// <returns></returns>
     public void SeasonAlliancesEventCodeGet(string eventCode, string season)
-          {
-            SeasonAlliancesEventCodeGetWithHttpInfo(eventCode, season);
-            }
+    {
+        SeasonAlliancesEventCodeGetWithHttpInfo(eventCode, season);
+    }
 
     /// <summary>
     /// Event Alliances The alliances API returns details about alliance selection at a particular event in a particular season.
@@ -286,65 +285,64 @@ using FIRST.Client;
     /// <param name="season">**[REQUIRED] (int)** Numeric year of the event from which the event alliances are requested. Must be 4 digits and greater than or equal to 2015, and less than or equal to the current year. </param>
     /// <returns>ApiResponse of object(void)</returns>
     public ApiResponse<object?> SeasonAlliancesEventCodeGetWithHttpInfo(string eventCode, string season)
+    {
+        // verify the required parameter 'eventCode' is set
+        if (eventCode is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventCode' when calling AllianceSelectionApi->SeasonAlliancesEventCodeGet");
+        }
+
+        // verify the required parameter 'season' is set
+        if (season is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'season' when calling AllianceSelectionApi->SeasonAlliancesEventCodeGet");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
+        localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
+                                                                                                    // authentication (basicAuth) required
+                                                                                                    // http basic authentication required
+        if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+        {
+            localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<object?>("/{season}/alliances/{eventCode}", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("SeasonAlliancesEventCodeGet", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'eventCode' is set
-                    if (eventCode is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'eventCode' when calling AllianceSelectionApi->SeasonAlliancesEventCodeGet");
-                    }
-                    
-                    // verify the required parameter 'season' is set
-                    if (season is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'season' when calling AllianceSelectionApi->SeasonAlliancesEventCodeGet");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-                              // authentication (basicAuth) required
-                  // http basic authentication required
-                  if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
-                  }
-                  
-              
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<object?>("/{season}/alliances/{eventCode}", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("SeasonAlliancesEventCodeGet", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     /// Event Alliances The alliances API returns details about alliance selection at a particular event in a particular season.
@@ -355,9 +353,9 @@ using FIRST.Client;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of void</returns>
     public async Task SeasonAlliancesEventCodeGetAsync(string eventCode, string season, CancellationToken cancellationToken = default)
-            {
-              await SeasonAlliancesEventCodeGetWithHttpInfoAsync(eventCode, season, cancellationToken).ConfigureAwait(false);
-              }
+    {
+        await SeasonAlliancesEventCodeGetWithHttpInfoAsync(eventCode, season, cancellationToken).ConfigureAwait(false);
+    }
 
     /// <summary>
     /// Event Alliances The alliances API returns details about alliance selection at a particular event in a particular season.
@@ -368,63 +366,63 @@ using FIRST.Client;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse</returns>
     public async Task<ApiResponse<object?>> SeasonAlliancesEventCodeGetWithHttpInfoAsync(string eventCode, string season, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'eventCode' is set
-                      if (eventCode is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'eventCode' when calling AllianceSelectionApi->SeasonAlliancesEventCodeGet");
-                      }
-                      
-                      // verify the required parameter 'season' is set
-                      if (season is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'season' when calling AllianceSelectionApi->SeasonAlliancesEventCodeGet");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
-                                  // authentication (basicAuth) required
-                      // http basic authentication required
-                      if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
-                      
-                      {
-                        localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
-                      }
-                      
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<object?>("/{season}/alliances/{eventCode}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("SeasonAlliancesEventCodeGet", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }
+    {
+        // verify the required parameter 'eventCode' is set
+        if (eventCode is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventCode' when calling AllianceSelectionApi->SeasonAlliancesEventCodeGet");
+        }
+
+        // verify the required parameter 'season' is set
+        if (season is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'season' when calling AllianceSelectionApi->SeasonAlliancesEventCodeGet");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("eventCode", ClientUtils.ParameterToString(eventCode)); // path parameter
+        localVarRequestOptions.PathParameters.Add("season", ClientUtils.ParameterToString(season)); // path parameter
+                                                                                                    // authentication (basicAuth) required
+                                                                                                    // http basic authentication required
+        if (!string.IsNullOrEmpty(this.Configuration.Username) || (!string.IsNullOrEmpty(this.Configuration.Password) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization")))
+
+        {
+            localVarRequestOptions.HeaderParameters.Add("Authorization", "Basic " + ClientUtils.Base64Encode(this.Configuration.Username + ":" + this.Configuration.Password));
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<object?>("/{season}/alliances/{eventCode}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("SeasonAlliancesEventCodeGet", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
+}

@@ -1,7 +1,5 @@
 ﻿namespace DiscordBotFunctionApp;
 
-using Azure.Storage.Blobs.Models;
-
 using Microsoft.Extensions.Configuration;
 
 internal static class Constants

@@ -7,7 +7,6 @@ using Discord.Interactions;
 using Discord.WebSocket;
 
 using DiscordBotFunctionApp;
-using DiscordBotFunctionApp.Extensions;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -15,7 +14,6 @@ using Microsoft.Extensions.Logging;
 
 using System;
 using System.Reflection;
-using System.Security.Claims;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;

@@ -7,11 +7,9 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Extensions;
 using TheBlueAlliance.Model;
 
 internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, ILogger<EventRepository> logger)
@@ -100,6 +98,7 @@ internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, IL
         {
             return e.GetLabel(shortName, includeYear, includeCity, includeStateProv, includeCountry);
         }
+
         logger.EventEventKeyNotKnownAtAll(eventKey);
 
         return string.Empty;

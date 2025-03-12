@@ -10,18 +10,17 @@
 namespace TheBlueAlliance.Api;
 
 using System;
+using System.Collections.ObjectModel;
 using System.Net.Http;
-  using System.Collections.ObjectModel;
-  using System.Threading.Tasks;
+using System.Threading.Tasks;
 
 using TheBlueAlliance.Client;
-
 using TheBlueAlliance.Model;
-  /// <summary>
-  /// Represents a collection of functions to interact with the API endpoints
-  /// </summary>
-  public interface ITeamApiSync : IApiAccessor
-  {
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface ITeamApiSync : IApiAccessor
+{
     #region Synchronous Operations
     /// <summary>
     /// 
@@ -1006,14 +1005,14 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
     ApiResponse<Collection<TeamSimple>?> GetTeamsSimpleWithHttpInfo(int pageNum, string? ifNoneMatch = default);
-      #endregion Synchronous Operations
-    }
-    
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public interface ITeamApiAsync : IApiAccessor
-      {
+    #endregion Synchronous Operations
+}
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface ITeamApiAsync : IApiAccessor
+{
     #region Asynchronous Operations
     /// <summary>
     /// 
@@ -2080,192 +2079,192 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
     Task<ApiResponse<Collection<TeamSimple>?>> GetTeamsSimpleWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          #endregion Asynchronous Operations
-        }
-      
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public interface ITeamApi : ITeamApiSync, ITeamApiAsync { }
-      
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public sealed partial class TeamApi : ITeamApi
-      {
-        private ExceptionFactory? _exceptionFactory = (name, response) => null;
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TeamApi"/> class.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <returns></returns>
-        public TeamApi() : this(basePath: default) { }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TeamApi"/> class.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <param name="basePath">The target service's base path in URL format.</param>
-        /// <exception cref="ArgumentException"></exception>
-        /// <returns></returns>
-        public TeamApi(string? basePath)
+    #endregion Asynchronous Operations
+}
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface ITeamApi : ITeamApiSync, ITeamApiAsync { }
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public sealed partial class TeamApi : ITeamApi
+{
+    private ExceptionFactory? _exceptionFactory = (name, response) => null;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TeamApi"/> class.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <returns></returns>
+    public TeamApi() : this(basePath: default) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TeamApi"/> class.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <param name="basePath">The target service's base path in URL format.</param>
+    /// <exception cref="ArgumentException"></exception>
+    /// <returns></returns>
+    public TeamApi(string? basePath)
+    {
+        this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
+        this.ApiClient = new ApiClient(this.Configuration.BasePath);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TeamApi"/> class using Configuration object.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <param name="configuration">An instance of Configuration.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    public TeamApi(Configuration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+
+        this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
+        this.ApiClient = new ApiClient(this.Configuration.BasePath);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TeamApi"/> class.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public TeamApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TeamApi"/> class.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="basePath">The target service's base path in URL format.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public TeamApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
+        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TeamApi"/> class using Configuration object.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="configuration">An instance of Configuration.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public TeamApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+        ArgumentNullException.ThrowIfNull(client);
+
+        this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
+        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TeamApi"/> class
+    /// using a Configuration object and client instance.
+    /// </summary>
+    /// <param name="client">The client interface for synchronous API access.</param>
+    /// <param name="asyncClient">The client interface for asynchronous API access.</param>
+    /// <param name="configuration">The configuration object.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    public TeamApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        ArgumentNullException.ThrowIfNull(asyncClient);
+        this.AsynchronousClient = asyncClient;
+
+        ArgumentNullException.ThrowIfNull(configuration);
+        this.Configuration = configuration;
+
+        this.Client = client;
+        this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Holds the ApiClient if created
+    /// </summary>
+    public ApiClient? ApiClient { get; set; }
+
+    /// <summary>
+    /// The client for accessing this underlying API asynchronously.
+    /// </summary>
+    public IAsynchronousClient AsynchronousClient { get; set; }
+
+    /// <summary>
+    /// The client for accessing this underlying API synchronously.
+    /// </summary>
+    public ISynchronousClient Client { get; set; }
+
+    /// <summary>
+    /// Gets the base path of the API client.
+    /// </summary>
+    /// <value>The base path</value>
+    public string? GetBasePath() => this.Configuration.BasePath;
+
+    /// <summary>
+    /// Gets or sets the configuration object
+    /// </summary>
+    /// <value>An instance of the Configuration</value>
+    public IReadableConfiguration Configuration { get; set; }
+
+    /// <summary>
+    /// Provides a factory method hook for the creation of exceptions.
+    /// </summary>
+    public ExceptionFactory? ExceptionFactory
+    {
+        get
         {
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
-          this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TeamApi"/> class using Configuration object.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <param name="configuration">An instance of Configuration.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        public TeamApi(Configuration configuration)
-        {
-          ArgumentNullException.ThrowIfNull(configuration);
-          
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
-          this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TeamApi"/> class.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public TeamApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TeamApi"/> class.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="basePath">The target service's base path in URL format.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public TeamApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
-        {
-          ArgumentNullException.ThrowIfNull(client);
-          
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
-          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TeamApi"/> class using Configuration object.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="configuration">An instance of Configuration.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public TeamApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
-        {
-          ArgumentNullException.ThrowIfNull(configuration);
-          ArgumentNullException.ThrowIfNull(client);
-          
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
-          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TeamApi"/> class
-        /// using a Configuration object and client instance.
-        /// </summary>
-        /// <param name="client">The client interface for synchronous API access.</param>
-        /// <param name="asyncClient">The client interface for asynchronous API access.</param>
-        /// <param name="configuration">The configuration object.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public TeamApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
-        {
-          ArgumentNullException.ThrowIfNull(client);
-          
-            ArgumentNullException.ThrowIfNull(asyncClient);
-            this.AsynchronousClient = asyncClient;
-            
-          ArgumentNullException.ThrowIfNull(configuration);
-          this.Configuration = configuration;
-          
-          this.Client = client;
-          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Holds the ApiClient if created
-        /// </summary>
-        public ApiClient? ApiClient { get; set; }
-        
-          /// <summary>
-          /// The client for accessing this underlying API asynchronously.
-          /// </summary>
-          public IAsynchronousClient AsynchronousClient { get; set; }
-        
-        /// <summary>
-        /// The client for accessing this underlying API synchronously.
-        /// </summary>
-        public ISynchronousClient Client { get; set; }
-        
-        /// <summary>
-        /// Gets the base path of the API client.
-        /// </summary>
-        /// <value>The base path</value>
-        public string? GetBasePath() => this.Configuration.BasePath;
-        
-        /// <summary>
-        /// Gets or sets the configuration object
-        /// </summary>
-        /// <value>An instance of the Configuration</value>
-        public IReadableConfiguration Configuration { get; set; }
-        
-        /// <summary>
-        /// Provides a factory method hook for the creation of exceptions.
-        /// </summary>
-        public ExceptionFactory? ExceptionFactory
-        {
-          get
-          {
             return _exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1
             ? throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.")
             : _exceptionFactory;
-          }
-          set => _exceptionFactory = value;
         }
+        set => _exceptionFactory = value;
+    }
 
     /// <summary>
     ///  Gets a list of team district rankings for the given district.
@@ -2275,10 +2274,10 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>Collection&lt;DistrictRanking&gt;</returns>
     public Collection<DistrictRanking>? GetDistrictRankings(string districtKey, string? ifNoneMatch = default)
-          {
+    {
         ApiResponse<Collection<DistrictRanking>?> localVarResponse = GetDistrictRankingsWithHttpInfo(districtKey, ifNoneMatch);
-              return localVarResponse.Data;
-            }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of team district rankings for the given district.
@@ -2288,62 +2287,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;DistrictRanking&gt;</returns>
     public ApiResponse<Collection<DistrictRanking>?> GetDistrictRankingsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling TeamApi->GetDistrictRankings");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<DistrictRanking>?>("/district/{district_key}/rankings", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictRankings", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'districtKey' is set
-                    if (districtKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'districtKey' when calling TeamApi->GetDistrictRankings");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<DistrictRanking>?>("/district/{district_key}/rankings", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetDistrictRankings", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of team district rankings for the given district.
@@ -2354,10 +2353,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;DistrictRanking&gt;</returns>
     public async Task<Collection<DistrictRanking>?> GetDistrictRankingsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<DistrictRanking>?> localVarResponse = await GetDistrictRankingsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of team district rankings for the given district.
@@ -2368,73 +2367,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;DistrictRanking&gt;)</returns>
     public async Task<ApiResponse<Collection<DistrictRanking>?>> GetDistrictRankingsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'districtKey' is set
-                      if (districtKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'districtKey' when calling TeamApi->GetDistrictRankings");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<DistrictRanking>?>("/district/{district_key}/rankings", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetDistrictRankings", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Team&gt;</returns>
-    public Collection<Team>? GetDistrictTeams(string districtKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Team>?> localVarResponse = GetDistrictTeamsWithHttpInfo(districtKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling TeamApi->GetDistrictRankings");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<DistrictRanking>?>("/district/{district_key}/rankings", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictRankings", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Team&gt;</returns>
+    public Collection<Team>? GetDistrictTeams(string districtKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Team>?> localVarResponse = GetDistrictTeamsWithHttpInfo(districtKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -2444,62 +2443,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
     public ApiResponse<Collection<Team>?> GetDistrictTeamsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling TeamApi->GetDistrictTeams");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Team>?>("/district/{district_key}/teams", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictTeams", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'districtKey' is set
-                    if (districtKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'districtKey' when calling TeamApi->GetDistrictTeams");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Team>?>("/district/{district_key}/teams", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetDistrictTeams", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -2510,10 +2509,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Team&gt;</returns>
     public async Task<Collection<Team>?> GetDistrictTeamsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Team>?> localVarResponse = await GetDistrictTeamsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -2524,73 +2523,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
     public async Task<ApiResponse<Collection<Team>?>> GetDistrictTeamsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'districtKey' is set
-                      if (districtKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'districtKey' when calling TeamApi->GetDistrictTeams");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Team>?>("/district/{district_key}/teams", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetDistrictTeams", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;string&gt;</returns>
-    public Collection<string>? GetDistrictTeamsKeys(string districtKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<string>?> localVarResponse = GetDistrictTeamsKeysWithHttpInfo(districtKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling TeamApi->GetDistrictTeams");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Team>?>("/district/{district_key}/teams", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictTeams", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetDistrictTeamsKeys(string districtKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<string>?> localVarResponse = GetDistrictTeamsKeysWithHttpInfo(districtKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -2600,62 +2599,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
     public ApiResponse<Collection<string>?> GetDistrictTeamsKeysWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling TeamApi->GetDistrictTeamsKeys");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<string>?>("/district/{district_key}/teams/keys", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictTeamsKeys", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'districtKey' is set
-                    if (districtKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'districtKey' when calling TeamApi->GetDistrictTeamsKeys");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<string>?>("/district/{district_key}/teams/keys", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetDistrictTeamsKeys", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -2666,10 +2665,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;string&gt;</returns>
     public async Task<Collection<string>?> GetDistrictTeamsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<string>?> localVarResponse = await GetDistrictTeamsKeysWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -2680,73 +2679,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
     public async Task<ApiResponse<Collection<string>?>> GetDistrictTeamsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'districtKey' is set
-                      if (districtKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'districtKey' when calling TeamApi->GetDistrictTeamsKeys");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/district/{district_key}/teams/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetDistrictTeamsKeys", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;TeamSimple&gt;</returns>
-    public Collection<TeamSimple>? GetDistrictTeamsSimple(string districtKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<TeamSimple>?> localVarResponse = GetDistrictTeamsSimpleWithHttpInfo(districtKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling TeamApi->GetDistrictTeamsKeys");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/district/{district_key}/teams/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictTeamsKeys", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;TeamSimple&gt;</returns>
+    public Collection<TeamSimple>? GetDistrictTeamsSimple(string districtKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<TeamSimple>?> localVarResponse = GetDistrictTeamsSimpleWithHttpInfo(districtKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -2756,62 +2755,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
     public ApiResponse<Collection<TeamSimple>?> GetDistrictTeamsSimpleWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling TeamApi->GetDistrictTeamsSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<TeamSimple>?>("/district/{district_key}/teams/simple", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictTeamsSimple", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'districtKey' is set
-                    if (districtKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'districtKey' when calling TeamApi->GetDistrictTeamsSimple");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<TeamSimple>?>("/district/{district_key}/teams/simple", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetDistrictTeamsSimple", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -2822,10 +2821,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
     public async Task<Collection<TeamSimple>?> GetDistrictTeamsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetDistrictTeamsSimpleWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -2836,73 +2835,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
     public async Task<ApiResponse<Collection<TeamSimple>?>> GetDistrictTeamsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'districtKey' is set
-                      if (districtKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'districtKey' when calling TeamApi->GetDistrictTeamsSimple");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<TeamSimple>?>("/district/{district_key}/teams/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetDistrictTeamsSimple", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of &#x60;Team&#x60; objects that competed in the given event.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Team&gt;</returns>
-    public Collection<Team>? GetEventTeams(string eventKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Team>?> localVarResponse = GetEventTeamsWithHttpInfo(eventKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling TeamApi->GetDistrictTeamsSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<TeamSimple>?>("/district/{district_key}/teams/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictTeamsSimple", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of &#x60;Team&#x60; objects that competed in the given event.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Team&gt;</returns>
+    public Collection<Team>? GetEventTeams(string eventKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Team>?> localVarResponse = GetEventTeamsWithHttpInfo(eventKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in the given event.
@@ -2912,62 +2911,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
     public ApiResponse<Collection<Team>?> GetEventTeamsWithHttpInfo(string eventKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetEventTeams");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Team>?>("/event/{event_key}/teams", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetEventTeams", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'eventKey' is set
-                    if (eventKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetEventTeams");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Team>?>("/event/{event_key}/teams", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetEventTeams", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in the given event.
@@ -2978,10 +2977,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Team&gt;</returns>
     public async Task<Collection<Team>?> GetEventTeamsAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Team>?> localVarResponse = await GetEventTeamsWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in the given event.
@@ -2992,73 +2991,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
     public async Task<ApiResponse<Collection<Team>?>> GetEventTeamsWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'eventKey' is set
-                      if (eventKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetEventTeams");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Team>?>("/event/{event_key}/teams", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetEventTeams", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of &#x60;Team&#x60; keys that competed in the given event.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;string&gt;</returns>
-    public Collection<string>? GetEventTeamsKeys(string eventKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<string>?> localVarResponse = GetEventTeamsKeysWithHttpInfo(eventKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetEventTeams");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Team>?>("/event/{event_key}/teams", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetEventTeams", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of &#x60;Team&#x60; keys that competed in the given event.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetEventTeamsKeys(string eventKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<string>?> localVarResponse = GetEventTeamsKeysWithHttpInfo(eventKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; keys that competed in the given event.
@@ -3068,62 +3067,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
     public ApiResponse<Collection<string>?> GetEventTeamsKeysWithHttpInfo(string eventKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetEventTeamsKeys");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<string>?>("/event/{event_key}/teams/keys", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetEventTeamsKeys", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'eventKey' is set
-                    if (eventKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetEventTeamsKeys");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<string>?>("/event/{event_key}/teams/keys", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetEventTeamsKeys", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; keys that competed in the given event.
@@ -3134,10 +3133,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;string&gt;</returns>
     public async Task<Collection<string>?> GetEventTeamsKeysAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<string>?> localVarResponse = await GetEventTeamsKeysWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; keys that competed in the given event.
@@ -3148,73 +3147,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
     public async Task<ApiResponse<Collection<string>?>> GetEventTeamsKeysWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'eventKey' is set
-                      if (eventKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetEventTeamsKeys");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/event/{event_key}/teams/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetEventTeamsKeys", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;TeamSimple&gt;</returns>
-    public Collection<TeamSimple>? GetEventTeamsSimple(string eventKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<TeamSimple>?> localVarResponse = GetEventTeamsSimpleWithHttpInfo(eventKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetEventTeamsKeys");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/event/{event_key}/teams/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetEventTeamsKeys", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;TeamSimple&gt;</returns>
+    public Collection<TeamSimple>? GetEventTeamsSimple(string eventKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<TeamSimple>?> localVarResponse = GetEventTeamsSimpleWithHttpInfo(eventKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
@@ -3224,62 +3223,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
     public ApiResponse<Collection<TeamSimple>?> GetEventTeamsSimpleWithHttpInfo(string eventKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetEventTeamsSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<TeamSimple>?>("/event/{event_key}/teams/simple", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetEventTeamsSimple", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'eventKey' is set
-                    if (eventKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetEventTeamsSimple");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<TeamSimple>?>("/event/{event_key}/teams/simple", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetEventTeamsSimple", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
@@ -3290,10 +3289,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
     public async Task<Collection<TeamSimple>?> GetEventTeamsSimpleAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetEventTeamsSimpleWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in the given event.
@@ -3304,73 +3303,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
     public async Task<ApiResponse<Collection<TeamSimple>?>> GetEventTeamsSimpleWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'eventKey' is set
-                      if (eventKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetEventTeamsSimple");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<TeamSimple>?>("/event/{event_key}/teams/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetEventTeamsSimple", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a key-value list of the event statuses for teams competing at the given event.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-    public Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>? GetEventTeamsStatuses(string eventKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> localVarResponse = GetEventTeamsStatusesWithHttpInfo(eventKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetEventTeamsSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<TeamSimple>?>("/event/{event_key}/teams/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetEventTeamsSimple", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a key-value list of the event statuses for teams competing at the given event.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
+    public Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>? GetEventTeamsStatuses(string eventKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> localVarResponse = GetEventTeamsStatusesWithHttpInfo(eventKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a key-value list of the event statuses for teams competing at the given event.
@@ -3380,62 +3379,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
     public ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetEventTeamsStatusesWithHttpInfo(string eventKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetEventTeamsStatuses");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>("/event/{event_key}/teams/statuses", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetEventTeamsStatuses", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'eventKey' is set
-                    if (eventKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetEventTeamsStatuses");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>("/event/{event_key}/teams/statuses", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetEventTeamsStatuses", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a key-value list of the event statuses for teams competing at the given event.
@@ -3446,10 +3445,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
     public async Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetEventTeamsStatusesAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> localVarResponse = await GetEventTeamsStatusesWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a key-value list of the event statuses for teams competing at the given event.
@@ -3460,73 +3459,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;)</returns>
     public async Task<ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetEventTeamsStatusesWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'eventKey' is set
-                      if (eventKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetEventTeamsStatuses");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>("/event/{event_key}/teams/statuses", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetEventTeamsStatuses", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a &#x60;Team&#x60; object for the team referenced by the given key.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Team</returns>
-    public Team? GetTeam(string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Team?> localVarResponse = GetTeamWithHttpInfo(teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetEventTeamsStatuses");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>("/event/{event_key}/teams/statuses", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetEventTeamsStatuses", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a &#x60;Team&#x60; object for the team referenced by the given key.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Team</returns>
+    public Team? GetTeam(string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Team?> localVarResponse = GetTeamWithHttpInfo(teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a &#x60;Team&#x60; object for the team referenced by the given key.
@@ -3536,62 +3535,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Team</returns>
     public ApiResponse<Team?> GetTeamWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeam");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Team?>("/team/{team_key}", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeam", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeam");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Team?>("/team/{team_key}", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeam", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a &#x60;Team&#x60; object for the team referenced by the given key.
@@ -3602,10 +3601,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Team</returns>
     public async Task<Team?> GetTeamAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Team?> localVarResponse = await GetTeamWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a &#x60;Team&#x60; object for the team referenced by the given key.
@@ -3616,73 +3615,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Team)</returns>
     public async Task<ApiResponse<Team?>> GetTeamWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeam");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Team?>("/team/{team_key}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeam", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of awards the given team has won.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Award&gt;</returns>
-    public Collection<Award>? GetTeamAwards(string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Award>?> localVarResponse = GetTeamAwardsWithHttpInfo(teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeam");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Team?>("/team/{team_key}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeam", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of awards the given team has won.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Award&gt;</returns>
+    public Collection<Award>? GetTeamAwards(string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Award>?> localVarResponse = GetTeamAwardsWithHttpInfo(teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of awards the given team has won.
@@ -3692,62 +3691,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
     public ApiResponse<Collection<Award>?> GetTeamAwardsWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamAwards");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Award>?>("/team/{team_key}/awards", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamAwards", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamAwards");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Award>?>("/team/{team_key}/awards", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamAwards", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of awards the given team has won.
@@ -3758,10 +3757,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Award&gt;</returns>
     public async Task<Collection<Award>?> GetTeamAwardsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Award>?> localVarResponse = await GetTeamAwardsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of awards the given team has won.
@@ -3772,74 +3771,74 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
     public async Task<ApiResponse<Collection<Award>?>> GetTeamAwardsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamAwards");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Award>?>("/team/{team_key}/awards", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamAwards", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of awards the given team has won in a given year.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Award&gt;</returns>
-    public Collection<Award>? GetTeamAwardsByYear(string teamKey, int year, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Award>?> localVarResponse = GetTeamAwardsByYearWithHttpInfo(teamKey, year, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamAwards");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Award>?>("/team/{team_key}/awards", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamAwards", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of awards the given team has won in a given year.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Award&gt;</returns>
+    public Collection<Award>? GetTeamAwardsByYear(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Award>?> localVarResponse = GetTeamAwardsByYearWithHttpInfo(teamKey, year, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of awards the given team has won in a given year.
@@ -3850,63 +3849,63 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
     public ApiResponse<Collection<Award>?> GetTeamAwardsByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamAwardsByYear");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Award>?>("/team/{team_key}/awards/{year}", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamAwardsByYear", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamAwardsByYear");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Award>?>("/team/{team_key}/awards/{year}", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamAwardsByYear", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of awards the given team has won in a given year.
@@ -3918,10 +3917,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Award&gt;</returns>
     public async Task<Collection<Award>?> GetTeamAwardsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Award>?> localVarResponse = await GetTeamAwardsByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of awards the given team has won in a given year.
@@ -3933,74 +3932,74 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
     public async Task<ApiResponse<Collection<Award>?>> GetTeamAwardsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamAwardsByYear");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Award>?>("/team/{team_key}/awards/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamAwardsByYear", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;DistrictList&gt;</returns>
-    public Collection<DistrictList>? GetTeamDistricts(string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<DistrictList>?> localVarResponse = GetTeamDistrictsWithHttpInfo(teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamAwardsByYear");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Award>?>("/team/{team_key}/awards/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamAwardsByYear", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;DistrictList&gt;</returns>
+    public Collection<DistrictList>? GetTeamDistricts(string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<DistrictList>?> localVarResponse = GetTeamDistrictsWithHttpInfo(teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
@@ -4010,62 +4009,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
     public ApiResponse<Collection<DistrictList>?> GetTeamDistrictsWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamDistricts");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<DistrictList>?>("/team/{team_key}/districts", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamDistricts", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamDistricts");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<DistrictList>?>("/team/{team_key}/districts", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamDistricts", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
@@ -4076,10 +4075,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
     public async Task<Collection<DistrictList>?> GetTeamDistrictsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<DistrictList>?> localVarResponse = await GetTeamDistrictsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
@@ -4090,74 +4089,74 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
     public async Task<ApiResponse<Collection<DistrictList>?>> GetTeamDistrictsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamDistricts");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<DistrictList>?>("/team/{team_key}/districts", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamDistricts", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of awards the given team won at the given event.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Award&gt;</returns>
-    public Collection<Award>? GetTeamEventAwards(string eventKey, string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Award>?> localVarResponse = GetTeamEventAwardsWithHttpInfo(eventKey, teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamDistricts");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<DistrictList>?>("/team/{team_key}/districts", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamDistricts", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of awards the given team won at the given event.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Award&gt;</returns>
+    public Collection<Award>? GetTeamEventAwards(string eventKey, string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Award>?> localVarResponse = GetTeamEventAwardsWithHttpInfo(eventKey, teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of awards the given team won at the given event.
@@ -4168,69 +4167,69 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
     public ApiResponse<Collection<Award>?> GetTeamEventAwardsWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventAwards");
+        }
+
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventAwards");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Award>?>("/team/{team_key}/event/{event_key}/awards", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventAwards", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'eventKey' is set
-                    if (eventKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventAwards");
-                    }
-                    
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventAwards");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Award>?>("/team/{team_key}/event/{event_key}/awards", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamEventAwards", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of awards the given team won at the given event.
@@ -4242,10 +4241,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Award&gt;</returns>
     public async Task<Collection<Award>?> GetTeamEventAwardsAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Award>?> localVarResponse = await GetTeamEventAwardsWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of awards the given team won at the given event.
@@ -4257,81 +4256,81 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
     public async Task<ApiResponse<Collection<Award>?>> GetTeamEventAwardsWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'eventKey' is set
-                      if (eventKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventAwards");
-                      }
-                      
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventAwards");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Award>?>("/team/{team_key}/event/{event_key}/awards", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamEventAwards", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of matches for the given team and event.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Match&gt;</returns>
-    public Collection<Match>? GetTeamEventMatches(string eventKey, string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Match>?> localVarResponse = GetTeamEventMatchesWithHttpInfo(eventKey, teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventAwards");
+        }
+
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventAwards");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Award>?>("/team/{team_key}/event/{event_key}/awards", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventAwards", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of matches for the given team and event.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Match&gt;</returns>
+    public Collection<Match>? GetTeamEventMatches(string eventKey, string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Match>?> localVarResponse = GetTeamEventMatchesWithHttpInfo(eventKey, teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of matches for the given team and event.
@@ -4342,69 +4341,69 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Match&gt;</returns>
     public ApiResponse<Collection<Match>?> GetTeamEventMatchesWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventMatches");
+        }
+
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventMatches");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Match>?>("/team/{team_key}/event/{event_key}/matches", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventMatches", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'eventKey' is set
-                    if (eventKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventMatches");
-                    }
-                    
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventMatches");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Match>?>("/team/{team_key}/event/{event_key}/matches", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamEventMatches", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of matches for the given team and event.
@@ -4416,10 +4415,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Match&gt;</returns>
     public async Task<Collection<Match>?> GetTeamEventMatchesAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Match>?> localVarResponse = await GetTeamEventMatchesWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of matches for the given team and event.
@@ -4431,81 +4430,81 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
     public async Task<ApiResponse<Collection<Match>?>> GetTeamEventMatchesWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'eventKey' is set
-                      if (eventKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventMatches");
-                      }
-                      
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventMatches");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Match>?>("/team/{team_key}/event/{event_key}/matches", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamEventMatches", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of match keys for matches for the given team and event.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;string&gt;</returns>
-    public Collection<string>? GetTeamEventMatchesKeys(string eventKey, string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<string>?> localVarResponse = GetTeamEventMatchesKeysWithHttpInfo(eventKey, teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventMatches");
+        }
+
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventMatches");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Match>?>("/team/{team_key}/event/{event_key}/matches", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventMatches", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of match keys for matches for the given team and event.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetTeamEventMatchesKeys(string eventKey, string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<string>?> localVarResponse = GetTeamEventMatchesKeysWithHttpInfo(eventKey, teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of match keys for matches for the given team and event.
@@ -4516,69 +4515,69 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
     public ApiResponse<Collection<string>?> GetTeamEventMatchesKeysWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventMatchesKeys");
+        }
+
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventMatchesKeys");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<string>?>("/team/{team_key}/event/{event_key}/matches/keys", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventMatchesKeys", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'eventKey' is set
-                    if (eventKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventMatchesKeys");
-                    }
-                    
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventMatchesKeys");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<string>?>("/team/{team_key}/event/{event_key}/matches/keys", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamEventMatchesKeys", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of match keys for matches for the given team and event.
@@ -4590,10 +4589,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;string&gt;</returns>
     public async Task<Collection<string>?> GetTeamEventMatchesKeysAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<string>?> localVarResponse = await GetTeamEventMatchesKeysWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of match keys for matches for the given team and event.
@@ -4605,81 +4604,81 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
     public async Task<ApiResponse<Collection<string>?>> GetTeamEventMatchesKeysWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'eventKey' is set
-                      if (eventKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventMatchesKeys");
-                      }
-                      
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventMatchesKeys");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/team/{team_key}/event/{event_key}/matches/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamEventMatchesKeys", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a short-form list of matches for the given team and event.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Match&gt;</returns>
-    public Collection<Match>? GetTeamEventMatchesSimple(string eventKey, string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Match>?> localVarResponse = GetTeamEventMatchesSimpleWithHttpInfo(eventKey, teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventMatchesKeys");
+        }
+
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventMatchesKeys");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/team/{team_key}/event/{event_key}/matches/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventMatchesKeys", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a short-form list of matches for the given team and event.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Match&gt;</returns>
+    public Collection<Match>? GetTeamEventMatchesSimple(string eventKey, string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Match>?> localVarResponse = GetTeamEventMatchesSimpleWithHttpInfo(eventKey, teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a short-form list of matches for the given team and event.
@@ -4690,69 +4689,69 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Match&gt;</returns>
     public ApiResponse<Collection<Match>?> GetTeamEventMatchesSimpleWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventMatchesSimple");
+        }
+
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventMatchesSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Match>?>("/team/{team_key}/event/{event_key}/matches/simple", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventMatchesSimple", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'eventKey' is set
-                    if (eventKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventMatchesSimple");
-                    }
-                    
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventMatchesSimple");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Match>?>("/team/{team_key}/event/{event_key}/matches/simple", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamEventMatchesSimple", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a short-form list of matches for the given team and event.
@@ -4764,10 +4763,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Match&gt;</returns>
     public async Task<Collection<Match>?> GetTeamEventMatchesSimpleAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Match>?> localVarResponse = await GetTeamEventMatchesSimpleWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a short-form list of matches for the given team and event.
@@ -4779,81 +4778,81 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
     public async Task<ApiResponse<Collection<Match>?>> GetTeamEventMatchesSimpleWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'eventKey' is set
-                      if (eventKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventMatchesSimple");
-                      }
-                      
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventMatchesSimple");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Match>?>("/team/{team_key}/event/{event_key}/matches/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamEventMatchesSimple", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets the competition rank and status of the team at the given event.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>TeamEventStatus</returns>
-    public TeamEventStatus? GetTeamEventStatus(string eventKey, string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<TeamEventStatus?> localVarResponse = GetTeamEventStatusWithHttpInfo(eventKey, teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventMatchesSimple");
+        }
+
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventMatchesSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Match>?>("/team/{team_key}/event/{event_key}/matches/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventMatchesSimple", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets the competition rank and status of the team at the given event.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>TeamEventStatus</returns>
+    public TeamEventStatus? GetTeamEventStatus(string eventKey, string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<TeamEventStatus?> localVarResponse = GetTeamEventStatusWithHttpInfo(eventKey, teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets the competition rank and status of the team at the given event.
@@ -4864,69 +4863,69 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of TeamEventStatus</returns>
     public ApiResponse<TeamEventStatus?> GetTeamEventStatusWithHttpInfo(string eventKey, string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventStatus");
+        }
+
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventStatus");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<TeamEventStatus?>("/team/{team_key}/event/{event_key}/status", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventStatus", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'eventKey' is set
-                    if (eventKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventStatus");
-                    }
-                    
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventStatus");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<TeamEventStatus?>("/team/{team_key}/event/{event_key}/status", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamEventStatus", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets the competition rank and status of the team at the given event.
@@ -4938,10 +4937,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of TeamEventStatus</returns>
     public async Task<TeamEventStatus?> GetTeamEventStatusAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<TeamEventStatus?> localVarResponse = await GetTeamEventStatusWithHttpInfoAsync(eventKey, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets the competition rank and status of the team at the given event.
@@ -4953,80 +4952,80 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (TeamEventStatus)</returns>
     public async Task<ApiResponse<TeamEventStatus?>> GetTeamEventStatusWithHttpInfoAsync(string eventKey, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'eventKey' is set
-                      if (eventKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventStatus");
-                      }
-                      
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventStatus");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<TeamEventStatus?>("/team/{team_key}/event/{event_key}/status", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamEventStatus", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of all events this team has competed at.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Event&gt;</returns>
-    public Collection<Event>? GetTeamEvents(string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Event>?> localVarResponse = GetTeamEventsWithHttpInfo(teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling TeamApi->GetTeamEventStatus");
+        }
+
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventStatus");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<TeamEventStatus?>("/team/{team_key}/event/{event_key}/status", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventStatus", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of all events this team has competed at.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Event&gt;</returns>
+    public Collection<Event>? GetTeamEvents(string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Event>?> localVarResponse = GetTeamEventsWithHttpInfo(teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of all events this team has competed at.
@@ -5036,62 +5035,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
     public ApiResponse<Collection<Event>?> GetTeamEventsWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEvents");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Event>?>("/team/{team_key}/events", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEvents", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEvents");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Event>?>("/team/{team_key}/events", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamEvents", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of all events this team has competed at.
@@ -5102,10 +5101,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Event&gt;</returns>
     public async Task<Collection<Event>?> GetTeamEventsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Event>?> localVarResponse = await GetTeamEventsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of all events this team has competed at.
@@ -5116,74 +5115,74 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
     public async Task<ApiResponse<Collection<Event>?>> GetTeamEventsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEvents");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Event>?>("/team/{team_key}/events", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamEvents", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of events this team has competed at in the given year.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Event&gt;</returns>
-    public Collection<Event>? GetTeamEventsByYear(string teamKey, int year, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Event>?> localVarResponse = GetTeamEventsByYearWithHttpInfo(teamKey, year, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEvents");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Event>?>("/team/{team_key}/events", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEvents", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of events this team has competed at in the given year.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Event&gt;</returns>
+    public Collection<Event>? GetTeamEventsByYear(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Event>?> localVarResponse = GetTeamEventsByYearWithHttpInfo(teamKey, year, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of events this team has competed at in the given year.
@@ -5194,63 +5193,63 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
     public ApiResponse<Collection<Event>?> GetTeamEventsByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsByYear");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Event>?>("/team/{team_key}/events/{year}", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventsByYear", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsByYear");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Event>?>("/team/{team_key}/events/{year}", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamEventsByYear", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of events this team has competed at in the given year.
@@ -5262,10 +5261,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Event&gt;</returns>
     public async Task<Collection<Event>?> GetTeamEventsByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Event>?> localVarResponse = await GetTeamEventsByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of events this team has competed at in the given year.
@@ -5277,75 +5276,75 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
     public async Task<ApiResponse<Collection<Event>?>> GetTeamEventsByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsByYear");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Event>?>("/team/{team_key}/events/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamEventsByYear", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of the event keys for events this team has competed at in the given year.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;string&gt;</returns>
-    public Collection<string>? GetTeamEventsByYearKeys(string teamKey, int year, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<string>?> localVarResponse = GetTeamEventsByYearKeysWithHttpInfo(teamKey, year, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsByYear");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Event>?>("/team/{team_key}/events/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventsByYear", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of the event keys for events this team has competed at in the given year.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetTeamEventsByYearKeys(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<string>?> localVarResponse = GetTeamEventsByYearKeysWithHttpInfo(teamKey, year, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of the event keys for events this team has competed at in the given year.
@@ -5356,63 +5355,63 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
     public ApiResponse<Collection<string>?> GetTeamEventsByYearKeysWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsByYearKeys");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<string>?>("/team/{team_key}/events/{year}/keys", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventsByYearKeys", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsByYearKeys");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<string>?>("/team/{team_key}/events/{year}/keys", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamEventsByYearKeys", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of the event keys for events this team has competed at in the given year.
@@ -5424,10 +5423,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;string&gt;</returns>
     public async Task<Collection<string>?> GetTeamEventsByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<string>?> localVarResponse = await GetTeamEventsByYearKeysWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of the event keys for events this team has competed at in the given year.
@@ -5439,75 +5438,75 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
     public async Task<ApiResponse<Collection<string>?>> GetTeamEventsByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsByYearKeys");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/team/{team_key}/events/{year}/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamEventsByYearKeys", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a short-form list of events this team has competed at in the given year.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;EventSimple&gt;</returns>
-    public Collection<EventSimple>? GetTeamEventsByYearSimple(string teamKey, int year, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<EventSimple>?> localVarResponse = GetTeamEventsByYearSimpleWithHttpInfo(teamKey, year, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsByYearKeys");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/team/{team_key}/events/{year}/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventsByYearKeys", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a short-form list of events this team has competed at in the given year.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;EventSimple&gt;</returns>
+    public Collection<EventSimple>? GetTeamEventsByYearSimple(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<EventSimple>?> localVarResponse = GetTeamEventsByYearSimpleWithHttpInfo(teamKey, year, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a short-form list of events this team has competed at in the given year.
@@ -5518,63 +5517,63 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;EventSimple&gt;</returns>
     public ApiResponse<Collection<EventSimple>?> GetTeamEventsByYearSimpleWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsByYearSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<EventSimple>?>("/team/{team_key}/events/{year}/simple", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventsByYearSimple", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsByYearSimple");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<EventSimple>?>("/team/{team_key}/events/{year}/simple", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamEventsByYearSimple", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a short-form list of events this team has competed at in the given year.
@@ -5586,10 +5585,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
     public async Task<Collection<EventSimple>?> GetTeamEventsByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<EventSimple>?> localVarResponse = await GetTeamEventsByYearSimpleWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a short-form list of events this team has competed at in the given year.
@@ -5601,74 +5600,74 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
     public async Task<ApiResponse<Collection<EventSimple>?>> GetTeamEventsByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsByYearSimple");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<EventSimple>?>("/team/{team_key}/events/{year}/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamEventsByYearSimple", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of the event keys for all events this team has competed at.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;string&gt;</returns>
-    public Collection<string>? GetTeamEventsKeys(string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<string>?> localVarResponse = GetTeamEventsKeysWithHttpInfo(teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsByYearSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<EventSimple>?>("/team/{team_key}/events/{year}/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventsByYearSimple", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of the event keys for all events this team has competed at.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetTeamEventsKeys(string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<string>?> localVarResponse = GetTeamEventsKeysWithHttpInfo(teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of the event keys for all events this team has competed at.
@@ -5678,62 +5677,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
     public ApiResponse<Collection<string>?> GetTeamEventsKeysWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsKeys");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<string>?>("/team/{team_key}/events/keys", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventsKeys", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsKeys");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<string>?>("/team/{team_key}/events/keys", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamEventsKeys", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of the event keys for all events this team has competed at.
@@ -5744,10 +5743,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;string&gt;</returns>
     public async Task<Collection<string>?> GetTeamEventsKeysAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<string>?> localVarResponse = await GetTeamEventsKeysWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of the event keys for all events this team has competed at.
@@ -5758,73 +5757,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
     public async Task<ApiResponse<Collection<string>?>> GetTeamEventsKeysWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsKeys");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/team/{team_key}/events/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamEventsKeys", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a short-form list of all events this team has competed at.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;EventSimple&gt;</returns>
-    public Collection<EventSimple>? GetTeamEventsSimple(string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<EventSimple>?> localVarResponse = GetTeamEventsSimpleWithHttpInfo(teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsKeys");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/team/{team_key}/events/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventsKeys", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a short-form list of all events this team has competed at.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;EventSimple&gt;</returns>
+    public Collection<EventSimple>? GetTeamEventsSimple(string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<EventSimple>?> localVarResponse = GetTeamEventsSimpleWithHttpInfo(teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a short-form list of all events this team has competed at.
@@ -5834,62 +5833,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;EventSimple&gt;</returns>
     public ApiResponse<Collection<EventSimple>?> GetTeamEventsSimpleWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<EventSimple>?>("/team/{team_key}/events/simple", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventsSimple", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsSimple");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<EventSimple>?>("/team/{team_key}/events/simple", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamEventsSimple", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a short-form list of all events this team has competed at.
@@ -5900,10 +5899,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
     public async Task<Collection<EventSimple>?> GetTeamEventsSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<EventSimple>?> localVarResponse = await GetTeamEventsSimpleWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a short-form list of all events this team has competed at.
@@ -5914,74 +5913,74 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
     public async Task<ApiResponse<Collection<EventSimple>?>> GetTeamEventsSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsSimple");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<EventSimple>?>("/team/{team_key}/events/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamEventsSimple", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a key-value list of the event statuses for events this team has competed at in the given year.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
-    public Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>? GetTeamEventsStatusesByYear(string teamKey, int year, string? ifNoneMatch = default)
-          {
-        ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> localVarResponse = GetTeamEventsStatusesByYearWithHttpInfo(teamKey, year, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<EventSimple>?>("/team/{team_key}/events/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventsSimple", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a key-value list of the event statuses for events this team has competed at in the given year.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
+    public Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>? GetTeamEventsStatusesByYear(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> localVarResponse = GetTeamEventsStatusesByYearWithHttpInfo(teamKey, year, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a key-value list of the event statuses for events this team has competed at in the given year.
@@ -5992,63 +5991,63 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
     public ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetTeamEventsStatusesByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsStatusesByYear");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>("/team/{team_key}/events/{year}/statuses", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventsStatusesByYear", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsStatusesByYear");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>("/team/{team_key}/events/{year}/statuses", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamEventsStatusesByYear", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a key-value list of the event statuses for events this team has competed at in the given year.
@@ -6060,10 +6059,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;</returns>
     public async Task<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> GetTeamEventsStatusesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?> localVarResponse = await GetTeamEventsStatusesByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a key-value list of the event statuses for events this team has competed at in the given year.
@@ -6075,74 +6074,74 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;)</returns>
     public async Task<ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>> GetTeamEventsStatusesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsStatusesByYear");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>("/team/{team_key}/events/{year}/statuses", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamEventsStatusesByYear", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets the history for the team referenced by the given key, including their events and awards.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>History</returns>
-    public History? GetTeamHistory(string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<History?> localVarResponse = GetTeamHistoryWithHttpInfo(teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamEventsStatusesByYear");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>?>("/team/{team_key}/events/{year}/statuses", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamEventsStatusesByYear", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets the history for the team referenced by the given key, including their events and awards.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>History</returns>
+    public History? GetTeamHistory(string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<History?> localVarResponse = GetTeamHistoryWithHttpInfo(teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets the history for the team referenced by the given key, including their events and awards.
@@ -6152,62 +6151,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of History</returns>
     public ApiResponse<History?> GetTeamHistoryWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamHistory");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<History?>("/team/{team_key}/history", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamHistory", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamHistory");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<History?>("/team/{team_key}/history", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamHistory", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets the history for the team referenced by the given key, including their events and awards.
@@ -6218,10 +6217,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of History</returns>
     public async Task<History?> GetTeamHistoryAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<History?> localVarResponse = await GetTeamHistoryWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets the history for the team referenced by the given key, including their events and awards.
@@ -6232,74 +6231,74 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (History)</returns>
     public async Task<ApiResponse<History?>> GetTeamHistoryWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamHistory");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<History?>("/team/{team_key}/history", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamHistory", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of matches for the given team and year.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Match&gt;</returns>
-    public Collection<Match>? GetTeamMatchesByYear(string teamKey, int year, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Match>?> localVarResponse = GetTeamMatchesByYearWithHttpInfo(teamKey, year, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamHistory");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<History?>("/team/{team_key}/history", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamHistory", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of matches for the given team and year.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Match&gt;</returns>
+    public Collection<Match>? GetTeamMatchesByYear(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Match>?> localVarResponse = GetTeamMatchesByYearWithHttpInfo(teamKey, year, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of matches for the given team and year.
@@ -6310,63 +6309,63 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Match&gt;</returns>
     public ApiResponse<Collection<Match>?> GetTeamMatchesByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMatchesByYear");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Match>?>("/team/{team_key}/matches/{year}", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamMatchesByYear", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMatchesByYear");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Match>?>("/team/{team_key}/matches/{year}", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamMatchesByYear", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of matches for the given team and year.
@@ -6378,10 +6377,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Match&gt;</returns>
     public async Task<Collection<Match>?> GetTeamMatchesByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Match>?> localVarResponse = await GetTeamMatchesByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of matches for the given team and year.
@@ -6393,75 +6392,75 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Match&gt;)</returns>
     public async Task<ApiResponse<Collection<Match>?>> GetTeamMatchesByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMatchesByYear");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Match>?>("/team/{team_key}/matches/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamMatchesByYear", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of match keys for matches for the given team and year.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;string&gt;</returns>
-    public Collection<string>? GetTeamMatchesByYearKeys(string teamKey, int year, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<string>?> localVarResponse = GetTeamMatchesByYearKeysWithHttpInfo(teamKey, year, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMatchesByYear");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Match>?>("/team/{team_key}/matches/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamMatchesByYear", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of match keys for matches for the given team and year.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetTeamMatchesByYearKeys(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<string>?> localVarResponse = GetTeamMatchesByYearKeysWithHttpInfo(teamKey, year, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of match keys for matches for the given team and year.
@@ -6472,63 +6471,63 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
     public ApiResponse<Collection<string>?> GetTeamMatchesByYearKeysWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMatchesByYearKeys");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<string>?>("/team/{team_key}/matches/{year}/keys", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamMatchesByYearKeys", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMatchesByYearKeys");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<string>?>("/team/{team_key}/matches/{year}/keys", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamMatchesByYearKeys", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of match keys for matches for the given team and year.
@@ -6540,10 +6539,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;string&gt;</returns>
     public async Task<Collection<string>?> GetTeamMatchesByYearKeysAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<string>?> localVarResponse = await GetTeamMatchesByYearKeysWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of match keys for matches for the given team and year.
@@ -6555,75 +6554,75 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
     public async Task<ApiResponse<Collection<string>?>> GetTeamMatchesByYearKeysWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMatchesByYearKeys");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/team/{team_key}/matches/{year}/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamMatchesByYearKeys", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a short-form list of matches for the given team and year.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;MatchSimple&gt;</returns>
-    public Collection<MatchSimple>? GetTeamMatchesByYearSimple(string teamKey, int year, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<MatchSimple>?> localVarResponse = GetTeamMatchesByYearSimpleWithHttpInfo(teamKey, year, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMatchesByYearKeys");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/team/{team_key}/matches/{year}/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamMatchesByYearKeys", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a short-form list of matches for the given team and year.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;MatchSimple&gt;</returns>
+    public Collection<MatchSimple>? GetTeamMatchesByYearSimple(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<MatchSimple>?> localVarResponse = GetTeamMatchesByYearSimpleWithHttpInfo(teamKey, year, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a short-form list of matches for the given team and year.
@@ -6634,63 +6633,63 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;MatchSimple&gt;</returns>
     public ApiResponse<Collection<MatchSimple>?> GetTeamMatchesByYearSimpleWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMatchesByYearSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<MatchSimple>?>("/team/{team_key}/matches/{year}/simple", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamMatchesByYearSimple", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMatchesByYearSimple");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<MatchSimple>?>("/team/{team_key}/matches/{year}/simple", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamMatchesByYearSimple", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a short-form list of matches for the given team and year.
@@ -6702,10 +6701,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;MatchSimple&gt;</returns>
     public async Task<Collection<MatchSimple>?> GetTeamMatchesByYearSimpleAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<MatchSimple>?> localVarResponse = await GetTeamMatchesByYearSimpleWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a short-form list of matches for the given team and year.
@@ -6717,75 +6716,75 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;MatchSimple&gt;)</returns>
     public async Task<ApiResponse<Collection<MatchSimple>?>> GetTeamMatchesByYearSimpleWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMatchesByYearSimple");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<MatchSimple>?>("/team/{team_key}/matches/{year}/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamMatchesByYearSimple", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of Media (videos / pictures) for the given team and tag.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="mediaTag">Media Tag which describes the Media.</param>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Media&gt;</returns>
-    public Collection<Media>? GetTeamMediaByTag(string mediaTag, string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Media>?> localVarResponse = GetTeamMediaByTagWithHttpInfo(mediaTag, teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMatchesByYearSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<MatchSimple>?>("/team/{team_key}/matches/{year}/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamMatchesByYearSimple", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of Media (videos / pictures) for the given team and tag.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="mediaTag">Media Tag which describes the Media.</param>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Media&gt;</returns>
+    public Collection<Media>? GetTeamMediaByTag(string mediaTag, string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Media>?> localVarResponse = GetTeamMediaByTagWithHttpInfo(mediaTag, teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of Media (videos / pictures) for the given team and tag.
@@ -6796,69 +6795,69 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
     public ApiResponse<Collection<Media>?> GetTeamMediaByTagWithHttpInfo(string mediaTag, string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'mediaTag' is set
+        if (mediaTag is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'mediaTag' when calling TeamApi->GetTeamMediaByTag");
+        }
+
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMediaByTag");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("media_tag", ClientUtils.ParameterToString(mediaTag)); // path parameter
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Media>?>("/team/{team_key}/media/tag/{media_tag}", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamMediaByTag", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'mediaTag' is set
-                    if (mediaTag is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'mediaTag' when calling TeamApi->GetTeamMediaByTag");
-                    }
-                    
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMediaByTag");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("media_tag", ClientUtils.ParameterToString(mediaTag)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Media>?>("/team/{team_key}/media/tag/{media_tag}", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamMediaByTag", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of Media (videos / pictures) for the given team and tag.
@@ -6870,10 +6869,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Media&gt;</returns>
     public async Task<Collection<Media>?> GetTeamMediaByTagAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Media>?> localVarResponse = await GetTeamMediaByTagWithHttpInfoAsync(mediaTag, teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of Media (videos / pictures) for the given team and tag.
@@ -6885,82 +6884,82 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
     public async Task<ApiResponse<Collection<Media>?>> GetTeamMediaByTagWithHttpInfoAsync(string mediaTag, string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'mediaTag' is set
-                      if (mediaTag is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'mediaTag' when calling TeamApi->GetTeamMediaByTag");
-                      }
-                      
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMediaByTag");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("media_tag", ClientUtils.ParameterToString(mediaTag)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Media>?>("/team/{team_key}/media/tag/{media_tag}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamMediaByTag", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of Media (videos / pictures) for the given team, tag and year.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="mediaTag">Media Tag which describes the Media.</param>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Media&gt;</returns>
-    public Collection<Media>? GetTeamMediaByTagYear(string mediaTag, string teamKey, int year, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Media>?> localVarResponse = GetTeamMediaByTagYearWithHttpInfo(mediaTag, teamKey, year, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'mediaTag' is set
+        if (mediaTag is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'mediaTag' when calling TeamApi->GetTeamMediaByTag");
+        }
+
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMediaByTag");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("media_tag", ClientUtils.ParameterToString(mediaTag)); // path parameter
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Media>?>("/team/{team_key}/media/tag/{media_tag}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamMediaByTag", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of Media (videos / pictures) for the given team, tag and year.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="mediaTag">Media Tag which describes the Media.</param>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Media&gt;</returns>
+    public Collection<Media>? GetTeamMediaByTagYear(string mediaTag, string teamKey, int year, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Media>?> localVarResponse = GetTeamMediaByTagYearWithHttpInfo(mediaTag, teamKey, year, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of Media (videos / pictures) for the given team, tag and year.
@@ -6972,70 +6971,70 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
     public ApiResponse<Collection<Media>?> GetTeamMediaByTagYearWithHttpInfo(string mediaTag, string teamKey, int year, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'mediaTag' is set
+        if (mediaTag is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'mediaTag' when calling TeamApi->GetTeamMediaByTagYear");
+        }
+
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMediaByTagYear");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("media_tag", ClientUtils.ParameterToString(mediaTag)); // path parameter
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Media>?>("/team/{team_key}/media/tag/{media_tag}/{year}", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamMediaByTagYear", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'mediaTag' is set
-                    if (mediaTag is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'mediaTag' when calling TeamApi->GetTeamMediaByTagYear");
-                    }
-                    
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMediaByTagYear");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("media_tag", ClientUtils.ParameterToString(mediaTag)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Media>?>("/team/{team_key}/media/tag/{media_tag}/{year}", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamMediaByTagYear", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of Media (videos / pictures) for the given team, tag and year.
@@ -7048,10 +7047,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Media&gt;</returns>
     public async Task<Collection<Media>?> GetTeamMediaByTagYearAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Media>?> localVarResponse = await GetTeamMediaByTagYearWithHttpInfoAsync(mediaTag, teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of Media (videos / pictures) for the given team, tag and year.
@@ -7064,82 +7063,82 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
     public async Task<ApiResponse<Collection<Media>?>> GetTeamMediaByTagYearWithHttpInfoAsync(string mediaTag, string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'mediaTag' is set
-                      if (mediaTag is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'mediaTag' when calling TeamApi->GetTeamMediaByTagYear");
-                      }
-                      
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMediaByTagYear");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("media_tag", ClientUtils.ParameterToString(mediaTag)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Media>?>("/team/{team_key}/media/tag/{media_tag}/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamMediaByTagYear", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of Media (videos / pictures) for the given team and year.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Media&gt;</returns>
-    public Collection<Media>? GetTeamMediaByYear(string teamKey, int year, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Media>?> localVarResponse = GetTeamMediaByYearWithHttpInfo(teamKey, year, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'mediaTag' is set
+        if (mediaTag is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'mediaTag' when calling TeamApi->GetTeamMediaByTagYear");
+        }
+
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMediaByTagYear");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("media_tag", ClientUtils.ParameterToString(mediaTag)); // path parameter
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Media>?>("/team/{team_key}/media/tag/{media_tag}/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamMediaByTagYear", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of Media (videos / pictures) for the given team and year.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Media&gt;</returns>
+    public Collection<Media>? GetTeamMediaByYear(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Media>?> localVarResponse = GetTeamMediaByYearWithHttpInfo(teamKey, year, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of Media (videos / pictures) for the given team and year.
@@ -7150,63 +7149,63 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
     public ApiResponse<Collection<Media>?> GetTeamMediaByYearWithHttpInfo(string teamKey, int year, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMediaByYear");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Media>?>("/team/{team_key}/media/{year}", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamMediaByYear", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMediaByYear");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Media>?>("/team/{team_key}/media/{year}", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamMediaByYear", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of Media (videos / pictures) for the given team and year.
@@ -7218,10 +7217,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Media&gt;</returns>
     public async Task<Collection<Media>?> GetTeamMediaByYearAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Media>?> localVarResponse = await GetTeamMediaByYearWithHttpInfoAsync(teamKey, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of Media (videos / pictures) for the given team and year.
@@ -7233,74 +7232,74 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
     public async Task<ApiResponse<Collection<Media>?>> GetTeamMediaByYearWithHttpInfoAsync(string teamKey, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMediaByYear");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Media>?>("/team/{team_key}/media/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamMediaByYear", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;TeamRobot&gt;</returns>
-    public Collection<TeamRobot>? GetTeamRobots(string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<TeamRobot>?> localVarResponse = GetTeamRobotsWithHttpInfo(teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamMediaByYear");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Media>?>("/team/{team_key}/media/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamMediaByYear", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;TeamRobot&gt;</returns>
+    public Collection<TeamRobot>? GetTeamRobots(string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<TeamRobot>?> localVarResponse = GetTeamRobotsWithHttpInfo(teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
@@ -7310,62 +7309,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;TeamRobot&gt;</returns>
     public ApiResponse<Collection<TeamRobot>?> GetTeamRobotsWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamRobots");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<TeamRobot>?>("/team/{team_key}/robots", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamRobots", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamRobots");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<TeamRobot>?>("/team/{team_key}/robots", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamRobots", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
@@ -7376,10 +7375,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;TeamRobot&gt;</returns>
     public async Task<Collection<TeamRobot>?> GetTeamRobotsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<TeamRobot>?> localVarResponse = await GetTeamRobotsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of year and robot name pairs for each year that a robot name was provided. Will return an empty array if the team has never named a robot.
@@ -7390,73 +7389,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;TeamRobot&gt;)</returns>
     public async Task<ApiResponse<Collection<TeamRobot>?>> GetTeamRobotsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamRobots");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<TeamRobot>?>("/team/{team_key}/robots", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamRobots", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>TeamSimple</returns>
-    public TeamSimple? GetTeamSimple(string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<TeamSimple?> localVarResponse = GetTeamSimpleWithHttpInfo(teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamRobots");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<TeamRobot>?>("/team/{team_key}/robots", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamRobots", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>TeamSimple</returns>
+    public TeamSimple? GetTeamSimple(string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<TeamSimple?> localVarResponse = GetTeamSimpleWithHttpInfo(teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
@@ -7466,62 +7465,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of TeamSimple</returns>
     public ApiResponse<TeamSimple?> GetTeamSimpleWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<TeamSimple?>("/team/{team_key}/simple", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamSimple", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamSimple");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<TeamSimple?>("/team/{team_key}/simple", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamSimple", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
@@ -7532,10 +7531,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of TeamSimple</returns>
     public async Task<TeamSimple?> GetTeamSimpleAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<TeamSimple?> localVarResponse = await GetTeamSimpleWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a &#x60;Team_Simple&#x60; object for the team referenced by the given key.
@@ -7546,73 +7545,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (TeamSimple)</returns>
     public async Task<ApiResponse<TeamSimple?>> GetTeamSimpleWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamSimple");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<TeamSimple?>("/team/{team_key}/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamSimple", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of Media (social media) for the given team.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Media&gt;</returns>
-    public Collection<Media>? GetTeamSocialMedia(string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Media>?> localVarResponse = GetTeamSocialMediaWithHttpInfo(teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<TeamSimple?>("/team/{team_key}/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamSimple", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of Media (social media) for the given team.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Media&gt;</returns>
+    public Collection<Media>? GetTeamSocialMedia(string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Media>?> localVarResponse = GetTeamSocialMediaWithHttpInfo(teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of Media (social media) for the given team.
@@ -7622,62 +7621,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Media&gt;</returns>
     public ApiResponse<Collection<Media>?> GetTeamSocialMediaWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamSocialMedia");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Media>?>("/team/{team_key}/social_media", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamSocialMedia", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamSocialMedia");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Media>?>("/team/{team_key}/social_media", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamSocialMedia", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of Media (social media) for the given team.
@@ -7688,10 +7687,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Media&gt;</returns>
     public async Task<Collection<Media>?> GetTeamSocialMediaAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Media>?> localVarResponse = await GetTeamSocialMediaWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of Media (social media) for the given team.
@@ -7702,73 +7701,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Media&gt;)</returns>
     public async Task<ApiResponse<Collection<Media>?>> GetTeamSocialMediaWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamSocialMedia");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Media>?>("/team/{team_key}/social_media", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamSocialMedia", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of years in which the team participated in at least one competition.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;int&gt;</returns>
-    public Collection<int>? GetTeamYearsParticipated(string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<int>?> localVarResponse = GetTeamYearsParticipatedWithHttpInfo(teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamSocialMedia");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Media>?>("/team/{team_key}/social_media", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamSocialMedia", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of years in which the team participated in at least one competition.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;int&gt;</returns>
+    public Collection<int>? GetTeamYearsParticipated(string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<int>?> localVarResponse = GetTeamYearsParticipatedWithHttpInfo(teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of years in which the team participated in at least one competition.
@@ -7778,62 +7777,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;int&gt;</returns>
     public ApiResponse<Collection<int>?> GetTeamYearsParticipatedWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamYearsParticipated");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<int>?>("/team/{team_key}/years_participated", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamYearsParticipated", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamYearsParticipated");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<int>?>("/team/{team_key}/years_participated", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamYearsParticipated", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of years in which the team participated in at least one competition.
@@ -7844,10 +7843,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;int&gt;</returns>
     public async Task<Collection<int>?> GetTeamYearsParticipatedAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<int>?> localVarResponse = await GetTeamYearsParticipatedWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of years in which the team participated in at least one competition.
@@ -7858,73 +7857,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;int&gt;)</returns>
     public async Task<ApiResponse<Collection<int>?>> GetTeamYearsParticipatedWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamYearsParticipated");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<int>?>("/team/{team_key}/years_participated", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamYearsParticipated", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Team&gt;</returns>
-    public Collection<Team>? GetTeams(int pageNum, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Team>?> localVarResponse = GetTeamsWithHttpInfo(pageNum, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling TeamApi->GetTeamYearsParticipated");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<int>?>("/team/{team_key}/years_participated", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamYearsParticipated", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Team&gt;</returns>
+    public Collection<Team>? GetTeams(int pageNum, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Team>?> localVarResponse = GetTeamsWithHttpInfo(pageNum, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
@@ -7934,56 +7933,56 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
     public ApiResponse<Collection<Team>?> GetTeamsWithHttpInfo(int pageNum, string? ifNoneMatch = default)
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Team>?>("/teams/{page_num}", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeams", localVarResponse);
+            if (_exception is not null)
             {
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Team>?>("/teams/{page_num}", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeams", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
@@ -7994,10 +7993,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Team&gt;</returns>
     public async Task<Collection<Team>?> GetTeamsAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Team>?> localVarResponse = await GetTeamsWithHttpInfoAsync(pageNum, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects, paginated in groups of 500.
@@ -8008,68 +8007,68 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
     public async Task<ApiResponse<Collection<Team>?>> GetTeamsWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Team>?>("/teams/{page_num}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeams", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Team&gt;</returns>
-    public Collection<Team>? GetTeamsByYear(int pageNum, int year, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Team>?> localVarResponse = GetTeamsByYearWithHttpInfo(pageNum, year, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Team>?>("/teams/{page_num}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeams", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+               /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Team&gt;</returns>
+    public Collection<Team>? GetTeamsByYear(int pageNum, int year, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Team>?> localVarResponse = GetTeamsByYearWithHttpInfo(pageNum, year, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
@@ -8080,57 +8079,57 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
     public ApiResponse<Collection<Team>?> GetTeamsByYearWithHttpInfo(int pageNum, int year, string? ifNoneMatch = default)
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Team>?>("/teams/{year}/{page_num}", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamsByYear", localVarResponse);
+            if (_exception is not null)
             {
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Team>?>("/teams/{year}/{page_num}", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamsByYear", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
@@ -8142,10 +8141,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Team&gt;</returns>
     public async Task<Collection<Team>?> GetTeamsByYearAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Team>?> localVarResponse = await GetTeamsByYearWithHttpInfoAsync(pageNum, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in the given year, paginated in groups of 500.
@@ -8157,69 +8156,69 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
     public async Task<ApiResponse<Collection<Team>?>> GetTeamsByYearWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Team>?>("/teams/{year}/{page_num}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamsByYear", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list Team Keys that competed in the given year, paginated in groups of 500.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;string&gt;</returns>
-    public Collection<string>? GetTeamsByYearKeys(int pageNum, int year, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<string>?> localVarResponse = GetTeamsByYearKeysWithHttpInfo(pageNum, year, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Team>?>("/teams/{year}/{page_num}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamsByYear", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list Team Keys that competed in the given year, paginated in groups of 500.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+               /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetTeamsByYearKeys(int pageNum, int year, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<string>?> localVarResponse = GetTeamsByYearKeysWithHttpInfo(pageNum, year, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list Team Keys that competed in the given year, paginated in groups of 500.
@@ -8230,57 +8229,57 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
     public ApiResponse<Collection<string>?> GetTeamsByYearKeysWithHttpInfo(int pageNum, int year, string? ifNoneMatch = default)
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<string>?>("/teams/{year}/{page_num}/keys", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamsByYearKeys", localVarResponse);
+            if (_exception is not null)
             {
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<string>?>("/teams/{year}/{page_num}/keys", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamsByYearKeys", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list Team Keys that competed in the given year, paginated in groups of 500.
@@ -8292,10 +8291,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;string&gt;</returns>
     public async Task<Collection<string>?> GetTeamsByYearKeysAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<string>?> localVarResponse = await GetTeamsByYearKeysWithHttpInfoAsync(pageNum, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list Team Keys that competed in the given year, paginated in groups of 500.
@@ -8307,69 +8306,69 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
     public async Task<ApiResponse<Collection<string>?>> GetTeamsByYearKeysWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/teams/{year}/{page_num}/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamsByYearKeys", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;TeamSimple&gt;</returns>
-    public Collection<TeamSimple>? GetTeamsByYearSimple(int pageNum, int year, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<TeamSimple>?> localVarResponse = GetTeamsByYearSimpleWithHttpInfo(pageNum, year, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/teams/{year}/{page_num}/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamsByYearKeys", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+               /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;TeamSimple&gt;</returns>
+    public Collection<TeamSimple>? GetTeamsByYearSimple(int pageNum, int year, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<TeamSimple>?> localVarResponse = GetTeamsByYearSimpleWithHttpInfo(pageNum, year, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
@@ -8380,57 +8379,57 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
     public ApiResponse<Collection<TeamSimple>?> GetTeamsByYearSimpleWithHttpInfo(int pageNum, int year, string? ifNoneMatch = default)
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<TeamSimple>?>("/teams/{year}/{page_num}/simple", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamsByYearSimple", localVarResponse);
+            if (_exception is not null)
             {
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<TeamSimple>?>("/teams/{year}/{page_num}/simple", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamsByYearSimple", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
@@ -8442,10 +8441,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
     public async Task<Collection<TeamSimple>?> GetTeamsByYearSimpleAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetTeamsByYearSimpleWithHttpInfoAsync(pageNum, year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of short form &#x60;Team_Simple&#x60; objects that competed in the given year, paginated in groups of 500.
@@ -8457,68 +8456,68 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
     public async Task<ApiResponse<Collection<TeamSimple>?>> GetTeamsByYearSimpleWithHttpInfoAsync(int pageNum, int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<TeamSimple>?>("/teams/{year}/{page_num}/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamsByYearSimple", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;string&gt;</returns>
-    public Collection<string>? GetTeamsKeys(int pageNum, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<string>?> localVarResponse = GetTeamsKeysWithHttpInfo(pageNum, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<TeamSimple>?>("/teams/{year}/{page_num}/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamsByYearSimple", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetTeamsKeys(int pageNum, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<string>?> localVarResponse = GetTeamsKeysWithHttpInfo(pageNum, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
@@ -8528,56 +8527,56 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
     public ApiResponse<Collection<string>?> GetTeamsKeysWithHttpInfo(int pageNum, string? ifNoneMatch = default)
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<string>?>("/teams/{page_num}/keys", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamsKeys", localVarResponse);
+            if (_exception is not null)
             {
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<string>?>("/teams/{page_num}/keys", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamsKeys", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
@@ -8588,10 +8587,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;string&gt;</returns>
     public async Task<Collection<string>?> GetTeamsKeysAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<string>?> localVarResponse = await GetTeamsKeysWithHttpInfoAsync(pageNum, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of Team keys, paginated in groups of 500. (Note, each page will not have 500 teams, but will include the teams within that range of 500.)
@@ -8602,67 +8601,67 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
     public async Task<ApiResponse<Collection<string>?>> GetTeamsKeysWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/teams/{page_num}/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamsKeys", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="pageNum">Page number of results to return, zero-indexed</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;TeamSimple&gt;</returns>
-    public Collection<TeamSimple>? GetTeamsSimple(int pageNum, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<TeamSimple>?> localVarResponse = GetTeamsSimpleWithHttpInfo(pageNum, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/teams/{page_num}/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamsKeys", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="pageNum">Page number of results to return, zero-indexed</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;TeamSimple&gt;</returns>
+    public Collection<TeamSimple>? GetTeamsSimple(int pageNum, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<TeamSimple>?> localVarResponse = GetTeamsSimpleWithHttpInfo(pageNum, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
@@ -8672,56 +8671,56 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
     public ApiResponse<Collection<TeamSimple>?> GetTeamsSimpleWithHttpInfo(int pageNum, string? ifNoneMatch = default)
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<TeamSimple>?>("/teams/{page_num}/simple", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamsSimple", localVarResponse);
+            if (_exception is not null)
             {
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<TeamSimple>?>("/teams/{page_num}/simple", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamsSimple", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
@@ -8732,10 +8731,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
     public async Task<Collection<TeamSimple>?> GetTeamsSimpleAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetTeamsSimpleWithHttpInfoAsync(pageNum, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of short form &#x60;Team_Simple&#x60; objects, paginated in groups of 500.
@@ -8746,54 +8745,54 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
     public async Task<ApiResponse<Collection<TeamSimple>?>> GetTeamsSimpleWithHttpInfoAsync(int pageNum, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<TeamSimple>?>("/teams/{page_num}/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamsSimple", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("page_num", ClientUtils.ParameterToString(pageNum)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<TeamSimple>?>("/teams/{page_num}/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamsSimple", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
+}

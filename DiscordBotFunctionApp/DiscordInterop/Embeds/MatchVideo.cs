@@ -2,7 +2,6 @@
 
 using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.TbaInterop;
-using DiscordBotFunctionApp.TbaInterop.Extensions;
 using DiscordBotFunctionApp.TbaInterop.Models;
 using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 

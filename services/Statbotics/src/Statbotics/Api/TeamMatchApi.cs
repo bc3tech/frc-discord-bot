@@ -9,31 +9,29 @@
 
 namespace Statbotics.Api;
 
-using System;
-using System.Net.Http;
-  using System.Collections.ObjectModel;
-  using System.Threading.Tasks;
-
 using Statbotics.Client;
 
-using Statbotics.Model;
-  /// <summary>
-  /// Represents a collection of functions to interact with the API endpoints
-  /// </summary>
-  public interface ITeamMatchApiSync : IApiAccessor
-  {
+using System;
+using System.Collections.ObjectModel;
+using System.Net.Http;
+using System.Threading.Tasks;
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface ITeamMatchApiSync : IApiAccessor
+{
     #region Synchronous Operations
-      /// <summary>
-      /// Query a single team match
-      /// </summary>
-        /// <remarks>
-        /// Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
-        /// </remarks>
-      /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
-      /// <param name="match"></param>
-      /// <param name="team"></param>
-      /// <returns>Object</returns>
-      Object? ReadTeamMatchV3TeamMatchTeamMatchGet(string match, string team);
+    /// <summary>
+    /// Query a single team match
+    /// </summary>
+    /// <remarks>
+    /// Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
+    /// </remarks>
+    /// <exception cref="Statbotics.Client.ApiException">Thrown when fails to make API call</exception>
+    /// <param name="match"></param>
+    /// <param name="team"></param>
+    /// <returns>Object</returns>
+    Object? ReadTeamMatchV3TeamMatchTeamMatchGet(string match, string team);
 
     /// <summary>
     /// Query a single team match
@@ -87,14 +85,14 @@ using Statbotics.Model;
     /// <param name="year">Four-digit year (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
     ApiResponse<Collection<Object>?> ReadTeamMatchesV3TeamMatchesGetWithHttpInfo(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default);
-      #endregion Synchronous Operations
-    }
-    
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public interface ITeamMatchApiAsync : IApiAccessor
-      {
+    #endregion Synchronous Operations
+}
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface ITeamMatchApiAsync : IApiAccessor
+{
     #region Asynchronous Operations
     /// <summary>
     /// Query a single team match
@@ -164,192 +162,192 @@ using Statbotics.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
     Task<ApiResponse<Collection<Object>?>> ReadTeamMatchesV3TeamMatchesGetWithHttpInfoAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default);
-          #endregion Asynchronous Operations
-        }
-      
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public interface ITeamMatchApi : ITeamMatchApiSync, ITeamMatchApiAsync { }
-      
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public sealed partial class TeamMatchApi : ITeamMatchApi
-      {
-        private ExceptionFactory? _exceptionFactory = (name, response) => null;
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TeamMatchApi"/> class.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <returns></returns>
-        public TeamMatchApi() : this(basePath: default) { }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TeamMatchApi"/> class.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <param name="basePath">The target service's base path in URL format.</param>
-        /// <exception cref="ArgumentException"></exception>
-        /// <returns></returns>
-        public TeamMatchApi(string? basePath)
+    #endregion Asynchronous Operations
+}
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface ITeamMatchApi : ITeamMatchApiSync, ITeamMatchApiAsync { }
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public sealed partial class TeamMatchApi : ITeamMatchApi
+{
+    private ExceptionFactory? _exceptionFactory = (name, response) => null;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TeamMatchApi"/> class.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <returns></returns>
+    public TeamMatchApi() : this(basePath: default) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TeamMatchApi"/> class.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <param name="basePath">The target service's base path in URL format.</param>
+    /// <exception cref="ArgumentException"></exception>
+    /// <returns></returns>
+    public TeamMatchApi(string? basePath)
+    {
+        this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
+        this.ApiClient = new ApiClient(this.Configuration.BasePath);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TeamMatchApi"/> class using Configuration object.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <param name="configuration">An instance of Configuration.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    public TeamMatchApi(Configuration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+
+        this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
+        this.ApiClient = new ApiClient(this.Configuration.BasePath);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TeamMatchApi"/> class.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public TeamMatchApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TeamMatchApi"/> class.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="basePath">The target service's base path in URL format.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public TeamMatchApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
+        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TeamMatchApi"/> class using Configuration object.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="configuration">An instance of Configuration.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public TeamMatchApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+        ArgumentNullException.ThrowIfNull(client);
+
+        this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
+        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TeamMatchApi"/> class
+    /// using a Configuration object and client instance.
+    /// </summary>
+    /// <param name="client">The client interface for synchronous API access.</param>
+    /// <param name="asyncClient">The client interface for asynchronous API access.</param>
+    /// <param name="configuration">The configuration object.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    public TeamMatchApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        ArgumentNullException.ThrowIfNull(asyncClient);
+        this.AsynchronousClient = asyncClient;
+
+        ArgumentNullException.ThrowIfNull(configuration);
+        this.Configuration = configuration;
+
+        this.Client = client;
+        this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Holds the ApiClient if created
+    /// </summary>
+    public ApiClient? ApiClient { get; set; }
+
+    /// <summary>
+    /// The client for accessing this underlying API asynchronously.
+    /// </summary>
+    public IAsynchronousClient AsynchronousClient { get; set; }
+
+    /// <summary>
+    /// The client for accessing this underlying API synchronously.
+    /// </summary>
+    public ISynchronousClient Client { get; set; }
+
+    /// <summary>
+    /// Gets the base path of the API client.
+    /// </summary>
+    /// <value>The base path</value>
+    public string? GetBasePath() => this.Configuration.BasePath;
+
+    /// <summary>
+    /// Gets or sets the configuration object
+    /// </summary>
+    /// <value>An instance of the Configuration</value>
+    public IReadableConfiguration Configuration { get; set; }
+
+    /// <summary>
+    /// Provides a factory method hook for the creation of exceptions.
+    /// </summary>
+    public ExceptionFactory? ExceptionFactory
+    {
+        get
         {
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
-          this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TeamMatchApi"/> class using Configuration object.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <param name="configuration">An instance of Configuration.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        public TeamMatchApi(Configuration configuration)
-        {
-          ArgumentNullException.ThrowIfNull(configuration);
-          
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
-          this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TeamMatchApi"/> class.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public TeamMatchApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TeamMatchApi"/> class.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="basePath">The target service's base path in URL format.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public TeamMatchApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
-        {
-          ArgumentNullException.ThrowIfNull(client);
-          
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
-          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TeamMatchApi"/> class using Configuration object.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="configuration">An instance of Configuration.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public TeamMatchApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
-        {
-          ArgumentNullException.ThrowIfNull(configuration);
-          ArgumentNullException.ThrowIfNull(client);
-          
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
-          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TeamMatchApi"/> class
-        /// using a Configuration object and client instance.
-        /// </summary>
-        /// <param name="client">The client interface for synchronous API access.</param>
-        /// <param name="asyncClient">The client interface for asynchronous API access.</param>
-        /// <param name="configuration">The configuration object.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public TeamMatchApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
-        {
-          ArgumentNullException.ThrowIfNull(client);
-          
-            ArgumentNullException.ThrowIfNull(asyncClient);
-            this.AsynchronousClient = asyncClient;
-            
-          ArgumentNullException.ThrowIfNull(configuration);
-          this.Configuration = configuration;
-          
-          this.Client = client;
-          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Holds the ApiClient if created
-        /// </summary>
-        public ApiClient? ApiClient { get; set; }
-        
-          /// <summary>
-          /// The client for accessing this underlying API asynchronously.
-          /// </summary>
-          public IAsynchronousClient AsynchronousClient { get; set; }
-        
-        /// <summary>
-        /// The client for accessing this underlying API synchronously.
-        /// </summary>
-        public ISynchronousClient Client { get; set; }
-        
-        /// <summary>
-        /// Gets the base path of the API client.
-        /// </summary>
-        /// <value>The base path</value>
-        public string? GetBasePath() => this.Configuration.BasePath;
-        
-        /// <summary>
-        /// Gets or sets the configuration object
-        /// </summary>
-        /// <value>An instance of the Configuration</value>
-        public IReadableConfiguration Configuration { get; set; }
-        
-        /// <summary>
-        /// Provides a factory method hook for the creation of exceptions.
-        /// </summary>
-        public ExceptionFactory? ExceptionFactory
-        {
-          get
-          {
             return _exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1
             ? throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.")
             : _exceptionFactory;
-          }
-          set => _exceptionFactory = value;
         }
+        set => _exceptionFactory = value;
+    }
 
     /// <summary>
     /// Query a single team match Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
@@ -359,10 +357,10 @@ using Statbotics.Model;
     /// <param name="team"></param>
     /// <returns>Object</returns>
     public Object? ReadTeamMatchV3TeamMatchTeamMatchGet(string match, string team)
-          {
+    {
         ApiResponse<object?> localVarResponse = ReadTeamMatchV3TeamMatchTeamMatchGetWithHttpInfo(match, team);
-              return localVarResponse.Data;
-            }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     /// Query a single team match Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
@@ -372,58 +370,58 @@ using Statbotics.Model;
     /// <param name="team"></param>
     /// <returns>ApiResponse of Object</returns>
     public ApiResponse<Object?> ReadTeamMatchV3TeamMatchTeamMatchGetWithHttpInfo(string match, string team)
+    {
+        // verify the required parameter 'match' is set
+        if (match is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'match' when calling TeamMatchApi->ReadTeamMatchV3TeamMatchTeamMatchGet");
+        }
+
+        // verify the required parameter 'team' is set
+        if (team is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'team' when calling TeamMatchApi->ReadTeamMatchV3TeamMatchTeamMatchGet");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("match", ClientUtils.ParameterToString(match)); // path parameter
+        localVarRequestOptions.PathParameters.Add("team", ClientUtils.ParameterToString(team)); // path parameter
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Object?>("/v3/team_match/{team}/{match}", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("ReadTeamMatchV3TeamMatchTeamMatchGet", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'match' is set
-                    if (match is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'match' when calling TeamMatchApi->ReadTeamMatchV3TeamMatchTeamMatchGet");
-                    }
-                    
-                    // verify the required parameter 'team' is set
-                    if (team is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'team' when calling TeamMatchApi->ReadTeamMatchV3TeamMatchTeamMatchGet");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("match", ClientUtils.ParameterToString(match)); // path parameter
-                  localVarRequestOptions.PathParameters.Add("team", ClientUtils.ParameterToString(team)); // path parameter
-                            
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Object?>("/v3/team_match/{team}/{match}", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("ReadTeamMatchV3TeamMatchTeamMatchGet", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     /// Query a single team match Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
@@ -434,10 +432,10 @@ using Statbotics.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Object</returns>
     public async Task<Object?> ReadTeamMatchV3TeamMatchTeamMatchGetAsync(string match, string team, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<object?> localVarResponse = await ReadTeamMatchV3TeamMatchTeamMatchGetWithHttpInfoAsync(match, team, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     /// Query a single team match Returns a single Team Match object. Requires a team number and match key, e.g. &#x60;5511&#x60; and &#x60;2019ncwak_f1m1&#x60;.
@@ -448,77 +446,77 @@ using Statbotics.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Object)</returns>
     public async Task<ApiResponse<object?>> ReadTeamMatchV3TeamMatchTeamMatchGetWithHttpInfoAsync(string match, string team, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'match' is set
-                      if (match is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'match' when calling TeamMatchApi->ReadTeamMatchV3TeamMatchTeamMatchGet");
-                      }
-                      
-                      // verify the required parameter 'team' is set
-                      if (team is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'team' when calling TeamMatchApi->ReadTeamMatchV3TeamMatchTeamMatchGet");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("match", ClientUtils.ParameterToString(match)); // path parameter
-                    localVarRequestOptions.PathParameters.Add("team", ClientUtils.ParameterToString(team)); // path parameter
-                                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/v3/team_match/{team}/{match}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("ReadTeamMatchV3TeamMatchTeamMatchGet", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         /// Query multiple team matches Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-                         /// <param name="elim">Whether the match is an elimination match. (optional)</param>
-                         /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-                         /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
-                         /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-                         /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-                         /// <param name="offset">Offset from the first result to return. (optional)</param>
-                         /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
-                         /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
-                         /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-                         /// <param name="year">Four-digit year (optional)</param>
-                         /// <returns>Collection&lt;Object&gt;</returns>
-    public Collection<Object>? ReadTeamMatchesV3TeamMatchesGet(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default)
-          {
-        ApiResponse<Collection<object>?> localVarResponse = ReadTeamMatchesV3TeamMatchesGetWithHttpInfo(ascending, elim, limit, match, metric, offseason, offset, team, varEvent, week, year);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'match' is set
+        if (match is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'match' when calling TeamMatchApi->ReadTeamMatchV3TeamMatchTeamMatchGet");
+        }
+
+        // verify the required parameter 'team' is set
+        if (team is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'team' when calling TeamMatchApi->ReadTeamMatchV3TeamMatchTeamMatchGet");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("match", ClientUtils.ParameterToString(match)); // path parameter
+        localVarRequestOptions.PathParameters.Add("team", ClientUtils.ParameterToString(team)); // path parameter
+                                                                                                // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Object?>("/v3/team_match/{team}/{match}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("ReadTeamMatchV3TeamMatchTeamMatchGet", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               /// Query multiple team matches Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+               /// <param name="elim">Whether the match is an elimination match. (optional)</param>
+               /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+               /// <param name="match">Match key, e.g. &#x60;2019ncwak_f1m1&#x60;. (optional)</param>
+               /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+               /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+               /// <param name="offset">Offset from the first result to return. (optional)</param>
+               /// <param name="team">Team number (no prefix), e.g. &#x60;5511&#x60;. (optional)</param>
+               /// <param name="varEvent">Event key, e.g. &#x60;2019ncwak&#x60;. (optional)</param>
+               /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+               /// <param name="year">Four-digit year (optional)</param>
+               /// <returns>Collection&lt;Object&gt;</returns>
+    public Collection<Object>? ReadTeamMatchesV3TeamMatchesGet(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default)
+    {
+        ApiResponse<Collection<object>?> localVarResponse = ReadTeamMatchesV3TeamMatchesGetWithHttpInfo(ascending, elim, limit, match, metric, offseason, offset, team, varEvent, week, year);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     /// Query multiple team matches Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
@@ -537,99 +535,98 @@ using Statbotics.Model;
     /// <param name="year">Four-digit year (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Object&gt;</returns>
     public ApiResponse<Collection<Object>?> ReadTeamMatchesV3TeamMatchesGetWithHttpInfo(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default)
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        if (ascending is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "ascending", ascending));
+        }
+
+        if (elim is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "elim", elim));
+        }
+
+        if (limit is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "limit", limit));
+        }
+
+        if (match is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "match", match));
+        }
+
+        if (metric is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "metric", metric));
+        }
+
+        if (offseason is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offseason", offseason));
+        }
+
+        if (offset is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
+        }
+
+        if (team is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "team", team));
+        }
+
+        if (varEvent is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "event", varEvent));
+        }
+
+        if (week is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "week", week));
+        }
+
+        if (year is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "year", year));
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Object>?>("/v3/team_matches", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("ReadTeamMatchesV3TeamMatchesGet", localVarResponse);
+            if (_exception is not null)
             {
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  if (ascending is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "ascending", ascending));
-                  }
-                  
-                  if (elim is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "elim", elim));
-                  }
-                  
-                  if (limit is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "limit", limit));
-                  }
-                  
-                  if (match is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "match", match));
-                  }
-                  
-                  if (metric is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "metric", metric));
-                  }
-                  
-                  if (offseason is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offseason", offseason));
-                  }
-                  
-                  if (offset is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
-                  }
-                  
-                  if (team is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "team", team));
-                  }
-                  
-                  if (varEvent is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "event", varEvent));
-                  }
-                  
-                  if (week is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "week", week));
-                  }
-                  
-                  if (year is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "year", year));
-                  }
-                  
-                            
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Object>?>("/v3/team_matches", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("ReadTeamMatchesV3TeamMatchesGet", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     /// Query multiple team matches Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
@@ -649,10 +646,10 @@ using Statbotics.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Object&gt;</returns>
     public async Task<Collection<Object>?> ReadTeamMatchesV3TeamMatchesGetAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<object>?> localVarResponse = await ReadTeamMatchesV3TeamMatchesGetWithHttpInfoAsync(ascending, elim, limit, match, metric, offseason, offset, team, varEvent, week, year, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     /// Query multiple team matches Returns up to 1000 team matches at a time. Specify limit and offset to page through results.
@@ -672,96 +669,96 @@ using Statbotics.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Object&gt;)</returns>
     public async Task<ApiResponse<Collection<object>?>> ReadTeamMatchesV3TeamMatchesGetWithHttpInfoAsync(bool? ascending = default, bool? elim = default, int? limit = default, string? match = default, string? metric = default, bool? offseason = default, int? offset = default, string? team = default, string? varEvent = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
-              {
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    if (ascending is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "ascending", ascending));
-                    }
-                    
-                    if (elim is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "elim", elim));
-                    }
-                    
-                    if (limit is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "limit", limit));
-                    }
-                    
-                    if (match is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "match", match));
-                    }
-                    
-                    if (metric is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "metric", metric));
-                    }
-                    
-                    if (offseason is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offseason", offseason));
-                    }
-                    
-                    if (offset is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
-                    }
-                    
-                    if (team is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "team", team));
-                    }
-                    
-                    if (varEvent is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "event", varEvent));
-                    }
-                    
-                    if (week is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "week", week));
-                    }
-                    
-                    if (year is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "year", year));
-                    }
-                    
-                                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Object>?>("/v3/team_matches", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("ReadTeamMatchesV3TeamMatchesGet", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        if (ascending is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "ascending", ascending));
+        }
+
+        if (elim is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "elim", elim));
+        }
+
+        if (limit is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "limit", limit));
+        }
+
+        if (match is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "match", match));
+        }
+
+        if (metric is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "metric", metric));
+        }
+
+        if (offseason is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offseason", offseason));
+        }
+
+        if (offset is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
+        }
+
+        if (team is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "team", team));
+        }
+
+        if (varEvent is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "event", varEvent));
+        }
+
+        if (week is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "week", week));
+        }
+
+        if (year is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "year", year));
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Object>?>("/v3/team_matches", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("ReadTeamMatchesV3TeamMatchesGet", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
+}

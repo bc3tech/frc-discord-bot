@@ -7,7 +7,6 @@ using FRCColors.Models;
 using System.Drawing;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text.Json;
 
 public sealed class Client(IHttpClientFactory clientFactory)
 {

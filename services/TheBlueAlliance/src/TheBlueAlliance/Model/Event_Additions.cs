@@ -1,6 +1,7 @@
 ﻿namespace TheBlueAlliance.Model;
 using System.Text;
 
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1716:Identifiers should not match keywords", Justification = "This is its name, sorry")]
 public partial record Event
 {
     public string GetLabel(bool shortName = false, bool includeYear = false, bool includeCity = false, bool includeStateProv = false, bool includeCountry = false)

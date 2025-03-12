@@ -9,19 +9,18 @@
 
 namespace Statbotics.Api;
 
-using System;
-using System.Net.Http;
-  using System.Collections.ObjectModel;
-  using System.Threading.Tasks;
-
 using Statbotics.Client;
-
 using Statbotics.Model;
-  /// <summary>
-  /// Represents a collection of functions to interact with the API endpoints
-  /// </summary>
-  public interface IEventApiSync : IApiAccessor
-  {
+
+using System;
+using System.Collections.ObjectModel;
+using System.Net.Http;
+using System.Threading.Tasks;
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface IEventApiSync : IApiAccessor
+{
     #region Synchronous Operations
     /// <summary>
     /// Query a single event
@@ -85,14 +84,14 @@ using Statbotics.Model;
     /// <param name="year">Four-digit year (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
     ApiResponse<Collection<Event>?> ReadEventsV3EventsGetWithHttpInfo(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default);
-      #endregion Synchronous Operations
-    }
-    
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public interface IEventApiAsync : IApiAccessor
-      {
+    #endregion Synchronous Operations
+}
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface IEventApiAsync : IApiAccessor
+{
     #region Asynchronous Operations
     /// <summary>
     /// Query a single event
@@ -160,192 +159,192 @@ using Statbotics.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
     Task<ApiResponse<Collection<Event>?>> ReadEventsV3EventsGetWithHttpInfoAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default, CancellationToken cancellationToken = default);
-          #endregion Asynchronous Operations
-        }
-      
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public interface IEventApi : IEventApiSync, IEventApiAsync { }
-      
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public sealed partial class EventApi : IEventApi
-      {
-        private ExceptionFactory? _exceptionFactory = (name, response) => null;
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EventApi"/> class.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <returns></returns>
-        public EventApi() : this(basePath: default) { }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EventApi"/> class.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <param name="basePath">The target service's base path in URL format.</param>
-        /// <exception cref="ArgumentException"></exception>
-        /// <returns></returns>
-        public EventApi(string? basePath)
+    #endregion Asynchronous Operations
+}
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface IEventApi : IEventApiSync, IEventApiAsync { }
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public sealed partial class EventApi : IEventApi
+{
+    private ExceptionFactory? _exceptionFactory = (name, response) => null;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EventApi"/> class.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <returns></returns>
+    public EventApi() : this(basePath: default) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EventApi"/> class.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <param name="basePath">The target service's base path in URL format.</param>
+    /// <exception cref="ArgumentException"></exception>
+    /// <returns></returns>
+    public EventApi(string? basePath)
+    {
+        this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
+        this.ApiClient = new ApiClient(this.Configuration.BasePath);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EventApi"/> class using Configuration object.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <param name="configuration">An instance of Configuration.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    public EventApi(Configuration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+
+        this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
+        this.ApiClient = new ApiClient(this.Configuration.BasePath);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EventApi"/> class.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public EventApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EventApi"/> class.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="basePath">The target service's base path in URL format.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public EventApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
+        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EventApi"/> class using Configuration object.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="configuration">An instance of Configuration.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public EventApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+        ArgumentNullException.ThrowIfNull(client);
+
+        this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
+        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EventApi"/> class
+    /// using a Configuration object and client instance.
+    /// </summary>
+    /// <param name="client">The client interface for synchronous API access.</param>
+    /// <param name="asyncClient">The client interface for asynchronous API access.</param>
+    /// <param name="configuration">The configuration object.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    public EventApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        ArgumentNullException.ThrowIfNull(asyncClient);
+        this.AsynchronousClient = asyncClient;
+
+        ArgumentNullException.ThrowIfNull(configuration);
+        this.Configuration = configuration;
+
+        this.Client = client;
+        this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Holds the ApiClient if created
+    /// </summary>
+    public ApiClient? ApiClient { get; set; }
+
+    /// <summary>
+    /// The client for accessing this underlying API asynchronously.
+    /// </summary>
+    public IAsynchronousClient AsynchronousClient { get; set; }
+
+    /// <summary>
+    /// The client for accessing this underlying API synchronously.
+    /// </summary>
+    public ISynchronousClient Client { get; set; }
+
+    /// <summary>
+    /// Gets the base path of the API client.
+    /// </summary>
+    /// <value>The base path</value>
+    public string? GetBasePath() => this.Configuration.BasePath;
+
+    /// <summary>
+    /// Gets or sets the configuration object
+    /// </summary>
+    /// <value>An instance of the Configuration</value>
+    public IReadableConfiguration Configuration { get; set; }
+
+    /// <summary>
+    /// Provides a factory method hook for the creation of exceptions.
+    /// </summary>
+    public ExceptionFactory? ExceptionFactory
+    {
+        get
         {
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
-          this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EventApi"/> class using Configuration object.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <param name="configuration">An instance of Configuration.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        public EventApi(Configuration configuration)
-        {
-          ArgumentNullException.ThrowIfNull(configuration);
-          
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
-          this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EventApi"/> class.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public EventApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EventApi"/> class.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="basePath">The target service's base path in URL format.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public EventApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
-        {
-          ArgumentNullException.ThrowIfNull(client);
-          
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
-          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EventApi"/> class using Configuration object.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="configuration">An instance of Configuration.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public EventApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
-        {
-          ArgumentNullException.ThrowIfNull(configuration);
-          ArgumentNullException.ThrowIfNull(client);
-          
-          this.Configuration = Statbotics.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
-          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EventApi"/> class
-        /// using a Configuration object and client instance.
-        /// </summary>
-        /// <param name="client">The client interface for synchronous API access.</param>
-        /// <param name="asyncClient">The client interface for asynchronous API access.</param>
-        /// <param name="configuration">The configuration object.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public EventApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
-        {
-          ArgumentNullException.ThrowIfNull(client);
-          
-            ArgumentNullException.ThrowIfNull(asyncClient);
-            this.AsynchronousClient = asyncClient;
-            
-          ArgumentNullException.ThrowIfNull(configuration);
-          this.Configuration = configuration;
-          
-          this.Client = client;
-          this.ExceptionFactory = Statbotics.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Holds the ApiClient if created
-        /// </summary>
-        public ApiClient? ApiClient { get; set; }
-        
-          /// <summary>
-          /// The client for accessing this underlying API asynchronously.
-          /// </summary>
-          public IAsynchronousClient AsynchronousClient { get; set; }
-        
-        /// <summary>
-        /// The client for accessing this underlying API synchronously.
-        /// </summary>
-        public ISynchronousClient Client { get; set; }
-        
-        /// <summary>
-        /// Gets the base path of the API client.
-        /// </summary>
-        /// <value>The base path</value>
-        public string? GetBasePath() => this.Configuration.BasePath;
-        
-        /// <summary>
-        /// Gets or sets the configuration object
-        /// </summary>
-        /// <value>An instance of the Configuration</value>
-        public IReadableConfiguration Configuration { get; set; }
-        
-        /// <summary>
-        /// Provides a factory method hook for the creation of exceptions.
-        /// </summary>
-        public ExceptionFactory? ExceptionFactory
-        {
-          get
-          {
             return _exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1
             ? throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.")
             : _exceptionFactory;
-          }
-          set => _exceptionFactory = value;
         }
+        set => _exceptionFactory = value;
+    }
 
     /// <summary>
     /// Query a single event Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
@@ -354,10 +353,10 @@ using Statbotics.Model;
     /// <param name="varEvent"></param>
     /// <returns>Event</returns>
     public Event? ReadEventV3EventEventGet(string varEvent)
-          {
+    {
         ApiResponse<Event?> localVarResponse = ReadEventV3EventEventGetWithHttpInfo(varEvent);
-              return localVarResponse.Data;
-            }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     /// Query a single event Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
@@ -366,51 +365,51 @@ using Statbotics.Model;
     /// <param name="varEvent"></param>
     /// <returns>ApiResponse of Event</returns>
     public ApiResponse<Event?> ReadEventV3EventEventGetWithHttpInfo(string varEvent)
+    {
+        // verify the required parameter 'varEvent' is set
+        if (varEvent is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'varEvent' when calling EventApi->ReadEventV3EventEventGet");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event", ClientUtils.ParameterToString(varEvent)); // path parameter
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Event?>("/v3/event/{event}", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("ReadEventV3EventEventGet", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'varEvent' is set
-                    if (varEvent is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'varEvent' when calling EventApi->ReadEventV3EventEventGet");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("event", ClientUtils.ParameterToString(varEvent)); // path parameter
-                            
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Event?>("/v3/event/{event}", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("ReadEventV3EventEventGet", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     /// Query a single event Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
@@ -420,10 +419,10 @@ using Statbotics.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Event</returns>
     public async Task<Event?> ReadEventV3EventEventGetAsync(string varEvent, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Event?> localVarResponse = await ReadEventV3EventEventGetWithHttpInfoAsync(varEvent, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     /// Query a single event Returns a single Event object. Requires an event key, e.g. &#x60;2019ncwak&#x60;.
@@ -433,70 +432,70 @@ using Statbotics.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Event)</returns>
     public async Task<ApiResponse<Event?>> ReadEventV3EventEventGetWithHttpInfoAsync(string varEvent, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'varEvent' is set
-                      if (varEvent is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'varEvent' when calling EventApi->ReadEventV3EventEventGet");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("event", ClientUtils.ParameterToString(varEvent)); // path parameter
-                                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Event?>("/v3/event/{event}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("ReadEventV3EventEventGet", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         /// Query multiple events Returns up to 1000 events at a time. Specify limit and offset to page through results.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
-                         /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
-                         /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
-                         /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
-                         /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
-                         /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
-                         /// <param name="offset">Offset from the first result to return. (optional)</param>
-                         /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
-                         /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
-                         /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
-                         /// <param name="year">Four-digit year (optional)</param>
-                         /// <returns>Collection&lt;Event&gt;</returns>
-    public Collection<Event>? ReadEventsV3EventsGet(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default)
-          {
-        ApiResponse<Collection<Event>?> localVarResponse = ReadEventsV3EventsGetWithHttpInfo(ascending, country, district, limit, metric, offseason, offset, state, type, week, year);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'varEvent' is set
+        if (varEvent is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'varEvent' when calling EventApi->ReadEventV3EventEventGet");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event", ClientUtils.ParameterToString(varEvent)); // path parameter
+                                                                                                     // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Event?>("/v3/event/{event}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("ReadEventV3EventEventGet", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               /// Query multiple events Returns up to 1000 events at a time. Specify limit and offset to page through results.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="ascending">Whether to sort the returned values in ascending order. Default is ascending (optional)</param>
+               /// <param name="country">Capitalized country name, e.g. &#x60;USA&#x60; or &#x60;Canada&#x60;. (optional)</param>
+               /// <param name="district">One of [&#x60;fma&#x60;, &#x60;fnc&#x60;, &#x60;fit&#x60;, &#x60;fin&#x60;, &#x60;fim&#x60;, &#x60;ne&#x60;, &#x60;chs&#x60;, &#x60;ont&#x60;, &#x60;pnw&#x60;, &#x60;pch&#x60;, &#x60;isr&#x60;] (optional)</param>
+               /// <param name="limit">Maximum number of events to return. Default is 1000. (optional)</param>
+               /// <param name="metric">How to sort the returned values. Any column in the table is valid. (optional)</param>
+               /// <param name="offseason">Whether the event is an offseason event. (optional)</param>
+               /// <param name="offset">Offset from the first result to return. (optional)</param>
+               /// <param name="state">Capitalized two-letter state code, e.g. &#x60;NC&#x60;. (optional)</param>
+               /// <param name="type">One of [&#x60;regional&#x60;, &#x60;district&#x60;, &#x60;district_cmp&#x60;, &#x60;cmp_division&#x60;, &#x60;cmp_finals&#x60;, &#x60;offseason&#x60;, or &#x60;preseason&#x60;]. (optional)</param>
+               /// <param name="week">Week of the competition season. 0 is preseason, 8 is CMP, 9 is offseason. (optional)</param>
+               /// <param name="year">Four-digit year (optional)</param>
+               /// <returns>Collection&lt;Event&gt;</returns>
+    public Collection<Event>? ReadEventsV3EventsGet(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default)
+    {
+        ApiResponse<Collection<Event>?> localVarResponse = ReadEventsV3EventsGetWithHttpInfo(ascending, country, district, limit, metric, offseason, offset, state, type, week, year);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     /// Query multiple events Returns up to 1000 events at a time. Specify limit and offset to page through results.
@@ -515,99 +514,98 @@ using Statbotics.Model;
     /// <param name="year">Four-digit year (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
     public ApiResponse<Collection<Event>?> ReadEventsV3EventsGetWithHttpInfo(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default)
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        if (ascending is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "ascending", ascending));
+        }
+
+        if (country is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "country", country));
+        }
+
+        if (district is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "district", district));
+        }
+
+        if (limit is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "limit", limit));
+        }
+
+        if (metric is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "metric", metric));
+        }
+
+        if (offseason is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offseason", offseason));
+        }
+
+        if (offset is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
+        }
+
+        if (state is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "state", state));
+        }
+
+        if (type is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "type", type));
+        }
+
+        if (week is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "week", week));
+        }
+
+        if (year is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "year", year));
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Event>?>("/v3/events", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("ReadEventsV3EventsGet", localVarResponse);
+            if (_exception is not null)
             {
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  if (ascending is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "ascending", ascending));
-                  }
-                  
-                  if (country is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "country", country));
-                  }
-                  
-                  if (district is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "district", district));
-                  }
-                  
-                  if (limit is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "limit", limit));
-                  }
-                  
-                  if (metric is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "metric", metric));
-                  }
-                  
-                  if (offseason is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offseason", offseason));
-                  }
-                  
-                  if (offset is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
-                  }
-                  
-                  if (state is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "state", state));
-                  }
-                  
-                  if (type is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "type", type));
-                  }
-                  
-                  if (week is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "week", week));
-                  }
-                  
-                  if (year is not null)
-                  {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "year", year));
-                  }
-                  
-                            
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Event>?>("/v3/events", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("ReadEventsV3EventsGet", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     /// Query multiple events Returns up to 1000 events at a time. Specify limit and offset to page through results.
@@ -627,10 +625,10 @@ using Statbotics.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Event&gt;</returns>
     public async Task<Collection<Event>?> ReadEventsV3EventsGetAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Event>?> localVarResponse = await ReadEventsV3EventsGetWithHttpInfoAsync(ascending, country, district, limit, metric, offseason, offset, state, type, week, year, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     /// Query multiple events Returns up to 1000 events at a time. Specify limit and offset to page through results.
@@ -650,96 +648,96 @@ using Statbotics.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
     public async Task<ApiResponse<Collection<Event>?>> ReadEventsV3EventsGetWithHttpInfoAsync(bool? ascending = default, string? country = default, string? district = default, int? limit = default, string? metric = default, bool? offseason = default, int? offset = default, string? state = default, string? type = default, int? week = default, int? year = default, CancellationToken cancellationToken = default)
-              {
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    if (ascending is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "ascending", ascending));
-                    }
-                    
-                    if (country is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "country", country));
-                    }
-                    
-                    if (district is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "district", district));
-                    }
-                    
-                    if (limit is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "limit", limit));
-                    }
-                    
-                    if (metric is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "metric", metric));
-                    }
-                    
-                    if (offseason is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offseason", offseason));
-                    }
-                    
-                    if (offset is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
-                    }
-                    
-                    if (state is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "state", state));
-                    }
-                    
-                    if (type is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "type", type));
-                    }
-                    
-                    if (week is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "week", week));
-                    }
-                    
-                    if (year is not null)
-                    {
-                      localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "year", year));
-                    }
-                    
-                                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Event>?>("/v3/events", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("ReadEventsV3EventsGet", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        if (ascending is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "ascending", ascending));
+        }
+
+        if (country is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "country", country));
+        }
+
+        if (district is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "district", district));
+        }
+
+        if (limit is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "limit", limit));
+        }
+
+        if (metric is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "metric", metric));
+        }
+
+        if (offseason is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offseason", offseason));
+        }
+
+        if (offset is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "offset", offset));
+        }
+
+        if (state is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "state", state));
+        }
+
+        if (type is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "type", type));
+        }
+
+        if (week is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "week", week));
+        }
+
+        if (year is not null)
+        {
+            localVarRequestOptions.QueryParameters.Add(ClientUtils.ParameterToMultiMap("", "year", year));
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Event>?>("/v3/events", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("ReadEventsV3EventsGet", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
+}

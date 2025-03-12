@@ -10,18 +10,17 @@
 namespace TheBlueAlliance.Api;
 
 using System;
+using System.Collections.ObjectModel;
 using System.Net.Http;
-  using System.Collections.ObjectModel;
-  using System.Threading.Tasks;
+using System.Threading.Tasks;
 
 using TheBlueAlliance.Client;
-
 using TheBlueAlliance.Model;
-  /// <summary>
-  /// Represents a collection of functions to interact with the API endpoints
-  /// </summary>
-  public interface IInsightApiSync : IApiAccessor
-  {
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface IInsightApiSync : IApiAccessor
+{
     #region Synchronous Operations
     /// <summary>
     /// 
@@ -69,14 +68,14 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;NotablesInsight&gt;</returns>
     ApiResponse<Collection<NotablesInsight>?> GetInsightsNotablesYearWithHttpInfo(int year, string? ifNoneMatch = default);
-      #endregion Synchronous Operations
-    }
-    
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public interface IInsightApiAsync : IApiAccessor
-      {
+    #endregion Synchronous Operations
+}
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface IInsightApiAsync : IApiAccessor
+{
     #region Asynchronous Operations
     /// <summary>
     /// 
@@ -128,192 +127,192 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;NotablesInsight&gt;)</returns>
     Task<ApiResponse<Collection<NotablesInsight>?>> GetInsightsNotablesYearWithHttpInfoAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          #endregion Asynchronous Operations
-        }
-      
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public interface IInsightApi : IInsightApiSync, IInsightApiAsync { }
-      
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public sealed partial class InsightApi : IInsightApi
-      {
-        private ExceptionFactory? _exceptionFactory = (name, response) => null;
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InsightApi"/> class.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <returns></returns>
-        public InsightApi() : this(basePath: default) { }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InsightApi"/> class.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <param name="basePath">The target service's base path in URL format.</param>
-        /// <exception cref="ArgumentException"></exception>
-        /// <returns></returns>
-        public InsightApi(string? basePath)
+    #endregion Asynchronous Operations
+}
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface IInsightApi : IInsightApiSync, IInsightApiAsync { }
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public sealed partial class InsightApi : IInsightApi
+{
+    private ExceptionFactory? _exceptionFactory = (name, response) => null;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InsightApi"/> class.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <returns></returns>
+    public InsightApi() : this(basePath: default) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InsightApi"/> class.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <param name="basePath">The target service's base path in URL format.</param>
+    /// <exception cref="ArgumentException"></exception>
+    /// <returns></returns>
+    public InsightApi(string? basePath)
+    {
+        this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
+        this.ApiClient = new ApiClient(this.Configuration.BasePath);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InsightApi"/> class using Configuration object.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <param name="configuration">An instance of Configuration.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    public InsightApi(Configuration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+
+        this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
+        this.ApiClient = new ApiClient(this.Configuration.BasePath);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InsightApi"/> class.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public InsightApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InsightApi"/> class.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="basePath">The target service's base path in URL format.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public InsightApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
+        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InsightApi"/> class using Configuration object.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="configuration">An instance of Configuration.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public InsightApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+        ArgumentNullException.ThrowIfNull(client);
+
+        this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
+        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InsightApi"/> class
+    /// using a Configuration object and client instance.
+    /// </summary>
+    /// <param name="client">The client interface for synchronous API access.</param>
+    /// <param name="asyncClient">The client interface for asynchronous API access.</param>
+    /// <param name="configuration">The configuration object.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    public InsightApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        ArgumentNullException.ThrowIfNull(asyncClient);
+        this.AsynchronousClient = asyncClient;
+
+        ArgumentNullException.ThrowIfNull(configuration);
+        this.Configuration = configuration;
+
+        this.Client = client;
+        this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Holds the ApiClient if created
+    /// </summary>
+    public ApiClient? ApiClient { get; set; }
+
+    /// <summary>
+    /// The client for accessing this underlying API asynchronously.
+    /// </summary>
+    public IAsynchronousClient AsynchronousClient { get; set; }
+
+    /// <summary>
+    /// The client for accessing this underlying API synchronously.
+    /// </summary>
+    public ISynchronousClient Client { get; set; }
+
+    /// <summary>
+    /// Gets the base path of the API client.
+    /// </summary>
+    /// <value>The base path</value>
+    public string? GetBasePath() => this.Configuration.BasePath;
+
+    /// <summary>
+    /// Gets or sets the configuration object
+    /// </summary>
+    /// <value>An instance of the Configuration</value>
+    public IReadableConfiguration Configuration { get; set; }
+
+    /// <summary>
+    /// Provides a factory method hook for the creation of exceptions.
+    /// </summary>
+    public ExceptionFactory? ExceptionFactory
+    {
+        get
         {
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
-          this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InsightApi"/> class using Configuration object.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <param name="configuration">An instance of Configuration.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        public InsightApi(Configuration configuration)
-        {
-          ArgumentNullException.ThrowIfNull(configuration);
-          
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
-          this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InsightApi"/> class.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public InsightApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InsightApi"/> class.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="basePath">The target service's base path in URL format.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public InsightApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
-        {
-          ArgumentNullException.ThrowIfNull(client);
-          
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
-          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InsightApi"/> class using Configuration object.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="configuration">An instance of Configuration.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public InsightApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
-        {
-          ArgumentNullException.ThrowIfNull(configuration);
-          ArgumentNullException.ThrowIfNull(client);
-          
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
-          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InsightApi"/> class
-        /// using a Configuration object and client instance.
-        /// </summary>
-        /// <param name="client">The client interface for synchronous API access.</param>
-        /// <param name="asyncClient">The client interface for asynchronous API access.</param>
-        /// <param name="configuration">The configuration object.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public InsightApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
-        {
-          ArgumentNullException.ThrowIfNull(client);
-          
-            ArgumentNullException.ThrowIfNull(asyncClient);
-            this.AsynchronousClient = asyncClient;
-            
-          ArgumentNullException.ThrowIfNull(configuration);
-          this.Configuration = configuration;
-          
-          this.Client = client;
-          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Holds the ApiClient if created
-        /// </summary>
-        public ApiClient? ApiClient { get; set; }
-        
-          /// <summary>
-          /// The client for accessing this underlying API asynchronously.
-          /// </summary>
-          public IAsynchronousClient AsynchronousClient { get; set; }
-        
-        /// <summary>
-        /// The client for accessing this underlying API synchronously.
-        /// </summary>
-        public ISynchronousClient Client { get; set; }
-        
-        /// <summary>
-        /// Gets the base path of the API client.
-        /// </summary>
-        /// <value>The base path</value>
-        public string? GetBasePath() => this.Configuration.BasePath;
-        
-        /// <summary>
-        /// Gets or sets the configuration object
-        /// </summary>
-        /// <value>An instance of the Configuration</value>
-        public IReadableConfiguration Configuration { get; set; }
-        
-        /// <summary>
-        /// Provides a factory method hook for the creation of exceptions.
-        /// </summary>
-        public ExceptionFactory? ExceptionFactory
-        {
-          get
-          {
             return _exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1
             ? throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.")
             : _exceptionFactory;
-          }
-          set => _exceptionFactory = value;
         }
+        set => _exceptionFactory = value;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
@@ -323,10 +322,10 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>Collection&lt;LeaderboardInsight&gt;</returns>
     public Collection<LeaderboardInsight>? GetInsightsLeaderboardsYear(int year, string? ifNoneMatch = default)
-          {
+    {
         ApiResponse<Collection<LeaderboardInsight>?> localVarResponse = GetInsightsLeaderboardsYearWithHttpInfo(year, ifNoneMatch);
-              return localVarResponse.Data;
-            }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
@@ -336,56 +335,56 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;LeaderboardInsight&gt;</returns>
     public ApiResponse<Collection<LeaderboardInsight>?> GetInsightsLeaderboardsYearWithHttpInfo(int year, string? ifNoneMatch = default)
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<LeaderboardInsight>?>("/insights/leaderboards/{year}", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetInsightsLeaderboardsYear", localVarResponse);
+            if (_exception is not null)
             {
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<LeaderboardInsight>?>("/insights/leaderboards/{year}", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetInsightsLeaderboardsYear", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
@@ -396,10 +395,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;LeaderboardInsight&gt;</returns>
     public async Task<Collection<LeaderboardInsight>?> GetInsightsLeaderboardsYearAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<LeaderboardInsight>?> localVarResponse = await GetInsightsLeaderboardsYearWithHttpInfoAsync(year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;LeaderboardInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
@@ -410,67 +409,67 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;LeaderboardInsight&gt;)</returns>
     public async Task<ApiResponse<Collection<LeaderboardInsight>?>> GetInsightsLeaderboardsYearWithHttpInfoAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<LeaderboardInsight>?>("/insights/leaderboards/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetInsightsLeaderboardsYear", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;NotablesInsight&gt;</returns>
-    public Collection<NotablesInsight>? GetInsightsNotablesYear(int year, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<NotablesInsight>?> localVarResponse = GetInsightsNotablesYearWithHttpInfo(year, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<LeaderboardInsight>?>("/insights/leaderboards/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetInsightsLeaderboardsYear", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;NotablesInsight&gt;</returns>
+    public Collection<NotablesInsight>? GetInsightsNotablesYear(int year, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<NotablesInsight>?> localVarResponse = GetInsightsNotablesYearWithHttpInfo(year, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
@@ -480,56 +479,56 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;NotablesInsight&gt;</returns>
     public ApiResponse<Collection<NotablesInsight>?> GetInsightsNotablesYearWithHttpInfo(int year, string? ifNoneMatch = default)
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<NotablesInsight>?>("/insights/notables/{year}", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetInsightsNotablesYear", localVarResponse);
+            if (_exception is not null)
             {
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<NotablesInsight>?>("/insights/notables/{year}", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetInsightsNotablesYear", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
@@ -540,10 +539,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;NotablesInsight&gt;</returns>
     public async Task<Collection<NotablesInsight>?> GetInsightsNotablesYearAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<NotablesInsight>?> localVarResponse = await GetInsightsNotablesYearWithHttpInfoAsync(year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;NotablesInsight&#x60; objects from a specific year. Use year&#x3D;0 for overall.
@@ -554,54 +553,54 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;NotablesInsight&gt;)</returns>
     public async Task<ApiResponse<Collection<NotablesInsight>?>> GetInsightsNotablesYearWithHttpInfoAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<NotablesInsight>?>("/insights/notables/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetInsightsNotablesYear", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<NotablesInsight>?>("/insights/notables/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetInsightsNotablesYear", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
+}

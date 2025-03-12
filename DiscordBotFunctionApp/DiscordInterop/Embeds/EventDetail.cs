@@ -6,7 +6,6 @@ using Discord;
 
 using DiscordBotFunctionApp.Apis;
 using DiscordBotFunctionApp.Storage;
-using DiscordBotFunctionApp.TbaInterop.Extensions;
 
 using Microsoft.Extensions.Logging;
 

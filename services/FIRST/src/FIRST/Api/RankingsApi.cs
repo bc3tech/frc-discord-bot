@@ -9,13 +9,12 @@
 
 namespace FIRST.Api;
 
-using System;
-using System.Net.Http;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-
 using FIRST.Client;
 using FIRST.Model;
+
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 /// <summary>
 /// Represents a collection of functions to interact with the API endpoints

@@ -3,7 +3,7 @@ using System.Text;
 
 public partial record EventSimple
 {
-    public string GetLabel( bool includeYear = false, bool includeCity = false, bool includeStateProv = false, bool includeCountry = false)
+    public string GetLabel(bool includeYear = false, bool includeCity = false, bool includeStateProv = false, bool includeCountry = false)
     {
         var location = new StringBuilder();
         if (includeCity && !string.IsNullOrEmpty(this.City))

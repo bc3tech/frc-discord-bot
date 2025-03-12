@@ -10,18 +10,17 @@
 namespace TheBlueAlliance.Api;
 
 using System;
+using System.Collections.ObjectModel;
 using System.Net.Http;
-  using System.Collections.ObjectModel;
-  using System.Threading.Tasks;
+using System.Threading.Tasks;
 
 using TheBlueAlliance.Client;
-
 using TheBlueAlliance.Model;
-  /// <summary>
-  /// Represents a collection of functions to interact with the API endpoints
-  /// </summary>
-  public interface IDistrictApiSync : IApiAccessor
-  {
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface IDistrictApiSync : IApiAccessor
+{
     #region Synchronous Operations
     /// <summary>
     /// 
@@ -299,14 +298,14 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
     ApiResponse<Collection<DistrictList>?> GetTeamDistrictsWithHttpInfo(string teamKey, string? ifNoneMatch = default);
-      #endregion Synchronous Operations
-    }
-    
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public interface IDistrictApiAsync : IApiAccessor
-      {
+    #endregion Synchronous Operations
+}
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface IDistrictApiAsync : IApiAccessor
+{
     #region Asynchronous Operations
     /// <summary>
     /// 
@@ -608,192 +607,192 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
     Task<ApiResponse<Collection<DistrictList>?>> GetTeamDistrictsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default);
-          #endregion Asynchronous Operations
-        }
-      
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public interface IDistrictApi : IDistrictApiSync, IDistrictApiAsync { }
-      
-      /// <summary>
-      /// Represents a collection of functions to interact with the API endpoints
-      /// </summary>
-      public sealed partial class DistrictApi : IDistrictApi
-      {
-        private ExceptionFactory? _exceptionFactory = (name, response) => null;
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DistrictApi"/> class.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <returns></returns>
-        public DistrictApi() : this(basePath: default) { }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DistrictApi"/> class.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <param name="basePath">The target service's base path in URL format.</param>
-        /// <exception cref="ArgumentException"></exception>
-        /// <returns></returns>
-        public DistrictApi(string? basePath)
+    #endregion Asynchronous Operations
+}
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public interface IDistrictApi : IDistrictApiSync, IDistrictApiAsync { }
+
+/// <summary>
+/// Represents a collection of functions to interact with the API endpoints
+/// </summary>
+public sealed partial class DistrictApi : IDistrictApi
+{
+    private ExceptionFactory? _exceptionFactory = (name, response) => null;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DistrictApi"/> class.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <returns></returns>
+    public DistrictApi() : this(basePath: default) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DistrictApi"/> class.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <param name="basePath">The target service's base path in URL format.</param>
+    /// <exception cref="ArgumentException"></exception>
+    /// <returns></returns>
+    public DistrictApi(string? basePath)
+    {
+        this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
+        this.ApiClient = new ApiClient(this.Configuration.BasePath);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DistrictApi"/> class using Configuration object.
+    /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+    /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
+    /// </summary>
+    /// <param name="configuration">An instance of Configuration.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    public DistrictApi(Configuration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+
+        this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
+        this.ApiClient = new ApiClient(this.Configuration.BasePath);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DistrictApi"/> class.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public DistrictApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DistrictApi"/> class.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="basePath">The target service's base path in URL format.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public DistrictApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
+        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DistrictApi"/> class using Configuration object.
+    /// </summary>
+    /// <param name="client">An instance of HttpClient.</param>
+    /// <param name="configuration">An instance of Configuration.</param>
+    /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <returns></returns>
+    /// <remarks>
+    /// Some configuration settings will not be applied without passing an HttpClientHandler.
+    /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+    /// </remarks>
+    public DistrictApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+        ArgumentNullException.ThrowIfNull(client);
+
+        this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
+        this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
+        this.Client = this.ApiClient;
+        this.AsynchronousClient = this.ApiClient;
+
+        this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DistrictApi"/> class
+    /// using a Configuration object and client instance.
+    /// </summary>
+    /// <param name="client">The client interface for synchronous API access.</param>
+    /// <param name="asyncClient">The client interface for asynchronous API access.</param>
+    /// <param name="configuration">The configuration object.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    public DistrictApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(client);
+
+        ArgumentNullException.ThrowIfNull(asyncClient);
+        this.AsynchronousClient = asyncClient;
+
+        ArgumentNullException.ThrowIfNull(configuration);
+        this.Configuration = configuration;
+
+        this.Client = client;
+        this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
+    }
+
+    /// <summary>
+    /// Holds the ApiClient if created
+    /// </summary>
+    public ApiClient? ApiClient { get; set; }
+
+    /// <summary>
+    /// The client for accessing this underlying API asynchronously.
+    /// </summary>
+    public IAsynchronousClient AsynchronousClient { get; set; }
+
+    /// <summary>
+    /// The client for accessing this underlying API synchronously.
+    /// </summary>
+    public ISynchronousClient Client { get; set; }
+
+    /// <summary>
+    /// Gets the base path of the API client.
+    /// </summary>
+    /// <value>The base path</value>
+    public string? GetBasePath() => this.Configuration.BasePath;
+
+    /// <summary>
+    /// Gets or sets the configuration object
+    /// </summary>
+    /// <value>An instance of the Configuration</value>
+    public IReadableConfiguration Configuration { get; set; }
+
+    /// <summary>
+    /// Provides a factory method hook for the creation of exceptions.
+    /// </summary>
+    public ExceptionFactory? ExceptionFactory
+    {
+        get
         {
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
-          this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DistrictApi"/> class using Configuration object.
-        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
-        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
-        /// </summary>
-        /// <param name="configuration">An instance of Configuration.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        public DistrictApi(Configuration configuration)
-        {
-          ArgumentNullException.ThrowIfNull(configuration);
-          
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
-          this.ApiClient = new ApiClient(this.Configuration.BasePath);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DistrictApi"/> class.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public DistrictApi(HttpClient client, HttpClientHandler? handler = null) : this(client, basePath: default, handler: handler) { }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DistrictApi"/> class.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="basePath">The target service's base path in URL format.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public DistrictApi(HttpClient client, string? basePath, HttpClientHandler? handler = null)
-        {
-          ArgumentNullException.ThrowIfNull(client);
-          
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, new Configuration { BasePath = basePath });
-          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DistrictApi"/> class using Configuration object.
-        /// </summary>
-        /// <param name="client">An instance of HttpClient.</param>
-        /// <param name="configuration">An instance of Configuration.</param>
-        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// Some configuration settings will not be applied without passing an HttpClientHandler.
-        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
-        /// </remarks>
-        public DistrictApi(HttpClient client, Configuration configuration, HttpClientHandler? handler = null)
-        {
-          ArgumentNullException.ThrowIfNull(configuration);
-          ArgumentNullException.ThrowIfNull(client);
-          
-          this.Configuration = TheBlueAlliance.Client.Configuration.MergeConfigurations(GlobalConfiguration.Instance, configuration);
-          this.ApiClient = new ApiClient(client, this.Configuration.BasePath, handler);
-          this.Client = this.ApiClient;
-            this.AsynchronousClient = this.ApiClient;
-          
-          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DistrictApi"/> class
-        /// using a Configuration object and client instance.
-        /// </summary>
-        /// <param name="client">The client interface for synchronous API access.</param>
-        /// <param name="asyncClient">The client interface for asynchronous API access.</param>
-        /// <param name="configuration">The configuration object.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public DistrictApi(ISynchronousClient client, IAsynchronousClient asyncClient, IReadableConfiguration configuration)
-        {
-          ArgumentNullException.ThrowIfNull(client);
-          
-            ArgumentNullException.ThrowIfNull(asyncClient);
-            this.AsynchronousClient = asyncClient;
-            
-          ArgumentNullException.ThrowIfNull(configuration);
-          this.Configuration = configuration;
-          
-          this.Client = client;
-          this.ExceptionFactory = TheBlueAlliance.Client.Configuration.DefaultExceptionFactory;
-        }
-        
-        /// <summary>
-        /// Holds the ApiClient if created
-        /// </summary>
-        public ApiClient? ApiClient { get; set; }
-        
-          /// <summary>
-          /// The client for accessing this underlying API asynchronously.
-          /// </summary>
-          public IAsynchronousClient AsynchronousClient { get; set; }
-        
-        /// <summary>
-        /// The client for accessing this underlying API synchronously.
-        /// </summary>
-        public ISynchronousClient Client { get; set; }
-        
-        /// <summary>
-        /// Gets the base path of the API client.
-        /// </summary>
-        /// <value>The base path</value>
-        public string? GetBasePath() => this.Configuration.BasePath;
-        
-        /// <summary>
-        /// Gets or sets the configuration object
-        /// </summary>
-        /// <value>An instance of the Configuration</value>
-        public IReadableConfiguration Configuration { get; set; }
-        
-        /// <summary>
-        /// Provides a factory method hook for the creation of exceptions.
-        /// </summary>
-        public ExceptionFactory? ExceptionFactory
-        {
-          get
-          {
             return _exceptionFactory is not null && _exceptionFactory.GetInvocationList().Length > 1
             ? throw new InvalidOperationException("Multicast delegate for ExceptionFactory is unsupported.")
             : _exceptionFactory;
-          }
-          set => _exceptionFactory = value;
         }
+        set => _exceptionFactory = value;
+    }
 
     /// <summary>
     ///  Gets a list of awards in the given district.
@@ -803,10 +802,10 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>Collection&lt;Award&gt;</returns>
     public Collection<Award>? GetDistrictAwards(string districtKey, string? ifNoneMatch = default)
-          {
+    {
         ApiResponse<Collection<Award>?> localVarResponse = GetDistrictAwardsWithHttpInfo(districtKey, ifNoneMatch);
-              return localVarResponse.Data;
-            }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of awards in the given district.
@@ -816,62 +815,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Award&gt;</returns>
     public ApiResponse<Collection<Award>?> GetDistrictAwardsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictAwards");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Award>?>("/district/{district_key}/awards", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictAwards", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'districtKey' is set
-                    if (districtKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictAwards");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Award>?>("/district/{district_key}/awards", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetDistrictAwards", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of awards in the given district.
@@ -882,10 +881,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Award&gt;</returns>
     public async Task<Collection<Award>?> GetDistrictAwardsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Award>?> localVarResponse = await GetDistrictAwardsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of awards in the given district.
@@ -896,73 +895,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Award&gt;)</returns>
     public async Task<ApiResponse<Collection<Award>?>> GetDistrictAwardsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'districtKey' is set
-                      if (districtKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictAwards");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Award>?>("/district/{district_key}/awards", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetDistrictAwards", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of events in the given district.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Event&gt;</returns>
-    public Collection<Event>? GetDistrictEvents(string districtKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Event>?> localVarResponse = GetDistrictEventsWithHttpInfo(districtKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictAwards");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Award>?>("/district/{district_key}/awards", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictAwards", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of events in the given district.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Event&gt;</returns>
+    public Collection<Event>? GetDistrictEvents(string districtKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Event>?> localVarResponse = GetDistrictEventsWithHttpInfo(districtKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of events in the given district.
@@ -972,62 +971,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Event&gt;</returns>
     public ApiResponse<Collection<Event>?> GetDistrictEventsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictEvents");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Event>?>("/district/{district_key}/events", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictEvents", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'districtKey' is set
-                    if (districtKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictEvents");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Event>?>("/district/{district_key}/events", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetDistrictEvents", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of events in the given district.
@@ -1038,10 +1037,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Event&gt;</returns>
     public async Task<Collection<Event>?> GetDistrictEventsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Event>?> localVarResponse = await GetDistrictEventsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of events in the given district.
@@ -1052,73 +1051,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Event&gt;)</returns>
     public async Task<ApiResponse<Collection<Event>?>> GetDistrictEventsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'districtKey' is set
-                      if (districtKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictEvents");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Event>?>("/district/{district_key}/events", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetDistrictEvents", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of event keys for events in the given district.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;string&gt;</returns>
-    public Collection<string>? GetDistrictEventsKeys(string districtKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<string>?> localVarResponse = GetDistrictEventsKeysWithHttpInfo(districtKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictEvents");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Event>?>("/district/{district_key}/events", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictEvents", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of event keys for events in the given district.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetDistrictEventsKeys(string districtKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<string>?> localVarResponse = GetDistrictEventsKeysWithHttpInfo(districtKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of event keys for events in the given district.
@@ -1128,62 +1127,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
     public ApiResponse<Collection<string>?> GetDistrictEventsKeysWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictEventsKeys");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<string>?>("/district/{district_key}/events/keys", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictEventsKeys", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'districtKey' is set
-                    if (districtKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictEventsKeys");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<string>?>("/district/{district_key}/events/keys", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetDistrictEventsKeys", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of event keys for events in the given district.
@@ -1194,10 +1193,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;string&gt;</returns>
     public async Task<Collection<string>?> GetDistrictEventsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<string>?> localVarResponse = await GetDistrictEventsKeysWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of event keys for events in the given district.
@@ -1208,73 +1207,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
     public async Task<ApiResponse<Collection<string>?>> GetDistrictEventsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'districtKey' is set
-                      if (districtKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictEventsKeys");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/district/{district_key}/events/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetDistrictEventsKeys", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a short-form list of events in the given district.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;EventSimple&gt;</returns>
-    public Collection<EventSimple>? GetDistrictEventsSimple(string districtKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<EventSimple>?> localVarResponse = GetDistrictEventsSimpleWithHttpInfo(districtKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictEventsKeys");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/district/{district_key}/events/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictEventsKeys", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a short-form list of events in the given district.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;EventSimple&gt;</returns>
+    public Collection<EventSimple>? GetDistrictEventsSimple(string districtKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<EventSimple>?> localVarResponse = GetDistrictEventsSimpleWithHttpInfo(districtKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a short-form list of events in the given district.
@@ -1284,62 +1283,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;EventSimple&gt;</returns>
     public ApiResponse<Collection<EventSimple>?> GetDistrictEventsSimpleWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictEventsSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<EventSimple>?>("/district/{district_key}/events/simple", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictEventsSimple", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'districtKey' is set
-                    if (districtKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictEventsSimple");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<EventSimple>?>("/district/{district_key}/events/simple", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetDistrictEventsSimple", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a short-form list of events in the given district.
@@ -1350,10 +1349,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;EventSimple&gt;</returns>
     public async Task<Collection<EventSimple>?> GetDistrictEventsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<EventSimple>?> localVarResponse = await GetDistrictEventsSimpleWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a short-form list of events in the given district.
@@ -1364,73 +1363,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;EventSimple&gt;)</returns>
     public async Task<ApiResponse<Collection<EventSimple>?>> GetDistrictEventsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'districtKey' is set
-                      if (districtKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictEventsSimple");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<EventSimple>?>("/district/{district_key}/events/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetDistrictEventsSimple", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;DistrictList&gt;</returns>
-    public Collection<DistrictList>? GetDistrictHistory(string districtAbbreviation, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<DistrictList>?> localVarResponse = GetDistrictHistoryWithHttpInfo(districtAbbreviation, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictEventsSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<EventSimple>?>("/district/{district_key}/events/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictEventsSimple", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="districtAbbreviation">District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;DistrictList&gt;</returns>
+    public Collection<DistrictList>? GetDistrictHistory(string districtAbbreviation, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<DistrictList>?> localVarResponse = GetDistrictHistoryWithHttpInfo(districtAbbreviation, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
@@ -1440,62 +1439,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
     public ApiResponse<Collection<DistrictList>?> GetDistrictHistoryWithHttpInfo(string districtAbbreviation, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'districtAbbreviation' is set
+        if (districtAbbreviation is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtAbbreviation' when calling DistrictApi->GetDistrictHistory");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_abbreviation", ClientUtils.ParameterToString(districtAbbreviation)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<DistrictList>?>("/district/{district_abbreviation}/history", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictHistory", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'districtAbbreviation' is set
-                    if (districtAbbreviation is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'districtAbbreviation' when calling DistrictApi->GetDistrictHistory");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("district_abbreviation", ClientUtils.ParameterToString(districtAbbreviation)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<DistrictList>?>("/district/{district_abbreviation}/history", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetDistrictHistory", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
@@ -1506,10 +1505,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
     public async Task<Collection<DistrictList>?> GetDistrictHistoryAsync(string districtAbbreviation, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<DistrictList>?> localVarResponse = await GetDistrictHistoryWithHttpInfoAsync(districtAbbreviation, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of District objects with the given district abbreviation. This accounts for district abbreviation changes, such as MAR to FMA.
@@ -1520,73 +1519,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
     public async Task<ApiResponse<Collection<DistrictList>?>> GetDistrictHistoryWithHttpInfoAsync(string districtAbbreviation, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'districtAbbreviation' is set
-                      if (districtAbbreviation is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'districtAbbreviation' when calling DistrictApi->GetDistrictHistory");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("district_abbreviation", ClientUtils.ParameterToString(districtAbbreviation)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<DistrictList>?>("/district/{district_abbreviation}/history", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetDistrictHistory", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of team district rankings for the given district.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;DistrictRanking&gt;</returns>
-    public Collection<DistrictRanking>? GetDistrictRankings(string districtKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<DistrictRanking>?> localVarResponse = GetDistrictRankingsWithHttpInfo(districtKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'districtAbbreviation' is set
+        if (districtAbbreviation is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtAbbreviation' when calling DistrictApi->GetDistrictHistory");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_abbreviation", ClientUtils.ParameterToString(districtAbbreviation)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<DistrictList>?>("/district/{district_abbreviation}/history", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictHistory", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of team district rankings for the given district.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;DistrictRanking&gt;</returns>
+    public Collection<DistrictRanking>? GetDistrictRankings(string districtKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<DistrictRanking>?> localVarResponse = GetDistrictRankingsWithHttpInfo(districtKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of team district rankings for the given district.
@@ -1596,62 +1595,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;DistrictRanking&gt;</returns>
     public ApiResponse<Collection<DistrictRanking>?> GetDistrictRankingsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictRankings");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<DistrictRanking>?>("/district/{district_key}/rankings", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictRankings", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'districtKey' is set
-                    if (districtKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictRankings");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<DistrictRanking>?>("/district/{district_key}/rankings", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetDistrictRankings", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of team district rankings for the given district.
@@ -1662,10 +1661,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;DistrictRanking&gt;</returns>
     public async Task<Collection<DistrictRanking>?> GetDistrictRankingsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<DistrictRanking>?> localVarResponse = await GetDistrictRankingsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of team district rankings for the given district.
@@ -1676,73 +1675,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;DistrictRanking&gt;)</returns>
     public async Task<ApiResponse<Collection<DistrictRanking>?>> GetDistrictRankingsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'districtKey' is set
-                      if (districtKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictRankings");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<DistrictRanking>?>("/district/{district_key}/rankings", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetDistrictRankings", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;Team&gt;</returns>
-    public Collection<Team>? GetDistrictTeams(string districtKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<Team>?> localVarResponse = GetDistrictTeamsWithHttpInfo(districtKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictRankings");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<DistrictRanking>?>("/district/{district_key}/rankings", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictRankings", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;Team&gt;</returns>
+    public Collection<Team>? GetDistrictTeams(string districtKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<Team>?> localVarResponse = GetDistrictTeamsWithHttpInfo(districtKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -1752,62 +1751,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;Team&gt;</returns>
     public ApiResponse<Collection<Team>?> GetDistrictTeamsWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictTeams");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<Team>?>("/district/{district_key}/teams", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictTeams", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'districtKey' is set
-                    if (districtKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictTeams");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<Team>?>("/district/{district_key}/teams", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetDistrictTeams", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -1818,10 +1817,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;Team&gt;</returns>
     public async Task<Collection<Team>?> GetDistrictTeamsAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<Team>?> localVarResponse = await GetDistrictTeamsWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -1832,73 +1831,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;Team&gt;)</returns>
     public async Task<ApiResponse<Collection<Team>?>> GetDistrictTeamsWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'districtKey' is set
-                      if (districtKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictTeams");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Team>?>("/district/{district_key}/teams", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetDistrictTeams", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;string&gt;</returns>
-    public Collection<string>? GetDistrictTeamsKeys(string districtKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<string>?> localVarResponse = GetDistrictTeamsKeysWithHttpInfo(districtKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictTeams");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<Team>?>("/district/{district_key}/teams", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictTeams", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;string&gt;</returns>
+    public Collection<string>? GetDistrictTeamsKeys(string districtKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<string>?> localVarResponse = GetDistrictTeamsKeysWithHttpInfo(districtKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -1908,62 +1907,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;string&gt;</returns>
     public ApiResponse<Collection<string>?> GetDistrictTeamsKeysWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictTeamsKeys");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<string>?>("/district/{district_key}/teams/keys", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictTeamsKeys", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'districtKey' is set
-                    if (districtKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictTeamsKeys");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<string>?>("/district/{district_key}/teams/keys", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetDistrictTeamsKeys", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -1974,10 +1973,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;string&gt;</returns>
     public async Task<Collection<string>?> GetDistrictTeamsKeysAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<string>?> localVarResponse = await GetDistrictTeamsKeysWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -1988,73 +1987,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;string&gt;)</returns>
     public async Task<ApiResponse<Collection<string>?>> GetDistrictTeamsKeysWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'districtKey' is set
-                      if (districtKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictTeamsKeys");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/district/{district_key}/teams/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetDistrictTeamsKeys", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;TeamSimple&gt;</returns>
-    public Collection<TeamSimple>? GetDistrictTeamsSimple(string districtKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<TeamSimple>?> localVarResponse = GetDistrictTeamsSimpleWithHttpInfo(districtKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictTeamsKeys");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<string>?>("/district/{district_key}/teams/keys", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictTeamsKeys", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="districtKey">TBA District Key, eg &#x60;2016fim&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;TeamSimple&gt;</returns>
+    public Collection<TeamSimple>? GetDistrictTeamsSimple(string districtKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<TeamSimple>?> localVarResponse = GetDistrictTeamsSimpleWithHttpInfo(districtKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -2064,62 +2063,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;TeamSimple&gt;</returns>
     public ApiResponse<Collection<TeamSimple>?> GetDistrictTeamsSimpleWithHttpInfo(string districtKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictTeamsSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<TeamSimple>?>("/district/{district_key}/teams/simple", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictTeamsSimple", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'districtKey' is set
-                    if (districtKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictTeamsSimple");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<TeamSimple>?>("/district/{district_key}/teams/simple", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetDistrictTeamsSimple", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -2130,10 +2129,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;TeamSimple&gt;</returns>
     public async Task<Collection<TeamSimple>?> GetDistrictTeamsSimpleAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<TeamSimple>?> localVarResponse = await GetDistrictTeamsSimpleWithHttpInfoAsync(districtKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a short-form list of &#x60;Team&#x60; objects that competed in events in the given district.
@@ -2144,73 +2143,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;TeamSimple&gt;)</returns>
     public async Task<ApiResponse<Collection<TeamSimple>?>> GetDistrictTeamsSimpleWithHttpInfoAsync(string districtKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'districtKey' is set
-                      if (districtKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictTeamsSimple");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<TeamSimple>?>("/district/{district_key}/teams/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetDistrictTeamsSimple", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of districts and their corresponding district key, for the given year.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;DistrictList&gt;</returns>
-    public Collection<DistrictList>? GetDistrictsByYear(int year, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<DistrictList>?> localVarResponse = GetDistrictsByYearWithHttpInfo(year, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'districtKey' is set
+        if (districtKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'districtKey' when calling DistrictApi->GetDistrictTeamsSimple");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("district_key", ClientUtils.ParameterToString(districtKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<TeamSimple>?>("/district/{district_key}/teams/simple", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictTeamsSimple", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of districts and their corresponding district key, for the given year.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="year">Competition Year (or Season). Must be 4 digits.</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;DistrictList&gt;</returns>
+    public Collection<DistrictList>? GetDistrictsByYear(int year, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<DistrictList>?> localVarResponse = GetDistrictsByYearWithHttpInfo(year, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of districts and their corresponding district key, for the given year.
@@ -2220,56 +2219,56 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
     public ApiResponse<Collection<DistrictList>?> GetDistrictsByYearWithHttpInfo(int year, string? ifNoneMatch = default)
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<DistrictList>?>("/districts/{year}", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictsByYear", localVarResponse);
+            if (_exception is not null)
             {
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<DistrictList>?>("/districts/{year}", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetDistrictsByYear", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of districts and their corresponding district key, for the given year.
@@ -2280,10 +2279,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
     public async Task<Collection<DistrictList>?> GetDistrictsByYearAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<DistrictList>?> localVarResponse = await GetDistrictsByYearWithHttpInfoAsync(year, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of districts and their corresponding district key, for the given year.
@@ -2294,67 +2293,67 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
     public async Task<ApiResponse<Collection<DistrictList>?>> GetDistrictsByYearWithHttpInfoAsync(int year, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<DistrictList>?>("/districts/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetDistrictsByYear", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets a list of team rankings for the Event.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>EventDistrictPoints</returns>
-    public EventDistrictPoints? GetEventDistrictPoints(string eventKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<EventDistrictPoints?> localVarResponse = GetEventDistrictPointsWithHttpInfo(eventKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("year", ClientUtils.ParameterToString(year)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<DistrictList>?>("/districts/{year}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetDistrictsByYear", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets a list of team rankings for the Event.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="eventKey">TBA Event Key, eg &#x60;2016nytr&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>EventDistrictPoints</returns>
+    public EventDistrictPoints? GetEventDistrictPoints(string eventKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<EventDistrictPoints?> localVarResponse = GetEventDistrictPointsWithHttpInfo(eventKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of team rankings for the Event.
@@ -2364,62 +2363,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of EventDistrictPoints</returns>
     public ApiResponse<EventDistrictPoints?> GetEventDistrictPointsWithHttpInfo(string eventKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling DistrictApi->GetEventDistrictPoints");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<EventDistrictPoints?>("/event/{event_key}/district_points", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetEventDistrictPoints", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'eventKey' is set
-                    if (eventKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'eventKey' when calling DistrictApi->GetEventDistrictPoints");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<EventDistrictPoints?>("/event/{event_key}/district_points", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetEventDistrictPoints", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets a list of team rankings for the Event.
@@ -2430,10 +2429,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of EventDistrictPoints</returns>
     public async Task<EventDistrictPoints?> GetEventDistrictPointsAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<EventDistrictPoints?> localVarResponse = await GetEventDistrictPointsWithHttpInfoAsync(eventKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets a list of team rankings for the Event.
@@ -2444,73 +2443,73 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (EventDistrictPoints)</returns>
     public async Task<ApiResponse<EventDistrictPoints?>> GetEventDistrictPointsWithHttpInfoAsync(string eventKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'eventKey' is set
-                      if (eventKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'eventKey' when calling DistrictApi->GetEventDistrictPoints");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<EventDistrictPoints?>("/event/{event_key}/district_points", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetEventDistrictPoints", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }          /// <summary>
-                         ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
-                         /// </summary>
-                         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-                         /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
-                         /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
-                         /// <returns>Collection&lt;DistrictList&gt;</returns>
-    public Collection<DistrictList>? GetTeamDistricts(string teamKey, string? ifNoneMatch = default)
-          {
-        ApiResponse<Collection<DistrictList>?> localVarResponse = GetTeamDistrictsWithHttpInfo(teamKey, ifNoneMatch);
-              return localVarResponse.Data;
+    {
+        // verify the required parameter 'eventKey' is set
+        if (eventKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'eventKey' when calling DistrictApi->GetEventDistrictPoints");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("event_key", ClientUtils.ParameterToString(eventKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<EventDistrictPoints?>("/event/{event_key}/district_points", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetEventDistrictPoints", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }          /// <summary>
+               ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
+               /// </summary>
+               /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+               /// <param name="teamKey">TBA Team Key, eg &#x60;frc254&#x60;</param>
+               /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
+               /// <returns>Collection&lt;DistrictList&gt;</returns>
+    public Collection<DistrictList>? GetTeamDistricts(string teamKey, string? ifNoneMatch = default)
+    {
+        ApiResponse<Collection<DistrictList>?> localVarResponse = GetTeamDistrictsWithHttpInfo(teamKey, ifNoneMatch);
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
@@ -2520,62 +2519,62 @@ using TheBlueAlliance.Model;
     /// <param name="ifNoneMatch">Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. (optional)</param>
     /// <returns>ApiResponse of Collection&lt;DistrictList&gt;</returns>
     public ApiResponse<Collection<DistrictList>?> GetTeamDistrictsWithHttpInfo(string teamKey, string? ifNoneMatch = default)
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling DistrictApi->GetTeamDistricts");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = this.Client.Get<Collection<DistrictList>?>("/team/{team_key}/districts", localVarRequestOptions, this.Configuration);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamDistricts", localVarResponse);
+            if (_exception is not null)
             {
-                    // verify the required parameter 'teamKey' is set
-                    if (teamKey is null)
-                    {
-                      throw new ApiException(400, "Missing required parameter 'teamKey' when calling DistrictApi->GetTeamDistricts");
-                    }
-                    
-              RequestOptions localVarRequestOptions = new();
-              
-              string[] _contentTypes = [
-              ];
-              
-              // to determine the Accept header
-              string[] _accepts = [
-                  "application/json"
-              ];
-              
-              var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-              if (localVarContentType is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-              }
-              
-              var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-              if (localVarAccept is not null)
-              {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-              }
-              
-                  localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                  if (ifNoneMatch is not null)
-                  {
-                    localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                  }
-                  
-                              // authentication (apiKey) required
-                  var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                  if (!string.IsNullOrEmpty(apiKeyIfExists))
-                  {
-                      localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                  }
-                  
-              // make the HTTP request
-              var localVarResponse = this.Client.Get<Collection<DistrictList>?>("/team/{team_key}/districts", localVarRequestOptions, this.Configuration);
-              
-              if (this.ExceptionFactory is not null)
-              {
-                var _exception = this.ExceptionFactory("GetTeamDistricts", localVarResponse);
-                if (_exception is not null)
-                {
-                  throw _exception;
-                }
-              }
-              
-              return localVarResponse;
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
 
     /// <summary>
     ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
@@ -2586,10 +2585,10 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of Collection&lt;DistrictList&gt;</returns>
     public async Task<Collection<DistrictList>?> GetTeamDistrictsAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-            {
+    {
         ApiResponse<Collection<DistrictList>?> localVarResponse = await GetTeamDistrictsWithHttpInfoAsync(teamKey, ifNoneMatch, cancellationToken).ConfigureAwait(false);
-                return localVarResponse.Data;
-              }
+        return localVarResponse.Data;
+    }
 
     /// <summary>
     ///  Gets an array of districts representing each year the team was in a district. Will return an empty array if the team was never in a district.
@@ -2600,60 +2599,60 @@ using TheBlueAlliance.Model;
     /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
     /// <returns>Task of ApiResponse (Collection&lt;DistrictList&gt;)</returns>
     public async Task<ApiResponse<Collection<DistrictList>?>> GetTeamDistrictsWithHttpInfoAsync(string teamKey, string? ifNoneMatch = default, CancellationToken cancellationToken = default)
-              {
-                      // verify the required parameter 'teamKey' is set
-                      if (teamKey is null)
-                      {
-                        throw new ApiException(400, "Missing required parameter 'teamKey' when calling DistrictApi->GetTeamDistricts");
-                      }
-                      
-                RequestOptions localVarRequestOptions = new();
-                
-                string[] _contentTypes = [
-                ];
-                
-                // to determine the Accept header
-                string[] _accepts = [
-                    "application/json"
-                ];
-                
-                var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
-                if (localVarContentType is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-                }
-                
-                var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
-                if (localVarAccept is not null)
-                {
-                  localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-                }
-                
-                    localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
-                    if (ifNoneMatch is not null)
-                    {
-                      localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
-                    }
-                    
-                                  // authentication (apiKey) required
-                    var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
-                    if (!string.IsNullOrEmpty(apiKeyIfExists))
-                    {
-                        localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
-                    }
-                    
-                // make the HTTP request
-                var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<DistrictList>?>("/team/{team_key}/districts", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-                
-                if (this.ExceptionFactory is not null)
-                {
-                  var _exception = this.ExceptionFactory("GetTeamDistricts", localVarResponse);
-                  if (_exception is not null)
-                  {
-                    throw _exception;
-                  }
-                }
-                
-                return localVarResponse;
-              }
+    {
+        // verify the required parameter 'teamKey' is set
+        if (teamKey is null)
+        {
+            throw new ApiException(400, "Missing required parameter 'teamKey' when calling DistrictApi->GetTeamDistricts");
+        }
+
+        RequestOptions localVarRequestOptions = new();
+
+        string[] _contentTypes = [
+        ];
+
+        // to determine the Accept header
+        string[] _accepts = [
+            "application/json"
+        ];
+
+        var localVarContentType = ClientUtils.SelectHeaderContentType(_contentTypes);
+        if (localVarContentType is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+        }
+
+        var localVarAccept = ClientUtils.SelectHeaderAccept(_accepts);
+        if (localVarAccept is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+        }
+
+        localVarRequestOptions.PathParameters.Add("team_key", ClientUtils.ParameterToString(teamKey)); // path parameter
+        if (ifNoneMatch is not null)
+        {
+            localVarRequestOptions.HeaderParameters.Add("If-None-Match", ClientUtils.ParameterToString(ifNoneMatch)); // header parameter
+        }
+
+        // authentication (apiKey) required
+        var apiKeyIfExists = this.Configuration.GetApiKeyWithPrefix("X-TBA-Auth-Key");
+        if (!string.IsNullOrEmpty(apiKeyIfExists))
+        {
+            localVarRequestOptions.HeaderParameters.Add("X-TBA-Auth-Key", apiKeyIfExists);
+        }
+
+        // make the HTTP request
+        var localVarResponse = await this.AsynchronousClient.GetAsync<Collection<DistrictList>?>("/team/{team_key}/districts", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+        if (this.ExceptionFactory is not null)
+        {
+            var _exception = this.ExceptionFactory("GetTeamDistricts", localVarResponse);
+            if (_exception is not null)
+            {
+                throw _exception;
             }
+        }
+
+        return localVarResponse;
+    }
+}

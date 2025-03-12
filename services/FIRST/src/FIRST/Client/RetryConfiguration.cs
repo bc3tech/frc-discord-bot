@@ -10,7 +10,8 @@
 namespace FIRST.Client;
 
 using Polly;
-  using System.Net.Http;
+
+using System.Net.Http;
 
 /// <summary>
 /// Configuration class to set the polly retry policies to be applied to the requests.
@@ -21,7 +22,7 @@ public static class RetryConfiguration
     /// Retry policy
     /// </summary>
     public static Policy<HttpResponseMessage>? RetryPolicy { get; set; }
-    
+
     /// <summary>
     /// Async retry policy
     /// </summary>
