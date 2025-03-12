@@ -30,6 +30,8 @@ public static partial class StringExtensions
         return i;
     }
 
+    public static string ToTeamKey(this ushort n) => $"frc{n}";
+
     [return: NotNullIfNotNull(nameof(replacement))]
     public static string? UnlessNullOrWhitespaceThen(this string? s, string? replacement) => string.IsNullOrWhiteSpace(s) ? replacement : s;
 
