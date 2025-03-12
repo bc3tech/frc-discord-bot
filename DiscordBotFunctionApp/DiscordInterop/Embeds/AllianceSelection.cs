@@ -58,7 +58,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
             yield break;
         }
 
-        var ranks = (await tbaClient.GetEventRankingsAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false))!.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
+        var ranks = (await tbaClient.GetEventRankingsAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false))?.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
 
         // We have to build this with loops instead of interpolation because we don't want to output **anything** if Declines is empty (not even a line break)
         var descriptionBuilder = new StringBuilder($"## {notification.event_name}: Alliance Selection Complete\n");
@@ -66,17 +66,17 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
         {
             var alliance = alliances[i];
             descriptionBuilder.AppendLine($"### Alliance {i + 1}\n");
-            foreach (var team in alliance.Picks!)
+            foreach (var team in alliance.Picks)
             {
-                descriptionBuilder.AppendLine($"- {teams.GetTeamLabelWithHighlight(team, highlightTeam)} (#{ranks[team]})");
+                descriptionBuilder.AppendLine($"- {teams.GetTeamLabelWithHighlight(team, highlightTeam)}{(ranks is not null ? $" (#{ranks[team]})" : string.Empty)}");
             }
 
             if (alliance.Declines?.Count is not null and not 0)
             {
-                descriptionBuilder.AppendLine($"__Declining Team{(alliance.Declines!.Count > 1 ? "s" : string.Empty)}__");
-                foreach (var team in alliance.Declines!)
+                descriptionBuilder.AppendLine($"__Declining Team{(alliance.Declines.Count > 1 ? "s" : string.Empty)}__");
+                foreach (var team in alliance.Declines)
                 {
-                    descriptionBuilder.AppendLine($"- {teams.GetTeamLabelWithHighlight(team, highlightTeam)} (#{ranks[team]})");
+                    descriptionBuilder.AppendLine($"- {teams.GetTeamLabelWithHighlight(team, highlightTeam)}{(ranks is not null ? $" (#{ranks[team]})" : string.Empty)}");
                 }
             }
         }
