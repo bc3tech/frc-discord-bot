@@ -397,4 +397,7 @@ static partial class Log
 
     [LoggerMessage(129, LogLevel.Debug, "{EmbeddingName} built: {EmbeddingDetail}")]
     internal static partial void EmbeddingNameBuiltEmbeddingDetail(this ILogger logger, string EmbeddingName, string EmbeddingDetail);
+
+    [LoggerMessage(130, LogLevel.Error, "There was an error creating a Guild event for {EventKey} in Guild {GuildName}({GuildId})")]
+    internal static partial void ThereWasAnErrorCreatingAGuildEventForEventKeyInGuildGuildNameGuildId(this ILogger logger, Exception exception, string EventKey, string GuildName, ulong GuildId);
 }

@@ -7,12 +7,12 @@ public partial record Event
     public string GetLabel(bool shortName = false, bool includeYear = false, bool includeCity = false, bool includeStateProv = false, bool includeCountry = false)
     {
         var location = new StringBuilder();
-        if (includeCity && !string.IsNullOrEmpty(this.City))
+        if (includeCity && !string.IsNullOrWhiteSpace(this.City))
         {
             location.Append(this.City);
         }
 
-        if (includeStateProv && !string.IsNullOrEmpty(this.StateProv))
+        if (includeStateProv && !string.IsNullOrWhiteSpace(this.StateProv))
         {
             if (location.Length > 0)
             {
@@ -22,7 +22,7 @@ public partial record Event
             location.Append(this.StateProv);
         }
 
-        if (includeCountry && !string.IsNullOrEmpty(this.Country))
+        if (includeCountry && !string.IsNullOrWhiteSpace(this.Country))
         {
             if (location.Length > 0)
             {
@@ -33,6 +33,51 @@ public partial record Event
         }
 
         return $"{(includeYear ? $"{this.Year} " : string.Empty)}{(shortName ? this.ShortName : this.Name)}{(location.Length > 0 ? $" - {location}" : string.Empty)}";
+    }
+
+    private string? _locationString;
+    public string LocationString
+    {
+        get
+        {
+            if (_locationString is null)
+            {
+                var location = new StringBuilder();
+                if (!string.IsNullOrWhiteSpace(this.LocationName))
+                {
+                    location.Append($"{this.LocationName}, ");
+                }
+
+                if (!string.IsNullOrWhiteSpace(this.City))
+                {
+                    location.Append(this.City);
+                }
+
+                if (!string.IsNullOrWhiteSpace(this.StateProv))
+                {
+                    if (location.Length > 0)
+                    {
+                        location.Append(", ");
+                    }
+
+                    location.Append(this.StateProv);
+                }
+
+                if (!string.IsNullOrWhiteSpace(this.Country))
+                {
+                    if (location.Length > 0)
+                    {
+                        location.Append(", ");
+                    }
+
+                    location.Append(this.Country);
+                }
+
+                _locationString = location.ToString();
+            }
+
+            return _locationString;
+        }
     }
 
     public static implicit operator EventSimple(Event e) => new(e.City, e.Country, e.District, e.EndDate, e.EventCode, e.EventType, e.Key, e.Name, e.StartDate, e.StateProv, e.Year);
