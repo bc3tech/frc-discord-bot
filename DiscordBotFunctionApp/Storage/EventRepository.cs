@@ -15,9 +15,11 @@ using TheBlueAlliance.Model;
 internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, ILogger<EventRepository> logger)
 {
     private static readonly ConcurrentDictionary<string, Event> _events = [];
+    private static readonly ConcurrentQueue<Task> LogMetricTasks = [];
 
     public async ValueTask InitializeAsync(CancellationToken cancellationToken)
     {
+        var startTime = time.GetTimestamp();
         using var scope = logger.CreateMethodScope();
         for (int i = 0, currentYear = time.GetLocalNow().Year; i < 4; i++, currentYear--)
         {
@@ -35,9 +37,9 @@ internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, IL
                 foreach (var e in newEvents)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
-                    if (_events.TryAdd(e.Key!, e))
+                    if (_events.TryAdd(e.Key, e))
                     {
-                        logger.LogMetric("EventAdded", 1);
+                        LogMetricTasks.Enqueue(Task.Run(() => logger.LogMetric("EventAdded", 1), cancellationToken));
                     }
                 }
             }
@@ -49,6 +51,9 @@ internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, IL
         }
 
         logger.CachedEventCountTeamsFromTBA(_events.Count);
+
+        await Task.WhenAll(LogMetricTasks);
+        LogMetricTasks.Clear();
     }
 
     /// <summary>
