@@ -16,7 +16,7 @@ internal sealed class CompLevelStarting(EmbedBuilderFactory builderFactory) : IN
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage input, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var notification = input.GetDataAs<TbaInterop.Models.Notifications.CompLevelStarting>();
-        if (notification is null)
+        if (notification == default)
         {
             await Task.CompletedTask;
             yield break;

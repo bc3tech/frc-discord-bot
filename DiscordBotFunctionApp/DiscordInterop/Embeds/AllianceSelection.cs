@@ -28,7 +28,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
 
         var baseBuilder = builderFactory.GetBuilder(highlightTeam);
         var notification = msg.GetDataAs<TbaInterop.Models.Notifications.AllianceSelection>();
-        if (notification is null)
+        if (notification != default)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
             yield return null;

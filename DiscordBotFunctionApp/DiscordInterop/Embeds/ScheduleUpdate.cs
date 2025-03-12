@@ -14,7 +14,7 @@ internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger
     {
         var baseBuilder = builderFactory.GetBuilder();
         var notification = msg.GetDataAs<TbaInterop.Models.Notifications.ScheduleUpdate>();
-        if (notification is null)
+        if (notification == default)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
             yield break;

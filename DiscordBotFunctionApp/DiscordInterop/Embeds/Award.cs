@@ -28,7 +28,7 @@ internal sealed class Award(IEventApi tbaApi,
     {
         var baseBuilder = builderFactory.GetBuilder(highlightTeam);
         var notification = msg.GetDataAs<AwardsPosted>();
-        if (notification is null)
+        if (notification == default)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
             yield return new(baseBuilder.Build());
