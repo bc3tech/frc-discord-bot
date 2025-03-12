@@ -71,13 +71,17 @@ public partial record Team
         // to ensure "key" is required (not null)
         ArgumentNullException.ThrowIfNull(key);
         this.Key = key;
+        if (!lat.HasValue)
+        {
+            throw new ArgumentNullException(nameof(lat));
+        }
 
-        // to ensure "lat" is required (not null)
-        ArgumentNullException.ThrowIfNull(lat);
         this.Lat = lat;
+        if (!lng.HasValue)
+        {
+            throw new ArgumentNullException(nameof(lng));
+        }
 
-        // to ensure "lng" is required (not null)
-        ArgumentNullException.ThrowIfNull(lng);
         this.Lng = lng;
 
         // to ensure "locationName" is required (not null)
@@ -95,9 +99,11 @@ public partial record Team
         // to ensure "postalCode" is required (not null)
         ArgumentNullException.ThrowIfNull(postalCode);
         this.PostalCode = postalCode;
+        if (!rookieYear.HasValue)
+        {
+            throw new ArgumentNullException(nameof(rookieYear));
+        }
 
-        // to ensure "rookieYear" is required (not null)
-        ArgumentNullException.ThrowIfNull(rookieYear);
         this.RookieYear = rookieYear;
 
         // to ensure "schoolName" is required (not null)
