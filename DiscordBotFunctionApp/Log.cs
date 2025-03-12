@@ -210,13 +210,13 @@ static partial class Log
     internal static partial void NextTimerScheduleAtArg0(this ILogger logger, DateTime arg0);
 
     [LoggerMessage(65, LogLevel.Trace, "Creating TableClient for {Table}")]
-    internal static partial void CreatingTableClientForTable(this ILogger? logger, string Table);
+    internal static partial void CreatingTableClientForTable(this ILogger logger, string Table);
 
     [LoggerMessage(66, LogLevel.Trace, "Ensuring table {Table} exists")]
-    internal static partial void EnsuringTableTableExists(this ILogger? logger, string Table);
+    internal static partial void EnsuringTableTableExists(this ILogger logger, string Table);
 
     [LoggerMessage(67, LogLevel.Debug, "Table {Table} exists")]
-    internal static partial void TableTableExists(this ILogger? logger, string Table);
+    internal static partial void TableTableExists(this ILogger logger, string Table);
 
     [LoggerMessage(68, LogLevel.Warning, "No embedding creator registered for message type {MessageType}")]
     internal static partial void NoEmbeddingCreatorRegisteredForMessageTypeMessageType(this ILogger logger, TbaInterop.Models.Notifications.NotificationType MessageType);
@@ -303,13 +303,13 @@ static partial class Log
     internal static partial void NumCommandsCommandsAddedToGuildGuildNameGuildIdGloballyAvailableCommands(this ILogger logger, int NumCommands, string GuildName, ulong GuildId, string AvailableCommands);
 
     [LoggerMessage(98, LogLevel.Error, "Error deleting thread for {UserName}({UserId}")]
-    internal static partial void ErrorDeletingThreadForUserNameUserId(this ILogger? logger, Exception exception, string UserName, ulong UserId);
+    internal static partial void ErrorDeletingThreadForUserNameUserId(this ILogger logger, Exception exception, string UserName, ulong UserId);
 
     [LoggerMessage(99, LogLevel.Error, "Discord error while trying to modify original response")]
-    internal static partial void DiscordErrorWhileTryingToModifyOriginalResponse(this ILogger? logger, Exception exception);
+    internal static partial void DiscordErrorWhileTryingToModifyOriginalResponse(this ILogger logger, Exception exception);
 
     [LoggerMessage(100, LogLevel.Warning, "Unknown button clicked: {ButtonId}")]
-    internal static partial void UnknownButtonClickedButtonId(this ILogger? logger, string ButtonId);
+    internal static partial void UnknownButtonClickedButtonId(this ILogger logger, string ButtonId);
 
     [LoggerMessage(101, LogLevel.Debug, "Match Summaries PDF already uploaded and is the same size as the existing file. No need to re-upload.")]
     internal static partial void MatchSummariesPDFAlreadyUploadedAndIsTheSameSizeAsTheExistingFileNoNeedToReUpload(this ILogger logger);

@@ -91,7 +91,7 @@ public sealed class ChatCommandModule : CommandModuleBase
         }
         else
         {
-            services.GetService<ILogger<ChatCommandModule>>().UnknownButtonClickedButtonId(button.Data.CustomId);
+            services.GetService<ILogger<ChatCommandModule>>()?.UnknownButtonClickedButtonId(button.Data.CustomId);
         }
     }
 
