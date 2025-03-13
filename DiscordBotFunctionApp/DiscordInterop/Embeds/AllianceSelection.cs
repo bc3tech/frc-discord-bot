@@ -14,6 +14,7 @@ using System.Text;
 using TheBlueAlliance.Api;
 
 internal sealed class AllianceSelection(IEventApi tbaClient,
+                                        EventRepository events,
                                         TeamRepository teams,
                                         EmbedBuilderFactory builderFactory,
                                         ILogger<AllianceSelection> logger) : INotificationEmbedCreator
@@ -81,7 +82,8 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
             }
         }
 
-        descriptionBuilder.AppendLine($"\nYou can find more alliance details on the [Event Results](https://www.thebluealliance.com/event/{eventKey}#results) page");
+        var eventDetail = events[notification.event_key];
+        descriptionBuilder.AppendLine($"\nYou can find more alliance details on the [Event Results](https://frc.link/e/tba/{eventDetail.FirstEventCode}/{eventDetail.Year}#results) page");
 
 #pragma warning disable EA0001 // Perform message formatting in the body of the logging method
         logger.EmbeddingNameBuiltEmbeddingDetail(nameof(AllianceSelection), descriptionBuilder.ToString());
