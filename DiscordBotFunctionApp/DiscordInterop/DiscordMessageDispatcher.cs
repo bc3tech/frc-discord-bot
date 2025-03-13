@@ -47,8 +47,8 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
         List<Task> notifications = [];
 
-        await SendNotificationsAsync<TeamSubscriptionEntity>(message, teamSubscriptionsTable, teamRecordsToFind, i => i.Item1 is not CommonConstants.ALL ? i.Item1.ToTeamNumber() : null, logger, cancellationToken).ConfigureAwait(false);
-        await SendNotificationsAsync<EventSubscriptionEntity>(message, eventSubscriptionsTable, eventRecordsToFind, i => i.Item2 is not CommonConstants.ALL ? i.Item2.ToTeamNumber() : null, logger, cancellationToken).ConfigureAwait(false);
+        await SendNotificationsAsync<TeamSubscriptionEntity>(message, teamSubscriptionsTable, teamRecordsToFind, i => i.Item1 is not CommonConstants.ALL ? i.Item1.TeamKeyToTeamNumber() : null, logger, cancellationToken).ConfigureAwait(false);
+        await SendNotificationsAsync<EventSubscriptionEntity>(message, eventSubscriptionsTable, eventRecordsToFind, i => i.Item2 is not CommonConstants.ALL ? i.Item2.TeamKeyToTeamNumber() : null, logger, cancellationToken).ConfigureAwait(false);
 
         logger.WaitingForNotificationsToBeSent();
 
@@ -208,7 +208,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
             {
                 foreach (var propertyValue in properties)
                 {
-                    addElement(propertyValue, teams, s => s.ToTeamNumber().ToString()!);
+                    addElement(propertyValue, teams, s => s.TeamKeyToTeamNumber().ToString()!);
                 }
             }
         }

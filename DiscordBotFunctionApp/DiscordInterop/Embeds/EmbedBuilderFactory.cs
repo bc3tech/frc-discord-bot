@@ -6,7 +6,7 @@ using Discord;
 
 internal sealed class EmbedBuilderFactory(EmbeddingColorizer colorizer)
 {
-    public EmbedBuilder GetBuilder(string teamKey) => GetBuilder(teamKey.ToTeamNumber());
+    public EmbedBuilder GetBuilder(string teamKey) => GetBuilder(teamKey.TeamKeyToTeamNumber());
 
     public EmbedBuilder GetBuilder(ushort? teamNumber = null)
     {

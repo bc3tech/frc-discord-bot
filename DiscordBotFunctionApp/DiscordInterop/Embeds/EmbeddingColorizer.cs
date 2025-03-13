@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 internal sealed class EmbeddingColorizer(FRCColors.Client colorClient)
 {
-    public Task<bool> SetEmbeddingColorAsync(string teamKey, Discord.EmbedBuilder embedding, CancellationToken cancellationToken) => SetEmbeddingColorAsync(teamKey.ToTeamNumber(), embedding, cancellationToken);
+    public Task<bool> SetEmbeddingColorAsync(string teamKey, Discord.EmbedBuilder embedding, CancellationToken cancellationToken) => SetEmbeddingColorAsync(teamKey.TeamKeyToTeamNumber(), embedding, cancellationToken);
 
     public async Task<bool> SetEmbeddingColorAsync(ushort? forTeam, Discord.EmbedBuilder embedding, CancellationToken cancellationToken)
     {
@@ -25,7 +25,7 @@ internal sealed class EmbeddingColorizer(FRCColors.Client colorClient)
         return false;
     }
 
-    public bool SetEmbeddingColor(string teamKey, Discord.EmbedBuilder embedding, CancellationToken cancellationToken = default) => SetEmbeddingColor(teamKey.ToTeamNumber(), embedding, cancellationToken);
+    public bool SetEmbeddingColor(string teamKey, Discord.EmbedBuilder embedding, CancellationToken cancellationToken = default) => SetEmbeddingColor(teamKey.TeamKeyToTeamNumber(), embedding, cancellationToken);
 
     public bool SetEmbeddingColor(ushort? forTeam, Discord.EmbedBuilder embedding, CancellationToken cancellationToken = default)
     {

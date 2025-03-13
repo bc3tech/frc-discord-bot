@@ -52,7 +52,7 @@ internal sealed class Award(IEventApi tbaApi,
 
         if (highlightTeam is not null)
         {
-            eventAwards = [.. eventAwards.Where(i => i.RecipientList.Any(j => j.TeamKey.ToTeamNumber() == highlightTeam) is true)];
+            eventAwards = [.. eventAwards.Where(i => i.RecipientList.Any(j => j.TeamKey.TeamKeyToTeamNumber() == highlightTeam) is true)];
         }
 
         var trophyBlob = imageBlobs.GetBlobClient("trophy.png");

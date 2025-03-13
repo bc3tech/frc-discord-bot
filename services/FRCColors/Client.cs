@@ -12,7 +12,7 @@ public sealed class Client(IHttpClientFactory clientFactory)
 {
     private readonly HttpClient _client = clientFactory.CreateClient();
 
-    public Task<(Color? primaryColor, Color? secondaryColor)> GetColorsForTeamAsync(string teamKey, CancellationToken cancellationToken) => GetColorsForTeamAsync(teamKey.ToTeamNumber(), cancellationToken);
+    public Task<(Color? primaryColor, Color? secondaryColor)> GetColorsForTeamAsync(string teamKey, CancellationToken cancellationToken) => GetColorsForTeamAsync(teamKey.TeamKeyToTeamNumber(), cancellationToken);
 
     public async Task<(Color? primaryColor, Color? secondaryColor)> GetColorsForTeamAsync(ushort? teamNumber, CancellationToken cancellationToken)
     {

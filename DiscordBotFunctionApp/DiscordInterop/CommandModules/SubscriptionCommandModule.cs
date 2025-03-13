@@ -41,7 +41,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Inter
             // This is a bit more complex than it needs to be because we want to show the team number if it's not 'all'
             // and we want to show the event key if it's not 'all'
             var output = groupedSubscriptions.Select(i => $@"- **{(i.Key is not CommonConstants.ALL ? _eventsRepo[i.Key].GetLabel() : "All Events")}**:
-{string.Join('\n', i.Select(j => $"  - {(j.Item2.HasValue ? _teamsRepo[j.Item2.Value.ToTeamKey()].GetLabel() : "All Teams")}"))}");
+{string.Join('\n', i.Select(j => $"  - {(j.Item2.HasValue ? _teamsRepo[j.Item2.Value].GetLabel() : "All Teams")}"))}");
             await this.ModifyOriginalResponseAsync(p => p.Content = $@"Subscriptions for this channel include:
 {string.Join('\n', output)}").ConfigureAwait(false);
         }
@@ -62,7 +62,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Inter
             Debug.Assert(_subscriptionManager is not null);
             Debug.Assert(this.Context.Interaction.ChannelId.HasValue);
 
-            var teamNumber = teamKey.ToTeamNumber();
+            var teamNumber = teamKey.TeamKeyToTeamNumber();
 
             try
             {

@@ -31,7 +31,7 @@ internal sealed class TeamDetail(RESTCountries _countryCodeLookup,
 
         var teamDetails = _teamsRepo[teamKey];
 
-        var jsonResult = JsonSerializer.Serialize(await teamStats.ReadTeamV3TeamTeamGetAsync(teamKey.ToTeamNumber()!.ToString()!, cancellationToken).ConfigureAwait(false));
+        var jsonResult = JsonSerializer.Serialize(await teamStats.ReadTeamV3TeamTeamGetAsync(teamKey.TeamKeyToTeamNumber()!.ToString()!, cancellationToken).ConfigureAwait(false));
         var teamResult = JsonSerializer.Deserialize<Team>(jsonResult)!;
         var locationString = await createLocationStringAsync(teamDetails, _countryCodeLookup).ConfigureAwait(false);
         var builder = builderFactory.GetBuilder()

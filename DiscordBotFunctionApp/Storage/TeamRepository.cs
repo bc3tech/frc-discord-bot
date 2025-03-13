@@ -81,6 +81,8 @@ internal sealed class TeamRepository(ITeamApi apiClient, ILogger<TeamRepository>
         }
     }
 
+    public Team this[ushort teamNumber] => this[$"frc{teamNumber}"];
+
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Not the API we're going for")]
     public IReadOnlyDictionary<string, Team> AllTeams => _teams;
 }

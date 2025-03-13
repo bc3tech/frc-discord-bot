@@ -31,7 +31,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
     {
         var teamKey = input.TeamKey;
         var targetYear = input.Year ?? time.GetLocalNow().Year;
-        var inputTeamNum = teamKey.ToTeamNumber();
+        var inputTeamNum = teamKey.TeamKeyToTeamNumber();
         if (inputTeamNum is null || !inputTeamNum.HasValue)
         {
             logger.UnableToGetTeamNumberFromKeyTeamKey(teamKey);

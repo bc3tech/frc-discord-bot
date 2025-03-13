@@ -46,7 +46,7 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
                 var nextMatch = matches.OrderBy(i => i.MatchNumber).First(i => i.ActualTime is null);
 
                 ResponseEmbedding[] embeds = [];
-                await foreach (var m in embeddingCreator.CreateNextMatchEmbeddingsAsync(nextMatch.Key, highlightTeam: teamKey.ToTeamNumber()).ConfigureAwait(false))
+                await foreach (var m in embeddingCreator.CreateNextMatchEmbeddingsAsync(nextMatch.Key, highlightTeam: teamKey.TeamKeyToTeamNumber()).ConfigureAwait(false))
                 {
                     if (m is null)
                     {

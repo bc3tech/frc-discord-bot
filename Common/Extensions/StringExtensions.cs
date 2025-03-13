@@ -8,7 +8,7 @@ public static partial class StringExtensions
 {
     private static readonly Regex TeamNumberFinder = TeamNumberRegex();
 
-    public static ushort? ToTeamNumber(this string? s)
+    public static ushort? TeamKeyToTeamNumber(this string? s)
     {
         if (string.IsNullOrWhiteSpace(s))
         {
@@ -29,8 +29,6 @@ public static partial class StringExtensions
 
         return i;
     }
-
-    public static string ToTeamKey(this ushort n) => $"frc{n}";
 
     [return: NotNullIfNotNull(nameof(replacement))]
     public static string? UnlessNullOrWhitespaceThen(this string? s, string? replacement) => string.IsNullOrWhiteSpace(s) ? replacement : s;
