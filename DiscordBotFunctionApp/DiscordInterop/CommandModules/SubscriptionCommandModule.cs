@@ -40,7 +40,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Inter
             // Create a string that starts withe the group key then lists all the group values on subsequent lines
             // This is a bit more complex than it needs to be because we want to show the team number if it's not 'all'
             // and we want to show the event key if it's not 'all'
-            var output = groupedSubscriptions.Select(i => $@"- **{_eventsRepo[i.Key].GetLabel()}**:
+            var output = groupedSubscriptions.Select(i => $@"- **{(i.Key is not CommonConstants.ALL ? _eventsRepo[i.Key].GetLabel() : "All Events")}**:
 {string.Join('\n', i.Select(j => $"  - {(j.Item2.HasValue ? _teamsRepo[j.Item2.Value.ToTeamKey()].GetLabel() : "All Teams")}"))}");
             await this.ModifyOriginalResponseAsync(p => p.Content = $@"Subscriptions for this channel include:
 {string.Join('\n', output)}").ConfigureAwait(false);

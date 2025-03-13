@@ -52,8 +52,11 @@ internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, IL
 
         logger.CachedEventCountTeamsFromTBA(_events.Count);
 
-        await Task.WhenAll(LogMetricTasks);
-        LogMetricTasks.Clear();
+        Task.Run(async () =>
+        {
+            await Task.WhenAll(LogMetricTasks);
+            LogMetricTasks.Clear();
+        }, cancellationToken);
     }
 
     /// <summary>

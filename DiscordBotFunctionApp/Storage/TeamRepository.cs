@@ -52,8 +52,11 @@ internal sealed class TeamRepository(ITeamApi apiClient, ILogger<TeamRepository>
 
         logger.CachedTeamCountTeamsFromTBA(_teams.Count);
 
-        await Task.WhenAll(LogMetricTasks);
-        LogMetricTasks.Clear();
+        Task.Run(async () =>
+        {
+            await Task.WhenAll(LogMetricTasks);
+            LogMetricTasks.Clear();
+        }, cancellationToken);
     }
 
     /// <summary>
