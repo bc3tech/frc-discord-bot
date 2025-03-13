@@ -45,6 +45,10 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup,
         {
             descriptionBuilder.Append($"]({eventDetails.GmapsUrl})");
         }
+
+        descriptionBuilder.AppendLine()
+            .AppendLine()
+            .AppendLine($"Schedule [here]({eventDetails.ScheduleUrl})");
         #endregion
 
         var builder = builderFactory.GetBuilder()
@@ -74,7 +78,6 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup,
         }
 
         builder
-            .AddField("Schedule", $"[Link]({eventDetails.ScheduleUrl})")
             .AddField("Event details on TBA", $"https://thebluealliance.com/event/{eventDetails.Key}")
             .AddField("Stats", "Checking for statistics...", inline: true);
 
