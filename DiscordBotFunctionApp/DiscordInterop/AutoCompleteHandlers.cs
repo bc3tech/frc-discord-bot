@@ -28,7 +28,7 @@ internal sealed class AutoCompleteHandlers
     const ushort MAX_LENGTH = 97;   // 100, but we append '...' if it hits this
 
     [return: NotNullIfNotNull(nameof(val))]
-    static string? Ellipsify(string? val) => val?.Length > MAX_LENGTH ? $"{val.Take(MAX_LENGTH)}..." : val;
+    static string? Ellipsify(string? val) => val?.Length > MAX_LENGTH ? $"{val[..MAX_LENGTH]}..." : val;
 
     internal sealed class EventsAutoCompleteHandler : AutocompleteHandler
     {

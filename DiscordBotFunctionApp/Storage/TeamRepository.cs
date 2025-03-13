@@ -37,7 +37,7 @@ internal sealed class TeamRepository(ITeamApi apiClient, ILogger<TeamRepository>
                 foreach (var t in newTeams)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
-                    if (_teams.TryAdd(t.Key!, t))
+                    if (_teams.TryAdd(t.Key, t))
                     {
                         LogMetricTasks.Enqueue(Task.Run(() => logger.LogMetric("TeamAdded", 1), cancellationToken));
                     }
