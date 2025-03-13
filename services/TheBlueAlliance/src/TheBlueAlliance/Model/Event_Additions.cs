@@ -80,5 +80,7 @@ public partial record Event
         }
     }
 
+    public string ScheduleUrl => $"https://www.thebluealliance.com/event/{this.Key}/agenda";
+
     public static implicit operator EventSimple(Event e) => new(e.City, e.Country, e.District, e.EndDate, e.EventCode, e.EventType, e.Key, e.Name, e.StartDate, e.StateProv, e.Year);
 }

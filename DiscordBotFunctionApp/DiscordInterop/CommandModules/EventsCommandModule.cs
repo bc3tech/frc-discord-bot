@@ -98,7 +98,8 @@ public class EventsCommandModule(IServiceProvider services) : CommandModuleBase
                 descriptionBuilder.AppendLine(targetEvent.LocationString);
             }
 
-            descriptionBuilder.AppendLine($"Schedule, results, and more at: https://www.thebluealliance.com/event/{eventKey}");
+            descriptionBuilder.AppendLine($"[Schedule]({targetEvent.ScheduleUrl})");
+            descriptionBuilder.AppendLine($"Results and more at: https://www.thebluealliance.com/event/{eventKey}");
 
             var guildEvent = await Context.Guild.CreateEventAsync(!string.IsNullOrWhiteSpace(title) ? title : targetEvent.Name, startOffset, GuildScheduledEventType.External, description: descriptionBuilder.ToString(), endTime: endOffset, location: locationValue);
             var eventLink = $"https://discord.com/events/{guildEvent.GuildId}/{guildEvent.Id}";
