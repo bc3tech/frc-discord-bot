@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 
 [Group("subscription", "Manages subscriptions to FRC events and teams")]
-public class SubscriptionCommandModule(IServiceProvider services) : InteractionModuleBase
+public sealed class SubscriptionCommandModule(IServiceProvider services) : InteractionModuleBase
 {
     private readonly SubscriptionManager _subscriptionManager = services.GetRequiredService<SubscriptionManager>();
     private readonly EventRepository _eventsRepo = services.GetRequiredService<EventRepository>();

@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 using System.Text;
 
 [Group("events", "Gets information about FRC events")]
-public class EventsCommandModule(IServiceProvider services) : CommandModuleBase
+public sealed class EventsCommandModule(IServiceProvider services) : CommandModuleBase
 {
     private readonly IEmbedCreator<string> _embedCreator = services.GetRequiredKeyedService<IEmbedCreator<string>>(nameof(EventDetail));
     private readonly ILogger _logger = services.GetRequiredService<ILogger<EventsCommandModule>>();
@@ -78,7 +78,6 @@ public class EventsCommandModule(IServiceProvider services) : CommandModuleBase
             EventRepository eventRepo = services.GetRequiredService<EventRepository>();
             TheBlueAlliance.Model.Event targetEvent = eventRepo[eventKey];
             TimeZoneInfo eventTimezone = TimeZoneInfo.TryFindSystemTimeZoneById(targetEvent.Timezone, out TimeZoneInfo? z) && z is not null ? z : TimeZoneInfo.Utc;
-            //if (eventTimezone.IsDaylightSavingTime(targetEvent.StartDate))
             DateTime startDateTime = targetEvent.StartDate.ToDateTime(new(8, 0));
             TimeSpan eventTimezoneUtcOffset = eventTimezone.GetUtcOffset(startDateTime);
             DateTimeOffset startOffset = new(startDateTime, eventTimezoneUtcOffset);

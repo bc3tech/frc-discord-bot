@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 [Group("teams", "Gets information about FRC teams")]
-public class TeamsCommandModule(IServiceProvider services) : CommandModuleBase
+public sealed class TeamsCommandModule(IServiceProvider services) : CommandModuleBase
 {
     private readonly IEmbedCreator<string> _teamDetailEmbedCreator = services.GetRequiredKeyedService<IEmbedCreator<string>>(nameof(TeamDetail));
     private readonly IEmbedCreator<(int? Year, string TeamKey, string? EventKey)> _teamRankEmbedCreator = services.GetRequiredKeyedService<IEmbedCreator<(int? Year, string TeamKey, string? EventKey)>>(nameof(TeamRank));
