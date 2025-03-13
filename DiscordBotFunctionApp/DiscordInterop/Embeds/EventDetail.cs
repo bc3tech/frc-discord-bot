@@ -72,8 +72,8 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup,
         {
             builder.AddField("Where to watch", string.Join('\n', eventDetails.Webcasts.Select(i =>
             {
-                var linkDetails = i.GetFullUrl(logger);
-                return $"- [{linkDetails.Name}]({linkDetails.Url})";
+                var (webcastSource, webcastLink) = i.GetFullUrl(logger);
+                return $"- [{webcastSource}]({webcastLink})";
             })));
         }
 
@@ -98,11 +98,11 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup,
             builder.Fields.Insert(0, new EmbedFieldBuilder().WithName("Status").WithValue(stats.GetEventStatusStr()));
             builder.Fields[^1].Value = stats.NumTeams is not null and not 0
                 ? $"""
-                       - {stats.NumTeams} teams
-                       - Max EPA: {stats.EpaVal?.Max}*
-                       - Avg EPA: {stats.EpaVal?.Mean}*
-                       -# \* This is a prediction if the event has not yet started
-                       """
+                    - {stats.NumTeams} teams
+                    - Max EPA: {stats.EpaVal?.Max}*
+                    - Avg EPA: {stats.EpaVal?.Mean}*
+                    -# \* This is a prediction if the event has not yet started
+                    """
                 : "No stats available.";
         }
         else

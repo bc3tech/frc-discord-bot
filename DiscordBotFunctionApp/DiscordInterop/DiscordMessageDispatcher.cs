@@ -106,6 +106,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                         if (rawChan is not null)
                         {
                             await rawChan.SendMessageAsync(embeds: embedsToSend, messageReference: t.MessageId is not null ? new(t.MessageId) : null, options: discordRequestOptions).ConfigureAwait(false);
+                            logger.LogMetric("NotificationSent", 1, new Dictionary<string, object>() { { "ChannelId", chanId }, { "ChannelName", rawChan.Name } });
 
                             channelsWhereWeAlreadyPostedIntoThreads.Add(chanId);
                         }
