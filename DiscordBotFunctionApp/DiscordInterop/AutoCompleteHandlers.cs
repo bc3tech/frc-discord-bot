@@ -45,14 +45,17 @@ internal sealed class AutoCompleteHandlers
                 Debug.Assert(eventsRepo is not null);
 #pragma warning disable EA0011 // Consider removing unnecessary conditional access operator (?) - found instances where, even though decorated with [JsonRequired] and not nullable, values were coming through as `null`
                 return Task.FromResult(AutocompletionResult.FromSuccess(
-                    eventsRepo.AllEvents.Where(i => i.Key.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
-                        || i.Value.Name?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
-                        || i.Value.Year.ToString(CultureInfo.InvariantCulture).Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
-                        || i.Value.City?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
-                        || i.Value.Country?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
-                        || i.Value.StateProv?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true)
-                    .Take(MAX_RESULTS)
-                    .Select(i => new AutocompleteResult(Ellipsify(i.Value.GetLabel(includeYear: true, includeCity: true, includeStateProv: true, includeCountry: true)), i.Key))));
+                    eventsRepo.AllEvents
+                        .OrderByDescending(i => i.Value.Year)
+                        .ThenBy(i => i.Value.ShortName)
+                        .Where(i => i.Key.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
+                            || i.Value.Name?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
+                            || i.Value.Year.ToString(CultureInfo.InvariantCulture).Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
+                            || i.Value.City?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
+                            || i.Value.Country?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
+                            || i.Value.StateProv?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true)
+                        .Take(MAX_RESULTS)
+                        .Select(i => new AutocompleteResult(Ellipsify(i.Value.GetLabel(includeYear: true, includeCity: true, includeStateProv: true, includeCountry: true)), i.Key))));
 #pragma warning restore EA0011 // Consider removing unnecessary conditional access operator (?)
             }
             catch (Exception ex) when (ex is HttpException { DiscordCode: DiscordErrorCode.UnknownInteraction or DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged }
@@ -78,15 +81,17 @@ internal sealed class AutoCompleteHandlers
                 var teamsRepo = services.GetService<TeamRepository>();
                 Debug.Assert(teamsRepo is not null);
 #pragma warning disable EA0011 // Consider removing unnecessary conditional access operator (?) - found instances where, even though decorated with [JsonRequired] and not nullable, values were coming through as `null`
-                return Task.FromResult(AutocompletionResult.FromSuccess(teamsRepo.AllTeams
-                    .Where(i => i.Value.Name?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
-                        || i.Value.Nickname?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
-                        || i.Value.TeamNumber.ToString(CultureInfo.InvariantCulture).Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
-                        || i.Value.City?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
-                        || i.Value.Country?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
-                        || i.Value.StateProv?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true)
-                    .Take(MAX_RESULTS)
-                    .Select(i => new AutocompleteResult(Ellipsify(i.Value.GetLabel()), i.Key))));
+                return Task.FromResult(AutocompletionResult.FromSuccess(
+                    teamsRepo.AllTeams
+                        .OrderBy(t => t.Value.TeamNumber)
+                        .Where(i => i.Value.Name?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
+                            || i.Value.Nickname?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
+                            || i.Value.TeamNumber.ToString(CultureInfo.InvariantCulture).Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
+                            || i.Value.City?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
+                            || i.Value.Country?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
+                            || i.Value.StateProv?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true)
+                        .Take(MAX_RESULTS)
+                        .Select(i => new AutocompleteResult(Ellipsify(i.Value.GetLabel()), i.Key))));
 #pragma warning restore EA0011 // Consider removing unnecessary conditional access operator (?)
             }
             catch (Exception ex) when (ex is HttpException { DiscordCode: DiscordErrorCode.UnknownInteraction or DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged }
@@ -96,18 +101,6 @@ internal sealed class AutoCompleteHandlers
             }
 
             return Task.FromResult(AutocompletionResult.FromSuccess());
-        }
-    }
-
-    internal sealed class FrcMatchTypeAutoCompleteHandler : AutocompleteHandler
-    {
-        private static readonly IEnumerable<TournamentLevel> _frcMatchTypes = Enum.GetValues<TournamentLevel>();
-        public override Task<AutocompletionResult> GenerateSuggestionsAsync(IInteractionContext context, IAutocompleteInteraction autocompleteInteraction, IParameterInfo parameter, IServiceProvider services)
-        {
-            var userSearchString = autocompleteInteraction.Data.Current.Value as string ?? string.Empty;
-            return Task.FromResult(AutocompletionResult.FromSuccess(_frcMatchTypes
-                .Where(i => i.ToInvariantString().Contains(userSearchString, StringComparison.OrdinalIgnoreCase))
-                .Select(i => new AutocompleteResult(i.ToInvariantString(), i))));
         }
     }
 
