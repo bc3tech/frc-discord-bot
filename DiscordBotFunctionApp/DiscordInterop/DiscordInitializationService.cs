@@ -123,6 +123,18 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
                 }
             }
         };
+
+        client.SelectMenuExecuted += async menu =>
+        {
+            var interactionData = JsonSerializer.Serialize(menu.Data);
+            _logger.ReceivedMenuSelectionSelectionData(interactionData);
+            if (await SubscriptionCommandModule.HandleMenuSelectionAsync(services, menu))
+            {
+                return;
+            }
+
+            _logger.UnknownMenuSelectionReceivedMenuData(interactionData);
+        };
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)

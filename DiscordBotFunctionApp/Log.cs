@@ -400,4 +400,28 @@ static partial class Log
 
     [LoggerMessage(130, LogLevel.Error, "There was an error creating a Guild event for {EventKey} in Guild {GuildName}({GuildId})")]
     internal static partial void ThereWasAnErrorCreatingAGuildEventForEventKeyInGuildGuildNameGuildId(this ILogger logger, Exception exception, string EventKey, string GuildName, ulong GuildId);
+
+    [LoggerMessage(131, LogLevel.Debug, "Removing subscription for team subscription team {Team}")]
+    internal static partial void RemovingSubscriptionForTeamSubscriptionTeamTeam(this ILogger logger, uint? Team);
+
+    [LoggerMessage(132, LogLevel.Error, "Failed to remove subscription for team {Team} ({Status}): {Reason}")]
+    internal static partial void FailedToRemoveSubscriptionForTeamTeamStatusReason(this ILogger logger, uint? Team, int Status, string Reason);
+
+    [LoggerMessage(133, LogLevel.Warning, "No subscriptions found for {Subscription}")]
+    internal static partial void NoSubscriptionsFoundForSubscription(this ILogger logger, Subscription.NotificationSubscription Subscription);
+
+    [LoggerMessage(134, LogLevel.Error, "Failed to remove subscription for event {Event} ({Status}): {Reason}")]
+    internal static partial void FailedToRemoveSubscriptionForEventEventStatusReason(this ILogger logger, string? Event, int Status, string Reason);
+
+    [LoggerMessage(135, LogLevel.Debug, "Removing subscription for event subscription event {Event}")]
+    internal static partial void RemovingSubscriptionForEventSubscriptionEventEvent(this ILogger logger, string? Event);
+
+    [LoggerMessage(136, LogLevel.Debug, "Received menu selection: {SelectionData}")]
+    internal static partial void ReceivedMenuSelectionSelectionData(this ILogger logger, string SelectionData);
+
+    [LoggerMessage(137, LogLevel.Error, "Error deleting message {MessageId}")]
+    internal static partial void ErrorDeletingMessageMessageId(this ILogger logger, Exception exception, ulong MessageId);
+
+    [LoggerMessage(138, LogLevel.Warning, "Unknown menu selection received: {MenuData}")]
+    internal static partial void UnknownMenuSelectionReceivedMenuData(this ILogger logger, string MenuData);
 }

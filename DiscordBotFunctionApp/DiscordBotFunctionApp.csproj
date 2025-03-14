@@ -35,7 +35,6 @@
 		<PackageReference Include="OpenTelemetry.Instrumentation.Http" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\Common\Common.csproj" />
 	  <ProjectReference Include="..\services\FIRST\src\FIRST\FIRST.csproj" />
 	  <ProjectReference Include="..\services\FRCColors\FRCColors.csproj" />
 	  <ProjectReference Include="..\services\Statbotics\src\Statbotics\Statbotics.csproj" />

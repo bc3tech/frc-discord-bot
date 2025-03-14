@@ -14,22 +14,22 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
-internal sealed record SubscriptionRequest([property: JsonPropertyName("guildId")] ulong? GuildId,
+internal sealed record NotificationSubscription([property: JsonPropertyName("guildId")] ulong? GuildId,
                                            [property: JsonPropertyName("channelId")] ulong ChannelId,
                                            [property: JsonPropertyName("event")] string? Event,
-                                           [property: JsonPropertyName("team")] uint? Team);
+                                           [property: JsonPropertyName("team")] ushort? Team);
 
 internal sealed class SubscriptionManager([FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptions,
                                           [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptions,
                                           ILogger<SubscriptionManager> logger)
 {
-    public async IAsyncEnumerable<(ulong ChannelId, string EventKey, ushort? TeamNumber)> GetSubscriptionsForGuildAsync(ulong? guildId, [EnumeratorCancellation] CancellationToken cancellationToken)
+    public async IAsyncEnumerable<NotificationSubscription> GetSubscriptionsForGuildAsync(ulong? guildId, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         await foreach (var e in teamSubscriptions.QueryAsync<TeamSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
         {
             foreach (var s in e.Subscribers.SubscriptionsForGuild(guildId))
             {
-                yield return (s, e.Event, e.Team);
+                yield return new(guildId, s, e.Event, e.Team);
             }
         }
 
@@ -37,12 +37,12 @@ internal sealed class SubscriptionManager([FromKeyedServices(Constants.ServiceKe
         {
             foreach (var s in e.Subscribers.SubscriptionsForGuild(guildId))
             {
-                yield return (s, e.Event, e.Team);
+                yield return new(guildId, s, e.Event, e.Team);
             }
         }
     }
 
-    public async Task SaveSubscriptionAsync(SubscriptionRequest sub, CancellationToken cancellationToken)
+    public async Task SaveSubscriptionAsync(NotificationSubscription sub, CancellationToken cancellationToken)
     {
         if (sub.Team is not null)
         {
@@ -96,6 +96,50 @@ internal sealed class SubscriptionManager([FromKeyedServices(Constants.ServiceKe
             else
             {
                 logger.AllSubscriptionAlreadyExistsForEventSubscriptionEvent(sub.Event);
+            }
+        }
+    }
+
+    public async Task RemoveSubscriptionAsync(NotificationSubscription sub, CancellationToken cancellationToken)
+    {
+        if (sub.Team is not null)
+        {
+            logger.RemovingSubscriptionForTeamSubscriptionTeamTeam(sub.Team);
+            var r = await teamSubscriptions.GetEntityIfExistsAsync<TeamSubscriptionEntity>(sub.Team.Value.ToString(CultureInfo.InvariantCulture), sub.Event ?? CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var eventSubscription = r.HasValue ? r.Value : null;
+            if (eventSubscription is not null)
+            {
+                eventSubscription.Subscribers.RemoveSubscription(sub.GuildId, sub.ChannelId);
+                var result = await teamSubscriptions.UpsertEntityAsync(eventSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
+                if (result.IsError)
+                {
+                    logger.FailedToRemoveSubscriptionForTeamTeamStatusReason(sub.Team, result.Status, result.ReasonPhrase);
+                    throw new HttpProtocolException(result.Status, string.Format(CultureInfo.InvariantCulture, "Failed to remove subscription for team {0} ({1}): {2}", sub.Team, result.Status, result.ReasonPhrase), null);
+                }
+            }
+            else
+            {
+                logger.NoSubscriptionsFoundForSubscription(sub);
+            }
+        }
+        else
+        {
+            logger.RemovingSubscriptionForEventSubscriptionEventEvent(sub.Event);
+            var r = await eventSubscriptions.GetEntityIfExistsAsync<EventSubscriptionEntity>(sub.Event ?? CommonConstants.ALL, sub.Team?.ToString(CultureInfo.InvariantCulture) ?? CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var eventSubscription = r.HasValue ? r.Value : null;
+            if (eventSubscription is not null)
+            {
+                eventSubscription.Subscribers.RemoveSubscription(sub.GuildId, sub.ChannelId);
+                var result = await eventSubscriptions.UpsertEntityAsync(eventSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
+                if (result.IsError)
+                {
+                    logger.FailedToRemoveSubscriptionForEventEventStatusReason(sub.Event, result.Status, result.ReasonPhrase);
+                    throw new HttpProtocolException(result.Status, string.Format(CultureInfo.InvariantCulture, "Failed to remove subscription for event {0} ({1}): {2}", sub.Event, result.Status, result.ReasonPhrase), null);
+                }
+            }
+            else
+            {
+                logger.NoSubscriptionsFoundForSubscription(sub);
             }
         }
     }
