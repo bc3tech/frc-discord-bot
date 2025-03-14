@@ -2,7 +2,11 @@
 
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.IO.Compression;
+using System.Text;
 using System.Text.RegularExpressions;
+
+using static System.Net.Mime.MediaTypeNames;
 
 public static partial class StringExtensions
 {
@@ -35,4 +39,25 @@ public static partial class StringExtensions
 
     [GeneratedRegex(@"(\d+)", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant)]
     private static partial Regex TeamNumberRegex();
+
+    public static string Compress(this string s)
+    {
+        byte[] buffer = Encoding.UTF8.GetBytes(s);
+        using var memoryStream = new MemoryStream();
+        using var brotliStream = new BrotliStream(memoryStream, CompressionMode.Compress, true);
+        brotliStream.Write(buffer, 0, buffer.Length);
+        brotliStream.Flush();
+
+        var r = Convert.ToBase64String(memoryStream.ToArray());
+        Debug.Assert(!string.IsNullOrWhiteSpace(r));
+        return r;
+    }
+
+    public static string Decompress(this string s)
+    {
+        using var brotliStream = new BrotliStream(new MemoryStream(Convert.FromBase64String(s)), CompressionMode.Decompress);
+        using var resultStream = new MemoryStream();
+        brotliStream.CopyTo(resultStream);
+        return Encoding.UTF8.GetString(resultStream.ToArray());
+    }
 }
