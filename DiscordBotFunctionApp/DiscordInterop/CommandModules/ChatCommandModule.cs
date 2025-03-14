@@ -19,7 +19,6 @@ using System.Threading.Tasks;
 public sealed class ChatCommandModule : CommandModuleBase
 {
     private const string ChatResetConfirmButtonId = "chat-reset-confirm";
-    private const string ChatResetCancelButtonId = "chat-reset-cancel";
 
     private static readonly EmbedBuilder _embedBuilder = new();
 
@@ -36,7 +35,7 @@ public sealed class ChatCommandModule : CommandModuleBase
         var buttons = new ComponentBuilder().WithButton("Confirm", ChatResetConfirmButtonId, ButtonStyle.Danger);
         if (!ephemeral)
         {
-            buttons.WithButton("Cancel", ChatResetCancelButtonId, ButtonStyle.Secondary);
+            buttons.WithButton("Cancel", Constants.InteractionElements.CancelButtonDeleteMessage, ButtonStyle.Secondary);
         }
 
         await this.RespondAsync(ephemeral: ephemeral, embed: embed, components: buttons.Build()).ConfigureAwait(false);
@@ -84,10 +83,6 @@ public sealed class ChatCommandModule : CommandModuleBase
                     throw;
                 }
             }
-        }
-        else if (button.Data.CustomId is ChatResetCancelButtonId)
-        {
-            await button.InteractionChannel.DeleteMessageAsync(button.Message.Id).ConfigureAwait(false);
         }
         else
         {

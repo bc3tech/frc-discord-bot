@@ -104,4 +104,9 @@ internal static class Constants
             public const string PostStatus = nameof(PostStatus);
         }
     }
+
+    public static class InteractionElements
+    {
+        public const string CancelButtonDeleteMessage = nameof(CancelButtonDeleteMessage);
+    }
 }

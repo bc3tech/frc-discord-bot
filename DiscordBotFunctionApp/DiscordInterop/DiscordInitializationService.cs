@@ -7,6 +7,8 @@ using Discord.Interactions;
 using Discord.WebSocket;
 
 using DiscordBotFunctionApp;
+using DiscordBotFunctionApp.DiscordInterop.CommandModules;
+using DiscordBotFunctionApp.Extensions;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -91,6 +93,34 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
             if (i is SocketUserMessage msg && i.Channel is IDMChannel && i.Author.GlobalName is not null)
             {
                 await chatBot.HandleUserMessageAsync(msg).ConfigureAwait(false);
+            }
+        };
+
+        client.ButtonExecuted += async (button) =>
+        {
+            if (button.Data.CustomId is Constants.InteractionElements.CancelButtonDeleteMessage)
+            {
+                try
+                {
+                    await button.InteractionChannel.DeleteMessageAsync(button.Message.Id, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+                }
+                catch (Exception e)
+                {
+                    try
+                    {
+                        await button.UpdateAsync(p =>
+                        {
+                            p.Content = "Canceled.";
+                            p.Attachments = null;
+                            p.Components = null;
+                            p.Embeds = null;
+                        });
+                    }
+                    catch
+                    {
+                        _logger.ErrorDeletingMessageMessageId(e, button.Message.Id);
+                    }
+                }
             }
         };
     }
