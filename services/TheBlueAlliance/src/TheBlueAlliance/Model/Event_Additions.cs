@@ -1,4 +1,7 @@
 ﻿namespace TheBlueAlliance.Model;
+
+using Common.Extensions;
+
 using System.Text;
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1716:Identifiers should not match keywords", Justification = "This is its name, sorry")]
@@ -32,7 +35,7 @@ public partial record Event
             location.Append(this.Country);
         }
 
-        return $"{(includeYear ? $"{this.Year} " : string.Empty)}{(shortName ? this.ShortName : this.Name)}{(location.Length > 0 ? $" - {location}" : string.Empty)}";
+        return $"{(includeYear ? $"{this.Year} " : string.Empty)}{(shortName ? this.ShortName.UnlessNullOrWhitespaceThen(this.Name) : this.Name)}{(location.Length > 0 ? $" - {location}" : string.Empty)}";
     }
 
     private string? _locationString;
