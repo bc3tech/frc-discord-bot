@@ -79,33 +79,17 @@ internal sealed class MatchSummariesUpdater(AgentsClient client,
                     }
                     else
                     {
-                        logger.FoundTrackingRecordInTableCheckingIfReuploadIsNeeded();
-                        var fileId = summariesUploadTrackingRecord.Value!["FileId"].ToString();
-                        bool reuploadNeeded = false;
-                        try
+                        int existingFilesize = (int)summariesUploadTrackingRecord.Value!["FileSize"];
+                        var newFile = await UploadMatchSummariesAsync(agent, matchSummariesDocUrl, existingFilesize, cancellationToken).ConfigureAwait(false);
+                        if (newFile is not null)
                         {
-                            var file = (await client.GetVectorStoreFileAsync(vectorStoreId, fileId, cancellationToken).ConfigureAwait(false)).Value;
-                            reuploadNeeded = file is null;
-                        }
-                        catch
-                        {
-                            reuploadNeeded = true;
-                        }
-
-                        if (reuploadNeeded)
-                        {
-                            int existingFilesize = (int)summariesUploadTrackingRecord.Value!["FileSize"];
-                            var newFile = await UploadMatchSummariesAsync(agent, matchSummariesDocUrl, existingFilesize, cancellationToken).ConfigureAwait(false);
-                            if (newFile is not null)
+                            Debug.Assert(newFile.Size != existingFilesize);
+                            await filesTable.UpdateEntityAsync(new TableEntity(vectorStoreId, MatchSummariesPdfName)
                             {
-                                Debug.Assert(newFile.Size != existingFilesize);
-                                await filesTable.UpdateEntityAsync(new TableEntity(vectorStoreId, MatchSummariesPdfName)
-                                {
-                                    ["FileId"] = newFile.Id,
-                                    ["FilePurpose"] = newFile.Purpose.ToString(),
-                                    ["FileSize"] = newFile.Size,
-                                }, ETag.All, mode: TableUpdateMode.Replace, cancellationToken).ConfigureAwait(false);
-                            }
+                                ["FileId"] = newFile.Id,
+                                ["FilePurpose"] = newFile.Purpose.ToString(),
+                                ["FileSize"] = newFile.Size,
+                            }, ETag.All, mode: TableUpdateMode.Replace, cancellationToken).ConfigureAwait(false);
                         }
                     }
                 }
