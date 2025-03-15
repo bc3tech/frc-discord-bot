@@ -4,6 +4,7 @@ using Common.Extensions;
 
 using Discord;
 using Discord.Interactions;
+using Discord.Net;
 using Discord.WebSocket;
 
 using DiscordBotFunctionApp.Storage;
@@ -11,13 +12,9 @@ using DiscordBotFunctionApp.Subscription;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Client;
-using Microsoft.Net.Http.Headers;
 
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Text.Json;
 
 [Group("subscription", "Manages subscriptions to FRC events and teams")]
 public sealed class SubscriptionCommandModule(IServiceProvider services) : InteractionModuleBase
@@ -63,12 +60,15 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Inter
         }
     }
 
+    [DiscordAuthorize(GuildPermission.ManageEvents)]
     [SlashCommand("create", "Creates a subscription to a team/event for the current channel")]
     public async Task CreateAsync(
         [Summary("team", "Team to subscribe to, 'all' if not specified."), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))] string? teamKey = null,
         [Summary("event", "Event to subscribe to, 'all' if not specified."), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string? eventKey = null)
     {
         await this.DeferAsync(ephemeral: true).ConfigureAwait(false);
+
+        await this.ThrowIfUnauthorizedAsync();
         if (string.IsNullOrWhiteSpace(eventKey) && string.IsNullOrWhiteSpace(teamKey))
         {
             await this.ModifyOriginalResponseAsync(p => p.Content = "At least one of Event or Team is required.").ConfigureAwait(false);
@@ -107,6 +107,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Inter
 
     private const string SubscriptionDeleteSelectionMenuId = "subscription-delete-selection";
 
+    [DiscordAuthorize(GuildPermission.ManageEvents)]
     [SlashCommand("delete", "Deletes a subscription to a team/event for the current channel")]
     public async Task DeleteAsync()
     {
@@ -197,10 +198,11 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Inter
                 p.Components = newActionRows.Build();
             }).ConfigureAwait(false);
         }
+        catch (HttpException e) when (e.DiscordCode is DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged) { }
         catch (Exception e)
         {
             Debug.Fail(e.Message);
-            services.GetService<ILogger<SubscriptionCommandModule>>()?.LogError(e, "Error updating the original message for the Delete Subscription interaction");
+            services.GetService<ILogger<SubscriptionCommandModule>>().ErrorUpdatingTheOriginalMessageForTheDeleteSubscriptionInteraction(e);
         }
 
         return true;
