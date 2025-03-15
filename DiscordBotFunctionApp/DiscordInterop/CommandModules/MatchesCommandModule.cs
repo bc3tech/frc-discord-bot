@@ -21,7 +21,7 @@ using TheBlueAlliance.Model;
 public sealed class MatchesCommandModule(IServiceProvider services) : CommandModuleBase
 {
     private readonly UpcomingMatch embeddingCreator = (UpcomingMatch)services.GetRequiredKeyedService<IEmbedCreator<string>>(nameof(UpcomingMatch));
-    private readonly MatchScore matchScoreEmbeddingGenerator = (MatchScore)services.GetRequiredKeyedService<IEmbedCreator<string>>(nameof(MatchScore));
+    private readonly MatchScore matchScoreEmbeddingGenerator = (MatchScore)services.GetRequiredKeyedService<IEmbedCreator<(string, bool)>>(nameof(MatchScore));
     private readonly ILogger _logger = services.GetRequiredService<ILogger<EventsCommandModule>>();
     private readonly IMatchApi _matchApi = services.GetRequiredService<IMatchApi>();
 
@@ -86,13 +86,15 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         [Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string eventKey,
         [Summary("stage", "The stage of the competition"), Autocomplete(typeof(AutoCompleteHandlers.CompStageAutocompleteHandler))] int compLevel,
         [Summary("match", "Match number")] uint matchNumber,
-        [Summary("post", "`true` to post response publicly")] bool post = false) => GetResultAsync(eventKey, compLevel, matchNumber, post);
+        [Summary("summarize", "Create a 'ChatGPT' style summary?")] bool summarize = false,
+        [Summary("post", "`true` to post response publicly")] bool post = false) => GetResultAsync(eventKey, compLevel, matchNumber, summarize, post);
 
     [SlashCommand("result", "Gets the result for a match")]
     public async Task GetResultAsync(
         [Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string eventKey,
         [Summary("stage", "The stage of the competition"), Autocomplete(typeof(AutoCompleteHandlers.CompStageAutocompleteHandler))] int compLevel,
         [Summary("match", "Match number")] uint matchNumber,
+        [Summary("summarize", "Create a 'ChatGPT' style summary?")] bool summarize = false,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
         await this.DeferAsync(ephemeral: !post).ConfigureAwait(false);
@@ -108,7 +110,7 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         {
             ResponseEmbedding[] embeds = [];
 
-            await foreach (var m in matchScoreEmbeddingGenerator.GetMatchScoreAsync($"{eventKey}_{matchKey}").ConfigureAwait(false))
+            await foreach (var m in matchScoreEmbeddingGenerator.CreateAsync(($"{eventKey}_{matchKey}", false)).ConfigureAwait(false))
             {
                 if (m is null)
                 {

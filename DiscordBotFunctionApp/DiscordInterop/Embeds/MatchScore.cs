@@ -37,7 +37,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
                                          TeamRepository teams,
                                          EmbedBuilderFactory builderFactory,
                                          ChatRunner gpt,
-                                         ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<string>
+                                         ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<(string matchKey, bool summarize)>
 {
     public const NotificationType TargetType = NotificationType.match_score;
 
@@ -113,12 +113,11 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         return (redScore, blueScore);
     }
 
-    public IAsyncEnumerable<ResponseEmbedding?> GetMatchScoreAsync(string matchKey, ushort? highlightTeam = null, CancellationToken cancellationToken = default) => CreateAsync(matchKey, highlightTeam, cancellationToken);
-
-    public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync(string matchKey, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync((string matchKey, bool summarize) input, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var baseBuilder = builderFactory.GetBuilder();
 
+        var matchKey = input.matchKey;
         var detailedMatch = await matchApi.GetMatchAsync(Throws.IfNullOrWhiteSpace(matchKey), cancellationToken: cancellationToken).ConfigureAwait(false);
         if (detailedMatch is null)
         {
@@ -159,27 +158,30 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
         yield return new(embedding);
 
-        bool first = true;
-        var prompt = $"Create a narrative for this match:\n\n```json{JsonSerializer.Serialize(detailedMatch)}\n```";
-        yield return new ResponseEmbedding(baseBuilder.WithDescription("Generating match summary... 🤖").Build(), Transient: true);
-        await foreach (var completion in gpt.GetCompletionsAsync(prompt, cancellationToken))
+        if (input.summarize)
         {
-            var builder = builderFactory.GetBuilder(highlightTeam);
+            bool first = true;
+            var prompt = $"Create a narrative for this match:\n\n```json{JsonSerializer.Serialize(detailedMatch)}\n```";
+            yield return new ResponseEmbedding(baseBuilder.WithDescription("Generating match summary... 🤖").Build(), Transient: true);
+            await foreach (var completion in gpt.GetCompletionsAsync(prompt, cancellationToken))
+            {
+                var builder = builderFactory.GetBuilder(highlightTeam);
+                if (first)
+                {
+                    builder.Title = "AI Match Summary";
+                    first = false;
+                }
+
+                foreach (var descriptionChunk in completion.Chunk(4096))
+                {
+                    yield return new(builder.WithDescription(new(descriptionChunk)).Build());
+                }
+            }
+
             if (first)
             {
-                builder.Title = "AI Match Summary";
-                first = false;
+                yield return new(baseBuilder.WithDescription("No summary generated. 🥺").Build());
             }
-
-            foreach (var descriptionChunk in completion.Chunk(4096))
-            {
-                yield return new(builder.WithDescription(new(descriptionChunk)).Build());
-            }
-        }
-
-        if (first)
-        {
-            yield return new(baseBuilder.WithDescription("No summary generated. 🥺").Build());
         }
     }
 
