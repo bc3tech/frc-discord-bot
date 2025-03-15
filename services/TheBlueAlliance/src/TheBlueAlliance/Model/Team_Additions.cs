@@ -67,7 +67,7 @@ public partial record Team
     public string GetLabelWithHighlight(ulong? highlightIfIsTeamNumber, bool asMarkdownLink = true)
     {
         var teamLabel = GetLabel(asMarkdownLink: asMarkdownLink);
-        return highlightIfIsTeamNumber is not null && teamLabel.StartsWith(highlightIfIsTeamNumber.ToString()!, StringComparison.Ordinal)
+        return highlightIfIsTeamNumber is not null && (teamLabel.StartsWith(highlightIfIsTeamNumber.ToString()!, StringComparison.Ordinal) || teamLabel.StartsWith($"[{highlightIfIsTeamNumber.ToString()!}", StringComparison.Ordinal))
             ? $"**{teamLabel}**"
             : teamLabel;
     }
