@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 using TheBlueAlliance.Api;
@@ -74,6 +75,7 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         }
         catch (Exception ex)
         {
+            Debug.Fail(ex.Message);
             _logger.ErrorGettingNextMatchForTeamKeyAtEventKey(ex, teamKey, eventKey);
             await this.ModifyOriginalResponseAsync(p => p.Content = "Sorry, I encountered an error processing your request. Maybe try again? Or contact your admin with this news so they can troubleshoot.").ConfigureAwait(false);
         }
