@@ -31,22 +31,23 @@ internal sealed class Award(IEventApi tbaApi,
         if (notification == default)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
-            yield return new(baseBuilder.Build());
+            yield return null;
             yield break;
         }
 
-        var eventAwards = await tbaApi.GetEventAwardsAsync(notification.event_key, cancellationToken: cancellationToken).ConfigureAwait(false);
+        var tbaAwards = await tbaApi.GetEventAwardsAsync(notification.event_key, cancellationToken: cancellationToken).ConfigureAwait(false);
+        var eventAwards = notification.awards?.Length is not null and not 0 ? notification.awards! : tbaAwards?.ToArray();
         if (eventAwards is null)
         {
             logger.FailedToRetrieveDetailedAwardsDataForEventKey(notification.event_key);
-            yield return new(baseBuilder.Build());
+            yield return null;
             yield break;
         }
 
-        if (eventAwards.Count is 0)
+        if (eventAwards.Length is 0)
         {
             logger.NoAwardsFoundForEventKey(notification.event_key);
-            yield return new(baseBuilder.Build());
+            yield return null;
             yield break;
         }
 
