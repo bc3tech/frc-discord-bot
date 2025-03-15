@@ -11,6 +11,7 @@ internal static class Constants
         public const string TableClient_Threads = "threads";
         public const string TableClient_UserChatAgentThreads = "userChatAgentThreads";
         public const string TableClient_VectorStoreFiles = "vectorStoreFiles";
+        public const string TableClient_MessageContents = "messageContents";
 
         public const string TheBlueAllianceHttpClient = nameof(TheBlueAllianceHttpClient);
         public const string StatboticsHttpClient = nameof(StatboticsHttpClient);

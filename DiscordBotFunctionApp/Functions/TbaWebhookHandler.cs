@@ -1,5 +1,7 @@
 namespace DiscordBotFunctionApp.Functions;
 
+using Azure.Data.Tables;
+
 using DiscordBotFunctionApp.DiscordInterop;
 using DiscordBotFunctionApp.TbaInterop.Models;
 using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
@@ -7,19 +9,17 @@ using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-using System.Diagnostics;
-using System.Reflection;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILogger<TbaWebhookHandler> logger)
+internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, [FromKeyedServices(Constants.ServiceKeys.TableClient_MessageContents)] TableClient messagesTable, ILogger<TbaWebhookHandler> logger)
 {
-    private static readonly ActivitySource activitySource = new(Assembly.GetExecutingAssembly().GetName().FullName);
-
     [Function("TbaWebhookHandler")]
-    public async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = "tba/webhook")] HttpRequestData req, FunctionContext ctx, CancellationToken cancellationToken)
+    public async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = "tba/webhook")] HttpRequestData req, CancellationToken cancellationToken)
     {
         var bodyContent = await req.ReadAsStringAsync().ConfigureAwait(false);
         if (string.IsNullOrWhiteSpace(bodyContent))
@@ -28,6 +28,12 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILo
         }
 
         logger.ReceivedWebhookPayloadWebhookPayload(bodyContent);
+
+        if (await IsDuplicateAsync(bodyContent, cancellationToken).ConfigureAwait(false))
+        {
+            logger.LogWarning("Duplicate webhook payload");
+            return new ConflictResult();
+        }
 
         var message = JsonSerializer.Deserialize<WebhookMessage>(bodyContent);
         if (message is not null)
@@ -69,5 +75,27 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILo
 
         logger.UnknownUnhandledMessage();
         return new BadRequestObjectResult("Unknown message type or body.");
+    }
+
+    private async Task<bool> IsDuplicateAsync(string bodyContent, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var base64Body = Convert.ToBase64String(Encoding.UTF8.GetBytes(bodyContent));
+            var existingMessage = await messagesTable.GetEntityIfExistsAsync<TableEntity>(base64Body, base64Body, cancellationToken: cancellationToken).ConfigureAwait(false);
+
+            if (!existingMessage.HasValue)
+            {
+                await messagesTable.UpsertEntityAsync(new TableEntity(base64Body, base64Body), cancellationToken: cancellationToken).ConfigureAwait(false);
+                return false;
+            }
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Error checking for duplicate webhook payload.");
+            return false;
+        }
     }
 }
