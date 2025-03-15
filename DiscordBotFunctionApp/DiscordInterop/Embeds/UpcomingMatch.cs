@@ -119,7 +119,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
         StringBuilder descriptionBuilder = new();
         descriptionBuilder.AppendLine(
             $"""
-            # Next Match for {teams[highlightTeam!.Value].GetLabel(includeLocation: false)} at {events[simpleMatch.EventKey].GetLabel(shortName: true)}
+            # Next Match for {teams[highlightTeam!.Value].GetLabel(includeLocation: false, includeName: false, asMarkdownLink: false)} at {events[simpleMatch.EventKey].GetLabel(shortName: true)}
             ## {compLevelHeader} - Match {simpleMatch.MatchNumber}
 
             Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds(simpleMatch.Time.GetValueOrDefault(0)!).ToPacificTime():t}
