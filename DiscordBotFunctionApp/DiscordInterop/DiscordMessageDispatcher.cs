@@ -175,7 +175,17 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
             return msgChan;
         }
 
-        var thread = (msgChan is ITextChannel threadableChannel) ? await threadableChannel.CreateThreadAsync(threadDetails.Value.Title) : msgChan;
+        IMessageChannel thread;
+        try
+        {
+            thread = (msgChan is ITextChannel threadableChannel) ? await threadableChannel.CreateThreadAsync(threadDetails.Value.Title) : msgChan;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Tried to create thread on an `ITextChannel` but it failed");
+            thread = msgChan;
+        }
+
         try
         {
             var tableResponse = await threadsTable.GetEntityIfExistsAsync<ThreadTableEntity>(threadDetails.Value.PartitionKey, threadDetails.Value.RowKey, cancellationToken: cancellationToken).ConfigureAwait(false);
