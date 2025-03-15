@@ -61,8 +61,8 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
             $"""
             # Match starting soon!
 
-            Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.scheduled_time!).ToPacificTime():t}
-            **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToPacificTime():t}**
+            {(notification.scheduled_time.HasValue ? $"Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.scheduled_time!).ToPacificTime():t}" : string.Empty)}
+            {(notification.predicted_time.HasValue ? $"**Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToPacificTime():t}**" : string.Empty)}            
             """);
 
         await BuildDescriptionAsync(descriptionBuilder, highlightTeam, detailedMatch, cancellationToken, beforeFooter: addWebcastDetail).ConfigureAwait(false);
