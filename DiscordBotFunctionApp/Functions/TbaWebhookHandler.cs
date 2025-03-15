@@ -21,10 +21,6 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, ILo
     [Function("TbaWebhookHandler")]
     public async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = "tba/webhook")] HttpRequestData req, FunctionContext ctx, CancellationToken cancellationToken)
     {
-        using var fxnRun = activitySource.StartActivity(ctx.FunctionDefinition.Name);
-        Debug.Assert(fxnRun is not null, "fxnRun is null - this should never happen");
-        fxnRun.AddTag(nameof(ctx.InvocationId), ctx.InvocationId);
-
         var bodyContent = await req.ReadAsStringAsync().ConfigureAwait(false);
         if (string.IsNullOrWhiteSpace(bodyContent))
         {
