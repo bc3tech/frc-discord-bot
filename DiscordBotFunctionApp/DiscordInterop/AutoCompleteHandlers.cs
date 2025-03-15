@@ -91,7 +91,7 @@ internal sealed class AutoCompleteHandlers
                             || i.Value.Country?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
                             || i.Value.StateProv?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true)
                         .Take(MAX_RESULTS)
-                        .Select(i => new AutocompleteResult(Ellipsify(i.Value.GetLabel()), i.Key))));
+                        .Select(i => new AutocompleteResult(Ellipsify(i.Value.GetLabel(asMarkdownLink: false, includeLocation: false)), i.Key))));
 #pragma warning restore EA0011 // Consider removing unnecessary conditional access operator (?)
             }
             catch (Exception ex) when (ex is HttpException { DiscordCode: DiscordErrorCode.UnknownInteraction or DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged }
