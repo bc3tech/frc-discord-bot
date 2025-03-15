@@ -254,10 +254,10 @@ static partial class Log
     [LoggerMessage(80, LogLevel.Debug, "Creating Upcoming Match embedding for {WebhookMessage}: {Notification}")]
     internal static partial void CreatingUpcomingMatchEmbeddingForWebhookMessageNotification(this ILogger logger, string WebhookMessage, string Notification);
 
-    [LoggerMessage(81, LogLevel.Debug, "Rankings: {Rankings}")]
+    [LoggerMessage(81, LogLevel.Trace, "Rankings: {Rankings}")]
     internal static partial void RankingsRankings(this ILogger logger, string Rankings);
 
-    [LoggerMessage(82, LogLevel.Debug, "Match Stats: {MatchStats}")]
+    [LoggerMessage(82, LogLevel.Trace, "Match Stats: {MatchStats}")]
     internal static partial void MatchStatsMatchStats(this ILogger logger, string MatchStats);
 
     [LoggerMessage(83, LogLevel.Debug, "Creating match score embed for match {Match}")]
@@ -380,7 +380,7 @@ static partial class Log
     [LoggerMessage(123, LogLevel.Warning, "We could not find the event in the schedule using the event code ({EventCode}) & season ({Season})")]
     internal static partial void WeCouldNotFindTheEventInTheScheduleUsingTheEventCodeEventCodeSeasonSeason(this ILogger logger, string EventCode, string Season);
 
-    [LoggerMessage(124, LogLevel.Debug, "Webhook payload deserialized into {WebhookMessage} {SerializedWebhookMessage}")]
+    [LoggerMessage(124, LogLevel.Trace, "Webhook payload deserialized into {WebhookMessage} {SerializedWebhookMessage}")]
     internal static partial void WebhookPayloadDeserializedIntoWebhookMessageSerializedWebhookMessage(this ILogger logger, WebhookMessage WebhookMessage, string SerializedWebhookMessage);
 
     [LoggerMessage(125, LogLevel.Warning, "Event {EventKey} not known at all!")]
@@ -395,7 +395,7 @@ static partial class Log
     [LoggerMessage(128, LogLevel.Information, "Cached {EventCount} teams from TBA")]
     internal static partial void CachedEventCountTeamsFromTBA(this ILogger logger, int EventCount);
 
-    [LoggerMessage(129, LogLevel.Debug, "{EmbeddingName} built: {EmbeddingDetail}")]
+    [LoggerMessage(129, LogLevel.Trace, "{EmbeddingName} built: {EmbeddingDetail}")]
     internal static partial void EmbeddingNameBuiltEmbeddingDetail(this ILogger logger, string EmbeddingName, string EmbeddingDetail);
 
     [LoggerMessage(130, LogLevel.Error, "There was an error creating a Guild event for {EventKey} in Guild {GuildName}({GuildId})")]
@@ -424,4 +424,7 @@ static partial class Log
 
     [LoggerMessage(138, LogLevel.Warning, "Unknown menu selection received: {MenuData}")]
     internal static partial void UnknownMenuSelectionReceivedMenuData(this ILogger logger, string MenuData);
+
+    [LoggerMessage(139, LogLevel.Error, "Error updating the original message for the Delete Subscription interaction")]
+    internal static partial void ErrorUpdatingTheOriginalMessageForTheDeleteSubscriptionInteraction(this ILogger? logger, Exception exception);
 }
