@@ -83,12 +83,13 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, [Fr
         try
         {
             var bodyBytes = Encoding.UTF8.GetBytes(bodyContent);
-            var hashBytes = System.Security.Cryptography.SHA256.HashData(bodyBytes);
+            var hashBytes = System.Security.Cryptography.SHA3_512.HashData(bodyBytes);
             var base64UrlEncodedBody = UrlEncoder.Default.Encode(Convert.ToBase64String(hashBytes));
             var existingMessage = await messagesTable.GetEntityIfExistsAsync<TableEntity>(base64UrlEncodedBody, base64UrlEncodedBody, cancellationToken: cancellationToken).ConfigureAwait(false);
 
             if (!existingMessage.HasValue)
             {
+                logger.LogDebug("Not duplicate payload. Saving...");
                 await messagesTable.UpsertEntityAsync(new TableEntity(base64UrlEncodedBody, base64UrlEncodedBody), cancellationToken: cancellationToken).ConfigureAwait(false);
                 return false;
             }
