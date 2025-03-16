@@ -13,10 +13,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, [FromKeyedServices(Constants.ServiceKeys.TableClient_MessageContents)] TableClient messagesTable, ILogger<TbaWebhookHandler> logger)
+internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, [FromKeyedServices(Constants.ServiceKeys.TableClient_ProcessedMessages)] TableClient messagesTable, ILogger<TbaWebhookHandler> logger)
 {
     [Function("TbaWebhookHandler")]
     public async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = "tba/webhook")] HttpRequestData req, CancellationToken cancellationToken)
@@ -81,12 +82,14 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, [Fr
     {
         try
         {
-            var base64Body = Convert.ToBase64String(Encoding.UTF8.GetBytes(bodyContent));
-            var existingMessage = await messagesTable.GetEntityIfExistsAsync<TableEntity>(base64Body, base64Body, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var bodyBytes = Encoding.UTF8.GetBytes(bodyContent);
+            var hashBytes = System.Security.Cryptography.SHA256.HashData(bodyBytes);
+            var base64UrlEncodedBody = UrlEncoder.Default.Encode(Convert.ToBase64String(hashBytes));
+            var existingMessage = await messagesTable.GetEntityIfExistsAsync<TableEntity>(base64UrlEncodedBody, base64UrlEncodedBody, cancellationToken: cancellationToken).ConfigureAwait(false);
 
             if (!existingMessage.HasValue)
             {
-                await messagesTable.UpsertEntityAsync(new TableEntity(base64Body, base64Body), cancellationToken: cancellationToken).ConfigureAwait(false);
+                await messagesTable.UpsertEntityAsync(new TableEntity(base64UrlEncodedBody, base64UrlEncodedBody), cancellationToken: cancellationToken).ConfigureAwait(false);
                 return false;
             }
 
