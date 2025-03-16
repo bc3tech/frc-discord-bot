@@ -3,6 +3,7 @@
 using Common.Extensions;
 
 using Discord.Interactions;
+using Discord.Net;
 
 using DiscordBotFunctionApp.DiscordInterop.Embeds;
 
@@ -44,7 +45,15 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
         [Summary("year", "Year to get rank, default: current year")] ushort? year = null,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        await this.DeferAsync(ephemeral: !post).ConfigureAwait(false);
+        try
+        {
+            await this.DeferAsync(ephemeral: !post).ConfigureAwait(false);
+        }
+        catch (HttpException e) when (e.DiscordCode is Discord.DiscordErrorCode.UnknownInteraction or Discord.DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged)
+        {
+            _logger.InteractionAlreadyAcknowledgedSkippingResponse();
+            return;
+        }
 
         using var scope = _logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(teamKey))
