@@ -102,10 +102,23 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                     {
                         var chanId = t.ChannelId;
                         var threadId = t.ThreadId;
-                        IMessageChannel? rawChan = _discordClient.GetChannel(threadId) as IMessageChannel ?? await _discordClient.GetDMChannelAsync(threadId) as IMessageChannel;
+                        IMessageChannel? rawChan = _discordClient.GetChannel(threadId) as IMessageChannel ?? await _discordClient.GetDMChannelAsync(threadId).ConfigureAwait(false);
                         if (rawChan is not null)
                         {
-                            await rawChan.SendMessageAsync(embeds: embedsToSend, messageReference: t.MessageId is not null ? new(t.MessageId) : null, options: discordRequestOptions).ConfigureAwait(false);
+                            MessageReference? replyToMessage;
+                            try
+                            {
+                                replyToMessage = t.MessageId is not null
+                                    && (await rawChan.GetMessageAsync(t.MessageId.Value, options: discordRequestOptions).ConfigureAwait(false)) is not null
+                                        ? new MessageReference(t.MessageId)
+                                        : null;
+                            }
+                            catch
+                            {
+                                replyToMessage = null;
+                            }
+
+                            await rawChan.SendMessageAsync(embeds: embedsToSend, messageReference: replyToMessage, options: discordRequestOptions).ConfigureAwait(false);
                             logger.LogMetric("NotificationSent", 1, new Dictionary<string, object>() { { "ChannelId", chanId }, { "ChannelName", rawChan.Name } });
 
                             channelsWhereWeAlreadyPostedIntoThreads.Add(chanId);
