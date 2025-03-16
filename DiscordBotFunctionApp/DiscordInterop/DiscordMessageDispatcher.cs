@@ -36,6 +36,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
     public async Task<bool> ProcessWebhookMessageAsync(WebhookMessage message, CancellationToken cancellationToken)
     {
+        var startTime = time.GetTimestamp();
         using var scope = logger.CreateMethodScope();
         (var teams, var events) = GetTeamsAndEventsInMessage(message.MessageData);
         logger.TeamsTeamsInMessageEventsEventsInMessage(teams.Count, events.Count);
@@ -54,6 +55,9 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
         await Task.WhenAll(notifications).ConfigureAwait(false);
 
+        logger.LogInformation("All notifications dispatched.");
+        logger.LogMetric("NotificationDispatchTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
+
         return true;
     }
 
@@ -68,7 +72,15 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
             if (sub is not null)
             {
                 logger.FoundRecordForTargetTableForPartitionKeyRowKey(sourceTable.Name, i.p, i.r);
-                await ProcessSubscriptionAsync(message, sub.Subscribers, teamFinder(i), cancellationToken);
+
+                if (sub.Subscribers.SelectMany(i => i.Value).Any())
+                {
+                    await ProcessSubscriptionAsync(message, sub.Subscribers, teamFinder(i), cancellationToken);
+                }
+                else
+                {
+                    logger.LogDebug("No *actual* subscribers found for {PartitionKey} {RowKey}", i.p, i.r);
+                }
             }
         }
 
