@@ -9,7 +9,7 @@ public sealed record Match
     [JsonPropertyName("year")]
     public int? Year { get; init; }
 
-    [JsonPropertyName("_event")]
+    [JsonPropertyName("event")]
     public string? Event { get; init; }
 
     [JsonPropertyName("week")]
