@@ -103,6 +103,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                         var chanId = t.ChannelId;
                         var threadId = t.ThreadId;
                         IMessageChannel? rawChan = _discordClient.GetChannel(threadId) as IMessageChannel ?? await _discordClient.GetDMChannelAsync(threadId).ConfigureAwait(false);
+                        var guildId = (rawChan as IGuildChannel)?.GuildId;
                         if (rawChan is not null)
                         {
                             MessageReference? replyToMessage;
@@ -118,10 +119,23 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                                 replyToMessage = null;
                             }
 
-                            await rawChan.SendMessageAsync(embeds: embedsToSend, messageReference: replyToMessage, options: discordRequestOptions).ConfigureAwait(false);
-                            logger.LogMetric("NotificationSent", 1, new Dictionary<string, object>() { { "ChannelId", chanId }, { "ChannelName", rawChan.Name } });
+                            try
+                            {
+                                await rawChan.SendMessageAsync(embeds: embedsToSend, messageReference: replyToMessage, options: discordRequestOptions).ConfigureAwait(false);
 
-                            channelsWhereWeAlreadyPostedIntoThreads.Add(chanId);
+                                logger.LogMetric("NotificationSent", 1,
+                                    new Dictionary<string, object>() {
+                                    { "ChannelId", chanId },
+                                    { "ChannelName", rawChan.Name },
+                                    { "Threaded", true }
+                                    });
+
+                                subscribers.RemoveSubscription(guildId, rawChan.Id);
+                            }
+                            catch (Exception e)
+                            {
+                                logger.LogError(e, "Error while trying to send threaded notification to channel {ChannelId} ({ChannelName})", chanId, rawChan.Name, e.Message);
+                            }
                         }
                         else
                         {
@@ -133,12 +147,6 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
             foreach (var subscriberChannelId in subscribers.SelectMany(i => i.Value))
             {
-                if (channelsWhereWeAlreadyPostedIntoThreads.Contains(subscriberChannelId))
-                {
-                    logger.SkippingPostingToSubscriberChannelIdBecauseWeAlreadyPostedToAThreadInThatChannel(subscriberChannelId);
-                    continue;
-                }
-
                 cancellationToken.ThrowIfCancellationRequested();
                 var targetChannel = await _discordClient.GetChannelAsync(subscriberChannelId, discordRequestOptions).ConfigureAwait(false);
                 Debug.Assert(targetChannel is not null);
@@ -157,7 +165,12 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
                     await StoreReplyToMessageAsync(message, msgChan, threadForMessage, replyToMessageId, cancellationToken);
 
-                    logger.LogMetric("NotificationSent", 1, new Dictionary<string, object>() { { "ChannelId", subscriberChannelId }, { "ChannelName", targetChannel.Name } });
+                    logger.LogMetric("NotificationSent", 1,
+                        new Dictionary<string, object>() {
+                            { "ChannelId", subscriberChannelId },
+                            { "ChannelName", targetChannel.Name },
+                            { "Threaded", false }
+                        });
                 }
                 else
                 {
