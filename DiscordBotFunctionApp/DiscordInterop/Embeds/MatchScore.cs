@@ -300,26 +300,37 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         while (breakdown is null && !cancellationToken.IsCancellationRequested)
         {
             await Task.Delay(TimeSpan.FromSeconds(10), time, cancellationToken).ConfigureAwait(false);
-            breakdown = (await matchApi.GetMatchAsync(detailedMatch.Key, cancellationToken: cancellationToken))?.ScoreBreakdown?.GetMatchScoreBreakdown2025();
-
-            if (time.GetElapsedTime(startTime).TotalMinutes >= 5)
+            try
             {
-                logger.LogWarning("Score breakdown for match {MatchKey} not available after 5 minutes", detailedMatch.Key);
-                return breakdown;
+                breakdown = (await matchApi.GetMatchAsync(detailedMatch.Key, cancellationToken: cancellationToken))?.ScoreBreakdown?.GetMatchScoreBreakdown2025();
+
+                if (time.GetElapsedTime(startTime).TotalMinutes >= 5)
+                {
+                    logger.LogWarning("Score breakdown for match {MatchKey} not available after 5 minutes", detailedMatch.Key);
+                    return breakdown;
+                }
+
+                if (breakdown is not null)
+                {
+                    if (breakdown.Red.Rp is null or > 6 or < 0)
+                    {
+                        logger.LogWarning("Invalid Red RP value for match {MatchKey}: {RpValue}", detailedMatch.Key, breakdown.Red.Rp);
+                        breakdown = null;
+                    }
+                    else if (breakdown.Blue.Rp is null or > 6 or < 0)
+                    {
+                        logger.LogWarning("Invalid Blue RP value for match {MatchKey}: {RpValue}", detailedMatch.Key, breakdown.Blue.Rp);
+                        breakdown = null;
+                    }
+                }
+                else
+                {
+                    logger.LogDebug("No score breakdown available for match {MatchKey}", detailedMatch.Key);
+                }
             }
-
-            if (breakdown is not null)
+            catch (Exception ex)
             {
-                if (breakdown.Red.Rp is null or > 6 or < 0)
-                {
-                    logger.LogWarning("Invalid Red RP value for match {MatchKey}: {RpValue}", detailedMatch.Key, breakdown.Red.Rp);
-                    breakdown = null;
-                }
-                else if (breakdown.Blue.Rp is null or > 6 or < 0)
-                {
-                    logger.LogWarning("Invalid Blue RP value for match {MatchKey}: {RpValue}", detailedMatch.Key, breakdown.Blue.Rp);
-                    breakdown = null;
-                }
+                logger.LogError(ex, "Error getting match data for {MatchKey}. Continuing to try...", detailedMatch.Key);
             }
         }
 
@@ -396,32 +407,40 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             var season = eventPieces.Groups[1].Value;
 
             var firstTourneyLevel = ((notificationMatch?.CompLevel ?? detailedMatch.CompLevel) is Match.CompLevelEnum.Qm) ? TournamentLevel.Qualification : TournamentLevel.Playoff;
-            var eventSchedule = await schedule.SeasonScheduleEventCodeGetAsync(eventCode, season, tournamentLevel: firstTourneyLevel, cancellationToken: cancellationToken);
-            Debug.Assert(eventSchedule is not null, "We expect to find the event in the schedule using the event code & season");
-            if (eventSchedule is not null)
+            try
             {
-                string compLevel = notificationMatch?.CompLevel.ToInvariantString() ?? detailedMatch.CompLevel.ToInvariantString();
-                var matchNumber = notificationMatch?.MatchNumber ?? detailedMatch.MatchNumber;
-                var thisMatch = eventSchedule.Schedule.FirstOrDefault(i => i.MatchNumber == matchNumber);
-                Debug.Assert(thisMatch is not null, "We expect to find the match in the schedule using the comp level & the match number");
-                if (thisMatch is not null)
+                var eventSchedule = await schedule.SeasonScheduleEventCodeGetAsync(eventCode, season, tournamentLevel: firstTourneyLevel, cancellationToken: cancellationToken);
+                Debug.Assert(eventSchedule is not null, "We expect to find the event in the schedule using the event code & season");
+                if (eventSchedule is not null)
                 {
-                    var lastEventOfEachDay = eventSchedule.Schedule
-                        .GroupBy(i => i.StartTime.GetValueOrDefault(DateTimeOffset.MinValue).Date)
-                        .Select(i => i.MaxBy(j => j.StartTime.GetValueOrDefault(DateTimeOffset.MinValue))!);
-                    if (lastEventOfEachDay.Any(i => i.MatchNumber == thisMatch.MatchNumber))
+                    string compLevel = notificationMatch?.CompLevel.ToInvariantString() ?? detailedMatch.CompLevel.ToInvariantString();
+                    var matchNumber = notificationMatch?.MatchNumber ?? detailedMatch.MatchNumber;
+                    var thisMatch = eventSchedule.Schedule.FirstOrDefault(i => i.MatchNumber == matchNumber);
+                    Debug.Assert(thisMatch is not null, "We expect to find the match in the schedule using the comp level & the match number");
+                    if (thisMatch is not null)
                     {
-                        descriptionBuilder.AppendLine("### That's it for today! Matches will continue tomorrow.");
+                        var lastEventOfEachDay = eventSchedule.Schedule
+                            .GroupBy(i => i.StartTime.GetValueOrDefault(DateTimeOffset.MinValue).Date)
+                            .Select(i => i.MaxBy(j => j.StartTime.GetValueOrDefault(DateTimeOffset.MinValue))!);
+                        if (lastEventOfEachDay.Any(i => i.MatchNumber == thisMatch.MatchNumber))
+                        {
+                            descriptionBuilder.AppendLine("### That's it for today! Matches will continue tomorrow.");
+                        }
+                    }
+                    else
+                    {
+                        logger.WeCouldNotFindTheMatchInTheScheduleUsingTheCompLevelCompLevelTheMatchNumberMatchNumber(compLevel, matchNumber);
                     }
                 }
                 else
                 {
-                    logger.WeCouldNotFindTheMatchInTheScheduleUsingTheCompLevelCompLevelTheMatchNumberMatchNumber(compLevel, matchNumber);
+                    logger.WeCouldNotFindTheEventInTheScheduleUsingTheEventCodeEventCodeSeasonSeason(eventCode, season);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                logger.WeCouldNotFindTheEventInTheScheduleUsingTheEventCodeEventCodeSeasonSeason(eventCode, season);
+                Debug.Fail(ex.Message);
+                logger.LogError(ex, "Error getting event schedule for {EventKey}", notificationMatch?.EventKey ?? detailedMatch.EventKey);
             }
         }
     }
