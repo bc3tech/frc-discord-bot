@@ -37,6 +37,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
                                          TeamRepository teams,
                                          EmbedBuilderFactory builderFactory,
                                          ChatRunner gpt,
+                                         TimeProvider time,
                                          ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<(string matchKey, bool summarize)>
 {
     public const NotificationType TargetType = NotificationType.match_score;
@@ -199,7 +200,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
         int[] allianceRanks = await GetAllianceRanksAsync(detailedMatch, alliances, cancellationToken).ConfigureAwait(false);
 
-        var scoreBreakdown = notificationMatch?.ScoreBreakdown?.GetMatchScoreBreakdown2025() ?? detailedMatch.ScoreBreakdown?.GetMatchScoreBreakdown2025();
+        var scoreBreakdown = await GetScoreBreakdownAsync(notificationMatch, detailedMatch, cancellationToken).ConfigureAwait(false);
         var ranks = (await eventApi.GetEventRankingsAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))?.Rankings
             .Where(i => allTeamKeys.Contains(i.TeamKey))
             .ToDictionary(i => i.TeamKey, i => i.Rank);
@@ -289,6 +290,45 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 #pragma warning disable EA0001 // Perform message formatting in the body of the logging method
         logger.EmbeddingNameBuiltEmbeddingDetail(nameof(MatchScore), descriptionBuilder.ToString());
 #pragma warning restore EA0001 // Perform message formatting in the body of the logging method
+    }
+
+    private async Task<MatchScoreBreakdown2025?> GetScoreBreakdownAsync(Match? notificationMatch, Match detailedMatch, CancellationToken cancellationToken)
+    {
+        var startTime = time.GetTimestamp();
+        var breakdown = notificationMatch?.ScoreBreakdown?.GetMatchScoreBreakdown2025() ?? detailedMatch.ScoreBreakdown?.GetMatchScoreBreakdown2025();
+
+        while (breakdown is null && !cancellationToken.IsCancellationRequested)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(10), time, cancellationToken).ConfigureAwait(false);
+            breakdown = (await matchApi.GetMatchAsync(detailedMatch.Key, cancellationToken: cancellationToken))?.ScoreBreakdown?.GetMatchScoreBreakdown2025();
+
+            if (time.GetElapsedTime(startTime).TotalMinutes >= 5)
+            {
+                logger.LogWarning("Score breakdown for match {MatchKey} not available after 5 minutes", detailedMatch.Key);
+                return breakdown;
+            }
+
+            if (breakdown is not null)
+            {
+                if (breakdown.Red.Rp is null or > 6 or < 0)
+                {
+                    logger.LogWarning("Invalid Red RP value for match {MatchKey}: {RpValue}", detailedMatch.Key, breakdown.Red.Rp);
+                    breakdown = null;
+                }
+                else if (breakdown.Blue.Rp is null or > 6 or < 0)
+                {
+                    logger.LogWarning("Invalid Blue RP value for match {MatchKey}: {RpValue}", detailedMatch.Key, breakdown.Blue.Rp);
+                    breakdown = null;
+                }
+            }
+        }
+
+        if (breakdown is not null)
+        {
+            logger.LogMetric("ScoreBreakdownAvailableTimeSec", time.GetElapsedTime(startTime).TotalSeconds, new Dictionary<string, object> { { "MatchKey", detailedMatch.Key } });
+        }
+
+        return breakdown;
     }
 
     [GeneratedRegex(@"\d+")]
