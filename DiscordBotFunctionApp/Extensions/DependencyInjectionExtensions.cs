@@ -15,13 +15,13 @@ internal static class DependencyInjectionExtensions
         // So remove the default logger rule (warning and above). This will result that the default will be Information.
         services.Configure<LoggerFilterOptions>(options =>
         {
-            var toRemove = options.Rules.FirstOrDefault(rule => rule.ProviderName
-                is "Microsoft.Extensions.Logging.ApplicationInsights.ApplicationInsightsLoggerProvider");
+            //var toRemove = options.Rules.FirstOrDefault(rule => rule.ProviderName
+            //    is "Microsoft.Extensions.Logging.ApplicationInsights.ApplicationInsightsLoggerProvider");
 
-            if (toRemove is not null)
-            {
-                options.Rules.Remove(toRemove);
-            }
+            //if (toRemove is not null)
+            //{
+            //    options.Rules.Remove(toRemove);
+            //}
         });
 
         return services;
