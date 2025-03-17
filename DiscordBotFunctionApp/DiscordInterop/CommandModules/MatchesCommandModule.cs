@@ -118,7 +118,7 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         {
             ResponseEmbedding[] embeds = [];
 
-            await foreach (var m in matchScoreEmbeddingGenerator.CreateAsync(($"{eventKey}_{matchKey}", false)).ConfigureAwait(false))
+            await foreach (var m in matchScoreEmbeddingGenerator.CreateAsync(($"{eventKey}_{matchKey}", summarize)).ConfigureAwait(false))
             {
                 if (m is null)
                 {
