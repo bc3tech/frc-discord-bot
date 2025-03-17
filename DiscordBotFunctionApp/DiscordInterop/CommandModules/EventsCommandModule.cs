@@ -19,7 +19,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
     private readonly IEmbedCreator<string> _embedCreator = services.GetRequiredKeyedService<IEmbedCreator<string>>(nameof(EventDetail));
 
     [SlashCommand("get-details", "Gets details about an event")]
-    public async Task ShowAsync(
+    public async Task GetDetailsAsync(
         [Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string eventKey,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
