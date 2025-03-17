@@ -10,7 +10,7 @@ internal static class DependencyInjectionExtensions
 {
     public static IServiceCollection ConfigureFIRSTApi(this IServiceCollection services)
     {
-        var httpClient = new HttpClient();
+        var httpClient = services.BuildServiceProvider().GetRequiredService<IHttpClientFactory>().CreateClient(Constants.ServiceKeys.FIRSTHttpClient);
 
         return services
             .AddSingleton(sp =>
