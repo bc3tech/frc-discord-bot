@@ -19,12 +19,12 @@ using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchSimpleExtensions;
 
 internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
-                                            TheBlueAlliance.Api.IMatchApi tbaApi,
+                                            TheBlueAlliance.Api.IMatchApi matchApi,
                                             Statbotics.Api.IMatchApi matchStats,
                                             EventRepository events,
                                             TeamRepository teams,
                                             EmbedBuilderFactory builderFactory,
-                                            ILogger<UpcomingMatch> logger) : INotificationEmbedCreator, IEmbedCreator<string>
+                                            ILogger<UpcomingMatch> logger) : INotificationEmbedCreator, IEmbedCreator<(string eventKey, string teamKey)>
 {
     public const NotificationType TargetType = NotificationType.upcoming_match;
 
@@ -46,7 +46,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
             yield break;
         }
 
-        var detailedMatch = await tbaApi.GetMatchSimpleAsync(notification.match_key, cancellationToken: cancellationToken).ConfigureAwait(false);
+        var detailedMatch = await matchApi.GetMatchSimpleAsync(notification.match_key, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (detailedMatch is null)
         {
             logger.FailedToRetrieveDetailedMatchDataForMatchKey(notification.match_key);
@@ -93,20 +93,21 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
         yield return new(embedding.Build());
     }
 
-    public IAsyncEnumerable<ResponseEmbedding?> CreateNextMatchEmbeddingsAsync(string matchKey, ushort? highlightTeam = null, CancellationToken cancellationToken = default) => CreateAsync(matchKey, highlightTeam, cancellationToken);
-
-    public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync(string matchKey, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync((string eventKey, string teamKey) input, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var baseBuilder = builderFactory.GetBuilder(highlightTeam);
 
-        if (string.IsNullOrWhiteSpace(matchKey))
+        var (eventKey, teamKey) = input;
+        var matches = await matchApi.GetTeamEventMatchesAsync(eventKey, teamKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+        if (matches is null)
         {
-            logger.MatchKeyIsMissingFromNotificationData();
-            yield return null;
+            yield return new(baseBuilder.WithDescription("No upcoming matches found.").Build());
             yield break;
         }
 
-        var simpleMatch = await tbaApi.GetMatchSimpleAsync(matchKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+        var nextMatch = matches.OrderBy(i => i.MatchNumber).First(i => i.ActualTime is null);
+        var matchKey = nextMatch.Key;
+        var simpleMatch = await matchApi.GetMatchSimpleAsync(matchKey, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (simpleMatch is null)
         {
             logger.FailedToRetrieveDetailedMatchDataForMatchKey(matchKey);
@@ -126,7 +127,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
             **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds(simpleMatch.PredictedTime.GetValueOrDefault(0)).ToPacificTime():t}**
             """);
 
-        var matchVideoData = await tbaApi.GetMatchAsync(simpleMatch.Key, cancellationToken: cancellationToken).ConfigureAwait(false);
+        var matchVideoData = await matchApi.GetMatchAsync(simpleMatch.Key, cancellationToken: cancellationToken).ConfigureAwait(false);
         await BuildDescriptionAsync(descriptionBuilder, highlightTeam, simpleMatch, cancellationToken, beforeFooter: addMatchVideos);
 
         void addMatchVideos(StringBuilder builder)

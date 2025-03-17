@@ -23,7 +23,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
         [Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string eventKey,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        using var typing = await TryDeferAsync().ConfigureAwait(false);
+        using var typing = await TryDeferAsync(!post).ConfigureAwait(false);
         if (typing is null)
         {
             return;

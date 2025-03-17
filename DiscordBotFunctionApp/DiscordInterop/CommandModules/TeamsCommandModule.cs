@@ -19,7 +19,7 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
     [SlashCommand("get-details", "Gets details about a team")]
     public async Task ShowAsync([Summary("team"), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))] string teamKey, [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        using var typing = await TryDeferAsync().ConfigureAwait(false);
+        using var typing = await TryDeferAsync(!post).ConfigureAwait(false);
         if (typing is null)
         {
             return;
@@ -48,7 +48,7 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
         [Summary("year", "Year to get rank, default: current year")] ushort? year = null,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        using var typing = await TryDeferAsync().ConfigureAwait(false);
+        using var typing = await TryDeferAsync(!post).ConfigureAwait(false);
         if (typing is null)
         {
             return;
