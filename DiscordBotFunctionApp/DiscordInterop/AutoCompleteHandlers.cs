@@ -46,7 +46,7 @@ internal sealed class AutoCompleteHandlers
 #pragma warning disable EA0011 // Consider removing unnecessary conditional access operator (?) - found instances where, even though decorated with [JsonRequired] and not nullable, values were coming through as `null`
                 return Task.FromResult(AutocompletionResult.FromSuccess(
                     eventsRepo.AllEvents
-                        .OrderByDescending(i => i.Value.Year)
+                        .OrderByDescending(i => i.Value.StartDate > DateOnly.FromDateTime(TimeProvider.System.GetUtcNow().ToPacificTime().Date) ? DateOnly.MinValue : i.Value.StartDate)
                         .ThenBy(i => i.Value.ShortName)
                         .Where(i => i.Key.Contains(userSearchString, StringComparison.OrdinalIgnoreCase)
                             || i.Value.Name?.Contains(userSearchString, StringComparison.OrdinalIgnoreCase) is true
