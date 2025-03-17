@@ -13,6 +13,7 @@ using Polly;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -124,23 +125,25 @@ internal sealed partial class CustomJsonCodec
 
         cancellationToken.ThrowIfCancellationRequested();
 
+        string contentString = await response.Content.ReadAsStringAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
         if (type.Name.StartsWith("System.Nullable`1[[System.DateTime", StringComparison.Ordinal)) // return a datetime object
         {
-            return DateTime.Parse(await response.Content.ReadAsStringAsync(cancellationToken: cancellationToken).ConfigureAwait(false), null, System.Globalization.DateTimeStyles.RoundtripKind);
+            return DateTime.Parse(contentString, null, System.Globalization.DateTimeStyles.RoundtripKind);
         }
 
         if (type == typeof(string) || type.Name.StartsWith("System.Nullable", StringComparison.Ordinal)) // return primitive type
         {
-            return Convert.ChangeType(await response.Content.ReadAsStringAsync(cancellationToken: cancellationToken).ConfigureAwait(false), type);
+            return Convert.ChangeType(contentString, type);
         }
 
         // at this point, it must be a model (json)
         try
         {
-            return JsonSerializer.Deserialize(await response.Content.ReadAsStringAsync(cancellationToken: cancellationToken).ConfigureAwait(false), type, _serializerSettings);
+            return JsonSerializer.Deserialize(contentString, type, _serializerSettings);
         }
         catch (Exception e)
         {
+            Debug.Fail(e.Message);
             throw new ApiException(500, e.Message);
         }
     }
@@ -470,21 +473,32 @@ public sealed partial class ApiClient : ISynchronousClient, IAsynchronousClient
                 return await ToApiResponseAsync<T>(response, default, req.RequestUri, cancellationToken: finalToken).ConfigureAwait(false);
             }
 
-            T? responseData = await deserializer.DeserializeAsync<T>(response, cancellationToken: finalToken).ConfigureAwait(false);
-
-            // if the response type is oneOf/anyOf, call FromJSON to deserialize the data
-            if (typeof(Model.AbstractOpenAPISchema).IsAssignableFrom(typeof(T)))
+            try
             {
-                responseData = (T?)typeof(T).GetMethod("FromJson")?.Invoke(null, [response.Content]);
+                T? responseData = await deserializer.DeserializeAsync<T>(response, cancellationToken: finalToken).ConfigureAwait(false);
+
+                if (responseData is not null)
+                {
+                    // if the response type is oneOf/anyOf, call FromJSON to deserialize the data
+                    if (typeof(Model.AbstractOpenAPISchema).IsAssignableFrom(typeof(T)))
+                    {
+                        responseData = (T?)typeof(T).GetMethod("FromJson")?.Invoke(null, [response.Content]);
+                    }
+                    else if (typeof(T).Name is "Stream") // for binary response
+                    {
+                        responseData = (T?)(object)await response.Content.ReadAsStreamAsync(cancellationToken: finalToken).ConfigureAwait(false);
+                    }
+                }
+
+                InterceptResponse(req, response);
+
+                return await ToApiResponseAsync(response, responseData, req.RequestUri, cancellationToken: finalToken).ConfigureAwait(false);
             }
-            else if (typeof(T).Name is "Stream") // for binary response
+            catch (Exception e)
             {
-                responseData = (T?)(object)await response.Content.ReadAsStreamAsync(cancellationToken: finalToken).ConfigureAwait(false);
+                Debug.Fail(e.Message);
+                throw;
             }
-
-            InterceptResponse(req, response);
-
-            return await ToApiResponseAsync(response, responseData, req.RequestUri, cancellationToken: finalToken).ConfigureAwait(false);
         }
         catch (OperationCanceledException original)
         {
