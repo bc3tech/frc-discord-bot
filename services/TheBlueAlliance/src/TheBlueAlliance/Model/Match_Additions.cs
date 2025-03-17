@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 using TheBlueAlliance.Model.MatchExtensions;
 
@@ -11,7 +12,9 @@ public partial record Match
     public int? GetAllianceRankingPoints(WinningAllianceEnum allianceColor)
     {
         var alliance = this.ScoreBreakdown?.ActualInstance!.GetType().GetProperty(allianceColor.ToInvariantString())!.GetValue(this.ScoreBreakdown.ActualInstance);
+        Debug.Assert(alliance is not null);
         var rpValue = (int?)alliance?.GetType().GetProperty("Rp")?.GetValue(alliance);
+        Debug.Assert(rpValue is not null);
         return CorrectRpValue(rpValue);
     }
 
