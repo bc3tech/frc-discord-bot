@@ -31,7 +31,7 @@ public sealed record EventSchedule
     public sealed record TeamObj
     {
         [JsonPropertyName("teamNumber")]
-        public int TeamNumber { get; init; }
+        public int? TeamNumber { get; init; }
 
         [JsonPropertyName("station")]
         public string? Station { get; init; }
