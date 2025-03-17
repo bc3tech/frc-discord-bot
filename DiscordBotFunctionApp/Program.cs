@@ -2,6 +2,7 @@ namespace DiscordBotFunctionApp;
 using Azure.Core;
 using Azure.Data.Tables;
 using Azure.Identity;
+using Azure.Monitor.OpenTelemetry.AspNetCore;
 using Azure.Storage.Blobs;
 
 using DiscordBotFunctionApp.Apis;
@@ -16,6 +17,7 @@ using DiscordBotFunctionApp.Subscription;
 using DiscordBotFunctionApp.TbaInterop;
 
 using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.OpenTelemetry;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -53,6 +55,11 @@ internal sealed class Program
                     includeInteractiveCredentials: true
 #endif
                     );
+
+                services
+                    .AddOpenTelemetry()
+                    .UseAzureMonitor()
+                    .UseFunctionsWorkerDefaults();
 
                 services
                     .AddApplicationInsightsTelemetryWorkerService()

@@ -5,13 +5,13 @@
     "applicationInsights": {
       "samplingSettings": {
         "isEnabled": false,
-        "excludedTypes": "Request,Exception"
-      },
-      "enableLiveMetricsFilters": true
+        "excludedTypes": "Request;Exception"
+      }
     },
     "logLevel": {
       "default": "Information",
       "Function": "Information"
     }
-  }
+  },
+  "telemetryMode": "openTelemetry"
 }
