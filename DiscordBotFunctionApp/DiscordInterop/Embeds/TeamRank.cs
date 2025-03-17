@@ -18,6 +18,7 @@ using System.Text;
 using System.Threading;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Model;
 
 internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                                TeamRepository teams,
@@ -45,6 +46,8 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
 
         var teamNumberStr = highlightTeam.Value.ToString();
         yield return new(new EmbedBuilder().WithTitle($"{targetYear} Ranking detail for {teams[teamKey].GetLabel(includeLocation: false, asMarkdownLink: false)}").WithUrl($"https://frc.link/tba/{highlightTeam}").Build());
+
+        yield return new(new EmbedBuilder().WithTitle("Getting district-wide data...").Build(), Transient: true);
 
         var embedding = builderFactory.GetBuilder(teamKey);
         var descriptionBuilder = new StringBuilder();
@@ -118,7 +121,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                         foreach (var e in tbaTeamRank.EventPoints)
                         {
                             descriptionBuilder.AppendLine($"**{events[e.EventKey].GetLabel()}**");
-                            addEventDistrictPointsForEvent(descriptionBuilder, e);
+                            addDistrictRankingEventPointsForEvent(descriptionBuilder, e);
 
                             yield return new(embedding.WithDescription(descriptionBuilder.ToString()).Build());
                             descriptionBuilder.Clear();
@@ -130,12 +133,15 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
 
         if (!string.IsNullOrWhiteSpace(input.EventKey))
         {
-            descriptionBuilder.AppendLine($"## {events[input.EventKey].GetLabel()}\n");
+            string eventLabel = events[input.EventKey].GetLabel();
+            yield return new(new EmbedBuilder().WithTitle($"Getting event data for {eventLabel}...").Build(), Transient: true);
+
+            descriptionBuilder.AppendLine($"## {eventLabel}\n");
             var eventDetail = events[input.EventKey];
             Debug.Assert(eventDetail is not null);
             if (eventDetail is null)
             {
-                descriptionBuilder.AppendLine($"No data found for {teams[teamKey].GetLabel()} at {events[input.EventKey].GetLabel()}");
+                descriptionBuilder.AppendLine($"No data found for {teams[teamKey].GetLabel()} at {eventLabel}");
             }
             else
             {
@@ -143,7 +149,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                 Debug.Assert(eventRankings is not null);
                 if (eventRankings is null)
                 {
-                    descriptionBuilder.AppendLine($"No data found for {teams[teamKey].GetLabel()} at {events[input.EventKey].GetLabel()}");
+                    descriptionBuilder.AppendLine($"No data found for {teams[teamKey].GetLabel()} at {eventLabel}");
                 }
                 else
                 {
@@ -151,7 +157,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                     Debug.Assert(teamRanking is not null);
                     if (teamRanking is null)
                     {
-                        descriptionBuilder.AppendLine($"No data found for {teams[teamKey].GetLabel()} at {events[input.EventKey].GetLabel()}");
+                        descriptionBuilder.AppendLine($"No data found for {teams[teamKey].GetLabel()} at {eventLabel}");
                     }
                     else
                     {
@@ -160,16 +166,14 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                         descriptionBuilder.AppendLine($"Avg Qual Match Score: {teamRanking.QualAverage}");
                         descriptionBuilder.AppendLine($"DQ count: {teamRanking.Dq}");
 
-                        var teamDistrict = await tbaDistrictData.GetTeamDistrictsAsync(teamKey, cancellationToken: cancellationToken).ConfigureAwait(false);
-                        if (teamDistrict is not null and { Count: > 0 })
+                        var eventPoints = await tbaDistrictData.GetEventDistrictPointsAsync(input.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+                        if (eventPoints is not null)
                         {
-                            var tbaRanks = await tbaDistrictData.GetDistrictRankingsAsync(teamDistrict.First().Key, cancellationToken: cancellationToken).ConfigureAwait(false);
-                            var tbaTeamRank = tbaRanks?.FirstOrDefault(tbaRanks => tbaRanks.TeamKey == teamKey);
-                            var eventRank = tbaTeamRank?.EventPoints?.FirstOrDefault(i => i.EventKey == input.EventKey);
-                            if (eventRank is not null)
+                            var districtPointsForTeamAtEvent = eventPoints.Points[teamKey];
+                            if (districtPointsForTeamAtEvent is not null)
                             {
                                 descriptionBuilder.AppendLine($"District Points: {teamRanking.MatchesPlayed}");
-                                addEventDistrictPointsForEvent(descriptionBuilder, eventRank);
+                                addEventDistrictPointsForEvent(descriptionBuilder, districtPointsForTeamAtEvent);
                             }
                             else
                             {
@@ -187,7 +191,15 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
             yield return new(embedding.WithDescription(descriptionBuilder.ToString()).Build());
         }
 
-        static void addEventDistrictPointsForEvent(StringBuilder descriptionBuilder, TheBlueAlliance.Model.DistrictRankingEventPointsInner e)
+        static void addEventDistrictPointsForEvent(StringBuilder descriptionBuilder, EventDistrictPointsPointsValue e)
+        {
+            descriptionBuilder.AppendLine($"- Alliance: {e.AlliancePoints}");
+            descriptionBuilder.AppendLine($"- Quals: {e.QualPoints}");
+            descriptionBuilder.AppendLine($"- Elims: {e.ElimPoints}");
+            descriptionBuilder.AppendLine($"- Awards: {e.AwardPoints}");
+        }
+
+        static void addDistrictRankingEventPointsForEvent(StringBuilder descriptionBuilder, DistrictRankingEventPointsInner e)
         {
             descriptionBuilder.AppendLine($"- Alliance: {e.AlliancePoints}");
             descriptionBuilder.AppendLine($"- Quals: {e.QualPoints}");
