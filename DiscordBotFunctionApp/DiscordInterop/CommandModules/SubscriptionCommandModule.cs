@@ -30,7 +30,8 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
     [SlashCommand("show", "Shows the current subscriptions")]
     public async Task ShowAsync()
     {
-        if (!await TryDeferAsync().ConfigureAwait(false))
+        using var typing = await TryDeferAsync().ConfigureAwait(false);
+        if (typing is null)
         {
             return;
         }
@@ -73,7 +74,8 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
         [Summary("team", "Team to subscribe to, 'all' if not specified."), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))] string? teamKey = null,
         [Summary("event", "Event to subscribe to, 'all' if not specified."), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string? eventKey = null)
     {
-        if (!await TryDeferAsync().ConfigureAwait(false))
+        using var typing = await TryDeferAsync().ConfigureAwait(false);
+        if (typing is null)
         {
             return;
         }
@@ -120,7 +122,8 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
     [SlashCommand("delete", "Deletes a subscription to a team/event for the current channel")]
     public async Task DeleteAsync()
     {
-        if (!await TryDeferAsync().ConfigureAwait(false))
+        using var typing = await TryDeferAsync().ConfigureAwait(false);
+        if (typing is null)
         {
             return;
         }

@@ -23,7 +23,8 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
         [Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string eventKey,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        if (!await TryDeferAsync(!post).ConfigureAwait(false))
+        using var typing = await TryDeferAsync().ConfigureAwait(false);
+        if (typing is null)
         {
             return;
         }
@@ -46,7 +47,8 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
         [Summary("channel", "The channel where users can chat about the event")] IMessageChannel? channel = null,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        if (!await TryDeferAsync(!post).ConfigureAwait(false))
+        using var typing = await TryDeferAsync().ConfigureAwait(false);
+        if (typing is null)
         {
             return;
         }

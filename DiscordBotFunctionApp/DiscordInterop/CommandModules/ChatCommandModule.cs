@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using System;
+using System.Data;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -25,7 +26,8 @@ public sealed class ChatCommandModule(ILogger<ChatCommandModule> logger) : Comma
     [SlashCommand("reset", "Resets your personal (DM) chat thread; makes me forget everything we've talked about!")]
     public async Task ResetThreadAsync()
     {
-        if (!await TryDeferAsync().ConfigureAwait(false))
+        using var typing = await TryDeferAsync().ConfigureAwait(false);
+        if (typing is null)
         {
             return;
         }
@@ -48,8 +50,6 @@ public sealed class ChatCommandModule(ILogger<ChatCommandModule> logger) : Comma
             p.Embed = embed;
             p.Components = buttons.Build();
         }).ConfigureAwait(false);
-
-        return;
     }
 
     internal static async Task HandleButtonClickAsync(IServiceProvider services, SocketMessageComponent button)

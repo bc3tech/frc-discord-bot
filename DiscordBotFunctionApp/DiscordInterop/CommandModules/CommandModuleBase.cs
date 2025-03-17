@@ -49,17 +49,17 @@ public abstract class CommandModuleBase(ILogger logger) : InteractionModuleBase
         }
     }
 
-    protected async Task<bool> TryDeferAsync(bool ephemeral = false, CancellationToken cancellationToken = default)
+    protected async Task<IDisposable?> TryDeferAsync(bool ephemeral = false, CancellationToken cancellationToken = default)
     {
         try
         {
             await this.DeferAsync(ephemeral: ephemeral, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
-            return true;
+            return this.Context.Channel.EnterTypingState();
         }
         catch (HttpException e) when (e.DiscordCode is DiscordErrorCode.UnknownInteraction or DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged)
         {
             this.Logger.InteractionAlreadyAcknowledgedSkippingResponse();
-            return false;
+            return null;
         }
     }
 }

@@ -30,12 +30,12 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         [Summary("team"), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))] string teamKey,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        if (!await TryDeferAsync(!post).ConfigureAwait(false))
+        using var typing = await TryDeferAsync().ConfigureAwait(false);
+        if (typing is null)
         {
             return;
         }
 
-        await this.DeferAsync(ephemeral: !post).ConfigureAwait(false);
         using var scope = this.Logger.CreateMethodScope();
         try
         {
@@ -101,7 +101,8 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         [Summary("summarize", "Create a 'ChatGPT' style summary?")] bool summarize = false,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        if (!await TryDeferAsync(!post).ConfigureAwait(false))
+        using var typing = await TryDeferAsync().ConfigureAwait(false);
+        if (typing is null)
         {
             return;
         }
