@@ -469,4 +469,7 @@ static partial class Log
 
     [LoggerMessage(153, LogLevel.Warning, "Duplicate webhook payload")]
     internal static partial void DuplicateWebhookPayload(this ILogger logger);
+
+    [LoggerMessage(154, LogLevel.Error, "Error during response geneation")]
+    internal static partial void ErrorDuringResponseGeneation(this ILogger logger, Exception exception);
 }
