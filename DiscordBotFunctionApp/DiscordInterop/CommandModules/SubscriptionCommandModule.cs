@@ -10,6 +10,7 @@ using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.Subscription;
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Client;
 using Microsoft.Net.Http.Headers;
@@ -20,7 +21,7 @@ using System.Text;
 using System.Text.Json;
 
 [Group("subscription", "Manages subscriptions to FRC events and teams")]
-public sealed class SubscriptionCommandModule(IServiceProvider services) : InteractionModuleBase
+public sealed class SubscriptionCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<SubscriptionCommandModule>>())
 {
     private readonly SubscriptionManager _subscriptionManager = services.GetRequiredService<SubscriptionManager>();
     private readonly EventRepository _eventsRepo = services.GetRequiredService<EventRepository>();
@@ -29,8 +30,12 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Inter
     [SlashCommand("show", "Shows the current subscriptions")]
     public async Task ShowAsync()
     {
-        await this.DeferAsync(ephemeral: true).ConfigureAwait(false);
+        if (!await TryDeferAsync().ConfigureAwait(false))
+        {
+            return;
+        }
 
+        using var scope = this.Logger.CreateMethodScope();
         HashSet<(string, ushort?)> currentSubs = [];
         await foreach (var sub in _subscriptionManager.GetSubscriptionsForGuildAsync(this.Context.Interaction.GuildId, default)
             .Where(i => i.ChannelId == this.Context.Interaction.ChannelId!.Value))
@@ -68,7 +73,12 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Inter
         [Summary("team", "Team to subscribe to, 'all' if not specified."), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))] string? teamKey = null,
         [Summary("event", "Event to subscribe to, 'all' if not specified."), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string? eventKey = null)
     {
-        await this.DeferAsync(ephemeral: true).ConfigureAwait(false);
+        if (!await TryDeferAsync().ConfigureAwait(false))
+        {
+            return;
+        }
+
+        using var scope = this.Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(eventKey) && string.IsNullOrWhiteSpace(teamKey))
         {
             await this.ModifyOriginalResponseAsync(p => p.Content = "At least one of Event or Team is required.").ConfigureAwait(false);
@@ -110,8 +120,12 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Inter
     [SlashCommand("delete", "Deletes a subscription to a team/event for the current channel")]
     public async Task DeleteAsync()
     {
-        await this.DeferAsync(ephemeral: true).ConfigureAwait(false);
+        if (!await TryDeferAsync().ConfigureAwait(false))
+        {
+            return;
+        }
 
+        using var scope = this.Logger.CreateMethodScope();
         var activeSubsForChannel = await _subscriptionManager.GetSubscriptionsForGuildAsync(this.Context.Interaction.GuildId, default)
             .Where(i => i.ChannelId == this.Context.Interaction.ChannelId!.Value)
             .ToArrayAsync();
@@ -169,8 +183,6 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Inter
         var subToDelete = new NotificationSubscription(ulong.TryParse(guild, out var g) ? g : null, channel, evt, ushort.TryParse(team, out var t) ? t : null);
         await subscriptionManager.RemoveSubscriptionAsync(subToDelete, default);
 
-        try
-        {
             EventRepository events = services.GetRequiredService<EventRepository>();
             TeamRepository teams = services.GetRequiredService<TeamRepository>();
 
@@ -191,6 +203,8 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Inter
             Debug.Assert(newMenu.Options.RemoveAll(i => i.Value == value) is 1);
             rowWithSelectMenuAndOption.Components[indexOfOldSelectMenu] = newMenu.Build();
 
+        try
+        {
             await menuSelection.UpdateAsync(p =>
             {
                 p.Content = $"**Subscription for `{MakeLabelForSubscription(subToDelete, events, teams)}` deleted.**";

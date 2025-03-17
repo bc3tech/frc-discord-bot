@@ -14,19 +14,21 @@ using Microsoft.Extensions.Logging;
 using System.Text;
 
 [Group("events", "Gets information about FRC events")]
-public sealed class EventsCommandModule(IServiceProvider services) : CommandModuleBase
+public sealed class EventsCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<EventsCommandModule>>())
 {
     private readonly IEmbedCreator<string> _embedCreator = services.GetRequiredKeyedService<IEmbedCreator<string>>(nameof(EventDetail));
-    private readonly ILogger _logger = services.GetRequiredService<ILogger<EventsCommandModule>>();
 
     [SlashCommand("get-details", "Gets details about an event")]
     public async Task ShowAsync(
         [Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string eventKey,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        await DeferAsync(ephemeral: !post).ConfigureAwait(false);
+        if (!await TryDeferAsync(!post).ConfigureAwait(false))
+        {
+            return;
+        }
 
-        using IDisposable scope = _logger.CreateMethodScope();
+        using IDisposable scope = this.Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(eventKey))
         {
             await ModifyOriginalResponseAsync(p => p.Content = "Event key is required.").ConfigureAwait(false);
@@ -44,9 +46,12 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
         [Summary("channel", "The channel where users can chat about the event")] IMessageChannel? channel = null,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        await DeferAsync(ephemeral: !post).ConfigureAwait(false);
+        if (!await TryDeferAsync(!post).ConfigureAwait(false))
+        {
+            return;
+        }
 
-        using IDisposable scope = _logger.CreateMethodScope();
+        using IDisposable scope = this.Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(eventKey))
         {
             await ModifyOriginalResponseAsync(p => p.Content = "Event key is required.").ConfigureAwait(false);
@@ -122,7 +127,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
         }
         catch (Exception ex)
         {
-            _logger.ThereWasAnErrorCreatingAGuildEventForEventKeyInGuildGuildNameGuildId(ex, eventKey, Context.Guild.Name, Context.Guild.Id);
+            this.Logger.ThereWasAnErrorCreatingAGuildEventForEventKeyInGuildGuildNameGuildId(ex, eventKey, Context.Guild.Name, Context.Guild.Id);
             await ModifyOriginalResponseAsync(p => p.Content = "An error occurred while creating the event. Try again or contact your admin to investigate.").ConfigureAwait(false);
         }
     }

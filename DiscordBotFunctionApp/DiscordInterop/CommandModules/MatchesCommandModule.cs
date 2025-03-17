@@ -18,11 +18,10 @@ using TheBlueAlliance.Api;
 using TheBlueAlliance.Model;
 
 [Group("matches", "Gets information about FRC matches")]
-public sealed class MatchesCommandModule(IServiceProvider services) : CommandModuleBase
+public sealed class MatchesCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<EventsCommandModule>>())
 {
     private readonly UpcomingMatch embeddingCreator = (UpcomingMatch)services.GetRequiredKeyedService<IEmbedCreator<string>>(nameof(UpcomingMatch));
     private readonly MatchScore matchScoreEmbeddingGenerator = (MatchScore)services.GetRequiredKeyedService<IEmbedCreator<(string, bool)>>(nameof(MatchScore));
-    private readonly ILogger _logger = services.GetRequiredService<ILogger<EventsCommandModule>>();
     private readonly IMatchApi _matchApi = services.GetRequiredService<IMatchApi>();
 
     [SlashCommand("next", "Gets the next match for a team at an event")]
@@ -31,8 +30,13 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         [Summary("team"), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))] string teamKey,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
+        if (!await TryDeferAsync(!post).ConfigureAwait(false))
+        {
+            return;
+        }
+
         await this.DeferAsync(ephemeral: !post).ConfigureAwait(false);
-        using var scope = _logger.CreateMethodScope();
+        using var scope = this.Logger.CreateMethodScope();
         try
         {
             // In case the user just gives us team number
@@ -71,12 +75,12 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         }
         catch (Exception ex) when (ex is HttpException { DiscordCode: Discord.DiscordErrorCode.UnknownInteraction or Discord.DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged } or InteractionException)
         {
-            _logger.InteractionAlreadyAcknowledgedSkippingResponse();
+            this.Logger.InteractionAlreadyAcknowledgedSkippingResponse();
         }
         catch (Exception ex)
         {
             Debug.Fail(ex.Message);
-            _logger.ErrorGettingNextMatchForTeamKeyAtEventKey(ex, teamKey, eventKey);
+            this.Logger.ErrorGettingNextMatchForTeamKeyAtEventKey(ex, teamKey, eventKey);
             await this.ModifyOriginalResponseAsync(p => p.Content = "Sorry, I encountered an error processing your request. Maybe try again? Or contact your admin with this news so they can troubleshoot.").ConfigureAwait(false);
         }
     }
@@ -97,8 +101,12 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         [Summary("summarize", "Create a 'ChatGPT' style summary?")] bool summarize = false,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        await this.DeferAsync(ephemeral: !post).ConfigureAwait(false);
-        using var scope = _logger.CreateMethodScope();
+        if (!await TryDeferAsync(!post).ConfigureAwait(false))
+        {
+            return;
+        }
+
+        using var scope = this.Logger.CreateMethodScope();
         string matchKey = (Match.CompLevelEnum)compLevel switch
         {
             Match.CompLevelEnum.Qm => $"qm{matchNumber}",
@@ -129,11 +137,11 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         }
         catch (Exception ex) when (ex is HttpException { DiscordCode: Discord.DiscordErrorCode.UnknownInteraction or Discord.DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged } or InteractionException)
         {
-            _logger.InteractionAlreadyAcknowledgedSkippingResponse();
+            this.Logger.InteractionAlreadyAcknowledgedSkippingResponse();
         }
         catch (Exception ex)
         {
-            _logger.ErrorRespondingWithMatchDataForEventEventKeyMatchKeyMatchKey(ex, eventKey, matchKey);
+            this.Logger.ErrorRespondingWithMatchDataForEventEventKeyMatchKeyMatchKey(ex, eventKey, matchKey);
             await this.ModifyOriginalResponseAsync(p => p.Content = "Sorry, I encountered an error processing your request. Maybe try again? Or contact your admin with this news so they can troubleshoot.").ConfigureAwait(false);
         }
     }

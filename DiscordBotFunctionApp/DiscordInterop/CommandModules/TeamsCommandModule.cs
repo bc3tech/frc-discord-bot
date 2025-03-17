@@ -11,18 +11,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 [Group("teams", "Gets information about FRC teams")]
-public sealed class TeamsCommandModule(IServiceProvider services) : CommandModuleBase
+public sealed class TeamsCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<TeamsCommandModule>>())
 {
     private readonly IEmbedCreator<string> _teamDetailEmbedCreator = services.GetRequiredKeyedService<IEmbedCreator<string>>(nameof(TeamDetail));
     private readonly IEmbedCreator<(int? Year, string TeamKey, string? EventKey)> _teamRankEmbedCreator = services.GetRequiredKeyedService<IEmbedCreator<(int? Year, string TeamKey, string? EventKey)>>(nameof(TeamRank));
-    private readonly ILogger _logger = services.GetRequiredService<ILogger<TeamsCommandModule>>();
 
     [SlashCommand("get-details", "Gets details about a team")]
     public async Task ShowAsync([Summary("team"), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))] string teamKey, [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        await this.DeferAsync(ephemeral: !post).ConfigureAwait(false);
+        if (!await TryDeferAsync(!post).ConfigureAwait(false))
+        {
+            return;
+        }
 
-        using var scope = _logger.CreateMethodScope();
+        using var scope = this.Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(teamKey))
         {
             await this.RespondAsync("Team key is required.", ephemeral: true).ConfigureAwait(false);
@@ -45,17 +47,12 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
         [Summary("year", "Year to get rank, default: current year")] ushort? year = null,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        try
+        if (!await TryDeferAsync(!post).ConfigureAwait(false))
         {
-            await this.DeferAsync(ephemeral: !post).ConfigureAwait(false);
-        }
-        catch (HttpException e) when (e.DiscordCode is Discord.DiscordErrorCode.UnknownInteraction or Discord.DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged)
-        {
-            _logger.InteractionAlreadyAcknowledgedSkippingResponse();
             return;
         }
 
-        using var scope = _logger.CreateMethodScope();
+        using var scope = this.Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(teamKey))
         {
             await this.RespondAsync("Team key is required.", ephemeral: true).ConfigureAwait(false);

@@ -16,7 +16,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 
 [Group("chat", "Manages private chats between me & you")]
-public sealed class ChatCommandModule : CommandModuleBase
+public sealed class ChatCommandModule(ILogger<ChatCommandModule> logger) : CommandModuleBase(logger)
 {
     private const string ChatResetConfirmButtonId = "chat-reset-confirm";
 
@@ -25,6 +25,11 @@ public sealed class ChatCommandModule : CommandModuleBase
     [SlashCommand("reset", "Resets your personal (DM) chat thread; makes me forget everything we've talked about!")]
     public async Task ResetThreadAsync()
     {
+        if (!await TryDeferAsync().ConfigureAwait(false))
+        {
+            return;
+        }
+
         var ephemeral = this.Context.Channel is not IDMChannel;
         var embed = _embedBuilder
             .WithTitle("Are you sure?")
@@ -38,7 +43,12 @@ public sealed class ChatCommandModule : CommandModuleBase
             buttons.WithButton("Cancel", Constants.InteractionElements.CancelButtonDeleteMessage, ButtonStyle.Secondary);
         }
 
-        await this.RespondAsync(ephemeral: ephemeral, embed: embed, components: buttons.Build()).ConfigureAwait(false);
+        await this.ModifyOriginalResponseAsync(p =>
+        {
+            p.Embed = embed;
+            p.Components = buttons.Build();
+        }).ConfigureAwait(false);
+
         return;
     }
 
