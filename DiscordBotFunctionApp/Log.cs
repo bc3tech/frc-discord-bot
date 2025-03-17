@@ -426,5 +426,47 @@ static partial class Log
     internal static partial void UnknownMenuSelectionReceivedMenuData(this ILogger logger, string MenuData);
 
     [LoggerMessage(139, LogLevel.Error, "Error updating the original message for the Delete Subscription interaction")]
-    internal static partial void ErrorUpdatingTheOriginalMessageForTheDeleteSubscriptionInteraction(this ILogger? logger, Exception exception);
+    internal static partial void ErrorUpdatingTheOriginalMessageForTheDeleteSubscriptionInteraction(this ILogger logger, Exception exception);
+
+    [LoggerMessage(140, LogLevel.Information, "All notifications dispatched.")]
+    internal static partial void AllNotificationsDispatched(this ILogger logger);
+
+    [LoggerMessage(141, LogLevel.Error, "Error while trying to send threaded notification to channel {ChannelId} ({ChannelName})")]
+    internal static partial void ErrorWhileTryingToSendThreadedNotificationToChannelChannelIdChannelName(this ILogger logger, Exception exception, ulong ChannelId, string ChannelName);
+
+    [LoggerMessage(142, LogLevel.Error, "Tried to create thread on an `ITextChannel` but it failed")]
+    internal static partial void TriedToCreateThreadOnAnITextChannelButItFailed(this ILogger logger, Exception exception);
+
+    [LoggerMessage(143, LogLevel.Warning, "Score breakdown for match {MatchKey} not available after 5 minutes")]
+    internal static partial void ScoreBreakdownForMatchMatchKeyNotAvailableAfter5Minutes(this ILogger logger, string MatchKey);
+
+    [LoggerMessage(144, LogLevel.Warning, "Invalid Red RP value for match {MatchKey}: {RpValue}")]
+    internal static partial void InvalidRedRPValueForMatchMatchKeyRpValue(this ILogger logger, string MatchKey, int? RpValue);
+
+    [LoggerMessage(145, LogLevel.Warning, "Invalid Blue RP value for match {MatchKey}: {RpValue}")]
+    internal static partial void InvalidBlueRPValueForMatchMatchKeyRpValue(this ILogger logger, string MatchKey, int? RpValue);
+
+    [LoggerMessage(146, LogLevel.Debug, "No score breakdown available for match {MatchKey}")]
+    internal static partial void NoScoreBreakdownAvailableForMatchMatchKey(this ILogger logger, string MatchKey);
+
+    [LoggerMessage(147, LogLevel.Error, "Error getting match data for {MatchKey}. Continuing to try...")]
+    internal static partial void ErrorGettingMatchDataForMatchKeyContinuingToTry(this ILogger logger, Exception exception, string MatchKey);
+
+    [LoggerMessage(148, LogLevel.Error, "Error getting event schedule for {EventKey}")]
+    internal static partial void ErrorGettingEventScheduleForEventKey(this ILogger logger, Exception exception, string EventKey);
+
+    [LoggerMessage(149, LogLevel.Warning, "No district data found for team {TeamKey}")]
+    internal static partial void NoDistrictDataFoundForTeamTeamKey(this ILogger logger, string TeamKey);
+
+    [LoggerMessage(150, LogLevel.Warning, "No district points data found for team {TeamKey} at event {EventKey}")]
+    internal static partial void NoDistrictPointsDataFoundForTeamTeamKeyAtEventEventKey(this ILogger logger, string TeamKey, string EventKey);
+
+    [LoggerMessage(151, LogLevel.Error, "Error checking for duplicate webhook payload.")]
+    internal static partial void ErrorCheckingForDuplicateWebhookPayload(this ILogger logger, Exception exception);
+
+    [LoggerMessage(152, LogLevel.Debug, "Not duplicate payload. Saving...")]
+    internal static partial void NotDuplicatePayloadSaving(this ILogger logger);
+
+    [LoggerMessage(153, LogLevel.Warning, "Duplicate webhook payload")]
+    internal static partial void DuplicateWebhookPayload(this ILogger logger);
 }

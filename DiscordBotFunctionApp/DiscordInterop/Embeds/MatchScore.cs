@@ -306,7 +306,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
                 if (time.GetElapsedTime(startTime).TotalMinutes >= 5)
                 {
-                    logger.LogWarning("Score breakdown for match {MatchKey} not available after 5 minutes", detailedMatch.Key);
+                    logger.ScoreBreakdownForMatchMatchKeyNotAvailableAfter5Minutes(detailedMatch.Key);
                     return breakdown;
                 }
 
@@ -314,23 +314,23 @@ internal sealed partial class MatchScore(IEventApi eventApi,
                 {
                     if (breakdown.Red.Rp is null or > 6 or < 0)
                     {
-                        logger.LogWarning("Invalid Red RP value for match {MatchKey}: {RpValue}", detailedMatch.Key, breakdown.Red.Rp);
+                        logger.InvalidRedRPValueForMatchMatchKeyRpValue(detailedMatch.Key, breakdown.Red.Rp);
                         breakdown = null;
                     }
                     else if (breakdown.Blue.Rp is null or > 6 or < 0)
                     {
-                        logger.LogWarning("Invalid Blue RP value for match {MatchKey}: {RpValue}", detailedMatch.Key, breakdown.Blue.Rp);
+                        logger.InvalidBlueRPValueForMatchMatchKeyRpValue(detailedMatch.Key, breakdown.Blue.Rp);
                         breakdown = null;
                     }
                 }
                 else
                 {
-                    logger.LogDebug("No score breakdown available for match {MatchKey}", detailedMatch.Key);
+                    logger.NoScoreBreakdownAvailableForMatchMatchKey(detailedMatch.Key);
                 }
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error getting match data for {MatchKey}. Continuing to try...", detailedMatch.Key);
+                logger.ErrorGettingMatchDataForMatchKeyContinuingToTry(ex, detailedMatch.Key);
             }
         }
 
@@ -440,7 +440,9 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             catch (Exception ex)
             {
                 Debug.Fail(ex.Message);
-                logger.LogError(ex, "Error getting event schedule for {EventKey}", notificationMatch?.EventKey ?? detailedMatch.EventKey);
+#pragma warning disable EA0011 // Consider removing unnecessary conditional access operator (?); except it's not known to be not null.
+                logger.ErrorGettingEventScheduleForEventKey(ex, notificationMatch?.EventKey ?? detailedMatch.EventKey);
+#pragma warning restore EA0011 // Consider removing unnecessary conditional access operator (?)
             }
         }
     }

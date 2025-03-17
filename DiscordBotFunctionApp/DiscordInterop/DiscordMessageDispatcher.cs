@@ -55,7 +55,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
         await Task.WhenAll(notifications).ConfigureAwait(false);
 
-        logger.LogInformation("All notifications dispatched.");
+        logger.AllNotificationsDispatched();
         logger.LogMetric("NotificationDispatchTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
 
         return true;
@@ -146,7 +146,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                             }
                             catch (Exception e)
                             {
-                                logger.LogError(e, "Error while trying to send threaded notification to channel {ChannelId} ({ChannelName})", chanId, rawChan.Name, e.Message);
+                                logger.ErrorWhileTryingToSendThreadedNotificationToChannelChannelIdChannelName(e, chanId, rawChan.Name);
                             }
                         }
                         else
@@ -220,7 +220,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Tried to create thread on an `ITextChannel` but it failed");
+            logger.TriedToCreateThreadOnAnITextChannelButItFailed(ex);
             thread = msgChan;
         }
 

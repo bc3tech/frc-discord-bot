@@ -32,7 +32,7 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, [Fr
 
         if (await IsDuplicateAsync(bodyContent, cancellationToken).ConfigureAwait(false))
         {
-            logger.LogWarning("Duplicate webhook payload");
+            logger.DuplicateWebhookPayload();
             return new ConflictResult();
         }
 
@@ -89,7 +89,7 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, [Fr
 
             if (!existingMessage.HasValue)
             {
-                logger.LogDebug("Not duplicate payload. Saving...");
+                logger.NotDuplicatePayloadSaving();
                 await messagesTable.UpsertEntityAsync(new TableEntity(base64UrlEncodedBody, base64UrlEncodedBody), cancellationToken: cancellationToken).ConfigureAwait(false);
                 return false;
             }
@@ -98,7 +98,7 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, [Fr
         }
         catch (Exception e)
         {
-            logger.LogError(e, "Error checking for duplicate webhook payload.");
+            logger.ErrorCheckingForDuplicateWebhookPayload(e);
             return false;
         }
     }

@@ -183,25 +183,25 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
         var subToDelete = new NotificationSubscription(ulong.TryParse(guild, out var g) ? g : null, channel, evt, ushort.TryParse(team, out var t) ? t : null);
         await subscriptionManager.RemoveSubscriptionAsync(subToDelete, default);
 
-            EventRepository events = services.GetRequiredService<EventRepository>();
-            TeamRepository teams = services.GetRequiredService<TeamRepository>();
+        EventRepository events = services.GetRequiredService<EventRepository>();
+        TeamRepository teams = services.GetRequiredService<TeamRepository>();
 
-            // Create a copy of the existing components; when updating a message, components are only settable wholesale
-            var newActionRows = new ComponentBuilder()
-                .WithRows(menuSelection.Message.Components
-                    .Select(i => new ActionRowBuilder().WithComponents([.. i.Components])));
-            var rowWithSelectMenuAndOption = newActionRows.ActionRows
-                .First(i => i.Components.OfType<SelectMenuComponent>().Any(j => j.Options.Any(k => k.Value == value)));
-            var oldSelectMenu = (SelectMenuComponent)rowWithSelectMenuAndOption.Components
-                .First(i => i.CustomId is SubscriptionDeleteSelectionMenuId);
-            var indexOfOldSelectMenu = rowWithSelectMenuAndOption.Components.IndexOf(oldSelectMenu);
-            Debug.Assert(indexOfOldSelectMenu is not -1);
+        // Create a copy of the existing components; when updating a message, components are only settable wholesale
+        var newActionRows = new ComponentBuilder()
+            .WithRows(menuSelection.Message.Components
+                .Select(i => new ActionRowBuilder().WithComponents([.. i.Components])));
+        var rowWithSelectMenuAndOption = newActionRows.ActionRows
+            .First(i => i.Components.OfType<SelectMenuComponent>().Any(j => j.Options.Any(k => k.Value == value)));
+        var oldSelectMenu = (SelectMenuComponent)rowWithSelectMenuAndOption.Components
+            .First(i => i.CustomId is SubscriptionDeleteSelectionMenuId);
+        var indexOfOldSelectMenu = rowWithSelectMenuAndOption.Components.IndexOf(oldSelectMenu);
+        Debug.Assert(indexOfOldSelectMenu is not -1);
 
-            // Create a new menu based on the old one
-            var newMenu = oldSelectMenu.ToBuilder();
-            // Remove the menu option that matches the one that was selected for this interaction
-            Debug.Assert(newMenu.Options.RemoveAll(i => i.Value == value) is 1);
-            rowWithSelectMenuAndOption.Components[indexOfOldSelectMenu] = newMenu.Build();
+        // Create a new menu based on the old one
+        var newMenu = oldSelectMenu.ToBuilder();
+        // Remove the menu option that matches the one that was selected for this interaction
+        Debug.Assert(newMenu.Options.RemoveAll(i => i.Value == value) is 1);
+        rowWithSelectMenuAndOption.Components[indexOfOldSelectMenu] = newMenu.Build();
 
         try
         {
@@ -214,7 +214,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
         catch (Exception e)
         {
             Debug.Fail(e.Message);
-            services.GetService<ILogger<SubscriptionCommandModule>>()?.LogError(e, "Error updating the original message for the Delete Subscription interaction");
+            services.GetService<ILogger<SubscriptionCommandModule>>().ErrorUpdatingTheOriginalMessageForTheDeleteSubscriptionInteraction(e);
         }
 
         return true;

@@ -173,12 +173,12 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                             }
                             else
                             {
-                                logger.LogWarning("No district points data found for team {TeamKey} at event {EventKey}", teamKey, input.EventKey);
+                                logger.NoDistrictPointsDataFoundForTeamTeamKeyAtEventEventKey(teamKey, input.EventKey);
                             }
                         }
                         else
                         {
-                            logger.LogWarning("No district data found for team {TeamKey}", teamKey);
+                            logger.NoDistrictDataFoundForTeamTeamKey(teamKey);
                         }
                     }
                 }
