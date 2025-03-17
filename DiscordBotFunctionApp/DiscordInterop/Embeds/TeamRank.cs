@@ -161,7 +161,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                         descriptionBuilder.AppendLine($"DQ count: {teamRanking.Dq}");
 
                         var teamDistrict = await tbaDistrictData.GetTeamDistrictsAsync(teamKey, cancellationToken: cancellationToken).ConfigureAwait(false);
-                        if (teamDistrict is not null)
+                        if (teamDistrict is not null and { Count: > 0 })
                         {
                             var tbaRanks = await tbaDistrictData.GetDistrictRankingsAsync(teamDistrict.First().Key, cancellationToken: cancellationToken).ConfigureAwait(false);
                             var tbaTeamRank = tbaRanks?.FirstOrDefault(tbaRanks => tbaRanks.TeamKey == teamKey);
@@ -171,6 +171,14 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                                 descriptionBuilder.AppendLine($"District Points: {teamRanking.MatchesPlayed}");
                                 addEventDistrictPointsForEvent(descriptionBuilder, eventRank);
                             }
+                            else
+                            {
+                                logger.LogWarning("No district points data found for team {TeamKey} at event {EventKey}", teamKey, input.EventKey);
+                            }
+                        }
+                        else
+                        {
+                            logger.LogWarning("No district data found for team {TeamKey}", teamKey);
                         }
                     }
                 }
