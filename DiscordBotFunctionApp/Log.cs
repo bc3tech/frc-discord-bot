@@ -472,4 +472,19 @@ static partial class Log
 
     [LoggerMessage(154, LogLevel.Error, "Error during response geneation")]
     internal static partial void ErrorDuringResponseGeneation(this ILogger logger, Exception exception);
+
+    [LoggerMessage(155, LogLevel.Trace, "Deleting old thread for {ThreadEvent} message from {RecordTimestamp}...")]
+    internal static partial void DeletingOldThreadForThreadEventMessageFromRecordTimestamp(this ILogger logger, string ThreadEvent, DateTimeOffset? RecordTimestamp);
+
+    [LoggerMessage(156, LogLevel.Error, "Failed to delete thread from {RecordTimestamp}: {ErrorMessage}")]
+    internal static partial void FailedToDeleteThreadFromRecordTimestampErrorMessage(this ILogger logger, DateTimeOffset? RecordTimestamp, string ErrorMessage);
+
+    [LoggerMessage(157, LogLevel.Error, "Failed to delete message from {RecordTimestamp}: {ErrorMessage}")]
+    internal static partial void FailedToDeleteMessageFromRecordTimestampErrorMessage(this ILogger logger, DateTimeOffset? RecordTimestamp, string ErrorMessage);
+
+    [LoggerMessage(158, LogLevel.Trace, "Deleting message from {RecordTimestamp}...")]
+    internal static partial void DeletingMessageFromRecordTimestamp(this ILogger logger, DateTimeOffset? RecordTimestamp);
+
+    [LoggerMessage(159, LogLevel.Information, "Executing cleanup...")]
+    internal static partial void ExecutingCleanup(this ILogger logger);
 }
