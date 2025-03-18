@@ -156,7 +156,11 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
         logger.RankingsRankings(ranks is not null ? JsonSerializer.Serialize(ranks) : "[null]");
 
         var stats = await matchStats.ReadMatchV3MatchMatchGetAsync(matchDetails.Key, cancellationToken: cancellationToken).ConfigureAwait(false);
-        Debug.Assert(stats is not null);
+        if (stats is null)
+        {
+            logger.NoStatsGivenFromStatboticsForMatchMatchKey(matchDetails.Key);
+        }
+
         logger.MatchStatsMatchStats(stats is not null ? JsonSerializer.Serialize(stats) : "[null]");
 
         MatchSimple.WinningAllianceEnum? predictedWinner = stats?.Pred?.Winner is not null ? MatchSimple.WinningAllianceEnumFromStringOrDefault(stats.Pred.Winner).GetValueOrDefault(MatchSimple.WinningAllianceEnum.Empty) : null;

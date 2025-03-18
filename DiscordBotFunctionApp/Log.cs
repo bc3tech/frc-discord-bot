@@ -490,4 +490,7 @@ static partial class Log
 
     [LoggerMessage(160, LogLevel.Debug, "No *actual* subscribers found for {PartitionKey} {RowKey}")]
     internal static partial void NoActualSubscribersFoundForPartitionKeyRowKey(this ILogger logger, string PartitionKey, string RowKey);
+
+    [LoggerMessage(161, LogLevel.Warning, "No stats given from Statbotics for match {MatchKey}")]
+    internal static partial void NoStatsGivenFromStatboticsForMatchMatchKey(this ILogger logger, string MatchKey);
 }
