@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 using TheBlueAlliance.Model.MatchExtensions;
 
@@ -12,24 +11,11 @@ public partial record Match
     public int? GetAllianceRankingPoints(WinningAllianceEnum allianceColor)
     {
         var alliance = this.ScoreBreakdown?.ActualInstance!.GetType().GetProperty(allianceColor.ToInvariantString())!.GetValue(this.ScoreBreakdown.ActualInstance);
-        Debug.Assert(alliance is not null);
         var rpValue = (int?)alliance?.GetType().GetProperty("Rp")?.GetValue(alliance);
-        Debug.Assert(rpValue is not null);
         return CorrectRpValue(rpValue);
     }
 
-    private static int? CorrectRpValue(int? rpValue)
-    {
-        if (rpValue is not null)
-        {
-            if (rpValue is > 6 or < 0)
-            {
-                return null;
-            }
-        }
-
-        return rpValue;
-    }
+    private static int? CorrectRpValue(int? rpValue) => rpValue is null or > 6 or < 0 ? null : rpValue;
 
     public IEnumerable<(string Name, Uri Link)> GetVideoUrls(ILogger? log = null)
     {

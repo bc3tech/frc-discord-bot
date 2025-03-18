@@ -487,4 +487,7 @@ static partial class Log
 
     [LoggerMessage(159, LogLevel.Information, "Executing cleanup...")]
     internal static partial void ExecutingCleanup(this ILogger logger);
+
+    [LoggerMessage(160, LogLevel.Debug, "No *actual* subscribers found for {PartitionKey} {RowKey}")]
+    internal static partial void NoActualSubscribersFoundForPartitionKeyRowKey(this ILogger logger, string PartitionKey, string RowKey);
 }

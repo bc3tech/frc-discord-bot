@@ -79,7 +79,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                 }
                 else
                 {
-                    logger.LogDebug("No *actual* subscribers found for {PartitionKey} {RowKey}", i.p, i.r);
+                    logger.NoActualSubscribersFoundForPartitionKeyRowKey(i.p, i.r);
                 }
             }
         }
