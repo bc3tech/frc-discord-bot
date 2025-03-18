@@ -211,7 +211,8 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         descriptionBuilder.Append($"### {(winningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)}Red Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red]})" : string.Empty)} - {alliances.Red.Score}");
         if (isQuals)
         {
-        string? rankingPointsValue = preferredMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red)?.ToString();
+            string? rankingPointsValue = notificationMatch?.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red).ToString().UnlessNullOrWhitespaceThen(detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red).ToString());
+            Debug.Assert(!string.IsNullOrWhiteSpace(rankingPointsValue));
             descriptionBuilder.AppendLine($" (+{(string.IsNullOrWhiteSpace(rankingPointsValue) ? "?" : rankingPointsValue)})");
         }
         else
@@ -255,7 +256,8 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         descriptionBuilder.Append($"### {(winningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)}Blue Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue]})" : string.Empty)} - {alliances.Blue.Score}");
         if (isQuals)
         {
-            string? rankingPointsValue = preferredMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue)?.ToString();
+            string? rankingPointsValue = notificationMatch?.GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue).ToString().UnlessNullOrWhitespaceThen(detailedMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue).ToString());
+            Debug.Assert(!string.IsNullOrWhiteSpace(rankingPointsValue));
             descriptionBuilder.AppendLine($" (+{(string.IsNullOrWhiteSpace(rankingPointsValue) ? "?" : rankingPointsValue)})");
         }
         else
