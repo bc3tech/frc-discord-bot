@@ -32,7 +32,7 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
 #endif
         )] TimerInfo myTimer, CancellationToken cancellationToken)
     {
-        if (!int.TryParse(appConfig["MaxDaysToKeepStateData"], out var maxDays))
+        if (!int.TryParse(appConfig[Constants.Configuration.MaxDaysToKeepStateData], out var maxDays))
         {
             maxDays = 5;
         }

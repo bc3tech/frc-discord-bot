@@ -23,6 +23,8 @@ internal static class Constants
     {
         public const string TbaApiKey = nameof(TbaApiKey);
         public const string MatchSummariesDocumentUrl = nameof(MatchSummariesDocumentUrl);
+        public const string AllowDuplicateWebhooks = nameof(AllowDuplicateWebhooks);
+        public const string MaxDaysToKeepStateData = nameof(MaxDaysToKeepStateData);
 
         public static class Discord
         {
