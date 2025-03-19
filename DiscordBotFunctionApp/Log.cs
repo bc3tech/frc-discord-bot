@@ -200,8 +200,8 @@ static partial class Log
     [LoggerMessage(61, LogLevel.Trace, "Command data: {CommandData}")]
     internal static partial void CommandDataCommandData(this ILogger logger, string CommandData);
 
-    [LoggerMessage(62, LogLevel.Debug, "Creating match score embed {WebhookMessage}")]
-    internal static partial void CreatingMatchScoreEmbed(this ILogger logger, WebhookMessage WebhookMessage);
+    [LoggerMessage(62, LogLevel.Debug, "Creating match score embed")]
+    internal static partial void CreatingMatchScoreEmbed(this ILogger logger);
 
     [LoggerMessage(63, LogLevel.Trace, "Keepalive ({arg0})")]
     internal static partial void KeepaliveArg0(this ILogger logger, DateTimeOffset arg0);
@@ -368,8 +368,8 @@ static partial class Log
     [LoggerMessage(119, LogLevel.Warning, "Didn't get a MessageChannel from thread {ThreadId}")]
     internal static partial void DidnTGetAMessageChannelFromThreadThreadId(this ILogger logger, ulong ThreadId);
 
-    [LoggerMessage(120, LogLevel.Debug, "Creating Alliance Selection embed {WebhookMessage}")]
-    internal static partial void CreatingAllianceSelectionEmbedWebhookMessage(this ILogger logger, WebhookMessage WebhookMessage);
+    [LoggerMessage(120, LogLevel.Debug, "Creating Alliance Selection embed")]
+    internal static partial void CreatingAllianceSelectionEmbed(this ILogger logger);
 
     [LoggerMessage(121, LogLevel.Trace, "Already processed alliance selection for event {EventKey}")]
     internal static partial void AlreadyProcessedAllianceSelectionForEventEventKey(this ILogger logger, string EventKey);
