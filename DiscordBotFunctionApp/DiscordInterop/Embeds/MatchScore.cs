@@ -245,7 +245,15 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         if (isQuals)
         {
             var rankingPointsValue = match.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red).Or(tbaMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red)).ToString();
-            Debug.Assert(!string.IsNullOrWhiteSpace(rankingPointsValue));
+            while (string.IsNullOrWhiteSpace(rankingPointsValue))
+            {
+                logger.RankingPointsWereEmptyForMatchKey1sPollUntilTheyGoLive(tbaMatch.Key);
+
+                await Task.Delay(TimeSpan.FromSeconds(1), time, cancellationToken).ConfigureAwait(false);
+                tbaMatch = await matchApi.GetMatchAsync(tbaMatch.Key, cancellationToken: cancellationToken).ConfigureAwait(false) ?? tbaMatch;
+                rankingPointsValue = tbaMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red).ToString();
+            }
+
             builder.AppendLine($" (+{(string.IsNullOrWhiteSpace(rankingPointsValue) ? "?" : rankingPointsValue)})");
         }
         else
