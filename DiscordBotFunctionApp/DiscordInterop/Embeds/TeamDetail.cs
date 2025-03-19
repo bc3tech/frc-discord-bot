@@ -20,6 +20,7 @@ using TheBlueAlliance.Api;
 internal sealed class TeamDetail(RESTCountries _countryCodeLookup,
                                  EmbedBuilderFactory builderFactory,
                                  TeamRepository _teamsRepo,
+                                 ITeamApi tbaTeamApi,
                                  Statbotics.Api.ITeamApi teamStats,
                                  IDistrictApi districts,
                                  TimeProvider time,
@@ -34,11 +35,14 @@ internal sealed class TeamDetail(RESTCountries _countryCodeLookup,
         var jsonResult = JsonSerializer.Serialize(await teamStats.ReadTeamV3TeamTeamGetAsync(teamKey.TeamKeyToTeamNumber()!.ToString()!, cancellationToken).ConfigureAwait(false));
         var teamResult = JsonSerializer.Deserialize<Team>(jsonResult)!;
         var locationString = await createLocationStringAsync(teamDetails, _countryCodeLookup).ConfigureAwait(false);
+        var imageUrl = (await tbaTeamApi.GetTeamMediaByYearAsync(teamKey, time.GetUtcNow().Year, cancellationToken: cancellationToken).ConfigureAwait(false))?
+            .FirstOrDefault(i => i.Preferred is true && !string.IsNullOrWhiteSpace(i.DirectUrl));
         var builder = builderFactory.GetBuilder()
             .WithTitle($"**{teamDetails.Nickname}**")
-            .WithUrl(teamDetails.Website)
+            .WithUrl($"{teamDetails.Website}#{teamKey}")
             .WithThumbnailUrl($"https://www.thebluealliance.com/avatar/{time.GetLocalNow().Year - 1}/{teamKey}.png")
             .WithDescription(teamDetails.Name)
+            .WithImageUrl(imageUrl?.DirectUrl)
             .AddField("Location", locationString)
             .AddField("Active?", teamResult.Active ? "Yes" : "No");
 
