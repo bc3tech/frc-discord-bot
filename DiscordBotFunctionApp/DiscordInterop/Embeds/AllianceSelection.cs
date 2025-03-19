@@ -1,5 +1,7 @@
 ﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
 
+using Common.Extensions;
+
 using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.TbaInterop.Models;
 using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
@@ -25,11 +27,12 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        logger.CreatingAllianceSelectionEmbedWebhookMessage(msg);
+        using var scope = logger.CreateMethodScope();
+        logger.CreatingAllianceSelectionEmbed();
 
         var baseBuilder = builderFactory.GetBuilder(highlightTeam);
         var notification = msg.GetDataAs<TbaInterop.Models.Notifications.AllianceSelection>();
-        if (notification != default)
+        if (notification == default)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
             yield return null;
