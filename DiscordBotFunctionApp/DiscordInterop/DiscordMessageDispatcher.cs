@@ -100,7 +100,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
             .ToArrayAsync(cancellationToken).ConfigureAwait(false))
             .Chunk(MAX_EMBEDS_PER_MESSAGE);
         var discordRequestOptions = cancellationToken.ToRequestOptions();
-        if (chunksOfEmbeddingsToSend.Any(i => i.Length != 0))
+        if (chunksOfEmbeddingsToSend.Any(i => i.Length is not 0))
         {
             // check to see if there are any threads already created for this message
             var threadLocator = message.GetThreadDetails();
@@ -128,7 +128,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                                         ? new MessageReference(t.MessageId)
                                         : null;
                             }
-                            catch
+                            catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
                             {
                                 replyToMessage = null;
                             }
@@ -146,7 +146,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
                                 subscribers.RemoveSubscription(guildId, rawChan.Id);
                             }
-                            catch (Exception e)
+                            catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
                             {
                                 logger.ErrorWhileTryingToSendThreadedNotificationToChannelChannelIdChannelName(e, chanId, rawChan.Name);
                             }
@@ -227,9 +227,9 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         {
             thread = (msgChan is ITextChannel threadableChannel) ? await threadableChannel.CreateThreadAsync(threadDetails.Value.Title) : msgChan;
         }
-        catch (Exception ex)
+        catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
-            logger.TriedToCreateThreadOnAnITextChannelButItFailed(ex);
+            logger.TriedToCreateThreadOnAnITextChannelButItFailed(e);
             thread = msgChan;
         }
 
@@ -247,10 +247,10 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
             await threadsTable.UpsertEntityAsync(tableEntity, mode: TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
             return thread;
         }
-        catch (Exception ex)
+        catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
-            logger.ErrorWhileTryingToCreateThreadInChannelChannelIdChannelNameMessage(ex, msgChan.Id, msgChan.Name, ex.Message);
-            Debug.Fail(ex.Message);
+            logger.ErrorWhileTryingToCreateThreadInChannelChannelIdChannelNameMessage(e, msgChan.Id, msgChan.Name, e.Message);
+            Debug.Fail(e.Message);
         }
 
         return thread;

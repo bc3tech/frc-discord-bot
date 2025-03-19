@@ -88,9 +88,9 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup,
         {
             stats = await eventStats.ReadEventV3EventEventGetAsync(eventKey, cancellationToken).ConfigureAwait(false);
         }
-        catch (Exception ex)
+        catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
-            logger.ErrorGettingDataFromStatboticsForEventKey(ex, eventKey);
+            logger.ErrorGettingDataFromStatboticsForEventKey(e, eventKey);
         }
 
         if (stats is not null)

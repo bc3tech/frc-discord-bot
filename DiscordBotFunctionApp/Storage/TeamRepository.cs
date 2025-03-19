@@ -44,10 +44,10 @@ internal sealed class TeamRepository(ITeamApi apiClient, ILogger<TeamRepository>
                 }
             } while (true);
         }
-        catch (Exception ex)
+        catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
-            Debug.Fail(ex.Message);
-            logger.AnErrorOccurredWhileLoadingTeamsFromTheTBAAPIErrorMessage(ex, ex.Message);
+            Debug.Fail(e.Message);
+            logger.AnErrorOccurredWhileLoadingTeamsFromTheTBAAPIErrorMessage(e, e.Message);
         }
 
         logger.CachedTeamCountTeamsFromTBA(_teams.Count);

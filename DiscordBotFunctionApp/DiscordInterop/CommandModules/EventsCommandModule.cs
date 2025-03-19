@@ -127,9 +127,9 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
         {
             await ModifyOriginalResponseAsync(p => p.Content = "Event not found.").ConfigureAwait(false);
         }
-        catch (Exception ex)
+        catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
-            this.Logger.ThereWasAnErrorCreatingAGuildEventForEventKeyInGuildGuildNameGuildId(ex, eventKey, Context.Guild.Name, Context.Guild.Id);
+            this.Logger.ThereWasAnErrorCreatingAGuildEventForEventKeyInGuildGuildNameGuildId(e, eventKey, Context.Guild.Name, Context.Guild.Id);
             await ModifyOriginalResponseAsync(p => p.Content = "An error occurred while creating the event. Try again or contact your admin to investigate.").ConfigureAwait(false);
         }
     }

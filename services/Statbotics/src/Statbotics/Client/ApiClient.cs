@@ -139,7 +139,7 @@ internal sealed partial class CustomJsonCodec
         {
             return JsonSerializer.Deserialize(await response.Content.ReadAsStringAsync(cancellationToken: cancellationToken).ConfigureAwait(false), type, _serializerSettings);
         }
-        catch (Exception e)
+        catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
             throw new ApiException(500, e.Message);
         }

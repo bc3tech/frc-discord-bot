@@ -47,10 +47,10 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
 
             await GenerateResponseAsync(_upcomingMatchEmbeddingCreator, (eventKey, teamKey), teamKey.TeamKeyToTeamNumber()).ConfigureAwait(false);
         }
-        catch (Exception ex)
+        catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
-            Debug.Fail(ex.Message);
-            this.Logger.ErrorGettingNextMatchForTeamKeyAtEventKey(ex, teamKey, eventKey);
+            Debug.Fail(e.Message);
+            this.Logger.ErrorGettingNextMatchForTeamKeyAtEventKey(e, teamKey, eventKey);
             await this.ModifyOriginalResponseAsync(p => p.Content = "Sorry, I encountered an error processing your request. Maybe try again? Or contact your admin with this news so they can troubleshoot.").ConfigureAwait(false);
         }
     }

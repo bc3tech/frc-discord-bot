@@ -105,7 +105,7 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
                 {
                     await button.InteractionChannel.DeleteMessageAsync(button.Message.Id, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
                 }
-                catch (Exception e)
+                catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
                 {
                     try
                     {
@@ -117,7 +117,7 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
                             p.Embeds = null;
                         });
                     }
-                    catch
+                    catch(Exception e2) when (e2 is not OperationCanceledException or TaskCanceledException)
                     {
                         _logger.ErrorDeletingMessageMessageId(e, button.Message.Id);
                     }

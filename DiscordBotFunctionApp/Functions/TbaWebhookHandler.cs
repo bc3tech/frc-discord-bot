@@ -96,7 +96,7 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, [Fr
 
             return true;
         }
-        catch (Exception e)
+        catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
             logger.ErrorCheckingForDuplicateWebhookPayload(e);
             return false;

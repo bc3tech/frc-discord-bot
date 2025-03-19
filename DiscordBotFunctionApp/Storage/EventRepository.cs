@@ -43,10 +43,10 @@ internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, IL
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
             {
-                Debug.Fail(ex.Message);
-                logger.AnErrorOccurredWhileLoadingEventsFromTheTBAAPIErrorMessage(ex, ex.Message);
+                Debug.Fail(e.Message);
+                logger.AnErrorOccurredWhileLoadingEventsFromTheTBAAPIErrorMessage(e, e.Message);
             }
         }
 

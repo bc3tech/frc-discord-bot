@@ -104,9 +104,9 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
                     await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo[teamKey!].GetLabel(includeLocation: false)}**.").ConfigureAwait(false);
                 }
             }
-            catch (Exception ex)
+            catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
             {
-                Debug.Fail(ex.Message);
+                Debug.Fail(e.Message);
                 await this.DeleteOriginalResponseAsync();
                 await this.RespondAsync("An error occurred while creating the subscription. Please try again later.", ephemeral: true).ConfigureAwait(false);
             }
@@ -208,7 +208,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
                     p.Components = newActionRows.Build();
                 }).ConfigureAwait(false);
             }
-            catch (Exception e)
+            catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
             {
                 Debug.Fail(e.Message);
                 this.Logger.ErrorUpdatingTheOriginalMessageForTheDeleteSubscriptionInteraction(e);

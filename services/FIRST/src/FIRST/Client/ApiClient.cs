@@ -141,7 +141,7 @@ internal sealed partial class CustomJsonCodec
         {
             return JsonSerializer.Deserialize(contentString, type, _serializerSettings);
         }
-        catch (Exception e)
+        catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
             Debug.Fail(e.Message);
             throw new ApiException(500, e.Message);
@@ -494,7 +494,7 @@ public sealed partial class ApiClient : ISynchronousClient, IAsynchronousClient
 
                 return await ToApiResponseAsync(response, responseData, req.RequestUri, cancellationToken: finalToken).ConfigureAwait(false);
             }
-            catch (Exception e)
+            catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
             {
                 Debug.Fail(e.Message);
                 throw;

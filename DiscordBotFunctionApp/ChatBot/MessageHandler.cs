@@ -75,7 +75,7 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
                         }
                     }
                 }
-                catch (Exception e) when (e is OperationCanceledException or TaskCanceledException) { }
+                catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException) { }
             }, sorryForTheDelayCanceler.Token);
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
@@ -175,7 +175,7 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
                 await latestMessage.ModifyAsync(p => p.Content = $"{latestMessage.Content}\n\n{DisclaimerText}", options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             }
         }
-        catch (Exception e)
+        catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
             logger.ErrorRespondingToDMFromDMUser(e, msg.Author.GlobalName);
             await responseChannel.SendMessageAsync(embed: _embedBuilder

@@ -64,7 +64,7 @@ public sealed class ChatCommandModule(ILogger<ChatCommandModule> logger) : Comma
                 var r = await DeleteThreadRecordForUserAsync(services, button.User.Id).ConfigureAwait(false);
                 successful = !r.IsError;
             }
-            catch (Exception e)
+            catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
             {
                 logger?.ErrorDeletingThreadForUserNameUserId(e, button.User.GlobalName, button.User.Id);
 
@@ -86,7 +86,7 @@ public sealed class ChatCommandModule(ILogger<ChatCommandModule> logger) : Comma
                 {
                     await button.RespondAsync("Sorry, Discord only allows 3 seconds for you to respond to me, but I did reset your chat thread!", ephemeral: true).ConfigureAwait(false);
                 }
-                catch (Exception e)
+                catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
                 {
                     logger?.DiscordErrorWhileTryingToModifyOriginalResponse(e);
                     Debug.Fail(e.Message);

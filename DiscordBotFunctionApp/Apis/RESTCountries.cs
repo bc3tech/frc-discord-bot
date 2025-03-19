@@ -35,9 +35,9 @@ internal sealed class RESTCountries(ILogger<RESTCountries> _logger)
 
             return result["cca2"]?.ToString();
         }
-        catch (Exception ex)
+        catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
-            _logger.ErrorGettingCountryCodeForCountry(ex, country);
+            _logger.ErrorGettingCountryCodeForCountry(e, country);
             return null;
         }
     }
