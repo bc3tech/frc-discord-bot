@@ -9,6 +9,7 @@ using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -17,7 +18,10 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, [FromKeyedServices(Constants.ServiceKeys.TableClient_ProcessedMessages)] TableClient messagesTable, ILogger<TbaWebhookHandler> logger)
+internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher,
+                                        [FromKeyedServices(Constants.ServiceKeys.TableClient_ProcessedMessages)] TableClient messagesTable,
+                                        IConfiguration appConfig,
+                                        ILogger<TbaWebhookHandler> logger)
 {
     [Function("TbaWebhookHandler")]
     public async Task<IActionResult> RunAsync([HttpTrigger(AuthorizationLevel.Function, "post", Route = "tba/webhook")] HttpRequestData req, CancellationToken cancellationToken)
@@ -80,6 +84,11 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher, [Fr
 
     private async Task<bool> IsDuplicateAsync(string bodyContent, CancellationToken cancellationToken)
     {
+        if (bool.TryParse(appConfig[Constants.Configuration.AllowDuplicateWebhooks], out var b) && b)
+        {
+            return false;
+        }
+
         try
         {
             var bodyBytes = Encoding.UTF8.GetBytes(bodyContent);
