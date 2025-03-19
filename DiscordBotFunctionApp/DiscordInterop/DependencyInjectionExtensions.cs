@@ -89,7 +89,7 @@ internal static class DependencyInjectionExtensions
         .AddKeyedSingleton<INotificationEmbedCreator, UpcomingMatch>(UpcomingMatch.TargetType.ToInvariantString())
         .AddKeyedSingleton<INotificationEmbedCreator, ScheduleUpdate>(ScheduleUpdate.TargetType.ToInvariantString())
         .AddKeyedSingleton<INotificationEmbedCreator, Award>(Award.TargetType.ToInvariantString())
-        .AddKeyedSingleton<INotificationEmbedCreator, MatchVideo>(MatchVideo.TargetType.ToInvariantString())
+        //.AddKeyedSingleton<INotificationEmbedCreator, MatchVideo>(MatchVideo.TargetType.ToInvariantString())
         .AddKeyedSingleton<INotificationEmbedCreator, CompLevelStarting>(CompLevelStarting.TargetType.ToInvariantString())
         .AddKeyedSingleton<IEmbedCreator<string>, EventDetail>(nameof(EventDetail))
         .AddKeyedSingleton<IEmbedCreator<(string eventKey, string teamKey)>, UpcomingMatch>(nameof(UpcomingMatch))
