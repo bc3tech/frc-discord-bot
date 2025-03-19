@@ -26,7 +26,11 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
 {
     [Function("Cleanup")]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Required for Functions")]
-    public async Task RunAsync([TimerTrigger("0 0 9 * * 3")] TimerInfo myTimer, CancellationToken cancellationToken)
+    public async Task RunAsync([TimerTrigger("0 0 9 * * 3"
+#if DEBUG
+        , RunOnStartup = true
+#endif
+        )] TimerInfo myTimer, CancellationToken cancellationToken)
     {
         if (!int.TryParse(appConfig["MaxDaysToKeepStateData"], out var maxDays))
         {
@@ -70,51 +74,105 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
         logger.LogMetric("EventMessageThreadsCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
 
         startTime = time.GetTimestamp();
-        await foreach (var s in teamSubscriptions.QueryAsync<TeamSubscriptionEntity>(e => e.RowKey != CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false))
+        await foreach (var s in teamSubscriptions.QueryAsync<TeamSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
         {
             logger.CleaningUpSubscriptionsForTeamTeam(s.Team);
-            var tbaEvent = await events.GetEventSimpleAsync(s.Event, cancellationToken: cancellationToken).ConfigureAwait(false);
-            if (tbaEvent is null)
+            if (s.Event != CommonConstants.ALL)
             {
-                logger.FailedToRetrieveEventForTeamSubscriptionTeamEvent(s.Team, s.Event);
-                continue;
-            }
-
-            if ((time.GetLocalNow().Date - tbaEvent.EndDate.ToDateTime(TimeOnly.MinValue)).TotalDays > maxDays)
-            {
-                logger.EventEventHasEnded5DaysAgoCleaningUpSubscriptionToItForTeamTeamKey(s.Event, s.Team);
-                var r = await teamSubscriptions.DeleteEntityAsync(s.PartitionKey, s.RowKey, cancellationToken: cancellationToken);
-                if (r.IsError)
+                var tbaEvent = await events.GetEventSimpleAsync(s.Event, cancellationToken: cancellationToken).ConfigureAwait(false);
+                if (tbaEvent is null)
                 {
-                    logger.FailedToDeleteSubscriptionForTeamTeamErrorMessage(s.Team, r.ReasonPhrase);
+                    logger.FailedToRetrieveEventForTeamSubscriptionTeamEvent(s.Team, s.Event);
                     continue;
                 }
+
+                if ((time.GetLocalNow().Date - tbaEvent.EndDate.ToDateTime(TimeOnly.MinValue)).TotalDays > maxDays)
+                {
+                    logger.EventEventHasEnded5DaysAgoCleaningUpSubscriptionToItForTeamTeamKey(s.Event, s.Team);
+                    var r = await teamSubscriptions.DeleteEntityAsync(s.PartitionKey, s.RowKey, cancellationToken: cancellationToken);
+                    if (r.IsError)
+                    {
+                        logger.FailedToDeleteSubscriptionForTeamTeamErrorMessage(s.Team, r.ReasonPhrase);
+                        continue;
+                    }
+                }
             }
+
+            bool updated = false;
+            var emptySubscriptions = s.Subscribers.Where(j => j.Value.Count is 0).ToArray();
+            if (emptySubscriptions.Length > 0)
+            {
+                foreach (var emptySub in emptySubscriptions)
+                {
+                    logger.FoundEmptySubscriptionForTeamTeamKeyGuildIdRemoving(s.Team, emptySub.Key);
+
+                    s.Subscribers.Remove(emptySub.Key);
+                    updated = true;
+                }
+            }
+
+            if (s.Subscribers.Count is 0)
+            {
+                await teamSubscriptions.DeleteEntityAsync(s, s.ETag, cancellationToken).ConfigureAwait(false);
+            }
+            else if (updated)
+            {
+                await teamSubscriptions.UpdateEntityAsync(s, s.ETag, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
+            }
+
+            logger.SubscriptionsForTeamTeamKeyCleaned(s.Team);
         }
 
         logger.LogMetric("TeamSubscriptionsCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
 
         startTime = time.GetTimestamp();
-        await foreach (var s in eventSubscriptions.QueryAsync<EventSubscriptionEntity>(e => e.PartitionKey != CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false))
+        await foreach (var s in eventSubscriptions.QueryAsync<EventSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
         {
             logger.CleaningUpSubscriptionsForEventEvent(s.Event);
-            var tbaEvent = await events.GetEventSimpleAsync(s.Event, cancellationToken: cancellationToken).ConfigureAwait(false);
-            if (tbaEvent is null)
+            if (s.PartitionKey != CommonConstants.ALL)
             {
-                logger.FailedToRetrieveEventForEventSubscriptionEvent(s.Event);
-                continue;
-            }
-
-            if ((time.GetLocalNow().Date - tbaEvent.EndDate.ToDateTime(TimeOnly.MinValue)).TotalDays > maxDays)
-            {
-                logger.EventEventHasEnded5DaysAgoCleaningUpEventSubscription(s.Event);
-                var r = await eventSubscriptions.DeleteEntityAsync(s.PartitionKey, s.RowKey, cancellationToken: cancellationToken);
-                if (r.IsError)
+                var tbaEvent = await events.GetEventSimpleAsync(s.Event, cancellationToken: cancellationToken).ConfigureAwait(false);
+                if (tbaEvent is null)
                 {
-                    logger.FailedToDeleteSubscriptionForEventEventErrorMessage(s.Event, r.ReasonPhrase);
+                    logger.FailedToRetrieveEventForEventSubscriptionEvent(s.Event);
                     continue;
                 }
+
+                if ((time.GetLocalNow().Date - tbaEvent.EndDate.ToDateTime(TimeOnly.MinValue)).TotalDays > maxDays)
+                {
+                    logger.EventEventHasEnded5DaysAgoCleaningUpEventSubscription(s.Event);
+                    var r = await eventSubscriptions.DeleteEntityAsync(s.PartitionKey, s.RowKey, cancellationToken: cancellationToken);
+                    if (r.IsError)
+                    {
+                        logger.FailedToDeleteSubscriptionForEventEventErrorMessage(s.Event, r.ReasonPhrase);
+                        continue;
+                    }
+                }
             }
+
+            bool updated = false;
+            var emptySubscriptions = s.Subscribers.Where(j => j.Value.Count is 0).ToArray();
+            if (emptySubscriptions.Length > 0)
+            {
+                foreach (var emptySub in emptySubscriptions)
+                {
+                    logger.FoundEmptySubscriptionForEventEventGuildGuildIdRemoving(s.Event, emptySub.Key);
+
+                    s.Subscribers.Remove(emptySub.Key);
+                    updated = true;
+                }
+            }
+
+            if (s.Subscribers.Count is 0)
+            {
+                await eventSubscriptions.DeleteEntityAsync(s, s.ETag, cancellationToken).ConfigureAwait(false);
+            }
+            else if (updated)
+            {
+                await eventSubscriptions.UpdateEntityAsync(s, s.ETag, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
+            }
+
+            logger.SubscriptionsForEventEventCleaned(s.Event);
         }
 
         logger.LogMetric("EventSubscriptionsCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);

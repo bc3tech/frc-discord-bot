@@ -529,4 +529,16 @@ static partial class Log
 
     [LoggerMessage(173, LogLevel.Debug, "Ranking points were empty for {MatchKey} - 1s poll until they go live...")]
     internal static partial void RankingPointsWereEmptyForMatchKey1sPollUntilTheyGoLive(this ILogger logger, string MatchKey);
+
+    [LoggerMessage(174, LogLevel.Debug, "Found empty subscription for team {TeamKey} ({GuildId}) - Removing...")]
+    internal static partial void FoundEmptySubscriptionForTeamTeamKeyGuildIdRemoving(this ILogger logger, ushort TeamKey, string GuildId);
+
+    [LoggerMessage(175, LogLevel.Debug, "Subscriptions for team {TeamKey} cleaned.")]
+    internal static partial void SubscriptionsForTeamTeamKeyCleaned(this ILogger logger, ushort TeamKey);
+
+    [LoggerMessage(176, LogLevel.Debug, "Found empty subscription for event {Event} guild {GuildId} - Removing...")]
+    internal static partial void FoundEmptySubscriptionForEventEventGuildGuildIdRemoving(this ILogger logger, string Event, string GuildId);
+
+    [LoggerMessage(177, LogLevel.Debug, "Subscriptions for event {Event} cleaned")]
+    internal static partial void SubscriptionsForEventEventCleaned(this ILogger logger, string Event);
 }
