@@ -17,6 +17,7 @@ internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger
         if (notification == default)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
+            yield return null;
             yield break;
         }
 

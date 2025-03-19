@@ -31,6 +31,7 @@ internal sealed class MatchVideo(IMatchApi matches,
         if (notification is null)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
+            yield return null;
             yield break;
         }
 

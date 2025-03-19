@@ -37,14 +37,14 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
         if (notification is null)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
-            yield return new(baseBuilder.Build());
+            yield return null;
             yield break;
         }
 
         if (string.IsNullOrWhiteSpace(notification.match_key))
         {
             logger.MatchKeyIsMissingFromNotificationData();
-            yield return new(baseBuilder.Build());
+            yield return null;
             yield break;
         }
 
@@ -52,7 +52,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
         if (detailedMatch is null)
         {
             logger.FailedToRetrieveDetailedMatchDataForMatchKey(notification.match_key);
-            yield return new(baseBuilder.Build());
+            yield return null;
             yield break;
         }
 
