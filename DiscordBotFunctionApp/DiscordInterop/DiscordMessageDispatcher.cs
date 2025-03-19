@@ -96,9 +96,11 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
     private async Task ProcessSubscriptionAsync(WebhookMessage message, GuildSubscriptions subscribers, ushort? highlightTeam, CancellationToken cancellationToken)
     {
         using var scope = logger.CreateMethodScope();
-        var embeds = _embedGenerator.CreateEmbeddingsAsync(message, highlightTeam, cancellationToken: cancellationToken);
+        var chunksOfEmbeddingsToSend = (await _embedGenerator.CreateEmbeddingsAsync(message, highlightTeam, cancellationToken: cancellationToken)
+            .ToArrayAsync(cancellationToken).ConfigureAwait(false))
+            .Chunk(MAX_EMBEDS_PER_MESSAGE);
         var discordRequestOptions = cancellationToken.ToRequestOptions();
-        if (await embeds.AnyAsync(cancellationToken: cancellationToken).ConfigureAwait(false))
+        if (chunksOfEmbeddingsToSend.Any(i => i.Length != 0))
         {
             // check to see if there are any threads already created for this message
             var threadLocator = message.GetThreadDetails();
@@ -109,14 +111,14 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                 var entity = await threadsTable.GetEntityIfExistsAsync<ThreadTableEntity>(pk, rk, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (entity.HasValue && entity.Value is not null)
                 {
-                    var embedsToSend = await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false);
                     foreach (var t in entity.Value.ThreadIdList)
                     {
                         var chanId = t.ChannelId;
                         var threadId = t.ThreadId;
                         IMessageChannel? rawChan = _discordClient.GetChannel(threadId) as IMessageChannel ?? await _discordClient.GetDMChannelAsync(threadId).ConfigureAwait(false);
                         var guildId = (rawChan as IGuildChannel)?.GuildId;
-                        if (rawChan is not null)
+                        var guildSubscriptions = subscribers.SubscriptionsForGuild(guildId);
+                        if (guildSubscriptions.Any() && rawChan is not null)
                         {
                             MessageReference? replyToMessage;
                             try
@@ -133,7 +135,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
                             try
                             {
-                                await rawChan.SendMessageAsync(embeds: embedsToSend, messageReference: replyToMessage, options: discordRequestOptions).ConfigureAwait(false);
+                                await sendEmbeddingsAsync(chunksOfEmbeddingsToSend, discordRequestOptions, rawChan, replyToMessage).ConfigureAwait(false);
 
                                 logger.LogMetric("NotificationSent", 1,
                                     new Dictionary<string, object>() {
@@ -167,13 +169,8 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                 if (targetChannel is IMessageChannel msgChan)
                 {
                     logger.SendingNotificationToChannelChannelIdChannelName(subscriberChannelId, targetChannel.Name);
-                    var embedChunks = (await embeds.ToArrayAsync(cancellationToken).ConfigureAwait(false)).Chunk(MAX_EMBEDS_PER_MESSAGE);
                     var threadForMessage = await CreateThreadForMessageAsync(message, msgChan, cancellationToken);
-                    ulong? replyToMessageId = null;
-                    foreach (var i in embedChunks)
-                    {
-                        replyToMessageId ??= (await threadForMessage.SendMessageAsync(embeds: i, options: discordRequestOptions).ConfigureAwait(false)).Id;
-                    }
+                    var replyToMessageId = await sendEmbeddingsAsync(chunksOfEmbeddingsToSend, discordRequestOptions, threadForMessage).ConfigureAwait(false);
 
                     await StoreReplyToMessageAsync(message, msgChan, threadForMessage, replyToMessageId, cancellationToken);
 
@@ -189,6 +186,18 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                     logger.ChannelChannelIdIsNotAMessageChannel(subscriberChannelId);
                 }
             }
+        }
+
+        static async Task<ulong> sendEmbeddingsAsync(IEnumerable<SubscriptionEmbedding[]> chunksOfEmbeddingsToSend, RequestOptions discordRequestOptions, IMessageChannel chan, MessageReference? replyToMessage = null)
+        {
+            ulong? id = null;
+            foreach (var i in chunksOfEmbeddingsToSend)
+            {
+                var m = await chan.SendMessageAsync(embeds: [.. i.Select(i => i.Content)], components: ComponentBuilder.FromComponents([.. i.SelectMany(j => j.Actions ?? [])]).Build(), messageReference: replyToMessage, options: discordRequestOptions).ConfigureAwait(false);
+                id ??= m.Id;
+            }
+
+            return id.GetValueOrDefault(0);
         }
     }
 

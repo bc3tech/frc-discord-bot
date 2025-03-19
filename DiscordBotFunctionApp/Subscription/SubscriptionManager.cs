@@ -19,9 +19,10 @@ internal sealed record NotificationSubscription([property: JsonPropertyName("gui
                                            [property: JsonPropertyName("event")] string? Event,
                                            [property: JsonPropertyName("team")] ushort? Team);
 
-internal sealed class SubscriptionManager([FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptions,
-                                          [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptions,
-                                          ILogger<SubscriptionManager> logger)
+internal sealed class SubscriptionManager(
+    [FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptions,
+    [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptions,
+    ILogger<SubscriptionManager> logger)
 {
     public async IAsyncEnumerable<NotificationSubscription> GetSubscriptionsForGuildAsync(ulong? guildId, [EnumeratorCancellation] CancellationToken cancellationToken)
     {

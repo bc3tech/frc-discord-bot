@@ -15,9 +15,9 @@ internal interface IEmbedCreator<TInput, TResponse> : IEmbedCreator where TRespo
 
 internal interface IEmbedCreator { }
 
-internal record ResponseEmbedding(Embed Content, bool Transient = false)
+internal record ResponseEmbedding(Embed Content, bool Transient = false, IEnumerable<IMessageComponent>? Actions = null)
 {
     public static implicit operator Embed(ResponseEmbedding embedding) => embedding.Content;
 }
 
-internal sealed record SubscriptionEmbedding(Embed Content) : ResponseEmbedding(Content, false) { }
+internal sealed record SubscriptionEmbedding(Embed Content, IEnumerable<IMessageComponent>? Actions = null) : ResponseEmbedding(Content, false, Actions) { }

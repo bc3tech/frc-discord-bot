@@ -46,10 +46,9 @@ public partial record Team
     /// <param name="stateProv">State of team derived from parsing the address registered with FIRST. (required).</param>
     /// <param name="teamNumber">Official team number issued by FIRST. (required).</param>
     /// <param name="website">Official website associated with the team.</param>
-    public Team(string address, string city, string country, string gmapsPlaceId, string gmapsUrl, string key, double? lat, double? lng, string locationName, string name, string nickname, string postalCode, int? rookieYear, string schoolName, string stateProv, int teamNumber, string? website = default)
+    public Team(string? address, string city, string country, string? gmapsPlaceId, string? gmapsUrl, string key, double? lat, double? lng, string? locationName, string name, string nickname, string postalCode, int? rookieYear, string schoolName, string stateProv, int teamNumber, string? website = default)
     {
         // to ensure "address" is required (not null)
-        ArgumentNullException.ThrowIfNull(address);
         this.Address = address;
 
         // to ensure "city" is required (not null)
@@ -61,11 +60,9 @@ public partial record Team
         this.Country = country;
 
         // to ensure "gmapsPlaceId" is required (not null)
-        ArgumentNullException.ThrowIfNull(gmapsPlaceId);
         this.GmapsPlaceId = gmapsPlaceId;
 
         // to ensure "gmapsUrl" is required (not null)
-        ArgumentNullException.ThrowIfNull(gmapsUrl);
         this.GmapsUrl = gmapsUrl;
 
         // to ensure "key" is required (not null)
@@ -85,7 +82,6 @@ public partial record Team
         this.Lng = lng;
 
         // to ensure "locationName" is required (not null)
-        ArgumentNullException.ThrowIfNull(locationName);
         this.LocationName = locationName;
 
         // to ensure "name" is required (not null)
@@ -124,7 +120,7 @@ public partial record Team
     /// <value>Will be NULL, for future development.</value>
     [JsonRequired]
     [JsonPropertyName("address")]
-    public string Address { get; set; }
+    public string? Address { get; set; }
 
     /// <summary>
     /// City of team derived from parsing the address registered with FIRST.
@@ -148,7 +144,7 @@ public partial record Team
     /// <value>Will be NULL, for future development.</value>
     [JsonRequired]
     [JsonPropertyName("gmaps_place_id")]
-    public string GmapsPlaceId { get; set; }
+    public string? GmapsPlaceId { get; set; }
 
     /// <summary>
     /// Will be NULL, for future development.
@@ -156,7 +152,7 @@ public partial record Team
     /// <value>Will be NULL, for future development.</value>
     [JsonRequired]
     [JsonPropertyName("gmaps_url")]
-    public string GmapsUrl { get; set; }
+    public string? GmapsUrl { get; set; }
 
     /// <summary>
     /// TBA team key with the format &#x60;frcXXXX&#x60; with &#x60;XXXX&#x60; representing the team number.
@@ -188,7 +184,7 @@ public partial record Team
     /// <value>Will be NULL, for future development.</value>
     [JsonRequired]
     [JsonPropertyName("location_name")]
-    public string LocationName { get; set; }
+    public string? LocationName { get; set; }
 
     /// <summary>
     /// Official long name registered with FIRST.

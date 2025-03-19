@@ -493,4 +493,37 @@ static partial class Log
 
     [LoggerMessage(161, LogLevel.Warning, "No stats given from Statbotics for match {MatchKey}")]
     internal static partial void NoStatsGivenFromStatboticsForMatchMatchKey(this ILogger logger, string MatchKey);
+
+    [LoggerMessage(162, LogLevel.Error, "Didn't find any match data for {MatchKey}")]
+    internal static partial void DidnTFindAnyMatchDataForMatchKey(this ILogger logger, string MatchKey);
+
+    [LoggerMessage(163, LogLevel.Debug, "{ServiceType} handled button click {ButtonId}")]
+    internal static partial void ServiceTypeHandledButtonClickButtonId(this ILogger logger, string ServiceType, string ButtonId);
+
+    [LoggerMessage(164, LogLevel.Debug, "{ServiceType} handled menu selection {MenuId}[{ValueId}]")]
+    internal static partial void ServiceTypeHandledMenuSelectionMenuIdValueId(this ILogger logger, string ServiceType, string MenuId, string ValueId);
+
+    [LoggerMessage(165, LogLevel.Debug, "Cleaning up subscriptions for team {Team}")]
+    internal static partial void CleaningUpSubscriptionsForTeamTeam(this ILogger logger, ushort Team);
+
+    [LoggerMessage(166, LogLevel.Warning, "Failed to retrieve event for team subscription {Team} {Event}")]
+    internal static partial void FailedToRetrieveEventForTeamSubscriptionTeamEvent(this ILogger logger, ushort Team, string Event);
+
+    [LoggerMessage(167, LogLevel.Trace, "Event {Event} has ended >= 5 days ago, cleaning up subscription to it for team {TeamKey}")]
+    internal static partial void EventEventHasEnded5DaysAgoCleaningUpSubscriptionToItForTeamTeamKey(this ILogger logger, string Event, ushort TeamKey);
+
+    [LoggerMessage(168, LogLevel.Warning, "Failed to delete subscription for team {Team}: {ErrorMessage}")]
+    internal static partial void FailedToDeleteSubscriptionForTeamTeamErrorMessage(this ILogger logger, ushort Team, string ErrorMessage);
+
+    [LoggerMessage(169, LogLevel.Debug, "Cleaning up subscriptions for event {Event}")]
+    internal static partial void CleaningUpSubscriptionsForEventEvent(this ILogger logger, string Event);
+
+    [LoggerMessage(170, LogLevel.Warning, "Failed to retrieve event for event subscription {Event}")]
+    internal static partial void FailedToRetrieveEventForEventSubscriptionEvent(this ILogger logger, string Event);
+
+    [LoggerMessage(171, LogLevel.Trace, "Event {Event} has ended >= 5 days ago, cleaning up event subscription")]
+    internal static partial void EventEventHasEnded5DaysAgoCleaningUpEventSubscription(this ILogger logger, string Event);
+
+    [LoggerMessage(172, LogLevel.Warning, "Failed to delete subscription for event {Event}: {ErrorMessage}")]
+    internal static partial void FailedToDeleteSubscriptionForEventEventErrorMessage(this ILogger logger, string Event, string ErrorMessage);
 }

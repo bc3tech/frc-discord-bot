@@ -34,7 +34,7 @@ public partial record MatchAlliance
     /// <param name="score">Score for this alliance. Will be null or -1 for an unplayed match. (required).</param>
     /// <param name="surrogateTeamKeys">TBA team keys (eg &#x60;frc254&#x60;) of any teams playing as a surrogate. (required).</param>
     /// <param name="teamKeys">teamKeys (required).</param>
-    public MatchAlliance(Collection<string> dqTeamKeys, int score, Collection<string> surrogateTeamKeys, Collection<string> teamKeys)
+    public MatchAlliance(Collection<string> dqTeamKeys, int? score, Collection<string> surrogateTeamKeys, Collection<string> teamKeys)
     {
         // to ensure "dqTeamKeys" is required (not null)
         ArgumentNullException.ThrowIfNull(dqTeamKeys);
@@ -64,7 +64,7 @@ public partial record MatchAlliance
     /// <value>Score for this alliance. Will be null or -1 for an unplayed match.</value>
     [JsonRequired]
     [JsonPropertyName("score")]
-    public int Score { get; set; }
+    public int? Score { get; set; }
 
     /// <summary>
     /// TBA team keys (eg &#x60;frc254&#x60;) of any teams playing as a surrogate.

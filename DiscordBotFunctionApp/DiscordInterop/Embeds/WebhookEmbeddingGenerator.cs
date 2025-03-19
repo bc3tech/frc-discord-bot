@@ -2,8 +2,6 @@
 
 using Common.Extensions;
 
-using Discord;
-
 using DiscordBotFunctionApp.TbaInterop.Models;
 using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
@@ -17,7 +15,7 @@ using System.Runtime.CompilerServices;
 internal sealed class WebhookEmbeddingGenerator(IServiceProvider services, ILogger<WebhookEmbeddingGenerator> logger)
 {
     [return: NotNull]
-    public async IAsyncEnumerable<Embed> CreateEmbeddingsAsync(WebhookMessage tbaWebhookMessage, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<SubscriptionEmbedding> CreateEmbeddingsAsync(WebhookMessage tbaWebhookMessage, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         using var scope = logger.CreateMethodScope();
         var embedCreator = services.GetKeyedService<INotificationEmbedCreator>(tbaWebhookMessage.MessageType.ToInvariantString());

@@ -7,6 +7,7 @@ using Discord.Interactions;
 using Discord.Rest;
 using Discord.WebSocket;
 
+using DiscordBotFunctionApp.DiscordInterop.CommandModules;
 using DiscordBotFunctionApp.DiscordInterop.Embeds;
 using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
@@ -82,7 +83,8 @@ internal static class DependencyInjectionExtensions
             return i;
         })
         .AddHostedService<DiscordInitializationService>()
-        .AddKeyedSingleton<INotificationEmbedCreator, MatchScore>(MatchScore.TargetType.ToInvariantString())
+        .AddSingleton<MatchScore>()
+        .AddKeyedSingleton<INotificationEmbedCreator, MatchScore>(MatchScore.TargetType.ToInvariantString(), (sp, _) => sp.GetRequiredService<MatchScore>())
         .AddKeyedSingleton<INotificationEmbedCreator, AllianceSelection>(AllianceSelection.TargetType.ToInvariantString())
         .AddKeyedSingleton<INotificationEmbedCreator, UpcomingMatch>(UpcomingMatch.TargetType.ToInvariantString())
         .AddKeyedSingleton<INotificationEmbedCreator, ScheduleUpdate>(ScheduleUpdate.TargetType.ToInvariantString())
@@ -91,10 +93,15 @@ internal static class DependencyInjectionExtensions
         .AddKeyedSingleton<INotificationEmbedCreator, CompLevelStarting>(CompLevelStarting.TargetType.ToInvariantString())
         .AddKeyedSingleton<IEmbedCreator<string>, EventDetail>(nameof(EventDetail))
         .AddKeyedSingleton<IEmbedCreator<(string eventKey, string teamKey)>, UpcomingMatch>(nameof(UpcomingMatch))
-        .AddKeyedSingleton<IEmbedCreator<(string, bool)>, MatchScore>(nameof(MatchScore))
+        .AddKeyedSingleton<IEmbedCreator<(string, bool)>, MatchScore>(nameof(MatchScore), (sp, _) => sp.GetRequiredService<MatchScore>())
         .AddKeyedSingleton<IEmbedCreator<string>, MatchVideo>(nameof(MatchVideo))
         .AddKeyedSingleton<IEmbedCreator<(int? Year, string TeamKey, string? EventKey)>, TeamRank>(nameof(TeamRank))
         .AddKeyedSingleton<IEmbedCreator<string>, TeamDetail>(nameof(TeamDetail));
+
+        // Register the IHandleUserInteraction class instances as such
+        services
+            .AddSingleton<IHandleUserInteractions, SubscriptionCommandModule>()
+            .AddSingleton<IHandleUserInteractions>(sp => sp.GetRequiredService<MatchScore>());
 
         return services;
     }

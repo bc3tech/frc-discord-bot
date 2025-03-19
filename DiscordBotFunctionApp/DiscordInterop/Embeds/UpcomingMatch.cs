@@ -78,7 +78,6 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
 
                 descriptionBuilder.AppendLine(
                     $"""
-
                     ### Watch live
 
                     - {link} ({notification.webcast.ViewerCount} current viewer{(notification.webcast.ViewerCount is not 1 ? "s" : string.Empty)})
@@ -198,7 +197,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
             {string.Join("\n", matchDetails.Alliances.Blue.TeamKeys.OrderBy(k => k.TeamKeyToTeamNumber()).Select(t => $"- {teams[t].GetLabelWithHighlight(highlightTeam)}{(ranks is not null && ranks.TryGetValue(t, out var rk) ? $" (#{rk})" : string.Empty)}"))}
             """);
 
-        if (predictedWinner is not null and not MatchSimple.WinningAllianceEnum.Empty && predictedWinner.HasValue)
+        if (predictedWinner is not null and not MatchSimple.WinningAllianceEnum.Empty)
         {
             var certainty = predictedWinner is MatchSimple.WinningAllianceEnum.Red ? stats!.Pred!.RedWinProb : (1 - stats!.Pred!.RedWinProb);
             bool redWins = predictedWinner is MatchSimple.WinningAllianceEnum.Red;

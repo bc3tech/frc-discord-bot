@@ -64,12 +64,11 @@ public partial record Team
         return asMarkdownLink ? $"[{details}]({this.TbaUrl})" : details.ToString();
     }
 
-    public string GetLabelWithHighlight(ulong? highlightIfIsTeamNumber, bool asMarkdownLink = true)
+    public string GetLabelWithHighlight(ulong? highlightIfIsTeamNumber, bool includeNumber = true, bool includeName = true, bool includeLocation = true, bool asMarkdownLink = true)
     {
-        var teamLabel = GetLabel(asMarkdownLink: asMarkdownLink);
-        return highlightIfIsTeamNumber is not null && (teamLabel.StartsWith(highlightIfIsTeamNumber.ToString()!, StringComparison.Ordinal) || teamLabel.StartsWith($"[{highlightIfIsTeamNumber.ToString()!}", StringComparison.Ordinal))
-            ? $"**{teamLabel}**"
-            : teamLabel;
+        var teamLabel = GetLabel(includeNumber, includeName, includeLocation, asMarkdownLink);
+        return highlightIfIsTeamNumber is not null && (teamLabel.StartsWith(highlightIfIsTeamNumber.ToString()!, StringComparison.Ordinal) || teamLabel.StartsWith($"[{highlightIfIsTeamNumber}", StringComparison.Ordinal))
+            ? $"**{teamLabel}**" : teamLabel;
     }
 
     public static implicit operator TeamSimple(Team t) => new(t.City, t.Country, t.Key, t.Name, t.Nickname, t.StateProv, t.TeamNumber);

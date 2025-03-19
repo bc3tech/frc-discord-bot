@@ -10,18 +10,14 @@ using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.Subscription;
 
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Client;
-using Microsoft.Net.Http.Headers;
 
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Text.Json;
+using System.Threading;
 
 [Group("subscription", "Manages subscriptions to FRC events and teams")]
-public sealed class SubscriptionCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<SubscriptionCommandModule>>())
+public sealed class SubscriptionCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<SubscriptionCommandModule>>()), IHandleUserInteractions
 {
     private readonly SubscriptionManager _subscriptionManager = services.GetRequiredService<SubscriptionManager>();
     private readonly EventRepository _eventsRepo = services.GetRequiredService<EventRepository>();
@@ -150,76 +146,77 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
             SelectMenuOptionBuilder buildOption(NotificationSubscription i)
             {
                 return new(
-                    label: MakeLabelForSubscription(i, _eventsRepo, _teamsRepo),
+                    label: MakeLabelForSubscription(i),
                     value: $"{i.Event ?? "_"}|{i.Team?.ToString() ?? "_"}|{i.GuildId?.ToString() ?? "_"}|{i.ChannelId}");
             }
         }
     }
 
-    internal static string MakeLabelForSubscription(NotificationSubscription i, EventRepository events, TeamRepository teams) => $"{(i.Event is not null and not CommonConstants.ALL ? events[i.Event].GetLabel(shortName: true, includeYear: true) : "All Events")} - {(i.Team is null or 0 ? "All Teams" : teams[i.Team.Value].GetLabel(includeLocation: false, asMarkdownLink: false))}";
+    private string MakeLabelForSubscription(NotificationSubscription i) => $"{(i.Event is not null and not CommonConstants.ALL ? _eventsRepo[i.Event].GetLabel(shortName: true, includeYear: true) : "All Events")} - {(i.Team is null or 0 ? "All Teams" : _teamsRepo[i.Team.Value].GetLabel(includeLocation: false, asMarkdownLink: false))}";
 
-    internal static async Task<bool> HandleMenuSelectionAsync(IServiceProvider services, SocketMessageComponent menuSelection)
+    public async Task<bool> HandleInteractionAsync(IServiceProvider services, SocketMessageComponent component, CancellationToken cancellationToken)
     {
-        SubscriptionManager subscriptionManager = services.GetRequiredService<SubscriptionManager>();
-        var value = Common.Throws.IfNullOrWhiteSpace(menuSelection.Data.Values.FirstOrDefault());
-
-        var pieces = new Range[4];
-        string? evt = null, team = null, guild = null;
-        ulong channel = 0;
-        for (int i = 0; i < value.AsSpan().Split(pieces, '|'); i++)
+        if (component.Data.CustomId is SubscriptionDeleteSelectionMenuId)
         {
-            var pieceValue = value[pieces[i]];
-            switch (i)
+            var value = Common.Throws.IfNullOrWhiteSpace(component.Data.Values.FirstOrDefault());
+
+            var pieces = new Range[4];
+            string? evt = null, team = null, guild = null;
+            ulong channel = 0;
+            for (int i = 0; i < value.AsSpan().Split(pieces, '|'); i++)
             {
-                case 0: evt = pieceValue; break;
-                case 1: team = pieceValue; break;
-                case 2: guild = pieceValue; break;
-                case 3: channel = ulong.Parse(pieceValue); break;
+                var pieceValue = value[pieces[i]];
+                switch (i)
+                {
+                    case 0: evt = pieceValue; break;
+                    case 1: team = pieceValue; break;
+                    case 2: guild = pieceValue; break;
+                    case 3: channel = ulong.Parse(pieceValue); break;
+                }
             }
-        }
 
-        if (channel is 0)
-        {
-            throw new ArgumentException("Invalid channel number");
-        }
-
-        var subToDelete = new NotificationSubscription(ulong.TryParse(guild, out var g) ? g : null, channel, evt, ushort.TryParse(team, out var t) ? t : null);
-        await subscriptionManager.RemoveSubscriptionAsync(subToDelete, default);
-
-        EventRepository events = services.GetRequiredService<EventRepository>();
-        TeamRepository teams = services.GetRequiredService<TeamRepository>();
-
-        // Create a copy of the existing components; when updating a message, components are only settable wholesale
-        var newActionRows = new ComponentBuilder()
-            .WithRows(menuSelection.Message.Components
-                .Select(i => new ActionRowBuilder().WithComponents([.. i.Components])));
-        var rowWithSelectMenuAndOption = newActionRows.ActionRows
-            .First(i => i.Components.OfType<SelectMenuComponent>().Any(j => j.Options.Any(k => k.Value == value)));
-        var oldSelectMenu = (SelectMenuComponent)rowWithSelectMenuAndOption.Components
-            .First(i => i.CustomId is SubscriptionDeleteSelectionMenuId);
-        var indexOfOldSelectMenu = rowWithSelectMenuAndOption.Components.IndexOf(oldSelectMenu);
-        Debug.Assert(indexOfOldSelectMenu is not -1);
-
-        // Create a new menu based on the old one
-        var newMenu = oldSelectMenu.ToBuilder();
-        // Remove the menu option that matches the one that was selected for this interaction
-        Debug.Assert(newMenu.Options.RemoveAll(i => i.Value == value) is 1);
-        rowWithSelectMenuAndOption.Components[indexOfOldSelectMenu] = newMenu.Build();
-
-        try
-        {
-            await menuSelection.UpdateAsync(p =>
+            if (channel is 0)
             {
-                p.Content = $"**Subscription for `{MakeLabelForSubscription(subToDelete, events, teams)}` deleted.**";
-                p.Components = newActionRows.Build();
-            }).ConfigureAwait(false);
-        }
-        catch (Exception e)
-        {
-            Debug.Fail(e.Message);
-            services.GetService<ILogger<SubscriptionCommandModule>>().ErrorUpdatingTheOriginalMessageForTheDeleteSubscriptionInteraction(e);
+                throw new ArgumentException("Invalid channel number");
+            }
+
+            var subToDelete = new NotificationSubscription(ulong.TryParse(guild, out var g) ? g : null, channel, evt, ushort.TryParse(team, out var t) ? t : null);
+            await _subscriptionManager.RemoveSubscriptionAsync(subToDelete, default).ConfigureAwait(false);
+
+            // Create a copy of the existing components; when updating a message, components are only settable wholesale
+            var newActionRows = new ComponentBuilder()
+                .WithRows(component.Message.Components
+                    .Select(i => new ActionRowBuilder().WithComponents([.. i.Components])));
+            var rowWithSelectMenuAndOption = newActionRows.ActionRows
+                .First(i => i.Components.OfType<SelectMenuComponent>().Any(j => j.Options.Any(k => k.Value == value)));
+            var oldSelectMenu = (SelectMenuComponent)rowWithSelectMenuAndOption.Components
+                .First(i => i.CustomId is SubscriptionDeleteSelectionMenuId);
+            var indexOfOldSelectMenu = rowWithSelectMenuAndOption.Components.IndexOf(oldSelectMenu);
+            Debug.Assert(indexOfOldSelectMenu is not -1);
+
+            // Create a new menu based on the old one
+            var newMenu = oldSelectMenu.ToBuilder();
+            // Remove the menu option that matches the one that was selected for this interaction
+            Debug.Assert(newMenu.Options.RemoveAll(i => i.Value == value) is 1);
+            rowWithSelectMenuAndOption.Components[indexOfOldSelectMenu] = newMenu.Build();
+
+            try
+            {
+                await component.UpdateAsync(p =>
+                {
+                    p.Content = $"**Subscription for `{MakeLabelForSubscription(subToDelete)}` deleted.**";
+                    p.Components = newActionRows.Build();
+                }).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                Debug.Fail(e.Message);
+                this.Logger.ErrorUpdatingTheOriginalMessageForTheDeleteSubscriptionInteraction(e);
+            }
+
+            return true;
         }
 
-        return true;
+        return false;
     }
 }

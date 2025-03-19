@@ -11,6 +11,7 @@ using DiscordBotFunctionApp.DiscordInterop.CommandModules;
 using DiscordBotFunctionApp.Extensions;
 
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -122,18 +123,31 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
                     }
                 }
             }
+            else
+            {
+                foreach (var s in services.GetServices<IHandleUserInteractions>())
+                {
+                    if (await s.HandleInteractionAsync(services, button, cancellationToken))
+                    {
+                        _logger.ServiceTypeHandledButtonClickButtonId(s.GetType().Name, button.Data.CustomId);
+                        return;
+                    }
+                }
+            }
         };
 
-        client.SelectMenuExecuted += async menu =>
+        client.SelectMenuExecuted += async (menu) =>
         {
-            var interactionData = JsonSerializer.Serialize(menu.Data);
-            _logger.ReceivedMenuSelectionSelectionData(interactionData);
-            if (await SubscriptionCommandModule.HandleMenuSelectionAsync(services, menu))
+            foreach (var s in services.GetServices<IHandleUserInteractions>())
             {
-                return;
+                if (await s.HandleInteractionAsync(services, menu, cancellationToken))
+                {
+                    _logger.ServiceTypeHandledMenuSelectionMenuIdValueId(s.GetType().Name, menu.Data.CustomId, menu.Data.Values.FirstOrDefault() ?? "[unknown]");
+                    return;
+                }
             }
 
-            _logger.UnknownMenuSelectionReceivedMenuData(interactionData);
+            _logger.UnknownMenuSelectionReceivedMenuData(JsonSerializer.Serialize(menu.Data));
         };
     }
 

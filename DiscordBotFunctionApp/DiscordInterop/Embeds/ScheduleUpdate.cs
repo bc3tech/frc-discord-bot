@@ -25,11 +25,9 @@ internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger
                 $"""
                 # Schedule Update
 
-                ## {notification.event_name}
+                There's been a schedule update to **{notification.event_name}**
 
-                Next match start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.first_match_time!).ToPacificTime():t}
-
-                View the detailed event schedule [here](https://www.thebluealliance.com/event/{notification.event_key})
+                View the detailed schedule [here](https://www.thebluealliance.com/event/{notification.event_key})
                 """);
 
         yield return await Task.FromResult<SubscriptionEmbedding>(new(embedding.Build()));
