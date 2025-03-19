@@ -70,17 +70,14 @@ internal sealed class Award(IEventApi tbaApi,
             var imageUri = ((AwardType)latestAward.AwardType).IsBlueBanner() ? blueBannerImageUri : trophyImageUri;
 
             var embedding = baseBuilder
+                .WithTitle(notification.event_name)
+                .WithUrl($"https://www.thebluealliance.com/event/{notification.event_key}#awards")
                 .WithDescription(
                     $"""
-                        # Award!
-
-                        ## {notification.event_name}: {latestAward.Name}
-
-                        ### {(latestAward.RecipientList.Count > 1 ? "Recipients" : "Recipient")}
-
-                        {string.Join("\n", latestAward.RecipientList!.Select(t => $"- {teams[t.TeamKey].GetLabelWithHighlight(highlightTeam)}{(!string.IsNullOrWhiteSpace(t.Awardee) ? $" [{t.Awardee}]" : string.Empty)}"))}
-                
-                        View more event awards [here](https://www.thebluealliance.com/event/{notification.event_key}#awards)
+                    # Award!
+                    ## {latestAward.Name}
+                    ### {(latestAward.RecipientList.Count > 1 ? "Recipients" : "Recipient")}
+                    {string.Join("\n", latestAward.RecipientList!.Select(t => $"- {teams[t.TeamKey].GetLabelWithHighlight(highlightTeam)}{(!string.IsNullOrWhiteSpace(t.Awardee) ? $" [{t.Awardee}]" : string.Empty)}"))}
                     """)
                 .WithThumbnailUrl(imageUri);
 
