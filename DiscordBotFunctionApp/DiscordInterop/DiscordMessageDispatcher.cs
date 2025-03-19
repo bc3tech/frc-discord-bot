@@ -115,7 +115,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                     {
                         var chanId = t.ChannelId;
                         var threadId = t.ThreadId;
-                        IMessageChannel? rawChan = _discordClient.GetChannel(threadId) as IMessageChannel ?? await _discordClient.GetDMChannelAsync(threadId).ConfigureAwait(false);
+                        IMessageChannel? rawChan = (await _discordClient.GetChannelAsync(threadId, discordRequestOptions).ConfigureAwait(false)) as IMessageChannel ?? await _discordClient.GetDMChannelAsync(threadId).ConfigureAwait(false);
                         var guildId = (rawChan as IGuildChannel)?.GuildId;
                         var guildSubscriptions = subscribers.SubscriptionsForGuild(guildId);
                         if (guildSubscriptions.Any() && rawChan is not null)
@@ -144,7 +144,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                                     { "Threaded", true }
                                     });
 
-                                subscribers.RemoveSubscription(guildId, rawChan.Id);
+                                subscribers.RemoveSubscription(guildId, chanId, logger);
                             }
                             catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
                             {

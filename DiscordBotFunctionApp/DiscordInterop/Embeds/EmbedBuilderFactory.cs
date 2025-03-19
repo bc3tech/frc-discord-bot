@@ -17,7 +17,13 @@ internal sealed class EmbedBuilderFactory(EmbeddingColorizer colorizer)
     public EmbedBuilder GetBuilder(ushort? teamNumber = null, bool footerRequired = true)
     {
         var r = new EmbedBuilder()
-            .WithFooter(footerRequired ? FooterText : string.Empty);
+            .WithFooter(
+#if !DEBUG
+            footerRequired ? FooterText : string.Empty
+#else
+            FooterText
+#endif
+            );
 
         colorizer.SetEmbeddingColor(teamNumber, r);
 

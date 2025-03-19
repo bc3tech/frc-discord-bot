@@ -541,4 +541,10 @@ static partial class Log
 
     [LoggerMessage(177, LogLevel.Debug, "Subscriptions for event {Event} cleaned")]
     internal static partial void SubscriptionsForEventEventCleaned(this ILogger logger, string Event);
+
+    [LoggerMessage(178, LogLevel.Warning, "Attempted to remove subscription from non-existent guild.")]
+    internal static partial void AttemptedToRemoveSubscriptionFromNonExistentGuild(this ILogger? logger);
+
+    [LoggerMessage(179, LogLevel.Warning, "Attempted to remove subscription {Subscription} from guild {GuildId} but it wasn't found.")]
+    internal static partial void AttemptedToRemoveSubscriptionSubscriptionFromGuildGuildIdButItWasnTFound(this ILogger? logger, string Subscription, string GuildId);
 }
