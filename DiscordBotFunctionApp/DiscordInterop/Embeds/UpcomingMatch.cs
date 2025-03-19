@@ -71,15 +71,16 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
 
         var embedding = baseBuilder
             .WithTitle($"{events[detailedMatch.EventKey].GetLabel()}: {Translator.CompLevelToShortString(detailedMatch.CompLevel.ToInvariantString()!)} {detailedMatch.SetNumber} - Match {detailedMatch.MatchNumber}")
+            .WithUrl($"https://www.thebluealliance.com/match/{notification.match_key}")
             .WithDescription(descriptionBuilder.ToString());
 
-            if (notification.webcast is not null)
-            {
-                var (source, url) = notification.webcast.GetFullUrl(logger);
+        if (notification.webcast is not null)
+        {
+            var (source, url) = notification.webcast.GetFullUrl(logger);
             if (url is not null)
             {
                 var webcastButton = ButtonBuilder
-                    .CreateLinkButton($"[{source}] Watch Live ({notification.webcast.ViewerCount} viewer{(notification.webcast.ViewerCount is not 1 ? "s" : string.Empty)})", url.OriginalString)
+                    .CreateLinkButton($"{source} ({notification.webcast.ViewerCount} viewer{(notification.webcast.ViewerCount is not 1 ? "s" : string.Empty)})", url.OriginalString)
                     .WithEmote(Emoji.Parse("📺"));
                 yield return new(embedding.Build(), [webcastButton.Build()]);
                 yield break;
@@ -140,7 +141,9 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
             }
         }
 
-        var embedding = baseBuilder.WithDescription(descriptionBuilder.ToString()).Build();
+        var embedding = baseBuilder.WithDescription(descriptionBuilder.ToString())
+            .WithUrl($"https://www.thebluealliance.com/match/{simpleMatch.Key}")
+            .Build();
 
         yield return new(embedding);
     }
@@ -224,9 +227,6 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
         }
 
         beforeFooter?.Invoke(descriptionBuilder);
-
-        descriptionBuilder.AppendLine()
-            .Append($"View more match details [here](https://www.thebluealliance.com/match/{matchDetails.Key})");
 
 #pragma warning disable EA0001 // Perform message formatting in the body of the logging method
         logger.EmbeddingNameBuiltEmbeddingDetail(nameof(UpcomingMatch), descriptionBuilder.ToString());
