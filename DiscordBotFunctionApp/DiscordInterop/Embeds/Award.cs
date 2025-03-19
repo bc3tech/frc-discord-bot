@@ -5,18 +5,25 @@ using Azure.Storage.Sas;
 
 using Common.Extensions;
 
+using Discord;
+
 using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.TbaInterop;
 using DiscordBotFunctionApp.TbaInterop.Models;
 using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
+using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
 
 using System.Runtime.CompilerServices;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Model;
 
-internal sealed class Award(IEventApi tbaApi,
+internal sealed class Award(IEventApi events,
+                            ITeamApi teamApi,
                             TeamRepository teams,
                             EmbedBuilderFactory builderFactory,
                             BlobContainerClient imageBlobs,
@@ -35,7 +42,7 @@ internal sealed class Award(IEventApi tbaApi,
             yield break;
         }
 
-        var tbaAwards = await tbaApi.GetEventAwardsAsync(notification.event_key, cancellationToken: cancellationToken).ConfigureAwait(false);
+        var tbaAwards = await events.GetEventAwardsAsync(notification.event_key, cancellationToken: cancellationToken).ConfigureAwait(false);
         var eventAwards = notification.awards?.Length is not null and not 0 ? notification.awards! : tbaAwards?.ToArray();
         if (eventAwards is null)
         {
@@ -65,23 +72,50 @@ internal sealed class Award(IEventApi tbaApi,
             ? blueBannerBlob.GenerateSasUri(BlobSasPermissions.Read, DateTimeOffset.MaxValue).ToString()
             : blueBannerBlob.Uri.ToString();
 
-        foreach (var latestAward in eventAwards)
+        foreach (var award in eventAwards)
         {
-            var imageUri = ((AwardType)latestAward.AwardType).IsBlueBanner() ? blueBannerImageUri : trophyImageUri;
+            var thumbnailUri = ((AwardType)award.AwardType).IsBlueBanner() ? blueBannerImageUri : trophyImageUri;
 
+            var embedUrl = $"https://www.thebluealliance.com/event/{notification.event_key}?name={UrlEncoder.Default.Encode(award.Name)}#awards";
             var embedding = baseBuilder
                 .WithTitle(notification.event_name)
-                .WithUrl($"https://www.thebluealliance.com/event/{notification.event_key}#awards")
+                .WithUrl(embedUrl)
                 .WithDescription(
                     $"""
                     # Award!
-                    ## {latestAward.Name}
-                    ### {(latestAward.RecipientList.Count > 1 ? "Recipients" : "Recipient")}
-                    {string.Join("\n", latestAward.RecipientList!.Select(t => $"- {teams[t.TeamKey].GetLabelWithHighlight(highlightTeam)}{(!string.IsNullOrWhiteSpace(t.Awardee) ? $" [{t.Awardee}]" : string.Empty)}"))}
+                    ## {award.Name}
+                    ### {(award.RecipientList.Count > 1 ? "Recipients" : "Recipient")}
+                    {string.Join("\n", award.RecipientList!.Select(t => $"- {teams[t.TeamKey].GetLabelWithHighlight(highlightTeam)}{(!string.IsNullOrWhiteSpace(t.Awardee) ? $" [{t.Awardee}]" : string.Empty)}"))}
                     """)
-                .WithThumbnailUrl(imageUri);
+                .WithThumbnailUrl(thumbnailUri);
 
             yield return new(embedding.Build());
+
+            await foreach (var i in GetImagesForAwardAsync(award, cancellationToken))
+            {
+                // https://github.com/discord/discord-api-docs/discussions/3253#discussioncomment-953023
+                yield return new(new EmbedBuilder()
+                    .WithUrl(embedUrl)
+                    .WithImageUrl(i)
+                    .Build());
+            }
+        }
+    }
+
+    private async IAsyncEnumerable<string> GetImagesForAwardAsync(TheBlueAlliance.Model.Award award, [EnumeratorCancellation] CancellationToken cancellationToken)
+    {
+        foreach (var t in award.RecipientList
+            .Where(i => !string.IsNullOrWhiteSpace(i.TeamKey))
+            .Select(i => i.TeamKey)
+            .Distinct())
+        {
+            var media = await teamApi.GetTeamMediaByYearAsync(t, award.Year, cancellationToken: cancellationToken).ConfigureAwait(false);
+
+            var image = media?.FirstOrDefault(i => i.Preferred is true && !string.IsNullOrWhiteSpace(i.DirectUrl));
+            if (image is not null)
+            {
+                yield return image.DirectUrl!;
+            }
         }
     }
 }
