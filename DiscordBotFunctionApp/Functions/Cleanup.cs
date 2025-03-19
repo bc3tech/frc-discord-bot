@@ -26,7 +26,7 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
 {
     [Function("Cleanup")]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Required for Functions")]
-    public async Task RunAsync([TimerTrigger("0 0 9 * * 3", RunOnStartup = true)] TimerInfo myTimer, CancellationToken cancellationToken)
+    public async Task RunAsync([TimerTrigger("0 0 9 * * 3")] TimerInfo myTimer, CancellationToken cancellationToken)
     {
         if (!int.TryParse(appConfig["MaxDaysToKeepStateData"], out var maxDays))
         {

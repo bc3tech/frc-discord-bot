@@ -2,6 +2,8 @@
 
 using Common.Extensions;
 
+using Discord;
+
 using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.TbaInterop;
 using DiscordBotFunctionApp.TbaInterop.Models;
@@ -65,29 +67,24 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
             {(notification.predicted_time.HasValue ? $"**Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToPacificTime():t}**" : string.Empty)}            
             """);
 
-        await BuildDescriptionAsync(descriptionBuilder, highlightTeam, detailedMatch, cancellationToken, beforeFooter: addWebcastDetail).ConfigureAwait(false);
-
-        void addWebcastDetail(StringBuilder sb)
-        {
-            if (notification.webcast is not null)
-            {
-                var (source, url) = notification.webcast.GetFullUrl(logger);
-                var link = !string.IsNullOrWhiteSpace(notification.webcast.StreamTitle)
-                    ? $"[{notification.webcast.StreamTitle}]({url})"
-                    : $"[{source}]({url})";
-
-                descriptionBuilder.AppendLine(
-                    $"""
-                    ### Watch live
-
-                    - {link} ({notification.webcast.ViewerCount} current viewer{(notification.webcast.ViewerCount is not 1 ? "s" : string.Empty)})
-                    """);
-            }
-        }
+        await BuildDescriptionAsync(descriptionBuilder, highlightTeam, detailedMatch, cancellationToken).ConfigureAwait(false);
 
         var embedding = baseBuilder
             .WithTitle($"{events[detailedMatch.EventKey].GetLabel()}: {Translator.CompLevelToShortString(detailedMatch.CompLevel.ToInvariantString()!)} {detailedMatch.SetNumber} - Match {detailedMatch.MatchNumber}")
             .WithDescription(descriptionBuilder.ToString());
+
+            if (notification.webcast is not null)
+            {
+                var (source, url) = notification.webcast.GetFullUrl(logger);
+            if (url is not null)
+            {
+                var webcastButton = ButtonBuilder
+                    .CreateLinkButton($"[{source}] Watch Live ({notification.webcast.ViewerCount} viewer{(notification.webcast.ViewerCount is not 1 ? "s" : string.Empty)})", url.OriginalString)
+                    .WithEmote(Emoji.Parse("📺"));
+                yield return new(embedding.Build(), [webcastButton.Build()]);
+                yield break;
+            }
+        }
 
         yield return new(embedding.Build());
     }

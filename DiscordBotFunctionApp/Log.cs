@@ -526,4 +526,7 @@ static partial class Log
 
     [LoggerMessage(172, LogLevel.Warning, "Failed to delete subscription for event {Event}: {ErrorMessage}")]
     internal static partial void FailedToDeleteSubscriptionForEventEventErrorMessage(this ILogger logger, string Event, string ErrorMessage);
+
+    [LoggerMessage(173, LogLevel.Debug, "Ranking points were empty for {MatchKey} - 1s poll until they go live...")]
+    internal static partial void RankingPointsWereEmptyForMatchKey1sPollUntilTheyGoLive(this ILogger logger, string MatchKey);
 }

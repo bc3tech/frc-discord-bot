@@ -1,5 +1,7 @@
 ﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
 
+using Discord;
+
 using DiscordBotFunctionApp.Storage;
 using DiscordBotFunctionApp.TbaInterop;
 using DiscordBotFunctionApp.TbaInterop.Models;
@@ -36,10 +38,18 @@ internal sealed class MatchVideo(IMatchApi matches,
         if (videoUrls is not null && videoUrls.Any())
         {
             var embedding = baseBuilder
-                .WithTitle($"{notification.event_name} | {Translator.CompLevelToShortString(notification.match!.CompLevel.ToInvariantString())} {notification.match.SetNumber}.{notification.match.MatchNumber}")
-                .WithDescription($"### New video{(videoUrls.Count() > 1 ? 's' : string.Empty)} posted\n\n{string.Join('\n', videoUrls.Select(i => $"- {i.Link}"))}");
+                .WithTitle($"{notification.event_name} | {Translator.CompLevelToShortString(notification.match!.CompLevel.ToInvariantString())} {notification.match.SetNumber}.{notification.match.MatchNumber}");
+            IEnumerable<IMessageComponent>? actions = null;
+            if (videoUrls.Count() > 1)
+            {
+                embedding.Description = $"### New video{(videoUrls.Count() > 1 ? 's' : string.Empty)} posted\n\n{string.Join('\n', videoUrls.Select(i => $"- {i.Link}"))}";
+            }
+            else
+            {
+                actions = [ButtonBuilder.CreateLinkButton("New video", videoUrls.First().Link.OriginalString).Build()];
+            }
 
-            yield return new(embedding.Build());
+            yield return new(embedding.Build(), actions);
         }
     }
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
