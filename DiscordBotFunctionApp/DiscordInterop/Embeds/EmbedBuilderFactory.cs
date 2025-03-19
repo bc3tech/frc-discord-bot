@@ -6,16 +6,18 @@ using Discord;
 
 internal sealed class EmbedBuilderFactory(EmbeddingColorizer colorizer)
 {
-    public EmbedBuilder GetBuilder(string teamKey) => GetBuilder(teamKey.TeamKeyToTeamNumber());
-
-    public EmbedBuilder GetBuilder(ushort? teamNumber = null)
-    {
-        var r = new EmbedBuilder()
-        .WithFooter(
+    private const string FooterText =
 #if DEBUG
         "**DEVELOPMENT MODE** " +
 #endif
-        "Data provided by The Blue Alliance, FIRST, and Statbotics.io");
+        "Data provided by The Blue Alliance, FIRST, and Statbotics.io";
+
+    public EmbedBuilder GetBuilder(string teamKey, bool footerRequired = true) => GetBuilder(teamKey.TeamKeyToTeamNumber(), footerRequired);
+
+    public EmbedBuilder GetBuilder(ushort? teamNumber = null, bool footerRequired = true)
+    {
+        var r = new EmbedBuilder()
+            .WithFooter(footerRequired ? FooterText : string.Empty);
 
         colorizer.SetEmbeddingColor(teamNumber, r);
 

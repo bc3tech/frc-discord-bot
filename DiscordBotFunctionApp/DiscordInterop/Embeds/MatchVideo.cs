@@ -26,7 +26,7 @@ internal sealed class MatchVideo(IMatchApi matches,
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously; to conform to interface
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var baseBuilder = builderFactory.GetBuilder(highlightTeam);
+        var baseBuilder = builderFactory.GetBuilder(highlightTeam, footerRequired: false);
         var notification = msg.GetDataAs<TbaInterop.Models.Notifications.MatchVideo>();
         if (notification is null)
         {
