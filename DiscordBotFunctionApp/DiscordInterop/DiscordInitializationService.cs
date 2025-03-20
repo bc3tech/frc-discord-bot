@@ -213,7 +213,6 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
 
     private void LogCommandExecuted(SocketSlashCommand command)
     {
-        _logger.ReceivedCommandCommandName(command.Data.Name);
         _logger.CommandDataCommandData(JsonSerializer.Serialize(command.Data, _debugSerializerOptions));
     }
 }

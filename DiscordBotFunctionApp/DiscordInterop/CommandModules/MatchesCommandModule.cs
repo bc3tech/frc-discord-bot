@@ -3,7 +3,6 @@
 using Common.Extensions;
 
 using Discord.Interactions;
-using Discord.Net;
 
 using DiscordBotFunctionApp.DiscordInterop.Embeds;
 

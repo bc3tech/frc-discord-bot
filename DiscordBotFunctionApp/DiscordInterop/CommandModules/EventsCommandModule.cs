@@ -39,6 +39,8 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
         await GenerateResponseAsync(_embedCreator, eventKey).ConfigureAwait(false);
     }
 
+    [CommandContextType(InteractionContextType.Guild)]
+    [RequireUserPermission(GuildPermission.CreateEvents)]
     [SlashCommand("add", "Adds an FRC event to this Discord team as an Event for people to subscribe to, etc.")]
     public async Task AddEventAsync(
         [Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string eventKey,

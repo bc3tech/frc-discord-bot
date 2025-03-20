@@ -2,7 +2,6 @@
 
 using Discord.Interactions;
 
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using System.Threading.Tasks;

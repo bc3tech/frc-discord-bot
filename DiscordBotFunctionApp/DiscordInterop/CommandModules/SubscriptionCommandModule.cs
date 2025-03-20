@@ -4,6 +4,7 @@ using Common.Extensions;
 
 using Discord;
 using Discord.Interactions;
+using Discord.Net;
 using Discord.WebSocket;
 
 using DiscordBotFunctionApp.Storage;
@@ -65,6 +66,8 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
         }
     }
 
+    [RequireUserPermission(GuildPermission.ManageChannels, Group = "Permission")]
+    [RequireContext(ContextType.DM, Group = "Permission")]
     [SlashCommand("create", "Creates a subscription to a team/event for the current channel")]
     public async Task CreateAsync(
         [Summary("team", "Team to subscribe to, 'all' if not specified."), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))] string? teamKey = null,
@@ -115,10 +118,12 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
 
     private const string SubscriptionDeleteSelectionMenuId = "subscription-delete-selection";
 
+    [RequireUserPermission(GuildPermission.ManageChannels, Group = "Permission")]
+    [RequireContext(ContextType.DM, Group = "Permission")]
     [SlashCommand("delete", "Deletes a subscription to a team/event for the current channel")]
     public async Task DeleteAsync()
     {
-        using var typing = await TryDeferAsync().ConfigureAwait(false);
+        using var typing = await TryDeferAsync(ephemeral: this.Context.Channel is not IDMChannel).ConfigureAwait(false);
         if (typing is null)
         {
             return;
@@ -198,16 +203,26 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
             var newMenu = oldSelectMenu.ToBuilder();
             // Remove the menu option that matches the one that was selected for this interaction
             Debug.Assert(newMenu.Options.RemoveAll(i => i.Value == value) is 1);
-            rowWithSelectMenuAndOption.Components[indexOfOldSelectMenu] = newMenu.Build();
+            if (newMenu.Options.Count is 0)
+            {
+                // If there are no more options, we can clear out all the interactive elements
+                newActionRows = null;
+            }
+            else
+            {
+                // Otherwise, update the select menu with the new options
+                rowWithSelectMenuAndOption.Components[indexOfOldSelectMenu] = newMenu.Build();
+            }
 
             try
             {
                 await component.UpdateAsync(p =>
                 {
                     p.Content = $"**Subscription for `{MakeLabelForSubscription(subToDelete)}` deleted.**";
-                    p.Components = newActionRows.Build();
+                    p.Components = newActionRows?.ActionRows.SelectMany(i => i.Components).Any() is true ? newActionRows.Build() : null;
                 }).ConfigureAwait(false);
             }
+            catch (HttpException e) when (e.DiscordCode is DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged) { }
             catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
             {
                 Debug.Fail(e.Message);

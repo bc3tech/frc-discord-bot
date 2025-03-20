@@ -194,9 +194,6 @@ static partial class Log
     [LoggerMessage(59, LogLevel.Trace, "Message data: {MessageData}")]
     internal static partial void MessageDataMessageData(this ILogger logger, string MessageData);
 
-    [LoggerMessage(60, LogLevel.Debug, "Received command: {CommandName}")]
-    internal static partial void ReceivedCommandCommandName(this ILogger logger, string CommandName);
-
     [LoggerMessage(61, LogLevel.Trace, "Command data: {CommandData}")]
     internal static partial void CommandDataCommandData(this ILogger logger, string CommandData);
 
