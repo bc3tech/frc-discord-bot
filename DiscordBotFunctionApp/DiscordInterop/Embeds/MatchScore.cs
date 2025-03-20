@@ -87,7 +87,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             $"""
             # Scores are in!
             
-            Actual start time: {DateTimeOffset.FromUnixTimeSeconds(notification.match?.ActualTime.Or(tbaMatch.ActualTime) ?? 0).ToPacificTime():t}{(postResultTime.HasValue ? $"\nResults posted at {DateTimeOffset.FromUnixTimeSeconds(postResultTime.Value).ToPacificTime():t}" : string.Empty)}
+            Actual start time: {DateTimeOffset.FromUnixTimeSeconds(notification.match?.ActualTime.Or(tbaMatch.ActualTime) ?? 0).ToLocalTime(time):t}{(postResultTime.HasValue ? $"\nResults posted at {DateTimeOffset.FromUnixTimeSeconds(postResultTime.Value).ToLocalTime(time):t}" : string.Empty)}
             """);
         #endregion
 
@@ -155,8 +155,8 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             # Match Result
 
             ## {events[detailedMatch.EventKey].GetLabel()}: {compLevelHeader} - {matchHeader}
-            Predicted start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PredictedTime.GetValueOrDefault(0)).ToPacificTime():t}
-            Actual start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.ActualTime.GetValueOrDefault(0)).ToPacificTime():t}{(detailedMatch.PostResultTime.HasValue ? $"\nResults posted at {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PostResultTime.Value).ToPacificTime():t}" : string.Empty)}
+            Predicted start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PredictedTime.GetValueOrDefault(0)).ToLocalTime(time):t}
+            Actual start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.ActualTime.GetValueOrDefault(0)).ToLocalTime(time):t}{(detailedMatch.PostResultTime.HasValue ? $"\nResults posted at {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PostResultTime.Value).ToLocalTime(time):t}" : string.Empty)}
             """);
         #endregion
 

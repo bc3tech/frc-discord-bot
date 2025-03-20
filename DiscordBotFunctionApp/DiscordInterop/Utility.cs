@@ -10,7 +10,7 @@ internal static class Utility
 
     public static Uri CreateCountryFlagUrl(string countryCode, ushort dimension = 32) => new($"https://flagsapi.com/{countryCode}/shiny/{dimension}.png");
 
-    public static DateTimeOffset ToPacificTime(this DateTimeOffset dateTimeOffset) => TimeZoneInfo.ConvertTimeBySystemTimeZoneId(dateTimeOffset, "Pacific Standard Time");
+    public static DateTimeOffset ToLocalTime(this DateTimeOffset dateTimeOffset, TimeProvider timeProvider) => TimeZoneInfo.ConvertTimeBySystemTimeZoneId(dateTimeOffset, timeProvider.LocalTimeZone.Id);
 
     public static Color? GetLightestColorOf(params Color?[] colors)
     {

@@ -5,6 +5,8 @@ using Azure.Identity;
 using Azure.Monitor.OpenTelemetry.AspNetCore;
 using Azure.Storage.Blobs;
 
+using Common;
+
 using DiscordBotFunctionApp.Apis;
 using DiscordBotFunctionApp.ChatBot;
 using DiscordBotFunctionApp.DiscordInterop;
@@ -108,7 +110,7 @@ internal sealed class Program
                     return blobContainer;
                 });
 
-                services.AddSingleton(TimeProvider.System);
+                services.AddSingleton<TimeProvider, PacificTimeProvider>();
             })
             .ConfigureLogging((context, builder) => builder
                 .AddConfiguration(context.Configuration.GetSection("Logging"))

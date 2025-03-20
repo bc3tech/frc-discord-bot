@@ -30,7 +30,7 @@ internal sealed class MatchSummariesUpdater(AgentsClient client,
         )] TimerInfo myTimer, CancellationToken cancellationToken)
     {
 #if !DEBUG
-        var currentTime = DiscordInterop.Utility.ToPacificTime(time.GetLocalNow());
+        var currentTime = time.GetLocalNow();
         if (currentTime.DayOfWeek is not DayOfWeek.Friday and not DayOfWeek.Saturday and not DayOfWeek.Sunday)
         {
             logger.NotRunningOnFridaySaturdayOrSundaySkippingMatchSummariesUpdate();

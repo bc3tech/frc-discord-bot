@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
-internal sealed class CompLevelStarting(EmbedBuilderFactory builderFactory, ILogger<CompLevelStarting> logger) : INotificationEmbedCreator
+internal sealed class CompLevelStarting(EmbedBuilderFactory builderFactory, TimeProvider time, ILogger<CompLevelStarting> logger) : INotificationEmbedCreator
 {
     public const NotificationType TargetType = NotificationType.starting_comp_level;
 
@@ -28,7 +28,7 @@ internal sealed class CompLevelStarting(EmbedBuilderFactory builderFactory, ILog
         var compLevel = notification.comp_level;
         var eventName = notification.event_name;
         var embed = builderFactory.GetBuilder(highlightTeam)
-            .WithDescription($"# {eventName} {Translator.CompLevelToLongString(compLevel)} are starting soon!\n\nScheduled start time: {DateTimeOffset.FromUnixTimeSeconds(notification.scheduled_time ?? 0).ToPacificTime():t}");
+            .WithDescription($"# {eventName} {Translator.CompLevelToLongString(compLevel)} are starting soon!\n\nScheduled start time: {DateTimeOffset.FromUnixTimeSeconds(notification.scheduled_time ?? 0).ToLocalTime(time):t}");
 
         yield return new(embed.Build());
     }

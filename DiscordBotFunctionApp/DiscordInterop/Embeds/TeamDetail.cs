@@ -36,11 +36,11 @@ internal sealed class TeamDetail(RESTCountries _countryCodeLookup,
         var teamResult = JsonSerializer.Deserialize<Team>(jsonResult)!;
         var locationString = await createLocationStringAsync(teamDetails, _countryCodeLookup).ConfigureAwait(false);
         var imageUrl = (await tbaTeamApi.GetTeamMediaByYearAsync(teamKey, time.GetUtcNow().Year, cancellationToken: cancellationToken).ConfigureAwait(false))?
-            .FirstOrDefault(i => i.Preferred is true && !string.IsNullOrWhiteSpace(i.DirectUrl));
+            .FirstOrDefault(i => !string.IsNullOrWhiteSpace(i.DirectUrl));
         var builder = builderFactory.GetBuilder()
             .WithTitle($"**{teamDetails.Nickname}**")
             .WithUrl($"{teamDetails.Website}#{teamKey}")
-            .WithThumbnailUrl($"https://www.thebluealliance.com/avatar/{time.GetLocalNow().Year - 1}/{teamKey}.png")
+            .WithThumbnailUrl($"https://www.thebluealliance.com/avatar/{time.GetLocalNow().Year}/{teamKey}.png")
             .WithDescription(teamDetails.Name)
             .WithImageUrl(imageUrl?.DirectUrl)
             .AddField("Location", locationString)

@@ -26,6 +26,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
                                             EventRepository events,
                                             TeamRepository teams,
                                             EmbedBuilderFactory builderFactory,
+                                            TimeProvider time,
                                             ILogger<UpcomingMatch> logger) : INotificationEmbedCreator, IEmbedCreator<(string eventKey, string teamKey)>
 {
     public const NotificationType TargetType = NotificationType.upcoming_match;
@@ -63,8 +64,8 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
             $"""
             # Match starting soon!
 
-            {(notification.scheduled_time.HasValue ? $"Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.scheduled_time!).ToPacificTime():t}" : string.Empty)}
-            {(notification.predicted_time.HasValue ? $"**Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToPacificTime():t}**" : string.Empty)}            
+            {(notification.scheduled_time.HasValue ? $"Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.scheduled_time!).ToLocalTime(time):t}" : string.Empty)}
+            {(notification.predicted_time.HasValue ? $"**Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToLocalTime(time):t}**" : string.Empty)}            
             """);
 
         await BuildDescriptionAsync(descriptionBuilder, highlightTeam, detailedMatch, cancellationToken).ConfigureAwait(false);
@@ -117,11 +118,11 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
         StringBuilder descriptionBuilder = new();
         descriptionBuilder.AppendLine(
             $"""
-            # Next Match for {teams[highlightTeam!.Value].GetLabel(includeLocation: false, includeNumber: false, asMarkdownLink: false)} at {events[simpleMatch.EventKey].GetLabel(shortName: true)}
+            # Next Match for {(teams[highlightTeam!.Value].GetLabel(includeLocation: false, includeNumber: false, asMarkdownLink: false))} at {(events[simpleMatch.EventKey].GetLabel(shortName: true))}
             ## {compLevelHeader} - Match {simpleMatch.MatchNumber}
 
-            Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds(simpleMatch.Time.GetValueOrDefault(0)!).ToPacificTime():t}
-            **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds(simpleMatch.PredictedTime.GetValueOrDefault(0)).ToPacificTime():t}**
+            Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds(simpleMatch.Time.GetValueOrDefault(0)!).ToLocalTime(time):t}
+            **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds(simpleMatch.PredictedTime.GetValueOrDefault(0)).ToLocalTime(time):t}**
             """);
 
         var matchVideoData = await matchApi.GetMatchAsync(simpleMatch.Key, cancellationToken: cancellationToken).ConfigureAwait(false);
