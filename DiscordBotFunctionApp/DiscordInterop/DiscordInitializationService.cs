@@ -181,26 +181,6 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
         _logger.NumCommandsCommandModulesLoaded(interactionService.Modules.Count);
 
         await interactionService.RegisterCommandsGloballyAsync();
-
-        //foreach (var g in client.Guilds)
-        //{
-        //    while (true)
-        //    {
-        //        try
-        //        {
-        //            var registeredCommands = await interactionService.AddModulesToGuildAsync(g, deleteMissing: true, modules: [.. discoveredModules]).ConfigureAwait(false);
-        //            _logger.NumCommandsCommandsAddedToGuildGuildNameGuildIdGloballyAvailableCommands(registeredCommands.Count, g.Name, g.Id, string.Join(", ", registeredCommands.Select(i => i.Name)));
-        //            break;
-        //        }
-        //        catch (Exception e) when (e is TimeoutException or OperationCanceledException)
-        //        {
-        //            _logger.LogError(e, "Error while trying to do command installation for guild {GuildName} ({GuildId})", g.Name, g.Id);
-        //            // When this happens, we usually have seen a throttling error from Discord which requires us to wait anywhere up to 1m. So, just pause for a minute and try again.
-
-        //            await Task.Delay(TimeSpan.FromMinutes(1)).ConfigureAwait(false);
-        //        }
-        //    }
-        //}
     }
 
     private void LogMessageExecuted(SocketMessageCommand msg)

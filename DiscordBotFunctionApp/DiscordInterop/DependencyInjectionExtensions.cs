@@ -36,7 +36,7 @@ internal static class DependencyInjectionExtensions
             {
                 HandlerTimeout = 10_000,
                 LogLevel = Enum.Parse<LogSeverity>(discordLogLevel),
-                LogGatewayIntentWarnings = true,
+                LogGatewayIntentWarnings = false,
                 GatewayIntents = GatewayIntents.AllUnprivileged,
             };
         })
