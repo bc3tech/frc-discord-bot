@@ -19,6 +19,15 @@ internal static class Constants
         public const string ChatBotHttpClient = nameof(ChatBotHttpClient);
     }
 
+    public static class Telemetry
+    {
+        public const string AppMeterName = "DiscordBotFunctionApp.Meter";
+        public static class Metrics
+        {
+            public const string NumCountries = nameof(NumCountries);
+        }
+    }
+
     public static class Configuration
     {
         public const string TbaApiKey = nameof(TbaApiKey);

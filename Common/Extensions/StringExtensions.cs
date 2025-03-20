@@ -6,8 +6,6 @@ using System.IO.Compression;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using static System.Net.Mime.MediaTypeNames;
-
 public static partial class StringExtensions
 {
     private static readonly Regex TeamNumberFinder = TeamNumberRegex();

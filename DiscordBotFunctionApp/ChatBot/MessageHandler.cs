@@ -3,6 +3,8 @@
 using Azure.AI.Projects;
 using Azure.Data.Tables;
 
+using Common.Extensions;
+
 using Discord;
 
 using DiscordBotFunctionApp.Extensions;
@@ -12,11 +14,19 @@ using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel.Agents.AzureAI;
 
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
 #pragma warning disable SKEXP0110 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIAgent agent, IDiscordClient discordClient, [FromKeyedServices(Constants.ServiceKeys.TableClient_UserChatAgentThreads)] TableClient userThreadMappings, TimeProvider time, ILogger<MessageHandler> logger)
+internal sealed partial class MessageHandler(
+    AgentsClient agentsClient,
+    AzureAIAgent agent,
+    IDiscordClient discordClient,
+    [FromKeyedServices(Constants.ServiceKeys.TableClient_UserChatAgentThreads)] TableClient userThreadMappings,
+    TimeProvider time,
+    Meter meter,
+    ILogger<MessageHandler> logger)
 {
     private const string DisclaimerText = "-# AI generated response; may have mistakes.";
     private static readonly EmbedBuilder _embedBuilder = new();
@@ -88,7 +98,7 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
                     var usage = response.Metadata?["Usage"] as RunStepCompletionUsage;
                     if (usage is not null)
                     {
-                        logger.LogMetric("TokenUsage", usage.TotalTokens, new Dictionary<string, object>
+                        meter.LogMetric("TokenUsage", usage.TotalTokens, new Dictionary<string, object?>
                         {
                             ["ThreadId"] = thread.Id,
                             ["Usage"] = JsonSerializer.Serialize(usage),
@@ -151,7 +161,7 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
                     if (firstMessage is null)
                     {
                         firstMessage = latestMessage = await responseChannel.SendMessageAsync(msg, flags: MessageFlags.SuppressEmbeds, options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
-                        logger.LogMetric("AgentFirstMessageDelaySec", (time.GetUtcNow() - interactionStartTime).TotalSeconds);
+                        meter.LogMetric("AgentFirstMessageDelaySec", (time.GetUtcNow() - interactionStartTime).TotalSeconds);
                     }
                     else
                     {
@@ -193,7 +203,7 @@ internal sealed partial class MessageHandler(AgentsClient agentsClient, AzureAIA
             typing.Dispose();
         }
 
-        logger.LogMetric("InteractionTimeSec", (time.GetUtcNow() - interactionStartTime).TotalSeconds);
+        meter.LogMetric("InteractionTimeSec", (time.GetUtcNow() - interactionStartTime).TotalSeconds);
     }
 
     [GeneratedRegex(@"\w*【[^】]+】\w*", RegexOptions.Compiled)]

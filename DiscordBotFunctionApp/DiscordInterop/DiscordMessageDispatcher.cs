@@ -20,6 +20,7 @@ using Microsoft.Extensions.Logging;
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
@@ -30,6 +31,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                                                        IDiscordClient discordClient,
                                                        WebhookEmbeddingGenerator _embedGenerator,
                                                        TimeProvider time,
+                                                       Meter meter,
                                                        ILogger<DiscordMessageDispatcher> logger)
 {
     private readonly DiscordSocketClient _discordClient = (discordClient as DiscordSocketClient) ?? throw new ArgumentException(nameof(discordClient));
@@ -56,7 +58,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         await Task.WhenAll(notifications).ConfigureAwait(false);
 
         logger.AllNotificationsDispatched();
-        logger.LogMetric("NotificationDispatchTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
+        meter.LogMetric("NotificationDispatchTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
 
         return true;
     }
@@ -137,8 +139,8 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                             {
                                 await sendEmbeddingsAsync(chunksOfEmbeddingsToSend, discordRequestOptions, rawChan, replyToMessage).ConfigureAwait(false);
 
-                                logger.LogMetric("NotificationSent", 1,
-                                    new Dictionary<string, object>() {
+                                meter.LogMetric("NotificationSent", 1,
+                                    new Dictionary<string, object?>() {
                                     { "ChannelId", chanId },
                                     { "ChannelName", rawChan.Name },
                                     { "Threaded", true }
@@ -174,8 +176,8 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
                     await StoreReplyToMessageAsync(message, msgChan, threadForMessage, replyToMessageId, cancellationToken);
 
-                    logger.LogMetric("NotificationSent", 1,
-                        new Dictionary<string, object>() {
+                    meter.LogMetric("NotificationSent", 1,
+                        new Dictionary<string, object?>() {
                             { "ChannelId", subscriberChannelId },
                             { "ChannelName", targetChannel.Name },
                             { "Threaded", false }

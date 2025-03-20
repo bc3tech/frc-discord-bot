@@ -21,6 +21,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
@@ -44,6 +45,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
                                          EmbedBuilderFactory builderFactory,
                                          ChatRunner gpt,
                                          TimeProvider time,
+                                         Meter meter,
                                          ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<(string matchKey, bool summarize)>, IHandleUserInteractions
 {
     public const NotificationType TargetType = NotificationType.match_score;
@@ -267,7 +269,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             if (scoreBreakdown?.Red is null)
             {
                 builder.AppendLine("No score breakdown given");
-                logger.LogMetric("NoRedScoreBreakdown", 1);
+                meter.LogMetric("NoRedScoreBreakdown", 1);
             }
             else
             {
@@ -315,7 +317,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             if (scoreBreakdown?.Blue is null)
             {
                 builder.AppendLine("No score breakdown given");
-                logger.LogMetric("NoBlueScoreBreakdown", 1);
+                meter.LogMetric("NoBlueScoreBreakdown", 1);
             }
             else
             {
@@ -397,7 +399,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
         if (breakdown is not null)
         {
-            logger.LogMetric("ScoreBreakdownAvailableTimeSec", time.GetElapsedTime(startTime).TotalSeconds, new Dictionary<string, object> { { "MatchKey", tbaMatch.Key } });
+            meter.LogMetric("ScoreBreakdownAvailableTimeSec", time.GetElapsedTime(startTime).TotalSeconds, new Dictionary<string, object?> { { "MatchKey", tbaMatch.Key } });
         }
 
         return breakdown;

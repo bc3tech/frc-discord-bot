@@ -26,7 +26,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
 
+using OpenTelemetry;
+using OpenTelemetry.Metrics;
+
 using System;
+using System.Diagnostics.Metrics;
 using System.Globalization;
 
 using Throws = Common.Throws;
@@ -59,6 +63,9 @@ internal sealed class Program
                     );
 
                 services
+                    .AddMetrics()
+                    .AddSingleton(sp => sp.GetRequiredService<IMeterFactory>().Create(Constants.Telemetry.AppMeterName))
+                    .ConfigureOpenTelemetryMeterProvider(b => b.AddMeter(Constants.Telemetry.AppMeterName))
                     .AddOpenTelemetry()
                     .UseAzureMonitor()
                     .UseFunctionsWorkerDefaults();

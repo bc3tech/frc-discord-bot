@@ -7,12 +7,13 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using System.Threading.Tasks;
 
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Model;
 
-internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, ILogger<EventRepository> logger)
+internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, Meter meter, ILogger<EventRepository> logger)
 {
     private static readonly ConcurrentDictionary<string, Event> _events = [];
     private static readonly ConcurrentQueue<Task> LogMetricTasks = [];
@@ -39,7 +40,7 @@ internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, IL
                     cancellationToken.ThrowIfCancellationRequested();
                     if (_events.TryAdd(e.Key, e))
                     {
-                        LogMetricTasks.Enqueue(Task.Run(() => logger.LogMetric("EventAdded", 1), cancellationToken));
+                        LogMetricTasks.Enqueue(Task.Run(() => meter.LogMetric("EventAdded", 1), cancellationToken));
                     }
                 }
             }

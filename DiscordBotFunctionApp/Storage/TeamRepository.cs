@@ -6,11 +6,12 @@ using Microsoft.Extensions.Logging;
 
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
 
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Model;
 
-internal sealed class TeamRepository(ITeamApi apiClient, ILogger<TeamRepository> logger)
+internal sealed class TeamRepository(ITeamApi apiClient, Meter meter, ILogger<TeamRepository> logger)
 {
     private static readonly ConcurrentDictionary<string, Team> _teams = [];
     private static readonly ConcurrentQueue<Task> LogMetricTasks = [];
@@ -39,7 +40,7 @@ internal sealed class TeamRepository(ITeamApi apiClient, ILogger<TeamRepository>
                     cancellationToken.ThrowIfCancellationRequested();
                     if (_teams.TryAdd(t.Key, t))
                     {
-                        LogMetricTasks.Enqueue(Task.Run(() => logger.LogMetric("TeamAdded", 1), cancellationToken));
+                        LogMetricTasks.Enqueue(Task.Run(() => meter.LogMetric("TeamAdded", 1), cancellationToken));
                     }
                 }
             } while (true);

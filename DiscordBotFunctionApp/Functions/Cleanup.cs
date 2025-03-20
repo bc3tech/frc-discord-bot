@@ -2,6 +2,8 @@ namespace DiscordBotFunctionApp.Functions;
 
 using Azure.Data.Tables;
 
+using Common.Extensions;
+
 using DiscordBotFunctionApp.DiscordInterop;
 using DiscordBotFunctionApp.Storage.TableEntities;
 
@@ -10,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using System.Diagnostics.Metrics;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -21,6 +24,7 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
                               [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptions,
                               IEventApi events,
                               TimeProvider time,
+                              Meter meter,
                               IConfiguration appConfig,
                               ILogger<Cleanup> logger)
 {
@@ -51,10 +55,10 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
                 continue;
             }
 
-            logger.LogMetric("ProcessedMessageCleanedUp", 1, new Dictionary<string, object> { { "Timestamp", oldMessage.Timestamp! } });
+            meter.LogMetric("ProcessedMessageCleanedUp", 1, new Dictionary<string, object?> { { "Timestamp", oldMessage.Timestamp! } });
         }
 
-        logger.LogMetric("ProcessedMessagesCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
+        meter.LogMetric("ProcessedMessagesCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
 
         startTime = time.GetTimestamp();
         await foreach (var oldMessage in eventMessageThreads.QueryAsync<ThreadTableEntity>(filter: $"Timestamp lt datetime'{DateTime.UtcNow.AddDays(maxDays * -1):O}'", cancellationToken: cancellationToken))
@@ -68,10 +72,10 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
                 continue;
             }
 
-            logger.LogMetric("EventMessageThreadCleanedUp", 1, new Dictionary<string, object> { { "Thread", JsonSerializer.Serialize(oldMessage) } });
+            meter.LogMetric("EventMessageThreadCleanedUp", 1, new Dictionary<string, object?> { { "Thread", JsonSerializer.Serialize(oldMessage) } });
         }
 
-        logger.LogMetric("EventMessageThreadsCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
+        meter.LogMetric("EventMessageThreadsCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
 
         startTime = time.GetTimestamp();
         await foreach (var s in teamSubscriptions.QueryAsync<TeamSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
@@ -123,7 +127,7 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
             logger.SubscriptionsForTeamTeamKeyCleaned(s.Team);
         }
 
-        logger.LogMetric("TeamSubscriptionsCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
+        meter.LogMetric("TeamSubscriptionsCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
 
         startTime = time.GetTimestamp();
         await foreach (var s in eventSubscriptions.QueryAsync<EventSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
@@ -175,6 +179,6 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
             logger.SubscriptionsForEventEventCleaned(s.Event);
         }
 
-        logger.LogMetric("EventSubscriptionsCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
+        meter.LogMetric("EventSubscriptionsCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
     }
 }

@@ -1,14 +1,18 @@
 ﻿namespace DiscordBotFunctionApp.Apis;
 
+using Common.Extensions;
+
 using Microsoft.Extensions.Logging;
 
+using System.Diagnostics.Metrics;
 using System.Net.Http.Json;
 using System.Text.Json.Nodes;
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1001:Types that own disposable fields should be disposable", Justification = "Not valid for just HTTP Client")]
-internal sealed class RESTCountries(ILogger<RESTCountries> _logger)
+internal sealed class RESTCountries(Meter meter, ILogger<RESTCountries> _logger)
 {
     private readonly HttpClient _httpClient = new() { BaseAddress = new("https://restcountries.com/v3.1/") };
+    private readonly Counter<int> _numCountries = meter.CreateCounter<int>(Constants.Telemetry.Metrics.NumCountries);
 
     public async Task<string?> GetCountryCodeForFlagLookupAsync(string country, CancellationToken cancellationToken)
     {
@@ -28,7 +32,7 @@ internal sealed class RESTCountries(ILogger<RESTCountries> _logger)
             }
 
             _logger.NumCountriesCountryIesReturned(responseContent.Count);
-            _logger.LogMetric("NumCountries", responseContent.Count, new Dictionary<string, object>() { { "Country", country } });
+            meter.LogMetric("NumCountries", responseContent.Count, [new("Country", country)]);
             var result = responseContent[0]!;
 
             _logger.FirstCountryCountry(result["name"]!["common"]);

@@ -16,12 +16,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using System;
+using System.Diagnostics.Metrics;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-internal sealed partial class DiscordInitializationService(IDiscordClient discordClient, InteractionService interactionService, ChatBot.MessageHandler chatBot, TimeProvider time, IConfiguration appConfig, ILoggerFactory logFactory, IServiceProvider services) : IHostedService
+internal sealed partial class DiscordInitializationService(IDiscordClient discordClient, InteractionService interactionService, ChatBot.MessageHandler chatBot, TimeProvider time, Meter meter, IConfiguration appConfig, ILoggerFactory logFactory, IServiceProvider services) : IHostedService
 {
     private readonly ILogger _logger = logFactory.CreateLogger<DiscordInitializationService>();
     private readonly DiscordSocketClient client = discordClient as DiscordSocketClient ?? throw new ArgumentException(nameof(discordClient));
@@ -60,7 +61,7 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
 
         var initTime = time.GetElapsedTime(startTime).TotalSeconds;
         _logger.DiscordInitializationTimeDiscordInitTimeS(initTime);
-        _logger.LogMetric("DiscordInitTime", initTime);
+        meter.LogMetric("DiscordInitTime", initTime);
 
         client.InteractionCreated += async x =>
         {
@@ -84,7 +85,7 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
         client.LatencyUpdated += (i, j) =>
         {
             _logger.PingFromGatewayLatencyWasPreviousLatencyMsMsNowLatencyMsMs(i, j);
-            _logger.LogMetric("Ping", j, new Dictionary<string, object>() { { "PreviousLatencyMs", i } });
+            meter.LogMetric("Ping", j, [new("PreviousLatencyMs", i)]);
             return Task.CompletedTask;
         };
 
@@ -117,7 +118,7 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
                             p.Embeds = null;
                         });
                     }
-                    catch(Exception e2) when (e2 is not OperationCanceledException or TaskCanceledException)
+                    catch (Exception e2) when (e2 is not OperationCanceledException or TaskCanceledException)
                     {
                         _logger.ErrorDeletingMessageMessageId(e, button.Message.Id);
                     }
