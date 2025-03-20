@@ -6,8 +6,6 @@ using Discord.Net;
 
 using DiscordBotFunctionApp.Storage;
 
-using FIRST.Model;
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -17,8 +15,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-
-using TheBlueAlliance.Model.MatchExtensions;
 
 using CompLevelEnum = TheBlueAlliance.Model.Match.CompLevelEnum;
 
@@ -107,13 +103,26 @@ internal sealed class AutoCompleteHandlers
 
     internal sealed class CompStageAutocompleteHandler : AutocompleteHandler
     {
+        private ILogger<CompStageAutocompleteHandler>? _logger;
         public override Task<AutocompletionResult> GenerateSuggestionsAsync(IInteractionContext context, IAutocompleteInteraction autocompleteInteraction, IParameterInfo parameter, IServiceProvider services)
         {
-            return Task.FromResult(AutocompletionResult.FromSuccess([
+            _logger ??= services.GetRequiredService<ILoggerFactory>().CreateLogger<CompStageAutocompleteHandler>();
+
+            try
+            {
+                return Task.FromResult(AutocompletionResult.FromSuccess([
                 new AutocompleteResult("Qualifications", (int)CompLevelEnum.Qm),
                 new AutocompleteResult("Playoffs/Eliminations", (int)CompLevelEnum.Sf),
                 new AutocompleteResult("Finals", (int)CompLevelEnum.F),
             ]));
+            }
+            catch (Exception ex) when (ex is HttpException { DiscordCode: DiscordErrorCode.UnknownInteraction or DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged }
+        or InteractionException)
+            {
+                _logger.InteractionAlreadyAcknowledgedSkippingResponse();
+            }
+
+            return Task.FromResult(AutocompletionResult.FromSuccess());
         }
     }
 }
