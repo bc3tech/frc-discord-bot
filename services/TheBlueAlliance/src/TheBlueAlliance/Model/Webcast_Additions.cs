@@ -18,9 +18,9 @@ public partial record Webcast
             _ => (Uri?)null
         });
 
-        if (log is not null && retVal.Item2 is null)
+        if (retVal.Item2 is null)
         {
-            log.WebcastTypeTypeNotSupportedChannelValueChannel(retVal.Item1, retVal.Item2);
+            log?.WebcastTypeTypeNotSupportedChannelValueChannel(retVal.Item1, retVal.Item2);
         }
 
         return retVal;

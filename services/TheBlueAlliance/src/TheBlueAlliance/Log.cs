@@ -11,9 +11,9 @@ namespace TheBlueAlliance
     {
 
         [LoggerMessage(0, LogLevel.Warning, "Unknown video type {Type} for match {MatchKey}")]
-        internal static partial void UnknownVideoTypeTypeForMatchMatchKey(this ILogger? logger, string Type, string MatchKey);
+        internal static partial void UnknownVideoTypeTypeForMatchMatchKey(this ILogger logger, string Type, string MatchKey);
 
         [LoggerMessage(1, LogLevel.Warning, "Webcast type {Type} not supported! (Channel value: {Channel})")]
-        internal static partial void WebcastTypeTypeNotSupportedChannelValueChannel(this ILogger? logger, string Type, Uri? Channel);
+        internal static partial void WebcastTypeTypeNotSupportedChannelValueChannel(this ILogger logger, string Type, Uri? Channel);
     }
 }

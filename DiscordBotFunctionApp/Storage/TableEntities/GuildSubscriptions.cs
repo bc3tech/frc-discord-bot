@@ -33,12 +33,12 @@ internal sealed class GuildSubscriptions : Dictionary<string, HashSet<ulong>>
         {
             if (!subscriptions.Remove(subscription.Equals(CommonConstants.ALL, StringComparison.OrdinalIgnoreCase) ? 0 : ulong.Parse(subscription, CultureInfo.InvariantCulture)))
             {
-                logger.AttemptedToRemoveSubscriptionSubscriptionFromGuildGuildIdButItWasnTFound(subscription, guildId);
+                logger?.AttemptedToRemoveSubscriptionSubscriptionFromGuildGuildIdButItWasnTFound(subscription, guildId);
             }
         }
         else
         {
-            logger.AttemptedToRemoveSubscriptionFromNonExistentGuild();
+            logger?.AttemptedToRemoveSubscriptionFromNonExistentGuild();
         }
     }
 }
