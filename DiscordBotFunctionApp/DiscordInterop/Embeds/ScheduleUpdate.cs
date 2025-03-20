@@ -22,14 +22,9 @@ internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger
         }
 
         var embedding = baseBuilder
-            .WithDescription(
-                $"""
-                # Schedule Update
-
-                There's been a schedule update to **{notification.event_name}**
-
-                View the detailed schedule [here](https://www.thebluealliance.com/event/{notification.event_key})
-                """);
+            .WithTitle(notification.event_name)
+            .WithUrl($"https://www.thebluealliance.com/event/{notification.event_key}")
+            .WithDescription("Click for the updated schedule");
 
         yield return await Task.FromResult<SubscriptionEmbedding>(new(embedding.Build()));
     }
