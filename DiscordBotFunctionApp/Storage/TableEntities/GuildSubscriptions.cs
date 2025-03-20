@@ -23,9 +23,9 @@ internal sealed class GuildSubscriptions : Dictionary<string, HashSet<ulong>>
 
     public bool Exists(ulong? guildId, ulong subscription) => this.TryGetValue(guildId?.ToString(CultureInfo.InvariantCulture) ?? DmGuildIdentifier, out var channels) && channels.Contains(subscription);
 
-    public void RemoveSubscription(ulong? guildId, ulong subscription, ILogger? logger = null) => RemoveSubscription(guildId?.ToString(CultureInfo.InvariantCulture) ?? DmGuildIdentifier, subscription.ToString(CultureInfo.InvariantCulture));
+    public void RemoveSubscription(ulong? guildId, ulong subscription, ILogger? logger = null) => RemoveSubscription(guildId?.ToString(CultureInfo.InvariantCulture) ?? DmGuildIdentifier, subscription.ToString(CultureInfo.InvariantCulture), logger);
 
-    public void RemoveSubscription(ulong? guildId, string subscription, ILogger? logger = null) => RemoveSubscription(guildId?.ToString(CultureInfo.InvariantCulture) ?? DmGuildIdentifier, subscription);
+    public void RemoveSubscription(ulong? guildId, string subscription, ILogger? logger = null) => RemoveSubscription(guildId?.ToString(CultureInfo.InvariantCulture) ?? DmGuildIdentifier, subscription, logger);
 
     public void RemoveSubscription(string guildId, string subscription, ILogger? logger = null)
     {
