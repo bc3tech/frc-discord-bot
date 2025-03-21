@@ -21,10 +21,11 @@ internal sealed record WebhookMessage
 
     public T? GetDataAs<T>() => MessageData.Deserialize<T>();
 
-    public (string PartitionKey, string RowKey, string Title)? GetThreadDetails()
+    public (string PartitionKey, string RowKey, string Title)? GetThreadDetails(IServiceProvider services)
     {
         ThreadedEntity? threadedEntity;
         string threadTitle = string.Empty;
+
         switch (this.MessageType)
         {
             case NotificationType.match_video:
@@ -59,7 +60,7 @@ internal sealed record WebhookMessage
                     Debug.Assert(!string.IsNullOrWhiteSpace(data?.event_name), "Bad data!");
                     if (data is not null)
                     {
-                        var matchData = Program.Services?.GetRequiredService<IMatchApi>().GetMatch(data.match_key);
+                        var matchData = services.GetRequiredService<IMatchApi>().GetMatch(data.match_key);
                         threadTitle = matchData is not null
                             ? $"{data.event_name} | {Translator.CompLevelToShortString(matchData.CompLevel.ToInvariantString())} {matchData.SetNumber}.{matchData.MatchNumber}"
                             : data.event_name;

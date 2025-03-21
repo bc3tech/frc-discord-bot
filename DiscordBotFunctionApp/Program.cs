@@ -126,10 +126,6 @@ internal sealed class Program
                 .AddDebug())
             .Build();
 
-        Services = host.Services;
-
         await host.RunAsync().ConfigureAwait(false);
     }
-
-    internal static IServiceProvider? Services { get; private set; }
 }

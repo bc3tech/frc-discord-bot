@@ -32,6 +32,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                                                        WebhookEmbeddingGenerator _embedGenerator,
                                                        TimeProvider time,
                                                        Meter meter,
+                                                       IServiceProvider allServices,
                                                        ILogger<DiscordMessageDispatcher> logger)
 {
     private readonly DiscordSocketClient _discordClient = (discordClient as DiscordSocketClient) ?? throw new ArgumentException(nameof(discordClient));
@@ -105,7 +106,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         if (chunksOfEmbeddingsToSend.Any(i => i.Length is not 0))
         {
             // check to see if there are any threads already created for this message
-            var threadLocator = message.GetThreadDetails();
+            var threadLocator = message.GetThreadDetails(allServices);
             List<ulong?> channelsWhereWeAlreadyPostedIntoThreads = [];
             if (threadLocator is not null)
             {
@@ -205,7 +206,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
     private async Task StoreReplyToMessageAsync(WebhookMessage msg, IMessageChannel channel, IMessageChannel thread, ulong? replyToMessageId, CancellationToken cancellationToken)
     {
-        var threadDetails = msg.GetThreadDetails();
+        var threadDetails = msg.GetThreadDetails(allServices);
         if (threadDetails is not null)
         {
             var entity = (await threadsTable.GetEntityAsync<ThreadTableEntity>(threadDetails.Value.PartitionKey, threadDetails.Value.RowKey, cancellationToken: cancellationToken).ConfigureAwait(false)).Value;
@@ -218,7 +219,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
     private async Task<IMessageChannel> CreateThreadForMessageAsync(WebhookMessage message, IMessageChannel msgChan, CancellationToken cancellationToken)
     {
-        var threadDetails = message.GetThreadDetails();
+        var threadDetails = message.GetThreadDetails(allServices);
         if (threadDetails is null || !threadDetails.HasValue)
         {
             return msgChan;
