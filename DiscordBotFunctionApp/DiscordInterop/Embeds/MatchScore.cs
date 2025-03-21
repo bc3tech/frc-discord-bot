@@ -262,7 +262,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             builder.AppendLine();
         }
 
-        builder.AppendLine($"{string.Join("\n", alliances.Red.TeamKeys.Select(t => $"- {teams[t].GetLabelWithHighlight(highlightTeam, includeLocation: false)}{(ranks is not null ? $" (#{ranks[t]}, +{districtPoints[t]}dp) " : string.Empty)}"))}");
+        builder.AppendLine($"{string.Join("\n", alliances.Red.TeamKeys.Select(t => $"- {teams[t].GetLabelWithHighlight(highlightTeam, includeLocation: false)}{(ranks is not null ? $" (#{ranks[t]}{(districtPoints is not null ? $", +{districtPoints[t]}dp" : string.Empty)})" : string.Empty)}"))}");
 
         if (includeFullBreakdown)
         {
@@ -310,7 +310,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             builder.AppendLine();
         }
 
-        builder.AppendLine($"{string.Join("\n", alliances.Blue.TeamKeys.Select(t => $"- {teams[t].GetLabelWithHighlight(highlightTeam, includeLocation: false)}{(ranks is not null ? $" (#{ranks[t]}, +{districtPoints[t]}dp)" : string.Empty)}"))}");
+        builder.AppendLine($"{string.Join("\n", alliances.Blue.TeamKeys.Select(t => $"- {teams[t].GetLabelWithHighlight(highlightTeam, includeLocation: false)}{(ranks is not null ? $" (#{ranks[t]}{(districtPoints is not null ? $", +{districtPoints[t]}dp" : string.Empty)})" : string.Empty)}"))}");
 
         if (includeFullBreakdown)
         {
@@ -513,30 +513,36 @@ internal sealed partial class MatchScore(IEventApi eventApi,
     [GeneratedRegex(@"(\d+)(\w+)", RegexOptions.Compiled | RegexOptions.Singleline)]
     private static partial Regex EventPartsRegex();
 
-    private async Task<IReadOnlyDictionary<string, int>> ComputeDistrictPointsForTeamsAsync(string eventKey, IEnumerable<string> allTeamKeys, CancellationToken cancellationToken)
+    private async Task<IReadOnlyDictionary<string, int>?> ComputeDistrictPointsForTeamsAsync(string eventKey, IEnumerable<string> allTeamKeys, CancellationToken cancellationToken)
     {
-        var districtPoints = await districtApi.GetEventDistrictPointsAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
-        Dictionary<string, int> retVal = [];
-        if (districtPoints is null)
+        var eventDetail = events[eventKey];
+        if (eventDetail.EventType is (int)EventType.District or (int)EventType.DistrictCmpDivision or (int)EventType.DistrictCmp)
         {
-            return retVal;
+            var districtPoints = await districtApi.GetEventDistrictPointsAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+            Dictionary<string, int> retVal = [];
+            if (districtPoints is null)
+            {
+                return retVal;
+            }
+
+            foreach (var teamKey in allTeamKeys)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+
+                if (!districtPoints.Points.TryGetValue(teamKey, out var dpEntry))
+                {
+                    retVal.Add(teamKey, 0);
+                }
+                else
+                {
+                    retVal.Add(teamKey, dpEntry.Total);
+                }
+            }
+
+            return retVal.AsReadOnly();
         }
 
-        foreach (var teamKey in allTeamKeys)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            if (!districtPoints.Points.TryGetValue(teamKey, out var dpEntry))
-            {
-                retVal.Add(teamKey, 0);
-            }
-            else
-            {
-                retVal.Add(teamKey, dpEntry.Total);
-            }
-        }
-
-        return retVal.AsReadOnly();
+        return null;
     }
 
     public async Task<bool> HandleInteractionAsync(IServiceProvider services, SocketMessageComponent component, CancellationToken cancellationToken)
