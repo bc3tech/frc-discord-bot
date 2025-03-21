@@ -1,5 +1,9 @@
 ﻿namespace DiscordBotFunctionApp.Storage.TableEntities;
-internal interface ISubscriptionEntity
+using Azure.Data.Tables;
+
+internal interface ISubscriptionEntity : ITableEntity
 {
     GuildSubscriptions Subscribers { get; set; }
+    ushort? Team { get; set; }
+    string Event { get; set; }
 }

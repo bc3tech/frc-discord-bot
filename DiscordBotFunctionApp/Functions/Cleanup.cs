@@ -80,23 +80,23 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
         startTime = time.GetTimestamp();
         await foreach (var s in teamSubscriptions.QueryAsync<TeamSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
         {
-            logger.CleaningUpSubscriptionsForTeamTeam(s.Team);
+            logger.CleaningUpSubscriptionsForTeamTeam(s.Team.Value);
             if (s.Event != CommonConstants.ALL)
             {
                 var tbaEvent = await events.GetEventSimpleAsync(s.Event, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (tbaEvent is null)
                 {
-                    logger.FailedToRetrieveEventForTeamSubscriptionTeamEvent(s.Team, s.Event);
+                    logger.FailedToRetrieveEventForTeamSubscriptionTeamEvent(s.Team.Value, s.Event);
                     continue;
                 }
 
                 if ((time.GetLocalNow().Date - tbaEvent.EndDate.ToDateTime(TimeOnly.MinValue)).TotalDays > maxDays)
                 {
-                    logger.EventEventHasEnded5DaysAgoCleaningUpSubscriptionToItForTeamTeamKey(s.Event, s.Team);
+                    logger.EventEventHasEnded5DaysAgoCleaningUpSubscriptionToItForTeamTeamKey(s.Event, s.Team.Value);
                     var r = await teamSubscriptions.DeleteEntityAsync(s.PartitionKey, s.RowKey, cancellationToken: cancellationToken);
                     if (r.IsError)
                     {
-                        logger.FailedToDeleteSubscriptionForTeamTeamErrorMessage(s.Team, r.ReasonPhrase);
+                        logger.FailedToDeleteSubscriptionForTeamTeamErrorMessage(s.Team.Value, r.ReasonPhrase);
                         continue;
                     }
                 }
@@ -108,7 +108,7 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
             {
                 foreach (var emptySub in emptySubscriptions)
                 {
-                    logger.FoundEmptySubscriptionForTeamTeamKeyGuildIdRemoving(s.Team, emptySub.Key);
+                    logger.FoundEmptySubscriptionForTeamTeamKeyGuildIdRemoving(s.Team.Value, emptySub.Key);
 
                     s.Subscribers.Remove(emptySub.Key);
                     updated = true;
@@ -124,7 +124,7 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
                 await teamSubscriptions.UpdateEntityAsync(s, s.ETag, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
             }
 
-            logger.SubscriptionsForTeamTeamKeyCleaned(s.Team);
+            logger.SubscriptionsForTeamTeamKeyCleaned(s.Team.Value);
         }
 
         meter.LogMetric("TeamSubscriptionsCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);

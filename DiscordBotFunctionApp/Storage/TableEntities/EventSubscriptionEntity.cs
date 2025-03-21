@@ -1,7 +1,6 @@
 ﻿namespace DiscordBotFunctionApp.Storage.TableEntities;
 
 using Azure;
-using Azure.Data.Tables;
 
 using Common;
 
@@ -10,7 +9,7 @@ using System.Globalization;
 using System.Runtime.Serialization;
 using System.Text.Json;
 
-internal sealed record EventSubscriptionEntity : ITableEntity, ISubscriptionEntity
+internal sealed record EventSubscriptionEntity : ISubscriptionEntity
 {
     [IgnoreDataMember]
     public string Event { get => PartitionKey; set => PartitionKey = value; }
