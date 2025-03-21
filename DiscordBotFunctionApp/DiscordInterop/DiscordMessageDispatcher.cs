@@ -285,7 +285,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
             {
                 foreach (var propertyValue in properties)
                 {
-                    addElement(propertyValue, teams, s => s.TeamKeyToTeamNumber().ToString()!);
+                    addElement(propertyValue, teams);
                 }
             }
         }
