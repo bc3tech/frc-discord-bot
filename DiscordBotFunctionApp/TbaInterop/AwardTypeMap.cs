@@ -5,11 +5,20 @@ using Microsoft.Extensions.EnumStrings;
 using System.Text.Json.Serialization;
 
 [EnumStrings]
-internal enum EventType
+[JsonConverter(typeof(JsonStringEnumConverter))]
+internal enum EventType : int
 {
-    ChampionshipFinals,
-
-    None = 999
+    Regional = 0,
+    District = 1,
+    DistrictCmp = 2,
+    CmpDivision = 3,
+    CmpFinals = 4,
+    DistrictCmpDivision = 5,
+    Foc = 6,
+    Remote = 7,
+    Offseason = 99,
+    Preseason = 100,
+    Unlabeled = -1
 }
 
 [EnumStrings]
