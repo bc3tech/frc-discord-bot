@@ -22,7 +22,7 @@ internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger
         }
 
         var embedding = baseBuilder
-            .WithTitle(notification.event_name)
+            .WithTitle($"📢⏰{notification.event_name}⏰📢")
             .WithUrl($"https://www.thebluealliance.com/event/{notification.event_key}")
             .WithDescription("Click for the updated schedule");
 

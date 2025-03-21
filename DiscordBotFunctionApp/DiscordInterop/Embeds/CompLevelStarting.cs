@@ -28,13 +28,13 @@ internal sealed class CompLevelStarting(EmbedBuilderFactory builderFactory, Time
             yield break;
         }
 
-        var compLevel = Enum.Parse<Match.CompLevelEnum>(notification.comp_level);
+        var compLevel = Enum.Parse<Match.CompLevelEnum>(notification.comp_level, ignoreCase: true);
         var eventName = notification.event_name;
         var embed = builderFactory.GetBuilder(highlightTeam)
             .WithDescription($"""
-                # {compLevel.ToLongString()} 
+                # 📢⏰{compLevel.ToLongString()}⏰📢
                 ## Starting soon for {eventName}
-                Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds(notification.scheduled_time ?? 0).ToLocalTime(time):t}
+                ⌚Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds(notification.scheduled_time ?? 0).ToLocalTime(time):t}
                 """);
 
         yield return new(embed.Build());
