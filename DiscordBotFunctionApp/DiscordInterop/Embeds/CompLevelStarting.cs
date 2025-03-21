@@ -10,6 +10,9 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
+using TheBlueAlliance.Model;
+using TheBlueAlliance.Extensions;
+
 internal sealed class CompLevelStarting(EmbedBuilderFactory builderFactory, TimeProvider time, ILogger<CompLevelStarting> logger) : INotificationEmbedCreator
 {
     public const NotificationType TargetType = NotificationType.starting_comp_level;
@@ -25,11 +28,11 @@ internal sealed class CompLevelStarting(EmbedBuilderFactory builderFactory, Time
             yield break;
         }
 
-        var compLevel = notification.comp_level;
+        var compLevel = Enum.Parse<Match.CompLevelEnum>(notification.comp_level);
         var eventName = notification.event_name;
         var embed = builderFactory.GetBuilder(highlightTeam)
             .WithDescription($"""
-                # {Translator.CompLevelToLongString(compLevel)} 
+                # {compLevel.ToLongString()} 
                 ## Starting soon for {eventName}
                 Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds(notification.scheduled_time ?? 0).ToLocalTime(time):t}
                 """);

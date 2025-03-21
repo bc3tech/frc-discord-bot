@@ -17,8 +17,10 @@ using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
-using TheBlueAlliance.Model;
+using TheBlueAlliance.Extensions;
+using TheBlueAlliance.Model.MatchExtensions;
 using TheBlueAlliance.Model.MatchSimpleExtensions;
+using TheBlueAlliance.Model;
 
 internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
                                             TheBlueAlliance.Api.IMatchApi matchApi,
@@ -71,7 +73,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
         await BuildDescriptionAsync(descriptionBuilder, highlightTeam, detailedMatch, cancellationToken).ConfigureAwait(false);
 
         var embedding = baseBuilder
-            .WithTitle($"{events[detailedMatch.EventKey].GetLabel()}: {Translator.CompLevelToShortString(detailedMatch.CompLevel.ToInvariantString()!)} {detailedMatch.SetNumber} - Match {detailedMatch.MatchNumber}")
+            .WithTitle($"{events[detailedMatch.EventKey].GetLabel()}: {detailedMatch.CompLevel.ToShortString()} {detailedMatch.SetNumber} - Match {detailedMatch.MatchNumber}")
             .WithUrl($"https://www.thebluealliance.com/match/{notification.match_key}")
             .WithDescription(descriptionBuilder.ToString());
 
@@ -113,7 +115,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
             yield break;
         }
 
-        var compLevelHeader = $"{Translator.CompLevelToShortString(simpleMatch.CompLevel.ToInvariantString()!)} {simpleMatch.SetNumber}";
+        var compLevelHeader = $"{simpleMatch.CompLevel.ToShortString()} {simpleMatch.SetNumber}";
 
         StringBuilder descriptionBuilder = new();
         descriptionBuilder.AppendLine(

@@ -3,7 +3,6 @@
 using Discord;
 
 using DiscordBotFunctionApp.Storage;
-using DiscordBotFunctionApp.TbaInterop;
 using DiscordBotFunctionApp.TbaInterop.Models;
 using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 
@@ -14,7 +13,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Model.MatchExtensions;
+using TheBlueAlliance.Extensions;
 
 internal sealed class MatchVideo(IMatchApi matches,
                                  EventRepository eventRepo,
@@ -39,7 +38,7 @@ internal sealed class MatchVideo(IMatchApi matches,
         if (videoUrls is not null && videoUrls.Any())
         {
             var embedding = baseBuilder
-                .WithTitle($"{notification.event_name} | {Translator.CompLevelToShortString(notification.match!.CompLevel.ToInvariantString())} {notification.match.SetNumber}.{notification.match.MatchNumber}")
+                .WithTitle($"{notification.event_name} | {notification.match!.CompLevel.ToShortString()} {notification.match.SetNumber}.{notification.match.MatchNumber}")
                 .WithDescription($"New video{(videoUrls.Count() > 1 ? 's' : string.Empty)} posted");
             IEnumerable<IMessageComponent> actions = videoUrls.Select(i => ButtonBuilder.CreateLinkButton($"🎞️{i.Name}", i.Link.OriginalString).Build());
             yield return new(embedding.Build(), actions);
@@ -55,7 +54,7 @@ internal sealed class MatchVideo(IMatchApi matches,
         if (match is not null)
         {
             var embedding = baseBuilder
-                .WithTitle($"Videos for {eventRepo[match.EventKey].GetLabel()} | {Translator.CompLevelToShortString(match.CompLevel.ToInvariantString())} {match.SetNumber}.{match.MatchNumber}")
+                .WithTitle($"Videos for {eventRepo[match.EventKey].GetLabel()} | {match.CompLevel.ToShortString()} {match.SetNumber}.{match.MatchNumber}")
                 .WithDescription(string.Join('\n', match.GetVideoUrls().Select(i => $"- [{i.Name}]({i.Link})")));
 
             yield return new(embedding.Build());

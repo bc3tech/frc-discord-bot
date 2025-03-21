@@ -78,7 +78,7 @@ internal sealed class Program
                     .ConfigureStatboticsApi()
                     .ConfigureFIRSTApi()
                     .ConfigureChatBotFunctionality()
-                    .AddSingleton(sp => new EmbeddingColorizer(new FRCColors.Client(sp.GetRequiredService<IHttpClientFactory>())))
+                    .AddSingleton(sp => new EmbeddingColorizer(new FRCColors.Client(sp.GetRequiredService<IHttpClientFactory>()), sp.GetService<ILoggerFactory>()?.CreateLogger<EmbeddingColorizer>()))
                     .AddSingleton<EventRepository>()
                     .AddSingleton<TeamRepository>()
                     .AddSingleton<SubscriptionManager>()

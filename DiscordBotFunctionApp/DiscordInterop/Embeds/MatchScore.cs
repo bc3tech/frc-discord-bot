@@ -96,7 +96,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         await BuildDescriptionAsync(highlightTeam, notification.match, tbaMatch, descriptionBuilder, scores, false, cancellationToken);
 
         var embedding = baseBuilder
-            .WithTitle($"{notification.event_name}: {Translator.CompLevelToShortString(notification.match?.CompLevel.Or(tbaMatch.CompLevel).ToInvariantString()!)} {notification.match?.SetNumber.Or(tbaMatch.SetNumber)} - Match {notification.match?.MatchNumber.Or(tbaMatch.MatchNumber)}")
+            .WithTitle($"{notification.event_name}: {notification.match?.CompLevel.Or(tbaMatch.CompLevel).ToShortString()} {notification.match?.SetNumber.Or(tbaMatch.SetNumber)} - Match {notification.match?.MatchNumber.Or(tbaMatch.MatchNumber)}")
             .WithDescription(descriptionBuilder.ToString());
 
         yield return new(embedding.Build(), Actions: [ButtonBuilder.CreatePrimaryButton("Get breakdown", $"{GetBreakdownButtonId}_{notification.match_key}").Build()]);
@@ -150,7 +150,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         StringBuilder descriptionBuilder = new();
 
         #region Header
-        var compLevelHeader = $"{Translator.CompLevelToShortString(detailedMatch.CompLevel.ToInvariantString()!)} {detailedMatch.SetNumber}";
+        var compLevelHeader = $"{detailedMatch.CompLevel.ToShortString()} {detailedMatch.SetNumber}";
         var matchHeader = $"Match {detailedMatch.MatchNumber}";
         descriptionBuilder.AppendLine(
             $"""
@@ -559,8 +559,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
     private async Task SendBreakdownToUserAsync(SocketMessageComponent arg, CancellationToken cancellationToken = default)
     {
-        await arg.DeferAsync(ephemeral: true, cancellationToken.ToRequestOptions());
-
+        var canceledRequestOptions = cancellationToken.ToRequestOptions();
         var matchKey = arg.Data.CustomId[(arg.Data.CustomId.IndexOf('_') + 1)..];
         var matchData = await matchApi.GetMatchAsync(matchKey, cancellationToken: cancellationToken).ConfigureAwait(false);
         Debug.Assert(matchData is not null);
@@ -569,8 +568,19 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             var content = new StringBuilder();
 
             // We pass the matchData as the notificationMatch because all the code biases toward using the notificationMatch first and we don't want EVERY call to have to fail then go to the detailed match data. In effect, this makes the 2nd param *NEVER* used but it's there for consistency.
-            await BuildBreakdownDetailAsync(content, matchData, matchData, GetActualScores(matchData, matchData), includeFullBreakdown: true, cancellationToken: cancellationToken);
-            await arg.FollowupAsync(embed: new EmbedBuilder().WithTitle("Here's the breakdown").WithDescription(content.ToString()).Build(), ephemeral: true, options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            var breakdownTask = BuildBreakdownDetailAsync(content, matchData, matchData, GetActualScores(matchData, matchData), includeFullBreakdown: true, cancellationToken: cancellationToken);
+
+            Embed embed = new EmbedBuilder()
+                .WithTitle($"Breakdown for {events[matchData.EventKey].GetLabel(shortName: true)} {matchData.CompLevel.ToShortString()} {matchData.SetNumber}.{matchData.MatchNumber}")
+                .WithDescription(content.ToString()).Build();
+            try
+            {
+                await arg.RespondAsync(embed: embed, ephemeral: true, options: canceledRequestOptions).ConfigureAwait(false);
+            }
+            catch (TimeoutException)
+            {
+                await arg.FollowupAsync(embed: embed, ephemeral: true, options: canceledRequestOptions).ConfigureAwait(false);
+            }
         }
         else
         {

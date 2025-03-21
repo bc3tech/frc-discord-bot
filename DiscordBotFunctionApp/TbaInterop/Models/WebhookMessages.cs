@@ -9,7 +9,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Model.MatchExtensions;
+using TheBlueAlliance.Extensions;
 
 internal sealed record WebhookMessage
 {
@@ -36,7 +36,7 @@ internal sealed record WebhookMessage
                     Debug.Assert(!string.IsNullOrWhiteSpace(data?.event_name), "Bad data!");
                     if (data is not null)
                     {
-                        threadTitle = $"{data.event_name!} | {Translator.CompLevelToShortString(data.match!.CompLevel.ToInvariantString())} {data.match.SetNumber}.{data.match.MatchNumber}";
+                        threadTitle = $"{data.event_name!} | {data.match!.CompLevel.ToShortString()} {data.match.SetNumber}.{data.match.MatchNumber}";
                     }
                 }
 
@@ -48,7 +48,7 @@ internal sealed record WebhookMessage
                     Debug.Assert(!string.IsNullOrWhiteSpace(data?.event_name), "Bad data!");
                     if (data is not null)
                     {
-                        threadTitle = $"{data.event_name!} | {Translator.CompLevelToShortString(data.match!.CompLevel.ToInvariantString())} {data.match.SetNumber}.{data.match.MatchNumber}";
+                        threadTitle = $"{data.event_name!} | {data.match!.CompLevel.ToShortString()} {data.match.SetNumber}.{data.match.MatchNumber}";
                     }
                 }
 
@@ -62,7 +62,7 @@ internal sealed record WebhookMessage
                     {
                         var matchData = services.GetRequiredService<IMatchApi>().GetMatch(data.match_key);
                         threadTitle = matchData is not null
-                            ? $"{data.event_name} | {Translator.CompLevelToShortString(matchData.CompLevel.ToInvariantString())} {matchData.SetNumber}.{matchData.MatchNumber}"
+                            ? $"{data.event_name} | {matchData.CompLevel.ToShortString()} {matchData.SetNumber}.{matchData.MatchNumber}"
                             : data.event_name;
                     }
                 }
