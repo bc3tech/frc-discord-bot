@@ -10,5 +10,5 @@ public static class ObjectExtensions
     [return: NotNull]
     public static T OrException<T>(this T? obj, T? other) => Throws.IfNull(Or(obj, other));
 
-    public static T? UnlessThen<T>(this T? value, Predicate<T?> condition, T? other) => condition(value) ? value : other;
+    public static T? UnlessThen<T>(this T? value, Predicate<T?> condition, T? other) => condition(value) ? other : value;
 }
