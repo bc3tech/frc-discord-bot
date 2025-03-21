@@ -22,7 +22,7 @@ public static class CompLevelEnumExtensions
 
     public static string ToLongString(this MatchSimple.CompLevelEnum compLevel) => ToLongString(compLevel.ToInvariantString());
 
-    private static string ToLongString(string compLevel) => compLevel switch
+    private static string ToLongString(string compLevel) => compLevel.ToLowerInvariant() switch
     {
         "qm" => "Qualifications",
         "qf" => "Quarterfinals",
