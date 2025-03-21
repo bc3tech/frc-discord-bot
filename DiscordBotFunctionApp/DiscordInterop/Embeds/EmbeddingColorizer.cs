@@ -4,9 +4,12 @@ using Common.Extensions;
 
 using DiscordBotFunctionApp.Extensions;
 
+using Microsoft.Extensions.Logging;
+
+using System.Globalization;
 using System.Threading.Tasks;
 
-internal sealed class EmbeddingColorizer(FRCColors.Client colorClient)
+internal sealed class EmbeddingColorizer(FRCColors.Client colorClient, ILogger<EmbeddingColorizer>? logger)
 {
     public Task<bool> SetEmbeddingColorAsync(string teamKey, Discord.EmbedBuilder embedding, CancellationToken cancellationToken) => SetEmbeddingColorAsync(teamKey.TeamKeyToTeamNumber(), embedding, cancellationToken);
 
@@ -14,11 +17,18 @@ internal sealed class EmbeddingColorizer(FRCColors.Client colorClient)
     {
         if (forTeam.HasValue)
         {
-            var (primaryColor, secondaryColor) = await colorClient.GetColorsForTeamAsync(forTeam.Value, cancellationToken).ConfigureAwait(false);
-            (bool flowControl, bool value) = SetEmbeddingColor(embedding, primaryColor, secondaryColor);
-            if (!flowControl)
+            try
             {
-                return value;
+                var (primaryColor, secondaryColor) = await colorClient.GetColorsForTeamAsync(forTeam.Value, cancellationToken).ConfigureAwait(false);
+                (bool flowControl, bool value) = SetEmbeddingColor(embedding, primaryColor, secondaryColor);
+                if (!flowControl)
+                {
+                    return value;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger?.ErrorWhenTryingToFetchColorForTeamNumber(ex, forTeam.Value);
             }
         }
 
@@ -31,11 +41,18 @@ internal sealed class EmbeddingColorizer(FRCColors.Client colorClient)
     {
         if (forTeam.HasValue)
         {
-            var (primaryColor, secondaryColor) = colorClient.GetColorsForTeam(forTeam.Value, cancellationToken);
-            (bool flowControl, bool value) = SetEmbeddingColor(embedding, primaryColor, secondaryColor);
-            if (!flowControl)
+            try
             {
-                return value;
+                var (primaryColor, secondaryColor) = colorClient.GetColorsForTeam(forTeam.Value, cancellationToken);
+                (bool flowControl, bool value) = SetEmbeddingColor(embedding, primaryColor, secondaryColor);
+                if (!flowControl)
+                {
+                    return value;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger?.ErrorWhenTryingToFetchColorForTeamNumber(ex, forTeam.Value);
             }
         }
 
