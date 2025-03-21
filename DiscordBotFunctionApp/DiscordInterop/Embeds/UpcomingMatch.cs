@@ -186,15 +186,13 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
 
         descriptionBuilder.AppendLine(
                 $"""
-                ### Alliances
-
-                **Red Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red]})" : string.Empty)}**
+                ### Red Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red]})" : string.Empty)}
                 {string.Join("\n", matchDetails.Alliances.Red.TeamKeys.OrderBy(k => k.TeamKeyToTeamNumber()).Select(t => $"- {teams[t].GetLabelWithHighlight(highlightTeam)}{(ranks is not null && ranks.TryGetValue(t, out var rk) ? $" (#{rk})" : string.Empty)}"))}
 
                 """);
         descriptionBuilder.AppendLine(
             $"""
-            **Blue Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue]})" : string.Empty)}**
+            ### Blue Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue]})" : string.Empty)}
             {string.Join("\n", matchDetails.Alliances.Blue.TeamKeys.OrderBy(k => k.TeamKeyToTeamNumber()).Select(t => $"- {teams[t].GetLabelWithHighlight(highlightTeam)}{(ranks is not null && ranks.TryGetValue(t, out var rk) ? $" (#{rk})" : string.Empty)}"))}
             """);
 
