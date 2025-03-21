@@ -190,7 +190,6 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
                 $"""
                 ### Red Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red]})" : string.Empty)}
                 {string.Join("\n", matchDetails.Alliances.Red.TeamKeys.OrderBy(k => k.TeamKeyToTeamNumber()).Select(t => $"- {teams[t].GetLabelWithHighlight(highlightTeam)}{(ranks is not null && ranks.TryGetValue(t, out var rk) ? $" (#{rk})" : string.Empty)}"))}
-
                 """);
         descriptionBuilder.AppendLine(
             $"""
@@ -205,7 +204,6 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
             descriptionBuilder.Append(
                 $"""
                 ## Prediction
-
                 - Winner: {predictedWinner.Value.ToInvariantString()} Alliance{(certainty.HasValue ? $" ({certainty:P2})" : string.Empty)}
                 """);
             if (containsHighlightedTeam)
