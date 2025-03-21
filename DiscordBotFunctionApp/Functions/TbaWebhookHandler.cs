@@ -17,6 +17,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using Polly;
+
 using System.Collections.Concurrent;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -65,20 +67,12 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher,
             }
             else
             {
-                var acceptedResult = req.CreateResponse(System.Net.HttpStatusCode.Accepted);
-                var location = new UriBuilder(req.Url)
-                {
-                    Path = $"/api/tba/webhook/status",
-                    Query = $"?invocationId={context.InvocationId}"
-                };
-
-                acceptedResult.Headers.Add("Location", location.ToString());
                 if (!_processingTasks.TryAdd(context.InvocationId, dispatcher.ProcessWebhookMessageAsync(message, cancellationToken)))
                 {
                     logger.WebhookTaskAlreadyInProgressForInvocationIDInvocationId(context.InvocationId);
                 }
 
-                return acceptedResult;
+                return MakeAcceptedAtResponse(req, context.InvocationId);
             }
         }
 
@@ -88,15 +82,29 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher,
         return unknownResponse;
     }
 
+    private const string WebhookStatusRoute = "/api/tba/webhook/status";
+    private static HttpResponseData MakeAcceptedAtResponse(HttpRequestData fromRequest, string invocationId)
+    {
+        var acceptedResult = fromRequest.CreateResponse(System.Net.HttpStatusCode.Accepted);
+        var location = new UriBuilder(fromRequest.Url)
+        {
+            Path = WebhookStatusRoute,
+            Query = $"?invocationId={invocationId}"
+        };
+
+        acceptedResult.Headers.Add("Location", location.ToString());
+        return acceptedResult;
+    }
+
     [Function("GetStatus")]
-    public async Task<IActionResult> GetStatusAsync([HttpTrigger(AuthorizationLevel.Function, "get", Route = "tba/webhook/status")] HttpRequestData req, CancellationToken cancellationToken)
+    public HttpResponseData GetStatus([HttpTrigger(AuthorizationLevel.Function, "get", Route = "tba/webhook/status")] HttpRequestData req, FunctionContext context)
     {
         var targetInvocationId = Throws.IfNullOrWhiteSpace(req.Query["invocationId"]);
         var task = _processingTasks[targetInvocationId];
 
         if (task.IsCompletedSuccessfully)
         {
-            return new OkResult();
+            return req.CreateResponse(System.Net.HttpStatusCode.OK);
         }
 
         if (task.IsFaulted)
@@ -105,7 +113,11 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher,
             if (exception is not null)
             {
                 logger.ErrorProcessingWebhookMessage(exception, targetInvocationId);
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                var r = req.CreateResponse(System.Net.HttpStatusCode.InternalServerError);
+#if DEBUG
+                r.WriteString(exception.InnerException?.Message ?? exception.Message);
+#endif
+                return r;
             }
             else
             {
@@ -113,7 +125,7 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher,
             }
         }
 
-        return new AcceptedAtRouteResult("tba/webhook/status", new { invocationId = req.Query["invocationId"] }, null);
+        return MakeAcceptedAtResponse(req, targetInvocationId);
     }
 
     private async Task<bool> IsDuplicateAsync(string bodyContent, CancellationToken cancellationToken)

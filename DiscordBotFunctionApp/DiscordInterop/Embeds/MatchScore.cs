@@ -93,7 +93,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             """);
         #endregion
 
-        await BuildDescriptionAsync(highlightTeam, notification.match, tbaMatch, descriptionBuilder, scores, false, cancellationToken);
+        await BuildDescriptionAsync(highlightTeam, notification.match, tbaMatch, descriptionBuilder, scores, false, cancellationToken).ConfigureAwait(false);
 
         var embedding = baseBuilder
             .WithTitle($"{notification.event_name}: {notification.match?.CompLevel.Or(tbaMatch.CompLevel).ToShortString()} {notification.match?.SetNumber.Or(tbaMatch.SetNumber)} - Match {notification.match?.MatchNumber.Or(tbaMatch.MatchNumber)}")
@@ -162,7 +162,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             """);
         #endregion
 
-        await BuildDescriptionAsync(highlightTeam, detailedMatch, detailedMatch, descriptionBuilder, scores, true, cancellationToken);
+        await BuildDescriptionAsync(highlightTeam, detailedMatch, detailedMatch, descriptionBuilder, scores, true, cancellationToken).ConfigureAwait(false);
 
         var embedding = baseBuilder
             .WithDescription(descriptionBuilder.ToString())
@@ -223,8 +223,10 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 #pragma warning restore EA0001 // Perform message formatting in the body of the logging method
     }
 
-    private async Task BuildBreakdownDetailAsync(StringBuilder builder, Match? notificationMatch, Match tbaMatch, (int red, int blue) scores, ushort? highlightTeam = null, bool includeFullBreakdown = false, CancellationToken cancellationToken = default)
+    private async Task BuildBreakdownDetailAsync(StringBuilder builder, Match? notificationMatch, Match tbaMatch, (int red, int blue)? scores = null, ushort? highlightTeam = null, bool includeFullBreakdown = false, CancellationToken cancellationToken = default)
     {
+        scores ??= GetActualScores(notificationMatch, tbaMatch);
+
         var match = notificationMatch ?? tbaMatch;
         var alliances = match.Alliances;
         var allTeamKeys = alliances.Red.TeamKeys.Concat(alliances.Blue.TeamKeys).ToHashSet();
@@ -235,14 +237,14 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         var ranks = (await eventApi.GetEventRankingsAsync(match.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))?.Rankings
             .Where(i => allTeamKeys.Contains(i.TeamKey))
             .ToDictionary(i => i.TeamKey, i => i.Rank);
-        var districtPoints = await ComputeDistrictPointsForTeamsAsync(match.EventKey, allTeamKeys, cancellationToken);
+        var districtPoints = await ComputeDistrictPointsForTeamsAsync(match.EventKey, allTeamKeys, cancellationToken).ConfigureAwait(false);
 
         bool isQuals = match.CompLevel is Match.CompLevelEnum.Qm;
         var scoreBreakdown = includeFullBreakdown ? await GetScoreBreakdownAsync(notificationMatch, tbaMatch, cancellationToken).ConfigureAwait(false) : null;
 
-        var eventHighScore = await GetHighScoreForEventAsync(notificationMatch?.EventKey ?? tbaMatch.EventKey, cancellationToken);
+        var eventHighScore = await GetHighScoreForEventAsync(notificationMatch?.EventKey ?? tbaMatch.EventKey, cancellationToken).ConfigureAwait(false);
         #region Red Score Breakdown
-        builder.Append($"### {(winningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)}Red Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red]})" : string.Empty)} - {scores.red}{(scores.red == eventHighScore ? "⭐" : string.Empty)}");
+        builder.Append($"### {(winningAlliance is Match.WinningAllianceEnum.Red ? "🏅" : string.Empty)}Red Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Red]})" : string.Empty)} - {scores.Value.red}{(scores.Value.red >= eventHighScore ? "⭐" : string.Empty)}");
         if (isQuals)
         {
             var rankingPointsValue = match.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red).Or(tbaMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Red)).ToString();
@@ -298,7 +300,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         cancellationToken.ThrowIfCancellationRequested();
 
         #region Blue Score Breakdown
-        builder.Append($"### {(winningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)}Blue Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue]})" : string.Empty)} - {scores.blue}{(scores.blue == eventHighScore ? "⭐" : string.Empty)}");
+        builder.Append($"### {(winningAlliance is Match.WinningAllianceEnum.Blue ? "🏅" : string.Empty)}Blue Alliance{(allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue] is not 0 ? $" (#{allianceRanks[(int)MatchSimple.WinningAllianceEnum.Blue]})" : string.Empty)} - {scores.Value.blue}{(scores.Value.blue >= eventHighScore ? "⭐" : string.Empty)}");
         if (isQuals)
         {
             var rankingPointsValue = match.GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue).Or(tbaMatch.GetAllianceRankingPoints(Match.WinningAllianceEnum.Blue)).ToString();
@@ -342,7 +344,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         }
         #endregion
 
-        if (scores.red >= eventHighScore || scores.blue >= eventHighScore)
+        if (scores.Value.red >= eventHighScore || scores.Value.blue >= eventHighScore)
         {
             builder.AppendLine()
                 .AppendLine("-# ⭐ Event high score");
@@ -365,7 +367,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             await Task.Delay(TimeSpan.FromSeconds(10), time, cancellationToken).ConfigureAwait(false);
             try
             {
-                breakdown = (await matchApi.GetMatchAsync(tbaMatch.Key, cancellationToken: cancellationToken))?.ScoreBreakdown?.GetMatchScoreBreakdown2025();
+                breakdown = (await matchApi.GetMatchAsync(tbaMatch.Key, cancellationToken: cancellationToken).ConfigureAwait(false))?.ScoreBreakdown?.GetMatchScoreBreakdown2025();
 
                 if (time.GetElapsedTime(startTime).TotalMinutes >= 5)
                 {
@@ -474,7 +476,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             var tourneyLevel = (match.CompLevel is Match.CompLevelEnum.Qm) ? TournamentLevel.Qualification : TournamentLevel.Playoff;
             try
             {
-                var eventSchedule = await schedule.SeasonScheduleEventCodeGetAsync(eventCode, season, tournamentLevel: tourneyLevel, cancellationToken: cancellationToken);
+                var eventSchedule = await schedule.SeasonScheduleEventCodeGetAsync(eventCode, season, tournamentLevel: tourneyLevel, cancellationToken: cancellationToken).ConfigureAwait(false);
                 Debug.Assert(eventSchedule is not null, "We expect to find the event in the schedule using the event code & season");
                 if (eventSchedule is not null)
                 {
@@ -560,6 +562,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
     private async Task SendBreakdownToUserAsync(SocketMessageComponent arg, CancellationToken cancellationToken = default)
     {
         var canceledRequestOptions = cancellationToken.ToRequestOptions();
+
         var matchKey = arg.Data.CustomId[(arg.Data.CustomId.IndexOf('_') + 1)..];
         var matchData = await matchApi.GetMatchAsync(matchKey, cancellationToken: cancellationToken).ConfigureAwait(false);
         Debug.Assert(matchData is not null);
@@ -568,18 +571,24 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             var content = new StringBuilder();
 
             // We pass the matchData as the notificationMatch because all the code biases toward using the notificationMatch first and we don't want EVERY call to have to fail then go to the detailed match data. In effect, this makes the 2nd param *NEVER* used but it's there for consistency.
-            await BuildBreakdownDetailAsync(content, matchData, matchData, GetActualScores(matchData, matchData), includeFullBreakdown: true, cancellationToken: cancellationToken);
+            await BuildBreakdownDetailAsync(content, matchData, matchData, includeFullBreakdown: true, cancellationToken: cancellationToken).ConfigureAwait(false);
 
-            Embed embed = new EmbedBuilder()
+            Embed embed = builderFactory.GetBuilder()
                 .WithTitle($"Breakdown for {events[matchData.EventKey].GetLabel(shortName: true)} {matchData.CompLevel.ToShortString()} {matchData.SetNumber}.{matchData.MatchNumber}")
-                .WithDescription(content.ToString()).Build();
+                .WithDescription(content.ToString())
+                .Build();
+
             try
             {
-                await arg.RespondAsync(embed: embed, ephemeral: true, options: canceledRequestOptions).ConfigureAwait(false);
+                await arg.UpdateAsync(p =>
+                {
+                    p.Embeds = new([.. arg.Message.Embeds, embed]);
+                    p.Components = null;
+                }).ConfigureAwait(false);
             }
             catch (TimeoutException)
             {
-                await arg.FollowupAsync(embed: embed, ephemeral: true, options: canceledRequestOptions).ConfigureAwait(false);
+                await arg.FollowupAsync(ephemeral: true, embed: embed, options: canceledRequestOptions).ConfigureAwait(false);
             }
         }
         else
