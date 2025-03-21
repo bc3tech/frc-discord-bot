@@ -568,7 +568,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             var content = new StringBuilder();
 
             // We pass the matchData as the notificationMatch because all the code biases toward using the notificationMatch first and we don't want EVERY call to have to fail then go to the detailed match data. In effect, this makes the 2nd param *NEVER* used but it's there for consistency.
-            var breakdownTask = BuildBreakdownDetailAsync(content, matchData, matchData, GetActualScores(matchData, matchData), includeFullBreakdown: true, cancellationToken: cancellationToken);
+            await BuildBreakdownDetailAsync(content, matchData, matchData, GetActualScores(matchData, matchData), includeFullBreakdown: true, cancellationToken: cancellationToken);
 
             Embed embed = new EmbedBuilder()
                 .WithTitle($"Breakdown for {events[matchData.EventKey].GetLabel(shortName: true)} {matchData.CompLevel.ToShortString()} {matchData.SetNumber}.{matchData.MatchNumber}")
