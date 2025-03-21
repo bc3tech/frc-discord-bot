@@ -348,3 +348,7 @@ content-type: application/json
   },
   "message_type": "schedule_updated"
 }
+
+### Check status of an invocation
+GET http://localhost:7240/api/tba/webhook/status?invocationId=372c4d47-ea63-4539-a8ef-375d80ba021d
+

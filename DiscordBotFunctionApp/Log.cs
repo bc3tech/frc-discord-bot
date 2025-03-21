@@ -547,4 +547,13 @@ static partial class Log
 
     [LoggerMessage(180, LogLevel.Error, "Error when trying to fetch color for {TeamNumber}")]
     internal static partial void ErrorWhenTryingToFetchColorForTeamNumber(this ILogger logger, Exception exception, ushort TeamNumber);
+
+    [LoggerMessage(181, LogLevel.Error, "Error processing webhook message. {InvocationId}")]
+    internal static partial void ErrorProcessingWebhookMessage(this ILogger logger, Exception exception, string InvocationId);
+
+    [LoggerMessage(182, LogLevel.Warning, "Webhook task {InvocationId} faulted without exception.")]
+    internal static partial void WebhookTaskInvocationIdFaultedWithoutException(this ILogger logger, string InvocationId);
+
+    [LoggerMessage(183, LogLevel.Warning, "Webhook task already in progress for invocation ID: {InvocationId}")]
+    internal static partial void WebhookTaskAlreadyInProgressForInvocationIDInvocationId(this ILogger logger, string InvocationId);
 }
