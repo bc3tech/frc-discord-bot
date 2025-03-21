@@ -23,11 +23,11 @@ static partial class Log
     [LoggerMessage(2, LogLevel.Trace, "Teams: {TeamsInMessage}, Events: {EventsInMessage}")]
     internal static partial void TeamsTeamsInMessageEventsEventsInMessage(this ILogger logger, int TeamsInMessage, int EventsInMessage);
 
-    [LoggerMessage(3, LogLevel.Trace, "Checking {TargetTable} for {PartitionKey} / {RowKey} ...")]
-    internal static partial void CheckingTargetTableForPartitionKeyRowKey(this ILogger logger, string TargetTable, string PartitionKey, string RowKey);
+    [LoggerMessage(3, LogLevel.Trace, "Checking {TargetTable}...")]
+    internal static partial void CheckingTargetTable(this ILogger logger, string TargetTable);
 
-    [LoggerMessage(4, LogLevel.Trace, "Found record for {TargetTable} for {PartitionKey} / {RowKey}")]
-    internal static partial void FoundRecordForTargetTableForPartitionKeyRowKey(this ILogger logger, string TargetTable, string PartitionKey, string RowKey);
+    [LoggerMessage(4, LogLevel.Trace, "Found record")]
+    internal static partial void FoundRecord(this ILogger logger);
 
     [LoggerMessage(5, LogLevel.Trace, "Retrieved channel {ChannelId} - '{ChannelName}'")]
     internal static partial void RetrievedChannelChannelIdChannelName(this ILogger logger, ulong ChannelId, string ChannelName);
@@ -78,25 +78,25 @@ static partial class Log
     internal static partial void NoAwardsFoundForEventKey(this ILogger logger, string EventKey);
 
     [LoggerMessage(21, LogLevel.Trace, "Adding subscription for team {SubscriptionTeam}")]
-    internal static partial void AddingSubscriptionForTeamSubscriptionTeam(this ILogger logger, uint? SubscriptionTeam);
+    internal static partial void AddingSubscriptionForTeamSubscriptionTeam(this ILogger logger, string SubscriptionTeam);
 
     [LoggerMessage(22, LogLevel.Information, "Creating new subscription for team {SubscriptionTeam} and event {SubscriptionEvent}")]
-    internal static partial void CreatingNewSubscriptionForTeamSubscriptionTeamAndEventSubscriptionEvent(this ILogger logger, uint? SubscriptionTeam, string SubscriptionEvent);
+    internal static partial void CreatingNewSubscriptionForTeamSubscriptionTeamAndEventSubscriptionEvent(this ILogger logger, string SubscriptionTeam, string SubscriptionEvent);
 
     [LoggerMessage(23, LogLevel.Error, "Failed to upsert subscription for team {SubscriptionTeam} and event {SubscriptionEvent} ({StatusCode}): {Reason}")]
-    internal static partial void FailedToUpsertSubscriptionForTeamSubscriptionTeamAndEventSubscriptionEventStatusCodeReason(this ILogger logger, uint? SubscriptionTeam, string SubscriptionEvent, int StatusCode, string Reason);
+    internal static partial void FailedToUpsertSubscriptionForTeamSubscriptionTeamAndEventSubscriptionEventStatusCodeReason(this ILogger logger, string SubscriptionTeam, string SubscriptionEvent, int StatusCode, string Reason);
 
     [LoggerMessage(24, LogLevel.Warning, "'All' subscription already exists for team {SubscriptionTeam}")]
-    internal static partial void AllSubscriptionAlreadyExistsForTeamSubscriptionTeam(this ILogger logger, uint? SubscriptionTeam);
+    internal static partial void AllSubscriptionAlreadyExistsForTeamSubscriptionTeam(this ILogger logger, string SubscriptionTeam);
 
     [LoggerMessage(25, LogLevel.Trace, "Adding subscription for event {SubscriptionEvent}")]
     internal static partial void AddingSubscriptionForEventSubscriptionEvent(this ILogger logger, string SubscriptionEvent);
 
-    [LoggerMessage(26, LogLevel.Information, "Creating new subscription for event {SubscriptionEvent} and team {SubscriptionTeam}")]
-    internal static partial void CreatingNewSubscriptionForEventSubscriptionEventAndTeamSubscriptionTeam(this ILogger logger, string SubscriptionEvent, string SubscriptionTeam);
+    [LoggerMessage(26, LogLevel.Information, "Creating new subscription for event {SubscriptionEvent}")]
+    internal static partial void CreatingNewSubscriptionForEventSubscriptionEventAndTeamSubscriptionTeam(this ILogger logger, string SubscriptionEvent);
 
-    [LoggerMessage(27, LogLevel.Error, "Failed to upsert subscription for event {SubscriptionEvent} and team {SubscriptionTeam} ({StatusCode}): {Reason}")]
-    internal static partial void FailedToUpsertSubscriptionForEventSubscriptionEventAndTeamSubscriptionTeamStatusCodeReason(this ILogger logger, string SubscriptionEvent, string SubscriptionTeam, int StatusCode, string Reason);
+    [LoggerMessage(27, LogLevel.Error, "Failed to upsert subscription for event {SubscriptionEvent} ({StatusCode}): {Reason}")]
+    internal static partial void FailedToUpsertSubscriptionForEventSubscriptionEventAndTeamSubscriptionTeamStatusCodeReason(this ILogger logger, string SubscriptionEvent, int StatusCode, string Reason);
 
     [LoggerMessage(28, LogLevel.Warning, "'All' subscription already exists for event {SubscriptionEvent}")]
     internal static partial void AllSubscriptionAlreadyExistsForEventSubscriptionEvent(this ILogger logger, string SubscriptionEvent);
@@ -399,10 +399,10 @@ static partial class Log
     internal static partial void ThereWasAnErrorCreatingAGuildEventForEventKeyInGuildGuildNameGuildId(this ILogger logger, Exception exception, string EventKey, string GuildName, ulong GuildId);
 
     [LoggerMessage(131, LogLevel.Debug, "Removing subscription for team subscription team {Team}")]
-    internal static partial void RemovingSubscriptionForTeamSubscriptionTeamTeam(this ILogger logger, uint? Team);
+    internal static partial void RemovingSubscriptionForTeamSubscriptionTeamTeam(this ILogger logger, string Team);
 
     [LoggerMessage(132, LogLevel.Error, "Failed to remove subscription for team {Team} ({Status}): {Reason}")]
-    internal static partial void FailedToRemoveSubscriptionForTeamTeamStatusReason(this ILogger logger, uint? Team, int Status, string Reason);
+    internal static partial void FailedToRemoveSubscriptionForTeamTeamStatusReason(this ILogger logger, string Team, int Status, string Reason);
 
     [LoggerMessage(133, LogLevel.Warning, "No subscriptions found for {Subscription}")]
     internal static partial void NoSubscriptionsFoundForSubscription(this ILogger logger, Subscription.NotificationSubscription Subscription);
@@ -501,16 +501,16 @@ static partial class Log
     internal static partial void ServiceTypeHandledMenuSelectionMenuIdValueId(this ILogger logger, string ServiceType, string MenuId, string ValueId);
 
     [LoggerMessage(165, LogLevel.Debug, "Cleaning up subscriptions for team {Team}")]
-    internal static partial void CleaningUpSubscriptionsForTeamTeam(this ILogger logger, ushort Team);
+    internal static partial void CleaningUpSubscriptionsForTeamTeam(this ILogger logger, string Team);
 
     [LoggerMessage(166, LogLevel.Warning, "Failed to retrieve event for team subscription {Team} {Event}")]
-    internal static partial void FailedToRetrieveEventForTeamSubscriptionTeamEvent(this ILogger logger, ushort Team, string Event);
+    internal static partial void FailedToRetrieveEventForTeamSubscriptionTeamEvent(this ILogger logger, string Team, string Event);
 
     [LoggerMessage(167, LogLevel.Trace, "Event {Event} has ended >= 5 days ago, cleaning up subscription to it for team {TeamKey}")]
-    internal static partial void EventEventHasEnded5DaysAgoCleaningUpSubscriptionToItForTeamTeamKey(this ILogger logger, string Event, ushort TeamKey);
+    internal static partial void EventEventHasEnded5DaysAgoCleaningUpSubscriptionToItForTeamTeamKey(this ILogger logger, string Event, string TeamKey);
 
     [LoggerMessage(168, LogLevel.Warning, "Failed to delete subscription for team {Team}: {ErrorMessage}")]
-    internal static partial void FailedToDeleteSubscriptionForTeamTeamErrorMessage(this ILogger logger, ushort Team, string ErrorMessage);
+    internal static partial void FailedToDeleteSubscriptionForTeamTeamErrorMessage(this ILogger logger, string Team, string ErrorMessage);
 
     [LoggerMessage(169, LogLevel.Debug, "Cleaning up subscriptions for event {Event}")]
     internal static partial void CleaningUpSubscriptionsForEventEvent(this ILogger logger, string Event);
@@ -528,10 +528,10 @@ static partial class Log
     internal static partial void RankingPointsWereEmptyForMatchKey1sPollUntilTheyGoLive(this ILogger logger, string MatchKey);
 
     [LoggerMessage(174, LogLevel.Debug, "Found empty subscription for team {TeamKey} ({GuildId}) - Removing...")]
-    internal static partial void FoundEmptySubscriptionForTeamTeamKeyGuildIdRemoving(this ILogger logger, ushort TeamKey, string GuildId);
+    internal static partial void FoundEmptySubscriptionForTeamTeamKeyGuildIdRemoving(this ILogger logger, string TeamKey, string GuildId);
 
     [LoggerMessage(175, LogLevel.Debug, "Subscriptions for team {TeamKey} cleaned.")]
-    internal static partial void SubscriptionsForTeamTeamKeyCleaned(this ILogger logger, ushort TeamKey);
+    internal static partial void SubscriptionsForTeamTeamKeyCleaned(this ILogger logger, string TeamKey);
 
     [LoggerMessage(176, LogLevel.Debug, "Found empty subscription for event {Event} guild {GuildId} - Removing...")]
     internal static partial void FoundEmptySubscriptionForEventEventGuildGuildIdRemoving(this ILogger logger, string Event, string GuildId);
@@ -544,4 +544,7 @@ static partial class Log
 
     [LoggerMessage(179, LogLevel.Warning, "Attempted to remove subscription {Subscription} from guild {GuildId} but it wasn't found.")]
     internal static partial void AttemptedToRemoveSubscriptionSubscriptionFromGuildGuildIdButItWasnTFound(this ILogger logger, string Subscription, string GuildId);
+
+    [LoggerMessage(180, LogLevel.Error, "Error when trying to fetch color for {TeamNumber}")]
+    internal static partial void ErrorWhenTryingToFetchColorForTeamNumber(this ILogger logger, Exception exception, ushort TeamNumber);
 }

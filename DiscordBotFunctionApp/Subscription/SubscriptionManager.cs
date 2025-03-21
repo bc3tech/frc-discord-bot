@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 internal sealed record NotificationSubscription([property: JsonPropertyName("guildId")] ulong? GuildId,
                                            [property: JsonPropertyName("channelId")] ulong ChannelId,
                                            [property: JsonPropertyName("event")] string? Event,
-                                           [property: JsonPropertyName("team")] ushort? Team);
+                                           [property: JsonPropertyName("team")] string? Team);
 
 internal sealed class SubscriptionManager(
     [FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptions,
@@ -48,16 +48,16 @@ internal sealed class SubscriptionManager(
         if (sub.Team is not null)
         {
             logger.AddingSubscriptionForTeamSubscriptionTeam(sub.Team);
-            var r = await teamSubscriptions.GetEntityIfExistsAsync<TeamSubscriptionEntity>(sub.Team.Value.ToString(CultureInfo.InvariantCulture), CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var r = await teamSubscriptions.GetEntityIfExistsAsync<TeamSubscriptionEntity>(sub.Team, CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
             var allEventSubscription = r.HasValue ? r.Value : null;
             if (allEventSubscription is null || !allEventSubscription.Subscribers.Exists(sub.GuildId, sub.ChannelId))
             {
                 var eventString = sub.Event ?? CommonConstants.ALL;
                 logger.CreatingNewSubscriptionForTeamSubscriptionTeamAndEventSubscriptionEvent(sub.Team, eventString);
 
-                r = await teamSubscriptions.GetEntityIfExistsAsync<TeamSubscriptionEntity>(sub.Team.Value.ToString(CultureInfo.InvariantCulture), eventString, cancellationToken: cancellationToken).ConfigureAwait(false);
+                r = await teamSubscriptions.GetEntityIfExistsAsync<TeamSubscriptionEntity>(sub.Team, eventString, cancellationToken: cancellationToken).ConfigureAwait(false);
                 var eventSubscription = r.HasValue ? r.Value : null;
-                eventSubscription ??= new TeamSubscriptionEntity { PartitionKey = sub.Team.Value.ToString(CultureInfo.InvariantCulture), RowKey = eventString };
+                eventSubscription ??= new TeamSubscriptionEntity { PartitionKey = sub.Team, RowKey = eventString };
 
                 eventSubscription.Subscribers.AddSubscription(sub.GuildId, sub.ChannelId);
                 var result = await teamSubscriptions.UpsertEntityAsync(eventSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
@@ -79,19 +79,18 @@ internal sealed class SubscriptionManager(
             var allTeamSubscription = r.HasValue ? r.Value : null;
             if (allTeamSubscription is null || !allTeamSubscription.Subscribers.Exists(sub.GuildId, sub.ChannelId))
             {
-                var teamString = sub.Team?.ToString(CultureInfo.InvariantCulture) ?? CommonConstants.ALL;
-                logger.CreatingNewSubscriptionForEventSubscriptionEventAndTeamSubscriptionTeam(sub.Event, teamString);
+                logger.CreatingNewSubscriptionForEventSubscriptionEventAndTeamSubscriptionTeam(sub.Event);
 
-                r = await eventSubscriptions.GetEntityIfExistsAsync<EventSubscriptionEntity>(sub.Event, teamString, cancellationToken: cancellationToken).ConfigureAwait(false);
+                r = await eventSubscriptions.GetEntityIfExistsAsync<EventSubscriptionEntity>(sub.Event, CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
                 var eventSubscription = r.HasValue ? r.Value : null;
-                eventSubscription ??= new EventSubscriptionEntity { PartitionKey = sub.Event, RowKey = teamString };
+                eventSubscription ??= new EventSubscriptionEntity { PartitionKey = sub.Event };
 
                 eventSubscription.Subscribers.AddSubscription(sub.GuildId, sub.ChannelId);
                 var result = await eventSubscriptions.UpsertEntityAsync(eventSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (result.IsError)
                 {
-                    logger.FailedToUpsertSubscriptionForEventSubscriptionEventAndTeamSubscriptionTeamStatusCodeReason(sub.Event, teamString, result.Status, result.ReasonPhrase);
-                    throw new HttpProtocolException(result.Status, string.Format(CultureInfo.InvariantCulture, "Failed to upsert subscription for event {0} and team {1} ({2}): {3}", sub.Event, teamString, result.Status, result.ReasonPhrase), null);
+                    logger.FailedToUpsertSubscriptionForEventSubscriptionEventAndTeamSubscriptionTeamStatusCodeReason(sub.Event, result.Status, result.ReasonPhrase);
+                    throw new HttpProtocolException(result.Status, string.Format(CultureInfo.InvariantCulture, "Failed to upsert subscription for event {0} and team ({1}): {2}", sub.Event, result.Status, result.ReasonPhrase), null);
                 }
             }
             else
@@ -106,7 +105,7 @@ internal sealed class SubscriptionManager(
         if (sub.Team is not null)
         {
             logger.RemovingSubscriptionForTeamSubscriptionTeamTeam(sub.Team);
-            var r = await teamSubscriptions.GetEntityIfExistsAsync<TeamSubscriptionEntity>(sub.Team.Value.ToString(CultureInfo.InvariantCulture), sub.Event ?? CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var r = await teamSubscriptions.GetEntityIfExistsAsync<TeamSubscriptionEntity>(sub.Team, sub.Event ?? CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
             var eventSubscription = r.HasValue ? r.Value : null;
             if (eventSubscription is not null)
             {

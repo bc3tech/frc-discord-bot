@@ -21,6 +21,8 @@ internal sealed record WebhookMessage
 
     public T? GetDataAs<T>() => MessageData.Deserialize<T>();
 
+    public bool IsBroadcast => this.MessageType is NotificationType.schedule_updated or NotificationType.starting_comp_level or NotificationType.alliance_selection;
+
     public (string PartitionKey, string RowKey, string Title)? GetThreadDetails(IServiceProvider services)
     {
         ThreadedEntity? threadedEntity;

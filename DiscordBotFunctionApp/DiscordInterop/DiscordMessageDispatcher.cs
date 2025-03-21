@@ -19,15 +19,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using System;
+using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 
+using TheBlueAlliance.Api;
+
 internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptionsTable,
                                                        [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptionsTable,
                                                        [FromKeyedServices(Constants.ServiceKeys.TableClient_Threads)] TableClient threadsTable,
+                                                       IEventApi eventApi,
                                                        IDiscordClient discordClient,
                                                        WebhookEmbeddingGenerator _embedGenerator,
                                                        TimeProvider time,
@@ -44,15 +48,25 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         (var teams, var events) = GetTeamsAndEventsInMessage(message.MessageData);
         logger.TeamsTeamsInMessageEventsEventsInMessage(teams.Count, events.Count);
 
+        if (message.IsBroadcast)
+        {
+            // If we're broadcasting the message to everybody at the event, then we need to include every team at the event as a possible subscriber.
+            foreach (var e in events)
+            {
+                var eventTeams = await eventApi.GetEventTeamsKeysAsync(e, cancellationToken: cancellationToken).ConfigureAwait(false);
+                teams = [.. teams, .. eventTeams ?? []];
+            }
+        }
+
         var teamRecordsToFind = teams.Permutate([CommonConstants.ALL, .. events], (p, r) => (p, r)).ToArray().AsReadOnly();
-        var eventRecordsToFind = events.Permutate([CommonConstants.ALL, .. teams], (p, r) => (p, r)).ToArray().AsReadOnly();
+        var eventRecordsToFind = events.Add(CommonConstants.ALL).Select(i => (i, CommonConstants.ALL)).ToArray().AsReadOnly();
 
         logger.PermutatedResultsIntoTeamRecordsCountTeamRecordsAndEventRecordsCountEventRecords(teamRecordsToFind.Count, eventRecordsToFind.Count);
 
-        List<Task> notifications = [];
-
-        await SendNotificationsAsync<TeamSubscriptionEntity>(message, teamSubscriptionsTable, teamRecordsToFind, i => i.Item1 is not CommonConstants.ALL ? i.Item1.TeamKeyToTeamNumber() : null, logger, cancellationToken).ConfigureAwait(false);
-        await SendNotificationsAsync<EventSubscriptionEntity>(message, eventSubscriptionsTable, eventRecordsToFind, i => i.Item2 is not CommonConstants.ALL ? i.Item2.TeamKeyToTeamNumber() : null, logger, cancellationToken).ConfigureAwait(false);
+        List<Task> notifications = [
+            SendNotificationsAsync<TeamSubscriptionEntity>(message, teamSubscriptionsTable, teamRecordsToFind, i => i.Item1 is not CommonConstants.ALL ? i.Item1.TeamKeyToTeamNumber() : null, logger, cancellationToken),
+            SendNotificationsAsync<EventSubscriptionEntity>(message, eventSubscriptionsTable, eventRecordsToFind, i => i.Item2 is not CommonConstants.ALL ? i.Item2.TeamKeyToTeamNumber() : null, logger, cancellationToken)
+        ];
 
         logger.WaitingForNotificationsToBeSent();
 
@@ -64,17 +78,19 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         return true;
     }
 
+    private static readonly Func<ILogger, string, string, IDisposable?> _notificationLoggingScope = LoggerMessage.DefineScope<string, string>("Subscription: {PartitionKey}/{RowKey}");
     private async Task SendNotificationsAsync<T>(WebhookMessage message, TableClient sourceTable, IReadOnlyList<(string p, string r)> records, Func<(string, string), ushort?> teamFinder, ILogger<DiscordMessageDispatcher> logger, CancellationToken cancellationToken) where T : class, ITableEntity, ISubscriptionEntity
     {
         using var scope = logger.CreateMethodScope();
         foreach (var i in records)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            logger.CheckingTargetTableForPartitionKeyRowKey(sourceTable.Name, i.p, i.r);
+            using var subscriptionScope = _notificationLoggingScope(logger, i.p, i.r);
+            logger.CheckingTargetTable(sourceTable.Name);
             var sub = await getSubscriptionForAsync(sourceTable, i.p, i.r, cancellationToken).ConfigureAwait(false);
             if (sub is not null)
             {
-                logger.FoundRecordForTargetTableForPartitionKeyRowKey(sourceTable.Name, i.p, i.r);
+                logger.FoundRecord();
 
                 if (sub.Subscribers.SelectMany(i => i.Value).Any())
                 {
@@ -259,7 +275,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         return thread;
     }
 
-    private static (IReadOnlySet<string> Teams, IReadOnlySet<string> Events) GetTeamsAndEventsInMessage(JsonElement messageData)
+    private static (ImmutableHashSet<string> Teams, ImmutableHashSet<string> Events) GetTeamsAndEventsInMessage(JsonElement messageData)
     {
         HashSet<string> teams = [], events = [];
 
@@ -285,7 +301,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
             }
         }
 
-        return (teams, events);
+        return (teams.ToImmutableHashSet(), events.ToImmutableHashSet());
 
         static void addElement(JsonElement? maybeNullElt, HashSet<string> toHashSet, Func<string, string>? transform = null)
         {

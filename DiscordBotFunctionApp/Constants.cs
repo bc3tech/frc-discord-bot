@@ -6,7 +6,7 @@ internal static class Constants
 {
     public static class ServiceKeys
     {
-        public const string TableClient_TeamSubscriptions = "teamSubscriptions";
+        public const string TableClient_TeamSubscriptions = "teamSubscriptionsv2";
         public const string TableClient_EventSubscriptions = "eventSubscriptions";
         public const string TableClient_Threads = "threads";
         public const string TableClient_UserChatAgentThreads = "userChatAgentThreads";

@@ -34,11 +34,11 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
         }
 
         using var scope = this.Logger.CreateMethodScope();
-        HashSet<(string, ushort?)> currentSubs = [];
+        HashSet<(string, string)> currentSubs = [];
         await foreach (var sub in _subscriptionManager.GetSubscriptionsForGuildAsync(this.Context.Interaction.GuildId, default)
             .Where(i => i.ChannelId == this.Context.Interaction.ChannelId!.Value))
         {
-            currentSubs.Add((sub.Event ?? CommonConstants.ALL, sub.Team));
+            currentSubs.Add((sub.Event ?? CommonConstants.ALL, sub.Team ?? CommonConstants.ALL));
         }
 
         if (currentSubs.Count is 0)
@@ -53,7 +53,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
             // and we want to show the event key if it's not 'all'
             var output = groupedSubscriptions.Select(i => $"""
                 - **{(i.Key is not CommonConstants.ALL ? _eventsRepo[i.Key].GetLabel() : "All Events")}**:
-                {string.Join('\n', i.Select(j => $"  - {(j.Item2.HasValue ? _teamsRepo[j.Item2.Value].GetLabel() : "All Teams")}"))}
+                {string.Join('\n', i.Select(j => $"  - {(j.Item2 is not CommonConstants.ALL ? _teamsRepo[j.Item2].GetLabel() : "All Teams")}"))}
                 """);
             await this.ModifyOriginalResponseAsync(p =>
             {
@@ -89,11 +89,9 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
             Debug.Assert(_subscriptionManager is not null);
             Debug.Assert(this.Context.Interaction.ChannelId.HasValue);
 
-            var teamNumber = teamKey.TeamKeyToTeamNumber();
-
             try
             {
-                await _subscriptionManager.SaveSubscriptionAsync(new NotificationSubscription(this.Context.Interaction.GuildId, this.Context.Interaction.ChannelId!.Value, eventKey, teamNumber), default).ConfigureAwait(false);
+                await _subscriptionManager.SaveSubscriptionAsync(new NotificationSubscription(this.Context.Interaction.GuildId, this.Context.Interaction.ChannelId!.Value, eventKey, teamKey), default).ConfigureAwait(false);
                 if (!string.IsNullOrWhiteSpace(eventKey) && !string.IsNullOrWhiteSpace(teamKey))
                 {
                     await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo[teamKey].GetLabel(includeLocation: false)}** at the **{_eventsRepo[eventKey].GetLabel(includeYear: true)}** event.").ConfigureAwait(false);
@@ -157,7 +155,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
         }
     }
 
-    private string MakeLabelForSubscription(NotificationSubscription i) => $"{(i.Event is not null and not CommonConstants.ALL ? _eventsRepo[i.Event].GetLabel(shortName: true, includeYear: true) : "All Events")} - {(i.Team is null or 0 ? "All Teams" : _teamsRepo[i.Team.Value].GetLabel(includeLocation: false, asMarkdownLink: false))}";
+    private string MakeLabelForSubscription(NotificationSubscription i) => $"{(i.Event is null or CommonConstants.ALL ? "All Events" : _eventsRepo[i.Event].GetLabel(shortName: true, includeYear: true))} - {(i.Team is null or CommonConstants.ALL ? "All Teams" : _teamsRepo[i.Team].GetLabel(includeLocation: false, asMarkdownLink: false))}";
 
     public async Task<bool> HandleInteractionAsync(IServiceProvider services, SocketMessageComponent component, CancellationToken cancellationToken)
     {
@@ -185,7 +183,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
                 throw new ArgumentException("Invalid channel number");
             }
 
-            var subToDelete = new NotificationSubscription(ulong.TryParse(guild, out var g) ? g : null, channel, evt, ushort.TryParse(team, out var t) ? t : null);
+            var subToDelete = new NotificationSubscription(ulong.TryParse(guild, out var g) ? g : null, channel, evt, team);
             await _subscriptionManager.RemoveSubscriptionAsync(subToDelete, default).ConfigureAwait(false);
 
             // Create a copy of the existing components; when updating a message, components are only settable wholesale
