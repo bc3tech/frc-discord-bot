@@ -4,6 +4,7 @@ using Common;
 using Common.Extensions;
 
 using Discord;
+using Discord.Net;
 using Discord.WebSocket;
 
 using DiscordBotFunctionApp.ChatBot;
@@ -590,6 +591,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             {
                 await arg.FollowupAsync(ephemeral: true, embed: embed, options: canceledRequestOptions).ConfigureAwait(false);
             }
+            catch (HttpException e) when (e.DiscordCode is DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged) { }
         }
         else
         {
