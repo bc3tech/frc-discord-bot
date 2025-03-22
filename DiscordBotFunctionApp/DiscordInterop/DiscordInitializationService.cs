@@ -126,13 +126,21 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
             }
             else
             {
-                foreach (var s in services.GetServices<IHandleUserInteractions>())
+                try
                 {
-                    if (await s.HandleInteractionAsync(services, button, cancellationToken))
+                    foreach (var s in services.GetServices<IHandleUserInteractions>())
                     {
-                        _logger.ServiceTypeHandledButtonClickButtonId(s.GetType().Name, button.Data.CustomId);
-                        return;
+                        if (await s.HandleInteractionAsync(services, button, cancellationToken))
+                        {
+                            _logger.ServiceTypeHandledButtonClickButtonId(s.GetType().Name, button.Data.CustomId);
+                            return;
+                        }
                     }
+                }
+                catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
+                {
+                    _logger.ErrorHandlingButtonClickButtonId(e, button.Data.CustomId);
+                    throw;
                 }
             }
         };

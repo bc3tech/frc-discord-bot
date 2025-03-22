@@ -562,4 +562,19 @@ static partial class Log
 
     [LoggerMessage(185, LogLevel.Warning, "Invalid number of matches requested: {numMatches}")]
     internal static partial void InvalidNumberOfMatchesRequestedNumMatches(this ILogger logger, uint numMatches);
+
+    [LoggerMessage(186, LogLevel.Error, "Could not figure out how to send the breakdown to this user: {User}({UserId}, {ChannelName}({ChannelId} - type {ChannelType})")]
+    internal static partial void CouldNotFigureOutHowToSendTheBreakdownToThisUserUserUserIdChannelNameChannelIdTypeChannelType(this ILogger logger, Exception exception, string User, ulong UserId, string ChannelName, ulong ChannelId, string? ChannelType);
+
+    [LoggerMessage(187, LogLevel.Warning, "Took too long to reply to 'Get Breakdown' button")]
+    internal static partial void TookTooLongToReplyToGetBreakdownButton(this ILogger logger);
+
+    [LoggerMessage(188, LogLevel.Warning, "Error on initial action for score breakdown")]
+    internal static partial void ErrorOnInitialActionForScoreBreakdown(this ILogger logger, Exception exception);
+
+    [LoggerMessage(189, LogLevel.Warning, "Error on FollowUp action for score breakdown")]
+    internal static partial void ErrorOnFollowUpActionForScoreBreakdown(this ILogger logger, Exception exception);
+
+    [LoggerMessage(190, LogLevel.Error, "Error handling button click {ButtonId}")]
+    internal static partial void ErrorHandlingButtonClickButtonId(this ILogger logger, Exception exception, string ButtonId);
 }

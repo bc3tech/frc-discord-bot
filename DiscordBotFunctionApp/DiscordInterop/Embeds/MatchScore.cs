@@ -563,6 +563,20 @@ internal sealed partial class MatchScore(IEventApi eventApi,
     private async Task SendBreakdownToUserAsync(SocketMessageComponent arg, CancellationToken cancellationToken = default)
     {
         var canceledRequestOptions = cancellationToken.ToRequestOptions();
+        var isDmInteraction = arg.Channel.GetChannelType() is ChannelType.DM;
+        if (!isDmInteraction)
+        {
+            try
+            {
+                await arg.DeferAsync(ephemeral: true).ConfigureAwait(false);
+            }
+            catch (HttpException e) when (e.DiscordCode is DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged or DiscordErrorCode.UnknownInteraction)
+            {
+                return;
+            }
+        }
+
+        using var typing = arg.Channel.EnterTypingState(canceledRequestOptions);
 
         var matchKey = arg.Data.CustomId[(arg.Data.CustomId.IndexOf('_') + 1)..];
         var matchData = await matchApi.GetMatchAsync(matchKey, cancellationToken: cancellationToken).ConfigureAwait(false);
@@ -581,7 +595,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
             try
             {
-                if (arg.Channel is IDMChannel)
+                if (isDmInteraction)
                 {
                     await arg.UpdateAsync(p =>
                     {
@@ -591,14 +605,34 @@ internal sealed partial class MatchScore(IEventApi eventApi,
                 }
                 else
                 {
-                    await arg.FollowupAsync(ephemeral: true, embed: embed, options: canceledRequestOptions).ConfigureAwait(false);
+                    await arg.RespondAsync(ephemeral: true, embed: embed, options: canceledRequestOptions).ConfigureAwait(false);
                 }
             }
             catch (TimeoutException)
             {
-                await arg.FollowupAsync(ephemeral: true, embed: embed, options: canceledRequestOptions).ConfigureAwait(false);
+                logger.TookTooLongToReplyToGetBreakdownButton();
             }
-            catch (HttpException e) when (e.DiscordCode is DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged) { }
+            catch (Exception e1)
+            {
+                logger.ErrorOnInitialActionForScoreBreakdown(e1);
+
+                try
+                {
+                    await arg.FollowupAsync(ephemeral: true, embed: embed, options: canceledRequestOptions).ConfigureAwait(false);
+                }
+                catch (Exception e2)
+                {
+                    logger.ErrorOnFollowUpActionForScoreBreakdown(e2);
+                    try
+                    {
+                        await arg.User.SendMessageAsync($"Here's the breakdown for {events[matchData.EventKey].GetLabel(shortName: true)} {matchData.CompLevel.ToShortString()} {matchData.SetNumber}.{matchData.MatchNumber} you asked for", embed: embed, options: canceledRequestOptions).ConfigureAwait(false);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.CouldNotFigureOutHowToSendTheBreakdownToThisUserUserUserIdChannelNameChannelIdTypeChannelType(ex, arg.User.Username, arg.User.Id, arg.Channel.Name, arg.Channel.Id, arg.Channel.GetChannelType()?.ToInvariantString() ?? "[null]");
+                    }
+                }
+            }
         }
         else
         {
