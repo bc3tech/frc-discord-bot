@@ -7,7 +7,7 @@ using System.Text;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1716:Identifiers should not match keywords", Justification = "This is its name, sorry")]
 public partial record Event
 {
-    public string GetLabel(bool shortName = false, bool includeYear = false, bool includeCity = false, bool includeStateProv = false, bool includeCountry = false)
+    public string GetLabel(bool shortName = false, bool includeYear = false, bool includeCity = false, bool includeStateProv = false, bool includeCountry = false, bool asMarkdownLink = false)
     {
         var location = new StringBuilder();
         if (includeCity && !string.IsNullOrWhiteSpace(this.City))
@@ -35,7 +35,9 @@ public partial record Event
             location.Append(this.Country);
         }
 
-        return $"{(includeYear ? $"{this.Year} " : string.Empty)}{(shortName ? this.ShortName.UnlessNullOrWhitespaceThen(this.Name) : this.Name)}{(location.Length > 0 ? $" - {location}" : string.Empty)}";
+        var str = $"{(includeYear ? $"{this.Year} " : string.Empty)}{(shortName ? this.ShortName.UnlessNullOrWhitespaceThen(this.Name) : this.Name)}{(location.Length > 0 ? $" - {location}" : string.Empty)}";
+        return asMarkdownLink ? $"[{str}]({this.TbaUrl})" : str;
+
     }
 
     private string? _locationString;
