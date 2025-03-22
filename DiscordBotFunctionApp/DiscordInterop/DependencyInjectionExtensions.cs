@@ -93,6 +93,7 @@ internal static class DependencyInjectionExtensions
         .AddKeyedSingleton<INotificationEmbedCreator, CompLevelStarting>(CompLevelStarting.TargetType.ToInvariantString())
         .AddKeyedSingleton<IEmbedCreator<string>, EventDetail>(nameof(EventDetail))
         .AddKeyedSingleton<IEmbedCreator<(string eventKey, string teamKey)>, UpcomingMatch>(nameof(UpcomingMatch))
+        .AddKeyedSingleton<IEmbedCreator<(string?, ushort)>, Schedule>(nameof(Schedule))
         .AddKeyedSingleton<IEmbedCreator<(string, bool)>, MatchScore>(nameof(MatchScore), (sp, _) => sp.GetRequiredService<MatchScore>())
         .AddKeyedSingleton<IEmbedCreator<string>, MatchVideo>(nameof(MatchVideo))
         .AddKeyedSingleton<IEmbedCreator<(int? Year, string TeamKey, string? EventKey)>, TeamRank>(nameof(TeamRank))

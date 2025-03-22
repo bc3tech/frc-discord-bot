@@ -556,4 +556,10 @@ static partial class Log
 
     [LoggerMessage(183, LogLevel.Warning, "Webhook task already in progress for invocation ID: {InvocationId}")]
     internal static partial void WebhookTaskAlreadyInProgressForInvocationIDInvocationId(this ILogger logger, string InvocationId);
+
+    [LoggerMessage(184, LogLevel.Warning, "No matches found for event {EventKey}, team {TeamKey}")]
+    internal static partial void NoMatchesFoundForEventEventKeyTeamTeamKey(this ILogger logger, string EventKey, string TeamKey);
+
+    [LoggerMessage(185, LogLevel.Warning, "Invalid number of matches requested: {numMatches}")]
+    internal static partial void InvalidNumberOfMatchesRequestedNumMatches(this ILogger logger, uint numMatches);
 }

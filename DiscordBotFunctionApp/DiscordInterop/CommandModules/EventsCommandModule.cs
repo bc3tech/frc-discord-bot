@@ -16,7 +16,8 @@ using System.Text;
 [Group("events", "Gets information about FRC events")]
 public sealed class EventsCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<EventsCommandModule>>())
 {
-    private readonly IEmbedCreator<string> _embedCreator = services.GetRequiredKeyedService<IEmbedCreator<string>>(nameof(EventDetail));
+    private readonly IEmbedCreator<string> _detailEmbedCreator = services.GetRequiredKeyedService<IEmbedCreator<string>>(nameof(EventDetail));
+    private readonly IEmbedCreator<(string?, ushort)> _scheduleEmbedCreator = services.GetRequiredKeyedService<IEmbedCreator<(string?, ushort)>>(nameof(Schedule));
 
     [SlashCommand("get-details", "Gets details about an event")]
     public async Task GetDetailsAsync(
@@ -36,7 +37,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
             return;
         }
 
-        await GenerateResponseAsync(_embedCreator, eventKey).ConfigureAwait(false);
+        await GenerateResponseAsync(_detailEmbedCreator, eventKey).ConfigureAwait(false);
     }
 
     [CommandContextType(InteractionContextType.Guild)]
@@ -134,5 +135,28 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
             this.Logger.ThereWasAnErrorCreatingAGuildEventForEventKeyInGuildGuildNameGuildId(e, eventKey, Context.Guild.Name, Context.Guild.Id);
             await ModifyOriginalResponseAsync(p => p.Content = "An error occurred while creating the event. Try again or contact your admin to investigate.").ConfigureAwait(false);
         }
+    }
+
+    [SlashCommand("schedule", "Gets the schedule for an event and, optionally, a team at the event")]
+    public async Task GetScheduleAsync(
+        [Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string eventKey,
+        [Summary("team"), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))] string? teamKey = null,
+        [Summary("num-matches")] ushort numMatches = 6,
+        [Summary("post", "`true` to post response publicly")] bool post = false)
+    {
+        using var typing = await TryDeferAsync(!post).ConfigureAwait(false);
+        if (typing is null)
+        {
+            return;
+        }
+
+        using IDisposable scope = this.Logger.CreateMethodScope();
+        if (string.IsNullOrWhiteSpace(eventKey))
+        {
+            await ModifyOriginalResponseAsync(p => p.Content = "Event key is required.").ConfigureAwait(false);
+            return;
+        }
+
+        await GenerateResponseAsync(_scheduleEmbedCreator, (eventKey, numMatches), teamKey.TeamKeyToTeamNumber()).ConfigureAwait(false);
     }
 }

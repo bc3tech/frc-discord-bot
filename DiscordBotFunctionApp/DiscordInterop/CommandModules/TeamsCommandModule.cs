@@ -14,6 +14,7 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
 {
     private readonly IEmbedCreator<string> _teamDetailEmbedCreator = services.GetRequiredKeyedService<IEmbedCreator<string>>(nameof(TeamDetail));
     private readonly IEmbedCreator<(int? Year, string TeamKey, string? EventKey)> _teamRankEmbedCreator = services.GetRequiredKeyedService<IEmbedCreator<(int? Year, string TeamKey, string? EventKey)>>(nameof(TeamRank));
+    private readonly IEmbedCreator<(string?, ushort)> _scheduleEmbedCreator = services.GetRequiredKeyedService<IEmbedCreator<(string?, ushort)>>(nameof(Schedule));
 
     [SlashCommand("get-details", "Gets details about a team")]
     public async Task ShowAsync([Summary("team"), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))] string teamKey, [Summary("post", "`true` to post response publicly")] bool post = false)
@@ -67,5 +68,22 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
         }
 
         await GenerateResponseAsync(_teamRankEmbedCreator, (year, teamKey, eventKey)).ConfigureAwait(false);
+    }
+
+    [SlashCommand("schedule", "Gets the schedule for a team, optionally, at a specific event")]
+    public async Task GetScheduleAsync(
+        [Summary("team"), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))] string teamKey,
+        [Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string? eventKey = null,
+        [Summary("num-matches")] ushort numMatches = 6,
+        [Summary("post", "`true` to post response publicly")] bool post = false)
+    {
+        using var typing = await TryDeferAsync(!post).ConfigureAwait(false);
+        if (typing is null)
+        {
+            return;
+        }
+
+        using IDisposable scope = this.Logger.CreateMethodScope();
+        await GenerateResponseAsync(_scheduleEmbedCreator, (eventKey, numMatches), teamKey.TeamKeyToTeamNumber()).ConfigureAwait(false);
     }
 }

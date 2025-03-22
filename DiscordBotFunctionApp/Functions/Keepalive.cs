@@ -1,5 +1,7 @@
 namespace DiscordBotFunctionApp.Functions;
 
+using DiscordBotFunctionApp.DiscordInterop;
+
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
@@ -18,7 +20,7 @@ internal sealed class Keepalive(TimeProvider time, ILogger<Keepalive> logger)
 
         if (myTimer.ScheduleStatus is not null)
         {
-            logger.NextTimerScheduleAtArg0(myTimer.ScheduleStatus.Next.ToLocalTime());
+            logger.NextTimerScheduleAtArg0(new DateTimeOffset(myTimer.ScheduleStatus.Next).ToLocalTime(time).DateTime);
         }
     }
 }
