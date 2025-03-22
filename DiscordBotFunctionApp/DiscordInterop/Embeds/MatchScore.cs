@@ -581,11 +581,18 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
             try
             {
-                await arg.UpdateAsync(p =>
+                if (arg.Channel is IDMChannel)
                 {
-                    p.Embeds = new([.. arg.Message.Embeds, embed]);
-                    p.Components = null;
-                }).ConfigureAwait(false);
+                    await arg.UpdateAsync(p =>
+                    {
+                        p.Embeds = new([.. arg.Message.Embeds, embed]);
+                        p.Components = null;
+                    }).ConfigureAwait(false);
+                }
+                else
+                {
+                    await arg.FollowupAsync(ephemeral: true, embed: embed, options: canceledRequestOptions).ConfigureAwait(false);
+                }
             }
             catch (TimeoutException)
             {
