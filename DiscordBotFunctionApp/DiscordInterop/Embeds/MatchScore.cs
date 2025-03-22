@@ -18,7 +18,6 @@ using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
 using FIRST.Api;
 using FIRST.Model;
 
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using System.Diagnostics;
@@ -86,12 +85,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
         #region Header
         var postResultTime = notification.match?.PostResultTime.Or(tbaMatch.PostResultTime);
-        descriptionBuilder.AppendLine(
-            $"""
-            # Scores are in!
-            
-            Actual start time: {DateTimeOffset.FromUnixTimeSeconds(notification.match?.ActualTime.Or(tbaMatch.ActualTime) ?? 0).ToLocalTime(time):t}{(postResultTime.HasValue ? $"\nResults posted at {DateTimeOffset.FromUnixTimeSeconds(postResultTime.Value).ToLocalTime(time):t}" : string.Empty)}
-            """);
+        descriptionBuilder.AppendLine($"# Scores are in!");
         #endregion
 
         await BuildDescriptionAsync(highlightTeam, notification.match, tbaMatch, descriptionBuilder, scores, false, cancellationToken).ConfigureAwait(false);
@@ -158,8 +152,6 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             # Match Result
 
             ## {events[detailedMatch.EventKey].GetLabel()}: {compLevelHeader} - {matchHeader}
-            Predicted start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PredictedTime.GetValueOrDefault(0)).ToLocalTime(time):t}
-            Actual start time: {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.ActualTime.GetValueOrDefault(0)).ToLocalTime(time):t}{(detailedMatch.PostResultTime.HasValue ? $"\nResults posted at {DateTimeOffset.FromUnixTimeSeconds(detailedMatch.PostResultTime.Value).ToLocalTime(time):t}" : string.Empty)}
             """);
         #endregion
 
