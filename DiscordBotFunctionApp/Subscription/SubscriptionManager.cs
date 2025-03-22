@@ -102,7 +102,7 @@ internal sealed class SubscriptionManager(
 
     public async Task RemoveSubscriptionAsync(NotificationSubscription sub, CancellationToken cancellationToken)
     {
-        if (sub.Team is not null)
+        if (sub.Team is not null and not CommonConstants.ALL)
         {
             logger.RemovingSubscriptionForTeamSubscriptionTeamTeam(sub.Team);
             var r = await teamSubscriptions.GetEntityIfExistsAsync<TeamSubscriptionEntity>(sub.Team, sub.Event ?? CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
