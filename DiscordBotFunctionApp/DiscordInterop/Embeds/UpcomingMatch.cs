@@ -64,10 +64,10 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
         StringBuilder descriptionBuilder = new();
         descriptionBuilder.AppendLine(
             $"""
-            # 📢⏰Match starting soon⏰📢
+            # 📢Match starting soon⏰
 
-            {(notification.scheduled_time.HasValue ? $"⌚Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.scheduled_time!).ToLocalTime(time):t}" : string.Empty)}
-            {(notification.predicted_time.HasValue ? $"⌚**Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToLocalTime(time):t}**" : string.Empty)}            
+            {(notification.scheduled_time.HasValue ? $"Scheduled start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.scheduled_time!).ToLocalTime(time):t}" : string.Empty)}⌚
+            {(notification.predicted_time.HasValue ? $"**Predicted start time: {DateTimeOffset.FromUnixTimeSeconds((long)notification.predicted_time!).ToLocalTime(time):t}**" : string.Empty)}⌚         
             """);
 
         await BuildDescriptionAsync(descriptionBuilder, highlightTeam, detailedMatch, cancellationToken).ConfigureAwait(false);
