@@ -48,7 +48,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
         else
         {
             var groupedSubscriptions = currentSubs.GroupBy(i => i.Item1);
-            // Create a string that starts withe the group key then lists all the group values on subsequent lines
+            // Create a string that starts with the group key then lists all the group values on subsequent lines
             // This is a bit more complex than it needs to be because we want to show the team number if it's not 'all'
             // and we want to show the event key if it's not 'all'
             var output = groupedSubscriptions.Select(i => $"""
@@ -200,7 +200,8 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
             // Create a new menu based on the old one
             var newMenu = oldSelectMenu.ToBuilder();
             // Remove the menu option that matches the one that was selected for this interaction
-            Debug.Assert(newMenu.Options.RemoveAll(i => i.Value == value) is 1);
+            var optionRemoved = newMenu.Options.RemoveAll(i => i.Value == value);
+            Debug.Assert(optionRemoved is 1);
             if (newMenu.Options.Count is 0)
             {
                 // If there are no more options, we can clear out all the interactive elements
