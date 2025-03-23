@@ -226,10 +226,6 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         var winningAlliance = match.WinningAlliance.UnlessThen(i => i is Match.WinningAllianceEnum.Empty, tbaMatch.WinningAlliance);
 
         int[] allianceRanks = await GetAllianceRanksAsync(notificationMatch, tbaMatch, alliances, cancellationToken).ConfigureAwait(false);
-
-        var ranks = (await eventApi.GetEventRankingsAsync(match.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))?.Rankings
-            .Where(i => allTeamKeys.Contains(i.TeamKey))
-            .ToDictionary(i => i.TeamKey, i => i.Rank);
         var districtPoints = await ComputeDistrictPointsForTeamsAsync(match.EventKey, allTeamKeys, cancellationToken).ConfigureAwait(false);
 
         bool isQuals = match.CompLevel is Match.CompLevelEnum.Qm;
@@ -256,6 +252,10 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         {
             builder.AppendLine();
         }
+
+        var ranks = (await eventApi.GetEventRankingsAsync(match.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false))?.Rankings
+            .Where(i => allTeamKeys.Contains(i.TeamKey))
+            .ToDictionary(i => i.TeamKey, i => i.Rank);
 
         builder.AppendLine($"{string.Join("\n", alliances.Red.TeamKeys.Select(t => $"- {teams[t].GetLabelWithHighlight(highlightTeam, includeLocation: false)}{(ranks is not null ? $" (#{ranks[t]}{(districtPoints is not null ? $", +{districtPoints[t]}dp" : string.Empty)})" : string.Empty)}"))}");
 
