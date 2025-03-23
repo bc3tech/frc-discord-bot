@@ -50,6 +50,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
         if (message.IsBroadcast)
         {
+            logger.LogDebug("Broadcast message detected. Fetching all teams at the event.");
             // If we're broadcasting the message to everybody at the event, then we need to include every team at the event as a possible subscriber.
             foreach (var e in events)
             {
@@ -58,8 +59,8 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
             }
         }
 
-        var teamRecordsToFind = teams.Permutate([CommonConstants.ALL, .. events], (p, r) => (p, r)).ToArray().AsReadOnly();
-        var eventRecordsToFind = events.Add(CommonConstants.ALL).Select(i => (i, CommonConstants.ALL)).ToArray().AsReadOnly();
+        var teamRecordsToFind = teams.Permutate([CommonConstants.ALL, .. events], (p, r) => (p, r)).ToImmutableHashSet();
+        var eventRecordsToFind = events.Select(i => (i, CommonConstants.ALL)).ToImmutableHashSet();
 
         logger.PermutatedResultsIntoTeamRecordsCountTeamRecordsAndEventRecordsCountEventRecords(teamRecordsToFind.Count, eventRecordsToFind.Count);
 
@@ -79,7 +80,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
     }
 
     private static readonly Func<ILogger, string, string, IDisposable?> _notificationLoggingScope = LoggerMessage.DefineScope<string, string>("Subscription: {PartitionKey}/{RowKey}");
-    private async Task SendNotificationsAsync<T>(WebhookMessage message, TableClient sourceTable, IReadOnlyList<(string p, string r)> records, Func<(string, string), ushort?> teamFinder, ILogger<DiscordMessageDispatcher> logger, CancellationToken cancellationToken) where T : class, ITableEntity, ISubscriptionEntity
+    private async Task SendNotificationsAsync<T>(WebhookMessage message, TableClient sourceTable, IEnumerable<(string p, string r)> records, Func<(string, string), ushort?> teamFinder, ILogger<DiscordMessageDispatcher> logger, CancellationToken cancellationToken) where T : class, ITableEntity, ISubscriptionEntity
     {
         using var scope = logger.CreateMethodScope();
         foreach (var i in records)
