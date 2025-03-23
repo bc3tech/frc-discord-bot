@@ -121,7 +121,11 @@ internal sealed class Program
             })
             .ConfigureLogging((context, builder) => builder
                 .AddConfiguration(context.Configuration.GetSection("Logging"))
-                .AddOpenTelemetry()
+                .AddOpenTelemetry(o =>
+                {
+                    o.IncludeFormattedMessage = true;
+                    o.IncludeScopes = true;
+                })
                 .AddApplicationInsights()
                 .AddDebug())
             .Build();
