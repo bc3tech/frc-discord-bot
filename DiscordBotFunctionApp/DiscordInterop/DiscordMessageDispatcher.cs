@@ -19,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
@@ -80,34 +81,20 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
     }
 
     private static readonly Func<ILogger, string, string, IDisposable?> _notificationLoggingScope = LoggerMessage.DefineScope<string, string>("Subscription: {PartitionKey}/{RowKey}");
-    private async Task SendNotificationsAsync<T>(WebhookMessage message, TableClient sourceTable, IEnumerable<(string p, string r)> records, Func<(string, string), ushort?> teamFinder, ILogger<DiscordMessageDispatcher> logger, CancellationToken cancellationToken) where T : class, ITableEntity, ISubscriptionEntity
+    private async Task SendNotificationsAsync<T>(WebhookMessage message, TableClient sourceTable, IEnumerable<(string p, string r)> records, Func<(string, string), ushort?> teamFinder, ILogger<DiscordMessageDispatcher> logger, CancellationToken cancellationToken) where T : class, ISubscriptionEntity
     {
-        using var scope = logger.CreateMethodScope();
         foreach (var i in records)
         {
             cancellationToken.ThrowIfCancellationRequested();
             using var subscriptionScope = _notificationLoggingScope(logger, i.p, i.r);
             logger.CheckingTargetTable(sourceTable.Name);
-            var sub = await getSubscriptionForAsync(sourceTable, i.p, i.r, cancellationToken).ConfigureAwait(false);
-            if (sub is not null)
+
+            var sub = await sourceTable.GetEntityIfExistsAsync<T>(i.p, i.r, cancellationToken: cancellationToken).ConfigureAwait(false);
+            if (sub.HasValue && sub.Value?.Subscribers.SelectMany(i => i.Value).Any() is true)
             {
                 logger.FoundRecord();
-
-                if (sub.Subscribers.SelectMany(i => i.Value).Any())
-                {
-                    await ProcessSubscriptionAsync(message, sub.Subscribers, teamFinder(i), cancellationToken);
-                }
-                else
-                {
-                    logger.NoActualSubscribersFoundForPartitionKeyRowKey(i.p, i.r);
-                }
+                await ProcessSubscriptionAsync(message, sub.Value.Subscribers, teamFinder(i), cancellationToken);
             }
-        }
-
-        static async Task<T?> getSubscriptionForAsync(TableClient sourceTable, string partitionKey, string rowKey, CancellationToken ct)
-        {
-            var subscription = await sourceTable.GetEntityIfExistsAsync<T>(partitionKey, rowKey, cancellationToken: ct).ConfigureAwait(false);
-            return subscription.HasValue ? subscription.Value : null;
         }
     }
 
