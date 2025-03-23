@@ -51,7 +51,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
         if (message.IsBroadcast)
         {
-            logger.LogDebug("Broadcast message detected. Fetching all teams at the event.");
+            logger.BroadcastMessageDetectedFetchingAllTeamsAtTheEvent();
             // If we're broadcasting the message to everybody at the event, then we need to include every team at the event as a possible subscriber.
             foreach (var e in events)
             {

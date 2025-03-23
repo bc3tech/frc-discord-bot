@@ -67,6 +67,7 @@ internal sealed class Program
                     .AddSingleton(sp => sp.GetRequiredService<IMeterFactory>().Create(Constants.Telemetry.AppMeterName))
                     .ConfigureOpenTelemetryMeterProvider(b => b.AddMeter(Constants.Telemetry.AppMeterName))
                     .AddOpenTelemetry()
+                    .WithTracing()
                     .UseAzureMonitor()
                     .UseFunctionsWorkerDefaults();
 

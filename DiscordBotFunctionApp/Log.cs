@@ -577,4 +577,7 @@ static partial class Log
 
     [LoggerMessage(190, LogLevel.Error, "Error handling button click {ButtonId}")]
     internal static partial void ErrorHandlingButtonClickButtonId(this ILogger logger, Exception exception, string ButtonId);
+
+    [LoggerMessage(191, LogLevel.Debug, "Broadcast message detected. Fetching all teams at the event.")]
+    internal static partial void BroadcastMessageDetectedFetchingAllTeamsAtTheEvent(this ILogger logger);
 }
