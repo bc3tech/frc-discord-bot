@@ -35,6 +35,7 @@
 		<PackageReference Include="OpenTelemetry.Exporter.Console" />
 		<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
 		<PackageReference Include="OpenTelemetry.Instrumentation.Http" />
+		<PackageReference Include="SlackAPI" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\services\FIRST\src\FIRST\FIRST.csproj" />
