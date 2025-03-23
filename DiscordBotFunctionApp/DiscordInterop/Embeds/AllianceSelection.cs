@@ -19,6 +19,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
                                         EventRepository events,
                                         TeamRepository teams,
                                         EmbedBuilderFactory builderFactory,
+                                        TimeProvider time,
                                         ILogger<AllianceSelection> logger) : INotificationEmbedCreator
 {
     public const NotificationType TargetType = NotificationType.alliance_selection;
@@ -55,11 +56,11 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
         }
 
         var alliances = await tbaClient.GetEventAlliancesAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
-        if (alliances?.Count is null or 0)
+        while (alliances?.Count is null or 0)
         {
             logger.FailedToRetrieveAllianceSelectionDataForEventKey(eventKey);
-            yield return null;
-            yield break;
+            await Task.Delay(TimeSpan.FromSeconds(1000), time, cancellationToken).ConfigureAwait(false);
+            alliances = await tbaClient.GetEventAlliancesAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
         }
 
         var ranks = (await tbaClient.GetEventRankingsAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false))?.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
