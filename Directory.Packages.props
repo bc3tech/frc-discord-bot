@@ -3,8 +3,8 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Azure.AI.Inference" Version="1.0.0-beta.3" />
-    <PackageVersion Include="Azure.AI.OpenAI" Version="2.2.0-beta.2" />
+    <PackageVersion Include="Azure.AI.Inference" Version="1.0.0-beta.4" />
+    <PackageVersion Include="Azure.AI.OpenAI" Version="2.2.0-beta.4" />
     <PackageVersion Include="Azure.AI.OpenAI.Assistants" Version="1.0.0-beta.4" />
     <PackageVersion Include="Azure.Data.Tables" Version="12.10.0" />
     <PackageVersion Include="Azure.Identity" Version="1.13.2" />
@@ -20,11 +20,11 @@
     <PackageVersion Include="Microsoft.Extensions.Http" Version="8.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.3" />
     <PackageVersion Include="Microsoft.OpenApi.Readers" Version="1.6.23" />
-    <PackageVersion Include="Microsoft.SemanticKernel.Agents.AzureAI" Version="1.40.1-preview" />
-    <PackageVersion Include="Microsoft.SemanticKernel.Agents.Core" Version="1.40.1-preview" />
+    <PackageVersion Include="Microsoft.SemanticKernel.Agents.AzureAI" Version="1.42.0-preview" />
+    <PackageVersion Include="Microsoft.SemanticKernel.Agents.Core" Version="1.42.0-preview" />
     <PackageVersion Include="Microsoft.SemanticKernel.Agents.OpenAI" Version="1.40.1-preview" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading" Version="17.12.19" />
-    <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.13.2" />
+    <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.13.61" />
     <PackageVersion Include="Microsoft.Extensions.ExtraAnalyzers" Version="8.0.0-rc.2.23510.2" />
     <PackageVersion Include="OpenTelemetry.Exporter.Console" Version="1.11.2" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.11.2" />
