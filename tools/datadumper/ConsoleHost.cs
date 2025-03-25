@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+using System.Globalization;
 using System.Text.Json;
 
 using TheBlueAlliance.Api;
@@ -29,7 +30,7 @@ internal sealed class ConsoleHost(BlobServiceClient storage, ITeamApi teams, IEv
             var matchesDataContainer = storage.GetBlobContainerClient("tba-matches");
             await matchesDataContainer.CreateIfNotExistsAsync(cancellationToken: cancellationToken);
 
-            var startYear = int.Parse(Throws.IfNullOrWhiteSpace(appConfig["StartYear"]));
+            var startYear = int.Parse(Throws.IfNullOrWhiteSpace(appConfig["StartYear"]), CultureInfo.CurrentCulture);
             logger.PullingEventsMatchesSinceStartYear(startYear);
 
             var currentYear = TimeProvider.System.GetUtcNow().Year;
