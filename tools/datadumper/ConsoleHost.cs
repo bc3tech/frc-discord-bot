@@ -1,4 +1,4 @@
-﻿namespace TbaDataDumper;
+﻿namespace DataDumper;
 
 using Azure.Storage.Blobs;
 

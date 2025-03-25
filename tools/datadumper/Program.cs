@@ -1,6 +1,5 @@
-﻿namespace TbaDataDumper;
+﻿namespace DataDumper;
 
-// See https://aka.ms/new-console-template for more information
 using Azure.Identity;
 using Azure.Storage.Blobs;
 

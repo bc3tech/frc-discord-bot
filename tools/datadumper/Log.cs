@@ -1,4 +1,4 @@
-﻿namespace TbaDataDumper;
+﻿namespace DataDumper;
 
 #pragma warning disable CS8019
 using Microsoft.Extensions.Logging;

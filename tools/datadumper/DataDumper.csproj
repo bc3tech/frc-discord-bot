@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj" />
-    <ProjectReference Include="..\services\TheBlueAlliance\src\TheBlueAlliance\TheBlueAlliance.csproj" />
+    <ProjectReference Include="..\..\common\Common.csproj" />
+    <ProjectReference Include="..\..\services\TheBlueAlliance\src\TheBlueAlliance\TheBlueAlliance.csproj" />
   </ItemGroup>
 
   <ItemGroup>
