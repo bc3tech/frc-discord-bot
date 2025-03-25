@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\services\TheBlueAlliance\src\TheBlueAlliance\TheBlueAlliance.csproj" />
+  </ItemGroup>
+
+</Project>
