@@ -72,7 +72,7 @@ public class Event_GetLabelTests
         Assert.Equal("[Test Event](https://frc.link/e/tba/testcode/2023)", result);
     }
 
-    private Event CreateEventInstance()
+    private static Event CreateEventInstance()
     {
         return new Event(
             address: "Test Address",

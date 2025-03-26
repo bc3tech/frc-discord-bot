@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
+﻿namespace FunctionApp.DiscordInterop.Embeds;
 
 using Common;
 using Common.Extensions;
@@ -7,16 +7,17 @@ using Discord;
 using Discord.Net;
 using Discord.WebSocket;
 
-using DiscordBotFunctionApp.ChatBot;
-using DiscordBotFunctionApp.DiscordInterop.CommandModules;
-using DiscordBotFunctionApp.Extensions;
-using DiscordBotFunctionApp.Storage;
-using DiscordBotFunctionApp.TbaInterop;
-using DiscordBotFunctionApp.TbaInterop.Models;
-using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
-
 using FIRST.Api;
 using FIRST.Model;
+
+using FunctionApp.ChatBot;
+using FunctionApp.DiscordInterop.CommandModules;
+using FunctionApp.Extensions;
+using FunctionApp.Storage.Caching;
+using FunctionApp.Storage.Caching.Interfaces;
+using FunctionApp.TbaInterop;
+using FunctionApp.TbaInterop.Models;
+using FunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
@@ -40,8 +41,8 @@ internal sealed partial class MatchScore(IEventApi eventApi,
                                          IMatchApi matchApi,
                                          IDistrictApi districtApi,
                                          IScheduleApi schedule,
-                                         EventRepository events,
-                                         TeamRepository teams,
+                                         IEventCache events,
+                                         ITeamCache teams,
                                          EmbedBuilderFactory builderFactory,
                                          ChatRunner gpt,
                                          TimeProvider time,
@@ -56,7 +57,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         using var scope = logger.CreateMethodScope();
         logger.CreatingMatchScoreEmbed();
         var baseBuilder = builderFactory.GetBuilder(highlightTeam);
-        var notification = msg.GetDataAs<TbaInterop.Models.Notifications.MatchScore>();
+        var notification = msg.GetDataAs<FunctionApp.TbaInterop.Models.Notifications.MatchScore>();
         if (notification is null)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);

@@ -1,7 +1,9 @@
-﻿namespace DiscordBotFunctionApp.FIRSTInterop;
+﻿namespace FunctionApp.FIRSTInterop;
 
 using FIRST.Api;
 using FIRST.Client;
+
+using FunctionApp;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

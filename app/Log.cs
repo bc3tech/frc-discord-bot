@@ -1,6 +1,8 @@
-﻿namespace DiscordBotFunctionApp;
+﻿namespace FunctionApp;
 
-using DiscordBotFunctionApp.TbaInterop.Models;
+using FunctionApp.Subscription;
+using FunctionApp.TbaInterop.Models;
+using FunctionApp.TbaInterop.Models.Notifications;
 
 #pragma warning disable CS8019
 using Microsoft.Extensions.Logging;
@@ -63,7 +65,7 @@ static partial class Log
     internal static partial void ErrorGettingCountryCodeForCountry(this ILogger logger, Exception exception, string Country);
 
     [LoggerMessage(16, LogLevel.Warning, "Failed to deserialize notification data as {NotificationType}")]
-    internal static partial void FailedToDeserializeNotificationDataAsNotificationType(this ILogger logger, TbaInterop.Models.Notifications.NotificationType NotificationType);
+    internal static partial void FailedToDeserializeNotificationDataAsNotificationType(this ILogger logger, NotificationType NotificationType);
 
     [LoggerMessage(17, LogLevel.Warning, "Event key is missing from notification data")]
     internal static partial void EventKeyIsMissingFromNotificationData(this ILogger logger);
@@ -216,10 +218,10 @@ static partial class Log
     internal static partial void TableTableExists(this ILogger logger, string Table);
 
     [LoggerMessage(68, LogLevel.Warning, "No embedding creator registered for message type {MessageType}")]
-    internal static partial void NoEmbeddingCreatorRegisteredForMessageTypeMessageType(this ILogger logger, TbaInterop.Models.Notifications.NotificationType MessageType);
+    internal static partial void NoEmbeddingCreatorRegisteredForMessageTypeMessageType(this ILogger logger, NotificationType MessageType);
 
     [LoggerMessage(69, LogLevel.Trace, "Generating embeddings for webhook message type '{WebhookMessageType}'...")]
-    internal static partial void GeneratingEmbeddingsForWebhookMessageTypeWebhookMessageType(this ILogger logger, TbaInterop.Models.Notifications.NotificationType WebhookMessageType);
+    internal static partial void GeneratingEmbeddingsForWebhookMessageTypeWebhookMessageType(this ILogger logger, NotificationType WebhookMessageType);
 
     [LoggerMessage(70, LogLevel.Warning, "Bad data for match {MatchKey} - {MatchData}")]
     internal static partial void BadDataForMatchMatchKeyMatchData(this ILogger logger, string MatchKey, string MatchData);
@@ -405,7 +407,7 @@ static partial class Log
     internal static partial void FailedToRemoveSubscriptionForTeamTeamStatusReason(this ILogger logger, string Team, int Status, string Reason);
 
     [LoggerMessage(133, LogLevel.Warning, "No subscriptions found for {Subscription}")]
-    internal static partial void NoSubscriptionsFoundForSubscription(this ILogger logger, Subscription.NotificationSubscription Subscription);
+    internal static partial void NoSubscriptionsFoundForSubscription(this ILogger logger, NotificationSubscription Subscription);
 
     [LoggerMessage(134, LogLevel.Error, "Failed to remove subscription for event {Event} ({Status}): {Reason}")]
     internal static partial void FailedToRemoveSubscriptionForEventEventStatusReason(this ILogger logger, string? Event, int Status, string Reason);

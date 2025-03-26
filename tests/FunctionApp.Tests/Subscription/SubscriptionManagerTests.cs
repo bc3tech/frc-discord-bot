@@ -2,8 +2,8 @@ namespace FunctionApp.Tests.Subscription;
 using Azure;
 using Azure.Data.Tables;
 
-using DiscordBotFunctionApp.Storage.TableEntities;
-using DiscordBotFunctionApp.Subscription;
+using FunctionApp.Storage.TableEntities;
+using FunctionApp.Subscription;
 
 using Microsoft.Extensions.Logging;
 
@@ -119,7 +119,7 @@ public class SubscriptionManagerTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<HttpProtocolException>(() => _subscriptionManager.SaveSubscriptionAsync(subscription, CancellationToken.None));
         Assert.Equal(500, exception.ErrorCode);
-        _mockLogger.Verify(l => l.Log(LogLevel.Error, It.IsAny<EventId>(), It.IsAny<It.IsAnyType>(), It.IsAny<Exception>(), It.IsAny<Func<It.IsAnyType, Exception, string>>()), Times.Once);
+        _mockLogger.Verify(l => l.Log(LogLevel.Error, It.IsAny<EventId>(), It.IsAny<It.IsAnyType>(), It.IsAny<Exception>(), It.IsAny<Func<It.IsAnyType, Exception?, string>>()), Times.Once);
     }
 
     [Fact]

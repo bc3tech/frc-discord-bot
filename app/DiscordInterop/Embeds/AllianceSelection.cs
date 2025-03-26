@@ -1,10 +1,11 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
+﻿namespace FunctionApp.DiscordInterop.Embeds;
 
 using Common.Extensions;
 
-using DiscordBotFunctionApp.Storage;
-using DiscordBotFunctionApp.TbaInterop.Models;
-using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
+using FunctionApp.Storage.Caching;
+using FunctionApp.Storage.Caching.Interfaces;
+using FunctionApp.TbaInterop.Models;
+using FunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
@@ -16,8 +17,8 @@ using System.Text;
 using TheBlueAlliance.Api;
 
 internal sealed class AllianceSelection(IEventApi tbaClient,
-                                        EventRepository events,
-                                        TeamRepository teams,
+                                        IEventCache events,
+                                        ITeamCache teams,
                                         EmbedBuilderFactory builderFactory,
                                         TimeProvider time,
                                         ILogger<AllianceSelection> logger) : INotificationEmbedCreator

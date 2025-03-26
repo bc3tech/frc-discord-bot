@@ -1,11 +1,12 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
+﻿namespace FunctionApp.DiscordInterop.Embeds;
 
 using Common.Extensions;
 
 using Discord;
 
-using DiscordBotFunctionApp.Apis;
-using DiscordBotFunctionApp.Storage;
+using FunctionApp.Apis;
+using FunctionApp.DiscordInterop;
+using FunctionApp.Storage.Caching;
 
 using Microsoft.Extensions.Logging;
 
@@ -19,7 +20,7 @@ using TheBlueAlliance.Api;
 
 internal sealed class TeamDetail(RESTCountries _countryCodeLookup,
                                  EmbedBuilderFactory builderFactory,
-                                 TeamRepository _teamsRepo,
+                                 TeamCache _teamsRepo,
                                  ITeamApi tbaTeamApi,
                                  Statbotics.Api.ITeamApi teamStats,
                                  IDistrictApi districts,

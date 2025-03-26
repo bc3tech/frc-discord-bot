@@ -1,13 +1,12 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
+﻿namespace FunctionApp.DiscordInterop.Embeds;
 
 using Common.Extensions;
 
 using Discord;
-using Discord.Interactions.Builders;
-
-using DiscordBotFunctionApp.Storage;
 
 using FIRST.Api;
+
+using FunctionApp.Storage.Caching.Interfaces;
 
 using Microsoft.Extensions.Logging;
 
@@ -21,8 +20,8 @@ using TheBlueAlliance.Api;
 using TheBlueAlliance.Model;
 
 internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
-                               TeamRepository teams,
-                               EventRepository events,
+                               ITeamCache teams,
+                               IEventCache events,
                                IDistrictApi tbaDistrictData,
                                Statbotics.Api.ITeamYearApi teamStats,
                                IRankingsApi rankings,

@@ -1,12 +1,13 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.CommandModules;
+﻿namespace FunctionApp.DiscordInterop.CommandModules;
 
 using Common.Extensions;
 
 using Discord;
 using Discord.Interactions;
 
-using DiscordBotFunctionApp.DiscordInterop.Embeds;
-using DiscordBotFunctionApp.Storage;
+using FunctionApp.DiscordInterop;
+using FunctionApp.DiscordInterop.Embeds;
+using FunctionApp.Storage.Caching.Interfaces;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -30,7 +31,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
             return;
         }
 
-        using IDisposable scope = this.Logger.CreateMethodScope();
+        using IDisposable scope = Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(eventKey))
         {
             await ModifyOriginalResponseAsync(p => p.Content = "Event key is required.").ConfigureAwait(false);
@@ -56,7 +57,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
             return;
         }
 
-        using IDisposable scope = this.Logger.CreateMethodScope();
+        using IDisposable scope = Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(eventKey))
         {
             await ModifyOriginalResponseAsync(p => p.Content = "Event key is required.").ConfigureAwait(false);
@@ -85,7 +86,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
 
         try
         {
-            EventRepository eventRepo = services.GetRequiredService<EventRepository>();
+            var eventRepo = services.GetRequiredService<IEventCache>();
             TheBlueAlliance.Model.Event targetEvent = eventRepo[eventKey];
             TimeZoneInfo eventTimezone = TimeZoneInfo.TryFindSystemTimeZoneById(targetEvent.Timezone, out TimeZoneInfo? z) && z is not null ? z : TimeZoneInfo.Utc;
             DateTime startDateTime = targetEvent.StartDate.ToDateTime(new(8, 0));
@@ -122,7 +123,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
                 }
                 else
                 {
-                    await this.Context.Channel.SendMessageAsync(eventLink).ConfigureAwait(false);
+                    await Context.Channel.SendMessageAsync(eventLink).ConfigureAwait(false);
                 }
             }
         }
@@ -132,7 +133,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
         }
         catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
-            this.Logger.ThereWasAnErrorCreatingAGuildEventForEventKeyInGuildGuildNameGuildId(e, eventKey, Context.Guild.Name, Context.Guild.Id);
+            Logger.ThereWasAnErrorCreatingAGuildEventForEventKeyInGuildGuildNameGuildId(e, eventKey, Context.Guild.Name, Context.Guild.Id);
             await ModifyOriginalResponseAsync(p => p.Content = "An error occurred while creating the event. Try again or contact your admin to investigate.").ConfigureAwait(false);
         }
     }
@@ -150,7 +151,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
             return;
         }
 
-        using IDisposable scope = this.Logger.CreateMethodScope();
+        using IDisposable scope = Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(eventKey))
         {
             await ModifyOriginalResponseAsync(p => p.Content = "Event key is required.").ConfigureAwait(false);

@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.Apis;
+﻿namespace FunctionApp.Apis;
 
 using Common.Extensions;
 
@@ -12,7 +12,6 @@ using System.Text.Json.Nodes;
 internal sealed class RESTCountries(Meter meter, ILogger<RESTCountries> _logger)
 {
     private readonly HttpClient _httpClient = new() { BaseAddress = new("https://restcountries.com/v3.1/") };
-    private readonly Counter<int> _numCountries = meter.CreateCounter<int>(Constants.Telemetry.Metrics.NumCountries);
 
     public async Task<string?> GetCountryCodeForFlagLookupAsync(string country, CancellationToken cancellationToken)
     {

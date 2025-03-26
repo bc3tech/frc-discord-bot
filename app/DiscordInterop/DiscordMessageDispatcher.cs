@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop;
+﻿namespace FunctionApp.DiscordInterop;
 
 using Azure;
 using Azure.Data.Tables;
@@ -9,17 +9,16 @@ using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 
-using DiscordBotFunctionApp;
-using DiscordBotFunctionApp.DiscordInterop.Embeds;
-using DiscordBotFunctionApp.Extensions;
-using DiscordBotFunctionApp.Storage.TableEntities;
-using DiscordBotFunctionApp.TbaInterop.Models;
+using FunctionApp;
+using FunctionApp.DiscordInterop.Embeds;
+using FunctionApp.Extensions;
+using FunctionApp.Storage.TableEntities;
+using FunctionApp.TbaInterop.Models;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
@@ -40,7 +39,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                                                        IServiceProvider allServices,
                                                        ILogger<DiscordMessageDispatcher> logger)
 {
-    private readonly DiscordSocketClient _discordClient = (discordClient as DiscordSocketClient) ?? throw new ArgumentException(nameof(discordClient));
+    private readonly DiscordSocketClient _discordClient = discordClient as DiscordSocketClient ?? throw new ArgumentException(nameof(discordClient));
 
     public async Task<bool> ProcessWebhookMessageAsync(WebhookMessage message, CancellationToken cancellationToken)
     {
@@ -122,7 +121,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                     {
                         var chanId = t.ChannelId;
                         var threadId = t.ThreadId;
-                        IMessageChannel? rawChan = (await _discordClient.GetChannelAsync(threadId, discordRequestOptions).ConfigureAwait(false)) as IMessageChannel ?? await _discordClient.GetDMChannelAsync(threadId).ConfigureAwait(false);
+                        IMessageChannel? rawChan = await _discordClient.GetChannelAsync(threadId, discordRequestOptions).ConfigureAwait(false) as IMessageChannel ?? await _discordClient.GetDMChannelAsync(threadId).ConfigureAwait(false);
                         var guildId = (rawChan as IGuildChannel)?.GuildId;
                         var guildSubscriptions = subscribers.SubscriptionsForGuild(guildId);
                         if (guildSubscriptions.Any() && rawChan is not null)
@@ -131,7 +130,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                             try
                             {
                                 replyToMessage = t.MessageId is not null
-                                    && (await rawChan.GetMessageAsync(t.MessageId.Value, options: discordRequestOptions).ConfigureAwait(false)) is not null
+                                    && await rawChan.GetMessageAsync(t.MessageId.Value, options: discordRequestOptions).ConfigureAwait(false) is not null
                                         ? new MessageReference(t.MessageId)
                                         : null;
                             }
@@ -232,7 +231,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         IMessageChannel thread;
         try
         {
-            thread = (msgChan is ITextChannel threadableChannel) ? await threadableChannel.CreateThreadAsync(threadDetails.Value.Title) : msgChan;
+            thread = msgChan is ITextChannel threadableChannel ? await threadableChannel.CreateThreadAsync(threadDetails.Value.Title) : msgChan;
         }
         catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
@@ -325,7 +324,7 @@ sealed record ThreadTableEntity : ITableEntity
 
     internal ThreadTableEntity(TimeProvider time)
     {
-        this.Timestamp = time.GetUtcNow();
+        Timestamp = time.GetUtcNow();
     }
 
     public DateTimeOffset? Timestamp { get; set; }
@@ -348,15 +347,15 @@ sealed record ThreadTableEntity : ITableEntity
         [JsonConstructor]
         public ThreadDetail(string channel, string thread, string? message)
         {
-            this.Channel = channel;
-            this.Thread = thread;
-            this.Message = message;
+            Channel = channel;
+            Thread = thread;
+            Message = message;
         }
 
         public ThreadDetail(ulong channel, ulong thread)
         {
-            this.ChannelId = channel;
-            this.ThreadId = thread;
+            ChannelId = channel;
+            ThreadId = thread;
         }
 
         [JsonIgnore]

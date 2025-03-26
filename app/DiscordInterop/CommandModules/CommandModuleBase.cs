@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.CommandModules;
+﻿namespace FunctionApp.DiscordInterop.CommandModules;
 
 using Common.Extensions;
 
@@ -6,8 +6,8 @@ using Discord;
 using Discord.Interactions;
 using Discord.Net;
 
-using DiscordBotFunctionApp.DiscordInterop.Embeds;
-using DiscordBotFunctionApp.Extensions;
+using FunctionApp.DiscordInterop.Embeds;
+using FunctionApp.Extensions;
 
 using Microsoft.Extensions.Logging;
 
@@ -35,7 +35,6 @@ public abstract class CommandModuleBase(ILogger logger) : InteractionModuleBase
             cancellationToken.ThrowIfCancellationRequested();
             try
             {
-
                 embeds = [.. embeds, m];
                 var discordEmbeds = embeds.Select(i => i.Content).ToArray();
                 if (!m.Transient)
@@ -49,7 +48,7 @@ public abstract class CommandModuleBase(ILogger logger) : InteractionModuleBase
                 }
                 else
                 {
-                    await this.ModifyOriginalResponseAsync(p => p.Embeds = discordEmbeds, options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+                    await ModifyOriginalResponseAsync(p => p.Embeds = discordEmbeds, options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
                 }
 
                 numEmbeddingsCreated++;
@@ -64,7 +63,7 @@ public abstract class CommandModuleBase(ILogger logger) : InteractionModuleBase
         cancellationToken.ThrowIfCancellationRequested();
         if (numEmbeddingsCreated is 0 || erroredEmbeddings is not 0)
         {
-            await this.ModifyOriginalResponseAsync(p => p.Content = "I encountered one/more errors processing your request. You can try aga, or contact your admin with this news so they can troubleshoot.").ConfigureAwait(false);
+            await ModifyOriginalResponseAsync(p => p.Content = "I encountered one/more errors processing your request. You can try aga, or contact your admin with this news so they can troubleshoot.").ConfigureAwait(false);
         }
     }
 
@@ -72,12 +71,12 @@ public abstract class CommandModuleBase(ILogger logger) : InteractionModuleBase
     {
         try
         {
-            await this.DeferAsync(ephemeral: ephemeral, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
-            return this.Context.Channel.EnterTypingState();
+            await DeferAsync(ephemeral: ephemeral, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+            return Context.Channel.EnterTypingState();
         }
         catch (HttpException e) when (e.DiscordCode is DiscordErrorCode.UnknownInteraction or DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged)
         {
-            this.Logger.InteractionAlreadyAcknowledgedSkippingResponse();
+            Logger.InteractionAlreadyAcknowledgedSkippingResponse();
             return null;
         }
     }

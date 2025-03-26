@@ -1,6 +1,6 @@
-﻿namespace DiscordBotFunctionApp.TbaInterop.Models;
+﻿namespace FunctionApp.TbaInterop.Models;
 
-using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
+using FunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,14 +21,14 @@ internal sealed record WebhookMessage
 
     public T? GetDataAs<T>() => MessageData.Deserialize<T>();
 
-    public bool IsBroadcast => this.MessageType is NotificationType.schedule_updated or NotificationType.starting_comp_level or NotificationType.alliance_selection;
+    public bool IsBroadcast => MessageType is NotificationType.schedule_updated or NotificationType.starting_comp_level or NotificationType.alliance_selection;
 
     public (string PartitionKey, string RowKey, string Title)? GetThreadDetails(IServiceProvider services)
     {
         ThreadedEntity? threadedEntity;
         string threadTitle = string.Empty;
 
-        switch (this.MessageType)
+        switch (MessageType)
         {
             case NotificationType.match_video:
             case NotificationType.event_match_video:

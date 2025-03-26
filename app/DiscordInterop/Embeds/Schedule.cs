@@ -1,10 +1,10 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
-
-using Common;
+﻿namespace FunctionApp.DiscordInterop.Embeds;
 
 using Discord;
 
-using DiscordBotFunctionApp.Storage;
+using FunctionApp.DiscordInterop;
+using FunctionApp.Storage.Caching;
+using FunctionApp.Storage.Caching.Interfaces;
 
 using Microsoft.Extensions.Logging;
 
@@ -17,7 +17,12 @@ using TheBlueAlliance.Api;
 using TheBlueAlliance.Extensions;
 using TheBlueAlliance.Model;
 
-internal sealed class Schedule(EmbedBuilderFactory builderFactory, EventRepository events, TeamRepository teams, IMatchApi matchApi, TimeProvider time, ILogger<Schedule> logger) : IEmbedCreator<(string? eventKey, ushort numMatches)>
+internal sealed class Schedule(EmbedBuilderFactory builderFactory,
+                               IEventCache events,
+                               TeamCache teams,
+                               IMatchApi matchApi,
+                               TimeProvider time,
+                               ILogger<Schedule> logger) : IEmbedCreator<(string? eventKey, ushort numMatches)>
 {
     public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync((string? eventKey, ushort numMatches) input, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {

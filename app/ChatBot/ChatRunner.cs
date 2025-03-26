@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.ChatBot;
+﻿namespace FunctionApp.ChatBot;
 using Azure.AI.Projects;
 
 using Common.Extensions;

@@ -66,7 +66,9 @@ public class PacificTimeProviderTests
         // Act
         var json = JsonSerializer.Serialize(testObject);
         var deserialized = JsonSerializer.Deserialize<dynamic>(json);
-        var deserializedTime = DateTime.Parse(deserialized.GetProperty("Time").ToString());
+        Assert.NotNull(deserialized);
+
+        var deserializedTime = DateTime.Parse(deserialized!.GetProperty("Time").ToString());
         var localTime = TimeZoneInfo.ConvertTime(deserializedTime, _timeProvider.LocalTimeZone);
 
         // Assert

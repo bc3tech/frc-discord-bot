@@ -1,11 +1,12 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
+﻿namespace FunctionApp.DiscordInterop.Embeds;
 
 using Common.Extensions;
 
 using Discord;
 
-using DiscordBotFunctionApp.Apis;
-using DiscordBotFunctionApp.Storage;
+using FunctionApp.Apis;
+using FunctionApp.DiscordInterop;
+using FunctionApp.Storage.Caching.Interfaces;
 
 using Microsoft.Extensions.Logging;
 
@@ -16,7 +17,7 @@ using System.Text;
 
 internal sealed class EventDetail(RESTCountries _countryCodeLookup,
                                   EmbedBuilderFactory builderFactory,
-                                  EventRepository _eventsRepo,
+                                  IEventCache _eventsRepo,
                                   Statbotics.Api.IEventApi eventStats,
                                   ILogger<EventDetail> logger) : IEmbedCreator<string>
 {

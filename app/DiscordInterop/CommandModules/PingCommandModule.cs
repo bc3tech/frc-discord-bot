@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.CommandModules;
+﻿namespace FunctionApp.DiscordInterop.CommandModules;
 
 using Discord.Interactions;
 
@@ -17,6 +17,6 @@ public sealed class PingCommandModule(ILogger<PingCommandModule> logger) : Comma
             return;
         }
 
-        await this.RespondAsync("Pong!", ephemeral: true).ConfigureAwait(false);
+        await RespondAsync("Pong!", ephemeral: true).ConfigureAwait(false);
     }
 }

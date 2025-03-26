@@ -1,13 +1,13 @@
-﻿namespace DiscordBotFunctionApp.TbaInterop;
+﻿namespace FunctionApp.TbaInterop;
 
-using DiscordBotFunctionApp.Storage;
+using FunctionApp.Storage.Caching;
 
 using Microsoft.Extensions.Hosting;
 
 using System.Threading;
 using System.Threading.Tasks;
 
-internal sealed class TbaInitializationService(EventRepository eventsRepo, TeamRepository teamsRepo) : IHostedService
+internal sealed class TbaInitializationService(EventCache eventsRepo, TeamCache teamsRepo) : IHostedService
 {
     public Task StartAsync(CancellationToken cancellationToken) => Task.WhenAll(
             // Preload the events so Autocomplete is fast

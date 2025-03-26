@@ -1,4 +1,6 @@
-﻿namespace DiscordBotFunctionApp.Storage.TableEntities;
+﻿using DiscordBotFunctionApp;
+
+namespace FunctionApp.Storage.TableEntities;
 
 using Microsoft.Extensions.Logging;
 
@@ -21,7 +23,7 @@ internal sealed class GuildSubscriptions : Dictionary<string, HashSet<ulong>>
         this[guildId] = [.. subscriptions ?? [], subscription.Equals(CommonConstants.ALL, StringComparison.OrdinalIgnoreCase) ? 0 : ulong.Parse(subscription, CultureInfo.InvariantCulture)];
     }
 
-    public bool Exists(ulong? guildId, ulong subscription) => this.TryGetValue(guildId?.ToString(CultureInfo.InvariantCulture) ?? DmGuildIdentifier, out var channels) && channels.Contains(subscription);
+    public bool Exists(ulong? guildId, ulong subscription) => TryGetValue(guildId?.ToString(CultureInfo.InvariantCulture) ?? DmGuildIdentifier, out var channels) && channels.Contains(subscription);
 
     public void RemoveSubscription(ulong? guildId, ulong subscription, ILogger? logger = null) => RemoveSubscription(guildId?.ToString(CultureInfo.InvariantCulture) ?? DmGuildIdentifier, subscription.ToString(CultureInfo.InvariantCulture), logger);
 
