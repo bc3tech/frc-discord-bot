@@ -38,7 +38,7 @@ public partial record EventRankingRankingsInner
     /// <param name="record">record (required).</param>
     /// <param name="sortOrders">Additional year-specific information, may be null. See parent &#x60;sort_order_info&#x60; for details. (required).</param>
     /// <param name="teamKey">The team with this rank. (required).</param>
-    public EventRankingRankingsInner(int dq, Collection<decimal> extraStats, int matchesPlayed, int? qualAverage, int rank, WLTRecord record, Collection<double> sortOrders, string teamKey)
+    public EventRankingRankingsInner(int dq, Collection<decimal> extraStats, int matchesPlayed, int qualAverage, int rank, WLTRecord record, Collection<double> sortOrders, string teamKey)
     {
         this.Dq = dq;
         // to ensure "extraStats" is required (not null)

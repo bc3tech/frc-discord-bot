@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 using System.Threading.Tasks;
 
-internal sealed class EmbeddingColorizer(FRCColors.Client colorClient, ILogger<EmbeddingColorizer>? logger)
+internal sealed class EmbeddingColorizer(FRCColors.IClient colorClient, ILogger<EmbeddingColorizer>? logger)
 {
     public Task<bool> SetEmbeddingColorAsync(string teamKey, Discord.EmbedBuilder embedding, CancellationToken cancellationToken) => SetEmbeddingColorAsync(teamKey.TeamKeyToTeamNumber(), embedding, cancellationToken);
 

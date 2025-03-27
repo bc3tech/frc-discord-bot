@@ -324,7 +324,7 @@ sealed record ThreadTableEntity : ITableEntity
 
     internal ThreadTableEntity(TimeProvider time)
     {
-        Timestamp = time.GetUtcNow();
+        this.Timestamp = time.GetUtcNow();
     }
 
     public DateTimeOffset? Timestamp { get; set; }
@@ -335,8 +335,8 @@ sealed record ThreadTableEntity : ITableEntity
 
     public string ThreadIds
     {
-        get => JsonSerializer.Serialize(ThreadIdList);
-        set => ThreadIdList = JsonSerializer.Deserialize<List<ThreadDetail>>(value) ?? [];
+        get => JsonSerializer.Serialize(this.ThreadIdList);
+        set => this.ThreadIdList = JsonSerializer.Deserialize<List<ThreadDetail>>(value) ?? [];
     }
 
     [JsonIgnore]
@@ -347,15 +347,15 @@ sealed record ThreadTableEntity : ITableEntity
         [JsonConstructor]
         public ThreadDetail(string channel, string thread, string? message)
         {
-            Channel = channel;
-            Thread = thread;
-            Message = message;
+            this.Channel = channel;
+            this.Thread = thread;
+            this.Message = message;
         }
 
         public ThreadDetail(ulong channel, ulong thread)
         {
-            ChannelId = channel;
-            ThreadId = thread;
+            this.ChannelId = channel;
+            this.ThreadId = thread;
         }
 
         [JsonIgnore]
@@ -370,20 +370,20 @@ sealed record ThreadTableEntity : ITableEntity
         // We have to store these as strings because Table SDK doesn't support ulong types
         public string Channel
         {
-            get => ChannelId.ToString();
-            set => ChannelId = ulong.Parse(value);
+            get => this.ChannelId.ToString();
+            set => this.ChannelId = ulong.Parse(value);
         }
 
         public string Thread
         {
-            get => ThreadId.ToString();
-            set => ThreadId = ulong.Parse(value);
+            get => this.ThreadId.ToString();
+            set => this.ThreadId = ulong.Parse(value);
         }
 
         public string? Message
         {
-            get => MessageId?.ToString();
-            set => MessageId = value is not null ? ulong.Parse(value) : null;
+            get => this.MessageId?.ToString();
+            set => this.MessageId = value is not null ? ulong.Parse(value) : null;
         }
     }
 }

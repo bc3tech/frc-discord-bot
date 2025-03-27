@@ -19,16 +19,16 @@ internal sealed record WebhookMessage
     [JsonPropertyName("message_data")]
     required public JsonElement MessageData { get; init; }
 
-    public T? GetDataAs<T>() => MessageData.Deserialize<T>();
+    public T? GetDataAs<T>() => this.MessageData.Deserialize<T>();
 
-    public bool IsBroadcast => MessageType is NotificationType.schedule_updated or NotificationType.starting_comp_level or NotificationType.alliance_selection;
+    public bool IsBroadcast => this.MessageType is NotificationType.schedule_updated or NotificationType.starting_comp_level or NotificationType.alliance_selection;
 
     public (string PartitionKey, string RowKey, string Title)? GetThreadDetails(IServiceProvider services)
     {
         ThreadedEntity? threadedEntity;
         string threadTitle = string.Empty;
 
-        switch (MessageType)
+        switch (this.MessageType)
         {
             case NotificationType.match_video:
             case NotificationType.event_match_video:

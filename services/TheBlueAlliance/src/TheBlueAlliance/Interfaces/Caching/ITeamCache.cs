@@ -1,4 +1,4 @@
-﻿namespace FunctionApp.Storage.Caching.Interfaces;
+﻿namespace TheBlueAlliance.Interfaces.Caching;
 
 using System.Collections.Generic;
 using System.Threading;

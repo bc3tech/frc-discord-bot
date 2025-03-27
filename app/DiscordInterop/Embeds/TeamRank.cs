@@ -6,8 +6,6 @@ using Discord;
 
 using FIRST.Api;
 
-using FunctionApp.Storage.Caching.Interfaces;
-
 using Microsoft.Extensions.Logging;
 
 using System.Collections.Generic;
@@ -17,6 +15,7 @@ using System.Text;
 using System.Threading;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Interfaces.Caching;
 using TheBlueAlliance.Model;
 
 internal sealed class TeamRank(EmbedBuilderFactory builderFactory,

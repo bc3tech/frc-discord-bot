@@ -8,7 +8,7 @@ using System.Drawing;
 using System.Net.Http;
 using System.Net.Http.Json;
 
-public sealed class Client(IHttpClientFactory clientFactory)
+public sealed class Client(IHttpClientFactory clientFactory) : IClient
 {
     private readonly HttpClient _client = clientFactory.CreateClient();
 

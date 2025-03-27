@@ -1,11 +1,11 @@
 ﻿namespace FunctionApp.TbaInterop;
 
-using FunctionApp.Storage.Caching.Interfaces;
-
 using Microsoft.Extensions.Hosting;
 
 using System.Threading;
 using System.Threading.Tasks;
+
+using TheBlueAlliance.Interfaces.Caching;
 
 internal sealed class TbaInitializationService(IEventCache eventsRepo, ITeamCache teamsRepo) : IHostedService
 {

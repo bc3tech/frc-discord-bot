@@ -33,7 +33,7 @@ public sealed class ChatCommandModule(ILogger<ChatCommandModule> logger) : Comma
             return;
         }
 
-        var ephemeral = Context.Channel is not IDMChannel;
+        var ephemeral = this.Context.Channel is not IDMChannel;
         var embed = _embedBuilder
             .WithTitle("Are you sure?")
             .WithDescription($"This will reset your chat thread! I will forget everything we've talked about.{(ephemeral ? "If you've changed your mind, you can just ignore or dismiss this message :grin:" : string.Empty)}")

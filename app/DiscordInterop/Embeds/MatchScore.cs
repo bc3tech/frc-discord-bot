@@ -13,8 +13,6 @@ using FIRST.Model;
 using FunctionApp.ChatBot;
 using FunctionApp.DiscordInterop.CommandModules;
 using FunctionApp.Extensions;
-using FunctionApp.Storage.Caching;
-using FunctionApp.Storage.Caching.Interfaces;
 using FunctionApp.TbaInterop;
 using FunctionApp.TbaInterop.Models;
 using FunctionApp.TbaInterop.Models.Notifications;
@@ -31,6 +29,7 @@ using System.Threading;
 
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Extensions;
+using TheBlueAlliance.Interfaces.Caching;
 using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchExtensions;
 using TheBlueAlliance.Model.MatchScoreBreakdown2025AllianceExtensions;

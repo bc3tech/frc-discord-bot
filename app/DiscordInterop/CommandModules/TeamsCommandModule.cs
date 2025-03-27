@@ -26,7 +26,7 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
             return;
         }
 
-        using var scope = Logger.CreateMethodScope();
+        using var scope = this.Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(teamKey))
         {
             await RespondAsync("Team key is required.", ephemeral: true).ConfigureAwait(false);
@@ -55,7 +55,7 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
             return;
         }
 
-        using var scope = Logger.CreateMethodScope();
+        using var scope = this.Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(teamKey))
         {
             await RespondAsync("Team key is required.", ephemeral: true).ConfigureAwait(false);
@@ -84,7 +84,7 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
             return;
         }
 
-        using IDisposable scope = Logger.CreateMethodScope();
+        using IDisposable scope = this.Logger.CreateMethodScope();
         await GenerateResponseAsync(_scheduleEmbedCreator, (eventKey, numMatches), teamKey.TeamKeyToTeamNumber()).ConfigureAwait(false);
     }
 }

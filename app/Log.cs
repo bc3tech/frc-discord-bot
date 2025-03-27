@@ -40,18 +40,6 @@ static partial class Log
     [LoggerMessage(7, LogLevel.Warning, "Channel {ChannelId} is not a message channel")]
     internal static partial void ChannelChannelIdIsNotAMessageChannel(this ILogger logger, ulong ChannelId);
 
-    [LoggerMessage(8, LogLevel.Debug, "Loading Events from TBA for {EventYear}...")]
-    internal static partial void LoadingEventsFromTBAForEventYear(this ILogger logger, int EventYear);
-
-    [LoggerMessage(9, LogLevel.Trace, "Retrieved {EventCount} events")]
-    internal static partial void RetrievedEventCountEvents(this ILogger logger, int EventCount);
-
-    [LoggerMessage(10, LogLevel.Error, "An error occurred while loading events from the TBA API: {ErrorMessage}")]
-    internal static partial void AnErrorOccurredWhileLoadingEventsFromTheTBAAPIErrorMessage(this ILogger logger, Exception exception, string ErrorMessage);
-
-    [LoggerMessage(11, LogLevel.Debug, "Event {EventKey} not found in cache, fetching...")]
-    internal static partial void EventEventKeyNotFoundInCache(this ILogger logger, string EventKey);
-
     [LoggerMessage(12, LogLevel.Warning, "No country found for {Country}")]
     internal static partial void NoCountryFoundForCountry(this ILogger logger, string Country);
 
@@ -66,9 +54,6 @@ static partial class Log
 
     [LoggerMessage(16, LogLevel.Warning, "Failed to deserialize notification data as {NotificationType}")]
     internal static partial void FailedToDeserializeNotificationDataAsNotificationType(this ILogger logger, NotificationType NotificationType);
-
-    [LoggerMessage(17, LogLevel.Warning, "Event key is missing from notification data")]
-    internal static partial void EventKeyIsMissingFromNotificationData(this ILogger logger);
 
     [LoggerMessage(18, LogLevel.Warning, "Failed to retrieve alliance selection data for {EventKey}")]
     internal static partial void FailedToRetrieveAllianceSelectionDataForEventKey(this ILogger logger, string EventKey);
@@ -103,23 +88,11 @@ static partial class Log
     [LoggerMessage(28, LogLevel.Warning, "'All' subscription already exists for event {SubscriptionEvent}")]
     internal static partial void AllSubscriptionAlreadyExistsForEventSubscriptionEvent(this ILogger logger, string SubscriptionEvent);
 
-    [LoggerMessage(29, LogLevel.Trace, "Retrieved {TeamCount} teams")]
-    internal static partial void RetrievedTeamCountTeams(this ILogger logger, int TeamCount);
-
-    [LoggerMessage(30, LogLevel.Error, "An error occurred while loading teams from the TBA API: {ErrorMessage}")]
-    internal static partial void AnErrorOccurredWhileLoadingTeamsFromTheTBAAPIErrorMessage(this ILogger logger, Exception exception, string ErrorMessage);
-
-    [LoggerMessage(31, LogLevel.Warning, "Team {TeamNumber} not found in cache")]
-    internal static partial void TeamTeamNumberNotFoundInCache(this ILogger logger, string TeamNumber);
-
     [LoggerMessage(32, LogLevel.Warning, "Match key is missing from notification data")]
     internal static partial void MatchKeyIsMissingFromNotificationData(this ILogger logger);
 
     [LoggerMessage(33, LogLevel.Warning, "Failed to retrieve detailed match data for {MatchKey}")]
     internal static partial void FailedToRetrieveDetailedMatchDataForMatchKey(this ILogger logger, string MatchKey);
-
-    [LoggerMessage(34, LogLevel.Debug, "Loading Teams from TBA...")]
-    internal static partial void LoadingTeamsFromTBA(this ILogger logger);
 
     [LoggerMessage(35, LogLevel.Debug, "Received webhook payload: {WebhookPayload}")]
     internal static partial void ReceivedWebhookPayloadWebhookPayload(this ILogger logger, string WebhookPayload);
@@ -387,12 +360,6 @@ static partial class Log
 
     [LoggerMessage(126, LogLevel.Warning, "Team {TeamKey} not known at all!")]
     internal static partial void TeamTeamKeyNotKnownAtAll(this ILogger logger, string TeamKey);
-
-    [LoggerMessage(127, LogLevel.Information, "Cached {TeamCount} teams from TBA")]
-    internal static partial void CachedTeamCountTeamsFromTBA(this ILogger logger, int TeamCount);
-
-    [LoggerMessage(128, LogLevel.Information, "Cached {EventCount} teams from TBA")]
-    internal static partial void CachedEventCountTeamsFromTBA(this ILogger logger, int EventCount);
 
     [LoggerMessage(129, LogLevel.Trace, "{EmbeddingName} built: {EmbeddingDetail}")]
     internal static partial void EmbeddingNameBuiltEmbeddingDetail(this ILogger logger, string EmbeddingName, string EmbeddingDetail);

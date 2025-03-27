@@ -5,7 +5,6 @@ using Common.Extensions;
 using Discord;
 
 using FunctionApp.DiscordInterop;
-using FunctionApp.Storage.Caching.Interfaces;
 using FunctionApp.TbaInterop.Models;
 using FunctionApp.TbaInterop.Models.Notifications;
 
@@ -18,6 +17,7 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 
 using TheBlueAlliance.Extensions;
+using TheBlueAlliance.Interfaces.Caching;
 using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchExtensions;
 using TheBlueAlliance.Model.MatchSimpleExtensions;

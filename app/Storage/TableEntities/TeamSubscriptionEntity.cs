@@ -7,7 +7,7 @@ internal sealed record TeamSubscriptionEntity : BaseSubscriptionEntity
 {
     [IgnoreDataMember]
     [NotNull]
-    override public string Team { get => PartitionKey; set => PartitionKey = value; }
+    override public string Team { get => this.PartitionKey; set => this.PartitionKey = value; }
     [IgnoreDataMember]
-    override public string Event { get => RowKey; set => RowKey = value; }
+    override public string Event { get => this.RowKey; set => this.RowKey = value; }
 }

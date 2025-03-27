@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheBlueAlliance.Tests", "te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionApp.Tests", "tests\FunctionApp.Tests\FunctionApp.Tests.csproj", "{BE296F98-4B76-476F-926E-6EC558207545}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCommon", "tests\TestCommon\TestCommon.csproj", "{F9DC3547-6B46-B287-BEE2-332834B96AE1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,10 @@ Global
 		{BE296F98-4B76-476F-926E-6EC558207545}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE296F98-4B76-476F-926E-6EC558207545}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE296F98-4B76-476F-926E-6EC558207545}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9DC3547-6B46-B287-BEE2-332834B96AE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9DC3547-6B46-B287-BEE2-332834B96AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9DC3547-6B46-B287-BEE2-332834B96AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9DC3547-6B46-B287-BEE2-332834B96AE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +109,7 @@ Global
 		{852EA925-E4B3-453C-8C64-8C2B60E56E5A} = {7F6EBB44-97FD-45AA-BCEF-5B1C4D014209}
 		{91044094-F578-487F-B508-4E7972F7A77F} = {852EA925-E4B3-453C-8C64-8C2B60E56E5A}
 		{BE296F98-4B76-476F-926E-6EC558207545} = {7F6EBB44-97FD-45AA-BCEF-5B1C4D014209}
+		{F9DC3547-6B46-B287-BEE2-332834B96AE1} = {7F6EBB44-97FD-45AA-BCEF-5B1C4D014209}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DE58E923-9058-404E-B0F9-EDA4E1453163}

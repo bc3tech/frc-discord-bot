@@ -9,7 +9,6 @@ using Discord.WebSocket;
 
 using FunctionApp;
 using FunctionApp.DiscordInterop;
-using FunctionApp.Storage.Caching.Interfaces;
 using FunctionApp.Subscription;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +17,8 @@ using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+
+using TheBlueAlliance.Interfaces.Caching;
 
 [Group("subscription", "Manages subscriptions to FRC events and teams")]
 public sealed class SubscriptionCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<SubscriptionCommandModule>>()), IHandleUserInteractions
@@ -35,10 +36,10 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
             return;
         }
 
-        using var scope = Logger.CreateMethodScope();
+        using var scope = this.Logger.CreateMethodScope();
         HashSet<(string, string)> currentSubs = [];
-        await foreach (var sub in _subscriptionManager.GetSubscriptionsForGuildAsync(Context.Interaction.GuildId, default)
-            .Where(i => i.ChannelId == Context.Interaction.ChannelId!.Value))
+        await foreach (var sub in _subscriptionManager.GetSubscriptionsForGuildAsync(this.Context.Interaction.GuildId, default)
+            .Where(i => i.ChannelId == this.Context.Interaction.ChannelId!.Value))
         {
             currentSubs.Add((sub.Event ?? CommonConstants.ALL, sub.Team ?? CommonConstants.ALL));
         }
@@ -81,7 +82,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
             return;
         }
 
-        using var scope = Logger.CreateMethodScope();
+        using var scope = this.Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(eventKey) && string.IsNullOrWhiteSpace(teamKey))
         {
             await ModifyOriginalResponseAsync(p => p.Content = "At least one of Event or Team is required.").ConfigureAwait(false);
@@ -89,11 +90,11 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
         else
         {
             Debug.Assert(_subscriptionManager is not null);
-            Debug.Assert(Context.Interaction.ChannelId.HasValue);
+            Debug.Assert(this.Context.Interaction.ChannelId.HasValue);
 
             try
             {
-                await _subscriptionManager.SaveSubscriptionAsync(new NotificationSubscription(Context.Interaction.GuildId, Context.Interaction.ChannelId!.Value, eventKey, teamKey), default).ConfigureAwait(false);
+                await _subscriptionManager.SaveSubscriptionAsync(new NotificationSubscription(this.Context.Interaction.GuildId, this.Context.Interaction.ChannelId!.Value, eventKey, teamKey), default).ConfigureAwait(false);
                 if (!string.IsNullOrWhiteSpace(eventKey) && !string.IsNullOrWhiteSpace(teamKey))
                 {
                     await ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo[teamKey].GetLabel(includeLocation: false)}** at the **{_eventsRepo[eventKey].GetLabel(includeYear: true)}** event.").ConfigureAwait(false);
@@ -123,15 +124,15 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
     [SlashCommand("delete", "Deletes a subscription to a team/event for the current channel")]
     public async Task DeleteAsync()
     {
-        using var typing = await TryDeferAsync(ephemeral: Context.Channel is not IDMChannel).ConfigureAwait(false);
+        using var typing = await TryDeferAsync(ephemeral: this.Context.Channel is not IDMChannel).ConfigureAwait(false);
         if (typing is null)
         {
             return;
         }
 
-        using var scope = Logger.CreateMethodScope();
-        var activeSubsForChannel = await _subscriptionManager.GetSubscriptionsForGuildAsync(Context.Interaction.GuildId, default)
-            .Where(i => i.ChannelId == Context.Interaction.ChannelId!.Value)
+        using var scope = this.Logger.CreateMethodScope();
+        var activeSubsForChannel = await _subscriptionManager.GetSubscriptionsForGuildAsync(this.Context.Interaction.GuildId, default)
+            .Where(i => i.ChannelId == this.Context.Interaction.ChannelId!.Value)
             .ToArrayAsync();
 
         if (activeSubsForChannel.Length is 0)
@@ -227,7 +228,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
             catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
             {
                 Debug.Fail(e.Message);
-                Logger.ErrorUpdatingTheOriginalMessageForTheDeleteSubscriptionInteraction(e);
+                this.Logger.ErrorUpdatingTheOriginalMessageForTheDeleteSubscriptionInteraction(e);
             }
 
             return true;

@@ -6,7 +6,6 @@ using Discord;
 
 using FunctionApp.Apis;
 using FunctionApp.DiscordInterop;
-using FunctionApp.Storage.Caching.Interfaces;
 
 using Microsoft.Extensions.Logging;
 
@@ -14,6 +13,8 @@ using Statbotics.Model;
 
 using System.Runtime.CompilerServices;
 using System.Text;
+
+using TheBlueAlliance.Interfaces.Caching;
 
 internal sealed class EventDetail(RESTCountries _countryCodeLookup,
                                   EmbedBuilderFactory builderFactory,

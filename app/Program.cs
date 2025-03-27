@@ -15,7 +15,6 @@ using FunctionApp.Extensions;
 using FunctionApp.FIRSTInterop;
 using FunctionApp.StatboticsInterop;
 using FunctionApp.Storage.Caching;
-using FunctionApp.Storage.Caching.Interfaces;
 using FunctionApp.Subscription;
 using FunctionApp.TbaInterop;
 
@@ -32,6 +31,9 @@ using OpenTelemetry.Metrics;
 using System;
 using System.Diagnostics.Metrics;
 using System.Globalization;
+
+using TheBlueAlliance.BaseImpl.Caching;
+using TheBlueAlliance.Interfaces.Caching;
 
 using Throws = Common.Throws;
 

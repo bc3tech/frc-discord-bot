@@ -36,7 +36,7 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
             return;
         }
 
-        using var scope = Logger.CreateMethodScope();
+        using var scope = this.Logger.CreateMethodScope();
         try
         {
             // In case the user just gives us team number
@@ -50,7 +50,7 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
             Debug.Fail(e.Message);
-            Logger.ErrorGettingNextMatchForTeamKeyAtEventKey(e, teamKey, eventKey);
+            this.Logger.ErrorGettingNextMatchForTeamKeyAtEventKey(e, teamKey, eventKey);
             await ModifyOriginalResponseAsync(p => p.Content = "Sorry, I encountered an error processing your request. Maybe try again? Or contact your admin with this news so they can troubleshoot.").ConfigureAwait(false);
         }
     }
@@ -77,7 +77,7 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
             return;
         }
 
-        using var scope = Logger.CreateMethodScope();
+        using var scope = this.Logger.CreateMethodScope();
         string matchKey = (Match.CompLevelEnum)compLevel switch
         {
             Match.CompLevelEnum.Qm => $"qm{matchNumber}",

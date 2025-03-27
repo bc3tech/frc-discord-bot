@@ -3,8 +3,6 @@ namespace FunctionApp.Tests.DiscordInterop;
 using Discord;
 using Discord.Interactions;
 
-using FunctionApp.Storage.Caching.Interfaces;
-
 using Microsoft.Extensions.Logging;
 
 using Moq;
@@ -12,6 +10,7 @@ using Moq.AutoMock;
 
 using System.Text.Json;
 
+using TheBlueAlliance.Interfaces.Caching;
 using TheBlueAlliance.Model;
 
 using static FunctionApp.DiscordInterop.AutoCompleteHandlers;
@@ -160,7 +159,7 @@ public class EventsAutoCompleteHandlerTests
     {
         // Arrange
         var eventsRepoMock = _mocker.GetMock<IEventCache>();
-        eventsRepoMock.Setup(repo => repo.AllEvents).Throws(new Discord.Net.HttpException(System.Net.HttpStatusCode.InternalServerError, Mock.Of<Discord.Net.IRequest>(), DiscordErrorCode.UnknownInteraction));
+        eventsRepoMock.SetupGet(repo => repo.AllEvents).Throws(new Discord.Net.HttpException(System.Net.HttpStatusCode.InternalServerError, Mock.Of<Discord.Net.IRequest>(), DiscordErrorCode.UnknownInteraction));
 
         var autocompleteDataMock = _mocker.GetMock<IAutocompleteInteractionData>();
         autocompleteDataMock.SetupGet(ai => ai.Current).Returns(

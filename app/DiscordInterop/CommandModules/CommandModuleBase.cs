@@ -22,7 +22,7 @@ public abstract class CommandModuleBase(ILogger logger) : InteractionModuleBase
 
     internal virtual async Task GenerateResponseAsync<T>(IEmbedCreator<T> embeddingCreator, T input, ushort? highlightTeam = null, Func<ImmutableArray<Embed>, Task>? modifyCallback = null, CancellationToken cancellationToken = default)
     {
-        using var scope = Logger.CreateMethodScope();
+        using var scope = this.Logger.CreateMethodScope();
         ResponseEmbedding[] embeds = [];
         ushort numEmbeddingsCreated = 0, erroredEmbeddings = 0;
         await foreach (var m in embeddingCreator.CreateAsync(input, highlightTeam, cancellationToken: cancellationToken).ConfigureAwait(false))
@@ -55,7 +55,7 @@ public abstract class CommandModuleBase(ILogger logger) : InteractionModuleBase
             }
             catch (Exception ex) when (ex is not TaskCanceledException and not OperationCanceledException)
             {
-                Logger.ErrorDuringResponseGeneation(ex);
+                this.Logger.ErrorDuringResponseGeneation(ex);
                 erroredEmbeddings++;
             }
         }
@@ -72,11 +72,11 @@ public abstract class CommandModuleBase(ILogger logger) : InteractionModuleBase
         try
         {
             await DeferAsync(ephemeral: ephemeral, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
-            return Context.Channel.EnterTypingState();
+            return this.Context.Channel.EnterTypingState();
         }
         catch (HttpException e) when (e.DiscordCode is DiscordErrorCode.UnknownInteraction or DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged)
         {
-            Logger.InteractionAlreadyAcknowledgedSkippingResponse();
+            this.Logger.InteractionAlreadyAcknowledgedSkippingResponse();
             return null;
         }
     }

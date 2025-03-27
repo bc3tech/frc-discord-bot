@@ -2,7 +2,6 @@
 
 using Discord;
 
-using FunctionApp.Storage.Caching.Interfaces;
 using FunctionApp.TbaInterop.Models;
 using FunctionApp.TbaInterop.Models.Notifications;
 
@@ -14,6 +13,7 @@ using System.Threading;
 
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Extensions;
+using TheBlueAlliance.Interfaces.Caching;
 
 internal sealed class MatchVideo(IMatchApi matches,
                                  IEventCache eventRepo,

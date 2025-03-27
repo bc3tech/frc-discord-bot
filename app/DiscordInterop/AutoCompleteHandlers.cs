@@ -4,7 +4,6 @@ using Discord.Interactions;
 using Discord.Net;
 
 using FunctionApp.Storage.Caching;
-using FunctionApp.Storage.Caching.Interfaces;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -15,6 +14,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+
+using TheBlueAlliance.Interfaces.Caching;
 
 using CompLevelEnum = TheBlueAlliance.Model.Match.CompLevelEnum;
 

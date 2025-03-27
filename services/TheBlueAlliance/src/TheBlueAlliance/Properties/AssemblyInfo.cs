@@ -28,3 +28,4 @@ using System.Runtime.InteropServices;
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Auto-generated code", Scope = "module")]
 
 [assembly: InternalsVisibleTo("TheBlueAlliance.Tests")]
+[assembly: InternalsVisibleTo("FunctionApp.Tests")]

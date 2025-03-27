@@ -4,7 +4,6 @@ using Discord;
 
 using FunctionApp.DiscordInterop;
 using FunctionApp.Storage.Caching;
-using FunctionApp.Storage.Caching.Interfaces;
 
 using Microsoft.Extensions.Logging;
 
@@ -15,6 +14,7 @@ using System.Threading;
 
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Extensions;
+using TheBlueAlliance.Interfaces.Caching;
 using TheBlueAlliance.Model;
 
 internal sealed class Schedule(EmbedBuilderFactory builderFactory,

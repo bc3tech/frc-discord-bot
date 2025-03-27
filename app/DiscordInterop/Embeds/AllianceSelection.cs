@@ -2,19 +2,19 @@
 
 using Common.Extensions;
 
-using FunctionApp.Storage.Caching;
-using FunctionApp.Storage.Caching.Interfaces;
 using FunctionApp.TbaInterop.Models;
 using FunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Interfaces.Caching;
 
 internal sealed class AllianceSelection(IEventApi tbaClient,
                                         IEventCache events,
@@ -42,12 +42,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
         }
 
         var eventKey = !string.IsNullOrWhiteSpace(notification.event_key) ? notification.event_key : notification.Event?.Key;
-        if (string.IsNullOrWhiteSpace(eventKey))
-        {
-            logger.EventKeyIsMissingFromNotificationData();
-            yield return null;
-            yield break;
-        }
+        Debug.Assert(!string.IsNullOrWhiteSpace(eventKey), "Event key is missing from notification data; this should be impossible due to serialization constraints");
 
         if (!ProcessedEvents.TryAdd(eventKey, true))
         {

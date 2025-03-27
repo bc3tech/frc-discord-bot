@@ -7,13 +7,15 @@ using Moq;
 
 using System.Text.Json;
 
+using TestCommon;
+
 using TheBlueAlliance.Api;
 
 using Xunit;
 
 using Match = TheBlueAlliance.Model.Match;
 
-public class WebhookMessageTests
+public class WebhookMessageTests : Test
 {
     [Fact]
     public void GetDataAs_ShouldDeserializeJsonElement()
@@ -209,21 +211,5 @@ public class WebhookMessageTests
 
         // Act & Assert
         AssertDebugException(() => webhookMessage.GetThreadDetails(services.Object), "Bad data!");
-    }
-
-    private static void AssertDebugException(Action action, string? messageContents = null)
-    {
-        try
-        {
-            action();
-        }
-        catch (Exception ex)
-        {
-            Assert.Contains("DebugAssertException", ex.GetType().ToString());
-            if (messageContents is not null)
-            {
-                Assert.Contains(messageContents, ex.Message);
-            }
-        }
     }
 }

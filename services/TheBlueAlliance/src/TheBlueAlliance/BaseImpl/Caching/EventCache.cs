@@ -1,8 +1,6 @@
-﻿namespace FunctionApp.Storage.Caching;
+﻿namespace TheBlueAlliance.BaseImpl.Caching;
 
 using Common.Extensions;
-
-using FunctionApp.Storage.Caching.Interfaces;
 
 using Microsoft.Extensions.Logging;
 
@@ -13,9 +11,10 @@ using System.Diagnostics.Metrics;
 using System.Threading.Tasks;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Interfaces.Caching;
 using TheBlueAlliance.Model;
 
-internal sealed class EventCache(IEventApi apiClient, TimeProvider time, Meter meter, ILogger<EventCache> logger) : IEventCache
+public class EventCache(IEventApi apiClient, TimeProvider time, Meter meter, ILogger<EventCache> logger) : IEventCache
 {
     private static readonly ConcurrentDictionary<string, Event> _events = [];
     private static readonly ConcurrentQueue<Task> LogMetricTasks = [];
@@ -26,7 +25,7 @@ internal sealed class EventCache(IEventApi apiClient, TimeProvider time, Meter m
         using var scope = logger.CreateMethodScope();
         for (int i = 0, currentYear = time.GetLocalNow().Year; i < 4; i++, currentYear--)
         {
-            logger.LoadingEventsFromTBAForEventYear(currentYear);
+            logger.LogDebug("Loading Events from TBA for {EventYear}...", currentYear);
             try
             {
                 var newEvents = await apiClient.GetEventsByYearAsync(currentYear, cancellationToken: cancellationToken).ConfigureAwait(false);
@@ -35,7 +34,7 @@ internal sealed class EventCache(IEventApi apiClient, TimeProvider time, Meter m
                     break;
                 }
 
-                logger.RetrievedEventCountEvents(newEvents.Count);
+                logger.LogTrace("Retrieved {EventCount} events", newEvents.Count);
 
                 foreach (var e in newEvents)
                 {
@@ -48,12 +47,12 @@ internal sealed class EventCache(IEventApi apiClient, TimeProvider time, Meter m
             }
             catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
             {
+                logger.LogError(e, "An error occurred while loading events from the TBA API: {ErrorMessage}", e.Message);
                 Debug.Fail(e.Message);
-                logger.AnErrorOccurredWhileLoadingEventsFromTheTBAAPIErrorMessage(e, e.Message);
             }
         }
 
-        logger.CachedEventCountTeamsFromTBA(_events.Count);
+        logger.LogInformation("Cached {EventCount} event(s) from TBA", _events.Count);
 
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed; we want this to run in the background and not block the rest of the app
         Task.Run(async () =>
@@ -80,7 +79,8 @@ internal sealed class EventCache(IEventApi apiClient, TimeProvider time, Meter m
                 return t;
             }
 
-            logger.EventEventKeyNotFoundInCache(eventKey);
+            logger.LogDebug("Event {EventKey} not found in cache, fetching...", eventKey);
+
             t = apiClient.GetEvent(eventKey);
             return t is not null ? _events.GetOrAdd(eventKey, t) : throw new KeyNotFoundException();
         }

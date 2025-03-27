@@ -7,7 +7,7 @@ using System.Globalization;
 internal sealed class GuildSubscriptions : Dictionary<string, HashSet<ulong>>
 {
     const string DmGuildIdentifier = "dm";
-    public IEnumerable<ulong?> Guilds => Keys.Select(DiscordGuildId);
+    public IEnumerable<ulong?> Guilds => this.Keys.Select(DiscordGuildId);
     private static ulong? DiscordGuildId(string guildId) => guildId is DmGuildIdentifier ? null : ulong.Parse(guildId, CultureInfo.InvariantCulture);
 
     public IReadOnlySet<ulong> SubscriptionsForGuild(ulong? guildId) => this.GetValueOrDefault(guildId?.ToString(CultureInfo.InvariantCulture) ?? DmGuildIdentifier, []);
