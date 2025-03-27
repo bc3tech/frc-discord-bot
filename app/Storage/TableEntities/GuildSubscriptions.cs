@@ -1,7 +1,4 @@
-﻿using DiscordBotFunctionApp;
-
-namespace FunctionApp.Storage.TableEntities;
-
+﻿namespace FunctionApp.Storage.TableEntities;
 using Microsoft.Extensions.Logging;
 
 using System.Collections.Generic;
