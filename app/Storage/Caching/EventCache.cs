@@ -1,6 +1,8 @@
-﻿namespace DiscordBotFunctionApp.Storage;
+﻿namespace FunctionApp.Storage.Caching;
 
 using Common.Extensions;
+
+using FunctionApp.Storage.Caching.Interfaces;
 
 using Microsoft.Extensions.Logging;
 
@@ -13,7 +15,7 @@ using System.Threading.Tasks;
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Model;
 
-internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, Meter meter, ILogger<EventRepository> logger)
+internal sealed class EventCache(IEventApi apiClient, TimeProvider time, Meter meter, ILogger<EventCache> logger) : IEventCache
 {
     private static readonly ConcurrentDictionary<string, Event> _events = [];
     private static readonly ConcurrentQueue<Task> LogMetricTasks = [];

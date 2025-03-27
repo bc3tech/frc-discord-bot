@@ -1,13 +1,13 @@
 ﻿namespace FunctionApp.TbaInterop;
 
-using FunctionApp.Storage.Caching;
+using FunctionApp.Storage.Caching.Interfaces;
 
 using Microsoft.Extensions.Hosting;
 
 using System.Threading;
 using System.Threading.Tasks;
 
-internal sealed class TbaInitializationService(EventCache eventsRepo, TeamCache teamsRepo) : IHostedService
+internal sealed class TbaInitializationService(IEventCache eventsRepo, ITeamCache teamsRepo) : IHostedService
 {
     public Task StartAsync(CancellationToken cancellationToken) => Task.WhenAll(
             // Preload the events so Autocomplete is fast

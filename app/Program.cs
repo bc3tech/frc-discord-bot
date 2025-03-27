@@ -15,6 +15,7 @@ using FunctionApp.Extensions;
 using FunctionApp.FIRSTInterop;
 using FunctionApp.StatboticsInterop;
 using FunctionApp.Storage.Caching;
+using FunctionApp.Storage.Caching.Interfaces;
 using FunctionApp.Subscription;
 using FunctionApp.TbaInterop;
 
@@ -79,8 +80,8 @@ internal sealed class Program
                     .ConfigureFIRSTApi()
                     .ConfigureChatBotFunctionality()
                     .AddSingleton(sp => new EmbeddingColorizer(new FRCColors.Client(sp.GetRequiredService<IHttpClientFactory>()), sp.GetService<ILoggerFactory>()?.CreateLogger<EmbeddingColorizer>()))
-                    .AddSingleton<EventCache>()
-                    .AddSingleton<TeamCache>()
+                    .AddSingleton<IEventCache, EventCache>()
+                    .AddSingleton<ITeamCache, TeamCache>()
                     .AddSingleton<SubscriptionManager>()
                     .AddSingleton<TokenCredential>(credential)
                     .AddSingleton<RESTCountries>()

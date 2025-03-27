@@ -1,6 +1,8 @@
-﻿namespace DiscordBotFunctionApp.Storage;
+﻿namespace FunctionApp.Storage.Caching;
 
 using Common.Extensions;
+
+using FunctionApp.Storage.Caching.Interfaces;
 
 using Microsoft.Extensions.Logging;
 
@@ -11,7 +13,7 @@ using System.Diagnostics.Metrics;
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Model;
 
-internal sealed class TeamRepository(ITeamApi apiClient, Meter meter, ILogger<TeamRepository> logger)
+internal sealed class TeamCache(ITeamApi apiClient, Meter meter, ILogger<TeamCache> logger) : ITeamCache
 {
     private static readonly ConcurrentDictionary<string, Team> _teams = [];
     private static readonly ConcurrentQueue<Task> LogMetricTasks = [];
