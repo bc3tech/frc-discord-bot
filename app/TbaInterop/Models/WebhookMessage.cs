@@ -19,7 +19,7 @@ internal sealed record WebhookMessage
     [JsonPropertyName("message_data")]
     required public JsonElement MessageData { get; init; }
 
-    public T? GetDataAs<T>() => this.MessageData.Deserialize<T>();
+    public T? GetDataAs<T>() => this.MessageData.ValueKind is not JsonValueKind.Undefined ? this.MessageData.Deserialize<T>() : default;
 
     public bool IsBroadcast => this.MessageType is NotificationType.schedule_updated or NotificationType.starting_comp_level or NotificationType.alliance_selection;
 
