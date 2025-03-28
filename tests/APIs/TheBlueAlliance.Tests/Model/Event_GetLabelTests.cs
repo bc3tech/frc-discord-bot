@@ -79,7 +79,7 @@ public class Event_GetLabelTests
             city: "Test City",
             country: "Test Country",
             district: new DistrictList("Test Abbreviation", "Test Display Name", "Test Key", 2023),
-            divisionKeys: new Collection<string> { "Test Division Key" },
+            divisionKeys: ["Test Division Key"],
             endDate: new DateOnly(2023, 12, 31),
             eventCode: "testcode",
             eventType: 1,
@@ -101,7 +101,7 @@ public class Event_GetLabelTests
             startDate: new DateOnly(2023, 1, 1),
             stateProv: "Test State",
             timezone: "Test Timezone",
-            webcasts: new Collection<Webcast> { new Webcast("Test Channel", Webcast.TypeEnum.Youtube) },
+            webcasts: [new Webcast("Test Channel", Webcast.TypeEnum.Youtube)],
             website: "https://test.com",
             week: 1,
             year: 2023
