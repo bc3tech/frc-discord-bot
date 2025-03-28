@@ -5,7 +5,7 @@ using Moq.AutoMock;
 
 public abstract class Test
 {
-    protected AutoMocker Mocker { get; } = new();
+    protected AutoMockerWithKeyedServiceSupport Mocker { get; } = new();
 
     protected Mock<TimeProvider> TimeMock { get; }
 
