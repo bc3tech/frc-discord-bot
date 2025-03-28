@@ -3,7 +3,6 @@
 using Discord;
 
 using FunctionApp.DiscordInterop;
-using FunctionApp.Storage.Caching;
 
 using Microsoft.Extensions.Logging;
 
@@ -19,7 +18,7 @@ using TheBlueAlliance.Model;
 
 internal sealed class Schedule(EmbedBuilderFactory builderFactory,
                                IEventCache events,
-                               TeamCache teams,
+                               ITeamCache teams,
                                IMatchApi matchApi,
                                TimeProvider time,
                                ILogger<Schedule> logger) : IEmbedCreator<(string? eventKey, ushort numMatches)>
