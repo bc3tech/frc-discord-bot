@@ -11,10 +11,10 @@ public partial record Webcast
     {
         var retVal = (this.Type.ToInvariantString(), this.Type switch
         {
-            Webcast.TypeEnum.Youtube => new($"https://youtube.com/watch?v={this.Channel}"),
-            Webcast.TypeEnum.Twitch => new($"https://twitch.tv/{this.Channel}"),
-            Webcast.TypeEnum.Livestream => new($"https://vimeo.com/channels/{this.Channel}"),
-            Webcast.TypeEnum.DirectLink => new(this.Channel),
+            TypeEnum.Youtube => new($"https://youtube.com/watch?v={this.Channel}"),
+            TypeEnum.Twitch => new($"https://twitch.tv/{this.Channel}"),
+            TypeEnum.Livestream => new($"https://vimeo.com/channels/{this.Channel}"),
+            TypeEnum.DirectLink => new(this.Channel),
             _ => (Uri?)null
         });
 

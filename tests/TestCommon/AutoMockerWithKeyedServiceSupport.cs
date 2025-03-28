@@ -41,7 +41,7 @@ public class AutoMockerWithKeyedServiceSupport : AutoMocker, IKeyedServiceProvid
     public void AddKeyedService<T>(object serviceKey, T service) where T : notnull => AddKeyedService(typeof(T), serviceKey, service);
     public void AddKeyedService(Type serviceType, object serviceKey, object service)
     {
-        Debug.WriteLineIf(base.ResolvedObjects.ContainsKey(serviceType), $"**WARNING** Service of type {serviceType} has already been resolved in the container and is now being registered with a Key!");
+        Debug.WriteLineIf(ResolvedObjects.ContainsKey(serviceType), $"**WARNING** Service of type {serviceType} has already been resolved in the container and is now being registered with a Key!");
 
         if (!_keyedServices.TryGetValue(serviceType, out var services))
         {
@@ -54,5 +54,5 @@ public class AutoMockerWithKeyedServiceSupport : AutoMocker, IKeyedServiceProvid
 
     public bool IsKeyedService(Type serviceType, object? serviceKey) => _keyedServices.TryGetValue(serviceType, out var services) && services.ContainsKey(Throws.IfNull(serviceKey));
 
-    public bool IsService(Type serviceType) => _keyedServices.ContainsKey(serviceType) || base.ResolvedObjects.ContainsKey(serviceType);
+    public bool IsService(Type serviceType) => _keyedServices.ContainsKey(serviceType) || ResolvedObjects.ContainsKey(serviceType);
 }

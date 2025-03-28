@@ -58,7 +58,7 @@ public class EventCacheTests : TestWithLogger
 
         this.Mocker.With<IEventCache, EventCache>();
 
-        ((ConcurrentDictionary<string, Event>)typeof(EventCache).GetField("_events", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic).GetValue(null)).Clear();
+        ((ConcurrentDictionary<string, Event>)typeof(EventCache).GetField("_events", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null)).Clear();
     }
 
     [Fact]
