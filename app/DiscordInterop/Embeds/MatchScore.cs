@@ -137,7 +137,6 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         var scores = GetActualScores(detailedMatch, detailedMatch);
         if (scores.Red is -1 || scores.Blue is -1)
         {
-            logger.BadDataForMatchMatchKeyMatchData(detailedMatch.Key, JsonSerializer.Serialize(detailedMatch));
             yield return null;
             yield break;
         }

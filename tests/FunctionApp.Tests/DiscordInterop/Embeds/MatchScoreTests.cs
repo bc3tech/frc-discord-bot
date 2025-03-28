@@ -9,12 +9,16 @@ using FunctionApp.ChatBot;
 using FunctionApp.DiscordInterop.Embeds;
 using FunctionApp.TbaInterop;
 using FunctionApp.TbaInterop.Models;
+using FunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.ApplicationInsights.WindowsServer;
+using Microsoft.Extensions.Logging;
 
 using Moq;
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics.Metrics;
 using System.Net.Sockets;
 using System.Text.Json;
 using System.Threading;
@@ -58,10 +62,7 @@ public class MatchScoreTests : EmbeddingTest
         var webhookMessageJson = """
         {"message_type": "match_score", "message_data": {"event_key": "2025wimu", "match_key": "2025wimu_qm24", "event_name": "Phantom Lakes Regional", "match": {"key": "2025wimu_qm24", "event_key": "2025wimu", "comp_level": "qm", "set_number": 1, "match_number": 24, "alliances": {"red": {"team_keys": ["frc6421", "frc10264", "frc3354"], "score": 87, "surrogate_team_keys": [], "dq_team_keys": []}, "blue": {"team_keys": ["frc6381", "frc4786", "frc6318"], "score": 82, "surrogate_team_keys": [], "dq_team_keys": []}}, "winning_alliance": "red", "score_breakdown": {"red": {"autoLineRobot1": "Yes", "endGameRobot1": "None", "autoLineRobot2": "Yes", "endGameRobot2": "None", "autoLineRobot3": "Yes", "endGameRobot3": "Parked", "autoReef": {"topRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": true, "nodeE": false, "nodeF": true, "nodeG": false, "nodeH": true, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "midRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 0, "tba_botRowCount": 0, "tba_midRowCount": 0, "tba_topRowCount": 3}, "autoCoralCount": 3, "autoMobilityPoints": 9, "autoPoints": 30, "autoCoralPoints": 21, "teleopReef": {"topRow": {"nodeA": true, "nodeB": true, "nodeC": true, "nodeD": true, "nodeE": true, "nodeF": true, "nodeG": true, "nodeH": true, "nodeI": true, "nodeJ": true, "nodeK": true, "nodeL": true}, "midRow": {"nodeA": true, "nodeB": true, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 1, "tba_botRowCount": 0, "tba_midRowCount": 2, "tba_topRowCount": 12}, "teleopCoralCount": 12, "teleopPoints": 57, "teleopCoralPoints": 55, "algaePoints": 0, "netAlgaeCount": 0, "wallAlgaeCount": 0, "endGameBargePoints": 2, "autoBonusAchieved": true, "coralBonusAchieved": false, "bargeBonusAchieved": false, "coopertitionCriteriaMet": false, "foulCount": 1, "techFoulCount": 0, "g206Penalty": false, "g410Penalty": false, "g418Penalty": false, "g428Penalty": false, "adjustPoints": 0, "foulPoints": 0, "rp": 4, "totalPoints": 87}, "blue": {"autoLineRobot1": "Yes", "endGameRobot1": "DeepCage", "autoLineRobot2": "Yes", "endGameRobot2": "Parked", "autoLineRobot3": "Yes", "endGameRobot3": "Parked", "autoReef": {"topRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": true, "nodeK": true, "nodeL": true}, "midRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 0, "tba_botRowCount": 0, "tba_midRowCount": 0, "tba_topRowCount": 3}, "autoCoralCount": 3, "autoMobilityPoints": 9, "autoPoints": 30, "autoCoralPoints": 21, "teleopReef": {"topRow": {"nodeA": true, "nodeB": true, "nodeC": true, "nodeD": true, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": true, "nodeI": true, "nodeJ": true, "nodeK": true, "nodeL": true}, "midRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 2, "tba_botRowCount": 0, "tba_midRowCount": 0, "tba_topRowCount": 9}, "teleopCoralCount": 8, "teleopPoints": 50, "teleopCoralPoints": 34, "algaePoints": 0, "netAlgaeCount": 0, "wallAlgaeCount": 0, "endGameBargePoints": 16, "autoBonusAchieved": true, "coralBonusAchieved": false, "bargeBonusAchieved": true, "coopertitionCriteriaMet": false, "foulCount": 0, "techFoulCount": 0, "g206Penalty": false, "g410Penalty": false, "g418Penalty": false, "g428Penalty": false, "adjustPoints": 0, "foulPoints": 2, "rp": 2, "totalPoints": 82}}, "videos": [], "time": 1743191760, "actual_time": 1743191817, "predicted_time": 1743191747, "post_result_time": 1743192191}}}
         """;
-        var webhookMessage = JsonSerializer.Deserialize<WebhookMessage>(webhookMessageJson, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        });
+        var webhookMessage = JsonSerializer.Deserialize<WebhookMessage>(webhookMessageJson)!;
 
         var tbaMatchJson = """
         {"key": "2025wimu_qm24", "event_key": "2025wimu", "comp_level": "qm", "set_number": 1, "match_number": 24, "alliances": {"red": {"team_keys": ["frc6421", "frc10264", "frc3354"], "score": 87, "surrogate_team_keys": [], "dq_team_keys": []}, "blue": {"team_keys": ["frc6381", "frc4786", "frc6318"], "score": 82, "surrogate_team_keys": [], "dq_team_keys": []}}, "winning_alliance": "red", "score_breakdown": {"red": {"autoLineRobot1": "Yes", "endGameRobot1": "None", "autoLineRobot2": "Yes", "endGameRobot2": "None", "autoLineRobot3": "Yes", "endGameRobot3": "Parked", "autoReef": {"topRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": true, "nodeE": false, "nodeF": true, "nodeG": false, "nodeH": true, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "midRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 0, "tba_botRowCount": 0, "tba_midRowCount": 0, "tba_topRowCount": 3}, "autoCoralCount": 3, "autoMobilityPoints": 9, "autoPoints": 30, "autoCoralPoints": 21, "teleopReef": {"topRow": {"nodeA": true, "nodeB": true, "nodeC": true, "nodeD": true, "nodeE": true, "nodeF": true, "nodeG": true, "nodeH": true, "nodeI": true, "nodeJ": true, "nodeK": true, "nodeL": true}, "midRow": {"nodeA": true, "nodeB": true, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 1, "tba_botRowCount": 0, "tba_midRowCount": 2, "tba_topRowCount": 12}, "teleopCoralCount": 12, "teleopPoints": 57, "teleopCoralPoints": 55, "algaePoints": 0, "netAlgaeCount": 0, "wallAlgaeCount": 0, "endGameBargePoints": 2, "autoBonusAchieved": true, "coralBonusAchieved": false, "bargeBonusAchieved": false, "coopertitionCriteriaMet": false, "foulCount": 1, "techFoulCount": 0, "g206Penalty": false, "g410Penalty": false, "g418Penalty": false, "g428Penalty": false, "adjustPoints": 0, "foulPoints": 0, "rp": 4, "totalPoints": 87}, "blue": {"autoLineRobot1": "Yes", "endGameRobot1": "DeepCage", "autoLineRobot2": "Yes", "endGameRobot2": "Parked", "autoLineRobot3": "Yes", "endGameRobot3": "Parked", "autoReef": {"topRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": true, "nodeK": true, "nodeL": true}, "midRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 0, "tba_botRowCount": 0, "tba_midRowCount": 0, "tba_topRowCount": 3}, "autoCoralCount": 3, "autoMobilityPoints": 9, "autoPoints": 30, "autoCoralPoints": 21, "teleopReef": {"topRow": {"nodeA": true, "nodeB": true, "nodeC": true, "nodeD": true, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": true, "nodeI": true, "nodeJ": true, "nodeK": true, "nodeL": true}, "midRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 2, "tba_botRowCount": 0, "tba_midRowCount": 0, "tba_topRowCount": 9}, "teleopCoralCount": 8, "teleopPoints": 50, "teleopCoralPoints": 34, "algaePoints": 0, "netAlgaeCount": 0, "wallAlgaeCount": 0, "endGameBargePoints": 16, "autoBonusAchieved": true, "coralBonusAchieved": false, "bargeBonusAchieved": true, "coopertitionCriteriaMet": false, "foulCount": 0, "techFoulCount": 0, "g206Penalty": false, "g410Penalty": false, "g418Penalty": false, "g428Penalty": false, "adjustPoints": 0, "foulPoints": 2, "rp": 2, "totalPoints": 82}}, "videos": [], "time": 1743191760, "actual_time": 1743191817, "predicted_time": 1743191747, "post_result_time": 1743192191}
@@ -109,44 +110,16 @@ public class MatchScoreTests : EmbeddingTest
     }
 
     [Fact]
-    public async Task CreateAsync_ShouldHandleNullNotification()
-    {
-        // Arrange
-        var webhookMessageJson = """
-        {
-            "message_type": "match_score",
-            "message_data": {}
-        }
-        """;
-        var webhookMessage = JsonSerializer.Deserialize<WebhookMessage>(webhookMessageJson, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        });
-
-        // Act
-        var result = _matchScore.CreateAsync(webhookMessage).GetAsyncEnumerator();
-
-        // Assert
-        Assert.True(await result.MoveNextAsync());
-        Assert.Null(result.Current);
-        this.Logger.Verify(Microsoft.Extensions.Logging.LogLevel.Warning, "Failed to retrieve detailed match data for (null)");
-    }
-
-    [Fact]
     public async Task CreateAsync_ShouldHandleMissingMatchData()
     {
         // Arrange
-        var eventKey = "2025wimu";
         var matchKey = "2025wimu_qm24";
         var webhookMessageJson = """
         {"message_type": "match_score", "message_data": {"event_key": "2025wimu", "match_key": "2025wimu_qm24", "event_name": "Phantom Lakes Regional", "match": {"key": "2025wimu_qm24", "event_key": "2025wimu", "comp_level": "qm", "set_number": 1, "match_number": 24, "alliances": {"red": {"team_keys": ["frc6421", "frc10264", "frc3354"], "score": 87, "surrogate_team_keys": [], "dq_team_keys": []}, "blue": {"team_keys": ["frc6381", "frc4786", "frc6318"], "score": 82, "surrogate_team_keys": [], "dq_team_keys": []}}, "winning_alliance": "red", "score_breakdown": {"red": {"autoLineRobot1": "Yes", "endGameRobot1": "None", "autoLineRobot2": "Yes", "endGameRobot2": "None", "autoLineRobot3": "Yes", "endGameRobot3": "Parked", "autoReef": {"topRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": true, "nodeE": false, "nodeF": true, "nodeG": false, "nodeH": true, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "midRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 0, "tba_botRowCount": 0, "tba_midRowCount": 0, "tba_topRowCount": 3}, "autoCoralCount": 3, "autoMobilityPoints": 9, "autoPoints": 30, "autoCoralPoints": 21, "teleopReef": {"topRow": {"nodeA": true, "nodeB": true, "nodeC": true, "nodeD": true, "nodeE": true, "nodeF": true, "nodeG": true, "nodeH": true, "nodeI": true, "nodeJ": true, "nodeK": true, "nodeL": true}, "midRow": {"nodeA": true, "nodeB": true, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 1, "tba_botRowCount": 0, "tba_midRowCount": 2, "tba_topRowCount": 12}, "teleopCoralCount": 12, "teleopPoints": 57, "teleopCoralPoints": 55, "algaePoints": 0, "netAlgaeCount": 0, "wallAlgaeCount": 0, "endGameBargePoints": 2, "autoBonusAchieved": true, "coralBonusAchieved": false, "bargeBonusAchieved": false, "coopertitionCriteriaMet": false, "foulCount": 1, "techFoulCount": 0, "g206Penalty": false, "g410Penalty": false, "g418Penalty": false, "g428Penalty": false, "adjustPoints": 0, "foulPoints": 0, "rp": 4, "totalPoints": 87}, "blue": {"autoLineRobot1": "Yes", "endGameRobot1": "DeepCage", "autoLineRobot2": "Yes", "endGameRobot2": "Parked", "autoLineRobot3": "Yes", "endGameRobot3": "Parked", "autoReef": {"topRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": true, "nodeK": true, "nodeL": true}, "midRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 0, "tba_botRowCount": 0, "tba_midRowCount": 0, "tba_topRowCount": 3}, "autoCoralCount": 3, "autoMobilityPoints": 9, "autoPoints": 30, "autoCoralPoints": 21, "teleopReef": {"topRow": {"nodeA": true, "nodeB": true, "nodeC": true, "nodeD": true, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": true, "nodeI": true, "nodeJ": true, "nodeK": true, "nodeL": true}, "midRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 2, "tba_botRowCount": 0, "tba_midRowCount": 0, "tba_topRowCount": 9}, "teleopCoralCount": 8, "teleopPoints": 50, "teleopCoralPoints": 34, "algaePoints": 0, "netAlgaeCount": 0, "wallAlgaeCount": 0, "endGameBargePoints": 16, "autoBonusAchieved": true, "coralBonusAchieved": false, "bargeBonusAchieved": true, "coopertitionCriteriaMet": false, "foulCount": 0, "techFoulCount": 0, "g206Penalty": false, "g410Penalty": false, "g418Penalty": false, "g428Penalty": false, "adjustPoints": 0, "foulPoints": 2, "rp": 2, "totalPoints": 82}}, "videos": [], "time": 1743191760, "actual_time": 1743191817, "predicted_time": 1743191747, "post_result_time": 1743192191}}}
         
         
         """;
-        var webhookMessage = JsonSerializer.Deserialize<WebhookMessage>(webhookMessageJson, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        });
+        var webhookMessage = JsonSerializer.Deserialize<WebhookMessage>(webhookMessageJson)!;
 
         this.Mocker.GetMock<IMatchApi>()
             .Setup(api => api.GetMatchAsync(matchKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
@@ -165,24 +138,17 @@ public class MatchScoreTests : EmbeddingTest
     public async Task CreateAsync_ShouldHandleInvalidScores()
     {
         // Arrange
-        var eventKey = "2025gaalb";
         var matchKey = "2025gaalb_qm25";
         var webhookMessageJson = """
         {"message_type": "match_score", "message_data": {"event_key": "2025gaalb", "match_key": "2025gaalb_qm25", "event_name": "PCH District Albany Event presented by Procter & Gamble", "match": {"key": "2025gaalb_qm25", "event_key": "2025gaalb", "comp_level": "qm", "set_number": 1, "match_number": 25, "alliances": {"red": {"team_keys": ["frc4459", "frc5074", "frc4509"], "score": -1, "surrogate_team_keys": [], "dq_team_keys": []}, "blue": {"team_keys": ["frc7514", "frc10482", "frc3329"], "score": -1, "surrogate_team_keys": [], "dq_team_keys": []}}, "winning_alliance": "blue", "score_breakdown": null, "videos": [], "time": 1743191280, "actual_time": 1743191103, "predicted_time": 1743191239, "post_result_time": null}}}
         
         """;
-        var webhookMessage = JsonSerializer.Deserialize<WebhookMessage>(webhookMessageJson, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        });
+        var webhookMessage = JsonSerializer.Deserialize<WebhookMessage>(webhookMessageJson)!;
 
         var tbaMatchJson = """
         {"key": "2025gaalb_qm25", "event_key": "2025gaalb", "comp_level": "qm", "set_number": 1, "match_number": 25, "alliances": {"red": {"team_keys": ["frc4459", "frc5074", "frc4509"], "score": null, "surrogate_team_keys": [], "dq_team_keys": []}, "blue": {"team_keys": ["frc7514", "frc10482", "frc3329"], "score": null, "surrogate_team_keys": [], "dq_team_keys": []}}, "winning_alliance": "blue", "score_breakdown": null, "videos": [], "time": 1743191280, "actual_time": 1743191103, "predicted_time": 1743191239, "post_result_time": null}
         """;
-        var tbaMatch = JsonSerializer.Deserialize<Match>(tbaMatchJson, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        });
+        var tbaMatch = JsonSerializer.Deserialize<Match>(tbaMatchJson)!;
 
         this.Mocker.GetMock<IMatchApi>()
             .Setup(api => api.GetMatchAsync(matchKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
@@ -1128,7 +1094,7 @@ public class MatchScoreTests : EmbeddingTest
                 		}
                 	]
                 }
-                """);
+                """)!;
     private static readonly EventDistrictPoints _testDistrictPoints = JsonSerializer.Deserialize<EventDistrictPoints>("""
                                 {
                 	"points": {
@@ -1721,7 +1687,7 @@ public class MatchScoreTests : EmbeddingTest
                 		}
                 	}
                 }
-                """);
+                """)!;
     private static readonly Event _testEvent = JsonSerializer.Deserialize<Event>("""
                                 {
                 	"address": "605 W Veterans Way, Mukwonago, WI 53149, USA",
@@ -1760,7 +1726,7 @@ public class MatchScoreTests : EmbeddingTest
                 	"week": 4,
                 	"year": 2025
                 }
-                """);
+                """)!;
     private static readonly Team _testTeam = JsonSerializer.Deserialize<Team>("""
                                 {
                 	"address": null,
@@ -1782,7 +1748,7 @@ public class MatchScoreTests : EmbeddingTest
                 	"team_number": 2046,
                 	"website": "http://tahomarobotics.org/"
                 }
-                """);
+                """)!;
     private static readonly EventSchedule _testSchedule = JsonSerializer.Deserialize<EventSchedule>("""
                                 {
                 	"Schedule": [
@@ -4830,7 +4796,10 @@ public class MatchScoreTests : EmbeddingTest
                 		}
                 	]
                 }
-                """);
+                """)!;
+    private static readonly Match _testMatch = JsonSerializer.Deserialize<Match>("""
+        {"key": "2025wimu_qm24", "event_key": "2025wimu", "comp_level": "qm", "set_number": 1, "match_number": 24, "alliances": {"red": {"team_keys": ["frc6421", "frc10264", "frc3354"], "score": 87, "surrogate_team_keys": [], "dq_team_keys": []}, "blue": {"team_keys": ["frc6381", "frc4786", "frc6318"], "score": 82, "surrogate_team_keys": [], "dq_team_keys": []}}, "winning_alliance": "red", "score_breakdown": {"red": {"autoLineRobot1": "Yes", "endGameRobot1": "None", "autoLineRobot2": "Yes", "endGameRobot2": "None", "autoLineRobot3": "Yes", "endGameRobot3": "Parked", "autoReef": {"topRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": true, "nodeE": false, "nodeF": true, "nodeG": false, "nodeH": true, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "midRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 0, "tba_botRowCount": 0, "tba_midRowCount": 0, "tba_topRowCount": 3}, "autoCoralCount": 3, "autoMobilityPoints": 9, "autoPoints": 30, "autoCoralPoints": 21, "teleopReef": {"topRow": {"nodeA": true, "nodeB": true, "nodeC": true, "nodeD": true, "nodeE": true, "nodeF": true, "nodeG": true, "nodeH": true, "nodeI": true, "nodeJ": true, "nodeK": true, "nodeL": true}, "midRow": {"nodeA": true, "nodeB": true, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 1, "tba_botRowCount": 0, "tba_midRowCount": 2, "tba_topRowCount": 12}, "teleopCoralCount": 12, "teleopPoints": 57, "teleopCoralPoints": 55, "algaePoints": 0, "netAlgaeCount": 0, "wallAlgaeCount": 0, "endGameBargePoints": 2, "autoBonusAchieved": true, "coralBonusAchieved": false, "bargeBonusAchieved": false, "coopertitionCriteriaMet": false, "foulCount": 1, "techFoulCount": 0, "g206Penalty": false, "g410Penalty": false, "g418Penalty": false, "g428Penalty": false, "adjustPoints": 0, "foulPoints": 0, "rp": 4, "totalPoints": 87}, "blue": {"autoLineRobot1": "Yes", "endGameRobot1": "DeepCage", "autoLineRobot2": "Yes", "endGameRobot2": "Parked", "autoLineRobot3": "Yes", "endGameRobot3": "Parked", "autoReef": {"topRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": true, "nodeK": true, "nodeL": true}, "midRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 0, "tba_botRowCount": 0, "tba_midRowCount": 0, "tba_topRowCount": 3}, "autoCoralCount": 3, "autoMobilityPoints": 9, "autoPoints": 30, "autoCoralPoints": 21, "teleopReef": {"topRow": {"nodeA": true, "nodeB": true, "nodeC": true, "nodeD": true, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": true, "nodeI": true, "nodeJ": true, "nodeK": true, "nodeL": true}, "midRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 2, "tba_botRowCount": 0, "tba_midRowCount": 0, "tba_topRowCount": 9}, "teleopCoralCount": 8, "teleopPoints": 50, "teleopCoralPoints": 34, "algaePoints": 0, "netAlgaeCount": 0, "wallAlgaeCount": 0, "endGameBargePoints": 16, "autoBonusAchieved": true, "coralBonusAchieved": false, "bargeBonusAchieved": true, "coopertitionCriteriaMet": false, "foulCount": 0, "techFoulCount": 0, "g206Penalty": false, "g410Penalty": false, "g418Penalty": false, "g428Penalty": false, "adjustPoints": 0, "foulPoints": 2, "rp": 2, "totalPoints": 82}}, "videos": [], "time": 1743191760, "actual_time": 1743191817, "predicted_time": 1743191747, "post_result_time": 1743192191}
+        """)!;
     #endregion
 
     [Fact]
@@ -4843,10 +4812,7 @@ public class MatchScoreTests : EmbeddingTest
         var detailedMatchJson = """
         {"key": "2025wimu_qm24", "event_key": "2025wimu", "comp_level": "qm", "set_number": 1, "match_number": 24, "alliances": {"red": {"team_keys": ["frc6421", "frc10264", "frc3354"], "score": 87, "surrogate_team_keys": [], "dq_team_keys": []}, "blue": {"team_keys": ["frc6381", "frc4786", "frc6318"], "score": 82, "surrogate_team_keys": [], "dq_team_keys": []}}, "winning_alliance": "red", "score_breakdown": {"red": {"autoLineRobot1": "Yes", "endGameRobot1": "None", "autoLineRobot2": "Yes", "endGameRobot2": "None", "autoLineRobot3": "Yes", "endGameRobot3": "Parked", "autoReef": {"topRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": true, "nodeE": false, "nodeF": true, "nodeG": false, "nodeH": true, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "midRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 0, "tba_botRowCount": 0, "tba_midRowCount": 0, "tba_topRowCount": 3}, "autoCoralCount": 3, "autoMobilityPoints": 9, "autoPoints": 30, "autoCoralPoints": 21, "teleopReef": {"topRow": {"nodeA": true, "nodeB": true, "nodeC": true, "nodeD": true, "nodeE": true, "nodeF": true, "nodeG": true, "nodeH": true, "nodeI": true, "nodeJ": true, "nodeK": true, "nodeL": true}, "midRow": {"nodeA": true, "nodeB": true, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 1, "tba_botRowCount": 0, "tba_midRowCount": 2, "tba_topRowCount": 12}, "teleopCoralCount": 12, "teleopPoints": 57, "teleopCoralPoints": 55, "algaePoints": 0, "netAlgaeCount": 0, "wallAlgaeCount": 0, "endGameBargePoints": 2, "autoBonusAchieved": true, "coralBonusAchieved": false, "bargeBonusAchieved": false, "coopertitionCriteriaMet": false, "foulCount": 1, "techFoulCount": 0, "g206Penalty": false, "g410Penalty": false, "g418Penalty": false, "g428Penalty": false, "adjustPoints": 0, "foulPoints": 0, "rp": 4, "totalPoints": 87}, "blue": {"autoLineRobot1": "Yes", "endGameRobot1": "DeepCage", "autoLineRobot2": "Yes", "endGameRobot2": "Parked", "autoLineRobot3": "Yes", "endGameRobot3": "Parked", "autoReef": {"topRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": true, "nodeK": true, "nodeL": true}, "midRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 0, "tba_botRowCount": 0, "tba_midRowCount": 0, "tba_topRowCount": 3}, "autoCoralCount": 3, "autoMobilityPoints": 9, "autoPoints": 30, "autoCoralPoints": 21, "teleopReef": {"topRow": {"nodeA": true, "nodeB": true, "nodeC": true, "nodeD": true, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": true, "nodeI": true, "nodeJ": true, "nodeK": true, "nodeL": true}, "midRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "botRow": {"nodeA": false, "nodeB": false, "nodeC": false, "nodeD": false, "nodeE": false, "nodeF": false, "nodeG": false, "nodeH": false, "nodeI": false, "nodeJ": false, "nodeK": false, "nodeL": false}, "trough": 2, "tba_botRowCount": 0, "tba_midRowCount": 0, "tba_topRowCount": 9}, "teleopCoralCount": 8, "teleopPoints": 50, "teleopCoralPoints": 34, "algaePoints": 0, "netAlgaeCount": 0, "wallAlgaeCount": 0, "endGameBargePoints": 16, "autoBonusAchieved": true, "coralBonusAchieved": false, "bargeBonusAchieved": true, "coopertitionCriteriaMet": false, "foulCount": 0, "techFoulCount": 0, "g206Penalty": false, "g410Penalty": false, "g418Penalty": false, "g428Penalty": false, "adjustPoints": 0, "foulPoints": 2, "rp": 2, "totalPoints": 82}}, "videos": [], "time": 1743191760, "actual_time": 1743191817, "predicted_time": 1743191747, "post_result_time": 1743192191}
         """;
-        var detailedMatch = JsonSerializer.Deserialize<Match>(detailedMatchJson, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        });
+        var detailedMatch = JsonSerializer.Deserialize<Match>(detailedMatchJson)!;
 
         this.Mocker.GetMock<IMatchApi>()
             .Setup(api => api.GetMatchAsync(matchKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
@@ -4895,5 +4861,60 @@ public class MatchScoreTests : EmbeddingTest
         response = result.Current;
         Assert.NotNull(response);
         Assert.Equal("This is a match summary.", response.Content.Description);
+    }
+
+    [Fact]
+    public async Task CreateAsync_ShouldHandleInvalidNotificationData()
+    {
+        // Arrange
+        var webhookMessage = JsonSerializer.Deserialize<WebhookMessage>("""
+            { "message_type": "match_score", "message_data": null }
+            """)!;
+
+        // Act
+        var result = await _matchScore.CreateAsync(webhookMessage).ToListAsync();
+
+        // Assert
+        Assert.Single(result);
+        Assert.Null(result[0]);
+        this.Logger.Verify(LogLevel.Warning, "Failed to deserialize notification data as match_score");
+    }
+
+    [Fact]
+    public async Task CreateAsync_WithMatchKey_ShouldHandleMissingMatchData()
+    {
+        // Arrange
+        var matchKey = "2022miket_qm1";
+        this.Mocker.GetMock<IMatchApi>().Setup(api => api.GetMatchAsync(matchKey, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync((Match?)null);
+
+        // Act
+        var result = await _matchScore.CreateAsync((matchKey, false)).ToListAsync();
+
+        // Assert
+        Assert.Single(result);
+        Assert.NotNull(result[0]);
+        this.Logger.Verify(LogLevel.Warning, "Failed to retrieve detailed match data for 2022miket_qm1");
+    }
+
+    [Fact]
+    public async Task CreateAsync_ShouldLogBadDataForMatch()
+    {
+        // Arrange
+        var matchKey = "2025wimu_qm24";
+        var detailedMatchJson = """
+        {"key": "2025wimu_qm24", "event_key": "2025wimu", "comp_level": "qm", "set_number": 1, "match_number": 24, "alliances": {"red": {"team_keys": ["frc6421", "frc10264", "frc3354"], "score": -1, "surrogate_team_keys": [], "dq_team_keys": []}, "blue": {"team_keys": ["frc6381", "frc4786", "frc6318"], "score": -1, "surrogate_team_keys": [], "dq_team_keys": []}}, "winning_alliance": "red", "score_breakdown": null, "videos": [], "time": 1743191760, "actual_time": 1743191817, "predicted_time": 1743191747, "post_result_time": 1743192191}
+        """;
+        var detailedMatch = JsonSerializer.Deserialize<Match>(detailedMatchJson)!;
+
+        this.Mocker.GetMock<IMatchApi>().Setup(api => api.GetMatchAsync(matchKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(detailedMatch);
+
+        // Act
+        var results = await _matchScore.CreateAsync((matchKey, false)).ToArrayAsync();
+
+        // Assert
+        Assert.Single(results);
+        Assert.Null(results[0]);
+        this.Logger.Verify(LogLevel.Warning, "Bad data for match 2025wimu_qm24");
     }
 }

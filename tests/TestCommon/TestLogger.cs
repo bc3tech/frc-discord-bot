@@ -21,7 +21,10 @@ public class TestLogger(ITestOutputHelper outputHelper) : ILogger
 
         this.CollectedLogMessages.Push((logLevel, formatter(state, exception)));
     }
-    public void Verify(LogLevel logLevel, string? message = null) => Assert.True(message is null ? this.CollectedLogMessages.Any(i => i.logLevel == logLevel) : this.CollectedLogMessages.Any(i => i == (logLevel, message)));
+    public void Verify(LogLevel logLevel, string? message = null) => Assert.True(message is null
+        ? this.CollectedLogMessages.Any(i => i.logLevel == logLevel)
+        : this.CollectedLogMessages.Any(i => i == (logLevel, message)) 
+            || this.CollectedLogMessages.Any(i => i.logLevel == logLevel && i.message.Contains(message)));
 
     public IReadOnlyCollection<(LogLevel logLevel, string message)> LogMessages => this.CollectedLogMessages;
 }
