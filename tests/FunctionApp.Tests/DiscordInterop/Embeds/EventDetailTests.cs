@@ -238,10 +238,7 @@ namespace FunctionApp.Tests.DiscordInterop.Embeds
                 "timezone": "America/New_York"
             }
             """;
-            var eventDetails = JsonSerializer.Deserialize<Event>(eventDetailsJson, new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            });
+            var eventDetails = JsonSerializer.Deserialize<Event>(eventDetailsJson);
 
             _mockEventsRepo.Setup(repo => repo[eventKey]).Returns(eventDetails);
             _mockCountryCodeLookup.Setup(c => c.GetCountryCodeForFlagLookupAsync(eventDetails.Country, default)).ReturnsAsync("US");
@@ -259,6 +256,73 @@ namespace FunctionApp.Tests.DiscordInterop.Embeds
             Assert.True(await result.MoveNextAsync());
             response = result.Current;
             Assert.Contains("No stats available.", response.Content.Fields[^1].Value); ;
+        }
+
+        [Fact]
+        public async Task CreateAsync_ShouldReturnEventDetailsWithDistrictField()
+        {
+            // Arrange
+            var eventKey = "2025test";
+            var eventDetailsJson = """
+            {
+                "key": "2025test",
+                "name": "Test Event",
+                "year": 2025,
+                "week": 1,
+                "event_type_string": "Regional",
+                "location_name": "Test Location",
+                "city": "Test City",
+                "state_prov": "Test State",
+                "country": "Test Country",
+                "gmaps_url": "http://maps.google.com",
+                "schedule_url": "http://schedule.com",
+                "website": "http://event.com",
+                "start_date": "2025-01-01",
+                "end_date": "2025-01-03",
+                "webcasts": [
+                    {
+                        "channel": "channel",
+                        "type": "youtube"
+                    }
+                ],
+                "address": "123 Test St",
+                "district": {
+                    "abbreviation": "test",
+                    "key": "2025test",
+                    "year": 2025,
+                    "display_name": "Test District"
+                },
+                "division_keys": [],
+                "event_code": "TEST",
+                "event_type": 0,
+                "first_event_code": "test",
+                "first_event_id": null,
+                "gmaps_place_id": "place_id",
+                "lat": 0.0,
+                "lng": 0.0,
+                "parent_event_key": null,
+                "playoff_type": 0,
+                "playoff_type_string": "Test Playoff",
+                "postal_code": "12345",
+                "short_name": "Test Event",
+                "timezone": "America/New_York"
+            }           
+            """;
+            var eventDetails = JsonSerializer.Deserialize<Event>(eventDetailsJson)!;
+
+            _mockEventsRepo.Setup(repo => repo[eventKey]).Returns(eventDetails);
+            _mockCountryCodeLookup.Setup(c => c.GetCountryCodeForFlagLookupAsync(eventDetails.Country, default)).ReturnsAsync("US");
+
+            // Act
+            var result = _eventDetail.CreateAsync(eventKey);
+
+            // Assert
+            var results = await result.ToArrayAsync();
+            var response = results.FirstOrDefault();
+            Assert.NotNull(response);
+            Assert.True(response.Transient);
+            Assert.Equal($"**{eventDetails.Name}**", response.Content.Title);
+            Assert.True(response.Content.Fields.Any(i => i.Name == "District" && i.Value == "Test District"));
         }
     }
 }
