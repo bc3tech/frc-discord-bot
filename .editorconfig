@@ -33,6 +33,9 @@ csharp_style_expression_bodied_local_functions = when_on_single_line:suggestion
 dotnet_diagnostic.EA0014.severity = none
 csharp_style_throw_expression = true:suggestion
 
+# CA1711: Identifiers should not have incorrect suffix
+dotnet_diagnostic.CA1711.severity = none
+
 [*.{cs,vb}]
 #### Naming styles ####
 
