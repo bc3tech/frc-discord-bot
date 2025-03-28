@@ -18,6 +18,8 @@ using TheBlueAlliance.Api;
 using TheBlueAlliance.Interfaces.Caching;
 using TheBlueAlliance.Model;
 
+using Xunit.Abstractions;
+
 public class TeamCacheTests : TestWithLogger
 {
     private static readonly Team _utTeam = new Team(
@@ -40,7 +42,7 @@ public class TeamCacheTests : TestWithLogger
             website: "http://www.robowarriors.com"
         );
 
-    public TeamCacheTests() : base(typeof(TeamCache))
+    public TeamCacheTests(ITestOutputHelper outputHelper) : base(typeof(TeamCache), outputHelper)
     {
         this.Mocker.WithSelfMock<ITeamApi>();
         this.Mocker.Use(new Meter(nameof(TeamCacheTests)));

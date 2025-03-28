@@ -13,26 +13,27 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Xunit;
+using TestCommon;
 
-public class SubscriptionManagerTests
+using Xunit;
+using Xunit.Abstractions;
+
+public class SubscriptionManagerTests : TestWithLogger
 {
     private const ulong GuildId = 12345UL;
     private const ulong ChannelId = 67890UL;
     private const string EventName = "2025wabon";
     private const string TeamKey = "frc2046";
+
     private readonly Mock<TableClient> _mockTeamSubscriptions;
     private readonly Mock<TableClient> _mockEventSubscriptions;
-    private readonly Mock<ILogger<SubscriptionManager>> _mockLogger;
     private readonly SubscriptionManager _subscriptionManager;
 
-    public SubscriptionManagerTests()
+    public SubscriptionManagerTests(ITestOutputHelper outputHelper) : base(typeof(SubscriptionManager), outputHelper)
     {
         _mockTeamSubscriptions = new Mock<TableClient>();
         _mockEventSubscriptions = new Mock<TableClient>();
-        _mockLogger = new Mock<ILogger<SubscriptionManager>>();
-        _mockLogger.Setup(l => l.IsEnabled(It.IsAny<LogLevel>())).Returns(true);
-        _subscriptionManager = new SubscriptionManager(_mockTeamSubscriptions.Object, _mockEventSubscriptions.Object, _mockLogger.Object);
+        _subscriptionManager = new SubscriptionManager(_mockTeamSubscriptions.Object, _mockEventSubscriptions.Object, this.Mocker.Get<ILogger<SubscriptionManager>>());
     }
 
     [Fact]
@@ -119,7 +120,7 @@ public class SubscriptionManagerTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<HttpProtocolException>(() => _subscriptionManager.SaveSubscriptionAsync(subscription, CancellationToken.None));
         Assert.Equal(500, exception.ErrorCode);
-        _mockLogger.Verify(l => l.Log(LogLevel.Error, It.IsAny<EventId>(), It.IsAny<It.IsAnyType>(), It.IsAny<Exception>(), It.IsAny<Func<It.IsAnyType, Exception?, string>>()), Times.Once);
+        this.Logger.Verify(LogLevel.Error);
     }
 
     [Fact]
@@ -142,7 +143,7 @@ public class SubscriptionManagerTests
         // Act & Assert
         var exception = await Assert.ThrowsAsync<HttpProtocolException>(() => _subscriptionManager.RemoveSubscriptionAsync(subscription, CancellationToken.None));
         Assert.Equal(500, exception.ErrorCode);
-        _mockLogger.Verify(l => l.Log(LogLevel.Error, It.IsAny<EventId>(), It.IsAny<It.IsAnyType>(), It.IsAny<Exception>(), It.IsAny<Func<It.IsAnyType, Exception?, string>>()), Times.Once);
+        this.Logger.Verify(LogLevel.Error);
     }
 
     [Fact]
@@ -161,7 +162,7 @@ public class SubscriptionManagerTests
         await _subscriptionManager.SaveSubscriptionAsync(subscription, CancellationToken.None);
 
         // Assert
-        _mockLogger.Verify(l => l.Log(LogLevel.Warning, It.IsAny<EventId>(), It.IsAny<It.IsAnyType>(), It.IsAny<Exception>(), It.IsAny<Func<It.IsAnyType, Exception?, string>>()), Times.Once);
+        this.Logger.Verify(LogLevel.Warning);
     }
 
     [Fact]
@@ -177,6 +178,6 @@ public class SubscriptionManagerTests
         await _subscriptionManager.RemoveSubscriptionAsync(subscription, CancellationToken.None);
 
         // Assert
-        _mockLogger.Verify(l => l.Log(LogLevel.Debug, It.IsAny<EventId>(), It.IsAny<It.IsAnyType>(), It.IsAny<Exception>(), It.IsAny<Func<It.IsAnyType, Exception?, string>>()), Times.Once);
+        this.Logger.Verify(LogLevel.Debug);
     }
 }

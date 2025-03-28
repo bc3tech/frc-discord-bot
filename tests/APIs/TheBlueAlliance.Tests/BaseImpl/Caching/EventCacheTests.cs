@@ -15,6 +15,8 @@ using TheBlueAlliance.BaseImpl.Caching;
 using TheBlueAlliance.Interfaces.Caching;
 using TheBlueAlliance.Model;
 
+using Xunit.Abstractions;
+
 public class EventCacheTests : TestWithLogger
 {
     private static readonly Event _utEvent = new Event(
@@ -49,7 +51,7 @@ public class EventCacheTests : TestWithLogger
                 week: 1,
                 year: 2025
             );
-    public EventCacheTests() : base(typeof(EventCache))
+    public EventCacheTests(ITestOutputHelper outputHelper) : base(typeof(EventCache), outputHelper)
     {
         this.Mocker.WithSelfMock<IEventApi>();
         this.Mocker.Use(new Meter(nameof(EventCacheTests)));
