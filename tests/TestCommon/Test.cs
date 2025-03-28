@@ -1,7 +1,8 @@
 ﻿namespace TestCommon;
 
 using Moq;
-using Moq.AutoMock;
+
+using Xunit.Sdk;
 
 public abstract class Test
 {
@@ -11,9 +12,18 @@ public abstract class Test
 
     protected Test()
     {
-        this.TimeMock = new();
-        this.TimeMock.SetupGet(tp => tp.LocalTimeZone).Returns(TimeZoneInfo.Utc);
-        this.TimeMock.Setup(tp => tp.GetUtcNow()).Returns(new DateTimeOffset(2025, 1, 1, 0, 0, 0, TimeSpan.Zero));
+        this.TimeMock = new Mock<TimeProvider>();
+        this.TimeMock.Setup(i => i.GetUtcNow())
+            .Returns(TimeProvider.System.GetUtcNow);
+        this.TimeMock.SetupGet(i => i.LocalTimeZone)
+            .Returns(TimeProvider.System.LocalTimeZone);
+        this.TimeMock.SetupGet(i => i.TimestampFrequency)
+            .Returns(() => TimeProvider.System.TimestampFrequency);
+        this.TimeMock.Setup(i => i.GetTimestamp())
+            .Returns(TimeProvider.System.GetTimestamp);
+        this.TimeMock.Setup(i => i.CreateTimer(It.IsAny<TimerCallback>(), It.IsAny<object?>(), It.IsAny<TimeSpan>(), It.IsAny<TimeSpan>()))
+            .Returns((TimerCallback callback, object? state, TimeSpan dueTime, TimeSpan period) =>
+                TimeProvider.System.CreateTimer(callback, state, dueTime, period));
 
         this.Mocker.Use(this.TimeMock);
     }

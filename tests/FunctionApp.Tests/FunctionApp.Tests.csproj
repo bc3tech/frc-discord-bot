@@ -7,7 +7,4 @@
     <ProjectReference Include="..\..\app\FunctionApp.csproj" />
     <ProjectReference Include="..\TestCommon\TestCommon.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DiscordInterop\Embeds\" />
-  </ItemGroup>
 </Project>

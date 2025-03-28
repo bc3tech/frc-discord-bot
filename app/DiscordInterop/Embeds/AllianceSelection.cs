@@ -55,7 +55,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
         while (alliances?.Count is null or 0)
         {
             logger.FailedToRetrieveAllianceSelectionDataForEventKey(eventKey);
-            await Task.Delay(TimeSpan.FromSeconds(1000), time, cancellationToken).ConfigureAwait(false);
+            await Task.Delay(TimeSpan.FromSeconds(1), time, cancellationToken).ConfigureAwait(false);
             alliances = await tbaClient.GetEventAlliancesAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
         }
 
