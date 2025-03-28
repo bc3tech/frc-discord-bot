@@ -86,7 +86,7 @@ internal sealed class Program
                     .AddSingleton<ITeamCache, TeamCache>()
                     .AddSingleton<SubscriptionManager>()
                     .AddSingleton<TokenCredential>(credential)
-                    .AddSingleton<RESTCountries>()
+                    .AddSingleton<IRESTCountries,RESTCountries>()
                     .FixAppInsightsLogging();
 
                 var tableStorageEndpointConfigValue = context.Configuration[Constants.Configuration.Azure.Storage.TableEndpoint];

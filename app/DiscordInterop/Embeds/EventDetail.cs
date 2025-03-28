@@ -16,7 +16,7 @@ using System.Text;
 
 using TheBlueAlliance.Interfaces.Caching;
 
-internal sealed class EventDetail(RESTCountries _countryCodeLookup,
+internal sealed class EventDetail(IRESTCountries _countryCodeLookup,
                                   EmbedBuilderFactory builderFactory,
                                   IEventCache _eventsRepo,
                                   Statbotics.Api.IEventApi eventStats,

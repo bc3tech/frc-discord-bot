@@ -18,7 +18,7 @@ using System.Text.Json;
 
 using TheBlueAlliance.Api;
 
-internal sealed class TeamDetail(RESTCountries _countryCodeLookup,
+internal sealed class TeamDetail(IRESTCountries _countryCodeLookup,
                                  EmbedBuilderFactory builderFactory,
                                  TeamCache _teamsRepo,
                                  ITeamApi tbaTeamApi,
@@ -79,7 +79,7 @@ internal sealed class TeamDetail(RESTCountries _countryCodeLookup,
 
         yield return new(builder.Build());
 
-        async static Task<string> createLocationStringAsync(TheBlueAlliance.Model.Team teamDetail, RESTCountries _countryCodeLookup)
+        async static Task<string> createLocationStringAsync(TheBlueAlliance.Model.Team teamDetail, IRESTCountries _countryCodeLookup)
         {
             StringBuilder sb = new();
             if (!string.IsNullOrWhiteSpace(teamDetail.LocationName))

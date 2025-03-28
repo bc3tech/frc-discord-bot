@@ -9,7 +9,7 @@ using System.Net.Http.Json;
 using System.Text.Json.Nodes;
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1001:Types that own disposable fields should be disposable", Justification = "Not valid for just HTTP Client")]
-internal sealed class RESTCountries(Meter meter, ILogger<RESTCountries> _logger)
+internal sealed class RESTCountries(Meter meter, ILogger<RESTCountries> _logger) : IRESTCountries
 {
     private readonly HttpClient _httpClient = new() { BaseAddress = new("https://restcountries.com/v3.1/") };
 
