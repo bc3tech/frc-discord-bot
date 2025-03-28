@@ -43,7 +43,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
                                          IEventCache events,
                                          ITeamCache teams,
                                          EmbedBuilderFactory builderFactory,
-                                         ChatRunner gpt,
+                                         IChatWithLLMs gpt,
                                          TimeProvider time,
                                          Meter meter,
                                          ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<(string matchKey, bool summarize)>, IHandleUserInteractions

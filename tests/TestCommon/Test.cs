@@ -2,7 +2,7 @@
 
 using Moq;
 
-using Xunit.Sdk;
+using System.Diagnostics.Metrics;
 
 public abstract class Test
 {
@@ -26,6 +26,7 @@ public abstract class Test
                 TimeProvider.System.CreateTimer(callback, state, dueTime, period));
 
         this.Mocker.Use(this.TimeMock);
+        this.Mocker.Use(new Meter("UnitTestMeter"));
     }
 
     protected static void AssertDebugException(Action action, string? messageContents = null)
