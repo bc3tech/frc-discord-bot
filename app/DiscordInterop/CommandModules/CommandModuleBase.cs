@@ -63,7 +63,7 @@ public abstract class CommandModuleBase(ILogger logger) : InteractionModuleBase
         cancellationToken.ThrowIfCancellationRequested();
         if (numEmbeddingsCreated is 0 || erroredEmbeddings is not 0)
         {
-            await ModifyOriginalResponseAsync(p => p.Content = "I encountered one/more errors processing your request. You can try aga, or contact your admin with this news so they can troubleshoot.").ConfigureAwait(false);
+            await ModifyOriginalResponseAsync(p => p.Content = "I encountered one/more errors processing your request. You can try again, or contact your admin with this news so they can troubleshoot.").ConfigureAwait(false);
         }
     }
 
