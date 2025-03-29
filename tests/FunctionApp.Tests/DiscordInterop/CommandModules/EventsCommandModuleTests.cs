@@ -343,7 +343,9 @@ public class EventsCommandModuleTests : TestWithLogger
         interaction.Setup(i => i.ModifyOriginalResponseAsync(It.IsAny<Action<MessageProperties>>(), It.IsAny<RequestOptions>()))
             .Callback<Action<MessageProperties>, RequestOptions>((a, _) => a(messageToUser));
         _mockContext.SetupGet(c => c.Interaction).Returns(interaction.Object);
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type; the Discord SDK doesn't properly label nullable values
         _mockContext.SetupGet(c => c.Guild).Returns((IGuild?)null);
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
         // Act
         await _eventsCommandModule.AddEventAsync(eventKey, null, null, null, false);

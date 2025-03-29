@@ -32,7 +32,7 @@ public class AllianceSelectionTests : EmbeddingTest
         this.Mocker.WithSelfMock<ITeamCache>();
 
         _allianceSelection = this.Mocker.CreateInstance<AllianceSelection>();
-        ((ConcurrentDictionary<string, bool>)typeof(AllianceSelection).GetField("ProcessedEvents", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static).GetValue(null)).Clear();
+        ((ConcurrentDictionary<string, bool>)typeof(AllianceSelection).GetField("ProcessedEvents", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!.GetValue(null)!).Clear();
     }
 
     [Fact]
@@ -43,10 +43,7 @@ public class AllianceSelectionTests : EmbeddingTest
         var webhookMessageJson = """
         {"message_type": "alliance_selection", "message_data": {"event_key": "2025iscmp", "event_name": "FIRST Israel District Championship", "event": {"key": "2025iscmp", "name": "FIRST Israel District Championship", "short_name": "Israel", "event_code": "iscmp", "event_type": 2, "event_type_string": "District Championship", "parent_event_key": null, "playoff_type": 10, "playoff_type_string": "Double Elimination Bracket (8 Alliances)", "district": {"key": "2025isr", "year": 2025, "abbreviation": "isr", "display_name": "FIRST Israel"}, "division_keys": [], "first_event_id": null, "first_event_code": "iscmp", "year": 2025, "timezone": "Asia/Jerusalem", "week": 4, "website": "http://firstisrael.org.il", "city": "Jerusalem", "state_prov": "JM", "country": "Israel", "postal_code": null, "lat": null, "lng": null, "location_name": null, "address": null, "gmaps_place_id": null, "gmaps_url": null, "start_date": "2025-03-25", "end_date": "2025-03-27", "webcasts": [{"type": "twitch", "channel": "firstisrael"}]}}}
         """;
-        var webhookMessage = JsonSerializer.Deserialize<WebhookMessage>(webhookMessageJson, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        });
+        var webhookMessage = JsonSerializer.Deserialize<WebhookMessage>(webhookMessageJson)!;
 
         var alliances = new List<EliminationAlliance>
         {
@@ -74,7 +71,7 @@ public class AllianceSelectionTests : EmbeddingTest
         var eventCache = this.Mocker.GetMock<IEventCache>();
         eventCache.SetupGet(client => client[eventKey]).Returns(JsonSerializer.Deserialize<Event>("""
             {"key": "2025iscmp", "name": "FIRST Israel District Championship", "short_name": "Israel", "event_code": "iscmp", "event_type": 2, "event_type_string": "District Championship", "parent_event_key": null, "playoff_type": 10, "playoff_type_string": "Double Elimination Bracket (8 Alliances)", "district": {"key": "2025isr", "year": 2025, "abbreviation": "isr", "display_name": "FIRST Israel"}, "division_keys": [], "first_event_id": null, "first_event_code": "iscmp", "year": 2025, "timezone": "Asia/Jerusalem", "week": 4, "website": "http://firstisrael.org.il", "city": "Jerusalem", "state_prov": "JM", "country": "Israel", "postal_code": null, "lat": null, "lng": null, "location_name": null, "address": null, "gmaps_place_id": null, "gmaps_url": null, "start_date": "2025-03-25", "end_date": "2025-03-27", "webcasts": [{"type": "twitch", "channel": "firstisrael"}]}
-            """));
+            """)!);
 
         // Act
         var result = _allianceSelection.CreateAsync(webhookMessage).GetAsyncEnumerator();
@@ -193,10 +190,7 @@ public class AllianceSelectionTests : EmbeddingTest
             "message_data": {}
         }
         """;
-        var webhookMessage = JsonSerializer.Deserialize<WebhookMessage>(webhookMessageJson, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        });
+        var webhookMessage = JsonSerializer.Deserialize<WebhookMessage>(webhookMessageJson)!;
 
         // Act
         var result = _allianceSelection.CreateAsync(webhookMessage).GetAsyncEnumerator();

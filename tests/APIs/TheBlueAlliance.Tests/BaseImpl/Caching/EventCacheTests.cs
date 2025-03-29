@@ -19,7 +19,7 @@ using Xunit.Abstractions;
 
 public class EventCacheTests : TestWithLogger
 {
-    private static readonly Event _utEvent = new Event(
+    private static readonly Event _utEvent = new(
                 address: "123 Main St",
                 city: "Test City",
                 country: "Test Country",
@@ -58,7 +58,7 @@ public class EventCacheTests : TestWithLogger
 
         this.Mocker.With<IEventCache, EventCache>();
 
-        ((ConcurrentDictionary<string, Event>)typeof(EventCache).GetField("_events", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null)).Clear();
+        ((ConcurrentDictionary<string, Event>)typeof(EventCache).GetField("_events", BindingFlags.Static | BindingFlags.NonPublic)!.GetValue(null)!).Clear();
     }
 
     [Fact]
@@ -88,7 +88,7 @@ public class EventCacheTests : TestWithLogger
 
         // Act
         var cache = this.Mocker.Get<IEventCache>();
-        await cache.InitializeAsync(CancellationToken.None).ConfigureAwait(false);
+        await cache.InitializeAsync(CancellationToken.None).ConfigureAwait(true);
 
         var result = cache[_utEvent.Key];
 
@@ -122,7 +122,7 @@ public class EventCacheTests : TestWithLogger
         var eventKey = "nonexistent";
         this.Mocker.GetMock<IEventApi>()
             .Setup(api => api.GetEvent(eventKey, It.IsAny<string>()))
-            .Returns((Event)null);
+            .Returns((Event?)null);
 
         var cache = this.Mocker.Get<IEventCache>();
         // Act & Assert
@@ -135,7 +135,7 @@ public class EventCacheTests : TestWithLogger
         // Arrange
         this.Mocker.GetMock<IEventApi>()
             .Setup(api => api.GetEventsByYearAsync(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ThrowsAsync(new Exception("API error"));
+            .ThrowsAsync(new HttpProtocolException(500, "API error", null));
 
         var cache = this.Mocker.Get<IEventCache>();
 

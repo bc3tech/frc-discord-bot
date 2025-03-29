@@ -48,7 +48,7 @@ public class CompLevelStartingTests : EmbeddingTest
         // Arrange
         var webhookMessage = JsonSerializer.Deserialize<WebhookMessage>("""
             {"message_type":"starting_comp_level","message_data":{"comp_level":"qm","event_key":"2025ohmv","event_name":"Miami Valley Regional","scheduled_time":1743166500},"IsBroadcast":true}
-            """);
+            """)!;
 
         // Act
         var result = await _compLevelStarting.CreateAsync(webhookMessage).ToListAsync();

@@ -85,7 +85,7 @@ public class TeamCacheTests : TestWithLogger
 
         // Act
         var cache = this.Mocker.Get<ITeamCache>();
-        await cache.InitializeAsync(CancellationToken.None).ConfigureAwait(false);
+        await cache.InitializeAsync(CancellationToken.None).ConfigureAwait(true);
 
         var result = cache[_utTeam.Key];
 

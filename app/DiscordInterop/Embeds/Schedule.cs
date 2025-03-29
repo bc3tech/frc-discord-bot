@@ -64,6 +64,7 @@ internal sealed class Schedule(EmbedBuilderFactory builderFactory,
                     && (!m.PredictedTime.HasValue
                         || DateTimeOffset.FromUnixTimeSeconds(m.PredictedTime.Value) >= time.GetUtcNow().AddMinutes(-15)))
                 .Take(input.numMatches);
+
         if (matchesToPost?.Any() is not true)
         {
             embedding.Description = "No matches scheduled yet.";

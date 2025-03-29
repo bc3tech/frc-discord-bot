@@ -49,7 +49,7 @@ public abstract class Test
     {
         try
         {
-            await task;
+            await task.ConfigureAwait(false);
             if (task.Exception is not null)
             {
                 throw task.Exception;
