@@ -33,13 +33,6 @@ public class ScheduleTests : EmbeddingTest
         this.Mocker.CreateSelfMock<ITeamCache>();
         this.Mocker.CreateSelfMock<IMatchApi>();
         _schedule = this.Mocker.CreateInstance<Schedule>();
-
-        for (int i = 0; i < _matches.Count; i++)
-        {
-            var m = _matches[i];
-            m.Time = this.TimeMock.Object.GetUtcNow().AddMinutes(i).ToUnixTimeSeconds();
-            m.ActualTime = m.PredictedTime = m.PostResultTime = null;
-        }
     }
 
     private static Match DeserializeMatch(string json) => JsonSerializer.Deserialize<Match>(json)!;
@@ -82,7 +75,7 @@ public class ScheduleTests : EmbeddingTest
         }
         """)!;
 
-    private static readonly Collection<Match> _matches = JsonSerializer.Deserialize<Collection<Match>>("""
+    private static readonly Collection<Match> _matches = [.. JsonSerializer.Deserialize<Collection<Match>>("""
         [
         	{
         		"actual_time": 1742770199,
@@ -15873,7 +15866,14 @@ public class ScheduleTests : EmbeddingTest
         		"winning_alliance": "red"
         	}
         ]
-        """)!;
+        """)!
+        .Select((m, i) => m with
+            {
+                Time = DateTimeOffset.UtcNow.AddMinutes(i).ToUnixTimeSeconds(),
+                ActualTime = null,
+                PredictedTime = null,
+                PostResultTime = null,
+            })];
 
     private static readonly Dictionary<string, Event> _events = JsonSerializer.Deserialize<List<Event>>("""
         [
