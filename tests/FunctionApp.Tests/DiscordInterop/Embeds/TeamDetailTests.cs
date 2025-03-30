@@ -1,12 +1,7 @@
 ﻿namespace FunctionApp.Tests.DiscordInterop.Embeds;
 
-using Common.Extensions;
-
 using FunctionApp.Apis;
 using FunctionApp.DiscordInterop.Embeds;
-using FunctionApp.Storage.Caching;
-using FunctionApp.TbaInterop.Models;
-using FunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
@@ -18,7 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Interfaces.Caching;
+using TheBlueAlliance.Caching;
 using TheBlueAlliance.Model;
 
 using Xunit;
@@ -31,10 +26,11 @@ public class TeamDetailTests : EmbeddingTest
     public TeamDetailTests(ITestOutputHelper outputHelper) : base(typeof(TeamDetail), outputHelper)
     {
         this.Mocker.CreateSelfMock<IRESTCountries>();
-        this.Mocker.CreateSelfMock<ITeamCache>();
         this.Mocker.CreateSelfMock<ITeamApi>();
         this.Mocker.CreateSelfMock<Statbotics.Api.ITeamApi>();
         this.Mocker.CreateSelfMock<IDistrictApi>();
+
+        this.Mocker.With<TeamCache>();
         _teamDetail = this.Mocker.CreateInstance<TeamDetail>();
     }
 
@@ -193,7 +189,9 @@ public class TeamDetailTests : EmbeddingTest
     public async Task CreateAsync_ValidTeamKey_ReturnsEmbedding()
     {
         var teamStats = _utTeamStats with { Record = null };
-        this.Mocker.GetMock<ITeamCache>().Setup(t => t[It.IsAny<string>()]).Returns(_utTeam);
+        this.Mocker.GetMock<ITeamApi>()
+            .Setup(t => t.GetTeamAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(_utTeam);
         this.Mocker.GetMock<Statbotics.Api.ITeamApi>().Setup(t => t.ReadTeamV3TeamTeamGetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(teamStats);
         this.Mocker.GetMock<IRESTCountries>().Setup(c => c.GetCountryCodeForFlagLookupAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync("US");
         this.Mocker.GetMock<ITeamApi>().Setup(t => t.GetTeamMediaByYearAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utTeamMedia);
@@ -214,7 +212,7 @@ public class TeamDetailTests : EmbeddingTest
     public async Task CreateAsync_TeamWithFullRecord_ReturnsCorrectAllTimeRecord()
     {
         // Arrange
-        this.Mocker.GetMock<ITeamCache>().Setup(t => t[It.IsAny<string>()]).Returns(_utTeam);
+        this.Mocker.GetMock<ITeamApi>().Setup(t => t.GetTeamAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utTeam);
         this.Mocker.GetMock<Statbotics.Api.ITeamApi>().Setup(t => t.ReadTeamV3TeamTeamGetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utTeamStats);
         this.Mocker.GetMock<IRESTCountries>().Setup(c => c.GetCountryCodeForFlagLookupAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync("US");
         this.Mocker.GetMock<ITeamApi>().Setup(t => t.GetTeamMediaByYearAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utTeamMedia);
@@ -239,7 +237,7 @@ public class TeamDetailTests : EmbeddingTest
     public async Task CreateAsync_TeamResultIsNull_LogsWarning()
     {
         // Arrange
-        this.Mocker.GetMock<ITeamCache>().Setup(t => t[It.IsAny<string>()]).Returns(_utTeam);
+        this.Mocker.GetMock<ITeamApi>().Setup(t => t.GetTeamAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utTeam);
         this.Mocker.GetMock<Statbotics.Api.ITeamApi>().Setup(t => t.ReadTeamV3TeamTeamGetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync((Statbotics.Model.Team?)null);
         this.Mocker.GetMock<IRESTCountries>().Setup(c => c.GetCountryCodeForFlagLookupAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync("US");
         this.Mocker.GetMock<ITeamApi>().Setup(t => t.GetTeamMediaByYearAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utTeamMedia);
@@ -261,7 +259,7 @@ public class TeamDetailTests : EmbeddingTest
     {
         // Arrange
         var teamStats = _utTeamStats with { Colors = new Statbotics.Model.Colors { Primary = "#FF0000", Secondary = "#00FF00" } };
-        this.Mocker.GetMock<ITeamCache>().Setup(t => t[It.IsAny<string>()]).Returns(_utTeam);
+        this.Mocker.GetMock<ITeamApi>().Setup(t => t.GetTeamAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utTeam);
         this.Mocker.GetMock<Statbotics.Api.ITeamApi>().Setup(t => t.ReadTeamV3TeamTeamGetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(teamStats);
         this.Mocker.GetMock<IRESTCountries>().Setup(c => c.GetCountryCodeForFlagLookupAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync("US");
         this.Mocker.GetMock<ITeamApi>().Setup(t => t.GetTeamMediaByYearAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utTeamMedia);
@@ -283,7 +281,7 @@ public class TeamDetailTests : EmbeddingTest
     {
         // Arrange
         var teamWithLocationName = _utTeam with { LocationName = "Test Location" };
-        this.Mocker.GetMock<ITeamCache>().Setup(t => t[It.IsAny<string>()]).Returns(teamWithLocationName);
+        this.Mocker.GetMock<ITeamApi>().Setup(t => t.GetTeamAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(teamWithLocationName);
         this.Mocker.GetMock<Statbotics.Api.ITeamApi>().Setup(t => t.ReadTeamV3TeamTeamGetAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utTeamStats);
         this.Mocker.GetMock<IRESTCountries>().Setup(c => c.GetCountryCodeForFlagLookupAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync("US");
         this.Mocker.GetMock<ITeamApi>().Setup(t => t.GetTeamMediaByYearAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utTeamMedia);

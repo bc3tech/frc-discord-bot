@@ -14,11 +14,11 @@ using Statbotics.Model;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-using TheBlueAlliance.Interfaces.Caching;
+using TheBlueAlliance.Caching;
 
 internal sealed class EventDetail(IRESTCountries _countryCodeLookup,
                                   EmbedBuilderFactory builderFactory,
-                                  IEventCache _eventsRepo,
+                                  EventCache _eventsRepo,
                                   Statbotics.Api.IEventApi eventStats,
                                   ILogger<EventDetail> logger) : IEmbedCreator<string>
 {

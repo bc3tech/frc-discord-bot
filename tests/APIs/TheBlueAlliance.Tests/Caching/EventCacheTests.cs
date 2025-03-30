@@ -1,18 +1,16 @@
-namespace TheBlueAlliance.Tests.BaseImpl.Caching;
+namespace TheBlueAlliance.Tests.Caching;
 using Microsoft.Extensions.Logging;
 
 using Moq;
 
 using System.Collections.Concurrent;
 using System.Diagnostics.Metrics;
-using System.Net;
 using System.Reflection;
 
 using TestCommon;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.BaseImpl.Caching;
-using TheBlueAlliance.Interfaces.Caching;
+using TheBlueAlliance.Caching;
 using TheBlueAlliance.Model;
 
 using Xunit.Abstractions;
@@ -56,7 +54,7 @@ public class EventCacheTests : TestWithLogger
         this.Mocker.WithSelfMock<IEventApi>();
         this.Mocker.Use(new Meter(nameof(EventCacheTests)));
 
-        this.Mocker.With<IEventCache, EventCache>();
+        this.Mocker.With<EventCache>();
 
         ((ConcurrentDictionary<string, Event>)typeof(EventCache).GetField("_events", BindingFlags.Static | BindingFlags.NonPublic)!.GetValue(null)!).Clear();
     }
@@ -70,7 +68,7 @@ public class EventCacheTests : TestWithLogger
             .ReturnsAsync([_utEvent]);
 
         // Act
-        var cache = this.Mocker.Get<IEventCache>();
+        var cache = this.Mocker.Get<EventCache>();
         await cache.InitializeAsync(CancellationToken.None);
 
         // Assert
@@ -87,7 +85,7 @@ public class EventCacheTests : TestWithLogger
             .ReturnsAsync([_utEvent]);
 
         // Act
-        var cache = this.Mocker.Get<IEventCache>();
+        var cache = this.Mocker.Get<EventCache>();
         await cache.InitializeAsync(CancellationToken.None).ConfigureAwait(true);
 
         var result = cache[_utEvent.Key];
@@ -104,7 +102,7 @@ public class EventCacheTests : TestWithLogger
             .Setup(api => api.GetEvent(_utEvent.Key, It.IsAny<string>()))
             .Returns(_utEvent);
 
-        var cache = this.Mocker.Get<IEventCache>();
+        var cache = this.Mocker.Get<EventCache>();
 
         // Act
         Assert.Empty(cache.AllEvents);
@@ -116,17 +114,17 @@ public class EventCacheTests : TestWithLogger
     }
 
     [Fact]
-    public void Indexer_ShouldThrowKeyNotFoundExceptionIfEventNotFound()
+    public void Indexer_ShouldReturnNullIfEventNotFound()
     {
         // Arrange
         var eventKey = "nonexistent";
         this.Mocker.GetMock<IEventApi>()
-            .Setup(api => api.GetEvent(eventKey, It.IsAny<string>()))
-            .Returns((Event?)null);
+            .Setup(api => api.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync((Event?)null);
 
-        var cache = this.Mocker.Get<IEventCache>();
+        var cache = this.Mocker.Get<EventCache>();
         // Act & Assert
-        Assert.Throws<KeyNotFoundException>(() => cache[eventKey]);
+        Assert.Null(cache[eventKey]);
     }
 
     [Fact]
@@ -137,10 +135,11 @@ public class EventCacheTests : TestWithLogger
             .Setup(api => api.GetEventsByYearAsync(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
             .ThrowsAsync(new HttpProtocolException(500, "API error", null));
 
-        var cache = this.Mocker.Get<IEventCache>();
+        var cache = this.Mocker.Get<EventCache>();
 
         // Act & Assert
         await AssertDebugExceptionAsync(cache.InitializeAsync(CancellationToken.None).AsTask());
         this.Logger.Verify(LogLevel.Error);
+        Assert.Empty(cache.AllEvents);
     }
 }

@@ -1,33 +1,22 @@
 ﻿namespace FunctionApp.Tests.DiscordInterop.Embeds;
 
-using Discord;
-
 using FIRST.Api;
 using FIRST.Model;
 
 using FunctionApp.ChatBot;
-using FunctionApp.DiscordInterop.Embeds;
-using FunctionApp.TbaInterop;
 using FunctionApp.TbaInterop.Models;
-using FunctionApp.TbaInterop.Models.Notifications;
 
-using Microsoft.ApplicationInsights.WindowsServer;
 using Microsoft.Extensions.Logging;
 
 using Moq;
 
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics.Metrics;
-using System.Net.Sockets;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-using TestCommon;
-
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Interfaces.Caching;
+using TheBlueAlliance.Caching;
 using TheBlueAlliance.Model;
 
 using Xunit;
@@ -46,9 +35,10 @@ public class MatchScoreTests : EmbeddingTest
         this.Mocker.WithSelfMock<IMatchApi>();
         this.Mocker.WithSelfMock<IDistrictApi>();
         this.Mocker.WithSelfMock<FIRST.Api.IScheduleApi>();
-        this.Mocker.WithSelfMock<IEventCache>();
-        this.Mocker.WithSelfMock<ITeamCache>();
         this.Mocker.WithSelfMock<IChatWithLLMs>();
+
+        this.Mocker.With<EventCache>();
+        this.Mocker.With<TeamCache>();
 
         _matchScore = this.Mocker.CreateInstance<MatchScore>();
     }
@@ -85,12 +75,12 @@ public class MatchScoreTests : EmbeddingTest
             .Setup(api => api.GetEventDistrictPointsAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(_testDistrictPoints);
 
-        this.Mocker.GetMock<IEventCache>()
-            .SetupGet(i => i[eventKey])
-            .Returns(_testEvent);
-        this.Mocker.GetMock<ITeamCache>()
-            .SetupGet(i => i[It.IsAny<string>()])
-            .Returns(_testTeam);
+        this.Mocker.GetMock<IEventApi>()
+            .Setup(i => i.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(_testEvent);
+        this.Mocker.GetMock<ITeamApi>()
+            .Setup(i => i.GetTeamAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(_testTeam);
 
         this.Mocker.GetMock<IScheduleApi>()
             .Setup(api => api.SeasonScheduleEventCodeGetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<TournamentLevel>(), It.IsAny<CancellationToken>()))
@@ -4827,12 +4817,12 @@ public class MatchScoreTests : EmbeddingTest
             .Setup(api => api.GetEventDistrictPointsAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(_testDistrictPoints);
 
-        this.Mocker.GetMock<IEventCache>()
-            .SetupGet(i => i[eventKey])
-            .Returns(_testEvent);
-        this.Mocker.GetMock<ITeamCache>()
-            .SetupGet(i => i[It.IsAny<string>()])
-            .Returns(_testTeam);
+        this.Mocker.GetMock<IEventApi>()
+            .Setup(i => i.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(_testEvent);
+        this.Mocker.GetMock<ITeamApi>()
+            .Setup(i => i.GetTeamAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(_testTeam);
 
         this.Mocker.GetMock<IScheduleApi>()
             .Setup(api => api.SeasonScheduleEventCodeGetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<TournamentLevel>(), It.IsAny<CancellationToken>()))

@@ -165,10 +165,10 @@ public class WebhookMessageTests : Test
             MessageData = jsonElement
         };
 
-        var services = new Mock<IServiceProvider>();
-
         // Act & Assert
-        AssertDebugException(() => webhookMessage.GetThreadDetails(services.Object), "Bad data!");
+        var threadDetails = AssertDebugException(() => webhookMessage.GetThreadDetails(this.Mocker), "Bad data!");
+        Assert.True(threadDetails.HasValue);
+        Assert.Equal(" | Elims 1.1", threadDetails.Value.Title);
     }
 
     [Fact]
@@ -204,12 +204,11 @@ public class WebhookMessageTests : Test
         var matchJsonString = "{\"key\":\"2025iscmp_qm41\",\"event_key\":\"2025iscmp\",\"comp_level\":\"qm\",\"set_number\":1,\"match_number\":41,\"alliances\":{\"red\":{\"team_keys\":[\"frc2630\",\"frc9740\",\"frc1937\"],\"score\":114,\"surrogate_team_keys\":[],\"dq_team_keys\":[]},\"blue\":{\"team_keys\":[\"frc4586\",\"frc5951\",\"frc8175\"],\"score\":123,\"surrogate_team_keys\":[],\"dq_team_keys\":[]}},\"winning_alliance\":\"blue\",\"score_breakdown\":null,\"videos\":[],\"time\":1742998140,\"actual_time\":1742998743,\"predicted_time\":1742998991,\"post_result_time\":1742999056}\r\n";
         var match = JsonSerializer.Deserialize<Match>(matchJsonString);
 
-        var services = new Mock<IServiceProvider>();
-        var matchApi = new Mock<IMatchApi>();
-        matchApi.Setup(api => api.GetMatch("2025iscmp_qm41", null)).Returns(match);
-        services.Setup(s => s.GetService(typeof(IMatchApi))).Returns(matchApi.Object);
+        this.Mocker.GetMock<IMatchApi>().Setup(api => api.GetMatch("2025iscmp_qm41", null)).Returns(match);
 
         // Act & Assert
-        AssertDebugException(() => webhookMessage.GetThreadDetails(services.Object), "Bad data!");
+        var thread = AssertDebugException(() => webhookMessage.GetThreadDetails(this.Mocker), "Bad data!");
+        Assert.True(thread.HasValue);
+        Assert.Equal(" | Quals 1.41", thread.Value.Title);
     }
 }

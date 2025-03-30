@@ -1,4 +1,4 @@
-﻿namespace FunctionApp.Storage.Caching;
+﻿namespace TheBlueAlliance.Caching;
 
 using Common.Extensions;
 
@@ -9,10 +9,9 @@ using System.Diagnostics;
 using System.Diagnostics.Metrics;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Interfaces.Caching;
 using TheBlueAlliance.Model;
 
-public class TeamCache(ITeamApi apiClient, Meter meter, ILogger<TeamCache> logger) : ITeamCache
+public class TeamCache(ITeamApi apiClient, Meter meter, ILogger<TeamCache> logger)
 {
     private static readonly ConcurrentDictionary<string, Team> _teams = [];
     private static readonly ConcurrentQueue<Task> LogMetricTasks = [];
@@ -68,9 +67,8 @@ public class TeamCache(ITeamApi apiClient, Meter meter, ILogger<TeamCache> logge
     /// If the team is not found in the cache, it retrieves the team from the TBA API and adds it to the cache.
     /// </summary>
     /// <param name="teamKey">The key of the team to retrieve.</param>
-    /// <returns>The team associated with the specified team key.</returns>
-    /// <exception cref="KeyNotFoundException">Thrown when the team is not found in the cache or the TBA API.</exception>
-    public Team this[string teamKey]
+    /// <returns>The team associated with the specified team key or <c>null</c> if not found.</returns>
+    public Team? this[string teamKey]
     {
         get
         {
@@ -82,11 +80,11 @@ public class TeamCache(ITeamApi apiClient, Meter meter, ILogger<TeamCache> logge
             logger.LogWarning("Team {TeamNumber} not found in cache", teamKey);
 
             t = apiClient.GetTeam(teamKey);
-            return t is not null ? _teams.GetOrAdd(teamKey, t) : throw new KeyNotFoundException();
+            return t is not null ? _teams.GetOrAdd(teamKey, t) : null;
         }
     }
 
-    public Team this[ushort teamNumber] => this[$"frc{teamNumber}"];
+    public Team? this[ushort teamNumber] => this[$"frc{teamNumber}"];
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Not the API we're going for")]
     public IReadOnlyDictionary<string, Team> AllTeams => _teams;

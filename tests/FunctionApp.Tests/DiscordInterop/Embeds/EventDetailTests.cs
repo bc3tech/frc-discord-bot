@@ -5,36 +5,35 @@ using FunctionApp.DiscordInterop.Embeds;
 
 using Moq;
 
-using System;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
 using TestCommon;
 
-using TheBlueAlliance.Interfaces.Caching;
+using TheBlueAlliance.Caching;
 using TheBlueAlliance.Model;
 
 using Xunit;
 using Xunit.Abstractions;
 
+using IEventApi = TheBlueAlliance.Api.IEventApi;
+
 public class EventDetailTests : TestWithLogger
 {
     private readonly Mock<IRESTCountries> _mockCountryCodeLookup;
-    private readonly Mock<IEventCache> _mockEventsRepo;
     private readonly Mock<Statbotics.Api.IEventApi> _mockEventStats;
     private readonly EventDetail _eventDetail;
 
     public EventDetailTests(ITestOutputHelper outputHelper) : base(typeof(EventDetail), outputHelper)
     {
         _mockCountryCodeLookup = this.Mocker.GetMock<IRESTCountries>();
-        _mockEventsRepo = this.Mocker.GetMock<IEventCache>();
         _mockEventStats = this.Mocker.GetMock<Statbotics.Api.IEventApi>();
 
         this.Mocker.Use(_mockCountryCodeLookup.Object);
         this.Mocker.Use(new EmbedBuilderFactory(new EmbeddingColorizer(this.Mocker.CreateSelfMock<FRCColors.IClient>(), null)));
-        this.Mocker.Use(_mockEventsRepo.Object);
         this.Mocker.Use(_mockEventStats.Object);
+        this.Mocker.With<EventCache>();
 
         _eventDetail = this.Mocker.CreateInstance<EventDetail>();
     }
@@ -84,12 +83,11 @@ public class EventDetailTests : TestWithLogger
             "timezone": "America/New_York"
         }
         """;
-        var eventDetails = JsonSerializer.Deserialize<Event>(eventDetailsJson, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        });
+        var eventDetails = JsonSerializer.Deserialize<Event>(eventDetailsJson)!;
 
-        _mockEventsRepo.Setup(repo => repo[eventKey]).Returns(eventDetails);
+        this.Mocker.GetMock<TheBlueAlliance.Api.IEventApi>()
+            .Setup(repo => repo.GetEvent(eventKey, It.IsAny<string>()))
+            .Returns(eventDetails);
         _mockCountryCodeLookup.Setup(c => c.GetCountryCodeForFlagLookupAsync(eventDetails.Country, default)).ReturnsAsync("US");
 
         // Act
@@ -157,12 +155,11 @@ public class EventDetailTests : TestWithLogger
             "timezone": "America/New_York"
         }
         """;
-        var eventDetails = JsonSerializer.Deserialize<Event>(eventDetailsJson, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        });
+        var eventDetails = JsonSerializer.Deserialize<Event>(eventDetailsJson)!;
 
-        _mockEventsRepo.Setup(repo => repo[eventKey]).Returns(eventDetails);
+        this.Mocker.GetMock<IEventApi>()
+            .Setup(repo => repo.GetEvent(eventKey, It.IsAny<string>()))
+            .Returns(eventDetails);
         _mockCountryCodeLookup.Setup(c => c.GetCountryCodeForFlagLookupAsync(eventDetails.Country, default)).ReturnsAsync("US");
 
         _mockEventStats.Setup(s => s.ReadEventV3EventEventGetAsync(eventKey, It.IsAny<CancellationToken>())).ReturnsAsync(new Statbotics.Model.Event { NumTeams = 1, Status = "Ongoing", EpaVal = new Statbotics.Model.Event.Epa { Max = 101, Mean = 85 } });
@@ -232,11 +229,16 @@ public class EventDetailTests : TestWithLogger
             "timezone": "America/New_York"
         }
         """;
-        var eventDetails = JsonSerializer.Deserialize<Event>(eventDetailsJson);
+        var eventDetails = JsonSerializer.Deserialize<Event>(eventDetailsJson)!;
 
-        _mockEventsRepo.Setup(repo => repo[eventKey]).Returns(eventDetails);
-        _mockCountryCodeLookup.Setup(c => c.GetCountryCodeForFlagLookupAsync(eventDetails.Country, default)).ReturnsAsync("US");
-        _mockEventStats.Setup(s => s.ReadEventV3EventEventGetAsync(eventKey, It.IsAny<CancellationToken>())).ThrowsAsync(new Exception("Statbotics error"));
+        this.Mocker.GetMock<IEventApi>()
+            .Setup(repo => repo.GetEvent(eventKey, It.IsAny<string>())).Returns(eventDetails);
+        _mockCountryCodeLookup
+            .Setup(c => c.GetCountryCodeForFlagLookupAsync(eventDetails.Country, default))
+            .ReturnsAsync("US");
+        _mockEventStats
+            .Setup(s => s.ReadEventV3EventEventGetAsync(eventKey, It.IsAny<CancellationToken>()))
+            .ThrowsAsync(new HttpRequestException("Statbotics error"));
 
         // Act
         var result = _eventDetail.CreateAsync(eventKey).GetAsyncEnumerator();
@@ -304,8 +306,12 @@ public class EventDetailTests : TestWithLogger
         """;
         var eventDetails = JsonSerializer.Deserialize<Event>(eventDetailsJson)!;
 
-        _mockEventsRepo.Setup(repo => repo[eventKey]).Returns(eventDetails);
-        _mockCountryCodeLookup.Setup(c => c.GetCountryCodeForFlagLookupAsync(eventDetails.Country, default)).ReturnsAsync("US");
+        this.Mocker.GetMock<IEventApi>()
+            .Setup(repo => repo.GetEvent(eventKey, It.IsAny<string>()))
+            .Returns(eventDetails);
+        _mockCountryCodeLookup
+            .Setup(c => c.GetCountryCodeForFlagLookupAsync(eventDetails.Country, default))
+            .ReturnsAsync("US");
 
         // Act
         var result = _eventDetail.CreateAsync(eventKey);

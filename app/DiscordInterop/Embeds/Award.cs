@@ -7,7 +7,6 @@ using Common.Extensions;
 
 using Discord;
 
-using FunctionApp.Storage.Caching;
 using FunctionApp.TbaInterop;
 using FunctionApp.TbaInterop.Models;
 using FunctionApp.TbaInterop.Models.Notifications;
@@ -18,6 +17,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Encodings.Web;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Caching;
 
 internal sealed class Award(IEventApi events,
                             ITeamApi teamApi,

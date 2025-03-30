@@ -11,14 +11,12 @@ using Moq;
 using System.Text.Json;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Interfaces.Caching;
 using TheBlueAlliance.Model;
 
 using Xunit.Abstractions;
 
 using Match = TheBlueAlliance.Model.Match;
 using MatchVideo = FunctionApp.DiscordInterop.Embeds.MatchVideo;
-using MatchVideoNotification = FunctionApp.TbaInterop.Models.Notifications.MatchVideo;
 
 public class MatchVideoTests : EmbeddingTest
 {
@@ -138,7 +136,9 @@ public class MatchVideoTests : EmbeddingTest
         var match = JsonSerializer.Deserialize<Match>(matchJson)!;
         var matchKey = "2022miket_qm1";
         this.Mocker.GetMock<IMatchApi>().Setup(api => api.GetMatchAsync(matchKey, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(match);
-        this.Mocker.GetMock<IEventCache>().Setup(cache => cache[match.EventKey]).Returns(_testEvent);
+        this.Mocker.GetMock<IEventApi>()
+            .Setup(cache => cache.GetEventAsync(match.EventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(_testEvent);
 
         // Act
         var result = await _matchVideo.CreateAsync(matchKey).ToListAsync();

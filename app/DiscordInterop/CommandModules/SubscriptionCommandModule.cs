@@ -18,14 +18,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 
-using TheBlueAlliance.Interfaces.Caching;
+using TheBlueAlliance.Caching;
 
 [Group("subscription", "Manages subscriptions to FRC events and teams")]
 public sealed class SubscriptionCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<SubscriptionCommandModule>>()), IHandleUserInteractions
 {
     private readonly SubscriptionManager _subscriptionManager = services.GetRequiredService<SubscriptionManager>();
-    private readonly IEventCache _eventsRepo = services.GetRequiredService<IEventCache>();
-    private readonly ITeamCache _teamsRepo = services.GetRequiredService<ITeamCache>();
+    private readonly EventCache _eventsRepo = services.GetRequiredService<EventCache>();
+    private readonly TeamCache _teamsRepo = services.GetRequiredService<TeamCache>();
 
     [SlashCommand("show", "Shows the current subscriptions")]
     public async Task ShowAsync()

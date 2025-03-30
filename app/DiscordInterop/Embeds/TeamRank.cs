@@ -15,12 +15,12 @@ using System.Text;
 using System.Threading;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Interfaces.Caching;
+using TheBlueAlliance.Caching;
 using TheBlueAlliance.Model;
 
 internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
-                               ITeamCache teams,
-                               IEventCache events,
+                               TeamCache teams,
+                               EventCache events,
                                IDistrictApi tbaDistrictData,
                                Statbotics.Api.ITeamYearApi teamStats,
                                IRankingsApi rankings,

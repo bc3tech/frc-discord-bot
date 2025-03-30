@@ -15,7 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Interfaces.Caching;
+using TheBlueAlliance.Caching;
 using TheBlueAlliance.Model;
 
 using Xunit;
@@ -28,8 +28,8 @@ public class AllianceSelectionTests : EmbeddingTest
     public AllianceSelectionTests(ITestOutputHelper outputHelper) : base(typeof(AllianceSelection), outputHelper)
     {
         this.Mocker.WithSelfMock<IEventApi>();
-        this.Mocker.WithSelfMock<IEventCache>();
-        this.Mocker.WithSelfMock<ITeamCache>();
+        this.Mocker.With<EventCache>();
+        this.Mocker.With<TeamCache>();
 
         _allianceSelection = this.Mocker.CreateInstance<AllianceSelection>();
         ((ConcurrentDictionary<string, bool>)typeof(AllianceSelection).GetField("ProcessedEvents", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!.GetValue(null)!).Clear();
@@ -59,19 +59,23 @@ public class AllianceSelectionTests : EmbeddingTest
         }.Select(i => new EventRankingRankingsInner(0, [], 1, 100, i.Value, new(1, 0, 0), [], i.Key));
 
         var eventClient = this.Mocker.GetMock<IEventApi>();
-        eventClient.Setup(client => client.GetEventAlliancesAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync([.. alliances]);
-        eventClient.Setup(client => client.GetEventRankingsAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(new EventRanking([], [.. rankings], []));
-
-        var teamCache = this.Mocker.GetMock<ITeamCache>();
-        teamCache.SetupGet(client => client["frc1"]).Returns(new Team("address", "city", "country", null, null, "frc1", 0d, 0d, null, "Team 1", "t1", "65498", 2000, "school", "state", 1));
-        teamCache.SetupGet(client => client["frc2"]).Returns(new Team("address", "city", "country", null, null, "frc2", 0d, 0d, null, "Team 2", "t2", "65498", 2000, "school", "state", 1));
-        teamCache.SetupGet(client => client["frc3"]).Returns(new Team("address", "city", "country", null, null, "frc3", 0d, 0d, null, "Team 3", "t3", "65498", 2000, "school", "state", 1));
-        teamCache.SetupGet(client => client["frc4"]).Returns(new Team("address", "city", "country", null, null, "frc4", 0d, 0d, null, "Team 4", "t4", "65498", 2000, "school", "state", 1));
-
-        var eventCache = this.Mocker.GetMock<IEventCache>();
-        eventCache.SetupGet(client => client[eventKey]).Returns(JsonSerializer.Deserialize<Event>("""
+        eventClient
+            .Setup(client => client.GetEventAlliancesAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync([.. alliances]);
+        eventClient
+            .Setup(client => client.GetEventRankingsAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new EventRanking([], [.. rankings], []));
+        eventClient
+            .Setup(c => c.GetEvent(eventKey, It.IsAny<string>()))
+            .Returns(JsonSerializer.Deserialize<Event>("""
             {"key": "2025iscmp", "name": "FIRST Israel District Championship", "short_name": "Israel", "event_code": "iscmp", "event_type": 2, "event_type_string": "District Championship", "parent_event_key": null, "playoff_type": 10, "playoff_type_string": "Double Elimination Bracket (8 Alliances)", "district": {"key": "2025isr", "year": 2025, "abbreviation": "isr", "display_name": "FIRST Israel"}, "division_keys": [], "first_event_id": null, "first_event_code": "iscmp", "year": 2025, "timezone": "Asia/Jerusalem", "week": 4, "website": "http://firstisrael.org.il", "city": "Jerusalem", "state_prov": "JM", "country": "Israel", "postal_code": null, "lat": null, "lng": null, "location_name": null, "address": null, "gmaps_place_id": null, "gmaps_url": null, "start_date": "2025-03-25", "end_date": "2025-03-27", "webcasts": [{"type": "twitch", "channel": "firstisrael"}]}
             """)!);
+
+        var teamClient = this.Mocker.GetMock<ITeamApi>();
+        teamClient.Setup(client => client.GetTeam("frc1", It.IsAny<string>())).Returns(new Team("address", "city", "country", null, null, "frc1", 0d, 0d, null, "Team 1", "t1", "65498", 2000, "school", "state", 1));
+        teamClient.Setup(client => client.GetTeam("frc2", It.IsAny<string>())).Returns(new Team("address", "city", "country", null, null, "frc2", 0d, 0d, null, "Team 2", "t2", "65498", 2000, "school", "state", 1));
+        teamClient.Setup(client => client.GetTeam("frc3", It.IsAny<string>())).Returns(new Team("address", "city", "country", null, null, "frc3", 0d, 0d, null, "Team 3", "t3", "65498", 2000, "school", "state", 1));
+        teamClient.Setup(client => client.GetTeam("frc4", It.IsAny<string>())).Returns(new Team("address", "city", "country", null, null, "frc4", 0d, 0d, null, "Team 4", "t4", "65498", 2000, "school", "state", 1));
 
         // Act
         var result = _allianceSelection.CreateAsync(webhookMessage).GetAsyncEnumerator();
@@ -115,17 +119,25 @@ public class AllianceSelectionTests : EmbeddingTest
         var eventClient = this.Mocker.GetMock<IEventApi>();
         eventClient.Setup(client => client.GetEventAlliancesAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync([.. alliances]);
         eventClient.Setup(client => client.GetEventRankingsAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(new EventRanking([], [.. rankings], []));
-
-        var teamCache = this.Mocker.GetMock<ITeamCache>();
-        teamCache.SetupGet(client => client["frc1"]).Returns(new Team("address", "city", "country", null, null, "frc1", 0d, 0d, null, "Team 1", "t1", "65498", 2000, "school", "state", 1));
-        teamCache.SetupGet(client => client["frc2"]).Returns(new Team("address", "city", "country", null, null, "frc2", 0d, 0d, null, "Team 2", "t2", "65498", 2000, "school", "state", 1));
-        teamCache.SetupGet(client => client["frc3"]).Returns(new Team("address", "city", "country", null, null, "frc3", 0d, 0d, null, "Team 3", "t3", "65498", 2000, "school", "state", 1));
-        teamCache.SetupGet(client => client["frc4"]).Returns(new Team("address", "city", "country", null, null, "frc4", 0d, 0d, null, "Team 4", "t4", "65498", 2000, "school", "state", 1));
-
-        var eventCache = this.Mocker.GetMock<IEventCache>();
-        eventCache.SetupGet(client => client[eventKey]).Returns(JsonSerializer.Deserialize<Event>("""
+        eventClient
+            .Setup(client => client.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(JsonSerializer.Deserialize<Event>("""
             {"key": "2025iscmp", "name": "FIRST Israel District Championship", "short_name": "Israel", "event_code": "iscmp", "event_type": 2, "event_type_string": "District Championship", "parent_event_key": null, "playoff_type": 10, "playoff_type_string": "Double Elimination Bracket (8 Alliances)", "district": {"key": "2025isr", "year": 2025, "abbreviation": "isr", "display_name": "FIRST Israel"}, "division_keys": [], "first_event_id": null, "first_event_code": "iscmp", "year": 2025, "timezone": "Asia/Jerusalem", "week": 4, "website": "http://firstisrael.org.il", "city": "Jerusalem", "state_prov": "JM", "country": "Israel", "postal_code": null, "lat": null, "lng": null, "location_name": null, "address": null, "gmaps_place_id": null, "gmaps_url": null, "start_date": "2025-03-25", "end_date": "2025-03-27", "webcasts": [{"type": "twitch", "channel": "firstisrael"}]}
             """)!);
+
+        var teamCache = this.Mocker.GetMock<ITeamApi>();
+        teamCache
+            .Setup(client => client.GetTeam("frc1", It.IsAny<string>()))
+            .Returns(new Team("address", "city", "country", null, null, "frc1", 0d, 0d, null, "Team 1", "t1", "65498", 2000, "school", "state", 1));
+        teamCache
+            .Setup(client => client.GetTeam("frc2", It.IsAny<string>()))
+            .Returns(new Team("address", "city", "country", null, null, "frc2", 0d, 0d, null, "Team 2", "t2", "65498", 2000, "school", "state", 1));
+        teamCache
+            .Setup(client => client.GetTeam("frc3", It.IsAny<string>()))
+            .Returns(new Team("address", "city", "country", null, null, "frc3", 0d, 0d, null, "Team 3", "t3", "65498", 2000, "school", "state", 1));
+        teamCache
+            .Setup(client => client.GetTeam("frc4", It.IsAny<string>()))
+            .Returns(new Team("address", "city", "country", null, null, "frc4", 0d, 0d, null, "Team 4", "t4", "65498", 2000, "school", "state", 1));
 
         // Act
         _ = await _allianceSelection.CreateAsync(webhookMessage).ToArrayAsync();
@@ -154,9 +166,9 @@ public class AllianceSelectionTests : EmbeddingTest
         var eventClient = this.Mocker.GetMock<IEventApi>();
         eventClient.Setup(client => client.GetEventAlliancesAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync([.. alliances]);
         eventClient.Setup(client => client.GetEventRankingsAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(new EventRanking([], [.. rankings], []));
-
-        var eventCache = this.Mocker.GetMock<IEventCache>();
-        eventCache.SetupGet(client => client[eventKey]).Returns(JsonSerializer.Deserialize<Event>("""
+        eventClient
+            .Setup(client => client.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(JsonSerializer.Deserialize<Event>("""
             {"key": "2025iscmp", "name": "FIRST Israel District Championship", "short_name": "Israel", "event_code": "iscmp", "event_type": 2, "event_type_string": "District Championship", "parent_event_key": null, "playoff_type": 10, "playoff_type_string": "Double Elimination Bracket (8 Alliances)", "district": {"key": "2025isr", "year": 2025, "abbreviation": "isr", "display_name": "FIRST Israel"}, "division_keys": [], "first_event_id": null, "first_event_code": "iscmp", "year": 2025, "timezone": "Asia/Jerusalem", "week": 4, "website": "http://firstisrael.org.il", "city": "Jerusalem", "state_prov": "JM", "country": "Israel", "postal_code": null, "lat": null, "lng": null, "location_name": null, "address": null, "gmaps_place_id": null, "gmaps_url": null, "start_date": "2025-03-25", "end_date": "2025-03-27", "webcasts": [{"type": "twitch", "channel": "firstisrael"}]}
             """)!);
 

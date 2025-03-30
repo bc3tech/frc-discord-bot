@@ -28,8 +28,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Caching;
 using TheBlueAlliance.Extensions;
-using TheBlueAlliance.Interfaces.Caching;
 using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchExtensions;
 using TheBlueAlliance.Model.MatchScoreBreakdown2025AllianceExtensions;
@@ -40,8 +40,8 @@ internal sealed partial class MatchScore(IEventApi eventApi,
                                          IMatchApi matchApi,
                                          IDistrictApi districtApi,
                                          IScheduleApi schedule,
-                                         IEventCache events,
-                                         ITeamCache teams,
+                                         EventCache events,
+                                         TeamCache teams,
                                          EmbedBuilderFactory builderFactory,
                                          IChatWithLLMs gpt,
                                          TimeProvider time,

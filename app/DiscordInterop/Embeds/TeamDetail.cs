@@ -13,11 +13,11 @@ using System.Runtime.CompilerServices;
 using System.Text;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Interfaces.Caching;
+using TheBlueAlliance.Caching;
 
 internal sealed class TeamDetail(IRESTCountries _countryCodeLookup,
                                  EmbedBuilderFactory builderFactory,
-                                 ITeamCache _teamsRepo,
+                                 TeamCache _teamsRepo,
                                  ITeamApi tbaTeamApi,
                                  Statbotics.Api.ITeamApi teamStats,
                                  IDistrictApi districts,

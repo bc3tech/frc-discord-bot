@@ -1,4 +1,4 @@
-﻿namespace TheBlueAlliance.BaseImpl.Caching;
+﻿namespace TheBlueAlliance.Caching;
 
 using Common.Extensions;
 
@@ -11,10 +11,9 @@ using System.Diagnostics.Metrics;
 using System.Threading.Tasks;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Interfaces.Caching;
 using TheBlueAlliance.Model;
 
-public class EventCache(IEventApi apiClient, TimeProvider time, Meter meter, ILogger<EventCache> logger) : IEventCache
+public class EventCache(IEventApi apiClient, TimeProvider time, Meter meter, ILogger<EventCache> logger)
 {
     private static readonly ConcurrentDictionary<string, Event> _events = [];
     private static readonly ConcurrentQueue<Task> LogMetricTasks = [];
@@ -68,9 +67,8 @@ public class EventCache(IEventApi apiClient, TimeProvider time, Meter meter, ILo
     /// If the event is not found in the cache, it retrieves the event from the TBA API and adds it to the cache.
     /// </summary>
     /// <param name="eventKey">The key of the event to retrieve.</param>
-    /// <returns>The event associated with the specified event key.</returns>
-    /// <exception cref="KeyNotFoundException">Thrown when the event is not found in the cache or the TBA API.</exception>
-    public Event this[string eventKey]
+    /// <returns>The event associated with the specified event key or <c>null</c> if not found</returns>
+    public Event? this[string eventKey]
     {
         get
         {
@@ -82,7 +80,7 @@ public class EventCache(IEventApi apiClient, TimeProvider time, Meter meter, ILo
             logger.LogDebug("Event {EventKey} not found in cache, fetching...", eventKey);
 
             t = apiClient.GetEvent(eventKey);
-            return t is not null ? _events.GetOrAdd(eventKey, t) : throw new KeyNotFoundException();
+            return t is not null ? _events.GetOrAdd(eventKey, t) : null;
         }
     }
 

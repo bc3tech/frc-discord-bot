@@ -1,6 +1,4 @@
-namespace TheBlueAlliance.Tests.BaseImpl.Caching;
-using FunctionApp.Storage.Caching;
-
+namespace TheBlueAlliance.Tests.Caching;
 using Microsoft.Extensions.Logging;
 
 using Moq;
@@ -15,14 +13,14 @@ using System.Threading.Tasks;
 using TestCommon;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Interfaces.Caching;
+using TheBlueAlliance.Caching;
 using TheBlueAlliance.Model;
 
 using Xunit.Abstractions;
 
 public class TeamCacheTests : TestWithLogger
 {
-    private static readonly Team _utTeam = new Team(
+    private static readonly Team _utTeam = new(
             address: "1234 Robotics Ave",
             city: "Roboville",
             country: "USA",
@@ -47,9 +45,9 @@ public class TeamCacheTests : TestWithLogger
         this.Mocker.WithSelfMock<ITeamApi>();
         this.Mocker.Use(new Meter(nameof(TeamCacheTests)));
 
-        this.Mocker.With<ITeamCache, TeamCache>();
+        this.Mocker.With<TeamCache>();
 
-        ((ConcurrentDictionary<string, Team>)typeof(TeamCache).GetField("_teams", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic).GetValue(null)).Clear();
+        ((ConcurrentDictionary<string, Team>)typeof(TeamCache).GetField("_teams", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic)!.GetValue(null)!).Clear();
     }
 
     [Fact]
@@ -64,7 +62,7 @@ public class TeamCacheTests : TestWithLogger
             .ReturnsAsync([]);
 
         // Act
-        var cache = this.Mocker.Get<ITeamCache>();
+        var cache = this.Mocker.Get<TeamCache>();
         await cache.InitializeAsync(CancellationToken.None);
 
         // Assert
@@ -84,7 +82,7 @@ public class TeamCacheTests : TestWithLogger
             .ReturnsAsync([]);
 
         // Act
-        var cache = this.Mocker.Get<ITeamCache>();
+        var cache = this.Mocker.Get<TeamCache>();
         await cache.InitializeAsync(CancellationToken.None).ConfigureAwait(true);
 
         var result = cache[_utTeam.Key];
@@ -102,7 +100,7 @@ public class TeamCacheTests : TestWithLogger
             .Returns(_utTeam);
 
         // Act
-        var cache = this.Mocker.Get<ITeamCache>();
+        var cache = this.Mocker.Get<TeamCache>();
         Assert.Empty(cache.AllTeams);
         var result = cache[_utTeam.Key];
 
@@ -112,16 +110,16 @@ public class TeamCacheTests : TestWithLogger
     }
 
     [Fact]
-    public void Indexer_ShouldThrowKeyNotFoundExceptionIfTeamNotFound()
+    public void Indexer_ShouldReturnNullIfTeamNotFound()
     {
         // Arrange
         var teamKey = "nonexistent";
         this.Mocker.GetMock<ITeamApi>()
-            .Setup(api => api.GetTeam(teamKey, It.IsAny<string>()))
-            .Returns((Team)null);
+            .Setup(api => api.GetTeamAsync(teamKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync((Team?)null);
 
         // Act & Assert
-        Assert.Throws<KeyNotFoundException>(() => this.Mocker.Get<ITeamCache>()[teamKey]);
+        Assert.Null(this.Mocker.Get<TeamCache>()[teamKey]);
     }
 
     [Fact]
@@ -133,7 +131,7 @@ public class TeamCacheTests : TestWithLogger
             .ThrowsAsync(new Exception("API error"));
 
         // Act & Assert
-        await AssertDebugExceptionAsync(this.Mocker.Get<ITeamCache>().InitializeAsync(CancellationToken.None).AsTask());
+        await AssertDebugExceptionAsync(this.Mocker.Get<TeamCache>().InitializeAsync(CancellationToken.None).AsTask());
         this.Logger.Verify(LogLevel.Error);
     }
 }

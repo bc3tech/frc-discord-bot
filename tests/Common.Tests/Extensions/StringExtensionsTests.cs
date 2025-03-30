@@ -1,6 +1,8 @@
 namespace Common.Tests.Extensions;
 using Common.Extensions;
 
+using System.Threading.Tasks;
+
 using TestCommon;
 
 using Xunit;
@@ -28,7 +30,8 @@ public class StringExtensionsTests : Test
     public void TeamKeyToTeamNumber_ShouldDebugAssert(string input, ushort? expected)
     {
         // Act & Assert
-        AssertDebugException(() => input.TeamKeyToTeamNumber());
+        var result = AssertDebugException(input.TeamKeyToTeamNumber);
+        Assert.Equal(expected, result);
     }
 
     [Theory]

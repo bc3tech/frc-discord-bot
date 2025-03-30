@@ -34,6 +34,7 @@ public abstract class Test
         try
         {
             action();
+            Assert.Fail("DebugAssertException exception was not thrown.");
         }
         catch (Exception ex)
         {
@@ -45,15 +46,12 @@ public abstract class Test
         }
     }
 
-    protected static async Task AssertDebugExceptionAsync(Task task, string? messageContents = null)
+    protected static T AssertDebugException<T>(Func<T> func, string? messageContents = null)
     {
         try
         {
-            await task.ConfigureAwait(false);
-            if (task.Exception is not null)
-            {
-                throw task.Exception;
-            }
+            func();
+            Assert.Fail("DebugAssertException exception was not thrown.");
         }
         catch (Exception ex)
         {
@@ -63,5 +61,53 @@ public abstract class Test
                 Assert.Contains(messageContents, ex.Message);
             }
         }
+
+        DebugHelper.IgnoreDebugAsserts();
+        return func();
+    }
+
+    protected static async Task AssertDebugExceptionAsync(Task task, string? messageContents = null)
+    {
+        try
+        {
+            await task.ConfigureAwait(false);
+            if (task.Exception is not null)
+            {
+                throw task.Exception;
+            }
+            Assert.Fail("DebugAssertException exception was not thrown.");
+        }
+        catch (Exception ex)
+        {
+            Assert.Contains("DebugAssertException", ex.GetType().ToString());
+            if (messageContents is not null)
+            {
+                Assert.Contains(messageContents, ex.Message);
+            }
+        }
+    }
+
+    protected static async Task<T> AssertDebugExceptionAsync<T>(Task<T> task, string? messageContents = null)
+    {
+        try
+        {
+            await task.ConfigureAwait(false);
+            if (task.Exception is not null)
+            {
+                throw task.Exception;
+            }
+            Assert.Fail("DebugAssertException exception was not thrown.");
+        }
+        catch (Exception ex)
+        {
+            Assert.Contains("DebugAssertException", ex.GetType().ToString());
+            if (messageContents is not null)
+            {
+                Assert.Contains(messageContents, ex.Message);
+            }
+        }
+
+        DebugHelper.IgnoreDebugAsserts();
+        return await task.ConfigureAwait(false);
     }
 }

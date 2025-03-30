@@ -14,7 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Interfaces.Caching;
+using TheBlueAlliance.Caching;
 using TheBlueAlliance.Model;
 
 using Xunit;
@@ -28,10 +28,13 @@ public class ScheduleTests : EmbeddingTest
 
     public ScheduleTests(ITestOutputHelper outputHelper) : base(typeof(Schedule), outputHelper)
     {
-        this.Mocker.CreateSelfMock<IEventCache>();
-        this.Mocker.GetMock<IEventCache>().Setup(i => i[It.IsAny<string>()]).Returns((string key) => _events[key]);
-        this.Mocker.CreateSelfMock<ITeamCache>();
         this.Mocker.CreateSelfMock<IMatchApi>();
+        this.Mocker.GetMock<IEventApi>()
+            .Setup(i => i.GetEvent(It.IsAny<string>(), It.IsAny<string>()))
+            .Returns((string key, string _) => _events[key]);
+
+        this.Mocker.With<EventCache>();
+        this.Mocker.With<TeamCache>();
         _schedule = this.Mocker.CreateInstance<Schedule>();
     }
 
@@ -19716,8 +19719,9 @@ public class ScheduleTests : EmbeddingTest
     public async Task CreateAsync_HighlightTeamNoEventKey_ReturnsScheduleForTeam()
     {
         var input = (eventKey: (string?)null, numMatches: (ushort)5);
-        this.Mocker.GetMock<ITeamCache>().SetupGet(t => t[_utTeam.Key]).Returns(_utTeam);
-        this.Mocker.GetMock<ITeamCache>().SetupGet(t => t[(ushort)_utTeam.TeamNumber]).Returns(_utTeam);
+        this.Mocker.GetMock<ITeamApi>()
+            .Setup(t => t.GetTeam(_utTeam.Key, It.IsAny<string>()))
+            .Returns(_utTeam);
         this.Mocker.GetMock<IMatchApi>().Setup(m => m.GetTeamMatchesByYearAsync(_utTeam.Key, It.IsAny<int>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_matches);
 
         var result = await _schedule.CreateAsync(input, (ushort)_utTeam.TeamNumber).ToListAsync();
@@ -19744,8 +19748,9 @@ public class ScheduleTests : EmbeddingTest
         var input = (eventKey: "2025wasno", numMatches: (ushort)5);
         var highlightTeam = (ushort)2046;
 
-        this.Mocker.GetMock<ITeamCache>().SetupGet(t => t[_utTeam.Key]).Returns(_utTeam);
-        this.Mocker.GetMock<ITeamCache>().SetupGet(t => t[(ushort)_utTeam.TeamNumber]).Returns(_utTeam);
+        this.Mocker.GetMock<ITeamApi>()
+            .Setup(t => t.GetTeam(_utTeam.Key, It.IsAny<string>()))
+            .Returns(_utTeam);
         this.Mocker.GetMock<IMatchApi>().Setup(m => m.GetTeamEventMatchesAsync(It.IsAny<string>(), _utTeam.Key, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync((string evtKey, string _, string _, CancellationToken _) => [.. _matches.Where(i => i.EventKey == evtKey)]);
 
         var result = await _schedule.CreateAsync(input, highlightTeam).ToListAsync();
@@ -19765,7 +19770,9 @@ public class ScheduleTests : EmbeddingTest
     {
         var input = (eventKey: "2025wasno", numMatches: (ushort)5);
 
-        this.Mocker.GetMock<IMatchApi>().Setup(m => m.GetEventMatchesAsync(input.eventKey!, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync((string evtKey, string _, CancellationToken _) => [.. _matches.Where(i => i.EventKey == evtKey)]);
+        this.Mocker.GetMock<IMatchApi>()
+            .Setup(m => m.GetEventMatchesAsync(input.eventKey!, It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync((string evtKey, string _, CancellationToken _) => [.. _matches.Where(i => i.EventKey == evtKey)]);
 
         var result = await _schedule.CreateAsync(input).ToListAsync();
         Assert.NotNull(result);
@@ -19784,7 +19791,9 @@ public class ScheduleTests : EmbeddingTest
     {
         // Arrange
         var input = (eventKey: "2025wabon", numMatches: (ushort)5);
-        this.Mocker.GetMock<IMatchApi>().Setup(m => m.GetEventMatchesAsync(input.eventKey!, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync([]);
+        this.Mocker.GetMock<IMatchApi>()
+            .Setup(m => m.GetEventMatchesAsync(input.eventKey!, It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync([]);
 
         // Act
         var result = await _schedule.CreateAsync(input).ToListAsync();

@@ -14,7 +14,6 @@ using FunctionApp.DiscordInterop.Embeds;
 using FunctionApp.Extensions;
 using FunctionApp.FIRSTInterop;
 using FunctionApp.StatboticsInterop;
-using FunctionApp.Storage.Caching;
 using FunctionApp.Subscription;
 using FunctionApp.TbaInterop;
 
@@ -32,8 +31,7 @@ using System;
 using System.Diagnostics.Metrics;
 using System.Globalization;
 
-using TheBlueAlliance.BaseImpl.Caching;
-using TheBlueAlliance.Interfaces.Caching;
+using TheBlueAlliance.Caching;
 
 using Throws = Common.Throws;
 
@@ -82,8 +80,8 @@ internal sealed class Program
                     .ConfigureFIRSTApi()
                     .ConfigureChatBotFunctionality()
                     .AddSingleton(sp => new EmbeddingColorizer(new FRCColors.Client(sp.GetRequiredService<IHttpClientFactory>()), sp.GetService<ILoggerFactory>()?.CreateLogger<EmbeddingColorizer>()))
-                    .AddSingleton<IEventCache, EventCache>()
-                    .AddSingleton<ITeamCache, TeamCache>()
+                    .AddSingleton<EventCache, EventCache>()
+                    .AddSingleton<TeamCache, TeamCache>()
                     .AddSingleton<SubscriptionManager>()
                     .AddSingleton<TokenCredential>(credential)
                     .AddSingleton<IRESTCountries,RESTCountries>()

@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 
 using System.Text;
 
-using TheBlueAlliance.Interfaces.Caching;
+using TheBlueAlliance.Caching;
 
 [Group("events", "Gets information about FRC events")]
 public sealed class EventsCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<EventsCommandModule>>())
@@ -87,7 +87,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
 
         try
         {
-            var eventRepo = services.GetRequiredService<IEventCache>();
+            var eventRepo = services.GetRequiredService<EventCache>();
             TheBlueAlliance.Model.Event targetEvent = eventRepo[eventKey];
             TimeZoneInfo eventTimezone = TimeZoneInfo.TryFindSystemTimeZoneById(targetEvent.Timezone, out TimeZoneInfo? z) && z is not null ? z : TimeZoneInfo.Utc;
             DateTime startDateTime = targetEvent.StartDate.ToDateTime(new(8, 0));

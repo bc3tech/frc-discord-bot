@@ -5,9 +5,9 @@ using Microsoft.Extensions.Hosting;
 using System.Threading;
 using System.Threading.Tasks;
 
-using TheBlueAlliance.Interfaces.Caching;
+using TheBlueAlliance.Caching;
 
-internal sealed class TbaInitializationService(IEventCache eventsRepo, ITeamCache teamsRepo) : IHostedService
+internal sealed class TbaInitializationService(EventCache eventsRepo, TeamCache teamsRepo) : IHostedService
 {
     public Task StartAsync(CancellationToken cancellationToken) => Task.WhenAll(
             // Preload the events so Autocomplete is fast

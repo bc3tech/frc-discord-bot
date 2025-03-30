@@ -16,8 +16,8 @@ using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
+using TheBlueAlliance.Caching;
 using TheBlueAlliance.Extensions;
-using TheBlueAlliance.Interfaces.Caching;
 using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchExtensions;
 using TheBlueAlliance.Model.MatchSimpleExtensions;
@@ -25,8 +25,8 @@ using TheBlueAlliance.Model.MatchSimpleExtensions;
 internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
                                             TheBlueAlliance.Api.IMatchApi matchApi,
                                             Statbotics.Api.IMatchApi matchStats,
-                                            IEventCache events,
-                                            ITeamCache teams,
+                                            EventCache events,
+                                            TeamCache teams,
                                             EmbedBuilderFactory builderFactory,
                                             TimeProvider time,
                                             ILogger<UpcomingMatch> logger) : INotificationEmbedCreator, IEmbedCreator<(string eventKey, string teamKey)>

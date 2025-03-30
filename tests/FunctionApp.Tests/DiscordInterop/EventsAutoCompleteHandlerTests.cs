@@ -10,26 +10,21 @@ using Moq.AutoMock;
 
 using System.Text.Json;
 
-using TheBlueAlliance.Interfaces.Caching;
+using TestCommon;
+
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Caching;
 using TheBlueAlliance.Model;
+
+using Xunit.Abstractions;
 
 using static FunctionApp.DiscordInterop.AutoCompleteHandlers;
 
-public class EventsAutoCompleteHandlerTests
+using IParameterInfo = Discord.Interactions.IParameterInfo;
+
+public class EventsAutoCompleteHandlerTests : TestWithLogger
 {
-    private static readonly AutoMocker _mocker = new();
-    private static readonly Mock<ILogger<EventsAutoCompleteHandler>> _mockLogger = new();
-
-    public EventsAutoCompleteHandlerTests()
-    {
-        _mockLogger.Setup(l => l.IsEnabled(It.IsAny<LogLevel>())).Returns(true);
-
-        var mockLogFactory = new Mock<ILoggerFactory>();
-        mockLogFactory.Setup(l => l.CreateLogger(It.IsAny<string>())).Returns(_mockLogger.Object);
-        _mocker.Use(mockLogFactory);
-
-        _mocker.Use(TimeProvider.System);
-    }
+    public EventsAutoCompleteHandlerTests(ITestOutputHelper outputHelper) : base(typeof(EventsAutoCompleteHandler), outputHelper) => this.Mocker.With<EventCache>();
 
     [Fact]
     public async Task GenerateSuggestionsAsync_ShouldReturnSuggestions()
@@ -130,24 +125,26 @@ public class EventsAutoCompleteHandlerTests
 
         var events = JsonSerializer.Deserialize<Dictionary<string, Event>>(eventsJson);
         Assert.NotNull(events);
-        var eventsRepoMock = _mocker.GetMock<IEventCache>();
-        eventsRepoMock.Setup(repo => repo.AllEvents).Returns(events.AsReadOnly());
+        var eventsRepoMock = this.Mocker.GetMock<IEventApi>();
+        eventsRepoMock
+            .Setup(repo => repo.GetEvent(It.IsAny<string>(), It.IsAny<string>()))
+            .Returns((string key, string _) => events[key]);
 
-        var autocompleteDataMock = _mocker.GetMock<IAutocompleteInteractionData>();
+        var autocompleteDataMock = this.Mocker.GetMock<IAutocompleteInteractionData>();
         autocompleteDataMock.SetupGet(ai => ai.Current).Returns(
             (AutocompleteOption)Activator.CreateInstance(typeof(AutocompleteOption),
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance, null,
                 [ApplicationCommandOptionType.User, "Event", null, true],
                 null)!);
 
-        var autocompleteInteractionMock = _mocker.GetMock<IAutocompleteInteraction>();
+        var autocompleteInteractionMock = this.Mocker.GetMock<IAutocompleteInteraction>();
         autocompleteInteractionMock
             .SetupGet(ai => ai.Data)
             .Returns(autocompleteDataMock.Object);
 
         // Act
-        var result = await _mocker.CreateInstance<EventsAutoCompleteHandler>()
-            .GenerateSuggestionsAsync(_mocker.Get<IInteractionContext>(), autocompleteInteractionMock.Object, _mocker.Get<IParameterInfo>(), _mocker);
+        var result = await this.Mocker.CreateInstance<EventsAutoCompleteHandler>()
+            .GenerateSuggestionsAsync(this.Mocker.Get<IInteractionContext>(), autocompleteInteractionMock.Object, this.Mocker.Get<IParameterInfo>(), this.Mocker);
 
         // Assert
         Assert.True(result.IsSuccess);
@@ -158,26 +155,28 @@ public class EventsAutoCompleteHandlerTests
     public async Task GenerateSuggestionsAsync_ShouldHandleDiscordException()
     {
         // Arrange
-        var eventsRepoMock = _mocker.GetMock<IEventCache>();
-        eventsRepoMock.SetupGet(repo => repo.AllEvents).Throws(new Discord.Net.HttpException(System.Net.HttpStatusCode.InternalServerError, Mock.Of<Discord.Net.IRequest>(), DiscordErrorCode.UnknownInteraction));
+        var eventsRepoMock = this.Mocker.GetMock<IEventApi>();
+        eventsRepoMock
+            .Setup(repo => repo.GetEvent(It.IsAny<string>(), It.IsAny<string>()))
+            .Throws(new Discord.Net.HttpException(System.Net.HttpStatusCode.InternalServerError, Mock.Of<Discord.Net.IRequest>(), DiscordErrorCode.UnknownInteraction));
 
-        var autocompleteDataMock = _mocker.GetMock<IAutocompleteInteractionData>();
+        var autocompleteDataMock = this.Mocker.GetMock<IAutocompleteInteractionData>();
         autocompleteDataMock.SetupGet(ai => ai.Current).Returns(
             (AutocompleteOption)Activator.CreateInstance(typeof(AutocompleteOption),
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance, null,
                 [ApplicationCommandOptionType.User, "Event", null, true],
                 null)!);
 
-        var autocompleteInteractionMock = _mocker.GetMock<IAutocompleteInteraction>();
+        var autocompleteInteractionMock = this.Mocker.GetMock<IAutocompleteInteraction>();
         autocompleteInteractionMock
             .SetupGet(ai => ai.Data)
             .Returns(autocompleteDataMock.Object);
 
         // Act
-        var result = await _mocker.CreateInstance<EventsAutoCompleteHandler>()
-            .GenerateSuggestionsAsync(_mocker.Get<IInteractionContext>(), autocompleteInteractionMock.Object, _mocker.Get<IParameterInfo>(), _mocker);
+        var result = await this.Mocker.CreateInstance<EventsAutoCompleteHandler>()
+            .GenerateSuggestionsAsync(this.Mocker.Get<IInteractionContext>(), autocompleteInteractionMock.Object, this.Mocker.Get<IParameterInfo>(), this.Mocker);
 
         // Assert
-        _mockLogger.Verify(l => l.Log(LogLevel.Debug, It.IsAny<EventId>(), It.IsAny<It.IsAnyType>(), It.IsAny<Exception?>(), It.IsAny<Func<It.IsAnyType, Exception?, string>>()), Times.Once);
+        this.Logger.Verify(LogLevel.Debug);
     }
 }

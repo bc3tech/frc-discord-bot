@@ -14,11 +14,11 @@ using System.Runtime.CompilerServices;
 using System.Text;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Interfaces.Caching;
+using TheBlueAlliance.Caching;
 
 internal sealed class AllianceSelection(IEventApi tbaClient,
-                                        IEventCache events,
-                                        ITeamCache teams,
+                                        EventCache events,
+                                        TeamCache teams,
                                         EmbedBuilderFactory builderFactory,
                                         TimeProvider time,
                                         ILogger<AllianceSelection> logger) : INotificationEmbedCreator

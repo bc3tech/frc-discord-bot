@@ -12,13 +12,13 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Caching;
 using TheBlueAlliance.Extensions;
-using TheBlueAlliance.Interfaces.Caching;
 using TheBlueAlliance.Model;
 
 internal sealed class Schedule(EmbedBuilderFactory builderFactory,
-                               IEventCache events,
-                               ITeamCache teams,
+                               EventCache events,
+                               TeamCache teams,
                                IMatchApi matchApi,
                                TimeProvider time,
                                ILogger<Schedule> logger) : IEmbedCreator<(string? eventKey, ushort numMatches)>
