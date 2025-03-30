@@ -6,21 +6,18 @@ using Discord;
 
 using FunctionApp.Apis;
 using FunctionApp.DiscordInterop;
-using FunctionApp.Storage.Caching;
 
 using Microsoft.Extensions.Logging;
 
-using Statbotics.Model;
-
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.Json;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Interfaces.Caching;
 
 internal sealed class TeamDetail(IRESTCountries _countryCodeLookup,
                                  EmbedBuilderFactory builderFactory,
-                                 TeamCache _teamsRepo,
+                                 ITeamCache _teamsRepo,
                                  ITeamApi tbaTeamApi,
                                  Statbotics.Api.ITeamApi teamStats,
                                  IDistrictApi districts,
@@ -33,23 +30,27 @@ internal sealed class TeamDetail(IRESTCountries _countryCodeLookup,
 
         var teamDetails = _teamsRepo[teamKey];
 
-        var jsonResult = JsonSerializer.Serialize(await teamStats.ReadTeamV3TeamTeamGetAsync(teamKey.TeamKeyToTeamNumber()!.ToString()!, cancellationToken).ConfigureAwait(false));
-        var teamResult = JsonSerializer.Deserialize<Team>(jsonResult)!;
+        var teamResult = await teamStats.ReadTeamV3TeamTeamGetAsync(teamKey.TeamKeyToTeamNumber()!.ToString()!, cancellationToken).ConfigureAwait(false);
+        if (teamResult is null)
+        {
+            logger.UnableToGetStatsForTeamKeyFromStatbotics(teamKey);
+        }
+
         var locationString = await createLocationStringAsync(teamDetails, _countryCodeLookup).ConfigureAwait(false);
         var imageUrl = (await tbaTeamApi.GetTeamMediaByYearAsync(teamKey, time.GetUtcNow().Year, cancellationToken: cancellationToken).ConfigureAwait(false))?
             .FirstOrDefault(i => !string.IsNullOrWhiteSpace(i.DirectUrl));
         var builder = builderFactory.GetBuilder()
             .WithTitle($"**{teamDetails.Nickname}**")
-            .WithUrl($"{teamDetails.Website}#{teamKey}")
+            .WithUrl(teamDetails.Website)
             .WithThumbnailUrl($"https://www.thebluealliance.com/avatar/{time.GetLocalNow().Year}/{teamKey}.png")
             .WithDescription(teamDetails.Name)
             .WithImageUrl(imageUrl?.DirectUrl)
             .AddField("Location", locationString)
-            .AddField("Active?", teamResult.Active ? "Yes" : "No");
+            .AddField("Active?", teamResult?.Active is true ? "Yes" : "No");
 
         var lightestColor = Utility.GetLightestColorOf(
-            teamResult.Colors?.Primary is not null ? Color.Parse(teamResult.Colors.Primary) : null,
-            teamResult.Colors?.Secondary is not null ? Color.Parse(teamResult.Colors.Secondary) : null);
+            teamResult?.Colors?.Primary is not null ? Color.Parse(teamResult.Colors.Primary) : null,
+            teamResult?.Colors?.Secondary is not null ? Color.Parse(teamResult.Colors.Secondary) : null);
         if (lightestColor is not null)
         {
             builder.WithColor(lightestColor.Value);
@@ -71,7 +72,7 @@ internal sealed class TeamDetail(IRESTCountries _countryCodeLookup,
             builder.AddField("Rookie Year", $"{teamDetails.RookieYear}");
         }
 
-        var fullRecord = teamResult.Records?.Full;
+        var fullRecord = teamResult?.Record;
         if (fullRecord is not null)
         {
             builder.AddField("All-time Record", $"{fullRecord.Wins}-{fullRecord.Losses}-{fullRecord.Ties} ({fullRecord.Wins / ((float)fullRecord.Wins + fullRecord.Losses + fullRecord.Ties):.000})");

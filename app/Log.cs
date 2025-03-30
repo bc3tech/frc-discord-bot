@@ -549,4 +549,7 @@ static partial class Log
 
     [LoggerMessage(191, LogLevel.Debug, "Broadcast message detected. Fetching all teams at the event.")]
     internal static partial void BroadcastMessageDetectedFetchingAllTeamsAtTheEvent(this ILogger logger);
+
+    [LoggerMessage(192, LogLevel.Warning, "Unable to get stats for {TeamKey} from Statbotics")]
+    internal static partial void UnableToGetStatsForTeamKeyFromStatbotics(this ILogger logger, string TeamKey);
 }
