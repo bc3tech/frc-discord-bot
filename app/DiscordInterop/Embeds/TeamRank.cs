@@ -131,18 +131,18 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
 
         if (!string.IsNullOrWhiteSpace(input.EventKey))
         {
-            string eventLabel = events[input.EventKey].GetLabel();
-            yield return new(new EmbedBuilder().WithTitle($"Getting event data for {eventLabel}...").Build(), Transient: true);
-
-            descriptionBuilder.AppendLine($"## {eventLabel}\n");
             var eventDetail = events[input.EventKey];
             Debug.Assert(eventDetail is not null);
             if (eventDetail is null)
             {
-                descriptionBuilder.AppendLine($"No data found for {teams[teamKey].GetLabel()} at {eventLabel}");
+                descriptionBuilder.AppendLine($"No data found for {teams[teamKey].GetLabel()} at {input.EventKey}");
             }
             else
             {
+                string eventLabel = events[input.EventKey].GetLabel();
+                yield return new(new EmbedBuilder().WithTitle($"Getting event data for {eventLabel}...").Build(), Transient: true);
+
+                descriptionBuilder.AppendLine($"## {eventLabel}\n");
                 var eventRankings = await rankings.SeasonRankingsEventCodeGetAsync(eventDetail.EventCode.ToUpperInvariant(), targetYear.ToString(), teamNumberStr, cancellationToken: cancellationToken).ConfigureAwait(false);
                 Debug.Assert(eventRankings is not null);
                 if (eventRankings is null)
@@ -185,9 +185,9 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                     }
                 }
             }
-
-            yield return new(embedding.WithDescription(descriptionBuilder.ToString()).Build());
         }
+
+        yield return new(embedding.WithDescription(descriptionBuilder.ToString()).Build());
 
         static void addEventDistrictPointsForEvent(StringBuilder descriptionBuilder, EventDistrictPointsPointsValue e)
         {
