@@ -108,6 +108,7 @@ public class EventDetailTests : TestWithLogger, IDisposable
         Assert.Contains("Stats", response.Content.Fields[3].Name);
 
         var statsUpdateEmbed = results[1];
+        Assert.NotNull(statsUpdateEmbed);
         Assert.False(statsUpdateEmbed.Transient);
         Assert.Contains("No stats available", statsUpdateEmbed.Content.Fields[^1].Value);
     }
@@ -186,6 +187,7 @@ public class EventDetailTests : TestWithLogger, IDisposable
         Assert.Contains("Stats", response.Content.Fields[3].Name);
 
         var statsUpdateEmbed = results[1];
+        Assert.NotNull(statsUpdateEmbed);
         Assert.False(statsUpdateEmbed.Transient);
         Assert.Contains("Max EPA", statsUpdateEmbed.Content.Fields[^1].Value);
     }
@@ -257,6 +259,7 @@ public class EventDetailTests : TestWithLogger, IDisposable
         Assert.Contains("Checking", response.Content.Fields[^1].Value);
         Assert.True(await result.MoveNextAsync());
         response = result.Current;
+        Assert.NotNull(response);
         Assert.Contains("No stats available.", response.Content.Fields[^1].Value); ;
     }
 

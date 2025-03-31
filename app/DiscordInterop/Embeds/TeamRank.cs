@@ -139,7 +139,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
             catch (EventNotFoundException e)
             {
                 descriptionBuilder.AppendLine($"No data found for {teams[teamKey].GetLabel()} at {input.EventKey}");
-                logger.LogError(e, null);
+                CommonConstants.LogErrorException(logger, e);
             }
 
             if (eventDetail is not null)

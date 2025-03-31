@@ -9,6 +9,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15872,7 +15873,7 @@ public class ScheduleTests : EmbeddingTest
         """)!
         .Select((m, i) => m with
             {
-                Time = DateTimeOffset.UtcNow.AddMinutes(i).ToUnixTimeSeconds(),
+                Time = TimeProvider.System.GetUtcNow().AddMinutes(i).ToUnixTimeSeconds(),
                 ActualTime = null,
                 PredictedTime = null,
                 PostResultTime = null,
