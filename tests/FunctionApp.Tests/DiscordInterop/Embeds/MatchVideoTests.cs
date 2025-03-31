@@ -137,8 +137,8 @@ public class MatchVideoTests : EmbeddingTest
         var matchKey = "2022miket_qm1";
         this.Mocker.GetMock<IMatchApi>().Setup(api => api.GetMatchAsync(matchKey, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(match);
         this.Mocker.GetMock<IEventApi>()
-            .Setup(cache => cache.GetEventAsync(match.EventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(_testEvent);
+            .Setup(cache => cache.GetEvent(match.EventKey, It.IsAny<string>()))
+            .Returns(_testEvent);
 
         // Act
         var result = await _matchVideo.CreateAsync(matchKey).ToListAsync();

@@ -115,8 +115,7 @@ public class EventsCommandModuleTests : TestWithLogger
             }";
         var mockEvent = JsonSerializer.Deserialize<Event>(mockEventJson)!;
         this.Mocker.GetMock<IEventApi>()
-            .Setup(i => i.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(mockEvent);
+            .Setup(i => i.GetEvent(eventKey, It.IsAny<string>())).Returns(mockEvent);
 
         var interaction = this.Mocker.GetMock<IDiscordInteraction>();
         MessageProperties messageToUser = new();
@@ -179,8 +178,7 @@ public class EventsCommandModuleTests : TestWithLogger
             }";
         var mockEvent = JsonSerializer.Deserialize<Event>(mockEventJson)!;
         this.Mocker.GetMock<IEventApi>()
-            .Setup(i => i.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(mockEvent);
+            .Setup(i => i.GetEvent(eventKey, It.IsAny<string>())).Returns(mockEvent);
 
         var guildUser = this.Mocker.GetMock<IGuildUser>();
         guildUser.SetupGet(u => u.GuildPermissions).Returns(new GuildPermissions(createEvents: true));
@@ -274,8 +272,7 @@ public class EventsCommandModuleTests : TestWithLogger
             }";
         var mockEvent = JsonSerializer.Deserialize<Event>(mockEventJson)!;
         this.Mocker.GetMock<IEventApi>()
-            .Setup(i => i.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(mockEvent);
+            .Setup(i => i.GetEvent(eventKey, It.IsAny<string>())).Returns(mockEvent);
 
         var interaction = this.Mocker.GetMock<IDiscordInteraction>();
         MessageProperties messageToUser = new();
@@ -477,6 +474,7 @@ public class EventsCommandModuleTests : TestWithLogger
     public async Task AddEventAsync_ShouldReturnError_WhenEventNotFound()
     {
         // Arrange
+        using var i = RequireClearedEventCache();
         var eventKey = "2025test";
         this.Mocker.GetMock<IEventApi>()
             .Setup(i => i.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
@@ -518,7 +516,7 @@ public class EventsCommandModuleTests : TestWithLogger
         var eventKey = "2025test";
 
         this.Mocker.GetMock<IEventApi>()
-            .Setup(i => i.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .Setup(i => i.GetEvent(eventKey, It.IsAny<string>()))
             .Throws<HttpRequestException>();
 
         var interaction = this.Mocker.GetMock<IDiscordInteraction>();
@@ -593,8 +591,7 @@ public class EventsCommandModuleTests : TestWithLogger
             }";
         var mockEvent = JsonSerializer.Deserialize<Event>(mockEventJson)!;
         this.Mocker.GetMock<IEventApi>()
-            .Setup(i => i.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(mockEvent);
+            .Setup(i => i.GetEvent(eventKey, It.IsAny<string>())).Returns(mockEvent);
 
         var guildUser = this.Mocker.GetMock<IGuildUser>();
         guildUser.SetupGet(u => u.GuildPermissions).Returns(new GuildPermissions(createEvents: true));
@@ -678,8 +675,7 @@ public class EventsCommandModuleTests : TestWithLogger
             }";
         var mockEvent = JsonSerializer.Deserialize<Event>(mockEventJson)!;
         this.Mocker.GetMock<IEventApi>()
-            .Setup(i => i.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(mockEvent);
+            .Setup(i => i.GetEvent(eventKey, It.IsAny<string>())).Returns(mockEvent);
 
         var guildUser = this.Mocker.GetMock<IGuildUser>();
         guildUser.SetupGet(u => u.GuildPermissions).Returns(new GuildPermissions(createEvents: true));
@@ -742,6 +738,7 @@ public class EventsCommandModuleTests : TestWithLogger
     public async Task AddEventAsync_ShouldAppendLocationString_WhenGmapsUrlIsNullOrEmpty()
     {
         // Arrange
+        using var i = RequireClearedEventCache();
         var eventKey = "2025test";
         var mockEventJson = @"{
                 ""key"": ""2025test"",
@@ -781,8 +778,7 @@ public class EventsCommandModuleTests : TestWithLogger
             }";
         var mockEvent = JsonSerializer.Deserialize<Event>(mockEventJson)!;
         this.Mocker.GetMock<IEventApi>()
-            .Setup(i => i.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(mockEvent);
+            .Setup(i => i.GetEvent(eventKey, It.IsAny<string>())).Returns(mockEvent);
 
         var guildUser = this.Mocker.GetMock<IGuildUser>();
         guildUser.SetupGet(u => u.GuildPermissions).Returns(new GuildPermissions(createEvents: true));

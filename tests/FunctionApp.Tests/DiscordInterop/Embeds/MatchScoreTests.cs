@@ -76,8 +76,7 @@ public class MatchScoreTests : EmbeddingTest
             .ReturnsAsync(_testDistrictPoints);
 
         this.Mocker.GetMock<IEventApi>()
-            .Setup(i => i.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(_testEvent);
+            .Setup(i => i.GetEvent(eventKey, It.IsAny<string>())).Returns(_testEvent);
         this.Mocker.GetMock<ITeamApi>()
             .Setup(i => i.GetTeamAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(_testTeam);
@@ -4818,8 +4817,7 @@ public class MatchScoreTests : EmbeddingTest
             .ReturnsAsync(_testDistrictPoints);
 
         this.Mocker.GetMock<IEventApi>()
-            .Setup(i => i.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(_testEvent);
+            .Setup(i => i.GetEvent(eventKey, It.IsAny<string>())).Returns(_testEvent);
         this.Mocker.GetMock<ITeamApi>()
             .Setup(i => i.GetTeamAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(_testTeam);

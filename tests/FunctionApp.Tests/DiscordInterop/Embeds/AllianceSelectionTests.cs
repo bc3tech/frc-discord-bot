@@ -120,8 +120,8 @@ public class AllianceSelectionTests : EmbeddingTest
         eventClient.Setup(client => client.GetEventAlliancesAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync([.. alliances]);
         eventClient.Setup(client => client.GetEventRankingsAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(new EventRanking([], [.. rankings], []));
         eventClient
-            .Setup(client => client.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(JsonSerializer.Deserialize<Event>("""
+            .Setup(client => client.GetEvent(eventKey, It.IsAny<string>()))
+            .Returns(JsonSerializer.Deserialize<Event>("""
             {"key": "2025iscmp", "name": "FIRST Israel District Championship", "short_name": "Israel", "event_code": "iscmp", "event_type": 2, "event_type_string": "District Championship", "parent_event_key": null, "playoff_type": 10, "playoff_type_string": "Double Elimination Bracket (8 Alliances)", "district": {"key": "2025isr", "year": 2025, "abbreviation": "isr", "display_name": "FIRST Israel"}, "division_keys": [], "first_event_id": null, "first_event_code": "iscmp", "year": 2025, "timezone": "Asia/Jerusalem", "week": 4, "website": "http://firstisrael.org.il", "city": "Jerusalem", "state_prov": "JM", "country": "Israel", "postal_code": null, "lat": null, "lng": null, "location_name": null, "address": null, "gmaps_place_id": null, "gmaps_url": null, "start_date": "2025-03-25", "end_date": "2025-03-27", "webcasts": [{"type": "twitch", "channel": "firstisrael"}]}
             """)!);
 
@@ -167,8 +167,7 @@ public class AllianceSelectionTests : EmbeddingTest
         eventClient.Setup(client => client.GetEventAlliancesAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync([.. alliances]);
         eventClient.Setup(client => client.GetEventRankingsAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(new EventRanking([], [.. rankings], []));
         eventClient
-            .Setup(client => client.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(JsonSerializer.Deserialize<Event>("""
+            .Setup(client => client.GetEvent(eventKey, It.IsAny<string>())).Returns(JsonSerializer.Deserialize<Event>("""
             {"key": "2025iscmp", "name": "FIRST Israel District Championship", "short_name": "Israel", "event_code": "iscmp", "event_type": 2, "event_type_string": "District Championship", "parent_event_key": null, "playoff_type": 10, "playoff_type_string": "Double Elimination Bracket (8 Alliances)", "district": {"key": "2025isr", "year": 2025, "abbreviation": "isr", "display_name": "FIRST Israel"}, "division_keys": [], "first_event_id": null, "first_event_code": "iscmp", "year": 2025, "timezone": "Asia/Jerusalem", "week": 4, "website": "http://firstisrael.org.il", "city": "Jerusalem", "state_prov": "JM", "country": "Israel", "postal_code": null, "lat": null, "lng": null, "location_name": null, "address": null, "gmaps_place_id": null, "gmaps_url": null, "start_date": "2025-03-25", "end_date": "2025-03-27", "webcasts": [{"type": "twitch", "channel": "firstisrael"}]}
             """)!);
 
