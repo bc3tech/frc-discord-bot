@@ -78,8 +78,7 @@ public class MatchScoreTests : EmbeddingTest
         this.Mocker.GetMock<IEventApi>()
             .Setup(i => i.GetEvent(eventKey, It.IsAny<string>())).Returns(_testEvent);
         this.Mocker.GetMock<ITeamApi>()
-            .Setup(i => i.GetTeamAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(_testTeam);
+            .Setup(i => i.GetTeam(It.IsAny<string>(), It.IsAny<string>())).Returns(_testTeam);
 
         this.Mocker.GetMock<IScheduleApi>()
             .Setup(api => api.SeasonScheduleEventCodeGetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<TournamentLevel>(), It.IsAny<CancellationToken>()))
@@ -4819,8 +4818,7 @@ public class MatchScoreTests : EmbeddingTest
         this.Mocker.GetMock<IEventApi>()
             .Setup(i => i.GetEvent(eventKey, It.IsAny<string>())).Returns(_testEvent);
         this.Mocker.GetMock<ITeamApi>()
-            .Setup(i => i.GetTeamAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync(_testTeam);
+            .Setup(i => i.GetTeam(It.IsAny<string>(), It.IsAny<string>())).Returns(_testTeam);
 
         this.Mocker.GetMock<IScheduleApi>()
             .Setup(api => api.SeasonScheduleEventCodeGetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<TournamentLevel>(), It.IsAny<CancellationToken>()))
