@@ -393,7 +393,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
         if (breakdown is not null)
         {
-            meter.LogMetric("ScoreBreakdownAvailableTimeSec", time.GetElapsedTime(startTime).TotalSeconds, new Dictionary<string, object?> { { "MatchKey", tbaMatch.Key } });
+            meter.LogMetric<double>("ScoreBreakdownAvailableTimeSec", time.GetElapsedTime(startTime).TotalSeconds, [new("MatchKey", tbaMatch.Key)]);
         }
 
         return breakdown;

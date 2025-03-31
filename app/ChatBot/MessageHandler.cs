@@ -99,13 +99,13 @@ internal sealed partial class MessageHandler(
                     var usage = response.Metadata?["Usage"] as RunStepCompletionUsage;
                     if (usage is not null)
                     {
-                        meter.LogMetric("TokenUsage", usage.TotalTokens, new Dictionary<string, object?>
+                        meter.LogMetric<long>("TokenUsage", usage.TotalTokens, new Dictionary<string, object?>
                         {
                             ["ThreadId"] = thread.Id,
                             ["Usage"] = JsonSerializer.Serialize(usage),
                             ["RunId"] = response.Metadata!["RunId"]?.ToString() ?? "Unknown",
                             ["Author"] = serializedAuthor
-                        });
+                        }.ToArray());
                     }
 
                     if (response.Metadata?.TryGetValue("code", out var codeValue) is true && codeValue is true)

@@ -143,12 +143,12 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                             {
                                 await sendEmbeddingsAsync(chunksOfEmbeddingsToSend, discordRequestOptions, rawChan, replyToMessage).ConfigureAwait(false);
 
-                                meter.LogMetric("NotificationSent", 1,
+                                meter.LogMetric<int>("NotificationSent", 1,
                                     new Dictionary<string, object?>() {
                                     { "ChannelId", chanId },
                                     { "ChannelName", rawChan.Name },
                                     { "Threaded", true }
-                                    });
+                                    }.ToArray());
 
                                 subscribers.RemoveSubscription(guildId, chanId, logger);
                             }
@@ -180,12 +180,12 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
                     await StoreReplyToMessageAsync(message, msgChan, threadForMessage, replyToMessageId, cancellationToken);
 
-                    meter.LogMetric("NotificationSent", 1,
+                    meter.LogMetric<int>("NotificationSent", 1,
                         new Dictionary<string, object?>() {
                             { "ChannelId", subscriberChannelId },
                             { "ChannelName", targetChannel.Name },
                             { "Threaded", false }
-                        });
+                        }.ToArray());
                 }
                 else
                 {

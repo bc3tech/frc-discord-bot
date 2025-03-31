@@ -32,7 +32,7 @@ internal sealed class ChatRunner(AgentsClient agentsClient, AzureAIAgent agent, 
                     ["ThreadId"] = thread.Id,
                     ["Usage"] = JsonSerializer.Serialize(usage),
                     ["RunId"] = response.Metadata!["RunId"]?.ToString() ?? "Unknown",
-                });
+                }.ToArray());
             }
 
             if (response.Metadata?.TryGetValue("code", out var codeValue) is true && codeValue is true)

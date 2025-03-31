@@ -56,7 +56,7 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
                 continue;
             }
 
-            meter.LogMetric("ProcessedMessageCleanedUp", 1, new Dictionary<string, object?> { { "Timestamp", oldMessage.Timestamp! } });
+            meter.LogMetric("ProcessedMessageCleanedUp", 1, [new("Timestamp", oldMessage.Timestamp!)]);
         }
 
         meter.LogMetric("ProcessedMessagesCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
@@ -73,7 +73,7 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
                 continue;
             }
 
-            meter.LogMetric("EventMessageThreadCleanedUp", 1, new Dictionary<string, object?> { { "Thread", JsonSerializer.Serialize(oldMessage) } });
+            meter.LogMetric("EventMessageThreadCleanedUp", 1, [new("Thread", JsonSerializer.Serialize(oldMessage))]);
         }
 
         meter.LogMetric("EventMessageThreadsCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
