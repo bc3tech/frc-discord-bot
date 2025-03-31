@@ -16,7 +16,7 @@ public class StringExtensionsTests : Test
     [InlineData(null, null)]
     [InlineData("", null)]
     [InlineData(" ", null)]
-    public void TeamKeyToTeamNumber_ShouldReturnExpectedResult(string input, ushort? expected)
+    public void TeamKeyToTeamNumber_ShouldReturnExpectedResult(string? input, ushort? expected)
     {
         // Act
         var result = input.TeamKeyToTeamNumber();
@@ -30,7 +30,7 @@ public class StringExtensionsTests : Test
     public void TeamKeyToTeamNumber_ShouldDebugAssert(string input, ushort? expected)
     {
         // Act & Assert
-        var result = AssertDebugException(input.TeamKeyToTeamNumber);
+        var result = DebugHelper.AssertDebugException(input.TeamKeyToTeamNumber);
         Assert.Equal(expected, result);
     }
 
@@ -39,7 +39,7 @@ public class StringExtensionsTests : Test
     [InlineData("", "replacement", "replacement")]
     [InlineData(" ", "replacement", "replacement")]
     [InlineData("value", "replacement", "value")]
-    public void UnlessNullOrWhitespaceThen_ShouldReturnExpectedResult(string input, string replacement, string expected)
+    public void UnlessNullOrWhitespaceThen_ShouldReturnExpectedResult(string? input, string replacement, string expected)
     {
         // Act
         var result = input.UnlessNullOrWhitespaceThen(replacement);
@@ -82,6 +82,6 @@ public class StringExtensionsTests : Test
         var invalidCompressedString = "InvalidCompressedString";
 
         // Act & Assert
-        Assert.Throws<FormatException>(() => invalidCompressedString.Decompress());
+        Assert.Throws<FormatException>(invalidCompressedString.Decompress);
     }
 }

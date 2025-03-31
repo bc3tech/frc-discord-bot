@@ -28,16 +28,20 @@ using Xunit.Abstractions;
 using Event = TheBlueAlliance.Model.Event;
 using Team = TheBlueAlliance.Model.Team;
 
-public class TeamRankTests : EmbeddingTest
+public class TeamRankTests : EmbeddingTest, IDisposable
 {
     private readonly TeamRank _teamRank;
+    private readonly IDisposable _eventCacheAccessor = RequireClearedEventCache();
+    private readonly IDisposable _teamCacheAccessor = RequireClearedTeamCache();
 
     public TeamRankTests(ITestOutputHelper outputHelper) : base(typeof(TeamRank), outputHelper)
     {
-        this.Mocker.GetMock<IEventApi>().Setup(i => i.GetEventAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync((string key, string _, CancellationToken _) => key is "invalid" ? null : _utEvent);
+        this.Mocker.GetMock<IEventApi>().Setup(i => i.GetEvent(It.IsAny<string>(), It.IsAny<string>())).Returns((string key, string _) => key is "invalid" ? null : _utEvent);
+        this.Mocker.GetMock<ITeamApi>().Setup(i => i.GetTeam(It.IsAny<string>(), It.IsAny<string>())).Returns((string key, string _) => key is "invalid" ? null : _utTeam);
+
         this.Mocker.CreateSelfMock<IDistrictApi>();
-        this.Mocker.CreateSelfMock<Statbotics.Api.ITeamYearApi>();
         this.Mocker.CreateSelfMock<IRankingsApi>();
+        this.Mocker.CreateSelfMock<Statbotics.Api.ITeamYearApi>();
 
         _teamRank = this.Mocker.CreateInstance<TeamRank>();
     }
@@ -264,7 +268,7 @@ public class TeamRankTests : EmbeddingTest
     [Fact]
     public async Task CreateAsync_ValidInput_ReturnsEmbedding()
     {
-        var input = (Year: (int?)2025, TeamKey: "frc2046", EventKey: (string?)null);
+        var input = (Year: (int?)2025, TeamKey: _utTeam.Key, EventKey: (string?)null);
 
         this.Mocker.GetMock<Statbotics.Api.ITeamYearApi>().Setup(t => t.ReadTeamYearV3TeamYearTeamYearGetAsync(input.TeamKey, input.Year.Value, It.IsAny<CancellationToken>())).ReturnsAsync(_utTeamYear);
         this.Mocker.GetMock<IDistrictApi>().Setup(d => d.GetDistrictsByYear(input.Year.Value, It.IsAny<string>())).Returns(_utTeamDistricts);
@@ -293,13 +297,11 @@ public class TeamRankTests : EmbeddingTest
     }
 
     [Fact]
-    public async Task CreateAsync_InvalidTeamKey_LogsAndReturnsNull()
+    public void CreateAsync_InvalidTeamKey_LogsAndReturnsNull()
     {
         var input = (Year: (int?)2022, TeamKey: "invalid", EventKey: (string?)null);
-        this.Mocker.GetMock<ITeamApi>().Setup(t => t.GetTeamAsync(input.TeamKey, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(default(Team));
 
-        DebugHelper.IgnoreDebugAsserts();
-        var result = await _teamRank.CreateAsync(input).ToListAsync();
+        var result = DebugHelper.AssertDebugException(_teamRank.CreateAsync(input)).ToList();
 
         Assert.NotNull(result);
         Assert.Single(result);
@@ -311,9 +313,8 @@ public class TeamRankTests : EmbeddingTest
     [Fact]
     public async Task CreateAsync_NoDistrictRankingData_ReturnsNoDataMessage()
     {
-        var input = (Year: (int?)2025, TeamKey: "frc2046", EventKey: (string?)null);
+        var input = (Year: (int?)2025, TeamKey: _utTeam.Key, EventKey: (string?)null);
 
-        this.Mocker.GetMock<ITeamApi>().Setup(t => t.GetTeamAsync(input.TeamKey, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utTeam);
         this.Mocker.GetMock<IRankingsApi>().Setup(r => r.SeasonRankingsDistrictGetAsync(input.Year.Value.ToString(), input.TeamKey.TeamKeyToTeamNumber()!.ToString()!, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync((SeasonRankingsDistrict?)null);
 
         var result = await _teamRank.CreateAsync(input).ToListAsync();
@@ -393,9 +394,8 @@ public class TeamRankTests : EmbeddingTest
     [Fact]
     public async Task CreateAsync_ValidInputWithNoDistrictData_ReturnsNoDistrictDataMessage()
     {
-        var input = (Year: (int?)2025, TeamKey: "frc2046", EventKey: (string?)null);
+        var input = (Year: (int?)2025, TeamKey: _utTeam.Key, EventKey: (string?)null);
 
-        this.Mocker.GetMock<ITeamApi>().Setup(t => t.GetTeamAsync(input.TeamKey, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utTeam);
         this.Mocker.GetMock<Statbotics.Api.ITeamYearApi>().Setup(t => t.ReadTeamYearV3TeamYearTeamYearGetAsync(input.TeamKey, input.Year.Value, It.IsAny<CancellationToken>())).ReturnsAsync(_utTeamYear);
         this.Mocker.GetMock<IDistrictApi>().Setup(d => d.GetDistrictsByYear(input.Year.Value, It.IsAny<string>())).Returns((Collection<DistrictList>?)null);
         this.Mocker.GetMock<IRankingsApi>().Setup(r => r.SeasonRankingsDistrictGetAsync(input.Year.Value.ToString(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), input.TeamKey.TeamKeyToTeamNumber()!.Value.ToString(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync((SeasonRankingsDistrict?)null);
@@ -410,9 +410,8 @@ public class TeamRankTests : EmbeddingTest
     [Fact]
     public async Task CreateAsync_ValidInputWithDistrictData_ReturnsDistrictData()
     {
-        var input = (Year: (int?)2025, TeamKey: "frc2046", EventKey: (string?)null);
+        var input = (Year: (int?)2025, TeamKey: _utTeam.Key, EventKey: (string?)null);
 
-        this.Mocker.GetMock<ITeamApi>().Setup(t => t.GetTeamAsync(input.TeamKey, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utTeam);
         this.Mocker.GetMock<Statbotics.Api.ITeamYearApi>().Setup(t => t.ReadTeamYearV3TeamYearTeamYearGetAsync(input.TeamKey, input.Year.Value, It.IsAny<CancellationToken>())).ReturnsAsync(_utTeamYear);
         this.Mocker.GetMock<IDistrictApi>().Setup(d => d.GetDistrictsByYear(input.Year.Value, It.IsAny<string>())).Returns(_utTeamDistricts);
         this.Mocker.GetMock<IRankingsApi>().Setup(r => r.SeasonRankingsDistrictGetAsync(input.Year.Value.ToString(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), input.TeamKey.TeamKeyToTeamNumber()!.Value.ToString(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utDistrictRankings);
@@ -430,7 +429,7 @@ public class TeamRankTests : EmbeddingTest
     [Fact]
     public async Task CreateAsync_ValidInputWithEventKey_ReturnsEventData()
     {
-        var input = (Year: (int?)2025, TeamKey: "frc2046", EventKey: "2025wabon");
+        var input = (Year: (int?)2025, TeamKey: _utTeam.Key, EventKey: _utEvent.Key);
 
         this.Mocker.GetMock<IDistrictApi>().Setup(d => d.GetEventDistrictPointsAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utEventDistrictPoints);
         this.Mocker.GetMock<IRankingsApi>().Setup(r => r.SeasonRankingsEventCodeGetAsync(_utEvent.EventCode.ToUpperInvariant(), input.Year.Value.ToString(), input.TeamKey.TeamKeyToTeamNumber()!.ToString()!, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utEventRankings);
@@ -449,12 +448,11 @@ public class TeamRankTests : EmbeddingTest
     [Fact]
     public async Task CreateAsync_ValidInputWithEventKeyNoDistrictPoints_LogsNoDistrictPointsDataFound()
     {
-        var input = (Year: (int?)2025, TeamKey: "frc2046", EventKey: "2025wabon");
+        var input = (Year: (int?)2025, TeamKey: _utTeam.Key, EventKey: _utEvent.Key);
 
-        var pointsWithoutEvent = new Dictionary<string, EventDistrictPointsPointsValue>(_utEventDistrictPoints.Points)
-        {
-            [input.TeamKey] = null
-        };
+        var pointsWithoutEvent = new Dictionary<string, EventDistrictPointsPointsValue>(_utEventDistrictPoints.Points);
+        pointsWithoutEvent.Remove(input.TeamKey);
+
         this.Mocker.GetMock<IDistrictApi>().Setup(d => d.GetEventDistrictPointsAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utEventDistrictPoints with { Points = pointsWithoutEvent });
         this.Mocker.GetMock<IRankingsApi>().Setup(r => r.SeasonRankingsEventCodeGetAsync(_utEvent.EventCode.ToUpperInvariant(), input.Year.Value.ToString(), input.TeamKey.TeamKeyToTeamNumber()!.ToString()!, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utEventRankings);
         this.Mocker.GetMock<IRankingsApi>().Setup(r => r.SeasonRankingsDistrictGetAsync(input.Year.Value.ToString(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utDistrictRankings);
@@ -474,7 +472,7 @@ public class TeamRankTests : EmbeddingTest
     [Fact]
     public async Task CreateAsync_ValidInputWithEventKeyNoDistrictData_LogsNoDistrictDataFound()
     {
-        var input = (Year: (int?)2025, TeamKey: "frc2046", EventKey: "2025wabon");
+        var input = (Year: (int?)2025, TeamKey: _utTeam.Key, EventKey: _utEvent.Key);
 
         this.Mocker.GetMock<IDistrictApi>().Setup(d => d.GetEventDistrictPointsAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(default(EventDistrictPoints));
         this.Mocker.GetMock<IRankingsApi>().Setup(r => r.SeasonRankingsEventCodeGetAsync(_utEvent.EventCode.ToUpperInvariant(), input.Year.Value.ToString(), input.TeamKey.TeamKeyToTeamNumber()!.ToString()!, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utEventRankings);
@@ -494,7 +492,7 @@ public class TeamRankTests : EmbeddingTest
     [Fact]
     public async Task CreateAsync_ValidEventKey_ReturnsEventData()
     {
-        var input = (Year: (int?)2025, TeamKey: "frc2046", EventKey: "2025wabon");
+        var input = (Year: (int?)2025, TeamKey: _utTeam.Key, EventKey: _utEvent.Key);
 
         this.Mocker.GetMock<IRankingsApi>().Setup(r => r.SeasonRankingsEventCodeGetAsync(_utEvent.EventCode.ToUpperInvariant(), input.Year.Value.ToString(), input.TeamKey.TeamKeyToTeamNumber()!.ToString()!, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utEventRankings);
         this.Mocker.GetMock<IDistrictApi>().Setup(d => d.GetEventDistrictPointsAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utEventDistrictPoints);
@@ -536,12 +534,12 @@ public class TeamRankTests : EmbeddingTest
     [Fact]
     public async Task CreateAsync_InvalidEventKey_ReturnsNoEventData()
     {
-        var input = (Year: (int?)2025, TeamKey: "frc2046", EventKey: "invalid");
+        var input = (Year: (int?)2025, TeamKey: _utTeam.Key, EventKey: "invalid");
 
         this.Mocker.GetMock<IRankingsApi>().Setup(r => r.SeasonRankingsEventCodeGetAsync(_utEvent.EventCode.ToUpperInvariant(), input.Year.Value.ToString(), input.TeamKey.TeamKeyToTeamNumber()!.ToString()!, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utEventRankings);
         this.Mocker.GetMock<IRankingsApi>().Setup(r => r.SeasonRankingsDistrictGetAsync(input.Year.Value.ToString(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utDistrictRankings);
 
-        DebugHelper.IgnoreDebugAsserts();
+        using var i = DebugHelper.IgnoreDebugAssertExceptions();
         var result = await _teamRank.CreateAsync(input).ToListAsync();
 
         Assert.NotNull(result);
@@ -573,12 +571,12 @@ public class TeamRankTests : EmbeddingTest
     [Fact]
     public async Task CreateAsync_EventKeyNoRankings_ReturnsNoEventData()
     {
-        var input = (Year: (int?)2025, TeamKey: "frc2046", EventKey: "2025wabon");
+        var input = (Year: (int?)2025, TeamKey: _utTeam.Key, EventKey: _utEvent.Key);
 
         this.Mocker.GetMock<IRankingsApi>().Setup(r => r.SeasonRankingsEventCodeGetAsync(_utEvent.EventCode.ToUpperInvariant(), input.Year.Value.ToString(), input.TeamKey.TeamKeyToTeamNumber()!.ToString()!, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(default(SeasonRankingsEvent));
         this.Mocker.GetMock<IRankingsApi>().Setup(r => r.SeasonRankingsDistrictGetAsync(input.Year.Value.ToString(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utDistrictRankings);
 
-        DebugHelper.IgnoreDebugAsserts();
+        using var i = DebugHelper.IgnoreDebugAssertExceptions();
         var result = await _teamRank.CreateAsync(input).ToListAsync();
 
         Assert.NotNull(result);
@@ -615,13 +613,13 @@ public class TeamRankTests : EmbeddingTest
     [Fact]
     public async Task CreateAsync_TeamWithNoRankings_ReturnsNoEventData()
     {
-        var input = (Year: (int?)2025, TeamKey: "frc2046", EventKey: "2025wabon");
+        var input = (Year: (int?)2025, TeamKey: _utTeam.Key, EventKey: _utEvent.Key);
 
         var eventRankings = _utEventRankings with { Rankings = [] };
         this.Mocker.GetMock<IRankingsApi>().Setup(r => r.SeasonRankingsEventCodeGetAsync(_utEvent.EventCode.ToUpperInvariant(), input.Year.Value.ToString(), input.TeamKey.TeamKeyToTeamNumber()!.ToString()!, It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(eventRankings);
         this.Mocker.GetMock<IRankingsApi>().Setup(r => r.SeasonRankingsDistrictGetAsync(input.Year.Value.ToString(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utDistrictRankings);
 
-        DebugHelper.IgnoreDebugAsserts();
+        using var i = DebugHelper.IgnoreDebugAssertExceptions();
         var result = await _teamRank.CreateAsync(input).ToListAsync();
 
         Assert.NotNull(result);
@@ -4604,7 +4602,7 @@ public class TeamRankTests : EmbeddingTest
     [Fact]
     public async Task CreateAsync_ValidInputWithEventPoints_ReturnsEventPoints()
     {
-        var input = (Year: (int?)2025, TeamKey: "frc2046", EventKey: (string?)null);
+        var input = (Year: (int?)2025, TeamKey: _utTeam.Key, EventKey: (string?)null);
 
         this.Mocker.GetMock<ITeamApi>().Setup(t => t.GetTeam(input.TeamKey, It.IsAny<string>())).Returns(_utTeam);
         this.Mocker.GetMock<IDistrictApi>().Setup(d => d.GetDistrictsByYearAsync(input.Year.Value, It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utTeamDistricts);
@@ -4612,7 +4610,7 @@ public class TeamRankTests : EmbeddingTest
         this.Mocker.GetMock<IRankingsApi>().Setup(r => r.SeasonRankingsDistrictGetAsync(input.Year.Value.ToString(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), input.TeamKey.TeamKeyToTeamNumber()!.Value.ToString(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utDistrictRankings);
         this.Mocker.GetMock<IDistrictApi>().Setup(d => d.GetDistrictRankingsAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(_utTbaDistrictRankings);
 
-        DebugHelper.IgnoreDebugAsserts();
+        using var i = DebugHelper.IgnoreDebugAssertExceptions();
         var result = await _teamRank.CreateAsync(input).ToListAsync();
 
         Assert.NotNull(result);
@@ -4639,7 +4637,7 @@ public class TeamRankTests : EmbeddingTest
     [Fact]
     public async Task CreateAsync_ValidInputWithEpaData_ReturnsEpaData()
     {
-        var input = (Year: (int?)2025, TeamKey: "frc2046", EventKey: (string?)null);
+        var input = (Year: (int?)2025, TeamKey: _utTeam.Key, EventKey: (string?)null);
 
         this.Mocker.GetMock<ITeamApi>().Setup(t => t.GetTeam(input.TeamKey, It.IsAny<string>())).Returns(_utTeam);
         this.Mocker.GetMock<Statbotics.Api.ITeamYearApi>().Setup(t => t.ReadTeamYearV3TeamYearTeamYearGetAsync(input.TeamKey.TeamKeyToTeamNumber().ToString()!, input.Year.Value, It.IsAny<CancellationToken>())).ReturnsAsync(_utTeamYear);
@@ -4663,7 +4661,7 @@ public class TeamRankTests : EmbeddingTest
     [Fact]
     public async Task CreateAsync_ValidInputWithEpaRank_ReturnsEpaRank()
     {
-        var input = (Year: (int?)2025, TeamKey: "frc2046", EventKey: (string?)null);
+        var input = (Year: (int?)2025, TeamKey: _utTeam.Key, EventKey: (string?)null);
 
         var teamYear = _utTeamYear with { Epa = _utTeamYear.Epa! with { TotalPoints = null } };
         this.Mocker.GetMock<ITeamApi>().Setup(t => t.GetTeam(input.TeamKey, It.IsAny<string>())).Returns(_utTeam);
@@ -4684,7 +4682,7 @@ public class TeamRankTests : EmbeddingTest
     [Fact]
     public async Task CreateAsync_ValidInputWithDistrictRank_ReturnsDistrictRank()
     {
-        var input = (Year: (int?)2025, TeamKey: "frc2046", EventKey: (string?)null);
+        var input = (Year: (int?)2025, TeamKey: _utTeam.Key, EventKey: (string?)null);
 
         _utTeamDistricts[0] = _utTeamDistricts[0] with { DisplayName = string.Empty };
         this.Mocker.GetMock<ITeamApi>().Setup(t => t.GetTeam(input.TeamKey, It.IsAny<string>())).Returns(_utTeam);
@@ -4700,5 +4698,11 @@ public class TeamRankTests : EmbeddingTest
         Assert.NotNull(embedding);
         Assert.False(embedding.Transient);
         Assert.Contains("District: 5 / 132 (96.21%ile)", embedding.Content.Description);
+    }
+
+    public void Dispose()
+    {
+        _eventCacheAccessor.Dispose();
+        _teamCacheAccessor.Dispose();
     }
 }

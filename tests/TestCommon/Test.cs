@@ -2,7 +2,13 @@
 
 using Moq;
 
+using System.Collections.Concurrent;
 using System.Diagnostics.Metrics;
+
+using TheBlueAlliance.Caching;
+using TheBlueAlliance.Model;
+
+using Xunit.Sdk;
 
 public abstract class Test
 {
@@ -29,85 +35,40 @@ public abstract class Test
         this.Mocker.Use(new Meter("UnitTestMeter"));
     }
 
-    protected static void AssertDebugException(Action action, string? messageContents = null)
+
+    protected static IDisposable RequireClearedEventCache()
     {
-        try
-        {
-            action();
-            Assert.Fail("DebugAssertException exception was not thrown.");
-        }
-        catch (Exception ex)
-        {
-            Assert.Contains("DebugAssertException", ex.GetType().ToString());
-            if (messageContents is not null)
-            {
-                Assert.Contains(messageContents, ex.Message);
-            }
-        }
+        var o = new EventCacheMutex();
+        ((ConcurrentDictionary<string, Event>)typeof(EventCache).GetField("_events", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic)!.GetValue(null)!).Clear();
+        return o;
     }
 
-    protected static T AssertDebugException<T>(Func<T> func, string? messageContents = null)
-    {
-        try
-        {
-            func();
-            Assert.Fail("DebugAssertException exception was not thrown.");
-        }
-        catch (Exception ex)
-        {
-            Assert.Contains("DebugAssertException", ex.GetType().ToString());
-            if (messageContents is not null)
-            {
-                Assert.Contains(messageContents, ex.Message);
-            }
-        }
+    protected static IDisposable BlockForEventCacheAccess() => new EventCacheMutex();
 
-        DebugHelper.IgnoreDebugAsserts();
-        return func();
+    private sealed class EventCacheMutex : IDisposable
+    {
+        private static readonly AutoResetEvent _mutex = new(true);
+
+        public EventCacheMutex() => _mutex.WaitOne();
+
+        public void Dispose() => _mutex.Set();
     }
 
-    protected static async Task AssertDebugExceptionAsync(Task task, string? messageContents = null)
+    protected static IDisposable RequireClearedTeamCache()
     {
-        try
-        {
-            await task.ConfigureAwait(false);
-            if (task.Exception is not null)
-            {
-                throw task.Exception;
-            }
-            Assert.Fail("DebugAssertException exception was not thrown.");
-        }
-        catch (Exception ex)
-        {
-            Assert.Contains("DebugAssertException", ex.GetType().ToString());
-            if (messageContents is not null)
-            {
-                Assert.Contains(messageContents, ex.Message);
-            }
-        }
+        var o = new TeamCacheMutex();
+        ((ConcurrentDictionary<string, Team>)typeof(TeamCache).GetField("_teams", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic)!.GetValue(null)!).Clear();
+        return o;
     }
 
-    protected static async Task<T> AssertDebugExceptionAsync<T>(Task<T> task, string? messageContents = null)
-    {
-        try
-        {
-            await task.ConfigureAwait(false);
-            if (task.Exception is not null)
-            {
-                throw task.Exception;
-            }
-            Assert.Fail("DebugAssertException exception was not thrown.");
-        }
-        catch (Exception ex)
-        {
-            Assert.Contains("DebugAssertException", ex.GetType().ToString());
-            if (messageContents is not null)
-            {
-                Assert.Contains(messageContents, ex.Message);
-            }
-        }
+    protected static IDisposable BlockForTeamCacheAccess() => new TeamCacheMutex();
 
-        DebugHelper.IgnoreDebugAsserts();
-        return await task.ConfigureAwait(false);
+    private sealed class TeamCacheMutex : IDisposable
+    {
+        private static readonly AutoResetEvent _mutex = new(true);
+
+        public TeamCacheMutex() => _mutex.WaitOne();
+
+        public void Dispose() => _mutex.Set();
     }
 }

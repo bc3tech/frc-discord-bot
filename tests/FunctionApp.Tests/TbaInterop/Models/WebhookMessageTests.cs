@@ -119,13 +119,10 @@ public class WebhookMessageTests : Test
         var matchJsonString = "{\"key\":\"2025iscmp_qm41\",\"event_key\":\"2025iscmp\",\"comp_level\":\"qm\",\"set_number\":1,\"match_number\":41,\"alliances\":{\"red\":{\"team_keys\":[\"frc2630\",\"frc9740\",\"frc1937\"],\"score\":114,\"surrogate_team_keys\":[],\"dq_team_keys\":[]},\"blue\":{\"team_keys\":[\"frc4586\",\"frc5951\",\"frc8175\"],\"score\":123,\"surrogate_team_keys\":[],\"dq_team_keys\":[]}},\"winning_alliance\":\"blue\",\"score_breakdown\":null,\"videos\":[],\"time\":1742998140,\"actual_time\":1742998743,\"predicted_time\":1742998991,\"post_result_time\":1742999056}\r\n";
         var match = JsonSerializer.Deserialize<Match>(matchJsonString);
 
-        var services = new Mock<IServiceProvider>();
-        var matchApi = new Mock<IMatchApi>();
-        matchApi.Setup(api => api.GetMatch("2025iscmp_qm41", null)).Returns(match);
-        services.Setup(s => s.GetService(typeof(IMatchApi))).Returns(matchApi.Object);
+        this.Mocker.GetMock<IMatchApi>().Setup(api => api.GetMatch("2025iscmp_qm41", null)).Returns(match);
 
         // Act  
-        var result = webhookMessage.GetThreadDetails(services.Object);
+        var result = webhookMessage.GetThreadDetails(this.Mocker);
 
         // Assert  
         Assert.NotNull(result);
@@ -166,7 +163,7 @@ public class WebhookMessageTests : Test
         };
 
         // Act & Assert
-        var threadDetails = AssertDebugException(() => webhookMessage.GetThreadDetails(this.Mocker), "Bad data!");
+        var threadDetails = DebugHelper.AssertDebugException(() => webhookMessage.GetThreadDetails(this.Mocker), "Bad data!");
         Assert.True(threadDetails.HasValue);
         Assert.Equal(" | Elims 1.1", threadDetails.Value.Title);
     }
@@ -176,6 +173,7 @@ public class WebhookMessageTests : Test
     {
         // Arrange
         var jsonString = "{\"event_key\":\"2025hiho\",\"match_key\":\"2025hiho_sf8m1\",\"event_name\":null,\"match\":{\"key\":\"2025hiho_sf8m1\",\"event_key\":\"2025hiho\",\"comp_level\":\"sf\",\"set_number\":8,\"match_number\":1,\"alliances\":{\"red\":{\"team_keys\":[\"frc4253\",\"frc3501\",\"frc10384\"],\"score\":117,\"surrogate_team_keys\":[],\"dq_team_keys\":[]},\"blue\":{\"team_keys\":[\"frc2438\",\"frc2477\",\"frc3882\"],\"score\":135,\"surrogate_team_keys\":[],\"dq_team_keys\":[]}},\"winning_alliance\":\"blue\",\"score_breakdown\":{\"red\":{\"autoLineRobot1\":\"Yes\",\"endGameRobot1\":\"DeepCage\",\"autoLineRobot2\":\"Yes\",\"endGameRobot2\":\"None\",\"autoLineRobot3\":\"Yes\",\"endGameRobot3\":\"Parked\",\"autoReef\":{\"topRow\":{\"nodeA\":false,\"nodeB\":false,\"nodeC\":false,\"nodeD\":true,\"nodeE\":true,\"nodeF\":false,\"nodeG\":false,\"nodeH\":false,\"nodeI\":false,\"nodeJ\":true,\"nodeK\":false,\"nodeL\":false},\"midRow\":{\"nodeA\":false,\"nodeB\":false,\"nodeC\":false,\"nodeD\":false,\"nodeE\":false,\"nodeF\":false,\"nodeG\":false,\"nodeH\":false,\"nodeI\":false,\"nodeJ\":false,\"nodeK\":false,\"nodeL\":false},\"botRow\":{\"nodeA\":false,\"nodeB\":false,\"nodeC\":false,\"nodeD\":false,\"nodeE\":false,\"nodeF\":false,\"nodeG\":false,\"nodeH\":false,\"nodeI\":false,\"nodeJ\":false,\"nodeK\":false,\"nodeL\":false},\"trough\":0,\"tba_botRowCount\":0,\"tba_midRowCount\":0,\"tba_topRowCount\":3},\"autoCoralCount\":3,\"autoMobilityPoints\":9,\"autoPoints\":30,\"autoCoralPoints\":21,\"teleopReef\":{\"topRow\":{\"nodeA\":true,\"nodeB\":true,\"nodeC\":true,\"nodeD\":true,\"nodeE\":true,\"nodeF\":true,\"nodeG\":true,\"nodeH\":true,\"nodeI\":true,\"nodeJ\":true,\"nodeK\":true,\"nodeL\":true},\"midRow\":{\"nodeA\":true,\"nodeB\":true,\"nodeC\":true,\"nodeD\":true,\"nodeE\":false,\"nodeF\":false,\"nodeG\":false,\"nodeH\":true,\"nodeI\":false,\"nodeJ\":false,\"nodeK\":true,\"nodeL\":true},\"botRow\":{\"nodeA\":false,\"nodeB\":false,\"nodeC\":false,\"nodeD\":false,\"nodeE\":false,\"nodeF\":false,\"nodeG\":false,\"nodeH\":false,\"nodeI\":false,\"nodeJ\":false,\"nodeK\":false,\"nodeL\":false},\"trough\":0,\"tba_botRowCount\":0,\"tba_midRowCount\":7,\"tba_topRowCount\":12},\"teleopCoralCount\":16,\"teleopPoints\":87,\"teleopCoralPoints\":73,\"algaePoints\":0,\"netAlgaeCount\":0,\"wallAlgaeCount\":0,\"endGameBargePoints\":14,\"autoBonusAchieved\":false,\"coralBonusAchieved\":false,\"bargeBonusAchieved\":false,\"coopertitionCriteriaMet\":false,\"foulCount\":0,\"techFoulCount\":1,\"g206Penalty\":false,\"g410Penalty\":false,\"g418Penalty\":false,\"g428Penalty\":false,\"adjustPoints\":0,\"foulPoints\":0,\"rp\":0,\"totalPoints\":117},\"blue\":{\"autoLineRobot1\":\"Yes\",\"endGameRobot1\":\"None\",\"autoLineRobot2\":\"Yes\",\"endGameRobot2\":\"Parked\",\"autoLineRobot3\":\"Yes\",\"endGameRobot3\":\"DeepCage\",\"autoReef\":{\"topRow\":{\"nodeA\":false,\"nodeB\":false,\"nodeC\":false,\"nodeD\":false,\"nodeE\":true,\"nodeF\":false,\"nodeG\":false,\"nodeH\":true,\"nodeI\":false,\"nodeJ\":false,\"nodeK\":false,\"nodeL\":false},\"midRow\":{\"nodeA\":false,\"nodeB\":false,\"nodeC\":false,\"nodeD\":false,\"nodeE\":false,\"nodeF\":false,\"nodeG\":false,\"nodeH\":false,\"nodeI\":false,\"nodeJ\":false,\"nodeK\":false,\"nodeL\":false},\"botRow\":{\"nodeA\":false,\"nodeB\":false,\"nodeC\":false,\"nodeD\":false,\"nodeE\":false,\"nodeF\":false,\"nodeG\":false,\"nodeH\":false,\"nodeI\":false,\"nodeJ\":false,\"nodeK\":false,\"nodeL\":false},\"trough\":1,\"tba_botRowCount\":0,\"tba_midRowCount\":0,\"tba_topRowCount\":2},\"autoCoralCount\":3,\"autoMobilityPoints\":9,\"autoPoints\":26,\"autoCoralPoints\":17,\"teleopReef\":{\"topRow\":{\"nodeA\":true,\"nodeB\":true,\"nodeC\":true,\"nodeD\":true,\"nodeE\":true,\"nodeF\":false,\"nodeG\":true,\"nodeH\":true,\"nodeI\":false,\"nodeJ\":true,\"nodeK\":true,\"nodeL\":true},\"midRow\":{\"nodeA\":true,\"nodeB\":true,\"nodeC\":true,\"nodeD\":true,\"nodeE\":false,\"nodeF\":false,\"nodeG\":true,\"nodeH\":true,\"nodeI\":false,\"nodeJ\":false,\"nodeK\":true,\"nodeL\":true},\"botRow\":{\"nodeA\":true,\"nodeB\":false,\"nodeC\":false,\"nodeD\":false,\"nodeE\":false,\"nodeF\":false,\"nodeG\":false,\"nodeH\":false,\"nodeI\":false,\"nodeJ\":false,\"nodeK\":true,\"nodeL\":true},\"trough\":4,\"tba_botRowCount\":3,\"tba_midRowCount\":8,\"tba_topRowCount\":10},\"teleopCoralCount\":23,\"teleopPoints\":103,\"teleopCoralPoints\":89,\"algaePoints\":0,\"netAlgaeCount\":0,\"wallAlgaeCount\":0,\"endGameBargePoints\":14,\"autoBonusAchieved\":false,\"coralBonusAchieved\":false,\"bargeBonusAchieved\":false,\"coopertitionCriteriaMet\":false,\"foulCount\":0,\"techFoulCount\":0,\"g206Penalty\":false,\"g410Penalty\":false,\"g418Penalty\":false,\"g428Penalty\":false,\"adjustPoints\":0,\"foulPoints\":6,\"rp\":0,\"totalPoints\":135}},\"videos\":[],\"time\":1742776380,\"actual_time\":1742776993,\"predicted_time\":1742777045,\"post_result_time\":1742777192}}";
+
         var jsonElement = JsonDocument.Parse(jsonString).RootElement;
         var webhookMessage = new WebhookMessage
         {
@@ -186,7 +184,7 @@ public class WebhookMessageTests : Test
         var services = new Mock<IServiceProvider>();
 
         // Act & Assert
-        AssertDebugException(() => webhookMessage.GetThreadDetails(services.Object), "Bad data!");
+        DebugHelper.AssertDebugException(() => webhookMessage.GetThreadDetails(services.Object), "Bad data!");
     }
 
     [Fact]
@@ -201,13 +199,13 @@ public class WebhookMessageTests : Test
             MessageData = jsonElement
         };
 
-        var matchJsonString = "{\"key\":\"2025iscmp_qm41\",\"event_key\":\"2025iscmp\",\"comp_level\":\"qm\",\"set_number\":1,\"match_number\":41,\"alliances\":{\"red\":{\"team_keys\":[\"frc2630\",\"frc9740\",\"frc1937\"],\"score\":114,\"surrogate_team_keys\":[],\"dq_team_keys\":[]},\"blue\":{\"team_keys\":[\"frc4586\",\"frc5951\",\"frc8175\"],\"score\":123,\"surrogate_team_keys\":[],\"dq_team_keys\":[]}},\"winning_alliance\":\"blue\",\"score_breakdown\":null,\"videos\":[],\"time\":1742998140,\"actual_time\":1742998743,\"predicted_time\":1742998991,\"post_result_time\":1742999056}\r\n";
+        var matchJsonString = "{\"key\":\"2025iscmp_qm41\",\"event_key\":\"2025iscmp\",\"comp_level\":\"qm\",\"set_number\":1,\"match_number\":41,\"alliances\":{\"red\":{\"team_keys\":[\"frc2630\",\"frc9740\",\"frc1937\"],\"score\":114,\"surrogate_team_keys\":[],\"dq_team_keys\":[]},\"blue\":{\"team_keys\":[\"frc4586\",\"frc5951\",\"frc8175\"],\"score\":123,\"surrogate_team_keys\":[],\"dq_team_keys\":[]}},\"winning_alliance\":\"blue\",\"score_breakdown\":null,\"videos\":[],\"time\":1742998140,\"actual_time\":1742998743,\"predicted_time\":1742998991,\"post_result_time\":1742999056}";
         var match = JsonSerializer.Deserialize<Match>(matchJsonString);
 
-        this.Mocker.GetMock<IMatchApi>().Setup(api => api.GetMatch("2025iscmp_qm41", null)).Returns(match);
+        this.Mocker.GetMock<IMatchApi>().Setup(api => api.GetMatch("2025iscmp_qm41", It.IsAny<string>())).Returns(match);
 
         // Act & Assert
-        var thread = AssertDebugException(() => webhookMessage.GetThreadDetails(this.Mocker), "Bad data!");
+        var thread = DebugHelper.AssertDebugException(() => webhookMessage.GetThreadDetails(this.Mocker), "Bad data!");
         Assert.True(thread.HasValue);
         Assert.Equal(" | Quals 1.41", thread.Value.Title);
     }

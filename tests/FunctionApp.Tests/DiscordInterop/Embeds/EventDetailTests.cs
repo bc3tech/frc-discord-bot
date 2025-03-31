@@ -19,8 +19,10 @@ using Xunit.Abstractions;
 
 using IEventApi = TheBlueAlliance.Api.IEventApi;
 
-public class EventDetailTests : TestWithLogger
+public class EventDetailTests : TestWithLogger, IDisposable
 {
+    private readonly IDisposable _eventCacheAccessor = RequireClearedEventCache();
+
     private readonly Mock<IRESTCountries> _mockCountryCodeLookup;
     private readonly Mock<Statbotics.Api.IEventApi> _mockEventStats;
     private readonly EventDetail _eventDetail;
@@ -160,9 +162,13 @@ public class EventDetailTests : TestWithLogger
         this.Mocker.GetMock<IEventApi>()
             .Setup(repo => repo.GetEvent(eventKey, It.IsAny<string>()))
             .Returns(eventDetails);
-        _mockCountryCodeLookup.Setup(c => c.GetCountryCodeForFlagLookupAsync(eventDetails.Country, default)).ReturnsAsync("US");
+        _mockCountryCodeLookup
+            .Setup(c => c.GetCountryCodeForFlagLookupAsync(eventDetails.Country, default))
+            .ReturnsAsync("US");
 
-        _mockEventStats.Setup(s => s.ReadEventV3EventEventGetAsync(eventKey, It.IsAny<CancellationToken>())).ReturnsAsync(new Statbotics.Model.Event { NumTeams = 1, Status = "Ongoing", EpaVal = new Statbotics.Model.Event.Epa { Max = 101, Mean = 85 } });
+        _mockEventStats
+            .Setup(s => s.ReadEventV3EventEventGetAsync(eventKey, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new Statbotics.Model.Event { NumTeams = 1, Status = "Ongoing", EpaVal = new Statbotics.Model.Event.Epa { Max = 101, Mean = 85 } });
 
         // Act
         var result = _eventDetail.CreateAsync(eventKey);
@@ -323,5 +329,10 @@ public class EventDetailTests : TestWithLogger
         Assert.True(response.Transient);
         Assert.Equal($"**{eventDetails.Name}**", response.Content.Title);
         Assert.True(response.Content.Fields.Any(i => i.Name == "District" && i.Value == "Test District"));
+    }
+
+    public void Dispose()
+    {
+        _eventCacheAccessor.Dispose();
     }
 }

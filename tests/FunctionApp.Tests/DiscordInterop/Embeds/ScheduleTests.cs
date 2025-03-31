@@ -19768,6 +19768,7 @@ public class ScheduleTests : EmbeddingTest
     [Fact]
     public async Task CreateAsync_NoHighlightTeam_ReturnsScheduleForEvent()
     {
+        using var i = RequireClearedEventCache();
         var input = (eventKey: "2025wasno", numMatches: (ushort)5);
 
         this.Mocker.GetMock<IMatchApi>()

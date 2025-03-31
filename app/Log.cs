@@ -552,4 +552,7 @@ static partial class Log
 
     [LoggerMessage(192, LogLevel.Warning, "Unable to get stats for {TeamKey} from Statbotics")]
     internal static partial void UnableToGetStatsForTeamKeyFromStatbotics(this ILogger logger, string TeamKey);
+
+    [LoggerMessage(193, LogLevel.Warning, "Unable to find event for match key {MatchKey}")]
+    internal static partial void UnableToFindEventForMatchKeyMatchKey(this ILogger logger, string MatchKey);
 }

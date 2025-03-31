@@ -1,13 +1,13 @@
 namespace FunctionApp.Tests.DiscordInterop;
 
 using Discord;
-using Discord.Interactions;
+using Discord.Net;
 
 using Microsoft.Extensions.Logging;
 
 using Moq;
-using Moq.AutoMock;
 
+using System.Collections.Concurrent;
 using System.Text.Json;
 
 using TestCommon;
@@ -22,9 +22,14 @@ using static FunctionApp.DiscordInterop.AutoCompleteHandlers;
 
 using IParameterInfo = Discord.Interactions.IParameterInfo;
 
-public class EventsAutoCompleteHandlerTests : TestWithLogger
+public class EventsAutoCompleteHandlerTests : TestWithLogger, IDisposable
 {
-    public EventsAutoCompleteHandlerTests(ITestOutputHelper outputHelper) : base(typeof(EventsAutoCompleteHandler), outputHelper) => this.Mocker.With<EventCache>();
+    private readonly IDisposable _eventCacheAccessor = RequireClearedEventCache();
+
+    public EventsAutoCompleteHandlerTests(ITestOutputHelper outputHelper) : base(typeof(EventsAutoCompleteHandler), outputHelper)
+    {
+        this.Mocker.With<EventCache>();
+    }
 
     [Fact]
     public async Task GenerateSuggestionsAsync_ShouldReturnSuggestions()
@@ -130,6 +135,16 @@ public class EventsAutoCompleteHandlerTests : TestWithLogger
             .Setup(repo => repo.GetEvent(It.IsAny<string>(), It.IsAny<string>()))
             .Returns((string key, string _) => events[key]);
 
+        // Load up the EventCache's static dictionary w/ the ones for this test, via reflection
+        // because suggestions pull from `AllEvents` property of the cache
+        var eventCacheType = typeof(EventCache);
+        var eventCacheField = eventCacheType.GetField("_events", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        var eventCache = (ConcurrentDictionary<string, Event>)eventCacheField!.GetValue(null)!;
+        foreach (var kvp in events)
+        {
+            eventCache.TryAdd(kvp.Key, kvp.Value);
+        }
+
         var autocompleteDataMock = this.Mocker.GetMock<IAutocompleteInteractionData>();
         autocompleteDataMock.SetupGet(ai => ai.Current).Returns(
             (AutocompleteOption)Activator.CreateInstance(typeof(AutocompleteOption),
@@ -144,7 +159,7 @@ public class EventsAutoCompleteHandlerTests : TestWithLogger
 
         // Act
         var result = await this.Mocker.CreateInstance<EventsAutoCompleteHandler>()
-            .GenerateSuggestionsAsync(this.Mocker.Get<IInteractionContext>(), autocompleteInteractionMock.Object, this.Mocker.Get<IParameterInfo>(), this.Mocker);
+            .GenerateSuggestionsAsync(this.Mocker.CreateSelfMock<IInteractionContext>(), autocompleteInteractionMock.Object, this.Mocker.CreateSelfMock<IParameterInfo>(), this.Mocker);
 
         // Assert
         Assert.True(result.IsSuccess);
@@ -152,25 +167,13 @@ public class EventsAutoCompleteHandlerTests : TestWithLogger
     }
 
     [Fact]
-    public async Task GenerateSuggestionsAsync_ShouldHandleDiscordException()
+    public async Task GenerateSuggestionsAsync_ShouldHandleHttpException()
     {
         // Arrange
-        var eventsRepoMock = this.Mocker.GetMock<IEventApi>();
-        eventsRepoMock
-            .Setup(repo => repo.GetEvent(It.IsAny<string>(), It.IsAny<string>()))
-            .Throws(new Discord.Net.HttpException(System.Net.HttpStatusCode.InternalServerError, Mock.Of<Discord.Net.IRequest>(), DiscordErrorCode.UnknownInteraction));
-
-        var autocompleteDataMock = this.Mocker.GetMock<IAutocompleteInteractionData>();
-        autocompleteDataMock.SetupGet(ai => ai.Current).Returns(
-            (AutocompleteOption)Activator.CreateInstance(typeof(AutocompleteOption),
-                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance, null,
-                [ApplicationCommandOptionType.User, "Event", null, true],
-                null)!);
-
         var autocompleteInteractionMock = this.Mocker.GetMock<IAutocompleteInteraction>();
         autocompleteInteractionMock
             .SetupGet(ai => ai.Data)
-            .Returns(autocompleteDataMock.Object);
+            .Throws(new HttpException(System.Net.HttpStatusCode.InternalServerError, this.Mocker.CreateSelfMock<IRequest>(), DiscordErrorCode.UnknownInteraction));
 
         // Act
         var result = await this.Mocker.CreateInstance<EventsAutoCompleteHandler>()
@@ -178,5 +181,10 @@ public class EventsAutoCompleteHandlerTests : TestWithLogger
 
         // Assert
         this.Logger.Verify(LogLevel.Debug);
+    }
+
+    public void Dispose()
+    {
+        _eventCacheAccessor.Dispose();
     }
 }
