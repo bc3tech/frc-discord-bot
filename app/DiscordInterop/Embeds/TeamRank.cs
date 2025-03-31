@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
@@ -71,7 +72,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
 
                 if (teamYearStats.Epa.Ranks.State is not null)
                 {
-                    descriptionBuilder.AppendLine($"State{(!string.IsNullOrWhiteSpace(teamYearStats.State) ? $" ({teamYearStats.State})" : string.Empty)}: {teamYearStats.Epa.Ranks.State.Rank}/{teamYearStats.Epa.Ranks.State.TeamCount} ({teamYearStats.Epa.Ranks.State.Percentile:P2}ile)");
+                    descriptionBuilder.AppendLine($"State{(!string.IsNullOrWhiteSpace(teamYearStats.State) ? $" ({teamYearStats.State})" : string.Empty)}: {teamYearStats.Epa.Ranks.State.Rank}/{teamYearStats.Epa.Ranks.State.TeamCount} ({teamYearStats.Epa.Ranks.State.Percentile.ToString("P2", CultureInfo.InvariantCulture)}ile)");
                 }
 
                 if (teamYearStats.Epa.Ranks.District is not null)
@@ -79,22 +80,22 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                     var districtDetail = tbaDistrictData.GetDistrictsByYear(targetYear)?.FirstOrDefault(d => d.Abbreviation.Equals(teamYearStats.District, StringComparison.OrdinalIgnoreCase));
                     if (!string.IsNullOrWhiteSpace(districtDetail?.DisplayName))
                     {
-                        descriptionBuilder.AppendLine($"District ({districtDetail.DisplayName}): {teamYearStats.Epa.Ranks.District.Rank} / {teamYearStats.Epa.Ranks.District.TeamCount} ({teamYearStats.Epa.Ranks.District.Percentile:P2}ile)");
+                        descriptionBuilder.AppendLine($"District ({districtDetail.DisplayName}): {teamYearStats.Epa.Ranks.District.Rank} / {teamYearStats.Epa.Ranks.District.TeamCount} ({teamYearStats.Epa.Ranks.District.Percentile.ToString("P2", CultureInfo.InvariantCulture)}ile)");
                     }
                     else
                     {
-                        descriptionBuilder.AppendLine($"District: {teamYearStats.Epa.Ranks.District.Rank} / {teamYearStats.Epa.Ranks.District.TeamCount} ({teamYearStats.Epa.Ranks.District.Percentile:P2}ile)");
+                        descriptionBuilder.AppendLine($"District: {teamYearStats.Epa.Ranks.District.Rank} / {teamYearStats.Epa.Ranks.District.TeamCount} ({teamYearStats.Epa.Ranks.District.Percentile.ToString("P2", CultureInfo.InvariantCulture)}ile)");
                     }
                 }
 
                 if (teamYearStats.Epa.Ranks.Country is not null)
                 {
-                    descriptionBuilder.AppendLine($"Country ({teamYearStats.Country}): {teamYearStats.Epa.Ranks.Country.Rank} / {teamYearStats.Epa.Ranks.Country.TeamCount} ({teamYearStats.Epa.Ranks.Country.Percentile:P2}ile)");
+                    descriptionBuilder.AppendLine($"Country ({teamYearStats.Country}): {teamYearStats.Epa.Ranks.Country.Rank} / {teamYearStats.Epa.Ranks.Country.TeamCount} ({teamYearStats.Epa.Ranks.Country.Percentile.ToString("P2", CultureInfo.InvariantCulture)}ile)");
                 }
 
                 if (teamYearStats.Epa.Ranks.Total is not null)
                 {
-                    descriptionBuilder.AppendLine($"World: {teamYearStats.Epa.Ranks.Total.Rank} / {teamYearStats.Epa.Ranks.Total.TeamCount} ({teamYearStats.Epa.Ranks.Total.Percentile:P2}ile)");
+                    descriptionBuilder.AppendLine($"World: {teamYearStats.Epa.Ranks.Total.Rank} / {teamYearStats.Epa.Ranks.Total.TeamCount} ({teamYearStats.Epa.Ranks.Total.Percentile.ToString("P2", CultureInfo.InvariantCulture)}ile)");
                 }
             }
 

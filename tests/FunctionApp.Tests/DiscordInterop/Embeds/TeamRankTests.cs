@@ -4652,10 +4652,10 @@ public class TeamRankTests : EmbeddingTest, IDisposable
         Assert.NotNull(embedding);
         Assert.False(embedding.Transient);
         Assert.Contains("EPA (64.11) rank", embedding.Content.Description);
-        Assert.Contains("State (WA): 4/92 (95.65%ile)", embedding.Content.Description);
-        Assert.Contains("District: 5 / 132 (96.21%ile)", embedding.Content.Description);
-        Assert.Contains("Country (USA): 77 / 2930 (97.37%ile)", embedding.Content.Description);
-        Assert.Contains("World: 100 / 3695 (97.29%ile)", embedding.Content.Description);
+        Assert.Contains("State (WA): 4/92 (95.65 %ile)", embedding.Content.Description);
+        Assert.Contains("District: 5 / 132 (96.21 %ile)", embedding.Content.Description);
+        Assert.Contains("Country (USA): 77 / 2930 (97.37 %ile)", embedding.Content.Description);
+        Assert.Contains("World: 100 / 3695 (97.29 %ile)", embedding.Content.Description);
     }
 
     [Fact]
@@ -4697,7 +4697,7 @@ public class TeamRankTests : EmbeddingTest, IDisposable
         var embedding = result[2];
         Assert.NotNull(embedding);
         Assert.False(embedding.Transient);
-        Assert.Contains("District: 5 / 132 (96.21%ile)", embedding.Content.Description);
+        Assert.Contains("District: 5 / 132 (96.21 %ile)", embedding.Content.Description);
     }
 
     public void Dispose()

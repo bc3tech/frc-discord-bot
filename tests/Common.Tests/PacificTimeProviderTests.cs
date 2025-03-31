@@ -1,6 +1,7 @@
 ﻿namespace Common.Tests;
 
 using System;
+using System.Globalization;
 using System.Text.Json;
 
 using Xunit;
@@ -25,7 +26,7 @@ public class PacificTimeProviderTests
         var localTime = TimeZoneInfo.ConvertTime(utcTime, _timeProvider.LocalTimeZone);
 
         // Assert
-        Assert.Equal("1/15/2024 10:00:00 AM", localTime.ToString());
+        Assert.Equal("01/15/2024 10:00:00", localTime.ToString(CultureInfo.InvariantCulture));
         Assert.Equal(-8, _timeProvider.LocalTimeZone.GetUtcOffset(localTime).Hours); // PST is UTC-8 in January
     }
 
@@ -39,7 +40,7 @@ public class PacificTimeProviderTests
         var localTime = TimeZoneInfo.ConvertTime(utcTime, _timeProvider.LocalTimeZone);
 
         // Assert
-        Assert.Equal("7/15/2024 10:00:00 AM", localTime.ToString());
+        Assert.Equal("07/15/2024 10:00:00", localTime.ToString(CultureInfo.InvariantCulture));
         Assert.Equal(-7, _timeProvider.LocalTimeZone.GetUtcOffset(localTime).Hours); // PDT is UTC-7 in July
     }
 
@@ -53,7 +54,7 @@ public class PacificTimeProviderTests
         var localTime = TimeZoneInfo.ConvertTime(utcOffset, _timeProvider.LocalTimeZone);
 
         // Assert
-        Assert.Equal("1/15/2024 10:00:00 AM -08:00", localTime.ToString());
+        Assert.Equal("01/15/2024 10:00:00 -08:00", localTime.ToString(CultureInfo.InvariantCulture));
     }
 
     [Fact]
@@ -72,7 +73,7 @@ public class PacificTimeProviderTests
         var localTime = TimeZoneInfo.ConvertTime(deserializedTime, _timeProvider.LocalTimeZone);
 
         // Assert
-        Assert.Equal("1/15/2024 10:00:00 AM", localTime.ToString());
+        Assert.Equal("01/15/2024 10:00:00", localTime.ToString(CultureInfo.InvariantCulture));
     }
 
     [Fact]
