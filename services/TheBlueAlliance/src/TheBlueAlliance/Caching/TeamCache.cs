@@ -67,8 +67,9 @@ public class TeamCache(ITeamApi apiClient, Meter meter, ILogger<TeamCache> logge
     /// If the team is not found in the cache, it retrieves the team from the TBA API and adds it to the cache.
     /// </summary>
     /// <param name="teamKey">The key of the team to retrieve.</param>
-    /// <returns>The team associated with the specified team key or <c>null</c> if not found.</returns>
-    public Team? this[string teamKey]
+    /// <returns>The team associated with the specified team key.</returns>
+    /// <exception cref="TeamNotFoundException">Thrown if the given team key cannot be found in the cache or from the <see cref="ITeamApi"/> service.</exception>
+    public Team this[string teamKey]
     {
         get
         {
@@ -80,12 +81,25 @@ public class TeamCache(ITeamApi apiClient, Meter meter, ILogger<TeamCache> logge
             logger.LogWarning("Team {TeamNumber} not found in cache", teamKey);
 
             t = apiClient.GetTeam(teamKey);
-            return t is not null ? _teams.GetOrAdd(teamKey, t) : null;
+            return t is not null ? _teams.GetOrAdd(teamKey, t) : throw new TeamNotFoundException(teamKey);
         }
     }
 
-    public Team? this[ushort teamNumber] => this[$"frc{teamNumber}"];
+    public Team this[ushort teamNumber] => this[$"frc{teamNumber}"];
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Not the API we're going for")]
     public IReadOnlyDictionary<string, Team> AllTeams => _teams;
+}
+
+public class TeamNotFoundException : KeyNotFoundException
+{
+    public TeamNotFoundException(string teamKey) : base($"No team with key {teamKey} could be found")
+    {
+        this.Data["TeamKey"] = teamKey;
+    }
+
+    public TeamNotFoundException(ushort teamNumber) : base($"No team with number {teamNumber} could be found")
+    {
+        this.Data["TeamNumber"] = teamNumber;
+    }
 }

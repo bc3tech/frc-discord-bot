@@ -131,15 +131,20 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
 
         if (!string.IsNullOrWhiteSpace(input.EventKey))
         {
-            var eventDetail = events[input.EventKey];
-            Debug.Assert(eventDetail is not null);
-            if (eventDetail is null)
+            Event? eventDetail = null;
+            try
+            {
+                eventDetail = events[input.EventKey];
+            }
+            catch (EventNotFoundException e)
             {
                 descriptionBuilder.AppendLine($"No data found for {teams[teamKey].GetLabel()} at {input.EventKey}");
+                logger.LogError(e, null);
             }
-            else
+
+            if (eventDetail is not null)
             {
-                string eventLabel = events[input.EventKey].GetLabel();
+                string eventLabel = eventDetail.GetLabel();
                 yield return new(new EmbedBuilder().WithTitle($"Getting event data for {eventLabel}...").Build(), Transient: true);
 
                 descriptionBuilder.AppendLine($"## {eventLabel}\n");
@@ -167,8 +172,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                         var eventPoints = await tbaDistrictData.GetEventDistrictPointsAsync(input.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
                         if (eventPoints is not null)
                         {
-                            var districtPointsForTeamAtEvent = eventPoints.Points[teamKey];
-                            if (districtPointsForTeamAtEvent is not null)
+                            if (eventPoints.Points.TryGetValue(teamKey, out var districtPointsForTeamAtEvent))
                             {
                                 descriptionBuilder.AppendLine($"District Points: {teamRanking.MatchesPlayed}");
                                 addEventDistrictPointsForEvent(descriptionBuilder, districtPointsForTeamAtEvent);

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -47,7 +48,7 @@ public class TeamCacheTests : TestWithLogger
 
         this.Mocker.With<TeamCache>();
 
-        ((ConcurrentDictionary<string, Team>)typeof(TeamCache).GetField("_teams", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic)!.GetValue(null)!).Clear();
+        ((ConcurrentDictionary<string, Team>)typeof(TeamCache).GetField("_teams", BindingFlags.Static | BindingFlags.NonPublic)!.GetValue(null)!).Clear();
     }
 
     [Fact]
@@ -89,6 +90,8 @@ public class TeamCacheTests : TestWithLogger
 
         // Assert
         Assert.Equal(_utTeam, result);
+        this.Mocker.GetMock<ITeamApi>()
+            .Verify(api => api.GetTeam(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
     }
 
     [Fact]
@@ -107,31 +110,35 @@ public class TeamCacheTests : TestWithLogger
         // Assert
         Assert.Equal(_utTeam, result);
         Assert.Contains(_utTeam.Key, cache.AllTeams.Keys);
+        this.Mocker.GetMock<ITeamApi>()
+         .Verify(api => api.GetTeam(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
     }
 
     [Fact]
-    public void Indexer_ShouldReturnNullIfTeamNotFound()
+    public void Indexer_ShouldThrowIfTeamNotFound()
     {
         // Arrange
         var teamKey = "nonexistent";
         this.Mocker.GetMock<ITeamApi>()
-            .Setup(api => api.GetTeamAsync(teamKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ReturnsAsync((Team?)null);
+            .Setup(api => api.GetTeam(teamKey, It.IsAny<string>()))
+            .Returns((Team?)null);
 
         // Act & Assert
-        Assert.Null(this.Mocker.Get<TeamCache>()[teamKey]);
+        var ex = Assert.Throws<TeamNotFoundException>(() => this.Mocker.Get<TeamCache>()[teamKey]);
+        Assert.Equal($"No team with key {teamKey} could be found", ex.Message);
+        Assert.Equal(teamKey, ex.Data["TeamKey"]);
     }
 
     [Fact]
-    public async Task InitializeAsync_ShouldHandleApiExceptions()
+    public void InitializeAsync_ShouldHandleApiExceptions()
     {
         // Arrange
         this.Mocker.GetMock<ITeamApi>()
             .Setup(api => api.GetTeamsAsync(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ThrowsAsync(new Exception("API error"));
+            .Throws<HttpRequestException>();
 
         // Act & Assert
-        await AssertDebugExceptionAsync(this.Mocker.Get<TeamCache>().InitializeAsync(CancellationToken.None).AsTask());
+        DebugHelper.AssertDebugException(this.Mocker.Get<TeamCache>().InitializeAsync(CancellationToken.None).AsTask());
         this.Logger.Verify(LogLevel.Error);
     }
 }

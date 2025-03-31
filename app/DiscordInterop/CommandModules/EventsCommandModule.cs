@@ -128,7 +128,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
                 }
             }
         }
-        catch (KeyNotFoundException)
+        catch (EventNotFoundException)
         {
             await ModifyOriginalResponseAsync(p => p.Content = "Event not found.").ConfigureAwait(false);
         }

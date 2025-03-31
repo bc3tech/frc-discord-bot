@@ -83,15 +83,16 @@ public class EventCacheTests : TestWithLogger
         this.Mocker.GetMock<IEventApi>()
             .Setup(api => api.GetEventsByYearAsync(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync([_utEvent]);
-
-        // Act
         var cache = this.Mocker.Get<EventCache>();
+
+        // Act & Assert
         await cache.InitializeAsync(CancellationToken.None).ConfigureAwait(true);
+        Assert.Contains(_utEvent.Key, cache.AllEvents.Keys);
 
         var result = cache[_utEvent.Key];
-
-        // Assert
         Assert.Equal(_utEvent, result);
+        this.Mocker.GetMock<IEventApi>()
+            .Verify(api => api.GetEvent(_utEvent.Key, It.IsAny<string>()), Times.Never);
     }
 
     [Fact]
@@ -104,41 +105,45 @@ public class EventCacheTests : TestWithLogger
 
         var cache = this.Mocker.Get<EventCache>();
 
-        // Act
+        // Act & Assert
         Assert.Empty(cache.AllEvents);
-        var result = cache[_utEvent.Key];
 
-        // Assert
+        var result = cache[_utEvent.Key];
         Assert.Equal(_utEvent, result);
+
         Assert.Contains(_utEvent.Key, cache.AllEvents.Keys);
+        this.Mocker.GetMock<IEventApi>()
+            .Verify(api => api.GetEvent(_utEvent.Key, It.IsAny<string>()), Times.Once);
     }
 
     [Fact]
-    public void Indexer_ShouldReturnNullIfEventNotFound()
+    public void Indexer_ShouldThrowIfEventNotFound()
     {
         // Arrange
         var eventKey = "nonexistent";
         this.Mocker.GetMock<IEventApi>()
             .Setup(api => api.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync((Event?)null);
-
         var cache = this.Mocker.Get<EventCache>();
+
         // Act & Assert
-        Assert.Null(cache[eventKey]);
+        var ex = Assert.Throws<EventNotFoundException>(() => cache[eventKey]);
+        Assert.Equal($"No event with key {eventKey} could be found", ex.Message);
+        Assert.Equal(eventKey, ex.Data["EventKey"]);
     }
 
     [Fact]
-    public async Task InitializeAsync_ShouldHandleApiExceptionsAsync()
+    public void InitializeAsync_ShouldHandleApiExceptions()
     {
         // Arrange
         this.Mocker.GetMock<IEventApi>()
             .Setup(api => api.GetEventsByYearAsync(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<CancellationToken>()))
-            .ThrowsAsync(new HttpProtocolException(500, "API error", null));
+            .Throws<HttpRequestException>();
 
         var cache = this.Mocker.Get<EventCache>();
 
         // Act & Assert
-        await AssertDebugExceptionAsync(cache.InitializeAsync(CancellationToken.None).AsTask());
+        DebugHelper.AssertDebugException(cache.InitializeAsync(CancellationToken.None).AsTask());
         this.Logger.Verify(LogLevel.Error);
         Assert.Empty(cache.AllEvents);
     }
