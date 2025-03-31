@@ -61,14 +61,6 @@ public class EventsCommandModuleTests : TestWithLogger
         var channelMock = this.Mocker.GetMock<IMessageChannel>();
         channelMock.Setup(i => i.EnterTypingState(It.IsAny<RequestOptions>()))
             .Returns(Mock.Of<IDisposable>());
-        //.Returns(() =>
-        //{
-        //    var d = new Mock<IDisposable>();
-        //    d.Setup(i => i.Dispose()).Verifiable();
-
-        //    var obj = d.Object;
-        //    return obj;
-        //});
         _mockContext.SetupGet(c => c.Channel).Returns(channelMock.Object);
     }
 
