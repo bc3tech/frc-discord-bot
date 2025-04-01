@@ -25,8 +25,10 @@ using TheBlueAlliance.Model;
 using Xunit;
 using Xunit.Abstractions;
 
-public class EventsCommandModuleTests : TestWithLogger
+public class EventsCommandModuleTests : TestWithLogger, IDisposable
 {
+    private readonly IDisposable _eventCacheAccessor = RequireClearedEventCache();
+
     private readonly Mock<IInteractionContext> _mockContext;
     private readonly EventsCommandModule _eventsCommandModule;
 
@@ -466,7 +468,6 @@ public class EventsCommandModuleTests : TestWithLogger
     public async Task AddEventAsync_ShouldReturnError_WhenEventNotFound()
     {
         // Arrange
-        using var i = RequireClearedEventCache();
         var eventKey = "2025test";
         this.Mocker.GetMock<IEventApi>()
             .Setup(i => i.GetEventAsync(eventKey, It.IsAny<string>(), It.IsAny<CancellationToken>()))
@@ -730,7 +731,6 @@ public class EventsCommandModuleTests : TestWithLogger
     public async Task AddEventAsync_ShouldAppendLocationString_WhenGmapsUrlIsNullOrEmpty()
     {
         // Arrange
-        using var i = RequireClearedEventCache();
         var eventKey = "2025test";
         var mockEventJson = @"{
                 ""key"": ""2025test"",
@@ -820,5 +820,10 @@ public class EventsCommandModuleTests : TestWithLogger
         interaction.Verify(i => i.ModifyOriginalResponseAsync(It.IsAny<Action<MessageProperties>>(), It.IsAny<RequestOptions>()), Times.Once);
         Assert.Contains("Test Location, Test City, Test State, Test Country", eventDescription);
         Assert.DoesNotContain("[Test Location, Test City, Test State, Test Country]", eventDescription);
+    }
+
+    public void Dispose()
+    {
+        _eventCacheAccessor.Dispose();
     }
 }
