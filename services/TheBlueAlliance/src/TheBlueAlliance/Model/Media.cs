@@ -110,7 +110,13 @@ public partial record Media
         /// Enum Avatar for value: avatar
         /// </summary>
         [EnumMember(Value = "avatar")]
-        Avatar = 14
+        Avatar = 14,
+
+        /// <summary>
+        /// Enum Avatar for value: avatar
+        /// </summary>
+        [EnumMember(Value = "onshape")]
+        Onshape = 15
     }
 
     /// <summary>
