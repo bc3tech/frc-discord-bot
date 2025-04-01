@@ -5,6 +5,7 @@ using FunctionApp.TbaInterop.Models.Notifications;
 
 using Moq;
 
+using System.Diagnostics;
 using System.Text.Json;
 
 using TestCommon;
@@ -150,7 +151,7 @@ public class WebhookMessageTests : Test
         Assert.Null(result);
     }
 
-    [Fact]
+    [Fact, Conditional("DEBUG")]    
     public void GetThreadDetails_ShouldThrowDebugAssertException_ForBadData_MatchVideo()
     {
         // Arrange
@@ -168,7 +169,7 @@ public class WebhookMessageTests : Test
         Assert.Equal(" | Elims 1.1", threadDetails.Value.Title);
     }
 
-    [Fact]
+    [Fact, Conditional("DEBUG")]
     public void GetThreadDetails_ShouldThrowDebugAssertException_ForBadData_MatchScore()
     {
         // Arrange
@@ -187,7 +188,7 @@ public class WebhookMessageTests : Test
         DebugHelper.AssertDebugException(() => webhookMessage.GetThreadDetails(services.Object), "Bad data!");
     }
 
-    [Fact]
+    [Fact, Conditional("DEBUG")]
     public void GetThreadDetails_ShouldThrowDebugAssertException_ForBadData_UpcomingMatch()
     {
         // Arrange

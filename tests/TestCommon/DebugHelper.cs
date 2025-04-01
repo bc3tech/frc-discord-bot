@@ -11,10 +11,13 @@ public class DebugHelper
     {
         using var i = new DebugAssertWatcher();
 
+#if DEBUG
         try
         {
+#endif
             action();
             Assert.Fail("DebugAssertException exception was not thrown.");
+#if DEBUG
         }
         catch (Exception ex)
         {
@@ -24,19 +27,22 @@ public class DebugHelper
                 Assert.Contains(messageContents, ex.Message);
             }
         }
+#endif
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "VSTHRD002:Avoid problematic synchronous waits", Justification = "Need this to be synchronously executed so the changes to the Trace listeners take effect")]
     public static void AssertDebugException(Task task, string? messageContents = null)
     {
+#if DEBUG
         try
         {
+#endif
             task.GetAwaiter().GetResult();
             if (task.Exception is not null)
             {
                 throw task.Exception;
             }
-
+#if DEBUG
             Assert.Fail("DebugAssertException exception was not thrown.");
         }
         catch (Exception ex)
@@ -47,31 +53,33 @@ public class DebugHelper
                 Assert.Contains(messageContents, ex.Message);
             }
         }
+#endif
     }
 
     public static T AssertDebugException<T>(Func<T> func, string? messageContents = null)
     {
         using var i = new DebugAssertWatcher();
         var retVal = func();
+#if DEBUG
         Assert.NotEmpty(i.CapturedMessages);
         if (messageContents is not null)
         {
             Assert.Contains(i.CapturedMessages, j => j[6..].Contains(messageContents));
         }
-
+#endif
         return retVal;
     }
     public static IEnumerable<T> AssertDebugException<T>(IAsyncEnumerable<T> func, string? messageContents = null)
     {
         using var i = new DebugAssertWatcher();
         var retVal = func.ToBlockingEnumerable().ToList();
-
+#if DEBUG
         Assert.NotEmpty(i.CapturedMessages);
         if (messageContents is not null)
         {
             Assert.Contains(i.CapturedMessages, j => j[6..].Contains(messageContents));
         }
-
+#endif
         return retVal;
     }
 
@@ -82,12 +90,13 @@ public class DebugHelper
     {
         using var i = new DebugAssertWatcher();
         var retVal = task.GetAwaiter().GetResult();
+#if DEBUG
         Assert.NotEmpty(i.CapturedMessages);
         if (messageContents is not null)
         {
             Assert.Contains(i.CapturedMessages, j => j[6..].Contains(messageContents));
         }
-
+#endif
         return retVal;
     }
 
@@ -101,17 +110,20 @@ public class DebugHelper
 
         public DebugAssertWatcher()
         {
+#if DEBUG
             _assertCaptureReady.WaitOne();
             _listeners = Trace.Listeners.Cast<TraceListener?>().Where(i => i is not null).Select(i => i!);
 
             Trace.Listeners.Clear();
             Trace.Listeners.Add(_ignoreDebugAssertListener);
+#endif
         }
 
         public IEnumerable<string> CapturedMessages => _ignoreDebugAssertListener.DebugFailMessages;
 
         public void Dispose(bool disposing)
         {
+#if DEBUG
             if (!disposedValue)
             {
                 if (disposing)
@@ -129,6 +141,7 @@ public class DebugHelper
                 // TODO: set large fields to null
                 disposedValue = true;
             }
+#endif
         }
 
         // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
