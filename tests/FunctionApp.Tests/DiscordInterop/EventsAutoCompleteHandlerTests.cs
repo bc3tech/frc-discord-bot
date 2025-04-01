@@ -163,6 +163,7 @@ public class EventsAutoCompleteHandlerTests : TestWithLogger, IDisposable
 
         // Assert
         Assert.True(result.IsSuccess);
+        this.TestOutput.WriteLine("\nSuggestions:\n{0}", string.Join('\n', result.Suggestions.Select(s => s.Name)));
         Assert.Equal(2, result.Suggestions.Count);
     }
 
