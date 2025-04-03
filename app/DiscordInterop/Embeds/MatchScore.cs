@@ -539,7 +539,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         return null;
     }
 
-    public async Task<bool> HandleInteractionAsync(IServiceProvider services, SocketMessageComponent component, CancellationToken cancellationToken)
+    public async Task<bool> HandleInteractionAsync(IServiceProvider services, IComponentInteraction component, CancellationToken cancellationToken)
     {
         using var scope = logger.CreateMethodScope();
         if (component.Data.CustomId.StartsWith(GetBreakdownButtonId, StringComparison.Ordinal))

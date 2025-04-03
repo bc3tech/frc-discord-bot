@@ -160,7 +160,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
 
     private string MakeLabelForSubscription(NotificationSubscription i) => $"{(i.Event is null or CommonConstants.ALL ? "All Events" : _eventsRepo[i.Event].GetLabel(shortName: true, includeYear: true))} - {(i.Team is null or CommonConstants.ALL ? "All Teams" : _teamsRepo[i.Team].GetLabel(includeLocation: false, asMarkdownLink: false))}";
 
-    public async Task<bool> HandleInteractionAsync(IServiceProvider services, SocketMessageComponent component, CancellationToken cancellationToken)
+    public async Task<bool> HandleInteractionAsync(IServiceProvider services, IComponentInteraction component, CancellationToken cancellationToken)
     {
         if (component.Data.CustomId is SubscriptionDeleteSelectionMenuId)
         {
