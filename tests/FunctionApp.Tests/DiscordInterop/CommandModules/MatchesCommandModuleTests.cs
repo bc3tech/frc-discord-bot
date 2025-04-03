@@ -31,8 +31,8 @@ public class MatchesCommandModuleTests : TestWithLogger
 
     public MatchesCommandModuleTests(ITestOutputHelper outputHelper) : base(typeof(MatchesCommandModule), outputHelper)
     {
-        this.Mocker.AddKeyedService<IEmbedCreator<(string eventKey, string teamKey)>>(nameof(UpcomingMatch), this.Mocker.WithSelfMock<IEmbedCreator<(string eventKey, string teamKey)>>());
-        this.Mocker.AddKeyedService<IEmbedCreator<(string, bool)>>(nameof(MatchScore), this.Mocker.WithSelfMock<IEmbedCreator<(string, bool)>>());
+        this.Mocker.AddKeyedService(nameof(UpcomingMatch), this.Mocker.WithSelfMock<IEmbedCreator<(string eventKey, string teamKey)>>());
+        this.Mocker.AddKeyedService(nameof(MatchScore), this.Mocker.WithSelfMock<IEmbedCreator<(string, bool)>>());
 
         this.Mocker.WithSelfMock<IMatchApi>();
 
