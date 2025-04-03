@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.TbaInterop.Models.Notifications;
+﻿namespace FunctionApp.TbaInterop.Models.Notifications;
 
 using System.Text.Json.Serialization;
 

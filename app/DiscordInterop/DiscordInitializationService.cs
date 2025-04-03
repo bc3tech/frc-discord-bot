@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop;
+﻿namespace FunctionApp.DiscordInterop;
 
 using Common.Extensions;
 
@@ -6,9 +6,9 @@ using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
 
-using DiscordBotFunctionApp;
-using DiscordBotFunctionApp.DiscordInterop.CommandModules;
-using DiscordBotFunctionApp.Extensions;
+using FunctionApp;
+using FunctionApp.DiscordInterop.CommandModules;
+using FunctionApp.Extensions;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

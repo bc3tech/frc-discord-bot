@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.Extensions;
+﻿namespace FunctionApp.Extensions;
 
 using Discord;
 

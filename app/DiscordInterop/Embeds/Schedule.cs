@@ -1,10 +1,8 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
-
-using Common;
+﻿namespace FunctionApp.DiscordInterop.Embeds;
 
 using Discord;
 
-using DiscordBotFunctionApp.Storage;
+using FunctionApp.DiscordInterop;
 
 using Microsoft.Extensions.Logging;
 
@@ -14,10 +12,16 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Caching;
 using TheBlueAlliance.Extensions;
 using TheBlueAlliance.Model;
 
-internal sealed class Schedule(EmbedBuilderFactory builderFactory, EventRepository events, TeamRepository teams, IMatchApi matchApi, TimeProvider time, ILogger<Schedule> logger) : IEmbedCreator<(string? eventKey, ushort numMatches)>
+internal sealed class Schedule(EmbedBuilderFactory builderFactory,
+                               EventCache events,
+                               TeamCache teams,
+                               IMatchApi matchApi,
+                               TimeProvider time,
+                               ILogger<Schedule> logger) : IEmbedCreator<(string? eventKey, ushort numMatches)>
 {
     public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync((string? eventKey, ushort numMatches) input, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
@@ -60,6 +64,7 @@ internal sealed class Schedule(EmbedBuilderFactory builderFactory, EventReposito
                     && (!m.PredictedTime.HasValue
                         || DateTimeOffset.FromUnixTimeSeconds(m.PredictedTime.Value) >= time.GetUtcNow().AddMinutes(-15)))
                 .Take(input.numMatches);
+
         if (matchesToPost?.Any() is not true)
         {
             embedding.Description = "No matches scheduled yet.";

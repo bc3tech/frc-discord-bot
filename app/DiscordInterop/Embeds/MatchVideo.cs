@@ -1,10 +1,9 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
+﻿namespace FunctionApp.DiscordInterop.Embeds;
 
 using Discord;
 
-using DiscordBotFunctionApp.Storage;
-using DiscordBotFunctionApp.TbaInterop.Models;
-using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
+using FunctionApp.TbaInterop.Models;
+using FunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
@@ -13,10 +12,11 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Caching;
 using TheBlueAlliance.Extensions;
 
 internal sealed class MatchVideo(IMatchApi matches,
-                                 EventRepository eventRepo,
+                                 EventCache eventRepo,
                                  EmbedBuilderFactory builderFactory,
                                  ILogger<MatchVideo> logger) : INotificationEmbedCreator, IEmbedCreator<string>
 {

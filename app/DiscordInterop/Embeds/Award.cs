@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
+﻿namespace FunctionApp.DiscordInterop.Embeds;
 
 using Azure.Storage.Blobs;
 using Azure.Storage.Sas;
@@ -7,24 +7,21 @@ using Common.Extensions;
 
 using Discord;
 
-using DiscordBotFunctionApp.Storage;
-using DiscordBotFunctionApp.TbaInterop;
-using DiscordBotFunctionApp.TbaInterop.Models;
-using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
+using FunctionApp.TbaInterop;
+using FunctionApp.TbaInterop.Models;
+using FunctionApp.TbaInterop.Models.Notifications;
 
-using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
 
 using System.Runtime.CompilerServices;
 using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Model;
+using TheBlueAlliance.Caching;
 
 internal sealed class Award(IEventApi events,
                             ITeamApi teamApi,
-                            TeamRepository teams,
+                            TeamCache teams,
                             EmbedBuilderFactory builderFactory,
                             BlobContainerClient imageBlobs,
                             ILogger<Award> logger) : INotificationEmbedCreator

@@ -1,10 +1,11 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.CommandModules;
+﻿namespace FunctionApp.DiscordInterop.CommandModules;
 
 using Common.Extensions;
 
 using Discord.Interactions;
 
-using DiscordBotFunctionApp.DiscordInterop.Embeds;
+using FunctionApp.DiscordInterop;
+using FunctionApp.DiscordInterop.Embeds;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -28,7 +29,7 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
         using var scope = this.Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(teamKey))
         {
-            await this.RespondAsync("Team key is required.", ephemeral: true).ConfigureAwait(false);
+            await RespondAsync("Team key is required.", ephemeral: true).ConfigureAwait(false);
             return;
         }
 
@@ -57,7 +58,7 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
         using var scope = this.Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(teamKey))
         {
-            await this.RespondAsync("Team key is required.", ephemeral: true).ConfigureAwait(false);
+            await RespondAsync("Team key is required.", ephemeral: true).ConfigureAwait(false);
             return;
         }
 

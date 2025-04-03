@@ -1,6 +1,8 @@
-﻿namespace DiscordBotFunctionApp;
+﻿namespace FunctionApp;
 
-using DiscordBotFunctionApp.TbaInterop.Models;
+using FunctionApp.Subscription;
+using FunctionApp.TbaInterop.Models;
+using FunctionApp.TbaInterop.Models.Notifications;
 
 #pragma warning disable CS8019
 using Microsoft.Extensions.Logging;
@@ -38,18 +40,6 @@ static partial class Log
     [LoggerMessage(7, LogLevel.Warning, "Channel {ChannelId} is not a message channel")]
     internal static partial void ChannelChannelIdIsNotAMessageChannel(this ILogger logger, ulong ChannelId);
 
-    [LoggerMessage(8, LogLevel.Debug, "Loading Events from TBA for {EventYear}...")]
-    internal static partial void LoadingEventsFromTBAForEventYear(this ILogger logger, int EventYear);
-
-    [LoggerMessage(9, LogLevel.Trace, "Retrieved {EventCount} events")]
-    internal static partial void RetrievedEventCountEvents(this ILogger logger, int EventCount);
-
-    [LoggerMessage(10, LogLevel.Error, "An error occurred while loading events from the TBA API: {ErrorMessage}")]
-    internal static partial void AnErrorOccurredWhileLoadingEventsFromTheTBAAPIErrorMessage(this ILogger logger, Exception exception, string ErrorMessage);
-
-    [LoggerMessage(11, LogLevel.Debug, "Event {EventKey} not found in cache, fetching...")]
-    internal static partial void EventEventKeyNotFoundInCache(this ILogger logger, string EventKey);
-
     [LoggerMessage(12, LogLevel.Warning, "No country found for {Country}")]
     internal static partial void NoCountryFoundForCountry(this ILogger logger, string Country);
 
@@ -63,10 +53,7 @@ static partial class Log
     internal static partial void ErrorGettingCountryCodeForCountry(this ILogger logger, Exception exception, string Country);
 
     [LoggerMessage(16, LogLevel.Warning, "Failed to deserialize notification data as {NotificationType}")]
-    internal static partial void FailedToDeserializeNotificationDataAsNotificationType(this ILogger logger, TbaInterop.Models.Notifications.NotificationType NotificationType);
-
-    [LoggerMessage(17, LogLevel.Warning, "Event key is missing from notification data")]
-    internal static partial void EventKeyIsMissingFromNotificationData(this ILogger logger);
+    internal static partial void FailedToDeserializeNotificationDataAsNotificationType(this ILogger logger, NotificationType NotificationType);
 
     [LoggerMessage(18, LogLevel.Warning, "Failed to retrieve alliance selection data for {EventKey}")]
     internal static partial void FailedToRetrieveAllianceSelectionDataForEventKey(this ILogger logger, string EventKey);
@@ -101,23 +88,11 @@ static partial class Log
     [LoggerMessage(28, LogLevel.Warning, "'All' subscription already exists for event {SubscriptionEvent}")]
     internal static partial void AllSubscriptionAlreadyExistsForEventSubscriptionEvent(this ILogger logger, string SubscriptionEvent);
 
-    [LoggerMessage(29, LogLevel.Trace, "Retrieved {TeamCount} teams")]
-    internal static partial void RetrievedTeamCountTeams(this ILogger logger, int TeamCount);
-
-    [LoggerMessage(30, LogLevel.Error, "An error occurred while loading teams from the TBA API: {ErrorMessage}")]
-    internal static partial void AnErrorOccurredWhileLoadingTeamsFromTheTBAAPIErrorMessage(this ILogger logger, Exception exception, string ErrorMessage);
-
-    [LoggerMessage(31, LogLevel.Warning, "Team {TeamNumber} not found in cache")]
-    internal static partial void TeamTeamNumberNotFoundInCache(this ILogger logger, string TeamNumber);
-
     [LoggerMessage(32, LogLevel.Warning, "Match key is missing from notification data")]
     internal static partial void MatchKeyIsMissingFromNotificationData(this ILogger logger);
 
     [LoggerMessage(33, LogLevel.Warning, "Failed to retrieve detailed match data for {MatchKey}")]
     internal static partial void FailedToRetrieveDetailedMatchDataForMatchKey(this ILogger logger, string MatchKey);
-
-    [LoggerMessage(34, LogLevel.Debug, "Loading Teams from TBA...")]
-    internal static partial void LoadingTeamsFromTBA(this ILogger logger);
 
     [LoggerMessage(35, LogLevel.Debug, "Received webhook payload: {WebhookPayload}")]
     internal static partial void ReceivedWebhookPayloadWebhookPayload(this ILogger logger, string WebhookPayload);
@@ -216,10 +191,10 @@ static partial class Log
     internal static partial void TableTableExists(this ILogger logger, string Table);
 
     [LoggerMessage(68, LogLevel.Warning, "No embedding creator registered for message type {MessageType}")]
-    internal static partial void NoEmbeddingCreatorRegisteredForMessageTypeMessageType(this ILogger logger, TbaInterop.Models.Notifications.NotificationType MessageType);
+    internal static partial void NoEmbeddingCreatorRegisteredForMessageTypeMessageType(this ILogger logger, NotificationType MessageType);
 
     [LoggerMessage(69, LogLevel.Trace, "Generating embeddings for webhook message type '{WebhookMessageType}'...")]
-    internal static partial void GeneratingEmbeddingsForWebhookMessageTypeWebhookMessageType(this ILogger logger, TbaInterop.Models.Notifications.NotificationType WebhookMessageType);
+    internal static partial void GeneratingEmbeddingsForWebhookMessageTypeWebhookMessageType(this ILogger logger, NotificationType WebhookMessageType);
 
     [LoggerMessage(70, LogLevel.Warning, "Bad data for match {MatchKey} - {MatchData}")]
     internal static partial void BadDataForMatchMatchKeyMatchData(this ILogger logger, string MatchKey, string MatchData);
@@ -386,12 +361,6 @@ static partial class Log
     [LoggerMessage(126, LogLevel.Warning, "Team {TeamKey} not known at all!")]
     internal static partial void TeamTeamKeyNotKnownAtAll(this ILogger logger, string TeamKey);
 
-    [LoggerMessage(127, LogLevel.Information, "Cached {TeamCount} teams from TBA")]
-    internal static partial void CachedTeamCountTeamsFromTBA(this ILogger logger, int TeamCount);
-
-    [LoggerMessage(128, LogLevel.Information, "Cached {EventCount} teams from TBA")]
-    internal static partial void CachedEventCountTeamsFromTBA(this ILogger logger, int EventCount);
-
     [LoggerMessage(129, LogLevel.Trace, "{EmbeddingName} built: {EmbeddingDetail}")]
     internal static partial void EmbeddingNameBuiltEmbeddingDetail(this ILogger logger, string EmbeddingName, string EmbeddingDetail);
 
@@ -405,7 +374,7 @@ static partial class Log
     internal static partial void FailedToRemoveSubscriptionForTeamTeamStatusReason(this ILogger logger, string Team, int Status, string Reason);
 
     [LoggerMessage(133, LogLevel.Warning, "No subscriptions found for {Subscription}")]
-    internal static partial void NoSubscriptionsFoundForSubscription(this ILogger logger, Subscription.NotificationSubscription Subscription);
+    internal static partial void NoSubscriptionsFoundForSubscription(this ILogger logger, NotificationSubscription Subscription);
 
     [LoggerMessage(134, LogLevel.Error, "Failed to remove subscription for event {Event} ({Status}): {Reason}")]
     internal static partial void FailedToRemoveSubscriptionForEventEventStatusReason(this ILogger logger, string? Event, int Status, string Reason);
@@ -564,7 +533,7 @@ static partial class Log
     internal static partial void InvalidNumberOfMatchesRequestedNumMatches(this ILogger logger, uint numMatches);
 
     [LoggerMessage(186, LogLevel.Error, "Could not figure out how to send the breakdown to this user: {User}({UserId}, {ChannelName}({ChannelId} - type {ChannelType})")]
-    internal static partial void CouldNotFigureOutHowToSendTheBreakdownToThisUserUserUserIdChannelNameChannelIdTypeChannelType(this ILogger logger, Exception exception, string User, ulong UserId, string ChannelName, ulong ChannelId, string? ChannelType);
+    internal static partial void CouldNotFigureOutHowToSendTheBreakdownToThisUserUserUserIdChannelNameChannelIdTypeChannelType(this ILogger logger, Exception exception, string User, ulong UserId, string? ChannelName, ulong? ChannelId, string? ChannelType);
 
     [LoggerMessage(187, LogLevel.Warning, "Took too long to reply to 'Get Breakdown' button")]
     internal static partial void TookTooLongToReplyToGetBreakdownButton(this ILogger logger);
@@ -580,4 +549,10 @@ static partial class Log
 
     [LoggerMessage(191, LogLevel.Debug, "Broadcast message detected. Fetching all teams at the event.")]
     internal static partial void BroadcastMessageDetectedFetchingAllTeamsAtTheEvent(this ILogger logger);
+
+    [LoggerMessage(192, LogLevel.Warning, "Unable to get stats for {TeamKey} from Statbotics")]
+    internal static partial void UnableToGetStatsForTeamKeyFromStatbotics(this ILogger logger, string TeamKey);
+
+    [LoggerMessage(193, LogLevel.Warning, "Unable to find event for match key {MatchKey}")]
+    internal static partial void UnableToFindEventForMatchKeyMatchKey(this ILogger logger, string MatchKey);
 }

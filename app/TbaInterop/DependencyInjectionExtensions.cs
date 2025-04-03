@@ -1,5 +1,4 @@
-﻿
-namespace DiscordBotFunctionApp.TbaInterop;
+﻿namespace FunctionApp.TbaInterop;
 
 using Common;
 
@@ -13,12 +12,12 @@ internal static class DependencyInjectionExtensions
 {
     public static IServiceCollection ConfigureTheBlueAllianceApi(this IServiceCollection services)
     {
-        services.AddHttpClient(DiscordBotFunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
+        services.AddHttpClient(FunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
         return services
             .AddSingleton(sp =>
             {
                 var config = sp.GetRequiredService<IConfiguration>();
-                var apiKey = Throws.IfNullOrWhiteSpace(config[DiscordBotFunctionApp.Constants.Configuration.TbaApiKey], message: $"TheBlueAlliance API key is required. Set the {DiscordBotFunctionApp.Constants.Configuration.TbaApiKey} config variable appropriately");
+                var apiKey = Throws.IfNullOrWhiteSpace(config[FunctionApp.Constants.Configuration.TbaApiKey], message: $"TheBlueAlliance API key is required. Set the {FunctionApp.Constants.Configuration.TbaApiKey} config variable appropriately");
                 return new Configuration
                 {
                     ApiKey = { { "X-TBA-Auth-Key", apiKey } },
@@ -27,25 +26,25 @@ internal static class DependencyInjectionExtensions
             })
             .AddSingleton<ITeamApi>(sp =>
             {
-                var client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(DiscordBotFunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
+                var client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(FunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
                 var cfg = sp.GetRequiredService<Configuration>();
                 return new TeamApi(client, cfg);
             })
             .AddSingleton<IEventApi>(sp =>
             {
-                var client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(DiscordBotFunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
+                var client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(FunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
                 var cfg = sp.GetRequiredService<Configuration>();
                 return new EventApi(client, cfg);
             })
             .AddSingleton<IMatchApi>(sp =>
             {
-                var client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(DiscordBotFunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
+                var client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(FunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
                 var cfg = sp.GetRequiredService<Configuration>();
                 return new MatchApi(client, cfg);
             })
             .AddSingleton<IDistrictApi>(sp =>
             {
-                var client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(DiscordBotFunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
+                var client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(FunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
                 var cfg = sp.GetRequiredService<Configuration>();
                 return new DistrictApi(client, cfg);
             })

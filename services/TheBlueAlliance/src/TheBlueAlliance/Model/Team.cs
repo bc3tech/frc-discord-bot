@@ -46,7 +46,7 @@ public partial record Team
     /// <param name="stateProv">State of team derived from parsing the address registered with FIRST. (required).</param>
     /// <param name="teamNumber">Official team number issued by FIRST. (required).</param>
     /// <param name="website">Official website associated with the team.</param>
-    public Team(string? address, string city, string country, string? gmapsPlaceId, string? gmapsUrl, string key, double? lat, double? lng, string? locationName, string name, string nickname, string postalCode, int? rookieYear, string schoolName, string stateProv, int teamNumber, string? website = default)
+    public Team(string? address, string city, string country, string? gmapsPlaceId, string? gmapsUrl, string key, double lat, double lng, string? locationName, string name, string nickname, string postalCode, int rookieYear, string schoolName, string stateProv, int teamNumber, string? website = default)
     {
         // to ensure "address" is required (not null)
         this.Address = address;
@@ -68,16 +68,8 @@ public partial record Team
         // to ensure "key" is required (not null)
         ArgumentNullException.ThrowIfNull(key);
         this.Key = key;
-        if (!lat.HasValue)
-        {
-            throw new ArgumentNullException(nameof(lat));
-        }
 
         this.Lat = lat;
-        if (!lng.HasValue)
-        {
-            throw new ArgumentNullException(nameof(lng));
-        }
 
         this.Lng = lng;
 
@@ -95,10 +87,6 @@ public partial record Team
         // to ensure "postalCode" is required (not null)
         ArgumentNullException.ThrowIfNull(postalCode);
         this.PostalCode = postalCode;
-        if (!rookieYear.HasValue)
-        {
-            throw new ArgumentNullException(nameof(rookieYear));
-        }
 
         this.RookieYear = rookieYear;
 

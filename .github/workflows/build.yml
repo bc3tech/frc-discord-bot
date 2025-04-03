@@ -1,4 +1,4 @@
-name: Build
+name: Build & Run UTs
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-debug:
-    name: Build Debug
+    name: Build & Test Debug
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -23,9 +23,13 @@ jobs:
 
       - name: Build Debug
         run: dotnet build --configuration Debug
+         
+      - name: Run UTs
+        run: dotnet test --configuration Debug --no-build
+
 
   build-release:
-    name: Build Release
+    name: Build & Test Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -38,3 +42,6 @@ jobs:
 
       - name: Build Release
         run: dotnet build --configuration Release
+         
+      - name: Run UTs
+        run: dotnet test --configuration Release --no-build

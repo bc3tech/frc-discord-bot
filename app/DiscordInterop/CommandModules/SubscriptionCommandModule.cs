@@ -1,14 +1,15 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.CommandModules;
+﻿namespace FunctionApp.DiscordInterop.CommandModules;
 
 using Common.Extensions;
 
 using Discord;
 using Discord.Interactions;
 using Discord.Net;
-using Discord.WebSocket;
 
-using DiscordBotFunctionApp.Storage;
-using DiscordBotFunctionApp.Subscription;
+using FunctionApp;
+using FunctionApp.DiscordInterop;
+using FunctionApp.Extensions;
+using FunctionApp.Subscription;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -17,12 +18,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 
+using TheBlueAlliance.Caching;
+
 [Group("subscription", "Manages subscriptions to FRC events and teams")]
 public sealed class SubscriptionCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<SubscriptionCommandModule>>()), IHandleUserInteractions
 {
     private readonly SubscriptionManager _subscriptionManager = services.GetRequiredService<SubscriptionManager>();
-    private readonly EventRepository _eventsRepo = services.GetRequiredService<EventRepository>();
-    private readonly TeamRepository _teamsRepo = services.GetRequiredService<TeamRepository>();
+    private readonly EventCache _eventsRepo = services.GetRequiredService<EventCache>();
+    private readonly TeamCache _teamsRepo = services.GetRequiredService<TeamCache>();
 
     [SlashCommand("show", "Shows the current subscriptions")]
     public async Task ShowAsync()
@@ -43,7 +46,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
 
         if (currentSubs.Count is 0)
         {
-            await this.ModifyOriginalResponseAsync(p => p.Content = "No subscriptions found for this channel.").ConfigureAwait(false);
+            await ModifyOriginalResponseAsync(p => p.Content = "No subscriptions found for this channel.").ConfigureAwait(false);
         }
         else
         {
@@ -55,7 +58,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
                 - **{(i.Key is not CommonConstants.ALL ? _eventsRepo[i.Key].GetLabel() : "All Events")}**:
                 {string.Join('\n', i.Select(j => $"  - {(j.Item2 is not CommonConstants.ALL ? _teamsRepo[j.Item2].GetLabel() : "All Teams")}"))}
                 """);
-            await this.ModifyOriginalResponseAsync(p =>
+            await ModifyOriginalResponseAsync(p =>
             {
                 p.Content = $"""
                 Subscriptions for this channel include:
@@ -82,7 +85,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
         using var scope = this.Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(eventKey) && string.IsNullOrWhiteSpace(teamKey))
         {
-            await this.ModifyOriginalResponseAsync(p => p.Content = "At least one of Event or Team is required.").ConfigureAwait(false);
+            await ModifyOriginalResponseAsync(p => p.Content = "At least one of Event or Team is required.").ConfigureAwait(false);
         }
         else
         {
@@ -94,22 +97,22 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
                 await _subscriptionManager.SaveSubscriptionAsync(new NotificationSubscription(this.Context.Interaction.GuildId, this.Context.Interaction.ChannelId!.Value, eventKey, teamKey), default).ConfigureAwait(false);
                 if (!string.IsNullOrWhiteSpace(eventKey) && !string.IsNullOrWhiteSpace(teamKey))
                 {
-                    await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo[teamKey].GetLabel(includeLocation: false)}** at the **{_eventsRepo[eventKey].GetLabel(includeYear: true)}** event.").ConfigureAwait(false);
+                    await ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo[teamKey].GetLabel(includeLocation: false)}** at the **{_eventsRepo[eventKey].GetLabel(includeYear: true)}** event.").ConfigureAwait(false);
                 }
                 else if (!string.IsNullOrWhiteSpace(eventKey))
                 {
-                    await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to the **{_eventsRepo[eventKey].GetLabel(includeYear: true)}** event.").ConfigureAwait(false);
+                    await ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to the **{_eventsRepo[eventKey].GetLabel(includeYear: true)}** event.").ConfigureAwait(false);
                 }
                 else
                 {
-                    await this.ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo[teamKey!].GetLabel(includeLocation: false)}**.").ConfigureAwait(false);
+                    await ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo[teamKey!].GetLabel(includeLocation: false)}**.").ConfigureAwait(false);
                 }
             }
             catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
             {
                 Debug.Fail(e.Message);
-                await this.DeleteOriginalResponseAsync();
-                await this.RespondAsync("An error occurred while creating the subscription. Please try again later.", ephemeral: true).ConfigureAwait(false);
+                await DeleteOriginalResponseAsync();
+                await RespondAsync("An error occurred while creating the subscription. Please try again later.", ephemeral: true).ConfigureAwait(false);
             }
         }
     }
@@ -130,15 +133,15 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
         using var scope = this.Logger.CreateMethodScope();
         var activeSubsForChannel = await _subscriptionManager.GetSubscriptionsForGuildAsync(this.Context.Interaction.GuildId, default)
             .Where(i => i.ChannelId == this.Context.Interaction.ChannelId!.Value)
-            .ToArrayAsync();
+            .ToHashSetAsync();
 
-        if (activeSubsForChannel.Length is 0)
+        if (activeSubsForChannel.Count is 0)
         {
-            await this.ModifyOriginalResponseAsync(p => p.Content = "No subscriptions found for this channel.").ConfigureAwait(false);
+            await ModifyOriginalResponseAsync(p => p.Content = "No subscriptions found for this channel.").ConfigureAwait(false);
         }
         else
         {
-            await this.ModifyOriginalResponseAsync(p =>
+            await ModifyOriginalResponseAsync(p =>
             {
                 p.Components = new ComponentBuilder()
                     .WithSelectMenu(SubscriptionDeleteSelectionMenuId, [.. activeSubsForChannel.Select(buildOption)], placeholder: "Choose a subscription to remove from this channel")
@@ -157,7 +160,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
 
     private string MakeLabelForSubscription(NotificationSubscription i) => $"{(i.Event is null or CommonConstants.ALL ? "All Events" : _eventsRepo[i.Event].GetLabel(shortName: true, includeYear: true))} - {(i.Team is null or CommonConstants.ALL ? "All Teams" : _teamsRepo[i.Team].GetLabel(includeLocation: false, asMarkdownLink: false))}";
 
-    public async Task<bool> HandleInteractionAsync(IServiceProvider services, SocketMessageComponent component, CancellationToken cancellationToken)
+    public async Task<bool> HandleInteractionAsync(IServiceProvider services, IComponentInteraction component, CancellationToken cancellationToken)
     {
         if (component.Data.CustomId is SubscriptionDeleteSelectionMenuId)
         {
@@ -184,11 +187,11 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
             }
 
             var subToDelete = new NotificationSubscription(ulong.TryParse(guild, out var g) ? g : null, channel, evt, team);
-            await _subscriptionManager.RemoveSubscriptionAsync(subToDelete, default).ConfigureAwait(false);
+            await _subscriptionManager.RemoveSubscriptionAsync(subToDelete, cancellationToken).ConfigureAwait(false);
 
             // Create a copy of the existing components; when updating a message, components are only settable wholesale
             var newActionRows = new ComponentBuilder()
-                .WithRows(component.Message.Components
+                .WithRows(component.Message.Components.OfType<ActionRowComponent>()
                     .Select(i => new ActionRowBuilder().WithComponents([.. i.Components])));
             var rowWithSelectMenuAndOption = newActionRows.ActionRows
                 .First(i => i.Components.OfType<SelectMenuComponent>().Any(j => j.Options.Any(k => k.Value == value)));
@@ -219,7 +222,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
                 {
                     p.Content = $"**Subscription for `{MakeLabelForSubscription(subToDelete)}` deleted.**";
                     p.Components = newActionRows?.ActionRows.SelectMany(i => i.Components).Any() is true ? newActionRows.Build() : null;
-                }).ConfigureAwait(false);
+                }, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             }
             catch (HttpException e) when (e.DiscordCode is DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged) { }
             catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)

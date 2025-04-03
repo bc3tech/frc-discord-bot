@@ -302,8 +302,6 @@ public sealed partial class ApiClient : ISynchronousClient, IAsynchronousClient
             }
         }
 
-        List<Tuple<HttpContent, string, string>> contentList = [];
-
         string? contentType = null;
         if (options.HeaderParameters is not null && options.HeaderParameters.TryGetValue("Content-Type", out var contentTypes) && contentTypes is not null)
         {

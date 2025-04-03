@@ -1,10 +1,11 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.CommandModules;
+﻿namespace FunctionApp.DiscordInterop.CommandModules;
 
 using Common.Extensions;
 
 using Discord.Interactions;
 
-using DiscordBotFunctionApp.DiscordInterop.Embeds;
+using FunctionApp.DiscordInterop;
+using FunctionApp.DiscordInterop.Embeds;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -50,7 +51,7 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         {
             Debug.Fail(e.Message);
             this.Logger.ErrorGettingNextMatchForTeamKeyAtEventKey(e, teamKey, eventKey);
-            await this.ModifyOriginalResponseAsync(p => p.Content = "Sorry, I encountered an error processing your request. Maybe try again? Or contact your admin with this news so they can troubleshoot.").ConfigureAwait(false);
+            await ModifyOriginalResponseAsync(p => p.Content = "Sorry, I encountered an error processing your request. Maybe try again? Or contact your admin with this news so they can troubleshoot.").ConfigureAwait(false);
         }
     }
 

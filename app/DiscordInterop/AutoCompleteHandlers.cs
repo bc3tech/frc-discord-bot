@@ -1,10 +1,7 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop;
-
+﻿namespace FunctionApp.DiscordInterop;
 using Discord;
 using Discord.Interactions;
 using Discord.Net;
-
-using DiscordBotFunctionApp.Storage;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -15,6 +12,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+
+using TheBlueAlliance.Caching;
 
 using CompLevelEnum = TheBlueAlliance.Model.Match.CompLevelEnum;
 
@@ -38,7 +37,7 @@ internal sealed class AutoCompleteHandlers
             try
             {
                 var userSearchString = autocompleteInteraction.Data.Current.Value as string ?? string.Empty;
-                var eventsRepo = services.GetService<EventRepository>();
+                var eventsRepo = services.GetService<EventCache>();
                 Debug.Assert(eventsRepo is not null);
 #pragma warning disable EA0011 // Consider removing unnecessary conditional access operator (?) - found instances where, even though decorated with [JsonRequired] and not nullable, values were coming through as `null`
                 return Task.FromResult(AutocompletionResult.FromSuccess(
@@ -75,7 +74,7 @@ internal sealed class AutoCompleteHandlers
             try
             {
                 var userSearchString = autocompleteInteraction.Data.Current.Value as string ?? string.Empty;
-                var teamsRepo = services.GetService<TeamRepository>();
+                var teamsRepo = services.GetService<TeamCache>();
                 Debug.Assert(teamsRepo is not null);
 #pragma warning disable EA0011 // Consider removing unnecessary conditional access operator (?) - found instances where, even though decorated with [JsonRequired] and not nullable, values were coming through as `null`
                 return Task.FromResult(AutocompletionResult.FromSuccess(

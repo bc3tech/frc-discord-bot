@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp;
+﻿namespace FunctionApp;
 
 using Microsoft.Extensions.Configuration;
 
