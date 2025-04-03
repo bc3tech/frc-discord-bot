@@ -33,7 +33,7 @@ public class SubscriptionManagerTests : TestWithLogger
     {
         _mockTeamSubscriptions = new Mock<TableClient>();
         _mockEventSubscriptions = new Mock<TableClient>();
-        _subscriptionManager = new SubscriptionManager(_mockTeamSubscriptions.Object, _mockEventSubscriptions.Object, this.Mocker.Get<ILogger<SubscriptionManager>>());
+        _subscriptionManager = new SubscriptionManager(_mockTeamSubscriptions.Object, _mockEventSubscriptions.Object, this.Mocker.Get<ILoggerFactory>().CreateLogger<SubscriptionManager>());
     }
 
     [Fact]
