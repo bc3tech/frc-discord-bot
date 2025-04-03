@@ -533,7 +533,7 @@ static partial class Log
     internal static partial void InvalidNumberOfMatchesRequestedNumMatches(this ILogger logger, uint numMatches);
 
     [LoggerMessage(186, LogLevel.Error, "Could not figure out how to send the breakdown to this user: {User}({UserId}, {ChannelName}({ChannelId} - type {ChannelType})")]
-    internal static partial void CouldNotFigureOutHowToSendTheBreakdownToThisUserUserUserIdChannelNameChannelIdTypeChannelType(this ILogger logger, Exception exception, string User, ulong UserId, string ChannelName, ulong ChannelId, string? ChannelType);
+    internal static partial void CouldNotFigureOutHowToSendTheBreakdownToThisUserUserUserIdChannelNameChannelIdTypeChannelType(this ILogger logger, Exception exception, string User, ulong UserId, string? ChannelName, ulong? ChannelId, string? ChannelType);
 
     [LoggerMessage(187, LogLevel.Warning, "Took too long to reply to 'Get Breakdown' button")]
     internal static partial void TookTooLongToReplyToGetBreakdownButton(this ILogger logger);

@@ -5,10 +5,10 @@ using Common.Extensions;
 using Discord;
 using Discord.Interactions;
 using Discord.Net;
-using Discord.WebSocket;
 
 using FunctionApp;
 using FunctionApp.DiscordInterop;
+using FunctionApp.Extensions;
 using FunctionApp.Subscription;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -133,9 +133,9 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
         using var scope = this.Logger.CreateMethodScope();
         var activeSubsForChannel = await _subscriptionManager.GetSubscriptionsForGuildAsync(this.Context.Interaction.GuildId, default)
             .Where(i => i.ChannelId == this.Context.Interaction.ChannelId!.Value)
-            .ToArrayAsync();
+            .ToHashSetAsync();
 
-        if (activeSubsForChannel.Length is 0)
+        if (activeSubsForChannel.Count is 0)
         {
             await ModifyOriginalResponseAsync(p => p.Content = "No subscriptions found for this channel.").ConfigureAwait(false);
         }
@@ -187,11 +187,11 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
             }
 
             var subToDelete = new NotificationSubscription(ulong.TryParse(guild, out var g) ? g : null, channel, evt, team);
-            await _subscriptionManager.RemoveSubscriptionAsync(subToDelete, default).ConfigureAwait(false);
+            await _subscriptionManager.RemoveSubscriptionAsync(subToDelete, cancellationToken).ConfigureAwait(false);
 
             // Create a copy of the existing components; when updating a message, components are only settable wholesale
             var newActionRows = new ComponentBuilder()
-                .WithRows(component.Message.Components
+                .WithRows(component.Message.Components.OfType<ActionRowComponent>()
                     .Select(i => new ActionRowBuilder().WithComponents([.. i.Components])));
             var rowWithSelectMenuAndOption = newActionRows.ActionRows
                 .First(i => i.Components.OfType<SelectMenuComponent>().Any(j => j.Options.Any(k => k.Value == value)));
@@ -222,7 +222,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
                 {
                     p.Content = $"**Subscription for `{MakeLabelForSubscription(subToDelete)}` deleted.**";
                     p.Components = newActionRows?.ActionRows.SelectMany(i => i.Components).Any() is true ? newActionRows.Build() : null;
-                }).ConfigureAwait(false);
+                }, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
             }
             catch (HttpException e) when (e.DiscordCode is DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged) { }
             catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
