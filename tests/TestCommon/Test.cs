@@ -33,6 +33,9 @@ public abstract class Test
 
         this.Mocker.Use(this.TimeMock);
         this.Mocker.Use(new Meter("UnitTestMeter"));
+
+        this.Mocker.With<EventCache>();
+        this.Mocker.With<TeamCache>();
     }
 
 
