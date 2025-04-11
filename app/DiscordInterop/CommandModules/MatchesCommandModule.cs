@@ -1,10 +1,15 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.CommandModules;
+﻿using FunctionApp;
+
+namespace FunctionApp.DiscordInterop.CommandModules;
 
 using Common.Extensions;
 
 using Discord.Interactions;
 
-using DiscordBotFunctionApp.DiscordInterop.Embeds;
+using FunctionApp.DiscordInterop.Embeds;
+
+using FunctionApp.DiscordInterop;
+using FunctionApp.DiscordInterop.Embeds;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -35,7 +40,7 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
             return;
         }
 
-        using var scope = this.Logger.CreateMethodScope();
+        using var scope = Logger.CreateMethodScope();
         try
         {
             // In case the user just gives us team number
@@ -49,8 +54,8 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
             Debug.Fail(e.Message);
-            this.Logger.ErrorGettingNextMatchForTeamKeyAtEventKey(e, teamKey, eventKey);
-            await this.ModifyOriginalResponseAsync(p => p.Content = "Sorry, I encountered an error processing your request. Maybe try again? Or contact your admin with this news so they can troubleshoot.").ConfigureAwait(false);
+            Logger.ErrorGettingNextMatchForTeamKeyAtEventKey(e, teamKey, eventKey);
+            await ModifyOriginalResponseAsync(p => p.Content = "Sorry, I encountered an error processing your request. Maybe try again? Or contact your admin with this news so they can troubleshoot.").ConfigureAwait(false);
         }
     }
 
@@ -76,7 +81,7 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
             return;
         }
 
-        using var scope = this.Logger.CreateMethodScope();
+        using var scope = Logger.CreateMethodScope();
         string matchKey = (Match.CompLevelEnum)compLevel switch
         {
             Match.CompLevelEnum.Qm => $"qm{matchNumber}",

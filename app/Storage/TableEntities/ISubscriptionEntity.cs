@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.Storage.TableEntities;
+﻿namespace FunctionApp.Storage.TableEntities;
 
 using Azure;
 using Azure.Data.Tables;

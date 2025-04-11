@@ -1,4 +1,5 @@
-﻿namespace DiscordBotFunctionApp.Storage.TableEntities;
+﻿namespace FunctionApp.Storage.TableEntities;
+
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 

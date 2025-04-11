@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.CommandModules;
+﻿namespace FunctionApp.DiscordInterop.CommandModules;
 
 using Discord.WebSocket;
 

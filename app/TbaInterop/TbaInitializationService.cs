@@ -1,6 +1,6 @@
-﻿namespace DiscordBotFunctionApp.TbaInterop;
+﻿namespace FunctionApp.TbaInterop;
 
-using DiscordBotFunctionApp.Storage;
+using FunctionApp.Storage;
 
 using Microsoft.Extensions.Hosting;
 

@@ -1,13 +1,15 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
+﻿namespace FunctionApp.DiscordInterop.Embeds;
 
 using Common.Extensions;
 
 using Discord;
 using Discord.Interactions.Builders;
 
-using DiscordBotFunctionApp.Storage;
+using FunctionApp;
 
 using FIRST.Api;
+
+using FunctionApp.Storage;
 
 using Microsoft.Extensions.Logging;
 

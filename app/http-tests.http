@@ -1,4 +1,4 @@
-﻿@webhook_url = {{DiscordBotFunctionApp_HostAddress}}/api/tba/webhook{{auth_code}}
+﻿@webhook_url = {{FunctionApp_HostAddress}}/api/tba/webhook{{auth_code}}
 
 ### Send ping request
 POST {{webhook_url}}

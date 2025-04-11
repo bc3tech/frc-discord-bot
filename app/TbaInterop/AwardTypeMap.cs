@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.TbaInterop;
+﻿namespace FunctionApp.TbaInterop;
 
 using Microsoft.Extensions.EnumStrings;
 

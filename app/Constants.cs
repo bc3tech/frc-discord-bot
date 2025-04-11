@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp;
+﻿namespace FunctionApp;
 
 using Microsoft.Extensions.Configuration;
 
@@ -21,7 +21,7 @@ internal static class Constants
 
     public static class Telemetry
     {
-        public const string AppMeterName = "DiscordBotFunctionApp.Meter";
+        public const string AppMeterName = "FunctionApp.Meter";
         public static class Metrics
         {
             public const string NumCountries = nameof(NumCountries);

@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
+﻿namespace FunctionApp.DiscordInterop.Embeds;
 
 using Azure.Storage.Blobs;
 using Azure.Storage.Sas;
@@ -7,10 +7,12 @@ using Common.Extensions;
 
 using Discord;
 
-using DiscordBotFunctionApp.Storage;
-using DiscordBotFunctionApp.TbaInterop;
-using DiscordBotFunctionApp.TbaInterop.Models;
-using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
+using FunctionApp;
+
+using FunctionApp.Storage;
+using FunctionApp.TbaInterop;
+using FunctionApp.TbaInterop.Models;
+using FunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;

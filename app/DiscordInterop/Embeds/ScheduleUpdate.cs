@@ -1,6 +1,9 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
-using DiscordBotFunctionApp.TbaInterop.Models;
-using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
+﻿namespace FunctionApp.DiscordInterop.Embeds;
+
+using FunctionApp;
+
+using FunctionApp.TbaInterop.Models;
+using FunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 

@@ -1,6 +1,8 @@
-namespace DiscordBotFunctionApp.Functions;
+namespace FunctionApp.Functions;
 
-using DiscordBotFunctionApp.DiscordInterop;
+using FunctionApp;
+
+using FunctionApp.DiscordInterop;
 
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;

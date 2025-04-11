@@ -1,6 +1,8 @@
-﻿namespace DiscordBotFunctionApp.Storage;
+﻿namespace FunctionApp.Storage;
 
 using Common.Extensions;
+
+using FunctionApp;
 
 using Microsoft.Extensions.Logging;
 

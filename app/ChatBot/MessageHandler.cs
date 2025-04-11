@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.ChatBot;
+﻿namespace FunctionApp.ChatBot;
 
 using Azure.AI.Projects;
 using Azure.Data.Tables;
@@ -7,7 +7,8 @@ using Common.Extensions;
 
 using Discord;
 
-using DiscordBotFunctionApp.Extensions;
+using FunctionApp;
+using FunctionApp.Extensions;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

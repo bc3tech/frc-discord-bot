@@ -1,11 +1,14 @@
-namespace DiscordBotFunctionApp.Functions;
+namespace FunctionApp.Functions;
 
 using Azure.Data.Tables;
 
 using Common.Extensions;
 
-using DiscordBotFunctionApp.DiscordInterop;
-using DiscordBotFunctionApp.Storage.TableEntities;
+using FunctionApp;
+
+using FunctionApp;
+using FunctionApp.DiscordInterop;
+using FunctionApp.Storage.TableEntities;
 
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;

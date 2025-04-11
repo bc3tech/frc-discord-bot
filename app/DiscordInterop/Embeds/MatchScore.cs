@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
+﻿namespace FunctionApp.DiscordInterop.Embeds;
 
 using Common;
 using Common.Extensions;
@@ -7,16 +7,16 @@ using Discord;
 using Discord.Net;
 using Discord.WebSocket;
 
-using DiscordBotFunctionApp.ChatBot;
-using DiscordBotFunctionApp.DiscordInterop.CommandModules;
-using DiscordBotFunctionApp.Extensions;
-using DiscordBotFunctionApp.Storage;
-using DiscordBotFunctionApp.TbaInterop;
-using DiscordBotFunctionApp.TbaInterop.Models;
-using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
-
 using FIRST.Api;
 using FIRST.Model;
+
+using FunctionApp.ChatBot;
+using FunctionApp.DiscordInterop.CommandModules;
+using FunctionApp.Extensions;
+using FunctionApp.Storage;
+using FunctionApp.TbaInterop;
+using FunctionApp.TbaInterop.Models;
+using FunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
@@ -43,10 +43,10 @@ internal sealed partial class MatchScore(IEventApi eventApi,
                                          EventRepository events,
                                          TeamRepository teams,
                                          EmbedBuilderFactory builderFactory,
-                                         ChatRunner gpt,
                                          TimeProvider time,
                                          Meter meter,
-                                         ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<(string matchKey, bool summarize)>, IHandleUserInteractions
+                                         ILogger<MatchScore> logger,
+                                         ChatRunner? gpt = null) : INotificationEmbedCreator, IEmbedCreator<(string matchKey, bool summarize)>, IHandleUserInteractions
 {
     public const NotificationType TargetType = NotificationType.match_score;
     public const string GetBreakdownButtonId = "get-score-breakdown";
@@ -56,7 +56,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         using var scope = logger.CreateMethodScope();
         logger.CreatingMatchScoreEmbed();
         var baseBuilder = builderFactory.GetBuilder(highlightTeam);
-        var notification = msg.GetDataAs<TbaInterop.Models.Notifications.MatchScore>();
+        var notification = msg.GetDataAs<FunctionApp.TbaInterop.Models.Notifications.MatchScore>();
         if (notification is null)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
@@ -163,7 +163,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
         yield return new(embedding);
 
-        if (input.summarize)
+        if (input.summarize && gpt is not null)
         {
             bool first = true;
             var prompt = $"Create a narrative for this match:\n\n```json{JsonSerializer.Serialize(detailedMatch)}\n```";

@@ -1,9 +1,11 @@
-﻿namespace DiscordBotFunctionApp.Subscription;
+﻿namespace FunctionApp.Subscription;
 
 using Azure.Data.Tables;
 
-using DiscordBotFunctionApp;
-using DiscordBotFunctionApp.Storage.TableEntities;
+using FunctionApp;
+
+using FunctionApp;
+using FunctionApp.Storage.TableEntities;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

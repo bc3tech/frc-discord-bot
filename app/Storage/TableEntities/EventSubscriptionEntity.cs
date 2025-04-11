@@ -1,4 +1,5 @@
-﻿namespace DiscordBotFunctionApp.Storage.TableEntities;
+﻿namespace FunctionApp.Storage.TableEntities;
+
 using System.Runtime.Serialization;
 
 internal sealed record EventSubscriptionEntity : BaseSubscriptionEntity

@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.Extensions;
+﻿namespace FunctionApp.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 

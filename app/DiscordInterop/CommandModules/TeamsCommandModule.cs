@@ -1,10 +1,11 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.CommandModules;
+﻿namespace FunctionApp.DiscordInterop.CommandModules;
 
 using Common.Extensions;
 
 using Discord.Interactions;
 
-using DiscordBotFunctionApp.DiscordInterop.Embeds;
+using FunctionApp.DiscordInterop;
+using FunctionApp.DiscordInterop.Embeds;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -25,10 +26,10 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
             return;
         }
 
-        using var scope = this.Logger.CreateMethodScope();
+        using var scope = Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(teamKey))
         {
-            await this.RespondAsync("Team key is required.", ephemeral: true).ConfigureAwait(false);
+            await RespondAsync("Team key is required.", ephemeral: true).ConfigureAwait(false);
             return;
         }
 
@@ -54,10 +55,10 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
             return;
         }
 
-        using var scope = this.Logger.CreateMethodScope();
+        using var scope = Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(teamKey))
         {
-            await this.RespondAsync("Team key is required.", ephemeral: true).ConfigureAwait(false);
+            await RespondAsync("Team key is required.", ephemeral: true).ConfigureAwait(false);
             return;
         }
 
@@ -83,7 +84,7 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
             return;
         }
 
-        using IDisposable scope = this.Logger.CreateMethodScope();
+        using IDisposable scope = Logger.CreateMethodScope();
         await GenerateResponseAsync(_scheduleEmbedCreator, (eventKey, numMatches), teamKey.TeamKeyToTeamNumber()).ConfigureAwait(false);
     }
 }

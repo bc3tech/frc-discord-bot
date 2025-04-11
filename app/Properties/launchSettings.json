@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "DiscordBotFunctionApp": {
+    "FunctionApp": {
       "commandName": "Project",
       "commandLineArgs": "--port 7240 --language-worker dotnet-isolated",
     }

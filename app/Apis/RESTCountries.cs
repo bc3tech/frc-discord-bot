@@ -1,6 +1,10 @@
-﻿namespace DiscordBotFunctionApp.Apis;
+﻿namespace FunctionApp.Apis;
 
 using Common.Extensions;
+
+using FunctionApp;
+
+using FunctionApp;
 
 using Microsoft.Extensions.Logging;
 

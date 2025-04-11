@@ -1,4 +1,4 @@
-namespace DiscordBotFunctionApp;
+namespace FunctionApp;
 using Azure.Core;
 using Azure.Data.Tables;
 using Azure.Identity;
@@ -7,16 +7,18 @@ using Azure.Storage.Blobs;
 
 using Common;
 
-using DiscordBotFunctionApp.Apis;
-using DiscordBotFunctionApp.ChatBot;
-using DiscordBotFunctionApp.DiscordInterop;
-using DiscordBotFunctionApp.DiscordInterop.Embeds;
-using DiscordBotFunctionApp.Extensions;
-using DiscordBotFunctionApp.FIRSTInterop;
-using DiscordBotFunctionApp.StatboticsInterop;
-using DiscordBotFunctionApp.Storage;
-using DiscordBotFunctionApp.Subscription;
-using DiscordBotFunctionApp.TbaInterop;
+using FunctionApp;
+using FunctionApp.ChatBot;
+
+using FunctionApp.Apis;
+using FunctionApp.DiscordInterop;
+using FunctionApp.DiscordInterop.Embeds;
+using FunctionApp.Extensions;
+using FunctionApp.FIRSTInterop;
+using FunctionApp.StatboticsInterop;
+using FunctionApp.Storage;
+using FunctionApp.Subscription;
+using FunctionApp.TbaInterop;
 
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.OpenTelemetry;
@@ -78,7 +80,7 @@ internal sealed class Program
                     .ConfigureTheBlueAllianceApi()
                     .ConfigureStatboticsApi()
                     .ConfigureFIRSTApi()
-                    .ConfigureChatBotFunctionality()
+                    //.ConfigureChatBotFunctionality()
                     .AddSingleton(sp => new EmbeddingColorizer(new FRCColors.Client(sp.GetRequiredService<IHttpClientFactory>()), sp.GetService<ILoggerFactory>()?.CreateLogger<EmbeddingColorizer>()))
                     .AddSingleton<EventRepository>()
                     .AddSingleton<TeamRepository>()

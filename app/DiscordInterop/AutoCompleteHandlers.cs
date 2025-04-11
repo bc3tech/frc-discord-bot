@@ -1,10 +1,12 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop;
+﻿using FunctionApp;
+
+namespace FunctionApp.DiscordInterop;
 
 using Discord;
 using Discord.Interactions;
 using Discord.Net;
 
-using DiscordBotFunctionApp.Storage;
+using FunctionApp.Storage;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

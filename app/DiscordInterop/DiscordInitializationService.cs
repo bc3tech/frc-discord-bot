@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop;
+﻿namespace FunctionApp.DiscordInterop;
 
 using Common.Extensions;
 
@@ -6,9 +6,9 @@ using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
 
-using DiscordBotFunctionApp;
-using DiscordBotFunctionApp.DiscordInterop.CommandModules;
-using DiscordBotFunctionApp.Extensions;
+using FunctionApp;
+using FunctionApp.DiscordInterop.CommandModules;
+using FunctionApp.Extensions;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +22,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-internal sealed partial class DiscordInitializationService(IDiscordClient discordClient, InteractionService interactionService, ChatBot.MessageHandler chatBot, TimeProvider time, Meter meter, IConfiguration appConfig, ILoggerFactory logFactory, IServiceProvider services) : IHostedService
+internal sealed partial class DiscordInitializationService(IDiscordClient discordClient, InteractionService interactionService, TimeProvider time, Meter meter, IConfiguration appConfig, ILoggerFactory logFactory, IServiceProvider services, ChatBot.MessageHandler? chatBot = null) : IHostedService
 {
     private readonly ILogger _logger = logFactory.CreateLogger<DiscordInitializationService>();
     private readonly DiscordSocketClient client = discordClient as DiscordSocketClient ?? throw new ArgumentException(nameof(discordClient));
@@ -89,14 +89,17 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
             return Task.CompletedTask;
         };
 
-        client.MessageReceived += async i =>
+        if (chatBot is not null)
         {
-            _logger.MessageReceivedFromGatewayGatewayMessage(i);
-            if (i is SocketUserMessage msg && i.Channel is IDMChannel && i.Author.GlobalName is not null)
+            client.MessageReceived += async i =>
             {
-                await chatBot.HandleUserMessageAsync(msg).ConfigureAwait(false);
-            }
-        };
+                _logger.MessageReceivedFromGatewayGatewayMessage(i);
+                if (i is SocketUserMessage msg && i.Channel is IDMChannel && i.Author.GlobalName is not null)
+                {
+                    await chatBot.HandleUserMessageAsync(msg).ConfigureAwait(false);
+                }
+            };
+        }
 
         client.ButtonExecuted += async (button) =>
         {
