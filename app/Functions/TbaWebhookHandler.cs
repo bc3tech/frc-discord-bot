@@ -1,12 +1,12 @@
-namespace DiscordBotFunctionApp.Functions;
+namespace FunctionApp.Functions;
 
 using Azure.Data.Tables;
 
 using Common;
 
-using DiscordBotFunctionApp.DiscordInterop;
-using DiscordBotFunctionApp.TbaInterop.Models;
-using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
+using FunctionApp.DiscordInterop;
+using FunctionApp.TbaInterop.Models;
+using FunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
@@ -21,7 +21,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher,
-                                        [FromKeyedServices(DiscordBotFunctionApp.Constants.ServiceKeys.TableClient_ProcessedMessages)] TableClient messagesTable,
+                                        [FromKeyedServices(FunctionApp.Constants.ServiceKeys.TableClient_ProcessedMessages)] TableClient messagesTable,
                                         IConfiguration appConfig,
                                         ILogger<TbaWebhookHandler> logger)
 {
@@ -125,7 +125,7 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher,
 
     private async Task<bool> IsDuplicateAsync(string bodyContent, CancellationToken cancellationToken)
     {
-        if (bool.TryParse(appConfig[DiscordBotFunctionApp.Constants.Configuration.AllowDuplicateWebhooks], out var b) && b)
+        if (bool.TryParse(appConfig[FunctionApp.Constants.Configuration.AllowDuplicateWebhooks], out var b) && b)
         {
             return false;
         }

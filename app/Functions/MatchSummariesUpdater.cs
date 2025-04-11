@@ -1,8 +1,10 @@
-namespace DiscordBotFunctionApp.Functions;
+namespace FunctionApp.Functions;
 
 using Azure;
 using Azure.AI.Projects;
 using Azure.Data.Tables;
+
+using FunctionApp;
 
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;

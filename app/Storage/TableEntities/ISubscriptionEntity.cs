@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.Storage.TableEntities;
+﻿namespace FunctionApp.Storage.TableEntities;
 
 using Azure;
 using Azure.Data.Tables;
@@ -23,15 +23,15 @@ internal abstract record BaseSubscriptionEntity : ISubscriptionEntity
     [Obsolete("Only used for serialization", error: true)]
     public string Subscriptions
     {
-        get => JsonSerializer.Serialize(Subscribers);
-        set => Subscribers = Throws.IfNull(JsonSerializer.Deserialize<GuildSubscriptions>(value));
+        get => JsonSerializer.Serialize(this.Subscribers);
+        set => this.Subscribers = Throws.IfNull(JsonSerializer.Deserialize<GuildSubscriptions>(value));
     }
 
     [IgnoreDataMember]
     abstract public string Team { get; set; }
     [IgnoreDataMember]
     abstract public string Event { get; set; }
-    
+
     required public string PartitionKey { get; set; }
     public string RowKey { get; set; } = CommonConstants.ALL;
 

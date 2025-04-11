@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
@@ -26,3 +27,5 @@ using System.Runtime.InteropServices;
 [assembly: System.CodeDom.Compiler.GeneratedCode("OpenAPIGenerator-cli", "7.11.0")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0290:Use primary constructor", Justification = "Auto-generated code", Scope = "module")]
 
+[assembly: InternalsVisibleTo("TheBlueAlliance.Tests")]
+[assembly: InternalsVisibleTo("FunctionApp.Tests")]

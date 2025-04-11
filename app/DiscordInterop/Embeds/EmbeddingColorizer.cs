@@ -1,15 +1,15 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
+﻿namespace FunctionApp.DiscordInterop.Embeds;
 
 using Common.Extensions;
 
-using DiscordBotFunctionApp.Extensions;
+using FunctionApp.DiscordInterop;
+using FunctionApp.Extensions;
 
 using Microsoft.Extensions.Logging;
 
-using System.Globalization;
 using System.Threading.Tasks;
 
-internal sealed class EmbeddingColorizer(FRCColors.Client colorClient, ILogger<EmbeddingColorizer>? logger)
+internal sealed class EmbeddingColorizer(FRCColors.IClient colorClient, ILogger<EmbeddingColorizer>? logger)
 {
     public Task<bool> SetEmbeddingColorAsync(string teamKey, Discord.EmbedBuilder embedding, CancellationToken cancellationToken) => SetEmbeddingColorAsync(teamKey.TeamKeyToTeamNumber(), embedding, cancellationToken);
 

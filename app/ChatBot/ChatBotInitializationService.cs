@@ -1,9 +1,9 @@
-﻿namespace DiscordBotFunctionApp.ChatBot;
+﻿namespace FunctionApp.ChatBot;
 
 using Discord;
 using Discord.WebSocket;
 
-using DiscordBotFunctionApp.DiscordInterop.CommandModules;
+using FunctionApp.DiscordInterop.CommandModules;
 
 using Microsoft.Extensions.Hosting;
 

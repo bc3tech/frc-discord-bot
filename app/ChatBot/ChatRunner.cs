@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.ChatBot;
+﻿namespace FunctionApp.ChatBot;
 using Azure.AI.Projects;
 
 using Common.Extensions;
@@ -13,7 +13,7 @@ using System.Text.Json;
 using System.Threading;
 
 #pragma warning disable SKEXP0110 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-internal sealed class ChatRunner(AgentsClient agentsClient, AzureAIAgent agent, Meter meter, ILogger<ChatRunner> logger)
+internal sealed class ChatRunner(AgentsClient agentsClient, AzureAIAgent agent, Meter meter, ILogger<ChatRunner> logger) : IChatWithLLMs
 {
     public async IAsyncEnumerable<string> GetCompletionsAsync(string prompt, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
@@ -32,7 +32,7 @@ internal sealed class ChatRunner(AgentsClient agentsClient, AzureAIAgent agent, 
                     ["ThreadId"] = thread.Id,
                     ["Usage"] = JsonSerializer.Serialize(usage),
                     ["RunId"] = response.Metadata!["RunId"]?.ToString() ?? "Unknown",
-                });
+                }.ToArray());
             }
 
             if (response.Metadata?.TryGetValue("code", out var codeValue) is true && codeValue is true)

@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.StatboticsInterop;
+﻿namespace FunctionApp.StatboticsInterop;
 
 using Microsoft.Extensions.DependencyInjection;
 

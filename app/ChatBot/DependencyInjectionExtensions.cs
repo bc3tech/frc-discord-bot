@@ -1,7 +1,9 @@
-﻿namespace DiscordBotFunctionApp.ChatBot;
+﻿namespace FunctionApp.ChatBot;
 
 using Azure.AI.Projects;
 using Azure.Identity;
+
+using FunctionApp;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,7 +44,7 @@ internal static class DependencyInjectionExtensions
                 //var statboticsToolDef = new OpenApiToolDefinition("statbotics", "Statbotics API", BinaryData.FromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("DiscordBotFunctionApp.Apis.statbotics.json")!), new OpenApiAnonymousAuthDetails());
 
                 var blueAllianceConnId = $"/subscriptions/c6311630-ca87-4f08-be8f-100203cec93c/resourceGroups/hurlburb-bearmetal/providers/Microsoft.MachineLearningServices/workspaces/msft-bearmetal/connections/the-blue-alliance-2";
-                var blueAllianceToolDef = new OpenApiToolDefinition("thebluealliance", "The Blue Alliance API", BinaryData.FromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("DiscordBotFunctionApp.Apis.thebluealliance.json")!), new OpenApiConnectionAuthDetails(new OpenApiConnectionSecurityScheme(blueAllianceConnId)));
+                var blueAllianceToolDef = new OpenApiToolDefinition("thebluealliance", "The Blue Alliance API", BinaryData.FromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("FunctionApp.Apis.thebluealliance.json")!), new OpenApiConnectionAuthDetails(new OpenApiConnectionSecurityScheme(blueAllianceConnId)));
 
                 // FRC-Events API def is invalid and bombs when creating the agent
                 //var frcEventsConnId = $"/subscriptions/c6311630-ca87-4f08-be8f-100203cec93c/resourceGroups/hurlburb-bearmetal/providers/Microsoft.MachineLearningServices/workspaces/msft-bearmetal/connections/frc-events-api";
@@ -74,7 +76,7 @@ internal static class DependencyInjectionExtensions
                 Debug.Assert(agent is not null);
                 return new AzureAIAgent(agent, client, templateFactory: sp.GetService<IPromptTemplateFactory>());
             })
-            .AddSingleton<ChatRunner>()
+            .AddSingleton<IChatWithLLMs, ChatRunner>()
             .AddHostedService<ChatBotInitializationService>();
 #pragma warning restore SKEXP0110 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
     }

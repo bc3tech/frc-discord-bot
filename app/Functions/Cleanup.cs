@@ -1,11 +1,12 @@
-namespace DiscordBotFunctionApp.Functions;
+namespace FunctionApp.Functions;
 
 using Azure.Data.Tables;
 
 using Common.Extensions;
 
-using DiscordBotFunctionApp.DiscordInterop;
-using DiscordBotFunctionApp.Storage.TableEntities;
+using FunctionApp;
+using FunctionApp.DiscordInterop;
+using FunctionApp.Storage.TableEntities;
 
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;
@@ -44,7 +45,7 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
         logger.ExecutingCleanup();
 
         var startTime = time.GetTimestamp();
-        await foreach (var oldMessage in processedMessagesTable.QueryAsync<TableEntity>(filter: $"Timestamp lt datetime'{DateTime.UtcNow.AddDays(maxDays * -1):O}'", cancellationToken: cancellationToken))
+        await foreach (var oldMessage in processedMessagesTable.QueryAsync<TableEntity>(filter: $"Timestamp lt datetime'{time.GetUtcNow().AddDays(maxDays * -1):O}'", cancellationToken: cancellationToken))
         {
             logger.DeletingMessageFromRecordTimestamp(oldMessage.Timestamp);
 
@@ -55,13 +56,13 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
                 continue;
             }
 
-            meter.LogMetric("ProcessedMessageCleanedUp", 1, new Dictionary<string, object?> { { "Timestamp", oldMessage.Timestamp! } });
+            meter.LogMetric("ProcessedMessageCleanedUp", 1, [new("Timestamp", oldMessage.Timestamp!)]);
         }
 
         meter.LogMetric("ProcessedMessagesCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
 
         startTime = time.GetTimestamp();
-        await foreach (var oldMessage in eventMessageThreads.QueryAsync<ThreadTableEntity>(filter: $"Timestamp lt datetime'{DateTime.UtcNow.AddDays(maxDays * -1):O}'", cancellationToken: cancellationToken))
+        await foreach (var oldMessage in eventMessageThreads.QueryAsync<ThreadTableEntity>(filter: $"Timestamp lt datetime'{time.GetUtcNow().AddDays(maxDays * -1):O}'", cancellationToken: cancellationToken))
         {
             logger.DeletingOldThreadForThreadEventMessageFromRecordTimestamp(oldMessage.RowKey, oldMessage.Timestamp);
 
@@ -72,7 +73,7 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
                 continue;
             }
 
-            meter.LogMetric("EventMessageThreadCleanedUp", 1, new Dictionary<string, object?> { { "Thread", JsonSerializer.Serialize(oldMessage) } });
+            meter.LogMetric("EventMessageThreadCleanedUp", 1, [new("Thread", JsonSerializer.Serialize(oldMessage))]);
         }
 
         meter.LogMetric("EventMessageThreadsCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);

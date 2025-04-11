@@ -1,8 +1,6 @@
-﻿namespace DiscordBotFunctionApp.Extensions;
+﻿namespace FunctionApp.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
-using System.Linq;
 
 internal static class DependencyInjectionExtensions
 {

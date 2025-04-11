@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.CommandModules;
+﻿namespace FunctionApp.DiscordInterop.CommandModules;
 
 using Azure.Data.Tables;
 
@@ -7,6 +7,8 @@ using Common.Extensions;
 using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
+
+using FunctionApp;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -44,7 +46,7 @@ public sealed class ChatCommandModule(ILogger<ChatCommandModule> logger) : Comma
             buttons.WithButton("Cancel", Constants.InteractionElements.CancelButtonDeleteMessage, ButtonStyle.Secondary);
         }
 
-        await this.ModifyOriginalResponseAsync(p =>
+        await ModifyOriginalResponseAsync(p =>
         {
             p.Embed = embed;
             p.Components = buttons.Build();

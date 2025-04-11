@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
+﻿namespace FunctionApp.DiscordInterop.Embeds;
 
 using Common;
 using Common.Extensions;
@@ -7,16 +7,15 @@ using Discord;
 using Discord.Net;
 using Discord.WebSocket;
 
-using DiscordBotFunctionApp.ChatBot;
-using DiscordBotFunctionApp.DiscordInterop.CommandModules;
-using DiscordBotFunctionApp.Extensions;
-using DiscordBotFunctionApp.Storage;
-using DiscordBotFunctionApp.TbaInterop;
-using DiscordBotFunctionApp.TbaInterop.Models;
-using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
-
 using FIRST.Api;
 using FIRST.Model;
+
+using FunctionApp.ChatBot;
+using FunctionApp.DiscordInterop.CommandModules;
+using FunctionApp.Extensions;
+using FunctionApp.TbaInterop;
+using FunctionApp.TbaInterop.Models;
+using FunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
@@ -29,6 +28,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Caching;
 using TheBlueAlliance.Extensions;
 using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchExtensions;
@@ -40,12 +40,13 @@ internal sealed partial class MatchScore(IEventApi eventApi,
                                          IMatchApi matchApi,
                                          IDistrictApi districtApi,
                                          IScheduleApi schedule,
-                                         EventRepository events,
-                                         TeamRepository teams,
+                                         EventCache events,
+                                         TeamCache teams,
                                          EmbedBuilderFactory builderFactory,
-                                         ChatRunner gpt,
+                                         IChatWithLLMs gpt,
                                          TimeProvider time,
                                          Meter meter,
+                                         IDiscordClient discordClient,
                                          ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<(string matchKey, bool summarize)>, IHandleUserInteractions
 {
     public const NotificationType TargetType = NotificationType.match_score;
@@ -56,7 +57,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         using var scope = logger.CreateMethodScope();
         logger.CreatingMatchScoreEmbed();
         var baseBuilder = builderFactory.GetBuilder(highlightTeam);
-        var notification = msg.GetDataAs<TbaInterop.Models.Notifications.MatchScore>();
+        var notification = msg.GetDataAs<FunctionApp.TbaInterop.Models.Notifications.MatchScore>();
         if (notification is null)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
@@ -137,7 +138,6 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         var scores = GetActualScores(detailedMatch, detailedMatch);
         if (scores.Red is -1 || scores.Blue is -1)
         {
-            logger.BadDataForMatchMatchKeyMatchData(detailedMatch.Key, JsonSerializer.Serialize(detailedMatch));
             yield return null;
             yield break;
         }
@@ -394,7 +394,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
         if (breakdown is not null)
         {
-            meter.LogMetric("ScoreBreakdownAvailableTimeSec", time.GetElapsedTime(startTime).TotalSeconds, new Dictionary<string, object?> { { "MatchKey", tbaMatch.Key } });
+            meter.LogMetric<double>("ScoreBreakdownAvailableTimeSec", time.GetElapsedTime(startTime).TotalSeconds, [new("MatchKey", tbaMatch.Key)]);
         }
 
         return breakdown;
@@ -540,7 +540,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         return null;
     }
 
-    public async Task<bool> HandleInteractionAsync(IServiceProvider services, SocketMessageComponent component, CancellationToken cancellationToken)
+    public async Task<bool> HandleInteractionAsync(IServiceProvider services, IComponentInteraction component, CancellationToken cancellationToken)
     {
         using var scope = logger.CreateMethodScope();
         if (component.Data.CustomId.StartsWith(GetBreakdownButtonId, StringComparison.Ordinal))
@@ -552,10 +552,10 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         return false;
     }
 
-    private async Task SendBreakdownToUserAsync(SocketMessageComponent arg, CancellationToken cancellationToken = default)
+    private async Task SendBreakdownToUserAsync(IComponentInteraction arg, CancellationToken cancellationToken = default)
     {
         var canceledRequestOptions = cancellationToken.ToRequestOptions();
-        var isDmInteraction = arg.Channel.GetChannelType() is ChannelType.DM;
+        var isDmInteraction = arg.IsDMInteraction;
         if (!isDmInteraction)
         {
             try
@@ -567,8 +567,6 @@ internal sealed partial class MatchScore(IEventApi eventApi,
                 return;
             }
         }
-
-        using var typing = arg.Channel.EnterTypingState(canceledRequestOptions);
 
         var matchKey = arg.Data.CustomId[(arg.Data.CustomId.IndexOf('_') + 1)..];
         var matchData = await matchApi.GetMatchAsync(matchKey, cancellationToken: cancellationToken).ConfigureAwait(false);
@@ -591,9 +589,9 @@ internal sealed partial class MatchScore(IEventApi eventApi,
                 {
                     await arg.UpdateAsync(p =>
                     {
-                        p.Embeds = new([.. arg.Message.Embeds, embed]);
+                        p.Embeds = new([.. arg.Message.Embeds.Cast<Embed>(), embed]);
                         p.Components = null;
-                    }).ConfigureAwait(false);
+                    }, canceledRequestOptions).ConfigureAwait(false);
                 }
                 else
                 {
@@ -621,7 +619,9 @@ internal sealed partial class MatchScore(IEventApi eventApi,
                     }
                     catch (Exception ex)
                     {
-                        logger.CouldNotFigureOutHowToSendTheBreakdownToThisUserUserUserIdChannelNameChannelIdTypeChannelType(ex, arg.User.Username, arg.User.Id, arg.Channel.Name, arg.Channel.Id, arg.Channel.GetChannelType()?.ToInvariantString() ?? "[null]");
+                        IChannel? channel = arg.ChannelId.HasValue ? await discordClient.GetChannelAsync(arg.ChannelId.Value, options: canceledRequestOptions).ConfigureAwait(false) : null;
+
+                        logger.CouldNotFigureOutHowToSendTheBreakdownToThisUserUserUserIdChannelNameChannelIdTypeChannelType(ex, arg.User.Username, arg.User.Id, channel?.Name, channel?.Id, channel?.GetChannelType()?.ToInvariantString());
                     }
                 }
             }

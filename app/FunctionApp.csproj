@@ -10,6 +10,9 @@
 	  <None Remove="Apis\thebluealliance.json" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Content Include="local.settings.json" />
+	</ItemGroup>
+	<ItemGroup>
 	  <EmbeddedResource Include="Apis\frc-events.yaml" />
 	  <EmbeddedResource Include="Apis\statbotics.json" />
 	  <EmbeddedResource Include="Apis\thebluealliance.json" />

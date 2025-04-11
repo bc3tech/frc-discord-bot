@@ -1,0 +1,9 @@
+[*.cs]
+
+# EA0004: Make types declared in an executable internal
+dotnet_diagnostic.EA0004.severity = none
+
+# VSTHRD003: Avoid awaiting foreign Tasks
+dotnet_diagnostic.VSTHRD003.severity = none
+# CA1816: Dispose methods should call SuppressFinalize
+dotnet_diagnostic.CA1816.severity = none

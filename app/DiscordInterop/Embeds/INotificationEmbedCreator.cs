@@ -1,8 +1,8 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
+﻿namespace FunctionApp.DiscordInterop.Embeds;
 
 using Discord;
 
-using DiscordBotFunctionApp.TbaInterop.Models;
+using FunctionApp.TbaInterop.Models;
 
 internal interface INotificationEmbedCreator : IEmbedCreator<WebhookMessage, SubscriptionEmbedding> { }
 

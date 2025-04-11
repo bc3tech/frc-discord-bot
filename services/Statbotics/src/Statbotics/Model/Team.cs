@@ -32,7 +32,7 @@ public sealed record Team
     public Colors? Colors { get; init; }
 
     [JsonPropertyName("record")]
-    public Records? Records { get; init; }
+    public RecordObj? Record { get; init; }
 
     [JsonPropertyName("norm_epa")]
     public NormEpa? NormEpa { get; init; }
@@ -47,16 +47,7 @@ public sealed record Colors
     public string? Secondary { get; init; }
 }
 
-public sealed record Records : Record
-{
-    [JsonPropertyName("season")]
-    public Record? Season { get; init; }
-
-    [JsonPropertyName("full")]
-    public Record? Full { get; init; }
-}
-
-public record Record
+public record RecordObj
 {
     [JsonPropertyName("wins")]
     public int Wins { get; init; }

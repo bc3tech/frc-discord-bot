@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\app\FunctionApp.csproj" />
+		<ProjectReference Include="..\..\TestCommon\TestCommon.csproj" />
+	</ItemGroup>
+
+</Project>

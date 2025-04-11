@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop;
+﻿namespace FunctionApp.DiscordInterop;
 
 using Azure;
 using Azure.Data.Tables;
@@ -9,17 +9,16 @@ using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 
-using DiscordBotFunctionApp;
-using DiscordBotFunctionApp.DiscordInterop.Embeds;
-using DiscordBotFunctionApp.Extensions;
-using DiscordBotFunctionApp.Storage.TableEntities;
-using DiscordBotFunctionApp.TbaInterop.Models;
+using FunctionApp;
+using FunctionApp.DiscordInterop.Embeds;
+using FunctionApp.Extensions;
+using FunctionApp.Storage.TableEntities;
+using FunctionApp.TbaInterop.Models;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
@@ -40,7 +39,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                                                        IServiceProvider allServices,
                                                        ILogger<DiscordMessageDispatcher> logger)
 {
-    private readonly DiscordSocketClient _discordClient = (discordClient as DiscordSocketClient) ?? throw new ArgumentException(nameof(discordClient));
+    private readonly DiscordSocketClient _discordClient = discordClient as DiscordSocketClient ?? throw new ArgumentException(nameof(discordClient));
 
     public async Task<bool> ProcessWebhookMessageAsync(WebhookMessage message, CancellationToken cancellationToken)
     {
@@ -122,7 +121,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                     {
                         var chanId = t.ChannelId;
                         var threadId = t.ThreadId;
-                        IMessageChannel? rawChan = (await _discordClient.GetChannelAsync(threadId, discordRequestOptions).ConfigureAwait(false)) as IMessageChannel ?? await _discordClient.GetDMChannelAsync(threadId).ConfigureAwait(false);
+                        IMessageChannel? rawChan = await _discordClient.GetChannelAsync(threadId, discordRequestOptions).ConfigureAwait(false) as IMessageChannel ?? await _discordClient.GetDMChannelAsync(threadId).ConfigureAwait(false);
                         var guildId = (rawChan as IGuildChannel)?.GuildId;
                         var guildSubscriptions = subscribers.SubscriptionsForGuild(guildId);
                         if (guildSubscriptions.Any() && rawChan is not null)
@@ -131,7 +130,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                             try
                             {
                                 replyToMessage = t.MessageId is not null
-                                    && (await rawChan.GetMessageAsync(t.MessageId.Value, options: discordRequestOptions).ConfigureAwait(false)) is not null
+                                    && await rawChan.GetMessageAsync(t.MessageId.Value, options: discordRequestOptions).ConfigureAwait(false) is not null
                                         ? new MessageReference(t.MessageId)
                                         : null;
                             }
@@ -144,12 +143,12 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
                             {
                                 await sendEmbeddingsAsync(chunksOfEmbeddingsToSend, discordRequestOptions, rawChan, replyToMessage).ConfigureAwait(false);
 
-                                meter.LogMetric("NotificationSent", 1,
+                                meter.LogMetric<int>("NotificationSent", 1,
                                     new Dictionary<string, object?>() {
                                     { "ChannelId", chanId },
                                     { "ChannelName", rawChan.Name },
                                     { "Threaded", true }
-                                    });
+                                    }.ToArray());
 
                                 subscribers.RemoveSubscription(guildId, chanId, logger);
                             }
@@ -181,12 +180,12 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
 
                     await StoreReplyToMessageAsync(message, msgChan, threadForMessage, replyToMessageId, cancellationToken);
 
-                    meter.LogMetric("NotificationSent", 1,
+                    meter.LogMetric<int>("NotificationSent", 1,
                         new Dictionary<string, object?>() {
                             { "ChannelId", subscriberChannelId },
                             { "ChannelName", targetChannel.Name },
                             { "Threaded", false }
-                        });
+                        }.ToArray());
                 }
                 else
                 {
@@ -232,7 +231,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         IMessageChannel thread;
         try
         {
-            thread = (msgChan is ITextChannel threadableChannel) ? await threadableChannel.CreateThreadAsync(threadDetails.Value.Title) : msgChan;
+            thread = msgChan is ITextChannel threadableChannel ? await threadableChannel.CreateThreadAsync(threadDetails.Value.Title) : msgChan;
         }
         catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
@@ -336,8 +335,8 @@ sealed record ThreadTableEntity : ITableEntity
 
     public string ThreadIds
     {
-        get => JsonSerializer.Serialize(ThreadIdList);
-        set => ThreadIdList = JsonSerializer.Deserialize<List<ThreadDetail>>(value) ?? [];
+        get => JsonSerializer.Serialize(this.ThreadIdList);
+        set => this.ThreadIdList = JsonSerializer.Deserialize<List<ThreadDetail>>(value) ?? [];
     }
 
     [JsonIgnore]
@@ -371,20 +370,20 @@ sealed record ThreadTableEntity : ITableEntity
         // We have to store these as strings because Table SDK doesn't support ulong types
         public string Channel
         {
-            get => ChannelId.ToString();
-            set => ChannelId = ulong.Parse(value);
+            get => this.ChannelId.ToString();
+            set => this.ChannelId = ulong.Parse(value);
         }
 
         public string Thread
         {
-            get => ThreadId.ToString();
-            set => ThreadId = ulong.Parse(value);
+            get => this.ThreadId.ToString();
+            set => this.ThreadId = ulong.Parse(value);
         }
 
         public string? Message
         {
-            get => MessageId?.ToString();
-            set => MessageId = value is not null ? ulong.Parse(value) : null;
+            get => this.MessageId?.ToString();
+            set => this.MessageId = value is not null ? ulong.Parse(value) : null;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace DiscordBotFunctionApp.ChatBot;
+﻿namespace FunctionApp.ChatBot;
 
 using Azure.AI.Projects;
 using Azure.Data.Tables;
@@ -7,7 +7,8 @@ using Common.Extensions;
 
 using Discord;
 
-using DiscordBotFunctionApp.Extensions;
+using FunctionApp;
+using FunctionApp.Extensions;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -98,13 +99,13 @@ internal sealed partial class MessageHandler(
                     var usage = response.Metadata?["Usage"] as RunStepCompletionUsage;
                     if (usage is not null)
                     {
-                        meter.LogMetric("TokenUsage", usage.TotalTokens, new Dictionary<string, object?>
+                        meter.LogMetric<long>("TokenUsage", usage.TotalTokens, new Dictionary<string, object?>
                         {
                             ["ThreadId"] = thread.Id,
                             ["Usage"] = JsonSerializer.Serialize(usage),
                             ["RunId"] = response.Metadata!["RunId"]?.ToString() ?? "Unknown",
                             ["Author"] = serializedAuthor
-                        });
+                        }.ToArray());
                     }
 
                     if (response.Metadata?.TryGetValue("code", out var codeValue) is true && codeValue is true)

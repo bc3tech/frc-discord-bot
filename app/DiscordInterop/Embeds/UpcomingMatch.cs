@@ -1,13 +1,12 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.Embeds;
+﻿namespace FunctionApp.DiscordInterop.Embeds;
 
 using Common.Extensions;
 
 using Discord;
 
-using DiscordBotFunctionApp.Storage;
-using DiscordBotFunctionApp.TbaInterop;
-using DiscordBotFunctionApp.TbaInterop.Models;
-using DiscordBotFunctionApp.TbaInterop.Models.Notifications;
+using FunctionApp.DiscordInterop;
+using FunctionApp.TbaInterop.Models;
+using FunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
@@ -17,16 +16,17 @@ using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
+using TheBlueAlliance.Caching;
 using TheBlueAlliance.Extensions;
+using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchExtensions;
 using TheBlueAlliance.Model.MatchSimpleExtensions;
-using TheBlueAlliance.Model;
 
 internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventInsights,
                                             TheBlueAlliance.Api.IMatchApi matchApi,
                                             Statbotics.Api.IMatchApi matchStats,
-                                            EventRepository events,
-                                            TeamRepository teams,
+                                            EventCache events,
+                                            TeamCache teams,
                                             EmbedBuilderFactory builderFactory,
                                             TimeProvider time,
                                             ILogger<UpcomingMatch> logger) : INotificationEmbedCreator, IEmbedCreator<(string eventKey, string teamKey)>
@@ -36,7 +36,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var baseBuilder = builderFactory.GetBuilder(highlightTeam);
-        var notification = msg.GetDataAs<TbaInterop.Models.Notifications.UpcomingMatch>();
+        var notification = msg.GetDataAs<FunctionApp.TbaInterop.Models.Notifications.UpcomingMatch>();
         if (notification is null)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);

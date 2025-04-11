@@ -1,17 +1,19 @@
-﻿namespace DiscordBotFunctionApp.DiscordInterop.CommandModules;
+﻿namespace FunctionApp.DiscordInterop.CommandModules;
 
 using Common.Extensions;
 
 using Discord;
 using Discord.Interactions;
 
-using DiscordBotFunctionApp.DiscordInterop.Embeds;
-using DiscordBotFunctionApp.Storage;
+using FunctionApp.DiscordInterop;
+using FunctionApp.DiscordInterop.Embeds;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using System.Text;
+
+using TheBlueAlliance.Caching;
 
 [Group("events", "Gets information about FRC events")]
 public sealed class EventsCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<EventsCommandModule>>())
@@ -63,20 +65,20 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
             return;
         }
 
-        if (Context.Guild is null)
+        if (this.Context.Guild is null)
         {
             await ModifyOriginalResponseAsync(p => p.Content = "This command can only be used in a server.").ConfigureAwait(false);
             return;
         }
 
-        IGuildUser invokingUser = await Context.Guild.GetUserAsync(Context.User.Id);
+        IGuildUser invokingUser = await this.Context.Guild.GetUserAsync(this.Context.User.Id);
         if (!invokingUser.GuildPermissions.CreateEvents)
         {
             await ModifyOriginalResponseAsync(p => p.Content = "You do not have permission to create events in this server.").ConfigureAwait(false);
             return;
         }
 
-        IGuildUser botUserOnGuild = await Context.Guild.GetCurrentUserAsync().ConfigureAwait(false);
+        IGuildUser botUserOnGuild = await this.Context.Guild.GetCurrentUserAsync().ConfigureAwait(false);
         if (!botUserOnGuild.GuildPermissions.ManageEvents)
         {
             await ModifyOriginalResponseAsync(p => p.Content = "I do not have permission to create events in this server. Talk to your admin about granting me this!").ConfigureAwait(false);
@@ -85,7 +87,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
 
         try
         {
-            EventRepository eventRepo = services.GetRequiredService<EventRepository>();
+            var eventRepo = services.GetRequiredService<EventCache>();
             TheBlueAlliance.Model.Event targetEvent = eventRepo[eventKey];
             TimeZoneInfo eventTimezone = TimeZoneInfo.TryFindSystemTimeZoneById(targetEvent.Timezone, out TimeZoneInfo? z) && z is not null ? z : TimeZoneInfo.Utc;
             DateTime startDateTime = targetEvent.StartDate.ToDateTime(new(8, 0));
@@ -93,7 +95,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
             DateTimeOffset startOffset = new(startDateTime, eventTimezoneUtcOffset);
             DateTimeOffset endOffset = new(targetEvent.EndDate, new TimeOnly(17, 0), eventTimezoneUtcOffset);
 
-            string locationValue = channel is not null ? $"https://discord.com/channels/{Context.Guild.Id}/{channel.Id}" : targetEvent.LocationString;
+            string locationValue = channel is not null ? $"https://discord.com/channels/{this.Context.Guild.Id}/{channel.Id}" : targetEvent.LocationString;
 
             StringBuilder descriptionBuilder = new(description is not null ? description : $"{targetEvent.Year} Season - Week {targetEvent.Week.GetValueOrDefault(-1) + 1}");
             descriptionBuilder.AppendLine().AppendLine()
@@ -110,7 +112,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
             descriptionBuilder.AppendLine($"[Schedule]({targetEvent.ScheduleUrl})");
             descriptionBuilder.AppendLine($"Results and more at: {targetEvent.TbaUrl}");
 
-            var guildEvent = await Context.Guild.CreateEventAsync(!string.IsNullOrWhiteSpace(title) ? title : targetEvent.Name, startOffset, GuildScheduledEventType.External, description: descriptionBuilder.ToString(), endTime: endOffset, location: locationValue);
+            var guildEvent = await this.Context.Guild.CreateEventAsync(!string.IsNullOrWhiteSpace(title) ? title : targetEvent.Name, startOffset, GuildScheduledEventType.External, description: descriptionBuilder.ToString(), endTime: endOffset, location: locationValue);
             var eventLink = $"https://discord.com/events/{guildEvent.GuildId}/{guildEvent.Id}";
 
             await ModifyOriginalResponseAsync(p => p.Content = $@"[Event created]({eventLink}){(post ? " and link posted" : string.Empty)}!").ConfigureAwait(false);
@@ -126,13 +128,13 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
                 }
             }
         }
-        catch (KeyNotFoundException)
+        catch (EventNotFoundException)
         {
             await ModifyOriginalResponseAsync(p => p.Content = "Event not found.").ConfigureAwait(false);
         }
         catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
-            this.Logger.ThereWasAnErrorCreatingAGuildEventForEventKeyInGuildGuildNameGuildId(e, eventKey, Context.Guild.Name, Context.Guild.Id);
+            this.Logger.ThereWasAnErrorCreatingAGuildEventForEventKeyInGuildGuildNameGuildId(e, eventKey, this.Context.Guild.Name, this.Context.Guild.Id);
             await ModifyOriginalResponseAsync(p => p.Content = "An error occurred while creating the event. Try again or contact your admin to investigate.").ConfigureAwait(false);
         }
     }
