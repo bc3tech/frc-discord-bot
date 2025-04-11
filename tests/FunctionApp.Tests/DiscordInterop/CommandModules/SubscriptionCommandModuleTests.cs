@@ -2,16 +2,14 @@ namespace FunctionApp.Tests.DiscordInterop.CommandModules;
 
 using Azure;
 using Azure.Data.Tables;
-using Azure.Storage.Blobs.Models;
 
 using Discord;
-using Discord.WebSocket;
+using Discord.Net;
 
 using FunctionApp.DiscordInterop.CommandModules;
 using FunctionApp.Storage.TableEntities;
 using FunctionApp.Subscription;
 
-using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.Extensions.Logging;
 
 using Moq;
@@ -20,13 +18,11 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading;
-using System.Threading.Channels;
 using System.Threading.Tasks;
 
 using TestCommon;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Caching;
 using TheBlueAlliance.Model;
 
 using Xunit;
@@ -172,7 +168,6 @@ public sealed class SubscriptionCommandModuleTests : TestWithDiscordInteraction<
         _eventSubscriptionTableMock = new Mock<TableClient>();
 
         this.Mocker.Use(new SubscriptionManager(_teamSubscriptionTableMock.Object, _eventSubscriptionTableMock.Object, this.Mocker.Get<ILoggerFactory>().CreateLogger<SubscriptionManager>()));
-        this.Module = new SubscriptionCommandModule(this.Mocker);
 
         this.Mocker.GetMock<IEventApi>()
             .Setup(e => e.GetEvent(_utEvent.Key, It.IsAny<string>()))
@@ -193,6 +188,8 @@ public sealed class SubscriptionCommandModuleTests : TestWithDiscordInteraction<
         this.Mocker.GetMock<ITeamApi>()
             .Setup(t => t.GetTeam(It.IsNotIn(_utTeam.Key, _utTeam2.Key), It.IsAny<string>()))
             .Returns(default(Team?));
+
+        this.Module = this.Mocker.CreateInstance<SubscriptionCommandModule>();
     }
 
     [Fact]
@@ -236,11 +233,65 @@ public sealed class SubscriptionCommandModuleTests : TestWithDiscordInteraction<
                 ], It.IsAny<string>(), Mock.Of<Response>())
             ]));
 
+        MessageProperties p = new();
+        this.MockInteraction.Setup(i => i.ModifyOriginalResponseAsync(It.IsAny<Action<MessageProperties>>(), It.IsAny<RequestOptions>()))
+            .Callback<Action<MessageProperties>, RequestOptions>((a, _) => a(p));
+
         // Act
         await this.Module.ShowAsync();
 
         // Assert
         this.MockInteraction.Verify(i => i.ModifyOriginalResponseAsync(It.IsAny<Action<MessageProperties>>(), It.IsAny<RequestOptions>()), Times.Once);
+        Assert.Contains()
+    }
+
+    [Fact]
+    public async Task ShowAsync_WithNoSubscriptions_ShouldRespondWithMessage()
+    {
+        // Arrange
+        var guildId = 12345UL;
+        var channelId = 67890UL;
+        this.MockContext.SetupGet(c => c.Interaction.GuildId).Returns(guildId);
+        this.MockContext.SetupGet(c => c.Interaction.ChannelId).Returns(channelId);
+
+        _teamSubscriptionTableMock.Setup(t => t.QueryAsync<TeamSubscriptionEntity>(default(string?), default, null, It.IsAny<CancellationToken>()))
+            .Returns(AsyncPageable<TeamSubscriptionEntity>
+                .FromPages([Page<TeamSubscriptionEntity>
+                    .FromValues([], It.IsAny<string>(), Mock.Of<Response>())
+            ]));
+
+        _eventSubscriptionTableMock.Setup(e => e.QueryAsync<EventSubscriptionEntity>(default(string?), default, null, It.IsAny<CancellationToken>()))
+            .Returns(AsyncPageable<EventSubscriptionEntity>
+                .FromPages([Page<EventSubscriptionEntity>
+                    .FromValues([], It.IsAny<string>(), Mock.Of<Response>())
+            ]));
+
+        MessageProperties p = new();
+        this.MockInteraction.Setup(i => i.ModifyOriginalResponseAsync(It.IsAny<Action<MessageProperties>>(), It.IsAny<RequestOptions>()))
+            .Callback<Action<MessageProperties>, RequestOptions>((a, _) => a(p));
+
+        // Act
+        await this.Module.ShowAsync();
+
+        // Assert
+        this.MockInteraction.Verify(i => i.ModifyOriginalResponseAsync(It.IsAny<Action<MessageProperties>>(), It.IsAny<RequestOptions>()), Times.Once);
+        Assert.True(p.Content.IsSpecified);
+        Assert.Contains("No subscriptions found for this channel.", p.Content.Value);
+    }
+
+    [Fact]
+    public async Task ShowAsync_ShouldHandleInterationAcknowledged()
+    {
+        // Arrange
+        this.MockInteraction
+            .Setup(i => i.DeferAsync(It.IsAny<bool>(), It.IsAny<RequestOptions>()))
+            .Throws(new HttpException(System.Net.HttpStatusCode.InternalServerError, Mock.Of<IRequest>(), DiscordErrorCode.InteractionHasAlreadyBeenAcknowledged));
+
+        // Act
+        await this.Module.ShowAsync();
+
+        // Assert
+        this.MockInteraction.Verify(i => i.ModifyOriginalResponseAsync(It.IsAny<Action<MessageProperties>>(), It.IsAny<RequestOptions>()), Times.Never);
     }
 
     [Fact]

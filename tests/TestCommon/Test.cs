@@ -36,6 +36,8 @@ public abstract class Test
 
         this.Mocker.With<EventCache>();
         this.Mocker.With<TeamCache>();
+
+        this.Mocker.Use<IServiceProvider>(this.Mocker);
     }
 
 
