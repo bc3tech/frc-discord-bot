@@ -10,8 +10,6 @@ using Discord.Commands;
 using Discord.WebSocket;
 
 using FunctionApp;
-
-using FunctionApp;
 using FunctionApp.DiscordInterop.Embeds;
 using FunctionApp.Extensions;
 using FunctionApp.Storage.TableEntities;
@@ -21,7 +19,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;

@@ -1,12 +1,8 @@
-﻿using FunctionApp;
-
-namespace FunctionApp.DiscordInterop.CommandModules;
+﻿namespace FunctionApp.DiscordInterop.CommandModules;
 
 using Common.Extensions;
 
 using Discord.Interactions;
-
-using FunctionApp.DiscordInterop.Embeds;
 
 using FunctionApp.DiscordInterop;
 using FunctionApp.DiscordInterop.Embeds;

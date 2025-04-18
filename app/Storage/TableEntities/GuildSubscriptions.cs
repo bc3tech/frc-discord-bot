@@ -1,6 +1,4 @@
-﻿using FunctionApp;
-
-namespace FunctionApp.Storage.TableEntities;
+﻿namespace FunctionApp.Storage.TableEntities;
 
 using Microsoft.Extensions.Logging;
 

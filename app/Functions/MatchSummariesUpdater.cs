@@ -6,8 +6,6 @@ using Azure.Data.Tables;
 
 using FunctionApp;
 
-using FunctionApp;
-
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

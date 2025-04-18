@@ -1,7 +1,4 @@
-﻿using FunctionApp;
-using FunctionApp.ChatBot;
-
-namespace FunctionApp.ChatBot;
+﻿namespace FunctionApp.ChatBot;
 
 using Azure.AI.Projects;
 using Azure.Identity;

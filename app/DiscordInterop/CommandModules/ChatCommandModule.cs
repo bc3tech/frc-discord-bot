@@ -10,8 +10,6 @@ using Discord.WebSocket;
 
 using FunctionApp;
 
-using FunctionApp;
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 

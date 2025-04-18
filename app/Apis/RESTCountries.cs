@@ -4,8 +4,6 @@ using Common.Extensions;
 
 using FunctionApp;
 
-using FunctionApp;
-
 using Microsoft.Extensions.Logging;
 
 using System.Diagnostics.Metrics;

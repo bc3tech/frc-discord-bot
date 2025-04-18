@@ -1,6 +1,4 @@
-﻿using FunctionApp;
-
-namespace FunctionApp.DiscordInterop;
+﻿namespace FunctionApp.DiscordInterop;
 
 using Discord;
 using Discord.Interactions;

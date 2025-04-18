@@ -8,8 +8,6 @@ using Discord.Net;
 using Discord.WebSocket;
 
 using FunctionApp;
-
-using FunctionApp;
 using FunctionApp.DiscordInterop;
 using FunctionApp.Storage;
 using FunctionApp.Subscription;

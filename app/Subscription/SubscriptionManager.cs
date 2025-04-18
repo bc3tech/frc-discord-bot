@@ -3,8 +3,6 @@
 using Azure.Data.Tables;
 
 using FunctionApp;
-
-using FunctionApp;
 using FunctionApp.Storage.TableEntities;
 
 using Microsoft.Extensions.DependencyInjection;

@@ -5,8 +5,6 @@ using Azure.Data.Tables;
 using Common.Extensions;
 
 using FunctionApp;
-
-using FunctionApp;
 using FunctionApp.DiscordInterop;
 using FunctionApp.Storage.TableEntities;
 
