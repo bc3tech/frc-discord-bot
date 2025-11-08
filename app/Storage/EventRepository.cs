@@ -24,7 +24,7 @@ internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, Me
     {
         var startTime = time.GetTimestamp();
         using var scope = logger.CreateMethodScope();
-        for (int i = 0, currentYear = time.GetLocalNow().Year; i < 4; i++, currentYear--)
+        for (int i = 0, currentYear = time.GetLocalNow().Year + 1; i < 5; i++, currentYear--)
         {
             logger.LoadingEventsFromTBAForEventYear(currentYear);
             try
