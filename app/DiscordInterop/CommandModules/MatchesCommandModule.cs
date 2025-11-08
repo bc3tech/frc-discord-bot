@@ -22,7 +22,6 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
 {
     private readonly IEmbedCreator<(string eventKey, string teamKey)> _upcomingMatchEmbeddingCreator = services.GetRequiredKeyedService<IEmbedCreator<(string eventKey, string teamKey)>>(nameof(UpcomingMatch));
     private readonly IEmbedCreator<(string matchKey, bool summarize)> matchScoreEmbeddingGenerator = services.GetRequiredKeyedService<IEmbedCreator<(string, bool)>>(nameof(MatchScore));
-    private readonly IMatchApi _matchApi = services.GetRequiredService<IMatchApi>();
 
     [SlashCommand("next", "Gets the next match for a team at an event")]
     public async Task ShowNextAsync(
