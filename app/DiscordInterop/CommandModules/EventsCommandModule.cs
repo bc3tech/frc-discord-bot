@@ -53,7 +53,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
         [Summary("channel", "The channel where users can chat about the event")] IMessageChannel? channel = null,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        using var typing = await TryDeferAsync().ConfigureAwait(false);
+        using var typing = await TryDeferAsync(!post).ConfigureAwait(false);
         if (typing is null)
         {
             return;
@@ -114,19 +114,16 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
             descriptionBuilder.AppendLine($"Results and more at: {targetEvent.TbaUrl}");
 
             var guildEvent = await Context.Guild.CreateEventAsync(!string.IsNullOrWhiteSpace(title) ? title : targetEvent.Name, startOffset, GuildScheduledEventType.External, description: descriptionBuilder.ToString(), endTime: endOffset, location: locationValue);
-            var eventLink = $"https://discord.com/events/{guildEvent.GuildId}/{guildEvent.Id}";
 
-            await ModifyOriginalResponseAsync(p => p.Content = $@"[Event created]({eventLink}){(post ? " and link posted" : string.Empty)}!").ConfigureAwait(false);
-            if (post)
+            var eventLink = $"https://discord.com/events/{guildEvent.GuildId}/{guildEvent.Id}";
+            if (!post || channel is null)
             {
-                if (channel is not null)
-                {
-                    await channel.SendMessageAsync(eventLink).ConfigureAwait(false);
-                }
-                else
-                {
-                    await Context.Channel.SendMessageAsync(eventLink).ConfigureAwait(false);
-                }
+                await ModifyOriginalResponseAsync(p => p.Content = eventLink).ConfigureAwait(false);
+            }
+            else
+            {
+                await channel.SendMessageAsync(eventLink).ConfigureAwait(false);
+                await ModifyOriginalResponseAsync(p => p.Content = $"Event created and posted in https://discord.com/channels/{guildEvent.GuildId}/{channel.Id}").ConfigureAwait(false);
             }
         }
         catch (KeyNotFoundException)
