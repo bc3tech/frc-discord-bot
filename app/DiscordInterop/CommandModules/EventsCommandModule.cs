@@ -9,10 +9,12 @@ using FunctionApp;
 
 using FunctionApp.DiscordInterop;
 using FunctionApp.DiscordInterop.Embeds;
+using FunctionApp.Extensions;
 using FunctionApp.Storage;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 
 using System.Text;
 
@@ -47,7 +49,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
     [RequireUserPermission(GuildPermission.CreateEvents)]
     [SlashCommand("add", "Adds an FRC event to this Discord team as an Event for people to subscribe to, etc.")]
     public async Task AddEventAsync(
-        [Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string eventKey,
+        [Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.FutureEventsAutoCompleteHandler))] string eventKey,
         [Summary("title", "Title of the event, otherwise will match what's on FIRST website")] string? title = null,
         [Summary("description", "Description of the event, otherwise will be blank")] string? description = null,
         [Summary("channel", "The channel where users can chat about the event")] IMessageChannel? channel = null,
@@ -116,14 +118,22 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
             var guildEvent = await Context.Guild.CreateEventAsync(!string.IsNullOrWhiteSpace(title) ? title : targetEvent.Name, startOffset, GuildScheduledEventType.External, description: descriptionBuilder.ToString(), endTime: endOffset, location: locationValue);
 
             var eventLink = $"https://discord.com/events/{guildEvent.GuildId}/{guildEvent.Id}";
-            if (!post || channel is null)
+            if (channel is not null)
             {
-                await ModifyOriginalResponseAsync(p => p.Content = eventLink).ConfigureAwait(false);
+                await ModifyOriginalResponseAsync(p => p.Content = $"Event created and posted in https://discord.com/channels/{guildEvent.GuildId}/{channel.Id}").ConfigureAwait(false);
+                await channel.SendMessageAsync($"[Event created]({eventLink})").ConfigureAwait(false);
             }
             else
             {
-                await channel.SendMessageAsync(eventLink).ConfigureAwait(false);
-                await ModifyOriginalResponseAsync(p => p.Content = $"Event created and posted in https://discord.com/channels/{guildEvent.GuildId}/{channel.Id}").ConfigureAwait(false);
+                if (!post)
+                {
+                    await ModifyOriginalResponseAsync(p => p.Content = $"Event created: {eventLink}").ConfigureAwait(false);
+                }
+                else
+                {
+                    await DeleteOriginalResponseAsync().ConfigureAwait(false);
+                    await Context.Channel.SendMessageAsync($"[Event created]({eventLink})").ConfigureAwait(false);
+                }
             }
         }
         catch (KeyNotFoundException)
