@@ -9,6 +9,7 @@ using Discord.WebSocket;
 
 using FunctionApp;
 using FunctionApp.DiscordInterop;
+using FunctionApp.Extensions;
 using FunctionApp.Storage;
 using FunctionApp.Subscription;
 
@@ -58,13 +59,11 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
                 {string.Join('\n', i.Select(j => $"  - {(j.Item2 is not CommonConstants.ALL ? _teamsRepo[j.Item2].GetLabel() : "All Teams")}"))}
                 """);
             await ModifyOriginalResponseAsync(p =>
-            {
-                p.Content = $"""
-                Subscriptions for this channel include:
-                {string.Join('\n', output)}
-                """;
-                p.Flags = MessageFlags.SuppressEmbeds;
-            }).ConfigureAwait(false);
+                p.WithNoEmbeds($"""
+                    Subscriptions for this channel include:
+                    {string.Join('\n', output)}
+                    """)
+            ).ConfigureAwait(false);
         }
     }
 
