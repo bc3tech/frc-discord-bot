@@ -19,11 +19,30 @@ internal sealed record NotificationSubscription([property: JsonPropertyName("gui
                                            [property: JsonPropertyName("event")] string? Event,
                                            [property: JsonPropertyName("team")] string? Team);
 
-internal sealed class SubscriptionManager(
-    [FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptions,
-    [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptions,
-    ILogger<SubscriptionManager> logger)
+internal sealed class SubscriptionManager
 {
+    private readonly ISubscriptionTableClient teamSubscriptions;
+    private readonly ISubscriptionTableClient eventSubscriptions;
+    private readonly ILogger<SubscriptionManager> logger;
+
+    public SubscriptionManager(
+        [FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptions,
+        [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptions,
+        ILogger<SubscriptionManager> logger)
+        : this(new AzureSubscriptionTableClient(teamSubscriptions), new AzureSubscriptionTableClient(eventSubscriptions), logger)
+    {
+    }
+
+    internal SubscriptionManager(
+        ISubscriptionTableClient teamSubscriptions,
+        ISubscriptionTableClient eventSubscriptions,
+        ILogger<SubscriptionManager> logger)
+    {
+        this.teamSubscriptions = teamSubscriptions;
+        this.eventSubscriptions = eventSubscriptions;
+        this.logger = logger;
+    }
+
     public async IAsyncEnumerable<NotificationSubscription> GetSubscriptionsForGuildAsync(ulong? guildId, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
         await foreach (var e in teamSubscriptions.QueryAsync<TeamSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
@@ -49,22 +68,26 @@ internal sealed class SubscriptionManager(
         {
             logger.AddingSubscriptionForTeamSubscriptionTeam(sub.Team);
             var r = await teamSubscriptions.GetEntityIfExistsAsync<TeamSubscriptionEntity>(sub.Team, CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
-            var allEventSubscription = r.HasValue ? r.Value : null;
+            var allEventSubscription = r;
             if (allEventSubscription is null || !allEventSubscription.Subscribers.Exists(sub.GuildId, sub.ChannelId))
             {
                 var eventString = sub.Event ?? CommonConstants.ALL;
                 logger.CreatingNewSubscriptionForTeamSubscriptionTeamAndEventSubscriptionEvent(sub.Team, eventString);
 
                 r = await teamSubscriptions.GetEntityIfExistsAsync<TeamSubscriptionEntity>(sub.Team, eventString, cancellationToken: cancellationToken).ConfigureAwait(false);
-                var eventSubscription = r.HasValue ? r.Value : null;
-                eventSubscription ??= new TeamSubscriptionEntity { PartitionKey = sub.Team, RowKey = eventString };
+                var eventSubscription = r;
+                if (eventSubscription is null)
+                {
+                    eventSubscription = new TeamSubscriptionEntity { PartitionKey = sub.Team, RowKey = eventString };
+                }
 
                 eventSubscription.Subscribers.AddSubscription(sub.GuildId, sub.ChannelId);
-                var result = await teamSubscriptions.UpsertEntityAsync(eventSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var result = await teamSubscriptions.UpsertEntityAsync(eventSubscription, cancellationToken).ConfigureAwait(false);
                 if (result.IsError)
                 {
-                    logger.FailedToUpsertSubscriptionForTeamSubscriptionTeamAndEventSubscriptionEventStatusCodeReason(sub.Team, eventString, result.Status, result.ReasonPhrase);
-                    throw new HttpProtocolException(result.Status, string.Format(CultureInfo.InvariantCulture, "Failed to upsert subscription for team {0} and event {1} ({2}): {3}", sub.Team, eventString, result.Status, result.ReasonPhrase), null);
+                    var reason = result.ReasonPhrase ?? string.Empty;
+                    logger.FailedToUpsertSubscriptionForTeamSubscriptionTeamAndEventSubscriptionEventStatusCodeReason(sub.Team, eventString, result.Status, reason);
+                    throw new HttpProtocolException(result.Status, string.Format(CultureInfo.InvariantCulture, "Failed to upsert subscription for team {0} and event {1} ({2}): {3}", sub.Team, eventString, result.Status, reason), null);
                 }
             }
             else
@@ -76,21 +99,25 @@ internal sealed class SubscriptionManager(
         {
             logger.AddingSubscriptionForEventSubscriptionEvent(sub.Event);
             var r = await eventSubscriptions.GetEntityIfExistsAsync<EventSubscriptionEntity>(sub.Event, CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
-            var allTeamSubscription = r.HasValue ? r.Value : null;
+            var allTeamSubscription = r;
             if (allTeamSubscription is null || !allTeamSubscription.Subscribers.Exists(sub.GuildId, sub.ChannelId))
             {
                 logger.CreatingNewSubscriptionForEventSubscriptionEventAndTeamSubscriptionTeam(sub.Event);
 
                 r = await eventSubscriptions.GetEntityIfExistsAsync<EventSubscriptionEntity>(sub.Event, CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
-                var eventSubscription = r.HasValue ? r.Value : null;
-                eventSubscription ??= new EventSubscriptionEntity { PartitionKey = sub.Event };
+                var eventSubscription = r;
+                if (eventSubscription is null)
+                {
+                    eventSubscription = new EventSubscriptionEntity { PartitionKey = sub.Event };
+                }
 
                 eventSubscription.Subscribers.AddSubscription(sub.GuildId, sub.ChannelId);
-                var result = await eventSubscriptions.UpsertEntityAsync(eventSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var result = await eventSubscriptions.UpsertEntityAsync(eventSubscription, cancellationToken).ConfigureAwait(false);
                 if (result.IsError)
                 {
-                    logger.FailedToUpsertSubscriptionForEventSubscriptionEventAndTeamSubscriptionTeamStatusCodeReason(sub.Event, result.Status, result.ReasonPhrase);
-                    throw new HttpProtocolException(result.Status, string.Format(CultureInfo.InvariantCulture, "Failed to upsert subscription for event {0} and team ({1}): {2}", sub.Event, result.Status, result.ReasonPhrase), null);
+                    var reason = result.ReasonPhrase ?? string.Empty;
+                    logger.FailedToUpsertSubscriptionForEventSubscriptionEventAndTeamSubscriptionTeamStatusCodeReason(sub.Event, result.Status, reason);
+                    throw new HttpProtocolException(result.Status, string.Format(CultureInfo.InvariantCulture, "Failed to upsert subscription for event {0} and team ({1}): {2}", sub.Event, result.Status, reason), null);
                 }
             }
             else
@@ -106,15 +133,16 @@ internal sealed class SubscriptionManager(
         {
             logger.RemovingSubscriptionForTeamSubscriptionTeamTeam(sub.Team);
             var r = await teamSubscriptions.GetEntityIfExistsAsync<TeamSubscriptionEntity>(sub.Team, sub.Event ?? CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
-            var eventSubscription = r.HasValue ? r.Value : null;
+            var eventSubscription = r;
             if (eventSubscription is not null)
             {
                 eventSubscription.Subscribers.RemoveSubscription(sub.GuildId, sub.ChannelId);
-                var result = await teamSubscriptions.UpsertEntityAsync(eventSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var result = await teamSubscriptions.UpsertEntityAsync(eventSubscription, cancellationToken).ConfigureAwait(false);
                 if (result.IsError)
                 {
-                    logger.FailedToRemoveSubscriptionForTeamTeamStatusReason(sub.Team, result.Status, result.ReasonPhrase);
-                    throw new HttpProtocolException(result.Status, string.Format(CultureInfo.InvariantCulture, "Failed to remove subscription for team {0} ({1}): {2}", sub.Team, result.Status, result.ReasonPhrase), null);
+                    var reason = result.ReasonPhrase ?? string.Empty;
+                    logger.FailedToRemoveSubscriptionForTeamTeamStatusReason(sub.Team, result.Status, reason);
+                    throw new HttpProtocolException(result.Status, string.Format(CultureInfo.InvariantCulture, "Failed to remove subscription for team {0} ({1}): {2}", sub.Team, result.Status, reason), null);
                 }
             }
             else
@@ -126,15 +154,16 @@ internal sealed class SubscriptionManager(
         {
             logger.RemovingSubscriptionForEventSubscriptionEventEvent(sub.Event);
             var r = await eventSubscriptions.GetEntityIfExistsAsync<EventSubscriptionEntity>(sub.Event ?? CommonConstants.ALL, sub.Team?.ToString(CultureInfo.InvariantCulture) ?? CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
-            var eventSubscription = r.HasValue ? r.Value : null;
+            var eventSubscription = r;
             if (eventSubscription is not null)
             {
                 eventSubscription.Subscribers.RemoveSubscription(sub.GuildId, sub.ChannelId);
-                var result = await eventSubscriptions.UpsertEntityAsync(eventSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
+                var result = await eventSubscriptions.UpsertEntityAsync(eventSubscription, cancellationToken).ConfigureAwait(false);
                 if (result.IsError)
                 {
-                    logger.FailedToRemoveSubscriptionForEventEventStatusReason(sub.Event, result.Status, result.ReasonPhrase);
-                    throw new HttpProtocolException(result.Status, string.Format(CultureInfo.InvariantCulture, "Failed to remove subscription for event {0} ({1}): {2}", sub.Event, result.Status, result.ReasonPhrase), null);
+                    var reason = result.ReasonPhrase ?? string.Empty;
+                    logger.FailedToRemoveSubscriptionForEventEventStatusReason(sub.Event, result.Status, reason);
+                    throw new HttpProtocolException(result.Status, string.Format(CultureInfo.InvariantCulture, "Failed to remove subscription for event {0} ({1}): {2}", sub.Event, result.Status, reason), null);
                 }
             }
             else

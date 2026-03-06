@@ -45,7 +45,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
     {
         var startTime = time.GetTimestamp();
         using var scope = logger.CreateMethodScope();
-        (var teams, var events) = GetTeamsAndEventsInMessage(message.MessageData);
+        (var teams, var events) = ExtractTeamsAndEvents(message.MessageData);
         logger.TeamsTeamsInMessageEventsEventsInMessage(teams.Count, events.Count);
 
         if (message.IsBroadcast)
@@ -262,7 +262,7 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         return thread;
     }
 
-    private static (ImmutableHashSet<string> Teams, ImmutableHashSet<string> Events) GetTeamsAndEventsInMessage(JsonElement messageData)
+    internal static (ImmutableHashSet<string> Teams, ImmutableHashSet<string> Events) ExtractTeamsAndEvents(JsonElement messageData)
     {
         HashSet<string> teams = [], events = [];
 
