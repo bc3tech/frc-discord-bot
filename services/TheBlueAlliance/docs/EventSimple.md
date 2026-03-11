@@ -6,10 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **City** | **string** | City, town, village, etc. the event is located in. | 
 **Country** | **string** | Country the event is located in. | 
-**District** | [**DistrictList**](DistrictList.md) |  | 
+**District** | [**District**](District.md) |  | 
 **EndDate** | **DateOnly** | Event end date in &#x60;yyyy-mm-dd&#x60; format. | 
 **EventCode** | **string** | Event short code, as provided by FIRST. | 
-**EventType** | **int** | Event Type, as defined here: https://github.com/the-blue-alliance/the-blue-alliance/blob/master/consts/event_type.py#L2 | 
+**EventType** | **int** | Event Type, as defined here: https://github.com/the-blue-alliance/the-blue-alliance/blob/main/src/backend/common/consts/event_type.py#L8 | 
 **Key** | **string** | TBA event key with the format yyyy[EVENT_CODE], where yyyy is the year, and EVENT_CODE is the event code of the event. | 
 **Name** | **string** | Official name of event on record either provided by FIRST or organizers of offseason event. | 
 **StartDate** | **DateOnly** | Event start date in &#x60;yyyy-mm-dd&#x60; format. | 

@@ -298,3 +298,4 @@ __pycache__/
 
 DiscordBotFunctionApp/Properties/ServiceDependencies
 DiscordBotFunctionApp/Properties/serviceDependencies.BearMetalDiscordBotApp - Zip Deploy.json
+.azure

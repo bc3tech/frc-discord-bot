@@ -1,10 +1,12 @@
 ﻿namespace DataDumper;
 
+using Azure.Core;
 using Azure.Identity;
 using Azure.Storage.Blobs;
 
 using Common;
 
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -18,6 +20,16 @@ internal sealed class Program
     private static async Task Main(string[] args)
     {
         var b = new HostBuilder()
+            .ConfigureAppConfiguration((context, builder) =>
+            {
+                builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                builder.AddEnvironmentVariables();
+                if (context.HostingEnvironment.IsDevelopment())
+                {
+                    builder.AddUserSecrets<Program>();
+                }
+            })
             .ConfigureDefaults(args)
             .ConfigureLogging((context, builder) => builder
                 .AddSimpleConsole(i =>
@@ -41,7 +53,10 @@ internal sealed class Program
                     .AddSingleton<IMatchApi>(sp => new MatchApi(httpClient, config))
                     .AddSingleton<IDistrictApi>(sp => new DistrictApi(httpClient, config));
 
-                services.AddSingleton(sp => new BlobServiceClient(new Uri(Throws.IfNullOrWhiteSpace(context.Configuration["StorageAccountUri"]), UriKind.Absolute), new DefaultAzureCredential(includeInteractiveCredentials: context.HostingEnvironment.IsDevelopment())));
+                var cred = new DefaultAzureCredential(includeInteractiveCredentials: context.HostingEnvironment.IsDevelopment());
+                var token = cred.GetToken(new TokenRequestContext(["https://storage.azure.com/.default"]));
+
+                services.AddSingleton(sp => new BlobServiceClient(new Uri(Throws.IfNullOrWhiteSpace(context.Configuration["StorageAccountUri"]), UriKind.Absolute), cred));
             });
 
         await b.RunConsoleAsync();

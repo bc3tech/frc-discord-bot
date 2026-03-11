@@ -32,7 +32,7 @@ internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, Me
                 var newEvents = await apiClient.GetEventsByYearAsync(currentYear, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (newEvents?.Count is null or 0)
                 {
-                    break;
+                    continue;
                 }
 
                 logger.RetrievedEventCountEvents(newEvents.Count);

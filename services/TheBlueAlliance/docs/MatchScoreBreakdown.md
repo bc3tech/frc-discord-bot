@@ -5,10 +5,10 @@ Score breakdown for auto, teleop, etc. points. Varies from year to year. May be 
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Blue** | [**MatchScoreBreakdown2025Alliance**](MatchScoreBreakdown2025Alliance.md) |  | 
+**Blue** | [**MatchScoreBreakdown2026Alliance**](MatchScoreBreakdown2026Alliance.md) |  | 
 **Coopertition** | **string** |  | 
 **CoopertitionPoints** | **int** |  | 
-**Red** | [**MatchScoreBreakdown2025Alliance**](MatchScoreBreakdown2025Alliance.md) |  | 
+**Red** | [**MatchScoreBreakdown2026Alliance**](MatchScoreBreakdown2026Alliance.md) |  | 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

@@ -77,11 +77,11 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         }
 
         using var scope = Logger.CreateMethodScope();
-        string matchKey = (Match.CompLevelEnum)compLevel switch
+        string matchKey = (CompLevel)compLevel switch
         {
-            Match.CompLevelEnum.Qm => $"qm{matchNumber}",
-            Match.CompLevelEnum.Sf => $"sf{matchNumber}m1",
-            Match.CompLevelEnum.F => $"f1m{matchNumber}",
+            CompLevel.Qm => $"qm{matchNumber}",
+            CompLevel.Sf => $"sf{matchNumber}m1",
+            CompLevel.F => $"f1m{matchNumber}",
             _ => throw new ArgumentOutOfRangeException(nameof(compLevel), compLevel, null)
         };
 

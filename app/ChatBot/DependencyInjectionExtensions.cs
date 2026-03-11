@@ -26,12 +26,12 @@ internal static class DependencyInjectionExtensions
             .AddSingleton(sp =>
             {
                 var config = sp.GetRequiredService<IConfiguration>();
-                var credential = new ClientSecretCredential(
-                    Throws.IfNullOrWhiteSpace(config[Constants.Configuration.Azure.AI.Project.Credentials.TenantId]),
-                    Throws.IfNullOrWhiteSpace(config[Constants.Configuration.Azure.AI.Project.Credentials.ClientId]),
-                    Throws.IfNullOrWhiteSpace(config[Constants.Configuration.Azure.AI.Project.Credentials.ClientSecret]));
+                var clientId = config[Constants.Configuration.Azure.ClientId];
+                var credential = string.IsNullOrWhiteSpace(clientId)
+                    ? new DefaultAzureCredential()
+                    : new DefaultAzureCredential(new DefaultAzureCredentialOptions { ManagedIdentityClientId = clientId });
 
-                return new AIProjectClient(Throws.IfNullOrWhiteSpace(config[Constants.Configuration.Azure.AI.Project.ConnectionString]), credential);
+                return new AIProjectClient(Throws.IfNullOrWhiteSpace(config[Constants.Configuration.Azure.AI.Project.Endpoint]), credential);
             })
             .AddSingleton(sp => sp.GetRequiredService<AIProjectClient>().GetAgentsClient())
             .AddSingleton(sp =>

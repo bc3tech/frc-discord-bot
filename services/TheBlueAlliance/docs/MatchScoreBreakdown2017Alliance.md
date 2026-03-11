@@ -5,38 +5,39 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AdjustPoints** | **int** |  | [optional] 
-**AutoFuelHigh** | **int** |  | [optional] 
-**AutoFuelLow** | **int** |  | [optional] 
-**AutoFuelPoints** | **int** |  | [optional] 
-**AutoMobilityPoints** | **int** |  | [optional] 
-**AutoPoints** | **int** |  | [optional] 
-**AutoRotorPoints** | **int** |  | [optional] 
+**AutoFuelHigh** | **int** |  | 
+**AutoFuelLow** | **int** |  | 
+**AutoFuelPoints** | **int** |  | 
+**AutoMobilityPoints** | **int** |  | 
+**AutoPoints** | **int** |  | 
+**AutoRotorPoints** | **int** |  | 
 **FoulCount** | **int** |  | [optional] 
-**FoulPoints** | **int** |  | [optional] 
-**KPaBonusPoints** | **int** |  | [optional] 
-**KPaRankingPointAchieved** | **bool** |  | [optional] 
-**Robot1Auto** | **string** |  | [optional] 
-**Robot2Auto** | **string** |  | [optional] 
-**Robot3Auto** | **string** |  | [optional] 
-**Rotor1Auto** | **bool** |  | [optional] 
-**Rotor1Engaged** | **bool** |  | [optional] 
-**Rotor2Auto** | **bool** |  | [optional] 
-**Rotor2Engaged** | **bool** |  | [optional] 
-**Rotor3Engaged** | **bool** |  | [optional] 
-**Rotor4Engaged** | **bool** |  | [optional] 
-**RotorBonusPoints** | **int** |  | [optional] 
-**RotorRankingPointAchieved** | **bool** |  | [optional] 
+**FoulPoints** | **int** |  | 
+**KPaBonusPoints** | **int** |  | 
+**KPaRankingPointAchieved** | **bool** |  | 
+**Robot1Auto** | **RobotAuto2017** |  | [optional] 
+**Robot2Auto** | **RobotAuto2017** |  | [optional] 
+**Robot3Auto** | **RobotAuto2017** |  | [optional] 
+**Rotor1Auto** | **bool** |  | 
+**Rotor1Engaged** | **bool** |  | 
+**Rotor2Auto** | **bool** |  | 
+**Rotor2Engaged** | **bool** |  | 
+**Rotor3Engaged** | **bool** |  | 
+**Rotor4Engaged** | **bool** |  | 
+**RotorBonusPoints** | **int** |  | 
+**RotorRankingPointAchieved** | **bool** |  | 
+**TbaRpEarned** | **int?** |  | [optional] 
 **TechFoulCount** | **int** |  | [optional] 
-**TeleopFuelHigh** | **int** |  | [optional] 
-**TeleopFuelLow** | **int** |  | [optional] 
-**TeleopFuelPoints** | **int** |  | [optional] 
-**TeleopPoints** | **int** |  | [optional] 
-**TeleopRotorPoints** | **int** |  | [optional] 
-**TeleopTakeoffPoints** | **int** |  | [optional] 
-**TotalPoints** | **int** |  | [optional] 
-**TouchpadFar** | **string** |  | [optional] 
-**TouchpadMiddle** | **string** |  | [optional] 
-**TouchpadNear** | **string** |  | [optional] 
+**TeleopFuelHigh** | **int** |  | 
+**TeleopFuelLow** | **int** |  | 
+**TeleopFuelPoints** | **int** |  | 
+**TeleopPoints** | **int** |  | 
+**TeleopRotorPoints** | **int** |  | 
+**TeleopTakeoffPoints** | **int** |  | 
+**TotalPoints** | **int** |  | 
+**TouchpadFar** | **Touchpad2017** |  | [optional] 
+**TouchpadMiddle** | **Touchpad2017** |  | [optional] 
+**TouchpadNear** | **Touchpad2017** |  | [optional] 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

@@ -21,8 +21,8 @@ internal static class DependencyInjectionExtensions
                 return new Configuration
                 {
                     BasePath = "https://frc-api.firstinspires.org/v3.0",
-                    Username = appConfig.GetValue<string>(Constants.Configuration.FIRST.Username),
-                    Password = appConfig.GetValue<string>(Constants.Configuration.FIRST.Password)
+                    Username = appConfig.GetValue<string>(Constants.Configuration.FRC.Username),
+                    Password = appConfig.GetValue<string>(Constants.Configuration.FRC.Password)
                 };
             })
             .AddSingleton<IScheduleApi>(sp =>

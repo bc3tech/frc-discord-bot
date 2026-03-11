@@ -9,6 +9,7 @@ All URIs are relative to *https://www.thebluealliance.com/api/v3*
 | [**GetDistrictEventsKeys**](EventApi.md#getdistricteventskeys) | **GET** /district/{district_key}/events/keys |  |
 | [**GetDistrictEventsSimple**](EventApi.md#getdistricteventssimple) | **GET** /district/{district_key}/events/simple |  |
 | [**GetEvent**](EventApi.md#getevent) | **GET** /event/{event_key} |  |
+| [**GetEventAdvancementPoints**](EventApi.md#geteventadvancementpoints) | **GET** /event/{event_key}/advancement_points |  |
 | [**GetEventAlliances**](EventApi.md#geteventalliances) | **GET** /event/{event_key}/alliances |  |
 | [**GetEventAwards**](EventApi.md#geteventawards) | **GET** /event/{event_key}/awards |  |
 | [**GetEventCOPRs**](EventApi.md#geteventcoprs) | **GET** /event/{event_key}/coprs |  |
@@ -30,6 +31,7 @@ All URIs are relative to *https://www.thebluealliance.com/api/v3*
 | [**GetEventsByYear**](EventApi.md#geteventsbyyear) | **GET** /events/{year} |  |
 | [**GetEventsByYearKeys**](EventApi.md#geteventsbyyearkeys) | **GET** /events/{year}/keys |  |
 | [**GetEventsByYearSimple**](EventApi.md#geteventsbyyearsimple) | **GET** /events/{year}/simple |  |
+| [**GetRegionalChampsPoolPoints**](EventApi.md#getregionalchampspoolpoints) | **GET** /event/{event_key}/regional_champs_pool_points |  |
 | [**GetTeamEventAwards**](EventApi.md#getteameventawards) | **GET** /team/{team_key}/event/{event_key}/awards |  |
 | [**GetTeamEventMatches**](EventApi.md#getteameventmatches) | **GET** /team/{team_key}/event/{event_key}/matches |  |
 | [**GetTeamEventMatchesKeys**](EventApi.md#getteameventmatcheskeys) | **GET** /team/{team_key}/event/{event_key}/matches/keys |  |
@@ -563,6 +565,110 @@ catch (ApiException e)
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+<a id="geteventadvancementpoints"></a>
+# **GetEventAdvancementPoints**
+> EventDistrictPoints GetEventAdvancementPoints (string eventKey, string? ifNoneMatch = null)
+
+
+
+Depending on the type of event (district/regional), this will return either district points or regional CMP points
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
+
+namespace Example
+
+
+    public class GetEventAdvancementPointsExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://www.thebluealliance.com/api/v3";
+            // Configure API key authorization: apiKey
+            config.AddApiKey("X-TBA-Auth-Key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // config.AddApiKeyPrefix("X-TBA-Auth-Key", "Bearer");
+
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new EventApi(httpClient, config, httpClientHandler);
+            var eventKey = "eventKey_example";  // string | TBA Event Key, eg `2016nytr`
+            var ifNoneMatch = "ifNoneMatch_example";  // string? | Value of the `ETag` header in the most recently cached response by the client. (optional) 
+
+            try
+            {
+                EventDistrictPoints result = apiInstance.GetEventAdvancementPoints(eventKey, ifNoneMatch);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling EventApi.GetEventAdvancementPoints: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetEventAdvancementPointsWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    ApiResponse<EventDistrictPoints> response = apiInstance.GetEventAdvancementPointsWithHttpInfo(eventKey, ifNoneMatch);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling EventApi.GetEventAdvancementPointsWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **eventKey** | **string** | TBA Event Key, eg &#x60;2016nytr&#x60; |  |
+| **ifNoneMatch** | **string?** | Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. | [optional]  |
+
+### Return type
+
+[**EventDistrictPoints**](EventDistrictPoints.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response |  * Cache-Control - The &#x60;Cache-Control&#x60; header, in particular the &#x60;max-age&#x60; value, contains the number of seconds the result should be considered valid for. During this time subsequent calls should return from the local cache directly. <br>  * ETag - Specifies the version of the most recent response. Used by clients in the &#x60;If-None-Match&#x60; request header. <br>  |
+| **304** | Not Modified - Use Local Cached Value |  -  |
+| **401** | Authorization information is missing or invalid. |  -  |
+| **404** | Not Found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 <a id="geteventalliances"></a>
 # **GetEventAlliances**
 > Collection&lt;EliminationAlliance&gt; GetEventAlliances (string eventKey, string? ifNoneMatch = null)
@@ -881,7 +987,7 @@ catch (ApiException e)
 
 
 
-Gets a list of team rankings for the Event.
+Gets a list of district points for the Event. These are always calculated, regardless of event type, and may/may not be actually useful.
 
 ### Example
 ```csharp
@@ -2333,7 +2439,7 @@ catch (ApiException e)
 
 <a id="geteventteamsstatuses"></a>
 # **GetEventTeamsStatuses**
-> Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt; GetEventTeamsStatuses (string eventKey, string? ifNoneMatch = null)
+> Dictionary&lt;string, GetEventTeamsStatuses200ResponseValue&gt; GetEventTeamsStatuses (string eventKey, string? ifNoneMatch = null)
 
 
 
@@ -2371,7 +2477,7 @@ namespace Example
 
             try
             {
-                Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue> result = apiInstance.GetEventTeamsStatuses(eventKey, ifNoneMatch);
+                Dictionary<string, GetEventTeamsStatuses200ResponseValue> result = apiInstance.GetEventTeamsStatuses(eventKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -2391,7 +2497,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>> response = apiInstance.GetEventTeamsStatusesWithHttpInfo(eventKey, ifNoneMatch);
+    ApiResponse<Dictionary<string, GetEventTeamsStatuses200ResponseValue>> response = apiInstance.GetEventTeamsStatusesWithHttpInfo(eventKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -2413,7 +2519,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;**](GetTeamEventsStatusesByYear200ResponseValue.md)
+[**Dictionary&lt;string, GetEventTeamsStatuses200ResponseValue&gt;**](GetEventTeamsStatuses200ResponseValue.md)
 
 ### Authorization
 
@@ -2726,6 +2832,110 @@ catch (ApiException e)
 ### Return type
 
 [**Collection&lt;EventSimple&gt;**](EventSimple.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response |  * Cache-Control - The &#x60;Cache-Control&#x60; header, in particular the &#x60;max-age&#x60; value, contains the number of seconds the result should be considered valid for. During this time subsequent calls should return from the local cache directly. <br>  * ETag - Specifies the version of the most recent response. Used by clients in the &#x60;If-None-Match&#x60; request header. <br>  |
+| **304** | Not Modified - Use Local Cached Value |  -  |
+| **401** | Authorization information is missing or invalid. |  -  |
+| **404** | Not Found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+<a id="getregionalchampspoolpoints"></a>
+# **GetRegionalChampsPoolPoints**
+> EventDistrictPoints GetRegionalChampsPoolPoints (string eventKey, string? ifNoneMatch = null)
+
+
+
+For 2025+ Regional events, this will return points towards the Championship qualification pool.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
+
+namespace Example
+
+
+    public class GetRegionalChampsPoolPointsExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://www.thebluealliance.com/api/v3";
+            // Configure API key authorization: apiKey
+            config.AddApiKey("X-TBA-Auth-Key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // config.AddApiKeyPrefix("X-TBA-Auth-Key", "Bearer");
+
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new EventApi(httpClient, config, httpClientHandler);
+            var eventKey = "eventKey_example";  // string | TBA Event Key, eg `2016nytr`
+            var ifNoneMatch = "ifNoneMatch_example";  // string? | Value of the `ETag` header in the most recently cached response by the client. (optional) 
+
+            try
+            {
+                EventDistrictPoints result = apiInstance.GetRegionalChampsPoolPoints(eventKey, ifNoneMatch);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling EventApi.GetRegionalChampsPoolPoints: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetRegionalChampsPoolPointsWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    ApiResponse<EventDistrictPoints> response = apiInstance.GetRegionalChampsPoolPointsWithHttpInfo(eventKey, ifNoneMatch);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling EventApi.GetRegionalChampsPoolPointsWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **eventKey** | **string** | TBA Event Key, eg &#x60;2016nytr&#x60; |  |
+| **ifNoneMatch** | **string?** | Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. | [optional]  |
+
+### Return type
+
+[**EventDistrictPoints**](EventDistrictPoints.md)
 
 ### Authorization
 
@@ -3909,7 +4119,7 @@ catch (ApiException e)
 
 <a id="getteameventsstatusesbyyear"></a>
 # **GetTeamEventsStatusesByYear**
-> Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt; GetTeamEventsStatusesByYear (string teamKey, int year, string? ifNoneMatch = null)
+> Dictionary&lt;string, GetEventTeamsStatuses200ResponseValue&gt; GetTeamEventsStatusesByYear (string teamKey, int year, string? ifNoneMatch = null)
 
 
 
@@ -3948,7 +4158,7 @@ namespace Example
 
             try
             {
-                Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue> result = apiInstance.GetTeamEventsStatusesByYear(teamKey, year, ifNoneMatch);
+                Dictionary<string, GetEventTeamsStatuses200ResponseValue> result = apiInstance.GetTeamEventsStatusesByYear(teamKey, year, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -3968,7 +4178,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<Dictionary<string, GetTeamEventsStatusesByYear200ResponseValue>> response = apiInstance.GetTeamEventsStatusesByYearWithHttpInfo(teamKey, year, ifNoneMatch);
+    ApiResponse<Dictionary<string, GetEventTeamsStatuses200ResponseValue>> response = apiInstance.GetTeamEventsStatusesByYearWithHttpInfo(teamKey, year, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -3991,7 +4201,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**Dictionary&lt;string, GetTeamEventsStatusesByYear200ResponseValue&gt;**](GetTeamEventsStatusesByYear200ResponseValue.md)
+[**Dictionary&lt;string, GetEventTeamsStatuses200ResponseValue&gt;**](GetEventTeamsStatuses200ResponseValue.md)
 
 ### Authorization
 

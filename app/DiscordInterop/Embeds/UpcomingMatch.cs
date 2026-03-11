@@ -241,7 +241,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
     private async Task<int[]> GetAllianceRanksAsync(MatchSimple detailedMatch, CancellationToken cancellationToken)
     {
         var retVal = new int[] { 0, 0, 0 };
-        if (detailedMatch.CompLevel is not MatchSimple.CompLevelEnum.Qm)
+        if (detailedMatch.CompLevel is not CompLevel.Qm)
         {
             var eventAlliances = await eventInsights.GetEventAlliancesAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
             foreach (var eliminationAlliance in eventAlliances ?? [])

@@ -74,6 +74,12 @@ In addition to the above, the codebase makes use of Centralized Package Managmen
 
 Simply deploying the Function App will make the bot live and ready for installation on any Discord Guild. Once live, follow the instructions for creating a Discord App to get the Discord Token used to link the deployed bot with a Discord application.
 
+For PowerShell on Windows, use an inline command for this template. The committed `.bicepparam` file intentionally omits required secret values, so Azure CLI will reject it unless you first create your own local params file with those secrets filled in.
+
+```powershell
+az deployment sub create --location westus2 --template-file .\infra\main.bicep --parameters frcUsername='bc3tech' discordToken='<prod-token>' frcPassword='<password>' tbaApiKey='<tba-key>'
+```
+
 ### Secrets
 
 The following secret values must be set as user secrets or environment variables to configure the deployed bot to interact with Discord and the relevant APIs:
@@ -82,13 +88,8 @@ The following secret values must be set as user secrets or environment variables
 |-|:-:|-|-:|
 |`TbaApiKey`|`TbaApiKey`|API key for The Blue Alliance; available on your TBA Account Page|`aB3dE5fG7hI9jK1lM2...`|
 |`Discord.Token`|`Discord__Token`|The auth token for the Discord app you will create for the bot|`Q6rS8tU0vW!xYz@2#4$6^8&0*C8D0E...`|
-|`FIRST.Username`|`FIRST__Username`|Username for the FIRST API|`myuser`|
-|`FIRST.Password`|`FIRST__Password`|Password for the FIRST API|`123e4567-e89b-12d3-a456-426614174000`|
-|`Azure.AI.ApiKey`|`Azure__AI__ApiKey`|The API Key for an Azure OpenAI instance to use for ChatBot features|`1F3G5H7I9JkLmN...`|
-|`Azure.AI.Project.ConnectionString`|`Azure__AI__Project__ConnectionString`|The Connection string to an Azure AI Foundry project that will house the AI Agent used for ChatBot features|`westus.api.azureml.ms;f47ac10b-58cc-4372-a567-0e02b2c3d479;my-ai-hub;my-ai-project`|
-|`Azure.AI.Project.Credentials.ClientId`|`Azure__AI__Project__Credentials__ClientId`|The ClientID of the Service Principal with inference access to the AI Project|`550e8400-e29b-41d4-a716-446655440000`|
-|`Azure.AI.Project.Credentials.ClientSecret`|`Azure__AI__Project__Credentials__ClientSecret`|The Client Secret of the Service Principal with inference access to the AI Project|`9jK1lM2nO4pQ6rS8tU0vW!...`|
-|`Azure.AI.Project.Credentials.TenantId`|`Azure__AI__Project__Credentials__TenantId`|The TenantId of the Service Principal with inference access to the AI Project|`d3c4e5f6-7890-1234-abcd-ef0123456789`|
+|`FRC.Username`|`FRC__Username`|Username for the FRC Events API|`bc3tech`|
+|`FRC.Password`|`FRC__Password`|Password for the FRC Events API|`123e4567-e89b-12d3-a456-426614174000`|
 
 For example:
 
@@ -98,25 +99,28 @@ For example:
   "Discord": {
     "Token": "..."
   },
-  "FIRST": {
+  "FRC": {
     "Username": "bc3tech",
     "Password": "..."
-  },
-  "Azure": {
-    "AI": {
-      "ApiKey": "...",
-      "Project": {
-        "ConnectionString": "westus.api.azureml.ms;...;my-ai-hub;my-ai-project",
-        "Credentials": {
-          "ClientId": "0fba27f4-998c-4f7a-b3ed-d0d435b8eb05",
-          "ClientSecret": "...",
-          "TenantId": "..."
-        }
-      }
-    }
   }
 }
 ```
+
+When deployed with the Bicep templates in `infra\`, the Azure AI Foundry resource and its child project are provisioned automatically using the current `Microsoft.CognitiveServices/accounts` + `accounts/projects` model. Local auth is disabled on the Foundry account. The container app managed identity is granted `Cognitive Services User` on the Foundry project for keyless data-plane access and `Azure AI User` on the child project for project-scoped Foundry operations. The Function App receives `Azure__AI__Project__Endpoint`, `Azure__AI__Project__Id`, `Azure__ClientId`, `Azure__TenantId`, `AZURE_CLIENT_ID`, and `AZURE_TENANT_ID` from infrastructure rather than manual secret configuration.
+
+For `azd` deployments, set the required secret environment values before running `azd deploy`:
+
+```powershell
+azd env set-secret Discord__Token "<your-discord-bot-token>"
+azd env set-secret FIRST__Password "<your-first-password>"
+azd env set-secret TbaApiKey "<your-tba-api-key>"
+```
+
+The container app receives `Discord__Token`, `FIRST__Password`, and `TbaApiKey` as Container Apps secrets, and `FIRST__Username` is set to `bc3tech` as a non-secret app setting.
+
+`azd` provisions the app as a native Azure Functions deployment on Azure Container Apps by setting the container app resource kind to `functionapp`, while still using the standard `host: containerapp` service workflow in `azure.yaml`.
+
+`azd` also provisions a dedicated Azure Storage account for the app, disables shared-key auth on that account, and grants the container app's user-assigned managed identity the `Storage Blob Data Contributor`, `Storage Queue Data Contributor`, and `Storage Table Data Contributor` roles. The storage account keeps its public service endpoints enabled for the current Container Apps deployment shape, while authentication remains keyless through managed identity and RBAC. The Functions host is configured with identity-based `AzureWebJobsStorage__...` settings, while the app code receives `Azure__Storage__BlobsEndpoint` and `Azure__Storage__TableEndpoint` for its own SDK clients. No storage connection string is required in Azure.
 
 ### Other application settings
 
@@ -129,6 +133,7 @@ Per [LICENSE](LICENSE):
 The source code in this repository is licensed for use by human developers only. Use of this code, its structure, logic, or documentation for the purposes of training, fine-tuning, or referencing by any machine learning model—including but not limited to large language models (LLMs)—is strictly prohibited.
 
 This includes:
+
 - Direct ingestion of code into datasets used for model training or evaluation
 - Embedding or indexing for retrieval-augmented generation (RAG) systems
 - Use in prompt engineering, code synthesis, or automated code generation tools

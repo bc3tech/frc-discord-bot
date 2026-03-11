@@ -28,7 +28,7 @@ internal sealed class CompLevelStarting(EmbedBuilderFactory builderFactory, Time
             yield break;
         }
 
-        var compLevel = Enum.Parse<Match.CompLevelEnum>(notification.comp_level, ignoreCase: true);
+        var compLevel = Enum.Parse<CompLevel>(notification.comp_level, ignoreCase: true);
         var eventName = notification.event_name;
         var embed = builderFactory.GetBuilder(highlightTeam)
             .WithDescription($"""

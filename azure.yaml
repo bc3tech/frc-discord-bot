@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: frc-discord-bot
+metadata:
+    template: azd-init@1.23.8
+services:
+    app:
+        project: app
+        host: containerapp
+        language: dotnet
+resources:
+    app:
+        type: host.containerapp
+        port: 8080

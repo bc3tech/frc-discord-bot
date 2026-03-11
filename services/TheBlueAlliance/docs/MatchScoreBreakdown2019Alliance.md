@@ -6,55 +6,55 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AdjustPoints** | **int** |  | [optional] 
 **AutoPoints** | **int** |  | [optional] 
-**Bay1** | **string** |  | [optional] 
-**Bay2** | **string** |  | [optional] 
-**Bay3** | **string** |  | [optional] 
-**Bay4** | **string** |  | [optional] 
-**Bay5** | **string** |  | [optional] 
-**Bay6** | **string** |  | [optional] 
-**Bay7** | **string** |  | [optional] 
-**Bay8** | **string** |  | [optional] 
-**CargoPoints** | **int** |  | [optional] 
-**CompleteRocketRankingPoint** | **bool** |  | [optional] 
+**Bay1** | **Bay2019** |  | 
+**Bay2** | **Bay2019** |  | 
+**Bay3** | **Bay2019** |  | 
+**Bay4** | **Bay2019** |  | 
+**Bay5** | **Bay2019** |  | 
+**Bay6** | **Bay2019** |  | 
+**Bay7** | **Bay2019** |  | 
+**Bay8** | **Bay2019** |  | 
+**CargoPoints** | **int** |  | 
+**CompleteRocketRankingPoint** | **bool** |  | 
 **CompletedRocketFar** | **bool** |  | [optional] 
 **CompletedRocketNear** | **bool** |  | [optional] 
-**EndgameRobot1** | **string** |  | [optional] 
-**EndgameRobot2** | **string** |  | [optional] 
-**EndgameRobot3** | **string** |  | [optional] 
+**EndgameRobot1** | **EndgameRobot2019** |  | 
+**EndgameRobot2** | **EndgameRobot2019** |  | 
+**EndgameRobot3** | **EndgameRobot2019** |  | 
 **FoulCount** | **int** |  | [optional] 
-**FoulPoints** | **int** |  | [optional] 
-**HabClimbPoints** | **int** |  | [optional] 
-**HabDockingRankingPoint** | **bool** |  | [optional] 
-**HabLineRobot1** | **string** |  | [optional] 
-**HabLineRobot2** | **string** |  | [optional] 
-**HabLineRobot3** | **string** |  | [optional] 
-**HatchPanelPoints** | **int** |  | [optional] 
-**LowLeftRocketFar** | **string** |  | [optional] 
-**LowLeftRocketNear** | **string** |  | [optional] 
-**LowRightRocketFar** | **string** |  | [optional] 
-**LowRightRocketNear** | **string** |  | [optional] 
-**MidLeftRocketFar** | **string** |  | [optional] 
-**MidLeftRocketNear** | **string** |  | [optional] 
-**MidRightRocketFar** | **string** |  | [optional] 
-**MidRightRocketNear** | **string** |  | [optional] 
-**PreMatchBay1** | **string** |  | [optional] 
-**PreMatchBay2** | **string** |  | [optional] 
-**PreMatchBay3** | **string** |  | [optional] 
-**PreMatchBay6** | **string** |  | [optional] 
-**PreMatchBay7** | **string** |  | [optional] 
-**PreMatchBay8** | **string** |  | [optional] 
-**PreMatchLevelRobot1** | **string** |  | [optional] 
-**PreMatchLevelRobot2** | **string** |  | [optional] 
-**PreMatchLevelRobot3** | **string** |  | [optional] 
-**Rp** | **int** |  | [optional] 
-**SandStormBonusPoints** | **int** |  | [optional] 
+**FoulPoints** | **int** |  | 
+**HabClimbPoints** | **int** |  | 
+**HabDockingRankingPoint** | **bool** |  | 
+**HabLineRobot1** | **HabLine2019** |  | 
+**HabLineRobot2** | **HabLine2019** |  | 
+**HabLineRobot3** | **HabLine2019** |  | 
+**HatchPanelPoints** | **int** |  | 
+**LowLeftRocketFar** | **Bay2019** |  | 
+**LowLeftRocketNear** | **Bay2019** |  | 
+**LowRightRocketFar** | **Bay2019** |  | 
+**LowRightRocketNear** | **Bay2019** |  | 
+**MidLeftRocketFar** | **Bay2019** |  | 
+**MidLeftRocketNear** | **Bay2019** |  | 
+**MidRightRocketFar** | **Bay2019** |  | 
+**MidRightRocketNear** | **Bay2019** |  | 
+**PreMatchBay1** | **PreMatchBay2019** |  | 
+**PreMatchBay2** | **PreMatchBay2019** |  | 
+**PreMatchBay3** | **PreMatchBay2019** |  | 
+**PreMatchBay6** | **PreMatchBay2019** |  | 
+**PreMatchBay7** | **PreMatchBay2019** |  | 
+**PreMatchBay8** | **PreMatchBay2019** |  | 
+**PreMatchLevelRobot1** | **EndgameRobot2019** |  | 
+**PreMatchLevelRobot2** | **EndgameRobot2019** |  | 
+**PreMatchLevelRobot3** | **EndgameRobot2019** |  | 
+**Rp** | **int** |  | 
+**SandStormBonusPoints** | **int** |  | 
 **TechFoulCount** | **int** |  | [optional] 
-**TeleopPoints** | **int** |  | [optional] 
-**TopLeftRocketFar** | **string** |  | [optional] 
-**TopLeftRocketNear** | **string** |  | [optional] 
-**TopRightRocketFar** | **string** |  | [optional] 
-**TopRightRocketNear** | **string** |  | [optional] 
-**TotalPoints** | **int** |  | [optional] 
+**TeleopPoints** | **int** |  | 
+**TopLeftRocketFar** | **Bay2019** |  | 
+**TopLeftRocketNear** | **Bay2019** |  | 
+**TopRightRocketFar** | **Bay2019** |  | 
+**TopRightRocketNear** | **Bay2019** |  | 
+**TotalPoints** | **int** |  | 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

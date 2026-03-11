@@ -89,8 +89,13 @@ internal sealed class Program
                     .AddSingleton<RESTCountries>()
                     .FixAppInsightsLogging();
 
-                var tableStorageEndpointConfigValue = context.Configuration[Constants.Configuration.Azure.Storage.TableEndpoint];
-                TableServiceClient tsc = !string.IsNullOrWhiteSpace(tableStorageEndpointConfigValue) && Uri.TryCreate(tableStorageEndpointConfigValue, UriKind.Absolute, out var tableEndpoint)
+                // Prefer explicit service URIs so Container Apps can use managed identity-backed storage.
+                // The connection-string fallback is retained for local development.
+                var tableEndpoint = TryGetStorageServiceUri(
+                    context.Configuration,
+                    Constants.Configuration.Azure.Storage.TableEndpoint,
+                    "AzureWebJobsStorage__tableServiceUri");
+                TableServiceClient tsc = tableEndpoint is not null
                     ? new TableServiceClient(tableEndpoint, credential)
                     : new TableServiceClient(Throws.IfNullOrWhiteSpace(context.Configuration["AzureWebJobsStorage"]));
                 foreach (var i in context.Configuration.GetSection(Constants.Configuration.Azure.Storage.Tables).Get<IEnumerable<string>>() ?? [])
@@ -109,8 +114,11 @@ internal sealed class Program
 
                 services.AddSingleton(sp =>
                 {
-                    var blobStorageEndpointConfigValue = context.Configuration[Constants.Configuration.Azure.Storage.BlobsEndpoint];
-                    BlobServiceClient bsc = !string.IsNullOrWhiteSpace(blobStorageEndpointConfigValue) && Uri.TryCreate(blobStorageEndpointConfigValue, UriKind.Absolute, out var blobsEndpoint)
+                    var blobsEndpoint = TryGetStorageServiceUri(
+                        context.Configuration,
+                        Constants.Configuration.Azure.Storage.BlobsEndpoint,
+                        "AzureWebJobsStorage__blobServiceUri");
+                    BlobServiceClient bsc = blobsEndpoint is not null
                         ? new BlobServiceClient(blobsEndpoint, credential)
                         : new BlobServiceClient(Throws.IfNullOrWhiteSpace(context.Configuration["AzureWebJobsStorage"]));
 
@@ -134,5 +142,13 @@ internal sealed class Program
             .Build();
 
         await host.RunAsync().ConfigureAwait(false);
+    }
+
+    private static Uri? TryGetStorageServiceUri(IConfiguration configuration, string primaryKey, string secondaryKey)
+    {
+        var configuredValue = configuration[primaryKey] ?? configuration[secondaryKey];
+        return Uri.TryCreate(configuredValue, UriKind.Absolute, out var serviceUri)
+            ? serviceUri
+            : null;
     }
 }

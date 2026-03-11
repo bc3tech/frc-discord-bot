@@ -289,15 +289,6 @@ static partial class Log
     [LoggerMessage(92, LogLevel.Trace, "Created new agent with ID {AgentId}")]
     internal static partial void CreatedNewAgentWithIDAgentId(this ILogger logger, string AgentId);
 
-    [LoggerMessage(93, LogLevel.Debug, "Loading Team Match Summaries PDF from Google Docs")]
-    internal static partial void LoadingTeamMatchSummariesPDFFromGoogleDocs(this ILogger logger);
-
-    [LoggerMessage(94, LogLevel.Trace, "Uploading Team Match Summaries PDF to Azure AI")]
-    internal static partial void UploadingTeamMatchSummariesPDFToAzureAI(this ILogger logger);
-
-    [LoggerMessage(95, LogLevel.Information, "Uploaded Team Match Summaries PDF to Azure AI Vector Store, waiting for it to be ready...")]
-    internal static partial void UploadedTeamMatchSummariesPDFToAzureAI(this ILogger logger);
-
     [LoggerMessage(96, LogLevel.Debug, "{NumCommands} commands added to Guild {GuildName}({GuildId}) globally ({AvailableCommands})")]
     internal static partial void NumCommandsCommandsAddedToGuildGuildNameGuildIdGloballyAvailableCommands(this ILogger logger, int NumCommands, string GuildName, ulong GuildId, string AvailableCommands);
 
@@ -310,26 +301,8 @@ static partial class Log
     [LoggerMessage(100, LogLevel.Warning, "Unknown button clicked: {ButtonId}")]
     internal static partial void UnknownButtonClickedButtonId(this ILogger logger, string ButtonId);
 
-    [LoggerMessage(101, LogLevel.Debug, "Match Summaries PDF already uploaded and is the same size as the existing file. No need to re-upload.")]
-    internal static partial void MatchSummariesPDFAlreadyUploadedAndIsTheSameSizeAsTheExistingFileNoNeedToReUpload(this ILogger logger);
-
     [LoggerMessage(102, LogLevel.Debug, "Didn't find the target agent to update. Waiting for it to be available...")]
     internal static partial void DidnTFindTheTargetAgentToUpdateWaitingForItToBeAvailable(this ILogger logger);
-
-    [LoggerMessage(103, LogLevel.Information, "Running Match Summary doc update...")]
-    internal static partial void RunningMatchSummaryDocUpdate(this ILogger logger);
-
-    [LoggerMessage(104, LogLevel.Trace, "No tracking record found in table, uploading new file")]
-    internal static partial void NoTrackingRecordFoundInTableUploadingNewFile(this ILogger logger);
-
-    [LoggerMessage(105, LogLevel.Trace, "Found tracking record in table, checking if reupload is needed")]
-    internal static partial void FoundTrackingRecordInTableCheckingIfReuploadIsNeeded(this ILogger logger);
-
-    [LoggerMessage(106, LogLevel.Debug, "Not running on Friday, Saturday, or Sunday. Skipping match summaries update.")]
-    internal static partial void NotRunningOnFridaySaturdayOrSundaySkippingMatchSummariesUpdate(this ILogger logger);
-
-    [LoggerMessage(107, LogLevel.Debug, "Outside normal match hours, skipping update.")]
-    internal static partial void OutsideNormalMatchHoursSkippingUpdate(this ILogger logger);
 
     [LoggerMessage(108, LogLevel.Error, "Failed to register commands to guild {GuildName}({GuildId}) after 10 attempts. Please check the logs for more details.")]
     internal static partial void FailedToRegisterCommandsToGuildGuildNameGuildIdAfter10AttemptsPleaseCheckTheLogsForMoreDetails(this ILogger logger, string GuildName, ulong GuildId);
@@ -342,24 +315,6 @@ static partial class Log
 
     [LoggerMessage(111, LogLevel.Debug, "Deleted {GuildCommands} commands from guild {GuildName}({GuildId})")]
     internal static partial void DeletedGuildCommandsCommandsFromGuildGuildNameGuildId(this ILogger logger, int GuildCommands, string GuildName, ulong GuildId);
-
-    [LoggerMessage(112, LogLevel.Trace, "Still waiting for file to be processed...")]
-    internal static partial void StillWaitingForFileToBeProcessed(this ILogger logger);
-
-    [LoggerMessage(113, LogLevel.Information, "File {FileId} has been processed successfully.")]
-    internal static partial void FileFileIdHasBeenProcessedSuccessfully(this ILogger logger, string FileId);
-
-    [LoggerMessage(114, LogLevel.Error, "Failed to uplooad Match Summaries file: {FileId} with status: {Status}")]
-    internal static partial void FailedToUplooadMatchSummariesFileFileIdWithStatusStatus(this ILogger logger, string FileId, Azure.AI.Projects.VectorStoreFileStatus Status);
-
-    [LoggerMessage(115, LogLevel.Warning, "Unknown file status: {Status}")]
-    internal static partial void UnknownFileStatusStatus(this ILogger logger, Azure.AI.Projects.VectorStoreFileStatus Status);
-
-    [LoggerMessage(116, LogLevel.Warning, "Vector store processing is taking a VERY long time. This may be a sign of a problem. File: {FileId}")]
-    internal static partial void VectorStoreProcessingIsTakingAVERYLongTimeThisMayBeASignOfAProblemFileFileId(this ILogger logger, string FileId);
-
-    [LoggerMessage(117, LogLevel.Error, "Vector store processing has taken over 10 minutes. Bailing. File: {FileId}")]
-    internal static partial void VectorStoreProcessingHasTakenOver10MinutesBailingFileFileId(this ILogger logger, string FileId);
 
     [LoggerMessage(118, LogLevel.Trace, "Response: {Response}")]
     internal static partial void ResponseResponse(this ILogger logger, string Response);

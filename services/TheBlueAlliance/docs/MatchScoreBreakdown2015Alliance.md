@@ -5,7 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AdjustPoints** | **int** |  | [optional] 
-**AutoPoints** | **int** |  | [optional] 
+**Auto** | **string** |  | [optional] 
+**AutoPoints** | **int?** |  | [optional] 
 **ContainerCountLevel1** | **int** |  | [optional] 
 **ContainerCountLevel2** | **int** |  | [optional] 
 **ContainerCountLevel3** | **int** |  | [optional] 
@@ -14,8 +15,9 @@ Name | Type | Description | Notes
 **ContainerCountLevel6** | **int** |  | [optional] 
 **ContainerPoints** | **int** |  | [optional] 
 **ContainerSet** | **bool** |  | [optional] 
+**Foul** | **string** |  | [optional] 
 **FoulCount** | **int** |  | [optional] 
-**FoulPoints** | **int** |  | [optional] 
+**FoulPoints** | **int?** |  | [optional] 
 **LitterCountContainer** | **int** |  | [optional] 
 **LitterCountLandfill** | **int** |  | [optional] 
 **LitterCountUnprocessed** | **int** |  | [optional] 

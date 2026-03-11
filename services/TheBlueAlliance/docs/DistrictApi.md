@@ -4,11 +4,14 @@ All URIs are relative to *https://www.thebluealliance.com/api/v3*
 
 | Method | HTTP request | Description |
 |--------|--------------|-------------|
+| [**GetDistrictAdvancement**](DistrictApi.md#getdistrictadvancement) | **GET** /district/{district_key}/advancement |  |
 | [**GetDistrictAwards**](DistrictApi.md#getdistrictawards) | **GET** /district/{district_key}/awards |  |
+| [**GetDistrictDCMPHistory**](DistrictApi.md#getdistrictdcmphistory) | **GET** /district/{district_abbreviation}/dcmp_history |  |
 | [**GetDistrictEvents**](DistrictApi.md#getdistrictevents) | **GET** /district/{district_key}/events |  |
 | [**GetDistrictEventsKeys**](DistrictApi.md#getdistricteventskeys) | **GET** /district/{district_key}/events/keys |  |
 | [**GetDistrictEventsSimple**](DistrictApi.md#getdistricteventssimple) | **GET** /district/{district_key}/events/simple |  |
 | [**GetDistrictHistory**](DistrictApi.md#getdistricthistory) | **GET** /district/{district_abbreviation}/history |  |
+| [**GetDistrictInsights**](DistrictApi.md#getdistrictinsights) | **GET** /district/{district_abbreviation}/insights |  |
 | [**GetDistrictRankings**](DistrictApi.md#getdistrictrankings) | **GET** /district/{district_key}/rankings |  |
 | [**GetDistrictTeams**](DistrictApi.md#getdistrictteams) | **GET** /district/{district_key}/teams |  |
 | [**GetDistrictTeamsKeys**](DistrictApi.md#getdistrictteamskeys) | **GET** /district/{district_key}/teams/keys |  |
@@ -16,6 +19,110 @@ All URIs are relative to *https://www.thebluealliance.com/api/v3*
 | [**GetDistrictsByYear**](DistrictApi.md#getdistrictsbyyear) | **GET** /districts/{year} |  |
 | [**GetEventDistrictPoints**](DistrictApi.md#geteventdistrictpoints) | **GET** /event/{event_key}/district_points |  |
 | [**GetTeamDistricts**](DistrictApi.md#getteamdistricts) | **GET** /team/{team_key}/districts |  |
+
+<a id="getdistrictadvancement"></a>
+# **GetDistrictAdvancement**
+> Null&lt;string, DistrictAdvancement&gt; GetDistrictAdvancement (string districtKey, string? ifNoneMatch = null)
+
+
+
+Gets a list of advancement information per team in a district.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
+
+namespace Example
+
+
+    public class GetDistrictAdvancementExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://www.thebluealliance.com/api/v3";
+            // Configure API key authorization: apiKey
+            config.AddApiKey("X-TBA-Auth-Key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // config.AddApiKeyPrefix("X-TBA-Auth-Key", "Bearer");
+
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new DistrictApi(httpClient, config, httpClientHandler);
+            var districtKey = "districtKey_example";  // string | TBA District Key, eg `2016fim`
+            var ifNoneMatch = "ifNoneMatch_example";  // string? | Value of the `ETag` header in the most recently cached response by the client. (optional) 
+
+            try
+            {
+                Null<string, DistrictAdvancement> result = apiInstance.GetDistrictAdvancement(districtKey, ifNoneMatch);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling DistrictApi.GetDistrictAdvancement: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetDistrictAdvancementWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    ApiResponse<Null<string, DistrictAdvancement>> response = apiInstance.GetDistrictAdvancementWithHttpInfo(districtKey, ifNoneMatch);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling DistrictApi.GetDistrictAdvancementWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **districtKey** | **string** | TBA District Key, eg &#x60;2016fim&#x60; |  |
+| **ifNoneMatch** | **string?** | Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. | [optional]  |
+
+### Return type
+
+[**Null&lt;string, DistrictAdvancement&gt;**](DistrictAdvancement.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response |  * Cache-Control - The &#x60;Cache-Control&#x60; header, in particular the &#x60;max-age&#x60; value, contains the number of seconds the result should be considered valid for. During this time subsequent calls should return from the local cache directly. <br>  * ETag - Specifies the version of the most recent response. Used by clients in the &#x60;If-None-Match&#x60; request header. <br>  |
+| **304** | Not Modified - Use Local Cached Value |  -  |
+| **401** | Authorization information is missing or invalid. |  -  |
+| **404** | Not Found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 <a id="getdistrictawards"></a>
 # **GetDistrictAwards**
@@ -100,6 +207,110 @@ catch (ApiException e)
 ### Return type
 
 [**Collection&lt;Award&gt;**](Award.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response |  * Cache-Control - The &#x60;Cache-Control&#x60; header, in particular the &#x60;max-age&#x60; value, contains the number of seconds the result should be considered valid for. During this time subsequent calls should return from the local cache directly. <br>  * ETag - Specifies the version of the most recent response. Used by clients in the &#x60;If-None-Match&#x60; request header. <br>  |
+| **304** | Not Modified - Use Local Cached Value |  -  |
+| **401** | Authorization information is missing or invalid. |  -  |
+| **404** | Not Found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+<a id="getdistrictdcmphistory"></a>
+# **GetDistrictDCMPHistory**
+> Collection&lt;GetDistrictDCMPHistory200ResponseInner&gt; GetDistrictDCMPHistory (string districtAbbreviation, string? ifNoneMatch = null)
+
+
+
+Gets a list of DCMP events and awards for the given district abbreviation.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
+
+namespace Example
+
+
+    public class GetDistrictDCMPHistoryExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://www.thebluealliance.com/api/v3";
+            // Configure API key authorization: apiKey
+            config.AddApiKey("X-TBA-Auth-Key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // config.AddApiKeyPrefix("X-TBA-Auth-Key", "Bearer");
+
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new DistrictApi(httpClient, config, httpClientHandler);
+            var districtAbbreviation = "districtAbbreviation_example";  // string | District abbreviation, eg `ne` or `fim`
+            var ifNoneMatch = "ifNoneMatch_example";  // string? | Value of the `ETag` header in the most recently cached response by the client. (optional) 
+
+            try
+            {
+                Collection<GetDistrictDCMPHistory200ResponseInner> result = apiInstance.GetDistrictDCMPHistory(districtAbbreviation, ifNoneMatch);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling DistrictApi.GetDistrictDCMPHistory: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetDistrictDCMPHistoryWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    ApiResponse<Collection<GetDistrictDCMPHistory200ResponseInner>> response = apiInstance.GetDistrictDCMPHistoryWithHttpInfo(districtAbbreviation, ifNoneMatch);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling DistrictApi.GetDistrictDCMPHistoryWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **districtAbbreviation** | **string** | District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60; |  |
+| **ifNoneMatch** | **string?** | Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. | [optional]  |
+
+### Return type
+
+[**Collection&lt;GetDistrictDCMPHistory200ResponseInner&gt;**](GetDistrictDCMPHistory200ResponseInner.md)
 
 ### Authorization
 
@@ -435,7 +646,7 @@ catch (ApiException e)
 
 <a id="getdistricthistory"></a>
 # **GetDistrictHistory**
-> Collection&lt;DistrictList&gt; GetDistrictHistory (string districtAbbreviation, string? ifNoneMatch = null)
+> Collection&lt;District&gt; GetDistrictHistory (string districtAbbreviation, string? ifNoneMatch = null)
 
 
 
@@ -473,7 +684,7 @@ namespace Example
 
             try
             {
-                Collection<DistrictList> result = apiInstance.GetDistrictHistory(districtAbbreviation, ifNoneMatch);
+                Collection<District> result = apiInstance.GetDistrictHistory(districtAbbreviation, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -493,7 +704,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<Collection<DistrictList>> response = apiInstance.GetDistrictHistoryWithHttpInfo(districtAbbreviation, ifNoneMatch);
+    ApiResponse<Collection<District>> response = apiInstance.GetDistrictHistoryWithHttpInfo(districtAbbreviation, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -515,7 +726,111 @@ catch (ApiException e)
 
 ### Return type
 
-[**Collection&lt;DistrictList&gt;**](DistrictList.md)
+[**Collection&lt;District&gt;**](District.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successful response |  * Cache-Control - The &#x60;Cache-Control&#x60; header, in particular the &#x60;max-age&#x60; value, contains the number of seconds the result should be considered valid for. During this time subsequent calls should return from the local cache directly. <br>  * ETag - Specifies the version of the most recent response. Used by clients in the &#x60;If-None-Match&#x60; request header. <br>  |
+| **304** | Not Modified - Use Local Cached Value |  -  |
+| **401** | Authorization information is missing or invalid. |  -  |
+| **404** | Not Found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+<a id="getdistrictinsights"></a>
+# **GetDistrictInsights**
+> DistrictInsight GetDistrictInsights (string districtAbbreviation, string? ifNoneMatch = null)
+
+
+
+Gets insights for a given district.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using TheBlueAlliance.Api;
+using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
+
+namespace Example
+
+
+    public class GetDistrictInsightsExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://www.thebluealliance.com/api/v3";
+            // Configure API key authorization: apiKey
+            config.AddApiKey("X-TBA-Auth-Key", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // config.AddApiKeyPrefix("X-TBA-Auth-Key", "Bearer");
+
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new DistrictApi(httpClient, config, httpClientHandler);
+            var districtAbbreviation = "districtAbbreviation_example";  // string | District abbreviation, eg `ne` or `fim`
+            var ifNoneMatch = "ifNoneMatch_example";  // string? | Value of the `ETag` header in the most recently cached response by the client. (optional) 
+
+            try
+            {
+                DistrictInsight result = apiInstance.GetDistrictInsights(districtAbbreviation, ifNoneMatch);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling DistrictApi.GetDistrictInsights: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetDistrictInsightsWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    ApiResponse<DistrictInsight> response = apiInstance.GetDistrictInsightsWithHttpInfo(districtAbbreviation, ifNoneMatch);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling DistrictApi.GetDistrictInsightsWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **districtAbbreviation** | **string** | District abbreviation, eg &#x60;ne&#x60; or &#x60;fim&#x60; |  |
+| **ifNoneMatch** | **string?** | Value of the &#x60;ETag&#x60; header in the most recently cached response by the client. | [optional]  |
+
+### Return type
+
+[**DistrictInsight**](DistrictInsight.md)
 
 ### Authorization
 
@@ -955,7 +1270,7 @@ catch (ApiException e)
 
 <a id="getdistrictsbyyear"></a>
 # **GetDistrictsByYear**
-> Collection&lt;DistrictList&gt; GetDistrictsByYear (int year, string? ifNoneMatch = null)
+> Collection&lt;District&gt; GetDistrictsByYear (int year, string? ifNoneMatch = null)
 
 
 
@@ -993,7 +1308,7 @@ namespace Example
 
             try
             {
-                Collection<DistrictList> result = apiInstance.GetDistrictsByYear(year, ifNoneMatch);
+                Collection<District> result = apiInstance.GetDistrictsByYear(year, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -1013,7 +1328,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<Collection<DistrictList>> response = apiInstance.GetDistrictsByYearWithHttpInfo(year, ifNoneMatch);
+    ApiResponse<Collection<District>> response = apiInstance.GetDistrictsByYearWithHttpInfo(year, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -1035,7 +1350,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**Collection&lt;DistrictList&gt;**](DistrictList.md)
+[**Collection&lt;District&gt;**](District.md)
 
 ### Authorization
 
@@ -1063,7 +1378,7 @@ catch (ApiException e)
 
 
 
-Gets a list of team rankings for the Event.
+Gets a list of district points for the Event. These are always calculated, regardless of event type, and may/may not be actually useful.
 
 ### Example
 ```csharp
@@ -1163,7 +1478,7 @@ catch (ApiException e)
 
 <a id="getteamdistricts"></a>
 # **GetTeamDistricts**
-> Collection&lt;DistrictList&gt; GetTeamDistricts (string teamKey, string? ifNoneMatch = null)
+> Collection&lt;District&gt; GetTeamDistricts (string teamKey, string? ifNoneMatch = null)
 
 
 
@@ -1201,7 +1516,7 @@ namespace Example
 
             try
             {
-                Collection<DistrictList> result = apiInstance.GetTeamDistricts(teamKey, ifNoneMatch);
+                Collection<District> result = apiInstance.GetTeamDistricts(teamKey, ifNoneMatch);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -1221,7 +1536,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<Collection<DistrictList>> response = apiInstance.GetTeamDistrictsWithHttpInfo(teamKey, ifNoneMatch);
+    ApiResponse<Collection<District>> response = apiInstance.GetTeamDistrictsWithHttpInfo(teamKey, ifNoneMatch);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -1243,7 +1558,7 @@ catch (ApiException e)
 
 ### Return type
 
-[**Collection&lt;DistrictList&gt;**](DistrictList.md)
+[**Collection&lt;District&gt;**](District.md)
 
 ### Authorization
 

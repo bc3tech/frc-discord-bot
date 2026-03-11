@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Lat** | **double?** | Will be NULL, for future development. | 
 **Lng** | **double?** | Will be NULL, for future development. | 
 **LocationName** | **string** | Will be NULL, for future development. | 
+**Motto** | **string** | Team&#39;s motto or tagline. | 
 **Name** | **string** | Official long name registered with FIRST. | 
 **Nickname** | **string** | Team nickname provided by FIRST. | 
 **PostalCode** | **string** | Postal code from the team address. | 
@@ -20,7 +21,7 @@ Name | Type | Description | Notes
 **SchoolName** | **string** | Name of team school or affilited group registered with FIRST. | 
 **StateProv** | **string** | State of team derived from parsing the address registered with FIRST. | 
 **TeamNumber** | **int** | Official team number issued by FIRST. | 
-**Website** | **string** | Official website associated with the team. | [optional] 
+**Website** | **string** | Official website associated with the team. | 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 

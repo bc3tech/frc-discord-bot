@@ -5,7 +5,7 @@ The `Media` object contains a reference for most any media associated with a tea
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Details** | **Dictionary&lt;string, Object&gt;** | If required, a JSON dict of additional media information. | [optional] 
+**Details** | [**MediaDetails**](MediaDetails.md) |  | [optional] 
 **DirectUrl** | **string** | Direct URL to the media. | [optional] 
 **ForeignKey** | **string** | The key used to identify this media on the media site. | 
 **Preferred** | **bool** | True if the media is of high quality. | [optional] 

@@ -10,7 +10,6 @@ internal static class Constants
         public const string TableClient_EventSubscriptions = "eventSubscriptions";
         public const string TableClient_Threads = "threads";
         public const string TableClient_UserChatAgentThreads = "userChatAgentThreads";
-        public const string TableClient_VectorStoreFiles = "vectorStoreFiles";
         public const string TableClient_ProcessedMessages = "processedMessages";
 
         public const string TheBlueAllianceHttpClient = nameof(TheBlueAllianceHttpClient);
@@ -31,7 +30,6 @@ internal static class Constants
     public static class Configuration
     {
         public const string TbaApiKey = nameof(TbaApiKey);
-        public const string MatchSummariesDocumentUrl = nameof(MatchSummariesDocumentUrl);
         public const string AllowDuplicateWebhooks = nameof(AllowDuplicateWebhooks);
         public const string MaxDaysToKeepStateData = nameof(MaxDaysToKeepStateData);
 
@@ -43,9 +41,9 @@ internal static class Constants
             public static readonly string LogLevel = ConfigurationPath.Combine(_Name, nameof(LogLevel));
         }
 
-        public static class FIRST
+        public static class FRC
         {
-            public const string _Name = nameof(FIRST);
+            public const string _Name = nameof(FRC);
 
             public static readonly string Username = ConfigurationPath.Combine(_Name, nameof(Username));
             public static readonly string Password = ConfigurationPath.Combine(_Name, nameof(Password));
@@ -54,6 +52,9 @@ internal static class Constants
         public static class Azure
         {
             public const string _Name = nameof(Azure);
+
+            public static readonly string TenantId = ConfigurationPath.Combine(_Name, nameof(TenantId));
+            public static readonly string ClientId = ConfigurationPath.Combine(_Name, nameof(ClientId));
 
             public static class Storage
             {
@@ -68,22 +69,10 @@ internal static class Constants
             {
                 public static readonly string _Name = ConfigurationPath.Combine(Azure._Name, nameof(AI));
 
-                public static readonly string ProjectConnectionString = ConfigurationPath.Combine(_Name, nameof(ProjectConnectionString));
-                public static readonly string ApiKey = ConfigurationPath.Combine(_Name, nameof(ApiKey));
-
                 public static class Project
                 {
                     public static readonly string _Name = ConfigurationPath.Combine(AI._Name, nameof(Project));
-                    public static readonly string ConnectionString = ConfigurationPath.Combine(_Name, nameof(ConnectionString));
-
-                    public static class Credentials
-                    {
-                        public static readonly string _Name = ConfigurationPath.Combine(Project._Name, nameof(Credentials));
-
-                        public static readonly string TenantId = ConfigurationPath.Combine(_Name, nameof(TenantId));
-                        public static readonly string ClientId = ConfigurationPath.Combine(_Name, nameof(ClientId));
-                        public static readonly string ClientSecret = ConfigurationPath.Combine(_Name, nameof(ClientSecret));
-                    }
+                    public static readonly string Endpoint = ConfigurationPath.Combine(_Name, nameof(Endpoint));
                 }
 
                 public static class Agents

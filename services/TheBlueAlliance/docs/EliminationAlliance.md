@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Backup** | [**EliminationAllianceBackup**](EliminationAllianceBackup.md) |  | [optional] 
 **Declines** | **Collection&lt;string&gt;** | List of teams that declined the alliance. | 
-**Name** | **string** | Alliance name, may be null. | [optional] 
+**Name** | **string** | Alliance name. | [optional] 
 **Picks** | **Collection&lt;string&gt;** | List of team keys picked for the alliance. First pick is captain. | 
 **Status** | [**EliminationAllianceStatus**](EliminationAllianceStatus.md) |  | [optional] 
 

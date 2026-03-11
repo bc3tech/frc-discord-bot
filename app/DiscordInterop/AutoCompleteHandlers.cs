@@ -16,7 +16,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-using CompLevelEnum = TheBlueAlliance.Model.Match.CompLevelEnum;
+using CompLevelEnum = TheBlueAlliance.Model.CompLevel;
 
 internal sealed class AutoCompleteHandlers
 {

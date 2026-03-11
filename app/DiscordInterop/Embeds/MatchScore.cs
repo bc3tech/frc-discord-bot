@@ -32,7 +32,7 @@ using TheBlueAlliance.Api;
 using TheBlueAlliance.Extensions;
 using TheBlueAlliance.Model;
 using TheBlueAlliance.Model.MatchExtensions;
-using TheBlueAlliance.Model.MatchScoreBreakdown2025AllianceExtensions;
+using TheBlueAlliance.Model.CompLevelExtensions;
 
 using Match = TheBlueAlliance.Model.Match;
 
@@ -101,16 +101,16 @@ internal sealed partial class MatchScore(IEventApi eventApi,
     {
         using var scope = logger.CreateMethodScope();
         var match = notificationMatch ?? tbaMatch;
-        var blueScore = match.Alliances.Blue.Score.GetValueOrDefault(-1);
+        var blueScore = match.Alliances.Blue.Score;
         if (blueScore is -1)
         {
-            blueScore = match.ScoreBreakdown?.GetMatchScoreBreakdown2025().Or(tbaMatch.ScoreBreakdown?.GetMatchScoreBreakdown2025())?.Blue.TotalPoints ?? -1;
+            blueScore = GetTotalPoints(match.ScoreBreakdown, Match.WinningAllianceEnum.Blue).Or(GetTotalPoints(tbaMatch.ScoreBreakdown, Match.WinningAllianceEnum.Blue)) ?? -1;
         }
 
-        var redScore = match.Alliances.Red.Score.GetValueOrDefault(-1);
+        var redScore = match.Alliances.Red.Score;
         if (redScore is -1)
         {
-            redScore = match.ScoreBreakdown?.GetMatchScoreBreakdown2025().Or(tbaMatch.ScoreBreakdown?.GetMatchScoreBreakdown2025())?.Red.TotalPoints ?? -1;
+            redScore = GetTotalPoints(match.ScoreBreakdown, Match.WinningAllianceEnum.Red).Or(GetTotalPoints(tbaMatch.ScoreBreakdown, Match.WinningAllianceEnum.Red)) ?? -1;
         }
 
         if (redScore is -1 || blueScore is -1)
@@ -119,6 +119,17 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         }
 
         return (redScore, blueScore);
+    }
+
+    private static int? GetTotalPoints(MatchScoreBreakdown? scoreBreakdown, Match.WinningAllianceEnum alliance)
+    {
+        var allianceBreakdown = GetAllianceBreakdown(scoreBreakdown, alliance);
+        return allianceBreakdown?.GetType().GetProperty("TotalPoints")?.GetValue(allianceBreakdown) as int?;
+    }
+
+    private static object? GetAllianceBreakdown(MatchScoreBreakdown? scoreBreakdown, Match.WinningAllianceEnum alliance)
+    {
+        return scoreBreakdown?.ActualInstance?.GetType().GetProperty(alliance.ToInvariantString())?.GetValue(scoreBreakdown.ActualInstance);
     }
 
     public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync((string matchKey, bool summarize) input, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
@@ -228,7 +239,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         int[] allianceRanks = await GetAllianceRanksAsync(notificationMatch, tbaMatch, alliances, cancellationToken).ConfigureAwait(false);
         var districtPoints = await ComputeDistrictPointsForTeamsAsync(match.EventKey, allTeamKeys, cancellationToken).ConfigureAwait(false);
 
-        bool isQuals = match.CompLevel is Match.CompLevelEnum.Qm;
+        bool isQuals = match.CompLevel is CompLevel.Qm;
         var scoreBreakdown = includeFullBreakdown ? await GetScoreBreakdownAsync(notificationMatch, tbaMatch, cancellationToken).ConfigureAwait(false) : null;
 
         var eventHighScore = await GetHighScoreForEventAsync(notificationMatch?.EventKey ?? tbaMatch.EventKey, cancellationToken).ConfigureAwait(false);
@@ -261,7 +272,8 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
         if (includeFullBreakdown)
         {
-            if (scoreBreakdown?.Red is null)
+            var redBreakdown = GetAllianceBreakdown(scoreBreakdown, Match.WinningAllianceEnum.Red);
+            if (redBreakdown is null)
             {
                 builder.AppendLine("No score breakdown given");
                 meter.LogMetric("NoRedScoreBreakdown", 1);
@@ -269,23 +281,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             else
             {
                 logger.ScoreBreakdownScoreBreakdown(JsonSerializer.Serialize(scoreBreakdown));
-                builder.AppendLine($"""
-                                    - **Score Breakdown**
-                                        - Auto: {scoreBreakdown.Red.AutoPoints}
-                                    """);
-                builder.AppendLine($"  - Coral (top/mid/bottom/trough): {scoreBreakdown.Red.AutoReef?.TbaTopRowCount ?? '?'}/{scoreBreakdown.Red.AutoReef?.TbaMidRowCount ?? '?'}/{scoreBreakdown.Red.AutoReef?.TbaBotRowCount ?? '?'}/{scoreBreakdown.Red.AutoReef?.Trough ?? '?'} - {scoreBreakdown.Red.AutoCoralPoints}pts");
-                builder.AppendLine($"  - Teleop: {scoreBreakdown.Red.TeleopPoints}");
-                builder.AppendLine($"  - Coral (top/mid/bottom/trough): {scoreBreakdown.Red.TeleopReef?.TbaTopRowCount ?? '?'}/{scoreBreakdown.Red.TeleopReef?.TbaMidRowCount ?? '?'}/{scoreBreakdown.Red.TeleopReef?.TbaBotRowCount ?? '?'}/{scoreBreakdown.Red.TeleopReef?.Trough ?? '?'} - {scoreBreakdown.Red.TeleopCoralPoints}pts");
-                builder.AppendLine($"  - Endgame: ({scoreBreakdown.Red.EndGameRobot1.ToGlyph()}/{scoreBreakdown.Red.EndGameRobot2.ToGlyph()}/{scoreBreakdown.Red.EndGameRobot3.ToGlyph()}) {scoreBreakdown.Red.EndGameBargePoints}pts");
-                builder.AppendLine($"  - Algae(net / wall): {scoreBreakdown.Red.NetAlgaeCount}/{scoreBreakdown.Red.WallAlgaeCount} - {scoreBreakdown.Red.AlgaePoints}pts");
-                if (isQuals)
-                {
-                    builder.AppendLine($"  - {scoreBreakdown.Red.CoopertitionCriteriaMet.ToGlyph()} Coopertition");
-                    builder.AppendLine($"  - {scoreBreakdown.Red.AutoBonusAchieved.ToGlyph()} Auto RP(1) ({scoreBreakdown.Red.AutoLineRobot1.ToGlyph()}/{scoreBreakdown.Red.AutoLineRobot2.ToGlyph()}/{scoreBreakdown.Red.AutoLineRobot3.ToGlyph()})");
-                    builder.AppendLine($"  - {scoreBreakdown.Red.BargeBonusAchieved.ToGlyph()} Barge RP(1)");
-                    builder.AppendLine($"  - {scoreBreakdown.Red.CoralBonusAchieved.ToGlyph()} Coral RP(1)");
-                    builder.AppendLine($"  - {winningAlliance.ToGlyph(Match.WinningAllianceEnum.Red)} Win RP(3)");
-                }
+                AppendSeasonBreakdown(builder, redBreakdown, isQuals, Match.WinningAllianceEnum.Red, winningAlliance);
             }
         }
         #endregion
@@ -309,30 +305,15 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
         if (includeFullBreakdown)
         {
-            if (scoreBreakdown?.Blue is null)
+            var blueBreakdown = GetAllianceBreakdown(scoreBreakdown, Match.WinningAllianceEnum.Blue);
+            if (blueBreakdown is null)
             {
                 builder.AppendLine("No score breakdown given");
                 meter.LogMetric("NoBlueScoreBreakdown", 1);
             }
             else
             {
-                builder.AppendLine($"""
-                                    - **Score Breakdown**
-                                        - Auto: {scoreBreakdown.Blue.AutoPoints}
-                                    """);
-                builder.AppendLine($"  - Coral (top/mid/bottom/trough): {scoreBreakdown.Blue.AutoReef?.TbaTopRowCount ?? '?'}/{scoreBreakdown.Blue.AutoReef?.TbaMidRowCount ?? '?'}/{scoreBreakdown.Blue.AutoReef?.TbaBotRowCount ?? '?'}/{scoreBreakdown.Blue.AutoReef?.Trough ?? '?'} - {scoreBreakdown.Blue.AutoCoralPoints}pts");
-                builder.AppendLine($"  - Teleop: {scoreBreakdown.Blue.TeleopPoints}");
-                builder.AppendLine($"  - Coral (top/mid/bottom/trough): {scoreBreakdown.Blue.TeleopReef?.TbaTopRowCount ?? '?'}/{scoreBreakdown.Blue.TeleopReef?.TbaMidRowCount ?? '?'}/{scoreBreakdown.Blue.TeleopReef?.TbaBotRowCount ?? '?'}/{scoreBreakdown.Blue.TeleopReef?.Trough ?? '?'} - {scoreBreakdown.Blue.TeleopCoralPoints}pts");
-                builder.AppendLine($"  - Endgame: ({scoreBreakdown.Blue.EndGameRobot1.ToGlyph()}/{scoreBreakdown.Blue.EndGameRobot2.ToGlyph()}/{scoreBreakdown.Blue.EndGameRobot3.ToGlyph()}) {scoreBreakdown.Blue.EndGameBargePoints}pts");
-                builder.AppendLine($"  - Algae(net / wall): {scoreBreakdown.Blue.NetAlgaeCount}/{scoreBreakdown.Blue.WallAlgaeCount} - {scoreBreakdown.Blue.AlgaePoints}pts");
-                if (isQuals)
-                {
-                    builder.AppendLine($"  - {scoreBreakdown.Blue.CoopertitionCriteriaMet.ToGlyph()} Coopertition");
-                    builder.AppendLine($"  - {scoreBreakdown.Blue.AutoBonusAchieved.ToGlyph()} Auto RP(1) ({scoreBreakdown.Blue.AutoLineRobot1.ToGlyph()}/{scoreBreakdown.Blue.AutoLineRobot2.ToGlyph()}/{scoreBreakdown.Blue.AutoLineRobot3.ToGlyph()})");
-                    builder.AppendLine($"  - {scoreBreakdown.Blue.BargeBonusAchieved.ToGlyph()} Barge RP(1)");
-                    builder.AppendLine($"  - {scoreBreakdown.Blue.CoralBonusAchieved.ToGlyph()} Coral RP(1)");
-                    builder.AppendLine($"  - {winningAlliance.ToGlyph(Match.WinningAllianceEnum.Blue)} Win RP(3)");
-                }
+                AppendSeasonBreakdown(builder, blueBreakdown, isQuals, Match.WinningAllianceEnum.Blue, winningAlliance);
             }
         }
         #endregion
@@ -347,20 +328,20 @@ internal sealed partial class MatchScore(IEventApi eventApi,
     private async ValueTask<ushort> GetHighScoreForEventAsync(string eventKey, CancellationToken cancellationToken)
     {
         var matchesInEvent = await eventApi.GetEventMatchesSimpleAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false) ?? [];
-        return (ushort)Math.Max(0, matchesInEvent.Max(i => Math.Max(i.Alliances.Blue.Score.GetValueOrDefault(0), i.Alliances.Red.Score.GetValueOrDefault(0))));
+        return (ushort)Math.Max(0, matchesInEvent.Max(i => Math.Max(i.Alliances.Blue.Score, i.Alliances.Red.Score)));
     }
 
-    private async Task<MatchScoreBreakdown2025?> GetScoreBreakdownAsync(Match? notificationMatch, Match tbaMatch, CancellationToken cancellationToken)
+    private async Task<MatchScoreBreakdown?> GetScoreBreakdownAsync(Match? notificationMatch, Match tbaMatch, CancellationToken cancellationToken)
     {
         var startTime = time.GetTimestamp();
-        var breakdown = notificationMatch?.ScoreBreakdown.Or(tbaMatch.ScoreBreakdown)?.GetMatchScoreBreakdown2025();
+        var breakdown = notificationMatch?.ScoreBreakdown.Or(tbaMatch.ScoreBreakdown);
 
         while (breakdown is null && !cancellationToken.IsCancellationRequested)
         {
             await Task.Delay(TimeSpan.FromSeconds(10), time, cancellationToken).ConfigureAwait(false);
             try
             {
-                breakdown = (await matchApi.GetMatchAsync(tbaMatch.Key, cancellationToken: cancellationToken).ConfigureAwait(false))?.ScoreBreakdown?.GetMatchScoreBreakdown2025();
+                breakdown = (await matchApi.GetMatchAsync(tbaMatch.Key, cancellationToken: cancellationToken).ConfigureAwait(false))?.ScoreBreakdown;
 
                 if (time.GetElapsedTime(startTime).TotalMinutes >= 5)
                 {
@@ -370,15 +351,20 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
                 if (breakdown is not null)
                 {
-                    if (breakdown.Red.Rp is null or > 6 or < 0)
+                    var redRp = GetRankingPoints(breakdown, Match.WinningAllianceEnum.Red);
+                    if (redRp is > 6 or < 0)
                     {
-                        logger.InvalidRedRPValueForMatchMatchKeyRpValue(tbaMatch.Key, breakdown.Red.Rp);
+                        logger.InvalidRedRPValueForMatchMatchKeyRpValue(tbaMatch.Key, redRp.Value);
                         breakdown = null;
                     }
-                    else if (breakdown.Blue.Rp is null or > 6 or < 0)
+                    else
                     {
-                        logger.InvalidBlueRPValueForMatchMatchKeyRpValue(tbaMatch.Key, breakdown.Blue.Rp);
-                        breakdown = null;
+                        var blueRp = GetRankingPoints(breakdown, Match.WinningAllianceEnum.Blue);
+                        if (blueRp is > 6 or < 0)
+                        {
+                            logger.InvalidBlueRPValueForMatchMatchKeyRpValue(tbaMatch.Key, blueRp.Value);
+                            breakdown = null;
+                        }
                     }
                 }
                 else
@@ -400,14 +386,75 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         return breakdown;
     }
 
+    private static int? GetRankingPoints(MatchScoreBreakdown? scoreBreakdown, Match.WinningAllianceEnum alliance)
+    {
+        var allianceBreakdown = GetAllianceBreakdown(scoreBreakdown, alliance);
+        return allianceBreakdown?.GetType().GetProperty("Rp")?.GetValue(allianceBreakdown) as int?;
+    }
+
+    private static void AppendSeasonBreakdown(StringBuilder builder, object allianceBreakdown, bool isQuals, Match.WinningAllianceEnum allianceColor, Match.WinningAllianceEnum winningAlliance)
+    {
+        switch (allianceBreakdown)
+        {
+            case MatchScoreBreakdown2025Alliance season2025:
+                builder.AppendLine($"""
+                                    - **Score Breakdown**
+                                        - Auto: {season2025.AutoPoints}
+                                    """);
+                builder.AppendLine($"  - Coral (top/mid/bottom/trough): {season2025.AutoReef.TbaTopRowCount.ToStringHandleUnknown()}/{season2025.AutoReef.TbaMidRowCount.ToStringHandleUnknown()}/{season2025.AutoReef.TbaBotRowCount.ToStringHandleUnknown()}/{season2025.AutoReef.Trough.ToStringHandleUnknown()} - {season2025.AutoCoralPoints}pts");
+                builder.AppendLine($"  - Teleop: {season2025.TeleopPoints}");
+                builder.AppendLine($"  - Coral (top/mid/bottom/trough): {season2025.TeleopReef.TbaTopRowCount.ToStringHandleUnknown()}/{season2025.TeleopReef.TbaMidRowCount.ToStringHandleUnknown()}/{season2025.TeleopReef.TbaBotRowCount.ToStringHandleUnknown()}/{season2025.TeleopReef.Trough.ToStringHandleUnknown()} - {season2025.TeleopCoralPoints}pts");
+                builder.AppendLine($"  - Endgame: ({season2025.EndGameRobot1.ToGlyph()}/{season2025.EndGameRobot2.ToGlyph()}/{season2025.EndGameRobot3.ToGlyph()}) {season2025.EndGameBargePoints}pts");
+                builder.AppendLine($"  - Algae(net / wall): {season2025.NetAlgaeCount}/{season2025.WallAlgaeCount} - {season2025.AlgaePoints}pts");
+                if (isQuals)
+                {
+                    builder.AppendLine($"  - {season2025.CoopertitionCriteriaMet.ToGlyph()} Coopertition");
+                    builder.AppendLine($"  - {season2025.AutoBonusAchieved.ToGlyph()} Auto RP(1) ({season2025.AutoLineRobot1.ToGlyph()}/{season2025.AutoLineRobot2.ToGlyph()}/{season2025.AutoLineRobot3.ToGlyph()})");
+                    builder.AppendLine($"  - {season2025.BargeBonusAchieved.ToGlyph()} Barge RP(1)");
+                    builder.AppendLine($"  - {season2025.CoralBonusAchieved.ToGlyph()} Coral RP(1)");
+                    builder.AppendLine($"  - {winningAlliance.ToGlyph(allianceColor)} Win RP(3)");
+                }
+
+                break;
+            case MatchScoreBreakdown2026Alliance season2026:
+                builder.AppendLine($"""
+                                    - **Score Breakdown**
+                                        - Auto: {season2026.TotalAutoPoints}
+                                    """);
+                builder.AppendLine($"  - Auto tower: ({season2026.AutoTowerRobot1.ToGlyph()}/{season2026.AutoTowerRobot2.ToGlyph()}/{season2026.AutoTowerRobot3.ToGlyph()}) {season2026.AutoTowerPoints}pts");
+                builder.AppendLine($"  - Teleop: {season2026.TotalTeleopPoints}");
+                builder.AppendLine($"  - Hub( auto/transition/s1/s2/s3/s4/endgame ): {season2026.HubScore.AutoCount}/{season2026.HubScore.TransitionCount}/{season2026.HubScore.Shift1Count}/{season2026.HubScore.Shift2Count}/{season2026.HubScore.Shift3Count}/{season2026.HubScore.Shift4Count}/{season2026.HubScore.EndgameCount} - {season2026.HubScore.TotalPoints}pts");
+                builder.AppendLine($"  - Endgame tower: ({season2026.EndGameTowerRobot1.ToGlyph()}/{season2026.EndGameTowerRobot2.ToGlyph()}/{season2026.EndGameTowerRobot3.ToGlyph()}) {season2026.EndGameTowerPoints}pts");
+                builder.AppendLine($"  - Penalties: {season2026.MinorFoulCount} minor, {season2026.MajorFoulCount} major, G206={((bool?)season2026.G206Penalty).ToGlyph()} (+{season2026.FoulPoints}pts)");
+                if (isQuals)
+                {
+                    builder.AppendLine($"  - {((bool?)season2026.EnergizedAchieved).ToGlyph()} Energized RP");
+                    builder.AppendLine($"  - {((bool?)season2026.SuperchargedAchieved).ToGlyph()} Supercharged RP");
+                    builder.AppendLine($"  - {((bool?)season2026.TraversalAchieved).ToGlyph()} Traversal RP");
+                    builder.AppendLine($"  - {winningAlliance.ToGlyph(allianceColor)} Win RP");
+                }
+
+                break;
+            default:
+                builder.AppendLine("- **Score Breakdown**");
+                builder.AppendLine($"  - Total points: {GetTotalPointsForAllianceBreakdown(allianceBreakdown)?.ToString() ?? "Unknown"}");
+                break;
+        }
+    }
+
+    private static int? GetTotalPointsForAllianceBreakdown(object allianceBreakdown)
+    {
+        return allianceBreakdown.GetType().GetProperty("TotalPoints")?.GetValue(allianceBreakdown) as int?;
+    }
+
     [GeneratedRegex(@"\d+")]
     private static partial Regex AllianceRankRegex();
 
-    private async Task<int[]> GetAllianceRanksAsync(Match? notificationMatch, Match tbaMatch, MatchSimpleAlliances alliances, CancellationToken cancellationToken)
+    private async Task<int[]> GetAllianceRanksAsync(Match? notificationMatch, Match tbaMatch, MatchAlliances alliances, CancellationToken cancellationToken)
     {
         var retVal = new int[] { 0, 0, 0 };
         var match = notificationMatch ?? tbaMatch;
-        if (match.CompLevel is not Match.CompLevelEnum.Qm)
+        if (match.CompLevel is not CompLevel.Qm)
         {
             var eventAlliances = await eventApi.GetEventAlliancesAsync(match.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
             foreach (var eliminationAlliance in eventAlliances ?? [])
@@ -432,7 +479,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
     {
         var match = notificationMatch ?? tbaMatch;
         var matchNumber = match.MatchNumber;
-        var isPossibleEventEnd = match.CompLevel is Match.CompLevelEnum.F && matchNumber > 1;
+        var isPossibleEventEnd = match.CompLevel is CompLevel.F && matchNumber > 1;
         string eventKey = match.EventKey;
 
         if (isPossibleEventEnd)
@@ -466,7 +513,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             Debug.Assert(eventPieces.Success);
             var season = eventPieces.Groups[1].Value;
             var eventCode = eventPieces.Groups[2].Value;
-            var tourneyLevel = (match.CompLevel is Match.CompLevelEnum.Qm) ? TournamentLevel.Qualification : TournamentLevel.Playoff;
+            var tourneyLevel = (match.CompLevel is CompLevel.Qm) ? TournamentLevel.Qualification : TournamentLevel.Playoff;
             try
             {
                 var eventSchedule = await schedule.SeasonScheduleEventCodeGetAsync(eventCode, season, tournamentLevel: tourneyLevel, cancellationToken: cancellationToken).ConfigureAwait(false);

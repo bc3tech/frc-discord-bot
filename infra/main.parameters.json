@@ -1,0 +1,27 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "environmentName": {
+        "value": "${AZURE_ENV_NAME}"
+      },
+      "location": {
+        "value": "${AZURE_LOCATION}"
+      },
+      "discordToken": {
+        "value": "${Discord__Token}"
+      },
+      "firstPassword": {
+        "value": "${FIRST__Password}"
+      },
+      "tbaApiKey": {
+        "value": "${TbaApiKey}"
+      },
+      "appExists": {
+        "value": "${SERVICE_APP_RESOURCE_EXISTS=false}"
+      },
+      "foundryLocation": {
+        "value": "${FOUNDRY_LOCATION=${AZURE_LOCATION}}"
+      }
+    }
+}

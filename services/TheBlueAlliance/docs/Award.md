@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AwardType** | **int** | Type of award given. See https://github.com/the-blue-alliance/the-blue-alliance/blob/master/consts/award_type.py#L6 | 
+**AwardType** | **int** | Type of award given. See https://github.com/the-blue-alliance/the-blue-alliance/blob/main/src/backend/common/consts/award_type.py#L8 | 
 **EventKey** | **string** | The event_key of the event the award was won at. | 
 **Name** | **string** | The name of the award as provided by FIRST. May vary for the same award type. | 
 **RecipientList** | [**Collection&lt;AwardRecipient&gt;**](AwardRecipient.md) | A list of recipients of the award at the event. May have either a team_key or an awardee, both, or neither (in the case the award wasn&#39;t awarded at the event). | 

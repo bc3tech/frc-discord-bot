@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Ios** | [**APIStatusAppVersion**](APIStatusAppVersion.md) |  | 
 **IsDatafeedDown** | **bool** | True if the entire FMS API provided by FIRST is down. | 
 **MaxSeason** | **int** | Maximum FRC season year for valid queries. | 
+**MaxTeamPage** | **int** | Maximum team page number for valid queries. | 
 
 [[Back to Model list]](../../README.md#documentation-for-models) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to README]](../../README.md)
 
