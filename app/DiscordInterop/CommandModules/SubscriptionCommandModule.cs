@@ -38,9 +38,13 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
 
         using var scope = Logger.CreateMethodScope();
         HashSet<(string, string)> currentSubs = [];
-        await foreach (var sub in _subscriptionManager.GetSubscriptionsForGuildAsync(Context.Interaction.GuildId, default)
-            .Where(i => i.ChannelId == Context.Interaction.ChannelId!.Value))
+        await foreach (var sub in _subscriptionManager.GetSubscriptionsForGuildAsync(Context.Interaction.GuildId, default))
         {
+            if (sub.ChannelId != Context.Interaction.ChannelId!.Value)
+            {
+                continue;
+            }
+
             currentSubs.Add((sub.Event ?? CommonConstants.ALL, sub.Team ?? CommonConstants.ALL));
         }
 
@@ -129,11 +133,16 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
         }
 
         using var scope = Logger.CreateMethodScope();
-        var activeSubsForChannel = await _subscriptionManager.GetSubscriptionsForGuildAsync(Context.Interaction.GuildId, default)
-            .Where(i => i.ChannelId == Context.Interaction.ChannelId!.Value)
-            .ToArrayAsync();
+        List<NotificationSubscription> activeSubsForChannel = [];
+        await foreach (var sub in _subscriptionManager.GetSubscriptionsForGuildAsync(Context.Interaction.GuildId, default))
+        {
+            if (sub.ChannelId == Context.Interaction.ChannelId!.Value)
+            {
+                activeSubsForChannel.Add(sub);
+            }
+        }
 
-        if (activeSubsForChannel.Length is 0)
+        if (activeSubsForChannel.Count is 0)
         {
             await ModifyOriginalResponseAsync(p => p.Content = "No subscriptions found for this channel.").ConfigureAwait(false);
         }

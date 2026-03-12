@@ -1,4 +1,4 @@
-﻿<Project>
+<Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
@@ -17,8 +17,8 @@
     <PackageVersion Include="Microsoft.Azure.Functions.Worker.OpenTelemetry" Version="1.1.0-preview6" />
     <PackageVersion Include="Microsoft.Azure.WebJobs.Extensions.Http" Version="3.2.0" />
     <PackageVersion Include="Microsoft.Extensions.EnumStrings" Version="8.0.0-rc.2.23510.2" />
-    <PackageVersion Include="Microsoft.Extensions.Http" Version="8.0.1" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.3" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
     <PackageVersion Include="Microsoft.OpenApi.Readers" Version="1.6.28" />
     <PackageVersion Include="Microsoft.SemanticKernel.Agents.AzureAI" Version="1.42.0-preview" />
     <PackageVersion Include="Microsoft.SemanticKernel.Agents.Core" Version="1.42.0-preview" />
@@ -50,3 +50,4 @@
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.1" />
   </ItemGroup>
 </Project>
+

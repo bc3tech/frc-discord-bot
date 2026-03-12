@@ -13,7 +13,7 @@ The FRC Discord Bot comprises functionality specific to the First Robotics Compe
 
 ## Development Environment
 
-The FRC Discord Bot is developed as an Azure Function using .NET 8.0. Setting up your dev environment is as simple as installing [Visual Studio](https://visualstudio.com) 2022+ with the Azure workload, cloning the repo, and hitting `Build`.
+The FRC Discord Bot is developed as an Azure Function using .NET 10.0. Setting up your dev environment is as simple as installing [Visual Studio](https://visualstudio.com) 2022+ with the Azure workload, cloning the repo, and hitting `Build`.
 
 ## Infrastructure components
 
@@ -136,3 +136,4 @@ This includes:
 Exceptions may be granted only with explicit, written permission from the repository owner.
 
 Violation of this clause may constitute unauthorized use under applicable copyright law.
+

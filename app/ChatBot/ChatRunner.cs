@@ -21,9 +21,13 @@ internal sealed class ChatRunner(AgentsClient agentsClient, AzureAIAgent agent, 
     {
         var thread = (await agentsClient.CreateThreadAsync(messages: [new ThreadMessageOptions(MessageRole.User, prompt)], cancellationToken: cancellationToken).ConfigureAwait(false)).Value;
 
-        await foreach (var response in agent.InvokeAsync(thread.Id, cancellationToken: cancellationToken)
-            .Where(i => i.Role == Microsoft.SemanticKernel.ChatCompletion.AuthorRole.Assistant))
+        await foreach (var response in agent.InvokeAsync(thread.Id, cancellationToken: cancellationToken))
         {
+            if (response.Role != Microsoft.SemanticKernel.ChatCompletion.AuthorRole.Assistant)
+            {
+                continue;
+            }
+
             logger.ResponseResponse(JsonSerializer.Serialize(response));
 
             var usage = response.Metadata?["Usage"] as RunStepCompletionUsage;

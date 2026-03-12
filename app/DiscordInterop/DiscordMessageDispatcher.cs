@@ -102,9 +102,13 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
     private async Task ProcessSubscriptionAsync(WebhookMessage message, GuildSubscriptions subscribers, ushort? highlightTeam, CancellationToken cancellationToken)
     {
         using var scope = logger.CreateMethodScope();
-        var chunksOfEmbeddingsToSend = (await _embedGenerator.CreateEmbeddingsAsync(message, highlightTeam, cancellationToken: cancellationToken)
-            .ToArrayAsync(cancellationToken).ConfigureAwait(false))
-            .Chunk(MAX_EMBEDS_PER_MESSAGE);
+        List<SubscriptionEmbedding> embeddings = [];
+        await foreach (var embedding in _embedGenerator.CreateEmbeddingsAsync(message, highlightTeam, cancellationToken: cancellationToken).ConfigureAwait(false))
+        {
+            embeddings.Add(embedding);
+        }
+
+        var chunksOfEmbeddingsToSend = embeddings.Chunk(MAX_EMBEDS_PER_MESSAGE);
         var discordRequestOptions = cancellationToken.ToRequestOptions();
         if (chunksOfEmbeddingsToSend.Any(i => i.Length is not 0))
         {

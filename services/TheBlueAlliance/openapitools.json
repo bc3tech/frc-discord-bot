@@ -12,7 +12,7 @@
     "operationParameterSorting": "alphabetical",
     "packageName": "TheBlueAlliance",
     "returnICollection": true,
-    "targetFramework": "net8.0",
+    "targetFramework": "net10.0",
     "useCollection": true,
     "useDateTimeOffset": true,
     "useCPM": true,
