@@ -1,4 +1,5 @@
 ﻿namespace Common.Extensions;
+
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;

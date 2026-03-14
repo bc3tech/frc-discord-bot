@@ -1,4 +1,5 @@
 ﻿namespace FRCColors.Models;
+
 using System.Text.Json.Serialization;
 
 public sealed record SingleTeamColors

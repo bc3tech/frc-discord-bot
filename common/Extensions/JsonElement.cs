@@ -1,4 +1,5 @@
 ﻿namespace Common.Extensions;
+
 using System.Text.Json;
 
 public static class JsonElementExtensions

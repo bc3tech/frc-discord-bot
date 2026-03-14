@@ -3,9 +3,7 @@
   <PropertyGroup>
     <AssemblyName>TheBlueAlliance.Test</AssemblyName>
     <RootNamespace>TheBlueAlliance.Test</RootNamespace>
-    <TargetFramework>net8.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

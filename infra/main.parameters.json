@@ -17,6 +17,9 @@
       "tbaApiKey": {
         "value": "${TbaApiKey}"
       },
+      "chatBotAgentId": {
+        "value": "${chatBotAgentId}"
+      },
       "appExists": {
         "value": "${SERVICE_APP_RESOURCE_EXISTS=false}"
       },

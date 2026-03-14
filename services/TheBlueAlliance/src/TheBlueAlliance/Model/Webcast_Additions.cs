@@ -1,4 +1,5 @@
 ﻿namespace TheBlueAlliance.Model;
+
 using Microsoft.Extensions.Logging;
 
 using System;

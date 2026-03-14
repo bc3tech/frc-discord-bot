@@ -51,15 +51,15 @@ module foundryAccount 'br/public:avm/ptn/ai-ml/ai-foundry:0.6.0' = {
     aiModelDeployments: [
       {
         // Model deployments use deployment-type SKUs such as GlobalStandard, not the parent account SKU (S0).
-        name: 'gpt-5.3-chat'
+        name: 'gpt-5-chat'
         sku: {
           name: 'GlobalStandard'
-          capacity: 100
+          capacity: 1000
         }
         model: {
-          name: 'gpt-5.3-chat'
+          name: 'gpt-5-chat'
           format: 'OpenAI'
-          version: '2026-03-03'
+          version: '2025-10-03'
         }
       }
     ]

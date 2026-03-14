@@ -1,5 +1,7 @@
-﻿namespace FunctionApp.DiscordInterop.CommandModules;
+namespace FunctionApp.DiscordInterop.CommandModules;
 
+using Azure;
+using Azure.AI.Agents.Persistent;
 using Azure.Data.Tables;
 
 using Common.Extensions;
@@ -27,7 +29,7 @@ public sealed class ChatCommandModule(ILogger<ChatCommandModule> logger) : Comma
     [SlashCommand("reset", "Resets your personal (DM) chat thread; makes me forget everything we've talked about!")]
     public async Task ResetThreadAsync()
     {
-        using var typing = await TryDeferAsync().ConfigureAwait(false);
+        using var typing = await TryDeferAsync(ephemeral: true).ConfigureAwait(false);
         if (typing is null)
         {
             return;
@@ -48,6 +50,7 @@ public sealed class ChatCommandModule(ILogger<ChatCommandModule> logger) : Comma
 
         await ModifyOriginalResponseAsync(p =>
         {
+            p.Flags = MessageFlags.Ephemeral;
             p.Embed = embed;
             p.Components = buttons.Build();
         }).ConfigureAwait(false);
@@ -101,5 +104,31 @@ public sealed class ChatCommandModule(ILogger<ChatCommandModule> logger) : Comma
         }
     }
 
-    private static Task<Azure.Response> DeleteThreadRecordForUserAsync(IServiceProvider services, ulong userId, CancellationToken cancellationToken = default) => services.GetRequiredKeyedService<TableClient>(Constants.ServiceKeys.TableClient_UserChatAgentThreads).DeleteEntityAsync(partitionKey: userId.ToString(), rowKey: userId.ToString(), cancellationToken: cancellationToken);
+    private static async Task<Azure.Response> DeleteThreadRecordForUserAsync(IServiceProvider services, ulong userId, CancellationToken cancellationToken = default)
+    {
+        var userIdString = userId.ToString();
+        var table = services.GetRequiredKeyedService<TableClient>(Constants.ServiceKeys.TableClient_UserChatAgentThreads);
+        var existingThread = await table.GetEntityIfExistsAsync<TableEntity>(
+            userIdString,
+            userIdString,
+            ["AgentThreadId"],
+            cancellationToken: cancellationToken).ConfigureAwait(false);
+
+        var threadId = existingThread.HasValue
+            ? existingThread.Value?["AgentThreadId"]?.ToString()
+            : null;
+        var agentsClient = services.GetService<PersistentAgentsClient>();
+        if (agentsClient is not null && !string.IsNullOrWhiteSpace(threadId))
+        {
+            try
+            {
+                await agentsClient.Threads.DeleteThreadAsync(threadId, cancellationToken).ConfigureAwait(false);
+            }
+            catch (RequestFailedException e) when (e.Status == 404)
+            {
+            }
+        }
+
+        return await table.DeleteEntityAsync(partitionKey: userIdString, rowKey: userIdString, cancellationToken: cancellationToken).ConfigureAwait(false);
+    }
 }

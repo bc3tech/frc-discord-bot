@@ -9,12 +9,10 @@ using FunctionApp;
 
 using FunctionApp.DiscordInterop;
 using FunctionApp.DiscordInterop.Embeds;
-using FunctionApp.Extensions;
 using FunctionApp.Storage;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic;
 
 using System.Text;
 

@@ -2,15 +2,20 @@
   "version": "2.0",
   "functionTimeout": "00:10:00",
   "logging": {
-    "applicationInsights": {
-      "samplingSettings": {
-        "isEnabled": true,
-        "excludedTypes": "Request;Exception"
+    //"applicationInsights": {
+    //  "samplingSettings": {
+    //    "isEnabled": true,
+    //    "excludedTypes": "Request;Exception"
+    //  }
+    //},
+    //"logLevel": {
+    //  "default": "Information",
+    //  "Function": "Information"
+    //}
+    "OpenTelemetry": {
+      "logLevel": {
+        "Host.General": "Warning"
       }
-    },
-    "logLevel": {
-      "default": "Information",
-      "Function": "Information"
     }
   },
   "telemetryMode": "OpenTelemetry"

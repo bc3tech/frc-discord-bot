@@ -78,7 +78,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
                 descriptionBuilder.AppendLine($"- {teams[teamKey].GetLabelWithHighlight(highlightTeam)}{(ranks is not null ? $" (#{ranks[teamKey]})" : string.Empty)}");
             }
 
-            if (alliance.Declines?.Count is not null and not 0)
+            if (alliance.Declines.Count is not 0)
             {
                 descriptionBuilder.AppendLine($"__Declining Team{(alliance.Declines.Count > 1 ? "s" : string.Empty)}__");
                 foreach (var team in alliance.Declines)

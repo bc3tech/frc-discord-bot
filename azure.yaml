@@ -11,4 +11,4 @@ services:
 resources:
     app:
         type: host.containerapp
-        port: 8080
+        port: 80

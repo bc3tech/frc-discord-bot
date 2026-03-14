@@ -286,8 +286,8 @@ static partial class Log
     [LoggerMessage(91, LogLevel.Debug, "Creating new agent...")]
     internal static partial void CreatingNewAgent(this ILogger logger);
 
-    [LoggerMessage(92, LogLevel.Trace, "Created new agent with ID {AgentId}")]
-    internal static partial void CreatedNewAgentWithIDAgentId(this ILogger logger, string AgentId);
+    [LoggerMessage(92, LogLevel.Trace, "Created new agent with ID {ChatAgentId}")]
+    internal static partial void CreatedNewAgentWithIDAgentId(this ILogger logger, string ChatAgentId);
 
     [LoggerMessage(96, LogLevel.Debug, "{NumCommands} commands added to Guild {GuildName}({GuildId}) globally ({AvailableCommands})")]
     internal static partial void NumCommandsCommandsAddedToGuildGuildNameGuildIdGloballyAvailableCommands(this ILogger logger, int NumCommands, string GuildName, ulong GuildId, string AvailableCommands);
@@ -469,6 +469,9 @@ static partial class Log
     [LoggerMessage(168, LogLevel.Warning, "Failed to delete subscription for team {Team}: {ErrorMessage}")]
     internal static partial void FailedToDeleteSubscriptionForTeamTeamErrorMessage(this ILogger logger, string Team, string ErrorMessage);
 
+    [LoggerMessage(169, LogLevel.Warning, "Failed to delete temporary Azure AI Foundry thread {ThreadId}")]
+    internal static partial void FailedToDeleteTemporaryAzureAIFoundryThread(this ILogger logger, Exception exception, string ThreadId);
+
     [LoggerMessage(169, LogLevel.Debug, "Cleaning up subscriptions for event {Event}")]
     internal static partial void CleaningUpSubscriptionsForEventEvent(this ILogger logger, string Event);
 
@@ -537,4 +540,16 @@ static partial class Log
 
     [LoggerMessage(191, LogLevel.Debug, "Broadcast message detected. Fetching all teams at the event.")]
     internal static partial void BroadcastMessageDetectedFetchingAllTeamsAtTheEvent(this ILogger logger);
+
+    [LoggerMessage(192, LogLevel.Information, "Using Azure AI Foundry agent {ChatAgentId} ({AgentName})")]
+    internal static partial void UsingAzureAIFoundryAgentAgentIdAgentName(this ILogger logger, string ChatAgentId, string? AgentName);
+
+    [LoggerMessage(193, LogLevel.Debug, "Failed while updating the chatbot progress indicator.")]
+    internal static partial void FailedWhileUpdatingTheChatbotProgressIndicator(this ILogger logger, Exception exception);
+
+    [LoggerMessage(194, LogLevel.Debug, "Failed to remove transient thinking message.")]
+    internal static partial void FailedToRemoveTransientThinkingMessage(this ILogger logger, Exception exception);
+
+    [LoggerMessage(195, LogLevel.Warning, "Azure AI thread {ThreadId} for Discord user {UserId} was missing. Creating a replacement thread.")]
+    internal static partial void AzureAIThreadThreadIdForDiscordUserUserIdWasMissingCreatingAReplacementThread(this ILogger logger, string ThreadId, ulong UserId);
 }

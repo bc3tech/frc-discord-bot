@@ -1,4 +1,5 @@
 ﻿namespace FIRST.Model;
+
 using System.Text.Json.Serialization;
 
 public sealed record SeasonRankingsDistrict

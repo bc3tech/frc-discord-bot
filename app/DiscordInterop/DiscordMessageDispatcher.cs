@@ -1,4 +1,4 @@
-﻿namespace FunctionApp.DiscordInterop;
+namespace FunctionApp.DiscordInterop;
 
 using Azure;
 using Azure.Data.Tables;

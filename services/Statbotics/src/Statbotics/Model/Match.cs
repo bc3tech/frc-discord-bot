@@ -1,4 +1,5 @@
 ﻿namespace Statbotics.Model;
+
 using System.Text.Json.Serialization;
 
 public sealed record Match

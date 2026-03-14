@@ -9,7 +9,6 @@ using FunctionApp.Extensions;
 
 using Microsoft.Extensions.Logging;
 
-using System.Globalization;
 using System.Threading.Tasks;
 
 internal sealed class EmbeddingColorizer(FRCColors.Client colorClient, ILogger<EmbeddingColorizer>? logger)

@@ -5,49 +5,42 @@
 		<UserSecretsId>898f8bc7-849a-4a06-be1c-3fac71d06105</UserSecretsId>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="Apis\frc-events.yaml" />
-	  <None Remove="Apis\statbotics.json" />
-	  <None Remove="Apis\thebluealliance.json" />
+		<None Remove="Apis\frc-events.yaml" />
+		<None Remove="Apis\statbotics.json" />
+		<None Remove="Apis\thebluealliance.json" />
 	</ItemGroup>
 	<ItemGroup>
-	  <EmbeddedResource Include="Apis\frc-events.yaml" />
-	  <EmbeddedResource Include="Apis\statbotics.json" />
-	  <EmbeddedResource Include="Apis\thebluealliance.json" />
+		<EmbeddedResource Include="Apis\frc-events.yaml" />
+		<EmbeddedResource Include="Apis\statbotics.json" />
+		<EmbeddedResource Include="Apis\thebluealliance.json" />
 	</ItemGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-		<PackageReference Include="Azure.AI.Inference" />
-		<PackageReference Include="Azure.AI.OpenAI" />
-		<PackageReference Include="Azure.AI.OpenAI.Assistants" />
+		<PackageReference Include="Azure.AI.Projects" />
 		<PackageReference Include="Azure.Data.Tables" />
 		<PackageReference Include="Azure.Monitor.OpenTelemetry.AspNetCore" />
 		<PackageReference Include="Azure.Storage.Blobs" />
+		<PackageReference Include="Microsoft.Agents.AI.AzureAI.Persistent" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker" />
-		<PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" />
+		<PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Timer" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.OpenTelemetry" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" />
-		<PackageReference Include="Microsoft.ApplicationInsights.WorkerService" />
-		<PackageReference Include="Microsoft.Azure.Functions.Worker.ApplicationInsights" />
-		<PackageReference Include="Microsoft.OpenApi.Readers" />
-		<PackageReference Include="Microsoft.SemanticKernel.Agents.AzureAI" />
-		<PackageReference Include="Microsoft.SemanticKernel.Agents.Core" />
 		<PackageReference Include="OpenTelemetry.Exporter.Console" />
-		<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
 		<PackageReference Include="OpenTelemetry.Instrumentation.Http" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\services\FIRST\src\FIRST\FIRST.csproj" />
-	  <ProjectReference Include="..\services\FRCColors\FRCColors.csproj" />
-	  <ProjectReference Include="..\services\Statbotics\src\Statbotics\Statbotics.csproj" />
-	  <ProjectReference Include="..\services\TheBlueAlliance\src\TheBlueAlliance\TheBlueAlliance.csproj" />
+		<ProjectReference Include="..\services\FIRST\src\FIRST\FIRST.csproj" />
+		<ProjectReference Include="..\services\FRCColors\FRCColors.csproj" />
+		<ProjectReference Include="..\services\Statbotics\src\Statbotics\Statbotics.csproj" />
+		<ProjectReference Include="..\services\TheBlueAlliance\src\TheBlueAlliance\TheBlueAlliance.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="appsettings.development.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="appsettings.json">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 		<None Update="host.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

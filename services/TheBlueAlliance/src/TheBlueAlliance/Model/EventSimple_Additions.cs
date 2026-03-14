@@ -1,4 +1,5 @@
 ﻿namespace TheBlueAlliance.Model;
+
 using System.Text;
 
 public partial record EventSimple

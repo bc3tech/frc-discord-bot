@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/APIs/">
+    <Project Path="services/FIRST/src/FIRST/FIRST.csproj" />
+    <Project Path="services/FRCColors/FRCColors.csproj" />
+    <Project Path="services/Statbotics/src/Statbotics/Statbotics.csproj" />
+    <Project Path="services/TheBlueAlliance/src/TheBlueAlliance/TheBlueAlliance.csproj" />
+  </Folder>
+  <Folder Name="/Tools/">
+    <Project Path="tools/datadumper/DataDumper.csproj" />
+  </Folder>
+  <Folder Name="/_Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Project Path="app/FunctionApp.csproj" />
+  <Project Path="common/Common.csproj" />
+</Solution>

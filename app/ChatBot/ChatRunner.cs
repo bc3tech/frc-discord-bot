@@ -1,57 +1,88 @@
-﻿namespace FunctionApp.ChatBot;
-using Azure.AI.Projects;
+namespace FunctionApp.ChatBot;
+
+using Azure.AI.Agents.Persistent;
 
 using Common.Extensions;
 
 using FunctionApp;
 
 using Microsoft.Extensions.Logging;
-using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Agents.AzureAI;
 
 using System.Diagnostics.Metrics;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Threading;
 
-#pragma warning disable SKEXP0110 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
-internal sealed class ChatRunner(AgentsClient agentsClient, AzureAIAgent agent, Meter meter, ILogger<ChatRunner> logger)
+internal sealed class ChatRunner(PersistentAgentsClient agentsClient, ChatBotAgentResolver agentResolver, Meter meter, ILogger<ChatRunner> logger)
 {
     public async IAsyncEnumerable<string> GetCompletionsAsync(string prompt, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var thread = (await agentsClient.CreateThreadAsync(messages: [new ThreadMessageOptions(MessageRole.User, prompt)], cancellationToken: cancellationToken).ConfigureAwait(false)).Value;
+        var agent = await agentResolver.GetConfiguredAgentAsync(cancellationToken).ConfigureAwait(false);
+        var thread = (await agentsClient.Threads.CreateThreadAsync(
+            messages: [new ThreadMessageOptions(MessageRole.User, prompt)],
+            cancellationToken: cancellationToken).ConfigureAwait(false)).Value;
 
-        await foreach (var response in agent.InvokeAsync(thread.Id, cancellationToken: cancellationToken)
-            .Where(i => i.Role == Microsoft.SemanticKernel.ChatCompletion.AuthorRole.Assistant))
+        try
         {
-            logger.ResponseResponse(JsonSerializer.Serialize(response));
+            var run = (await agentsClient.Runs.CreateRunAsync(thread, agent, cancellationToken).ConfigureAwait(false)).Value;
 
-            var usage = response.Metadata?["Usage"] as RunStepCompletionUsage;
+            while (run.Status == RunStatus.Queued || run.Status == RunStatus.InProgress || run.Status == RunStatus.Cancelling)
+            {
+                await Task.Delay(TimeSpan.FromMilliseconds(500), cancellationToken).ConfigureAwait(false);
+                run = (await agentsClient.Runs.GetRunAsync(thread.Id, run.Id, cancellationToken).ConfigureAwait(false)).Value;
+            }
+
+            logger.ResponseResponse(JsonSerializer.Serialize(run));
+
+            var usage = run.Usage;
             if (usage is not null)
             {
                 meter.LogMetric("TokenUsage", usage.TotalTokens, new Dictionary<string, object?>
                 {
                     ["ThreadId"] = thread.Id,
                     ["Usage"] = JsonSerializer.Serialize(usage),
-                    ["RunId"] = response.Metadata!["RunId"]?.ToString() ?? "Unknown",
+                    ["RunId"] = run.Id,
                 });
             }
 
-            if (response.Metadata?.TryGetValue("code", out var codeValue) is true && codeValue is true)
+            if (run.Status == RunStatus.RequiresAction)
             {
-#if !DEBUG
-                continue;
-#endif
+                throw new InvalidOperationException("The configured Azure AI Foundry agent requested tool outputs that this bot does not submit automatically.");
             }
 
-            foreach (var i in response.Items.OfType<TextContent>())
+            if (run.Status != RunStatus.Completed)
             {
-                if (!string.IsNullOrEmpty(i.Text))
+                throw new InvalidOperationException($"Azure AI Foundry agent run ended with status '{run.Status}'. {run.LastError?.Message}");
+            }
+
+            await foreach (var response in agentsClient.Messages.GetMessagesAsync(thread.Id, runId: run.Id, order: ListSortOrder.Ascending, cancellationToken: cancellationToken).ConfigureAwait(false))
+            {
+                if (response.Role != MessageRole.Agent)
                 {
-                    yield return i.Text;
+                    continue;
                 }
+
+                logger.ResponseResponse(JsonSerializer.Serialize(response));
+
+                foreach (var content in response.ContentItems.OfType<MessageTextContent>())
+                {
+                    if (!string.IsNullOrEmpty(content.Text))
+                    {
+                        yield return content.Text;
+                    }
+                }
+            }
+        }
+        finally
+        {
+            try
+            {
+                await agentsClient.Threads.DeleteThreadAsync(thread.Id, CancellationToken.None).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                logger.FailedToDeleteTemporaryAzureAIFoundryThread(e, thread.Id);
             }
         }
     }
 }
-#pragma warning restore SKEXP0110 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.

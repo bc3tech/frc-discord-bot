@@ -14,15 +14,12 @@ using FunctionApp.TbaInterop;
 using FunctionApp.TbaInterop.Models;
 using FunctionApp.TbaInterop.Models.Notifications;
 
-using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
 
 using System.Runtime.CompilerServices;
 using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 
 using TheBlueAlliance.Api;
-using TheBlueAlliance.Model;
 
 internal sealed class Award(IEventApi events,
                             ITeamApi teamApi,

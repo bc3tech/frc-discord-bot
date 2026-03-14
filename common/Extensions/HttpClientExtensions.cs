@@ -1,4 +1,5 @@
 ﻿namespace Common.Extensions;
+
 using System.Text;
 
 public static class HttpClientExtensions

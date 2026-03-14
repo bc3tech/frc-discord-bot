@@ -1,4 +1,4 @@
-﻿namespace FunctionApp.DiscordInterop.CommandModules;
+namespace FunctionApp.DiscordInterop.CommandModules;
 
 using Common.Extensions;
 
@@ -37,12 +37,11 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
         }
 
         using var scope = Logger.CreateMethodScope();
-        HashSet<(string, string)> currentSubs = [];
-        await foreach (var sub in _subscriptionManager.GetSubscriptionsForGuildAsync(Context.Interaction.GuildId, default)
-            .Where(i => i.ChannelId == Context.Interaction.ChannelId!.Value))
-        {
-            currentSubs.Add((sub.Event ?? CommonConstants.ALL, sub.Team ?? CommonConstants.ALL));
-        }
+        var currentSubs = await _subscriptionManager.GetSubscriptionsForGuildAsync(Context.Interaction.GuildId, default)
+            .Where(i => i.ChannelId == Context.Interaction.ChannelId!.Value)
+            .Select(i => (i.Event ?? CommonConstants.ALL, i.Team ?? CommonConstants.ALL))
+            .ToHashSetAsync()
+            .ConfigureAwait(false);
 
         if (currentSubs.Count is 0)
         {
@@ -131,7 +130,8 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
         using var scope = Logger.CreateMethodScope();
         var activeSubsForChannel = await _subscriptionManager.GetSubscriptionsForGuildAsync(Context.Interaction.GuildId, default)
             .Where(i => i.ChannelId == Context.Interaction.ChannelId!.Value)
-            .ToArrayAsync();
+            .ToArrayAsync()
+            .ConfigureAwait(false);
 
         if (activeSubsForChannel.Length is 0)
         {
@@ -190,28 +190,23 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
             // Create a copy of the existing components; when updating a message, components are only settable wholesale
             var newActionRows = new ComponentBuilder()
                 .WithRows(component.Message.Components
-                    .Select(i => new ActionRowBuilder().WithComponents([.. i.Components])));
+                    .OfType<ActionRowComponent>()
+                    .Select(i => new ActionRowBuilder().WithComponents([.. i.Components.Select(static j => j.ToBuilder())])));
             var rowWithSelectMenuAndOption = newActionRows.ActionRows
-                .First(i => i.Components.OfType<SelectMenuComponent>().Any(j => j.Options.Any(k => k.Value == value)));
-            var oldSelectMenu = (SelectMenuComponent)rowWithSelectMenuAndOption.Components
+                .First(i => i.Components.OfType<SelectMenuBuilder>().Any(j => j.Options.Any(k => k.Value == value)));
+            var oldSelectMenu = rowWithSelectMenuAndOption.Components
+                .OfType<SelectMenuBuilder>()
                 .First(i => i.CustomId is SubscriptionDeleteSelectionMenuId);
             var indexOfOldSelectMenu = rowWithSelectMenuAndOption.Components.IndexOf(oldSelectMenu);
             Debug.Assert(indexOfOldSelectMenu is not -1);
 
-            // Create a new menu based on the old one
-            var newMenu = oldSelectMenu.ToBuilder();
             // Remove the menu option that matches the one that was selected for this interaction
-            var optionRemoved = newMenu.Options.RemoveAll(i => i.Value == value);
+            var optionRemoved = oldSelectMenu.Options.RemoveAll(i => i.Value == value);
             Debug.Assert(optionRemoved is 1);
-            if (newMenu.Options.Count is 0)
+            if (oldSelectMenu.Options.Count is 0)
             {
                 // If there are no more options, we can clear out all the interactive elements
                 newActionRows = null;
-            }
-            else
-            {
-                // Otherwise, update the select menu with the new options
-                rowWithSelectMenuAndOption.Components[indexOfOldSelectMenu] = newMenu.Build();
             }
 
             try

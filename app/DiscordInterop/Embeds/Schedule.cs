@@ -1,7 +1,5 @@
 ﻿namespace FunctionApp.DiscordInterop.Embeds;
 
-using Common;
-
 using Discord;
 
 using FunctionApp;

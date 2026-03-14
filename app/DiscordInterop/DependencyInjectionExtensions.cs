@@ -1,4 +1,5 @@
 ﻿namespace FunctionApp.DiscordInterop;
+
 using Common.Extensions;
 
 using Discord;

@@ -1,19 +1,16 @@
-namespace FunctionApp;
 using Azure.Core;
 using Azure.Data.Tables;
 using Azure.Identity;
-using Azure.Monitor.OpenTelemetry.AspNetCore;
+using Azure.Monitor.OpenTelemetry.Exporter;
 using Azure.Storage.Blobs;
 
 using Common;
 
 using FunctionApp;
-using FunctionApp.ChatBot;
-
 using FunctionApp.Apis;
+using FunctionApp.ChatBot;
 using FunctionApp.DiscordInterop;
 using FunctionApp.DiscordInterop.Embeds;
-using FunctionApp.Extensions;
 using FunctionApp.FIRSTInterop;
 using FunctionApp.StatboticsInterop;
 using FunctionApp.Storage;
@@ -21,134 +18,130 @@ using FunctionApp.Subscription;
 using FunctionApp.TbaInterop;
 
 using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Builder;
+using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Azure.Functions.Worker.OpenTelemetry;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Configuration;
 
-using OpenTelemetry;
 using OpenTelemetry.Metrics;
 
-using System;
 using System.Diagnostics.Metrics;
 using System.Globalization;
 
+using Constants = FunctionApp.Constants;
 using Throws = Common.Throws;
 
-internal sealed class Program
-{
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Resilience", "EA0014:The async method doesn't support cancellation", Justification = "Not applicable to main()")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Required for main()")]
-    private static async Task Main(string[] args)
-    {
-        CultureInfo.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+CultureInfo.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
 
-        AppContext.SetSwitch("Azure.Experimental.EnableActivitySource", true);
-        AppContext.SetSwitch("Azure.Experimental.TraceGenAIMessageContent", true);
+AppContext.SetSwitch("Azure.Experimental.EnableActivitySource", true);
+AppContext.SetSwitch("Azure.Experimental.TraceGenAIMessageContent", true);
 
-        var host = new HostBuilder()
-            .ConfigureFunctionsWorkerDefaults()
-            .ConfigureAppConfiguration(b =>
-            {
-                b.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                    .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("AZURE_FUNCTIONS_ENVIRONMENT")}.json", optional: true, reloadOnChange: true)
-                    .AddUserSecrets<Program>();
-            })
-            .ConfigureServices((context, services) =>
-            {
-                var credential = new DefaultAzureCredential(
+var host = FunctionsApplication.CreateBuilder(args)
+    .ConfigureFunctionsWebApplication();
+
+host.Configuration
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("AZURE_FUNCTIONS_ENVIRONMENT")}.json", optional: true, reloadOnChange: true)
+    .AddUserSecrets<Program>();
+
+host.Logging
+        //.AddConfiguration(host.Configuration.GetSection("Logging"))
+        .AddSimpleConsole()
+        .AddOpenTelemetry(o =>
+        {
+            o.IncludeFormattedMessage = true;
+            o.IncludeScopes = true;
+        })
+        .AddDebug();
+
 #if DEBUG
-                    includeInteractiveCredentials: true
+var credential = new AzureCliCredential();
+#else
+var credential = new DefaultAzureCredential();
 #endif
-                    );
 
-                services
-                    .AddMetrics()
-                    .AddSingleton(sp => sp.GetRequiredService<IMeterFactory>().Create(Constants.Telemetry.AppMeterName))
-                    .ConfigureOpenTelemetryMeterProvider(b => b.AddMeter(Constants.Telemetry.AppMeterName))
-                    .AddOpenTelemetry()
-                    .WithTracing()
-                    .UseAzureMonitor()
-                    .UseFunctionsWorkerDefaults();
+host.Services
+    .AddMetrics()
+    .AddSingleton(sp => sp.GetRequiredService<IMeterFactory>().Create(Constants.Telemetry.AppMeterName))
+    .ConfigureOpenTelemetryMeterProvider(b => b.AddMeter(Constants.Telemetry.AppMeterName))
+    .AddOpenTelemetry()
+    .WithTracing()
+    .UseAzureMonitorExporter()
+    .UseFunctionsWorkerDefaults();
 
-                services
-                    .AddApplicationInsightsTelemetryWorkerService()
-                    .ConfigureFunctionsApplicationInsights()
-                    .ConfigureDiscord()
-                    .ConfigureTheBlueAllianceApi()
-                    .ConfigureStatboticsApi()
-                    .ConfigureFIRSTApi()
-                    //.ConfigureChatBotFunctionality()
-                    .AddSingleton(sp => new EmbeddingColorizer(new FRCColors.Client(sp.GetRequiredService<IHttpClientFactory>()), sp.GetService<ILoggerFactory>()?.CreateLogger<EmbeddingColorizer>()))
-                    .AddSingleton<EventRepository>()
-                    .AddSingleton<TeamRepository>()
-                    .AddSingleton<SubscriptionManager>()
-                    .AddSingleton<TokenCredential>(credential)
-                    .AddSingleton<RESTCountries>()
-                    .FixAppInsightsLogging();
+host.Services
+    .ConfigureDiscord()
+    .ConfigureTheBlueAllianceApi()
+    .ConfigureStatboticsApi()
+    .ConfigureFIRSTApi();
 
-                // Prefer explicit service URIs so Container Apps can use managed identity-backed storage.
-                // The connection-string fallback is retained for local development.
-                var tableEndpoint = TryGetStorageServiceUri(
-                    context.Configuration,
-                    Constants.Configuration.Azure.Storage.TableEndpoint,
-                    "AzureWebJobsStorage__tableServiceUri");
-                TableServiceClient tsc = tableEndpoint is not null
-                    ? new TableServiceClient(tableEndpoint, credential)
-                    : new TableServiceClient(Throws.IfNullOrWhiteSpace(context.Configuration["AzureWebJobsStorage"]));
-                foreach (var i in context.Configuration.GetSection(Constants.Configuration.Azure.Storage.Tables).Get<IEnumerable<string>>() ?? [])
-                {
-                    services.AddKeyedSingleton(i, (sp, _) =>
-                    {
-                        var logger = sp.GetService<ILogger<TableClient>>();
-                        logger?.CreatingTableClientForTable(i);
-                        var c = tsc.GetTableClient(i);
-                        logger?.EnsuringTableTableExists(i);
-                        c.CreateIfNotExists();
-                        logger?.TableTableExists(i);
-                        return c;
-                    });
-                }
+if (!string.IsNullOrWhiteSpace(host.Configuration[Constants.Configuration.Azure.AI.Project.Endpoint]))
+{
+    host.Services.ConfigureChatBotFunctionality();
+}
 
-                services.AddSingleton(sp =>
-                {
-                    var blobsEndpoint = TryGetStorageServiceUri(
-                        context.Configuration,
-                        Constants.Configuration.Azure.Storage.BlobsEndpoint,
-                        "AzureWebJobsStorage__blobServiceUri");
-                    BlobServiceClient bsc = blobsEndpoint is not null
-                        ? new BlobServiceClient(blobsEndpoint, credential)
-                        : new BlobServiceClient(Throws.IfNullOrWhiteSpace(context.Configuration["AzureWebJobsStorage"]));
+host.Services
+    .AddSingleton(sp => new EmbeddingColorizer(new FRCColors.Client(sp.GetRequiredService<IHttpClientFactory>()), sp.GetService<ILoggerFactory>()?.CreateLogger<EmbeddingColorizer>()))
+    .AddSingleton<EventRepository>()
+    .AddSingleton<TeamRepository>()
+    .AddSingleton<SubscriptionManager>()
+    .AddSingleton<TokenCredential>(credential)
+    .AddSingleton<RESTCountries>()
+    .AddSingleton<TimeProvider, PacificTimeProvider>();
+//.FixAppInsightsLogging();
 
-                    var blobContainer = bsc.GetBlobContainerClient("misc");
-                    blobContainer.CreateIfNotExists();
+// Prefer explicit service URIs so Container Apps can use managed identity-backed storage.
+// The connection-string fallback is retained for local development.
+var tableEndpoint = TryGetStorageServiceUri(
+    host.Configuration,
+    Constants.Configuration.Azure.Storage.TableEndpoint,
+    ConfigurationPath.Combine("AzureWebJobsStorage", "tableServiceUri"));
+TableServiceClient tsc = tableEndpoint is not null
+    ? new TableServiceClient(tableEndpoint, credential)
+    : new TableServiceClient(Throws.IfNullOrWhiteSpace(host.Configuration["AzureWebJobsStorage"]));
+var storageTables = host.Configuration
+    .GetSection(Constants.Configuration.Azure.Storage.Tables)
+    .Get<IEnumerable<string>>() ?? [];
 
-                    return blobContainer;
-                });
-
-                services.AddSingleton<TimeProvider, PacificTimeProvider>();
-            })
-            .ConfigureLogging((context, builder) => builder
-                .AddConfiguration(context.Configuration.GetSection("Logging"))
-                .AddOpenTelemetry(o =>
-                {
-                    o.IncludeFormattedMessage = true;
-                    o.IncludeScopes = true;
-                })
-                .AddApplicationInsights()
-                .AddDebug())
-            .Build();
-
-        await host.RunAsync().ConfigureAwait(false);
-    }
-
-    private static Uri? TryGetStorageServiceUri(IConfiguration configuration, string primaryKey, string secondaryKey)
+foreach (var tableName in storageTables)
+{
+    host.Services.AddKeyedSingleton(tableName, (sp, _) =>
     {
-        var configuredValue = configuration[primaryKey] ?? configuration[secondaryKey];
-        return Uri.TryCreate(configuredValue, UriKind.Absolute, out var serviceUri)
-            ? serviceUri
-            : null;
-    }
+        var logger = sp.GetService<ILogger<TableClient>>();
+        logger?.CreatingTableClientForTable(tableName);
+        var tableClient = tsc.GetTableClient(tableName);
+        logger?.EnsuringTableTableExists(tableName);
+        tableClient.CreateIfNotExists();
+        logger?.TableTableExists(tableName);
+        return tableClient;
+    });
+}
+
+host.Services.AddSingleton(sp =>
+{
+    var blobsEndpoint = TryGetStorageServiceUri(
+        host.Configuration,
+        Constants.Configuration.Azure.Storage.BlobsEndpoint,
+        ConfigurationPath.Combine("AzureWebJobsStorage", "blobServiceUri"));
+    BlobServiceClient bsc = blobsEndpoint is not null
+        ? new BlobServiceClient(blobsEndpoint, credential)
+        : new BlobServiceClient(Throws.IfNullOrWhiteSpace(host.Configuration["AzureWebJobsStorage"]));
+
+    var blobContainer = bsc.GetBlobContainerClient("misc");
+    blobContainer.CreateIfNotExists();
+
+    return blobContainer;
+});
+
+await host.Build().RunAsync().ConfigureAwait(false);
+
+static Uri? TryGetStorageServiceUri(IConfiguration configuration, string primaryKey, string secondaryKey)
+{
+    var configuredValue = configuration[primaryKey] ?? configuration[secondaryKey];
+    return Uri.TryCreate(configuredValue, UriKind.Absolute, out var serviceUri)
+        ? serviceUri
+        : null;
 }

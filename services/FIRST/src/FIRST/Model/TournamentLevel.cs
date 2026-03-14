@@ -1,4 +1,5 @@
 ﻿namespace FIRST.Model;
+
 using Microsoft.Extensions.EnumStrings;
 
 using System.Runtime.Serialization;

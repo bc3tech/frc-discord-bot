@@ -3,12 +3,10 @@
 using Common.Extensions;
 
 using Discord;
-using Discord.Interactions.Builders;
-
-using FunctionApp;
 
 using FIRST.Api;
 
+using FunctionApp;
 using FunctionApp.Storage;
 
 using Microsoft.Extensions.Logging;

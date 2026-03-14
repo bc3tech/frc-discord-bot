@@ -21,6 +21,8 @@ param firstPassword string
 @description('The Blue Alliance API key injected into the container app as a secret')
 param tbaApiKey string
 
+param chatBotAgentId string
+
 param appExists bool
 
 var abbrs = loadJsonContent('./abbreviations.json')
@@ -28,6 +30,7 @@ var resourceToken = uniqueString(subscription().id, resourceGroup().id, location
 var appIdentityName = '${abbrs.managedIdentityUserAssignedIdentities}discordbot-${resourceToken}'
 var appIdentityResourceId = resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', appIdentityName)
 var storageAccountName = '${abbrs.storageStorageAccounts}discord${take(resourceToken, 15)}'
+var defaultFunctionsImage = 'mcr.microsoft.com/azure-functions/dotnet-isolated:4-dotnet-isolated10.0'
 var storageBlobDataContributorRoleDefinitionId = 'ba92f5b4-2d11-453d-a403-e96b0029c9fe'
 var storageQueueDataContributorRoleDefinitionId = '974c5e8b-45b9-4653-ba55-5f855dd0fb88'
 var storageTableDataContributorRoleDefinitionId = '0a9a7e1f-b9d0-4cc4-a60d-0319b160aaa3'
@@ -196,13 +199,17 @@ resource app 'Microsoft.App/containerApps@2025-10-02-preview' = {
     template: {
       containers: [
         {
-          image: appFetchLatestImage.outputs.?containers[?0].?image ?? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
+          image: appFetchLatestImage.outputs.?containers[?0].?image ?? defaultFunctionsImage
           name: 'main'
           resources: {
             cpu: json('0.5')
             memory: '1.0Gi'
           }
           env: [
+            {
+              name: 'FUNCTIONS_WORKER_RUNTIME'
+              value: 'dotnet-isolated'
+            }
             {
               name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
               value: monitoring.outputs.applicationInsightsConnectionString
@@ -266,6 +273,10 @@ resource app 'Microsoft.App/containerApps@2025-10-02-preview' = {
             {
               name: 'Azure__AI__Project__Endpoint'
               value: foundry.outputs.projectEndpoint
+            }
+            {
+              name: 'Azure__AI__Agents__AgentId'
+              value: chatBotAgentId
             }
             {
               name: 'Azure__ClientId'

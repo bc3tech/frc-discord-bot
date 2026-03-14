@@ -1,4 +1,5 @@
 ﻿namespace Common.Extensions;
+
 public static class BoolExtensions
 {
     public static string ToGlyph(this bool? b) => b switch

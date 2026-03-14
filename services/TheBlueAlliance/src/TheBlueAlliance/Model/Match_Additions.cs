@@ -1,4 +1,5 @@
 ﻿namespace TheBlueAlliance.Model;
+
 using Microsoft.Extensions.Logging;
 
 using System;
@@ -10,7 +11,7 @@ public partial record Match
 {
     public int? GetAllianceRankingPoints(WinningAllianceEnum allianceColor)
     {
-        var alliance = this.ScoreBreakdown?.ActualInstance!.GetType().GetProperty(allianceColor.ToInvariantString())!.GetValue(this.ScoreBreakdown.ActualInstance);
+        var alliance = this.ScoreBreakdown.ActualInstance!.GetType().GetProperty(allianceColor.ToInvariantString())!.GetValue(this.ScoreBreakdown.ActualInstance);
         var rpValue = (int?)alliance?.GetType().GetProperty("Rp")?.GetValue(alliance);
         return CorrectRpValue(rpValue);
     }
@@ -19,7 +20,7 @@ public partial record Match
 
     public IEnumerable<(string Name, Uri Link)> GetVideoUrls(ILogger? log = null)
     {
-        foreach (var v in this.Videos ?? [])
+        foreach (var v in this.Videos)
         {
             if (v.Type is "youtube")
             {

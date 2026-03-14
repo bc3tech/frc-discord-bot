@@ -25,6 +25,9 @@ param firstPassword string
 @description('The Blue Alliance API key injected into the container app as a secret.')
 param tbaApiKey string
 
+@description('Optional Azure AI Foundry agent ID injected into the container app as an app setting. Set this to the Foundry agent ID that should back chatbot requests.')
+param chatBotAgentId string = ''
+
 param appExists bool
 
 // Tags that should be applied to all resources.
@@ -53,6 +56,7 @@ module resources 'resources.bicep' = {
     discordToken: discordToken
     firstPassword: firstPassword
     tbaApiKey: tbaApiKey
+    chatBotAgentId: chatBotAgentId
     appExists: appExists
   }
 }

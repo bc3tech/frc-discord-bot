@@ -5,7 +5,6 @@ using Common.Extensions;
 using Discord;
 
 using FunctionApp.DiscordInterop;
-using FunctionApp.DiscordInterop.Embeds;
 using FunctionApp.Storage;
 using FunctionApp.TbaInterop.Models;
 using FunctionApp.TbaInterop.Models.Notifications;
@@ -83,8 +82,9 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
             var (source, url) = notification.webcast.GetFullUrl(logger);
             if (url is not null)
             {
+                string viewerCountString = notification.webcast.ViewerCount.HasValue ? $" ({notification.webcast.ViewerCount} viewer{(notification.webcast.ViewerCount.Value != 1 ? "s" : string.Empty)})" : string.Empty;
                 var webcastButton = ButtonBuilder
-                    .CreateLinkButton($"{source} ({notification.webcast.ViewerCount} viewer{(notification.webcast.ViewerCount is not 1 ? "s" : string.Empty)})", url.OriginalString)
+                    .CreateLinkButton($"{source}{viewerCountString}", url.OriginalString)
                     .WithEmote(Emoji.Parse("📺"));
                 yield return new(embedding.Build(), [webcastButton.Build()]);
                 yield break;

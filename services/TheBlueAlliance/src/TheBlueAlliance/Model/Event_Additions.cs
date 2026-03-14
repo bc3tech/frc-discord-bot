@@ -40,12 +40,11 @@ public partial record Event
 
     }
 
-    private string? _locationString;
     public string LocationString
     {
         get
         {
-            if (_locationString is null)
+            if (field is null)
             {
                 var location = new StringBuilder();
                 if (!string.IsNullOrWhiteSpace(this.LocationName))
@@ -78,10 +77,10 @@ public partial record Event
                     location.Append(this.Country);
                 }
 
-                _locationString = location.ToString();
+                field = location.ToString();
             }
 
-            return _locationString;
+            return field;
         }
     }
 

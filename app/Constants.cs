@@ -21,6 +21,7 @@ internal static class Constants
     public static class Telemetry
     {
         public const string AppMeterName = "FunctionApp.Meter";
+        public const string ChatBotActivitySourceName = "FunctionApp.ChatBot";
         public static class Metrics
         {
             public const string NumCountries = nameof(NumCountries);
@@ -79,7 +80,8 @@ internal static class Constants
                 {
                     public static readonly string _Name = ConfigurationPath.Combine(AI._Name, nameof(Agents));
 
-                    public static readonly string AgentId = ConfigurationPath.Combine(_Name, nameof(AgentId));
+                    public static readonly string ChatAgentId = ConfigurationPath.Combine(_Name, nameof(ChatAgentId));
+                    public static readonly string MealAgentId = ConfigurationPath.Combine(_Name, nameof(MealAgentId));
                 }
             }
         }

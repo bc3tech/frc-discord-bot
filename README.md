@@ -13,22 +13,23 @@ The FRC Discord Bot comprises functionality specific to the First Robotics Compe
 
 ## Development Environment
 
-The FRC Discord Bot is developed as an Azure Function using .NET 8.0. Setting up your dev environment is as simple as installing [Visual Studio](https://visualstudio.com) 2022+ with the Azure workload, cloning the repo, and hitting `Build`.
+The FRC Discord Bot is developed as a containerized Azure Function using .NET 10.0. Setting up your dev environment is as simple as installing [Visual Studio](https://visualstudio.com) 2022+ with the Azure workload, cloning the repo, and hitting `Build`.
 
 ## Infrastructure components
 
 The infrastructure necessary to run the bot includes:
 
-- An Azure Function Plan (Consumption is adequate for most installations)
+- An Azure Container Apps environment hosting the Function App (`kind: functionapp`)
+- An Azure Container Registry to store the function container image
 - Azure Storage account
-- (Optional) Azure App Insights (telemetry & logging)
-- (Optional) Azure OpenAI ("chatbot" functionality)
+- (Optional) Azure Monitor / Application Insights (telemetry & logging)
+- (Optional) Azure AI Foundry project with Agent Service-backed chatbot functionality
 
 ## Code Structure
 
 - `/app` - This contains all of the application code. It is organized into
   - `/Apis` - simpler APIs that have a very small amount of code associated with them
-  - `/ChatBot` - implementation & detail for the GPT-Chat capability
+  - `/ChatBot` - implementation & detail for the Azure AI Foundry / Agent SDK chat capability
   - `/DiscordInterop` - everything related to setting up, communicating with, and generating messages for Discord
   - `/FIRSTInterop` - same, but for the FIRST APIs
   - `/StatboticsInterop` - again same, but for Statbotics
@@ -72,12 +73,12 @@ In addition to the above, the codebase makes use of Centralized Package Managmen
 
 ## Deployment
 
-Simply deploying the Function App will make the bot live and ready for installation on any Discord Guild. Once live, follow the instructions for creating a Discord App to get the Discord Token used to link the deployed bot with a Discord application.
+Deploying the containerized Function App will make the bot live and ready for installation on any Discord Guild. Once live, follow the instructions for creating a Discord App to get the Discord Token used to link the deployed bot with a Discord application.
 
 For PowerShell on Windows, use an inline command for this template. The committed `.bicepparam` file intentionally omits required secret values, so Azure CLI will reject it unless you first create your own local params file with those secrets filled in.
 
 ```powershell
-az deployment sub create --location westus2 --template-file .\infra\main.bicep --parameters frcUsername='bc3tech' discordToken='<prod-token>' frcPassword='<password>' tbaApiKey='<tba-key>'
+az deployment sub create --location westus2 --template-file .\infra\main.bicep --parameters environmentName='prod' location='westus2' discordToken='<prod-token>' firstPassword='<password>' tbaApiKey='<tba-key>' chatBotAgentId='<foundry-agent-id>'
 ```
 
 ### Secrets
@@ -106,7 +107,11 @@ For example:
 }
 ```
 
-When deployed with the Bicep templates in `infra\`, the Azure AI Foundry resource and its child project are provisioned automatically using the current `Microsoft.CognitiveServices/accounts` + `accounts/projects` model. Local auth is disabled on the Foundry account. The container app managed identity is granted `Cognitive Services User` on the Foundry project for keyless data-plane access and `Azure AI User` on the child project for project-scoped Foundry operations. The Function App receives `Azure__AI__Project__Endpoint`, `Azure__AI__Project__Id`, `Azure__ClientId`, `Azure__TenantId`, `AZURE_CLIENT_ID`, and `AZURE_TENANT_ID` from infrastructure rather than manual secret configuration.
+When deployed with the Bicep templates in `infra\`, the Azure AI Foundry account and its child project are provisioned automatically using the current `Microsoft.CognitiveServices/accounts` + `accounts/projects` model. Local auth is disabled on the Foundry account. The container app managed identity is granted `Cognitive Services User` on the Foundry project for keyless data-plane access and `Azure AI User` on the child project for project-scoped Foundry operations. The Function App receives `Azure__AI__Project__Endpoint`, `Azure__AI__Agents__AgentId`, `Azure__ClientId`, `Azure__TenantId`, `AZURE_CLIENT_ID`, and `AZURE_TENANT_ID` from infrastructure rather than manual secret configuration.
+
+For the ChatBot migration to Azure AI Foundry / Agent SDK, the app now resolves and uses the configured persistent Foundry agent directly by agent ID instead of creating a Semantic Kernel companion agent or searching by agent name.
+
+To finish enabling chat functionality, copy the target agent's ID from Azure AI Foundry and set `Azure__AI__Agents__AgentId` to that value. The committed appsettings placeholder is not a working agent ID; you must supply the real Foundry agent ID through an app setting, environment variable, user secret, or deployment parameter. For local development of chatbot features, you must also provide `Azure__AI__Project__Endpoint`; if that endpoint is omitted, chat-specific services stay disabled.
 
 For `azd` deployments, set the required secret environment values before running `azd deploy`:
 
@@ -114,11 +119,14 @@ For `azd` deployments, set the required secret environment values before running
 azd env set-secret Discord__Token "<your-discord-bot-token>"
 azd env set-secret FIRST__Password "<your-first-password>"
 azd env set-secret TbaApiKey "<your-tba-api-key>"
+azd env set chatBotAgentId "<your-foundry-agent-id>"
 ```
 
-The container app receives `Discord__Token`, `FIRST__Password`, and `TbaApiKey` as Container Apps secrets, and `FIRST__Username` is set to `bc3tech` as a non-secret app setting.
+The container app receives `Discord__Token`, `FIRST__Password`, and `TbaApiKey` as Container Apps secrets, `FIRST__Username` is set to `bc3tech` as a non-secret app setting, and `chatBotAgentId` flows into `Azure__AI__Agents__AgentId` for the chatbot integration.
 
-`azd` provisions the app as a native Azure Functions deployment on Azure Container Apps by setting the container app resource kind to `functionapp`, while still using the standard `host: containerapp` service workflow in `azure.yaml`.
+`azd` provisions the app as a native Azure Functions deployment on Azure Container Apps by setting the container app resource kind to `functionapp`, while still using the standard `host: containerapp` service workflow in `azure.yaml`. The service metadata now matches the Functions container listener on port `80`, which keeps the `azure.yaml` service definition aligned with the container app ingress configuration in `infra\resources.bicep`.
+
+Until the first application image is pushed to Azure Container Registry, the infrastructure uses the official Azure Functions .NET isolated base image for .NET 10 (`mcr.microsoft.com/azure-functions/dotnet-isolated:4-dotnet-isolated10.0`) instead of a generic Container Apps sample image. The deployed container app also sets `FUNCTIONS_WORKER_RUNTIME=dotnet-isolated` explicitly so the native Functions host configuration remains correct for the .NET isolated worker.
 
 `azd` also provisions a dedicated Azure Storage account for the app, disables shared-key auth on that account, and grants the container app's user-assigned managed identity the `Storage Blob Data Contributor`, `Storage Queue Data Contributor`, and `Storage Table Data Contributor` roles. The storage account keeps its public service endpoints enabled for the current Container Apps deployment shape, while authentication remains keyless through managed identity and RBAC. The Functions host is configured with identity-based `AzureWebJobsStorage__...` settings, while the app code receives `Azure__Storage__BlobsEndpoint` and `Azure__Storage__TableEndpoint` for its own SDK clients. No storage connection string is required in Azure.
 

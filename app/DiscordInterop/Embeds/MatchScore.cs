@@ -31,8 +31,8 @@ using System.Threading;
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Extensions;
 using TheBlueAlliance.Model;
-using TheBlueAlliance.Model.MatchExtensions;
 using TheBlueAlliance.Model.CompLevelExtensions;
+using TheBlueAlliance.Model.MatchExtensions;
 
 using Match = TheBlueAlliance.Model.Match;
 
@@ -214,8 +214,8 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
         await AddEventOrDayWrapupAsync(descriptionBuilder, notificationMatch, tbaMatch, winningAlliance, cancellationToken).ConfigureAwait(false);
 
-        var videos = match.Videos.Or(tbaMatch.Videos)?.Where(v => v.Type is "youtube" && v.Key is not null).Select(v => $"- https://www.youtube.com/watch?v={v.Key}");
-        if (videos?.Any() is true)
+        var videos = match.Videos.Or(tbaMatch.Videos).Where(v => v.Type is "youtube" && v.Key is not null).Select(v => $"- https://www.youtube.com/watch?v={v.Key}");
+        if (videos.Any())
         {
             descriptionBuilder
                 .AppendLine("### Videos")

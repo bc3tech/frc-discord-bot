@@ -31,7 +31,7 @@ internal abstract record BaseSubscriptionEntity : ISubscriptionEntity
     abstract public string Team { get; set; }
     [IgnoreDataMember]
     abstract public string Event { get; set; }
-    
+
     required public string PartitionKey { get; set; }
     public string RowKey { get; set; } = CommonConstants.ALL;
 

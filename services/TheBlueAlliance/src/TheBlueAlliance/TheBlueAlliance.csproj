@@ -2,7 +2,6 @@
 
 <PropertyGroup>
 <GenerateAssemblyInfo>true</GenerateAssemblyInfo> <!-- setting GenerateAssemblyInfo to false causes this bug https://github.com/dotnet/project-system/issues/3934 -->
-<TargetFramework>net8.0</TargetFramework>
 <AssemblyName>TheBlueAlliance</AssemblyName>
 <PackageId>TheBlueAlliance</PackageId>
 <OutputType>Library</OutputType>
@@ -17,7 +16,6 @@
 <RepositoryUrl>https://github.com/GIT_USER_ID/GIT_REPO_ID.git</RepositoryUrl>
 <RepositoryType>git</RepositoryType>
 <PackageReleaseNotes>Minor update</PackageReleaseNotes>
-<Nullable>enable</Nullable>
 </PropertyGroup>
 
 <ItemGroup>

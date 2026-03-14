@@ -1,4 +1,5 @@
 ﻿namespace FunctionApp.TbaInterop.Models.Notifications;
+
 internal static class NotificationConstants
 {
     public static readonly string?[] RenderNames =
