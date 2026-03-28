@@ -29,7 +29,7 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
         using var scope = Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(teamKey))
         {
-            await RespondAsync("Team key is required.", ephemeral: true).ConfigureAwait(false);
+            await ModifyOriginalResponseAsync(p => p.Content = "Team key is required.").ConfigureAwait(false);
             return;
         }
 
@@ -58,7 +58,7 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
         using var scope = Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(teamKey))
         {
-            await RespondAsync("Team key is required.", ephemeral: true).ConfigureAwait(false);
+            await ModifyOriginalResponseAsync(p => p.Content = "Team key is required.").ConfigureAwait(false);
             return;
         }
 

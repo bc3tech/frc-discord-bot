@@ -11,7 +11,7 @@ public sealed class PingCommandModule(ILogger<PingCommandModule> logger) : Comma
     [SlashCommand("ping", "Pings the bot to check if it's alive")]
     public async Task PingAsync()
     {
-        using var typing = await TryDeferAsync().ConfigureAwait(false);
+        using var typing = await TryDeferAsync(ephemeral: true).ConfigureAwait(false);
         if (typing is null)
         {
             return;
