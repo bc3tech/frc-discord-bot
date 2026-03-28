@@ -219,11 +219,11 @@ resource app 'Microsoft.App/containerApps@2025-10-02-preview' = {
               secretRef: 'discord-token'
             }
             {
-              name: 'FIRST__Password'
+              name: 'FRC__Password'
               secretRef: 'first-password'
             }
             {
-              name: 'FIRST__Username'
+              name: 'FRC__Username'
               value: 'bc3tech'
             }
             {
