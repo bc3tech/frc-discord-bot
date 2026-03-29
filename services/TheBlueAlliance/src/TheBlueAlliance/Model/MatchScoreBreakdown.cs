@@ -224,6 +224,11 @@ public sealed partial record MatchScoreBreakdown : AbstractOpenAPISchema
             return newMatchScoreBreakdown;
         }
 
+        if (TryDeserializeByInspection(jsonString, out newMatchScoreBreakdown))
+        {
+            return newMatchScoreBreakdown;
+        }
+
         int match = 0;
         List<string> matchedTypes = [];
         try
@@ -463,6 +468,152 @@ public sealed partial record MatchScoreBreakdown : AbstractOpenAPISchema
             > 1 => throw new InvalidDataException("The JSON string `" + jsonString + "` incorrectly matches more than one schema (should be exactly one match): " + matchedTypes),
             _ => newMatchScoreBreakdown
         };
+    }
+
+    private static bool TryDeserializeByInspection(string jsonString, out MatchScoreBreakdown? matchScoreBreakdown)
+    {
+        matchScoreBreakdown = default;
+
+        try
+        {
+            using JsonDocument document = JsonDocument.Parse(jsonString);
+            JsonElement root = document.RootElement;
+
+            if (root.TryGetProperty("coopertition", out _))
+            {
+                return TryDeserializeKnownYears(jsonString, out matchScoreBreakdown,
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2015>(json, static breakdown => new MatchScoreBreakdown(breakdown)));
+            }
+
+            if (!root.TryGetProperty("blue", out JsonElement blueAlliance))
+            {
+                return false;
+            }
+
+            if (blueAlliance.TryGetProperty("autoTowerRobot1", out _))
+            {
+                return TryDeserializeKnownYears(jsonString, out matchScoreBreakdown,
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2026>(json, static breakdown => new MatchScoreBreakdown(breakdown)));
+            }
+
+            if (blueAlliance.TryGetProperty("autoCoralCount", out _))
+            {
+                return TryDeserializeKnownYears(jsonString, out matchScoreBreakdown,
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2025>(json, static breakdown => new MatchScoreBreakdown(breakdown)));
+            }
+
+            if (blueAlliance.TryGetProperty("autoAmpNoteCount", out _))
+            {
+                return TryDeserializeKnownYears(jsonString, out matchScoreBreakdown,
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2024>(json, static breakdown => new MatchScoreBreakdown(breakdown)));
+            }
+
+            if (blueAlliance.TryGetProperty("mobilityRobot1", out _))
+            {
+                return TryDeserializeKnownYears(jsonString, out matchScoreBreakdown,
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2023>(json, static breakdown => new MatchScoreBreakdown(breakdown)));
+            }
+
+            if (blueAlliance.TryGetProperty("taxiRobot1", out _))
+            {
+                return TryDeserializeKnownYears(jsonString, out matchScoreBreakdown,
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2022>(json, static breakdown => new MatchScoreBreakdown(breakdown)));
+            }
+
+            if (blueAlliance.TryGetProperty("initLineRobot1", out _))
+            {
+                return TryDeserializeKnownYears(jsonString, out matchScoreBreakdown,
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2020>(json, static breakdown => new MatchScoreBreakdown(breakdown)));
+            }
+
+            if (blueAlliance.TryGetProperty("habLineRobot1", out _))
+            {
+                return TryDeserializeKnownYears(jsonString, out matchScoreBreakdown,
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2019>(json, static breakdown => new MatchScoreBreakdown(breakdown)));
+            }
+
+            if (blueAlliance.TryGetProperty("autoRobot1", out _))
+            {
+                return TryDeserializeKnownYears(jsonString, out matchScoreBreakdown,
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2018>(json, static breakdown => new MatchScoreBreakdown(breakdown)));
+            }
+
+            if (blueAlliance.TryGetProperty("rotor1Auto", out _))
+            {
+                return TryDeserializeKnownYears(jsonString, out matchScoreBreakdown,
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2017>(json, static breakdown => new MatchScoreBreakdown(breakdown)));
+            }
+
+            if (blueAlliance.TryGetProperty("position2", out _))
+            {
+                return TryDeserializeKnownYears(jsonString, out matchScoreBreakdown,
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2016>(json, static breakdown => new MatchScoreBreakdown(breakdown)));
+            }
+
+            if (blueAlliance.TryGetProperty("autoLineRobot1", out _))
+            {
+                return TryDeserializeKnownYears(jsonString, out matchScoreBreakdown,
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2025>(json, static breakdown => new MatchScoreBreakdown(breakdown)),
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2024>(json, static breakdown => new MatchScoreBreakdown(breakdown)));
+            }
+
+            if (blueAlliance.TryGetProperty("endGameRobot1", out _))
+            {
+                return TryDeserializeKnownYears(jsonString, out matchScoreBreakdown,
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2025>(json, static breakdown => new MatchScoreBreakdown(breakdown)),
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2024>(json, static breakdown => new MatchScoreBreakdown(breakdown)));
+            }
+
+            if (blueAlliance.TryGetProperty("endgameRobot1", out _))
+            {
+                return TryDeserializeKnownYears(jsonString, out matchScoreBreakdown,
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2022>(json, static breakdown => new MatchScoreBreakdown(breakdown)),
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2020>(json, static breakdown => new MatchScoreBreakdown(breakdown)),
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2019>(json, static breakdown => new MatchScoreBreakdown(breakdown)),
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2018>(json, static breakdown => new MatchScoreBreakdown(breakdown)));
+            }
+
+            if (blueAlliance.TryGetProperty("robot1Auto", out _))
+            {
+                return TryDeserializeKnownYears(jsonString, out matchScoreBreakdown,
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2017>(json, static breakdown => new MatchScoreBreakdown(breakdown)),
+                    static json => TryDeserializeKnownYear<MatchScoreBreakdown2016>(json, static breakdown => new MatchScoreBreakdown(breakdown)));
+            }
+
+            return false;
+        }
+        catch (JsonException)
+        {
+            return false;
+        }
+    }
+
+    private delegate MatchScoreBreakdown? MatchScoreBreakdownDeserializer(string jsonString);
+
+    private static bool TryDeserializeKnownYears(string jsonString, out MatchScoreBreakdown? matchScoreBreakdown, params MatchScoreBreakdownDeserializer[] deserializers)
+    {
+        foreach (MatchScoreBreakdownDeserializer deserialize in deserializers)
+        {
+            matchScoreBreakdown = deserialize(jsonString);
+            if (matchScoreBreakdown is not null)
+            {
+                return true;
+            }
+        }
+
+        matchScoreBreakdown = default;
+        return false;
+    }
+
+    private static MatchScoreBreakdown? TryDeserializeKnownYear<TMatchScoreBreakdown>(string jsonString, Func<TMatchScoreBreakdown, MatchScoreBreakdown> createMatchScoreBreakdown)
+        where TMatchScoreBreakdown : class
+    {
+        JsonSerializerOptions serializerOptions = typeof(TMatchScoreBreakdown).GetProperty("AdditionalProperties") is null
+            ? MatchScoreBreakdown.SerializerSettings
+            : MatchScoreBreakdown.AdditionalPropertiesSerializerSettings;
+
+        TMatchScoreBreakdown? deserialized = JsonSerializer.Deserialize<TMatchScoreBreakdown>(jsonString, serializerOptions);
+        return deserialized is null ? null : createMatchScoreBreakdown(deserialized);
     }
 }
 
