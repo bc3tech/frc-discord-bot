@@ -64,7 +64,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
             {
                 if (teamYearStats.Epa.TotalPoints?.Mean is not null)
                 {
-                    descriptionBuilder.AppendLine($"## EPA ({teamYearStats.Epa.TotalPoints.Mean:0.##}) rank\n");
+                    descriptionBuilder.AppendLine($"## [Statbotics.io](https://statbotics.io/team/{teamKey.TeamKeyToTeamNumber()}) EPA ({teamYearStats.Epa.TotalPoints.Mean:0.##}) rank\n");
                 }
                 else
                 {
@@ -104,7 +104,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
             {
                 var districtDetail = await tbaDistrictData.GetDistrictsByYearAsync(targetYear, cancellationToken: cancellationToken);
                 var district = districtDetail?.FirstOrDefault(i => i.Abbreviation.Equals(d.DistrictCode, StringComparison.OrdinalIgnoreCase));
-                descriptionBuilder.AppendLine($"## {(district is not null ? district.DisplayName : d.DistrictCode)} District rank\n");
+                descriptionBuilder.AppendLine($"## Official {(district is not null ? district.DisplayName : d.DistrictCode)} District rank\n");
                 descriptionBuilder.AppendLine($"Current Rank: {d.Rank}");
                 descriptionBuilder.AppendLine($"District Points: {d.TotalPoints} (Adjusted - {d.AdjustmentPoints})");
                 yield return new(embedding.WithDescription(descriptionBuilder.ToString()).Build());
