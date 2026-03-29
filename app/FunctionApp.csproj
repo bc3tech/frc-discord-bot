@@ -18,7 +18,7 @@
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 		<PackageReference Include="Azure.AI.Projects" />
 		<PackageReference Include="Azure.Data.Tables" />
-		<PackageReference Include="Azure.Monitor.OpenTelemetry.AspNetCore" />
+       <PackageReference Include="Azure.Monitor.OpenTelemetry.Exporter" />
 		<PackageReference Include="Azure.Storage.Blobs" />
 		<PackageReference Include="Microsoft.Agents.AI.AzureAI.Persistent" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker" />
@@ -27,6 +27,7 @@
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.OpenTelemetry" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" />
 		<PackageReference Include="OpenTelemetry.Exporter.Console" />
+       <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
 		<PackageReference Include="OpenTelemetry.Instrumentation.Http" />
 	</ItemGroup>
 	<ItemGroup>

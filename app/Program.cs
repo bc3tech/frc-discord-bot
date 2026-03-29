@@ -17,9 +17,7 @@ using FunctionApp.Storage;
 using FunctionApp.Subscription;
 using FunctionApp.TbaInterop;
 
-using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Builder;
-using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Azure.Functions.Worker.OpenTelemetry;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -48,8 +46,7 @@ host.Configuration
     .AddUserSecrets<Program>();
 
 host.Logging
-        //.AddConfiguration(host.Configuration.GetSection("Logging"))
-        .AddSimpleConsole()
+        .AddConfiguration(host.Configuration.GetSection("Logging"))
         .AddOpenTelemetry(o =>
         {
             o.IncludeFormattedMessage = true;
@@ -69,8 +66,8 @@ host.Services
     .ConfigureOpenTelemetryMeterProvider(b => b.AddMeter(Constants.Telemetry.AppMeterName))
     .AddOpenTelemetry()
     .WithTracing()
-    .UseAzureMonitorExporter()
-    .UseFunctionsWorkerDefaults();
+    .UseFunctionsWorkerDefaults()
+    .UseAzureMonitorExporter();
 
 host.Services
     .ConfigureDiscord()
@@ -136,7 +133,14 @@ host.Services.AddSingleton(sp =>
     return blobContainer;
 });
 
-await host.Build().RunAsync().ConfigureAwait(false);
+var builtHost = host.Build();
+var startupLogger = builtHost.Services.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");
+startupLogger.LogInformation(
+    "OpenTelemetry startup configuration: Application Insights connection string is {ConnectionStringState}. OTEL service name is {ServiceName}.",
+    string.IsNullOrWhiteSpace(host.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]) ? "missing" : "configured",
+    host.Configuration["OTEL_SERVICE_NAME"] ?? "unset");
+
+await builtHost.RunAsync().ConfigureAwait(false);
 
 static Uri? TryGetStorageServiceUri(IConfiguration configuration, string primaryKey, string secondaryKey)
 {
