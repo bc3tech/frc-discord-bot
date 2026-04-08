@@ -28,6 +28,7 @@ internal static class DependencyInjectionExtensions
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "EA0000:Use source generated logging methods for improved performance", Justification = "Piping log messages from Discord on through; severity is set by Discord so we can't use strongly-typed methods")]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1848:Use the LoggerMessage delegates", Justification = "Piping log messages from Discord on through; severity is set by Discord so we can't use strongly-typed methods")]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2254:Template should be a static expression", Justification = "Piping log messages from Discord on through; severity is set by Discord so we can't use strongly-typed methods")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1873:Avoid potentially expensive logging", Justification = "Because")]
     public static IServiceCollection ConfigureDiscord(this IServiceCollection services)
     {
         services.AddSingleton(sp =>
@@ -38,7 +39,7 @@ internal static class DependencyInjectionExtensions
                 HandlerTimeout = 10_000,
                 LogLevel = Enum.Parse<LogSeverity>(discordLogLevel),
                 LogGatewayIntentWarnings = false,
-                GatewayIntents = GatewayIntents.AllUnprivileged,
+                GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.MessageContent,
             };
         })
         .AddSingleton<EmbedBuilderFactory>()

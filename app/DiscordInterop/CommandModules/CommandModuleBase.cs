@@ -1,5 +1,6 @@
 ﻿namespace FunctionApp.DiscordInterop.CommandModules;
 
+using Common.Discord;
 using Common.Extensions;
 
 using Discord;
@@ -7,7 +8,6 @@ using Discord.Interactions;
 using Discord.Net;
 
 using FunctionApp.DiscordInterop.Embeds;
-using FunctionApp.Extensions;
 
 using Microsoft.Extensions.Logging;
 

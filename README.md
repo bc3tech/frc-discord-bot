@@ -23,13 +23,20 @@ The infrastructure necessary to run the bot includes:
 - An Azure Container Registry to store the function container image
 - Azure Storage account
 - (Optional) Azure Monitor / Application Insights (telemetry & logging)
-- (Optional) Azure AI Foundry project with Agent Service-backed chatbot functionality
+- (Optional) Azure AI Foundry project with Microsoft Agent Framework-backed chatbot functionality
+
+### Infra template layout (`infra/`)
+
+- `main.bicep` keeps azd-facing parameters and composes grouped configuration objects.
+- `resources.bicep` orchestrates feature-level deployment (platform core, app, Foundry, optional search).
+- `modules/platform-core.bicep` provisions shared platform dependencies (monitoring, identity, registry, storage, managed environment) with AVM modules.
+- `modules/function-app.bicep` deploys the function container app using AVM and preserves existing image-resolution behavior.
 
 ## Code Structure
 
 - `/app` - This contains all of the application code. It is organized into
   - `/Apis` - simpler APIs that have a very small amount of code associated with them
-  - `/ChatBot` - implementation & detail for the Azure AI Foundry / Agent SDK chat capability
+  - `/ChatBot` - implementation & detail for the Azure AI Foundry DM chat capability
   - `/DiscordInterop` - everything related to setting up, communicating with, and generating messages for Discord
   - `/FIRSTInterop` - same, but for the FIRST APIs
   - `/StatboticsInterop` - again same, but for Statbotics
@@ -107,11 +114,25 @@ For example:
 }
 ```
 
-When deployed with the Bicep templates in `infra\`, the Azure AI Foundry account and its child project are provisioned automatically using the current `Microsoft.CognitiveServices/accounts` + `accounts/projects` model. Local auth is disabled on the Foundry account. The container app managed identity is granted `Cognitive Services User` on the Foundry project for keyless data-plane access and `Azure AI User` on the child project for project-scoped Foundry operations. The Function App receives `Azure__AI__Project__Endpoint`, `Azure__AI__Agents__AgentId`, `Azure__ClientId`, `Azure__TenantId`, `AZURE_CLIENT_ID`, and `AZURE_TENANT_ID` from infrastructure rather than manual secret configuration.
+When deployed with the Bicep templates in `infra\`, the Azure AI Foundry account and its child project are provisioned automatically using the current `Microsoft.CognitiveServices/accounts` + `accounts/projects` model. Local auth is disabled on the Foundry account. The container app managed identity is granted `Cognitive Services User` on the Foundry project for keyless data-plane access and `Azure AI User` on the child project for project-scoped Foundry operations. The Function App receives `AI__Azure__ProjectEndpoint`, `Azure__ClientId`, `Azure__TenantId`, `AZURE_CLIENT_ID`, and `AZURE_TENANT_ID` from infrastructure rather than manual secret configuration.
 
-For the ChatBot migration to Azure AI Foundry / Agent SDK, the app now resolves and uses the configured persistent Foundry agent directly by agent ID instead of creating a Semantic Kernel companion agent or searching by agent name.
+For DM chat, the app now runs a Microsoft Agent Framework workflow that coordinates:
 
-To finish enabling chat functionality, copy the target agent's ID from Azure AI Foundry and set `Azure__AI__Agents__AgentId` to that value. The committed appsettings placeholder is not a working agent ID; you must supply the real Foundry agent ID through an app setting, environment variable, user secret, or deployment parameter. For local development of chatbot features, you must also provide `Azure__AI__Project__Endpoint`; if that endpoint is omitted, chat-specific services stay disabled.
+- a hosted Azure AI Foundry prompt agent for user-facing synthesis plus hosted tools like web search and code interpreter
+- a local declarative agent for in-process tools such as TBA, Statbotics, and meal-signup lookups
+
+The DM pipeline expects:
+
+- `AI__Azure__ProjectEndpoint`
+- `AI__Azure__AgentId`
+- `AI__Azure__LocalAgentModel`
+- `DefaultTeamNumber`
+
+The hosted agent definition is checked in at `services\ChatBot\Agents\foundry-agent.yaml` as a reference copy of the Foundry-side configuration. The local declarative agent definition is checked in at `services\ChatBot\Agents\local-agent.yaml` and is instantiated in-process against the configured `AI__Azure__LocalAgentModel`. Semantic evaluator turns (answer/ask-user decision checks) use the Foundry evaluator model. The configured `AI__Azure__AgentId` value can be either a bare agent name such as `2046-discord-bot` to use the latest published version or a versioned Foundry identifier in `<agent-name>:<version>` format such as `2046-discord-bot:2` to pin a specific version. If the Foundry project endpoint, hosted agent id, or local agent model is missing, chat-specific services stay disabled so the rest of the bot can still start normally.
+
+`DefaultTeamNumber` defines the fallback team identity for ambiguous first-person team references in chat. With the default value of `2046`, phrases like we, us, and our resolve to team 2046 unless the turn or grounded conversation context clearly establishes a different team.
+
+Keep `AI__Azure__MealSignupGeniusId` only if you still want the optional meal-signup helper behavior.
 
 For `azd` deployments, set the required secret environment values before running `azd deploy`:
 
@@ -119,10 +140,16 @@ For `azd` deployments, set the required secret environment values before running
 azd env set-secret Discord__Token "<your-discord-bot-token>"
 azd env set-secret FIRST__Password "<your-first-password>"
 azd env set-secret TbaApiKey "<your-tba-api-key>"
-azd env set chatBotAgentId "<your-foundry-agent-id>"
+azd env set AI__Azure__AgentId "<your-chat-agent-id>"
+azd env set SEARCH_SERVICE_NAME "<your-search-service-name>"
+azd env set SEARCH_LOCATION "eastus"
+azd env set AI__Azure__LocalAgentModel "gpt-5.4-mini"
+azd env set DefaultTeamNumber "2046"
 ```
 
-The container app receives `Discord__Token`, `FIRST__Password`, and `TbaApiKey` as Container Apps secrets, `FIRST__Username` is set to `bc3tech` as a non-secret app setting, and `chatBotAgentId` flows into `Azure__AI__Agents__AgentId` for the chatbot integration.
+The function container app receives `Discord__Token`, `FIRST__Password`, and `TbaApiKey` as Container Apps secrets, `FIRST__Username` is set to `bc3tech` as a non-secret app setting, and the default production diagnostics settings are applied through `Logging__LogLevel__Default` and `AzureWebjobs.Heartbeat.Disabled`. Hosted chat settings only flow into the container app when `AI__Azure__AgentId` is set.
+
+If `SEARCH_SERVICE_NAME` is non-empty, `azd` also provisions the Azure AI Search service used by the hosted agent knowledge-base connection. The current production environment keeps that service in `eastus`.
 
 `azd` provisions the app as a native Azure Functions deployment on Azure Container Apps by setting the container app resource kind to `functionapp`, while still using the standard `host: containerapp` service workflow in `azure.yaml`. The service metadata now matches the Functions container listener on port `80`, which keeps the `azure.yaml` service definition aligned with the container app ingress configuration in `infra\resources.bicep`.
 

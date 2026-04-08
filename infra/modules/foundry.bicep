@@ -10,9 +10,9 @@ param appIdentityPrincipalId string
 @description('The token appended to resource names for uniqueness')
 param resourceToken string
 
+param searchServiceResourceId string?
+
 var foundryAccountName = 'aifdiscordbot-${resourceToken}'
-var foundryProjectName = 'discordbot'
-var foundryProjectEndpoint = 'https://${foundryAccountName}.services.ai.azure.com/api/projects/${foundryProjectName}'
 var azureAiUserRoleDefinitionId = subscriptionResourceId(
   'Microsoft.Authorization/roleDefinitions',
   '53ca6127-db72-4b80-b1b0-d745d6d5456d'
@@ -48,23 +48,58 @@ module foundryAccount 'br/public:avm/ptn/ai-ml/ai-foundry:0.6.0' = {
         }
       ]
     }
+    aiSearchConfiguration: searchServiceResourceId != null
+      ? {
+          existingResourceId: searchServiceResourceId
+        }
+      : null
+
     aiModelDeployments: [
       {
         // Model deployments use deployment-type SKUs such as GlobalStandard, not the parent account SKU (S0).
-        name: 'gpt-5-chat'
+        name: 'gpt-5.4-mini'
         sku: {
           name: 'GlobalStandard'
-          capacity: 1000
+          capacity: 10000
         }
         model: {
-          name: 'gpt-5-chat'
+          name: 'gpt-5.4-mini'
           format: 'OpenAI'
-          version: '2025-10-03'
+          version: '2026-03-17'
+        }
+      }
+      {
+        // Model deployments use deployment-type SKUs such as GlobalStandard, not the parent account SKU (S0).
+        name: 'gpt-5.4-nano'
+        sku: {
+          name: 'GlobalStandard'
+          capacity: 150000
+        }
+        model: {
+          name: 'gpt-5.4-nano'
+          format: 'OpenAI'
+          version: '2026-03-17'
+        }
+      }
+      {
+        // Model deployments use deployment-type SKUs such as GlobalStandard, not the parent account SKU (S0).
+        name: 'text-embedding-3-large'
+        sku: {
+          name: 'GlobalStandard'
+          capacity: 10000
+        }
+        model: {
+          name: 'text-embedding-3-large'
+          format: 'OpenAI'
+          version: '1'
         }
       }
     ]
   }
 }
+
+var foundryProjectName = foundryAccount.outputs.aiProjectName
+var foundryProjectEndpoint = 'https://${foundryAccountName}.services.ai.azure.com/api/projects/${foundryProjectName}'
 
 // module bingGrounding './bing-grounding.bicep' = {
 //   name: 'bing-grounding'
@@ -79,5 +114,5 @@ module foundryAccount 'br/public:avm/ptn/ai-ml/ai-foundry:0.6.0' = {
 // }
 
 output accountName string = foundryAccount.name
-output projectEndpoint string = foundryProjectEndpoint
 output projectName string = foundryAccount.outputs.aiProjectName
+output projectEndpoint string = foundryProjectEndpoint

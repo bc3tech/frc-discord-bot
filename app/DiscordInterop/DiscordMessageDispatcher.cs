@@ -3,6 +3,7 @@ namespace FunctionApp.DiscordInterop;
 using Azure;
 using Azure.Data.Tables;
 
+using Common.Discord;
 using Common.Extensions;
 
 using Discord;
@@ -11,7 +12,6 @@ using Discord.WebSocket;
 
 using FunctionApp;
 using FunctionApp.DiscordInterop.Embeds;
-using FunctionApp.Extensions;
 using FunctionApp.Storage.TableEntities;
 using FunctionApp.TbaInterop.Models;
 
@@ -260,6 +260,48 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
         }
 
         return thread;
+    }
+
+    public async Task CleanupDeletedThreadAsync(ulong threadId, CancellationToken cancellationToken)
+    {
+        using var scope = logger.CreateMethodScope();
+        logger.LogDebug("Cleaning up tracked state for deleted Discord thread {ThreadId}", threadId);
+
+        bool foundTrackedThread = false;
+        await foreach (var entity in threadsTable.QueryAsync<ThreadTableEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var removedCount = entity.ThreadIdList.RemoveAll(i => i.ThreadId == threadId);
+            if (removedCount is 0)
+            {
+                continue;
+            }
+
+            foundTrackedThread = true;
+            if (entity.ThreadIdList.Count is 0)
+            {
+                await threadsTable.DeleteEntityAsync(entity, ETag.All, cancellationToken).ConfigureAwait(false);
+            }
+            else
+            {
+                await threadsTable.UpdateEntityAsync(entity, ETag.All, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
+            }
+
+            logger.LogInformation("Removed tracked state for deleted Discord thread {ThreadId} from {PartitionKey}/{RowKey}. Removed entries: {RemovedEntries}", threadId, entity.PartitionKey, entity.RowKey, removedCount);
+            meter.LogMetric("DeletedDiscordThreadStateCleanedUp", removedCount,
+                new Dictionary<string, object?>
+                {
+                    { "ThreadId", threadId },
+                    { "PartitionKey", entity.PartitionKey },
+                    { "RowKey", entity.RowKey }
+                });
+        }
+
+        if (!foundTrackedThread)
+        {
+            logger.LogDebug("No tracked state found for deleted Discord thread {ThreadId}", threadId);
+        }
     }
 
     private static (ImmutableHashSet<string> Teams, ImmutableHashSet<string> Events) GetTeamsAndEventsInMessage(JsonElement messageData)

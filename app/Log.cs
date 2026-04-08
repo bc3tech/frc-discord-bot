@@ -552,4 +552,20 @@ static partial class Log
 
     [LoggerMessage(195, LogLevel.Warning, "Azure AI thread {ThreadId} for Discord user {UserId} was missing. Creating a replacement thread.")]
     internal static partial void AzureAIThreadThreadIdForDiscordUserUserIdWasMissingCreatingAReplacementThread(this ILogger logger, string ThreadId, ulong UserId);
+
+    [LoggerMessage(196, LogLevel.Information, "OpenTelemetry startup configuration: Application Insights connection string is {ConnectionStringState}. OTEL service name is {ServiceName}.")]
+    internal static partial void OpenTelemetryStartupConfigurationApplicationInsightsConnectionStringIsConnectionStringStateOTELServiceNameIsServiceName(this ILogger logger, string ConnectionStringState, string ServiceName);
+
+    [LoggerMessage(197, LogLevel.Information, "Azure AI chat functionality enabled.")]
+    internal static partial void AzureAIChatFunctionalityEnabled(this ILogger logger);
+
+    [LoggerMessage(198, LogLevel.Warning, "Azure AI chat functionality disabled because required configuration keys are missing. Expected {ProjectEndpointKey} and {AgentIdKey}.")]
+    internal static partial void AzureAIChatFunctionalityDisabledDueToMissingConfigurationKeysProjectEndpointKeyAgentIdKey(this ILogger logger, string ProjectEndpointKey, string AgentIdKey);
+
+    [LoggerMessage(199, LogLevel.Warning, "Azure AI chat functionality disabled because required configuration keys are missing. Expected {ProjectEndpointKey}, {AgentIdKey}, and {LocalAgentModelKey}.")]
+    internal static partial void AzureAIChatFunctionalityDisabledDueToMissingConfigurationKeysProjectEndpointKeyAgentIdKeyLocalAgentModelKey(this ILogger logger, string ProjectEndpointKey, string AgentIdKey, string LocalAgentModelKey);
+
+    [LoggerMessage(200, LogLevel.Error, "An error occurred handling message {MessageId}")]
+    internal static partial void AnErrorOccurredHandlingMessageMessageId(this ILogger logger, Exception exception, ulong MessageId);
+
 }

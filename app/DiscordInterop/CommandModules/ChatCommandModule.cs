@@ -1,29 +1,20 @@
 namespace FunctionApp.DiscordInterop.CommandModules;
 
-using Azure;
-using Azure.AI.Agents.Persistent;
-using Azure.Data.Tables;
-
-using Common.Extensions;
+using ChatBot;
 
 using Discord;
 using Discord.Interactions;
-using Discord.WebSocket;
 
 using FunctionApp;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 [Group("chat", "Manages private chats between me & you")]
-public sealed class ChatCommandModule(ILogger<ChatCommandModule> logger) : CommandModuleBase(logger)
+public sealed class ChatCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<ChatCommandModule>>())
 {
-    private const string ChatResetConfirmButtonId = "chat-reset-confirm";
-
     private static readonly EmbedBuilder _embedBuilder = new();
 
     [SlashCommand("reset", "Resets your personal (DM) chat thread; makes me forget everything we've talked about!")]
@@ -42,7 +33,7 @@ public sealed class ChatCommandModule(ILogger<ChatCommandModule> logger) : Comma
             .WithColor(Color.Red)
             .Build();
 
-        var buttons = new ComponentBuilder().WithButton("Confirm", ChatResetConfirmButtonId, ButtonStyle.Danger);
+        var buttons = new ComponentBuilder().WithButton("Confirm", ChatThreadResetter.ChatResetConfirmButtonId, ButtonStyle.Danger);
         if (!ephemeral)
         {
             buttons.WithButton("Cancel", Constants.InteractionElements.CancelButtonDeleteMessage, ButtonStyle.Secondary);
@@ -56,79 +47,6 @@ public sealed class ChatCommandModule(ILogger<ChatCommandModule> logger) : Comma
         }).ConfigureAwait(false);
     }
 
-    internal static async Task HandleButtonClickAsync(IServiceProvider services, SocketMessageComponent button)
-    {
-        var logger = services.GetService<ILogger<ChatCommandModule>>();
-        using var scope = logger?.CreateMethodScope();
-        if (button.Data.CustomId is ChatResetConfirmButtonId)
-        {
-            bool successful = false;
-            try
-            {
-                var r = await DeleteThreadRecordForUserAsync(services, button.User.Id).ConfigureAwait(false);
-                successful = !r.IsError;
-            }
-            catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
-            {
-                logger?.ErrorDeletingThreadForUserNameUserId(e, button.User.GlobalName, button.User.Id);
-
-                await button.RespondAsync("Uh oh! I hit an error trying to do this.Feel free to try again or contact your admin and let them know about this!").ConfigureAwait(false);
-            }
-
-            if (successful)
-            {
-                try
-                {
-                    await button.UpdateAsync(p =>
-                    {
-                        p.Content = "Chat history erased! Who are you again? :stuck_out_tongue_winking_eye:";
-                        p.Embeds = null;
-                        p.Components = null;
-                    }).ConfigureAwait(false);
-                }
-                catch (TimeoutException)
-                {
-                    await button.RespondAsync("Sorry, Discord only allows 3 seconds for you to respond to me, but I did reset your chat thread!", ephemeral: true).ConfigureAwait(false);
-                }
-                catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
-                {
-                    logger?.DiscordErrorWhileTryingToModifyOriginalResponse(e);
-                    Debug.Fail(e.Message);
-                    throw;
-                }
-            }
-        }
-        else
-        {
-            services.GetService<ILogger<ChatCommandModule>>()?.UnknownButtonClickedButtonId(button.Data.CustomId);
-        }
-    }
-
-    private static async Task<Azure.Response> DeleteThreadRecordForUserAsync(IServiceProvider services, ulong userId, CancellationToken cancellationToken = default)
-    {
-        var userIdString = userId.ToString();
-        var table = services.GetRequiredKeyedService<TableClient>(Constants.ServiceKeys.TableClient_UserChatAgentThreads);
-        var existingThread = await table.GetEntityIfExistsAsync<TableEntity>(
-            userIdString,
-            userIdString,
-            ["AgentThreadId"],
-            cancellationToken: cancellationToken).ConfigureAwait(false);
-
-        var threadId = existingThread.HasValue
-            ? existingThread.Value?["AgentThreadId"]?.ToString()
-            : null;
-        var agentsClient = services.GetService<PersistentAgentsClient>();
-        if (agentsClient is not null && !string.IsNullOrWhiteSpace(threadId))
-        {
-            try
-            {
-                await agentsClient.Threads.DeleteThreadAsync(threadId, cancellationToken).ConfigureAwait(false);
-            }
-            catch (RequestFailedException e) when (e.Status == 404)
-            {
-            }
-        }
-
-        return await table.DeleteEntityAsync(partitionKey: userIdString, rowKey: userIdString, cancellationToken: cancellationToken).ConfigureAwait(false);
-    }
+    [SlashCommand("new", "Starts a new personal (DM) chat thread and forgets the current one.")]
+    public Task NewThreadAsync() => ResetThreadAsync();
 }

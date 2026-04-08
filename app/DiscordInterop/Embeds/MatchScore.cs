@@ -1,6 +1,9 @@
 ﻿namespace FunctionApp.DiscordInterop.Embeds;
 
+using ChatBot;
+
 using Common;
+using Common.Discord;
 using Common.Extensions;
 
 using Discord;
@@ -10,9 +13,7 @@ using Discord.WebSocket;
 using FIRST.Api;
 using FIRST.Model;
 
-using FunctionApp.ChatBot;
 using FunctionApp.DiscordInterop.CommandModules;
-using FunctionApp.Extensions;
 using FunctionApp.Storage;
 using FunctionApp.TbaInterop;
 using FunctionApp.TbaInterop.Models;
@@ -43,10 +44,10 @@ internal sealed partial class MatchScore(IEventApi eventApi,
                                          EventRepository events,
                                          TeamRepository teams,
                                          EmbedBuilderFactory builderFactory,
-                                         TimeProvider time,
-                                         Meter meter,
-                                         ILogger<MatchScore> logger,
-                                         ChatRunner? gpt = null) : INotificationEmbedCreator, IEmbedCreator<(string matchKey, bool summarize)>, IHandleUserInteractions
+                                          TimeProvider time,
+                                          Meter meter,
+                                          ILogger<MatchScore> logger,
+                                          ChatRunner? gpt = null) : INotificationEmbedCreator, IEmbedCreator<(string matchKey, bool summarize)>, IHandleUserInteractions
 {
     public const NotificationType TargetType = NotificationType.match_score;
     public const string GetBreakdownButtonId = "get-score-breakdown";
@@ -679,4 +680,3 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         }
     }
 }
-

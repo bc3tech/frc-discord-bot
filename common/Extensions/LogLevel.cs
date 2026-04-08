@@ -1,6 +1,6 @@
 ﻿namespace Common.Extensions;
 
-using Discord;
+using global::Discord;
 
 using Microsoft.Extensions.Logging;
 

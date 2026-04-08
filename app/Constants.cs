@@ -65,24 +65,50 @@ internal static class Constants
                 public static readonly string BlobsEndpoint = ConfigurationPath.Combine(_Name, nameof(BlobsEndpoint));
                 public static readonly string Tables = ConfigurationPath.Combine(_Name, nameof(Tables));
             }
+        }
 
-            public static class AI
+        public static class AI
+        {
+            public const string _Name = nameof(AI);
+
+            public static class Azure
             {
-                public static readonly string _Name = ConfigurationPath.Combine(Azure._Name, nameof(AI));
+                public static readonly string _Name = ConfigurationPath.Combine(AI._Name, nameof(Azure));
 
-                public static class Project
+                public static readonly string ProjectEndpoint = ConfigurationPath.Combine(_Name, nameof(ProjectEndpoint));
+                public static readonly string AgentId = ConfigurationPath.Combine(_Name, nameof(AgentId));
+                public static readonly string MealSignupGeniusId = ConfigurationPath.Combine(_Name, nameof(MealSignupGeniusId));
+                public static readonly string LocalAgentModel = ConfigurationPath.Combine(_Name, nameof(LocalAgentModel));
+                public static readonly string OpenAIApiVersion = ConfigurationPath.Combine(_Name, nameof(OpenAIApiVersion));
+                public static readonly string MaxLocalAgentHandoffs = ConfigurationPath.Combine(_Name, nameof(MaxLocalAgentHandoffs));
+                public static readonly string MaxWorkflowSteps = ConfigurationPath.Combine(_Name, nameof(MaxWorkflowSteps));
+                public static readonly string WorkflowSoftTimeoutSeconds = ConfigurationPath.Combine(_Name, nameof(WorkflowSoftTimeoutSeconds));
+                public static readonly string WorkflowHardTimeoutSeconds = ConfigurationPath.Combine(_Name, nameof(WorkflowHardTimeoutSeconds));
+                public static readonly string MaxPrematureLocalLookupRetries = ConfigurationPath.Combine(_Name, nameof(MaxPrematureLocalLookupRetries));
+
+                public static class EvaluationSettings
                 {
-                    public static readonly string _Name = ConfigurationPath.Combine(AI._Name, nameof(Project));
-                    public static readonly string Endpoint = ConfigurationPath.Combine(_Name, nameof(Endpoint));
+                    public static readonly string _Name = ConfigurationPath.Combine(Azure._Name, nameof(EvaluationSettings));
+
+                    public static readonly string Model = ConfigurationPath.Combine(_Name, nameof(Model));
+                    public static readonly string MaxAnswerEvaluationRetries = ConfigurationPath.Combine(_Name, nameof(MaxAnswerEvaluationRetries));
+                    public static readonly string TimeoutSeconds = ConfigurationPath.Combine(_Name, nameof(TimeoutSeconds));
                 }
 
-                public static class Agents
+                public static class Planner
                 {
-                    public static readonly string _Name = ConfigurationPath.Combine(AI._Name, nameof(Agents));
+                    public static readonly string _Name = ConfigurationPath.Combine(Azure._Name, nameof(Planner));
 
-                    public static readonly string ChatAgentId = ConfigurationPath.Combine(_Name, nameof(ChatAgentId));
-                    public static readonly string MealAgentId = ConfigurationPath.Combine(_Name, nameof(MealAgentId));
+                    public static readonly string Model = ConfigurationPath.Combine(_Name, nameof(Model));
+                    public static readonly string Agents = ConfigurationPath.Combine(_Name, nameof(Agents));
                 }
+            }
+
+            public static class AgentLogging
+            {
+                public static readonly string _Name = ConfigurationPath.Combine(AI._Name, nameof(AgentLogging));
+
+                public static readonly string StreamInternalDialog = ConfigurationPath.Combine(_Name, nameof(StreamInternalDialog));
             }
         }
     }

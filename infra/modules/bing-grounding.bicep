@@ -10,13 +10,12 @@ param resourceToken string
 var bingGroundingName = 'bingsearch-${resourceToken}'
 var bingConnectionName = '${foundryAccountName}-bingsearchconnection'
 
-resource foundryAccount 'Microsoft.CognitiveServices/accounts@2025-06-01' existing = {
+resource foundryAccount 'Microsoft.CognitiveServices/accounts@2025-12-01' existing = {
   name: foundryAccountName
-}
 
-resource foundryProject 'Microsoft.CognitiveServices/accounts/projects@2025-06-01' existing = {
-  parent: foundryAccount
-  name: foundryProjectName
+  resource foundryProject 'projects@2025-12-01' existing = {
+    name: foundryProjectName
+  }
 }
 
 resource bingGrounding 'Microsoft.Bing/accounts@2020-06-10' = {
@@ -29,7 +28,7 @@ resource bingGrounding 'Microsoft.Bing/accounts@2020-06-10' = {
 }
 
 resource bingConnection 'Microsoft.CognitiveServices/accounts/projects/connections@2025-06-01' = {
-  parent: foundryProject
+  parent: foundryAccount::foundryProject
   name: bingConnectionName
   properties: {
     category: 'ApiKey'

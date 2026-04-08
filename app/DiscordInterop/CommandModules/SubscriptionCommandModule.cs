@@ -1,5 +1,6 @@
 namespace FunctionApp.DiscordInterop.CommandModules;
 
+using Common.Discord;
 using Common.Extensions;
 
 using Discord;
@@ -9,7 +10,6 @@ using Discord.WebSocket;
 
 using FunctionApp;
 using FunctionApp.DiscordInterop;
-using FunctionApp.Extensions;
 using FunctionApp.Storage;
 using FunctionApp.Subscription;
 

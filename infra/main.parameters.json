@@ -18,7 +18,13 @@
         "value": "${TbaApiKey}"
       },
       "chatBotAgentId": {
-        "value": "${chatBotAgentId}"
+        "value": "${AI__Azure__AgentId=}"
+      },
+      "searchServiceName": {
+        "value": "${SEARCH_SERVICE_NAME=}"
+      },
+      "searchLocation": {
+        "value": "${SEARCH_LOCATION=${FOUNDRY_LOCATION=${AZURE_LOCATION}}}"
       },
       "appExists": {
         "value": "${SERVICE_APP_RESOURCE_EXISTS=false}"

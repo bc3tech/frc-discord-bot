@@ -1,0 +1,11 @@
+TURN CONTEXT
+[[TURN_CONTEXT]]
+
+USER REQUEST
+[[CURRENT_USER_MESSAGE]]
+
+CANDIDATE WORKFLOW DECISION
+- next_step: [[NEXT_STEP]]
+- question: [[QUESTION]]
+- reason: [[REASON]]
+- messageToUser: [[MESSAGE_TO_USER]]

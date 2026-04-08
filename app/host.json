@@ -3,7 +3,8 @@
   "functionTimeout": "00:10:00",
   "logging": {
     "logLevel": {
-      "default": "Warning"
+      "default": "Warning",
+      "Microsoft.AAD": "None"
     }
   },
   "telemetryMode": "OpenTelemetry"

@@ -25,10 +25,35 @@ param firstPassword string
 @description('The Blue Alliance API key injected into the container app as a secret.')
 param tbaApiKey string
 
-@description('Optional Azure AI Foundry agent ID injected into the container app as an app setting. Set this to the Foundry agent ID that should back chatbot requests.')
+@description('Optional Azure AI Foundry agent ID injected into the container app only when set. Leave empty to keep hosted chat settings disabled.')
 param chatBotAgentId string = ''
 
+@description('Optional Azure AI Search service name used by the Foundry knowledge-base integration. Leave empty to skip provisioning the search service.')
+param searchServiceName string = ''
+
+@description('Location for the optional Azure AI Search service. Defaults to the Foundry location.')
+param searchLocation string = foundryLocation
+
 param appExists bool
+
+var deploymentConfig = {
+  location: location
+  foundryLocation: foundryLocation
+  tags: tags
+  appExists: appExists
+}
+
+var appSecrets = {
+  discordToken: discordToken
+  firstPassword: firstPassword
+  tbaApiKey: tbaApiKey
+}
+
+var aiFeatureConfig = {
+  chatBotAgentId: chatBotAgentId
+  searchServiceName: searchServiceName
+  searchLocation: searchLocation
+}
 
 // Tags that should be applied to all resources.
 // 
@@ -40,7 +65,7 @@ var tags = {
 }
 
 // Organize resources in a resource group
-resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
+resource rg 'Microsoft.Resources/resourceGroups@2025-04-01' = {
   name: 'rg-discordbot-${environmentName}'
   location: location
   tags: tags
@@ -50,16 +75,12 @@ module resources 'resources.bicep' = {
   scope: rg
   name: 'resources'
   params: {
-    location: location
-    foundryLocation: foundryLocation
-    tags: tags
-    discordToken: discordToken
-    firstPassword: firstPassword
-    tbaApiKey: tbaApiKey
-    chatBotAgentId: chatBotAgentId
-    appExists: appExists
+    deployment: deploymentConfig
+    secrets: appSecrets
+    ai: aiFeatureConfig
   }
 }
 output AZURE_CONTAINER_REGISTRY_ENDPOINT string = resources.outputs.AZURE_CONTAINER_REGISTRY_ENDPOINT
 output AZURE_RESOURCE_APP_ID string = resources.outputs.AZURE_RESOURCE_APP_ID
 output AZURE_AI_PROJECT_ENDPOINT string = resources.outputs.AZURE_AI_PROJECT_ENDPOINT
+output AZURE_AI_SEARCH_ENDPOINT string = resources.outputs.AZURE_AI_SEARCH_ENDPOINT
