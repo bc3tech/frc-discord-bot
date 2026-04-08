@@ -1,16 +1,14 @@
-namespace ChatBot.Telemetry;
+namespace ChatBot;
 
-using OpenTelemetry;
+using global::OpenTelemetry;
 
 using System.Diagnostics;
 
 public sealed class AzureIdentityActivityFilteringProcessor : BaseProcessor<Activity>
 {
-    public override void OnStart(Activity activity)
-        => Suppress(activity, clearRecordedFlag: false);
+    public override void OnStart(Activity activity) => Suppress(activity, clearRecordedFlag: false);
 
-    public override void OnEnd(Activity activity)
-        => Suppress(activity, clearRecordedFlag: true);
+    public override void OnEnd(Activity activity) => Suppress(activity, clearRecordedFlag: true);
 
     private static void Suppress(Activity activity, bool clearRecordedFlag)
     {

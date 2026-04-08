@@ -2,12 +2,14 @@ namespace ChatBot;
 
 using Azure.AI.Agents.Persistent;
 using Azure.AI.Projects;
-using Azure.AI.Projects.OpenAI;
+using Azure.AI.Extensions.OpenAI;
+
+using AgentFramework.OpenTelemetry;
+using AgentFramework.OpenTelemetry.Agents;
 
 using ChatBot.Agents;
 using ChatBot.Agents.Models;
 using ChatBot.Configuration;
-using ChatBot.Telemetry;
 using ChatBot.Tools;
 
 using Common.Extensions;
@@ -60,7 +62,7 @@ internal sealed class Conversation(
     private readonly Lazy<IChatClient> _foundryAnswerEvaluatorChatClient = new(
         () => CreateFoundryEvaluatorChatClient(agentOptions.Value, projectClient, loggerFactory));
 
-    private Task<ChatClientAgent>? _foundryChatAgentTask;
+    private Task<AIAgent>? _foundryChatAgentTask;
 
     public Task<string> CreateConversationAsync(CancellationToken cancellationToken = default)
         => CreateProjectConversationIdAsync(cancellationToken);
@@ -320,12 +322,7 @@ internal sealed class Conversation(
                         await EmitUserStatusAsync(context, result.MessageToUser.UnlessNullOrWhitespaceThen("On it - pulling the numbers together now."), cancellationToken).ConfigureAwait(false);
 
                         _logger.RoutingHostedFoundryStepToLocalAgent(result.Reason ?? "No reason provided.");
-                        Activity.Current?.AddEvent(new ActivityEvent("gen_ai.workflow.handoff", tags: new ActivityTagsCollection
-                        {
-                            ["gen_ai.agent.handoff.from"] = "foundry",
-                            ["gen_ai.agent.handoff.to"] = "local",
-                            ["gen_ai.agent.handoff.reason"] = result.Reason,
-                        }));
+                        WorkflowHandoffTelemetry.RecordAgentHandoff("foundry", "local", result.Reason);
                         await SendMessagesAsync(
                             context,
                             localExecutor.Id,
@@ -459,11 +456,7 @@ internal sealed class Conversation(
             await IncrementWorkflowStepCountAsync("local:continuation", context, cancellationToken).ConfigureAwait(false);
             _logger.RoutingLocalAgentResultBackToFoundryAgent();
             await EmitUserStatusAsync(context, "Boom - I have the grounded data. Turning it into a clean answer now.", cancellationToken).ConfigureAwait(false);
-            Activity.Current?.AddEvent(new ActivityEvent("gen_ai.workflow.handoff", tags: new ActivityTagsCollection
-            {
-                ["gen_ai.agent.handoff.from"] = "local",
-                ["gen_ai.agent.handoff.to"] = "foundry",
-            }));
+            WorkflowHandoffTelemetry.RecordAgentHandoff("local", "foundry");
             await SendMessagesAsync(
                 context,
                 foundryExecutor.Id,
@@ -565,7 +558,7 @@ internal sealed class Conversation(
             cancellationToken).ConfigureAwait(false);
     }
 
-    private Task<ChatClientAgent> GetFoundryChatAgentAsync(CancellationToken cancellationToken)
+    private Task<AIAgent> GetFoundryChatAgentAsync(CancellationToken cancellationToken)
     {
         lock (_agentSync)
         {
@@ -574,14 +567,14 @@ internal sealed class Conversation(
         }
     }
 
-    private async Task<ChatClientAgent> LoadFoundryChatAgentAsync(CancellationToken cancellationToken)
+    private Task<AIAgent> LoadFoundryChatAgentAsync(CancellationToken cancellationToken)
     {
+        _ = cancellationToken;
+
         AgentReference agentIdentifier = ParseAgentIdentifier(_agentOptions.AgentId);
         _logger.LoadingHostedFoundryAgentAgentId(_agentOptions.AgentId);
-        return projectClient.AsAIAgent(
-        agentIdentifier.Version is { Length: > 0 } agentVersion
-            ? (await projectClient.Agents.GetAgentVersionAsync(agentIdentifier.Name, agentVersion, cancellationToken).ConfigureAwait(false)).Value
-            : (await projectClient.Agents.GetAgentAsync(agentIdentifier.Name, cancellationToken).ConfigureAwait(false)).Value);
+
+        return Task.FromResult<AIAgent>(projectClient.AsAIAgent(agentIdentifier));
     }
 
     private async Task<AnswerEvaluationResult> EvaluateAnswerAsync(

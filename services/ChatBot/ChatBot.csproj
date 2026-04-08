@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <PackageReference Include="Azure.AI.Extensions.OpenAI" />
     <PackageReference Include="Azure.AI.Projects" />
     <PackageReference Include="Azure.Data.Tables" />
     <PackageReference Include="Azure.Monitor.OpenTelemetry.Exporter" />
@@ -15,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\common\Common.csproj" />
+    <ProjectReference Include="..\..\lib\AgentFramework.OpenTelemetry\AgentFramework.OpenTelemetry.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,8 +2,9 @@ namespace ChatBot;
 
 using Azure.Data.Tables;
 
+using AgentFramework.OpenTelemetry;
+
 using ChatBot.Agents;
-using ChatBot.Telemetry;
 
 using Common.Discord;
 using Common.Extensions;

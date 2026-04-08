@@ -2,13 +2,14 @@ namespace ChatBot;
 
 using Azure.AI.Agents.Persistent;
 using Azure.AI.Projects;
-using Azure.AI.Projects.OpenAI;
+using Azure.AI.Extensions.OpenAI;
 using Azure.Core;
 using Azure.Monitor.OpenTelemetry.Exporter;
 
+using AgentFramework.OpenTelemetry;
+
 using ChatBot.Agents;
 using ChatBot.Configuration;
-using ChatBot.Telemetry;
 using ChatBot.Tools;
 
 using Microsoft.Extensions.AI;
@@ -18,7 +19,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 using OpenTelemetry;
-using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
 using System.Net;
@@ -38,10 +38,7 @@ public static class DependencyInjectionExtensions
 
     public static IServiceCollection ConfigureChatBotFunctionality(this IServiceCollection services)
     {
-        // Enable Azure SDK ActivitySource spans so OpenTelemetry can stitch cross-service traces.
-        AppContext.SetSwitch("Azure.Experimental.EnableActivitySource", true);
-        // Include model message content in traces to improve prompt/response diagnostics.
-        AppContext.SetSwitch("Azure.Experimental.TraceGenAIMessageContent", true);
+        OpenTelemetryExtensions.EnableAzureExperimentalTracing();
 
         services
             .AddHttpClient(ChatBotConstants.HttpClients.MealSignupInfo, MealSignupInfoTool.ConfigureHttpClient)
@@ -109,12 +106,7 @@ public static class DependencyInjectionExtensions
             .AddSingleton<Conversation>();
 
         Sdk.CreateTracerProviderBuilder()
-            .AddSource("Azure.AI.Agents.Persistent.*")
-            .AddSource(Activities.AppActivitySource.Name)
-            .AddSource(Activities.AgentActivitySourceName)
-            .AddSource("Azure.AI.Projects.*")
-            .AddSource("OpenAI.*")
-            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("Discord.ChatBot"))
+            .AddAgentFrameworkOpenTelemetry("Discord.ChatBot")
             .AddProcessor<AzureIdentityActivityFilteringProcessor>()
             .AddAzureMonitorTraceExporter()
             .Build();

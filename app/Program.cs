@@ -4,8 +4,9 @@ using Azure.Identity;
 using Azure.Monitor.OpenTelemetry.Exporter;
 using Azure.Storage.Blobs;
 
+using AgentFramework.OpenTelemetry;
+
 using ChatBot;
-using ChatBot.Telemetry;
 
 using Common;
 
@@ -37,8 +38,7 @@ using Constants = FunctionApp.Constants;
 
 CultureInfo.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
 
-AppContext.SetSwitch("Azure.Experimental.EnableActivitySource", true);
-AppContext.SetSwitch("Azure.Experimental.TraceGenAIMessageContent", true);
+OpenTelemetryExtensions.EnableAzureExperimentalTracing();
 
 var host = FunctionsApplication.CreateBuilder(args)
     .ConfigureFunctionsWebApplication();

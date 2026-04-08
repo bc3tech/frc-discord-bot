@@ -51,6 +51,8 @@ The infrastructure necessary to run the bot includes:
   - [The Blue Alliance](https://www.thebluealliance.com/apidocs)
   - [FRC Colors](https://github.com/jonahsnider/frc-colors.com#api-usage)
 
+- `/lib` - reusable shared libraries intended for extraction/open-source packaging. `AgentFramework.OpenTelemetry` lives here and contains the Microsoft Agent Framework OpenTelemetry glue used by `services\ChatBot`.
+
 ### Re/generating API clients, models
 
 To re/generate any of the REST API clients and associated code, we make use of the OpenAPI Generator project with additional customizations to bring the generated .NET code current with the latest advancements in .NET.

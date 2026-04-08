@@ -1,0 +1,4 @@
+[submodule "lib"]
+	path = lib
+	url = https://github.com/brandonh-msft/agentframework-opentelemetry.git
+	branch = main
