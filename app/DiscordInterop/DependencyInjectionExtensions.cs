@@ -1,5 +1,7 @@
 ﻿namespace FunctionApp.DiscordInterop;
 
+using Azure.Data.Tables;
+
 using Common.Extensions;
 
 using Discord;
@@ -10,6 +12,7 @@ using Discord.WebSocket;
 using FunctionApp;
 using FunctionApp.DiscordInterop.CommandModules;
 using FunctionApp.DiscordInterop.Embeds;
+using FunctionApp.Storage.TableEntities;
 using FunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Configuration;
@@ -63,6 +66,10 @@ internal static class DependencyInjectionExtensions
             };
             return c;
         })
+        .AddSingleton<IWebhookSubscriptionStore<TeamSubscriptionEntity>>(sp =>
+            new TableWebhookSubscriptionStore<TeamSubscriptionEntity>(sp.GetRequiredKeyedService<TableClient>(Constants.ServiceKeys.TableClient_TeamSubscriptions)))
+        .AddSingleton<IWebhookSubscriptionStore<EventSubscriptionEntity>>(sp =>
+            new TableWebhookSubscriptionStore<EventSubscriptionEntity>(sp.GetRequiredKeyedService<TableClient>(Constants.ServiceKeys.TableClient_EventSubscriptions)))
         .AddSingleton<DiscordMessageDispatcher>()
         .AddSingleton(sp =>
         {

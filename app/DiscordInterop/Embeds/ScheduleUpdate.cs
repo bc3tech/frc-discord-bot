@@ -8,6 +8,7 @@ using FunctionApp.TbaInterop.Models.Notifications;
 using Microsoft.Extensions.Logging;
 
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 
 internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger<ScheduleUpdate> logger) : INotificationEmbedCreator
 {
@@ -24,11 +25,55 @@ internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger
             yield break;
         }
 
+        if (!TryResolveEventDetails(msg.MessageData, notification, out var eventKey, out var eventName))
+        {
+            logger.EventKeyIsMissingFromNotificationData();
+            yield return null;
+            yield break;
+        }
+
         var embedding = baseBuilder
-            .WithTitle($"📢{notification.event_name} Schedule Update⏰")
-            .WithUrl($"https://www.thebluealliance.com/event/{notification.event_key}")
+            .WithTitle($"📢{eventName} Schedule Update⏰")
+            .WithUrl($"https://www.thebluealliance.com/event/{eventKey}")
             .WithDescription("Click for details");
 
         yield return await Task.FromResult<SubscriptionEmbedding>(new(embedding.Build()));
+    }
+
+    internal static bool TryResolveEventDetails(JsonElement messageData, TbaInterop.Models.Notifications.ScheduleUpdate notification, out string eventKey, out string eventName)
+    {
+        eventKey = notification.event_key;
+        eventName = notification.event_name;
+
+        if (messageData.ValueKind is JsonValueKind.Object
+            && messageData.TryGetProperty("event", out var eventData)
+            && eventData.ValueKind is JsonValueKind.Object)
+        {
+            if (string.IsNullOrWhiteSpace(eventKey)
+                && eventData.TryGetProperty("key", out var keyElement)
+                && keyElement.GetString() is { } key
+                && !string.IsNullOrWhiteSpace(key))
+            {
+                eventKey = key;
+            }
+
+            if (string.IsNullOrWhiteSpace(eventName)
+                && eventData.TryGetProperty("name", out var nameElement)
+                && nameElement.GetString() is { } name
+                && !string.IsNullOrWhiteSpace(name))
+            {
+                eventName = name;
+            }
+
+            if (string.IsNullOrWhiteSpace(eventName)
+                && eventData.TryGetProperty("short_name", out var shortNameElement)
+                && shortNameElement.GetString() is { } shortName
+                && !string.IsNullOrWhiteSpace(shortName))
+            {
+                eventName = shortName;
+            }
+        }
+
+        return !string.IsNullOrWhiteSpace(eventKey) && !string.IsNullOrWhiteSpace(eventName);
     }
 }

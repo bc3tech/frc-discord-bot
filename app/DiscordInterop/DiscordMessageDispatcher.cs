@@ -28,8 +28,8 @@ using System.Threading;
 
 using TheBlueAlliance.Api;
 
-internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Constants.ServiceKeys.TableClient_TeamSubscriptions)] TableClient teamSubscriptionsTable,
-                                                       [FromKeyedServices(Constants.ServiceKeys.TableClient_EventSubscriptions)] TableClient eventSubscriptionsTable,
+internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSubscriptionEntity> teamSubscriptionsTable,
+                                                       IWebhookSubscriptionStore<EventSubscriptionEntity> eventSubscriptionsTable,
                                                        [FromKeyedServices(Constants.ServiceKeys.TableClient_Threads)] TableClient threadsTable,
                                                        IEventApi eventApi,
                                                        IDiscordClient discordClient,
@@ -80,7 +80,8 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
     }
 
     private static readonly Func<ILogger, string, string, IDisposable?> _notificationLoggingScope = LoggerMessage.DefineScope<string, string>("Subscription: {PartitionKey}/{RowKey}");
-    private async Task SendNotificationsAsync<T>(WebhookMessage message, TableClient sourceTable, IEnumerable<(string p, string r)> records, Func<(string, string), ushort?> teamFinder, ILogger<DiscordMessageDispatcher> logger, CancellationToken cancellationToken) where T : class, ISubscriptionEntity
+    private async Task SendNotificationsAsync<T>(WebhookMessage message, IWebhookSubscriptionStore<T> sourceTable, IEnumerable<(string p, string r)> records, Func<(string, string), ushort?> teamFinder, ILogger<DiscordMessageDispatcher> logger, CancellationToken cancellationToken)
+        where T : class, ISubscriptionEntity
     {
         foreach (var i in records)
         {
@@ -88,18 +89,18 @@ internal sealed partial class DiscordMessageDispatcher([FromKeyedServices(Consta
             using var subscriptionScope = _notificationLoggingScope(logger, i.p, i.r);
             logger.CheckingTargetTable(sourceTable.Name);
 
-            var sub = await sourceTable.GetEntityIfExistsAsync<T>(i.p, i.r, cancellationToken: cancellationToken).ConfigureAwait(false);
-            if (sub.HasValue && sub.Value?.Subscribers.SelectMany(i => i.Value).Any() is true)
+            var sub = await sourceTable.GetEntityIfExistsAsync(i.p, i.r, cancellationToken).ConfigureAwait(false);
+            if (sub?.Subscribers.SelectMany(i => i.Value).Any() is true)
             {
                 logger.FoundRecord();
-                await ProcessSubscriptionAsync(message, sub.Value.Subscribers, teamFinder(i), cancellationToken);
+                await ProcessSubscriptionAsync(message, sub.Subscribers, teamFinder(i), cancellationToken).ConfigureAwait(false);
             }
         }
     }
 
     private const ushort MAX_EMBEDS_PER_MESSAGE = 10;
 
-    private async Task ProcessSubscriptionAsync(WebhookMessage message, GuildSubscriptions subscribers, ushort? highlightTeam, CancellationToken cancellationToken)
+    protected virtual async Task ProcessSubscriptionAsync(WebhookMessage message, GuildSubscriptions subscribers, ushort? highlightTeam, CancellationToken cancellationToken)
     {
         using var scope = logger.CreateMethodScope();
         var chunksOfEmbeddingsToSend = (await _embedGenerator.CreateEmbeddingsAsync(message, highlightTeam, cancellationToken: cancellationToken)

@@ -42,7 +42,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
             yield break;
         }
 
-        var eventKey = !string.IsNullOrWhiteSpace(notification.event_key) ? notification.event_key : notification.Event?.Key;
+        var eventKey = ResolveEventKey(notification);
         if (string.IsNullOrWhiteSpace(eventKey))
         {
             logger.EventKeyIsMissingFromNotificationData();
@@ -68,7 +68,8 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
         var ranks = (await tbaClient.GetEventRankingsAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false))?.Rankings.ToDictionary(i => i.TeamKey, i => i.Rank);
 
         // We have to build this with loops instead of interpolation because we don't want to output **anything** if Declines is empty (not even a line break)
-        var descriptionBuilder = new StringBuilder($"## {notification.event_name}: Alliance Selection Complete\n");
+        var eventName = ResolveEventName(notification, eventKey);
+        var descriptionBuilder = new StringBuilder($"## {eventName}: Alliance Selection Complete\n");
         for (int i = 0; i < alliances.Count; i++)
         {
             var alliance = alliances[i];
@@ -88,7 +89,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
             }
         }
 
-        var eventDetail = events[notification.event_key];
+        var eventDetail = events[eventKey];
         descriptionBuilder.AppendLine($"\nYou can find more alliance details on the [Event Results](https://frc.link/e/tba/{eventDetail.FirstEventCode}/{eventDetail.Year}#results) page");
 
 #pragma warning disable EA0001 // Perform message formatting in the body of the logging method
@@ -98,5 +99,28 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
         yield return new(baseBuilder
             .WithDescription(descriptionBuilder.ToString())
             .Build());
+    }
+
+    internal static string? ResolveEventKey(TbaInterop.Models.Notifications.AllianceSelection notification)
+        => !string.IsNullOrWhiteSpace(notification.event_key) ? notification.event_key : notification.Event?.Key;
+
+    internal static string ResolveEventName(TbaInterop.Models.Notifications.AllianceSelection notification, string fallbackEventKey)
+    {
+        if (!string.IsNullOrWhiteSpace(notification.event_name))
+        {
+            return notification.event_name;
+        }
+
+        if (!string.IsNullOrWhiteSpace(notification.Event?.Name))
+        {
+            return notification.Event?.Name ?? fallbackEventKey;
+        }
+
+        if (!string.IsNullOrWhiteSpace(notification.Event?.ShortName))
+        {
+            return notification.Event?.ShortName ?? fallbackEventKey;
+        }
+
+        return fallbackEventKey;
     }
 }
