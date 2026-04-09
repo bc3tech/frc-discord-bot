@@ -10,6 +10,7 @@
     <Project Path="lib/AgentFramework.OpenTelemetry/AgentFramework.OpenTelemetry.csproj" />
   </Folder>
   <Folder Name="/Tests/">
+    <Project Path="app/FunctionApp.Tests/FunctionApp.Tests.csproj" />
     <Project Path="lib/AgentFramework.OpenTelemetry.Tests/AgentFramework.OpenTelemetry.Tests.csproj" />
   </Folder>
   <Folder Name="/Tools/">

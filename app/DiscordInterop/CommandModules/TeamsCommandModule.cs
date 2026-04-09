@@ -33,11 +33,7 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
             return;
         }
 
-        // In case the user just gives us team number
-        if (int.TryParse(teamKey, out var teamNumber))
-        {
-            teamKey = $"frc{teamNumber}";
-        }
+        teamKey = CommandInputNormalization.NormalizeTeamKey(teamKey);
 
         await GenerateResponseAsync(_teamDetailEmbedCreator, teamKey).ConfigureAwait(false);
     }
@@ -62,11 +58,7 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
             return;
         }
 
-        // In case the user just gives us team number
-        if (int.TryParse(teamKey, out var teamNumber))
-        {
-            teamKey = $"frc{teamNumber}";
-        }
+        teamKey = CommandInputNormalization.NormalizeTeamKey(teamKey);
 
         await GenerateResponseAsync(_teamRankEmbedCreator, (year, teamKey, eventKey)).ConfigureAwait(false);
     }

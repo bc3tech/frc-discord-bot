@@ -8,6 +8,7 @@
 		<None Remove="Apis\frc-events.yaml" />
 		<None Remove="Apis\statbotics.json" />
 		<None Remove="Apis\thebluealliance.json" />
+		<Compile Remove="FunctionApp.Tests\**\*.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="Apis\frc-events.yaml" />

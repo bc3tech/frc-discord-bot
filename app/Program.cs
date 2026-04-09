@@ -61,7 +61,7 @@ host.Logging
 
 TokenCredential credential = host.Environment.IsDevelopment()
     ? new AzureCliCredential()
-    : CreateAzureCredential(host.Configuration);
+    : StartupInfrastructureFactory.CreateAzureCredential(host.Configuration);
 
 host.Services
     .AddSingleton(sp => sp.GetRequiredService<IMeterFactory>().Create(Constants.Telemetry.AppMeterName))
@@ -100,13 +100,13 @@ host.Services
 // Prefer explicit service URIs so Container Apps can use managed identity-backed storage.
 // The connection-string fallback is retained for local development.
 string? storageConnectionString = host.Configuration["AzureWebJobsStorage"];
-var tableEndpoint = TryGetStorageServiceUri(
+var tableEndpoint = StartupInfrastructureFactory.TryGetStorageServiceUri(
     host.Configuration,
     "table",
     Constants.Configuration.Azure.Storage.TableEndpoint,
     ConfigurationPath.Combine("AzureWebJobsStorage", "tableServiceUri"),
     ConfigurationPath.Combine("AzureWebJobsStorage", "accountName"));
-TableServiceClient tsc = CreateTableServiceClient(storageConnectionString, tableEndpoint, credential);
+TableServiceClient tsc = StartupInfrastructureFactory.CreateTableServiceClient(storageConnectionString, tableEndpoint, credential);
 var storageTables = host.Configuration
     .GetSection(Constants.Configuration.Azure.Storage.Tables)
     .Get<IEnumerable<string>>() ?? [];
@@ -127,13 +127,13 @@ foreach (var tableName in storageTables)
 
 host.Services.AddSingleton(sp =>
 {
-    var blobsEndpoint = TryGetStorageServiceUri(
+    var blobsEndpoint = StartupInfrastructureFactory.TryGetStorageServiceUri(
         host.Configuration,
         "blob",
         Constants.Configuration.Azure.Storage.BlobsEndpoint,
         ConfigurationPath.Combine("AzureWebJobsStorage", "blobServiceUri"),
         ConfigurationPath.Combine("AzureWebJobsStorage", "accountName"));
-    BlobServiceClient bsc = CreateBlobServiceClient(storageConnectionString, blobsEndpoint, credential);
+    BlobServiceClient bsc = StartupInfrastructureFactory.CreateBlobServiceClient(storageConnectionString, blobsEndpoint, credential);
 
     var blobContainer = bsc.GetBlobContainerClient("misc");
     blobContainer.CreateIfNotExists();
@@ -158,57 +158,3 @@ else
 }
 
 await builtHost.RunAsync().ConfigureAwait(false);
-
-static TokenCredential CreateAzureCredential(IConfiguration configuration)
-{
-    var clientId = configuration[Constants.Configuration.Azure.ClientId];
-    return string.IsNullOrWhiteSpace(clientId)
-        ? new ManagedIdentityCredential()
-        : new ManagedIdentityCredential(ManagedIdentityId.FromUserAssignedClientId(clientId));
-}
-
-static BlobServiceClient CreateBlobServiceClient(string? connectionString, Uri? serviceUri, TokenCredential credential)
-{
-    if (!string.IsNullOrWhiteSpace(connectionString))
-    {
-        return new BlobServiceClient(connectionString);
-    }
-
-    ArgumentNullException.ThrowIfNull(serviceUri);
-    return new BlobServiceClient(serviceUri, credential);
-}
-
-static TableServiceClient CreateTableServiceClient(string? connectionString, Uri? serviceUri, TokenCredential credential)
-{
-    if (!string.IsNullOrWhiteSpace(connectionString))
-    {
-        return new TableServiceClient(connectionString);
-    }
-
-    ArgumentNullException.ThrowIfNull(serviceUri);
-    return new TableServiceClient(serviceUri, credential);
-}
-
-static Uri? TryGetStorageServiceUri(IConfiguration configuration, string? storageService = null, params string[] configKeys)
-{
-    foreach (var key in configKeys)
-    {
-        var value = configuration[key];
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            continue;
-        }
-
-        if (Uri.TryCreate(value, UriKind.Absolute, out var serviceUri))
-        {
-            return serviceUri;
-        }
-
-        if (storageService is not null && !value.Contains(storageService, StringComparison.OrdinalIgnoreCase))
-        {
-            return new Uri($"https://{value}.{storageService}.core.windows.net/");
-        }
-    }
-
-    return null;
-}

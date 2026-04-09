@@ -14,8 +14,6 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-using TheBlueAlliance.Model;
-
 [Group("matches", "Gets information about FRC matches")]
 public sealed class MatchesCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<EventsCommandModule>>())
 {
@@ -37,11 +35,7 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         using var scope = Logger.CreateMethodScope();
         try
         {
-            // In case the user just gives us team number
-            if (int.TryParse(teamKey, out var teamNumber))
-            {
-                teamKey = $"frc{teamNumber}";
-            }
+            teamKey = CommandInputNormalization.NormalizeTeamKey(teamKey);
 
             await GenerateResponseAsync(_upcomingMatchEmbeddingCreator, (eventKey, teamKey), teamKey.TeamKeyToTeamNumber()).ConfigureAwait(false);
         }
@@ -76,14 +70,7 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         }
 
         using var scope = Logger.CreateMethodScope();
-        string matchKey = (CompLevel)compLevel switch
-        {
-            CompLevel.Qm => $"qm{matchNumber}",
-            CompLevel.Sf => $"sf{matchNumber}m1",
-            CompLevel.F => $"f1m{matchNumber}",
-            _ => throw new ArgumentOutOfRangeException(nameof(compLevel), compLevel, null)
-        };
-
-        await GenerateResponseAsync(matchScoreEmbeddingGenerator, ($"{eventKey}_{matchKey}", summarize)).ConfigureAwait(false);
+        string matchKey = CommandInputNormalization.BuildMatchKey(eventKey, compLevel, matchNumber);
+        await GenerateResponseAsync(matchScoreEmbeddingGenerator, (matchKey, summarize)).ConfigureAwait(false);
     }
 }
