@@ -39,7 +39,7 @@ public sealed class ChatCommandModule(IServiceProvider services) : CommandModule
             buttons.WithButton("Cancel", Constants.InteractionElements.CancelButtonDeleteMessage, ButtonStyle.Secondary);
         }
 
-        await ModifyOriginalResponseAsync(p =>
+        await UpdateOriginalResponseAsync(p =>
         {
             p.Flags = MessageFlags.Ephemeral;
             p.Embed = embed;

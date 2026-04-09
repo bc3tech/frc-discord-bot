@@ -15,7 +15,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 
 [Group("matches", "Gets information about FRC matches")]
-public sealed class MatchesCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<EventsCommandModule>>())
+public class MatchesCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<EventsCommandModule>>())
 {
     private readonly IEmbedCreator<(string eventKey, string teamKey)> _upcomingMatchEmbeddingCreator = services.GetRequiredKeyedService<IEmbedCreator<(string eventKey, string teamKey)>>(nameof(UpcomingMatch));
     private readonly IEmbedCreator<(string matchKey, bool summarize)> matchScoreEmbeddingGenerator = services.GetRequiredKeyedService<IEmbedCreator<(string, bool)>>(nameof(MatchScore));
@@ -41,9 +41,8 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         }
         catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
-            Debug.Fail(e.Message);
-            Logger.ErrorGettingNextMatchForTeamKeyAtEventKey(e, teamKey, eventKey);
-            await ModifyOriginalResponseAsync(p => p.Content = "Sorry, I encountered an error processing your request. Maybe try again? Or contact your admin with this news so they can troubleshoot.").ConfigureAwait(false);
+            HandleShowNextError(e, teamKey, eventKey);
+            await UpdateOriginalResponseAsync(p => p.Content = "Sorry, I encountered an error processing your request. Maybe try again? Or contact your admin with this news so they can troubleshoot.").ConfigureAwait(false);
         }
     }
 
@@ -72,5 +71,11 @@ public sealed class MatchesCommandModule(IServiceProvider services) : CommandMod
         using var scope = Logger.CreateMethodScope();
         string matchKey = CommandInputNormalization.BuildMatchKey(eventKey, compLevel, matchNumber);
         await GenerateResponseAsync(matchScoreEmbeddingGenerator, (matchKey, summarize)).ConfigureAwait(false);
+    }
+
+    protected virtual void HandleShowNextError(Exception exception, string teamKey, string eventKey)
+    {
+        Debug.Fail(exception.Message);
+        Logger.ErrorGettingNextMatchForTeamKeyAtEventKey(exception, teamKey, eventKey);
     }
 }

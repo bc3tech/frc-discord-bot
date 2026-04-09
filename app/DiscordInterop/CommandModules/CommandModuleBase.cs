@@ -49,7 +49,7 @@ public abstract class CommandModuleBase(ILogger logger) : InteractionModuleBase
                 }
                 else
                 {
-                    await ModifyOriginalResponseAsync(p => p.Embeds = discordEmbeds, options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+                    await UpdateOriginalResponseAsync(p => p.Embeds = discordEmbeds, cancellationToken).ConfigureAwait(false);
                 }
 
                 numEmbeddingsCreated++;
@@ -64,11 +64,14 @@ public abstract class CommandModuleBase(ILogger logger) : InteractionModuleBase
         cancellationToken.ThrowIfCancellationRequested();
         if (numEmbeddingsCreated is 0 || erroredEmbeddings is not 0)
         {
-            await ModifyOriginalResponseAsync(p => p.Content = "I encountered one/more errors processing your request. You can try aga, or contact your admin with this news so they can troubleshoot.").ConfigureAwait(false);
+            await UpdateOriginalResponseAsync(
+                p => p.Content = "I encountered one/more errors processing your request. You can try aga, or contact your admin with this news so they can troubleshoot.",
+                cancellationToken)
+                .ConfigureAwait(false);
         }
     }
 
-    protected async Task<IDisposable?> TryDeferAsync(bool ephemeral = false, CancellationToken cancellationToken = default)
+    protected virtual async Task<IDisposable?> TryDeferAsync(bool ephemeral = false, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -81,4 +84,16 @@ public abstract class CommandModuleBase(ILogger logger) : InteractionModuleBase
             return null;
         }
     }
+
+    protected virtual Task UpdateOriginalResponseAsync(Action<MessageProperties> updateMessage, CancellationToken cancellationToken = default)
+        => ModifyOriginalResponseAsync(updateMessage, options: cancellationToken.ToRequestOptions());
+
+    protected virtual Task SendResponseAsync(string responseContent, bool ephemeral = false, CancellationToken cancellationToken = default)
+        => RespondAsync(responseContent, ephemeral: ephemeral, options: cancellationToken.ToRequestOptions());
+
+    protected virtual Task DeleteResponseAsync(CancellationToken cancellationToken = default)
+        => DeleteOriginalResponseAsync();
+
+    protected virtual Task SendMessageAsync(IMessageChannel channel, string message, CancellationToken cancellationToken = default)
+        => channel.SendMessageAsync(message, options: cancellationToken.ToRequestOptions());
 }

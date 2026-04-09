@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 using System.Threading.Tasks;
 
-public sealed class PingCommandModule(ILogger<PingCommandModule> logger) : CommandModuleBase(logger)
+public class PingCommandModule(ILogger<PingCommandModule> logger) : CommandModuleBase(logger)
 {
     [SlashCommand("ping", "Pings the bot to check if it's alive")]
     public async Task PingAsync()
@@ -17,6 +17,6 @@ public sealed class PingCommandModule(ILogger<PingCommandModule> logger) : Comma
             return;
         }
 
-        await RespondAsync("Pong!", ephemeral: true).ConfigureAwait(false);
+        await SendResponseAsync("Pong!", ephemeral: true).ConfigureAwait(false);
     }
 }

@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 [Group("teams", "Gets information about FRC teams")]
-public sealed class TeamsCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<TeamsCommandModule>>())
+public class TeamsCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<TeamsCommandModule>>())
 {
     private readonly IEmbedCreator<string> _teamDetailEmbedCreator = services.GetRequiredKeyedService<IEmbedCreator<string>>(nameof(TeamDetail));
     private readonly IEmbedCreator<(int? Year, string TeamKey, string? EventKey)> _teamRankEmbedCreator = services.GetRequiredKeyedService<IEmbedCreator<(int? Year, string TeamKey, string? EventKey)>>(nameof(TeamRank));
@@ -29,7 +29,7 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
         using var scope = Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(teamKey))
         {
-            await ModifyOriginalResponseAsync(p => p.Content = "Team key is required.").ConfigureAwait(false);
+            await UpdateOriginalResponseAsync(p => p.Content = "Team key is required.").ConfigureAwait(false);
             return;
         }
 
@@ -54,7 +54,7 @@ public sealed class TeamsCommandModule(IServiceProvider services) : CommandModul
         using var scope = Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(teamKey))
         {
-            await ModifyOriginalResponseAsync(p => p.Content = "Team key is required.").ConfigureAwait(false);
+            await UpdateOriginalResponseAsync(p => p.Content = "Team key is required.").ConfigureAwait(false);
             return;
         }
 

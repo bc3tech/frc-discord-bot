@@ -45,7 +45,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
 
         if (currentSubs.Count is 0)
         {
-            await ModifyOriginalResponseAsync(p => p.Content = "No subscriptions found for this channel.").ConfigureAwait(false);
+            await UpdateOriginalResponseAsync(p => p.Content = "No subscriptions found for this channel.").ConfigureAwait(false);
         }
         else
         {
@@ -57,7 +57,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
                 - **{(i.Key is not CommonConstants.ALL ? _eventsRepo[i.Key].GetLabel() : "All Events")}**:
                 {string.Join('\n', i.Select(j => $"  - {(j.Item2 is not CommonConstants.ALL ? _teamsRepo[j.Item2].GetLabel() : "All Teams")}"))}
                 """);
-            await ModifyOriginalResponseAsync(p =>
+            await UpdateOriginalResponseAsync(p =>
                 p.WithNoEmbeds($"""
                     Subscriptions for this channel include:
                     {string.Join('\n', output)}
@@ -82,7 +82,7 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
         using var scope = Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(eventKey) && string.IsNullOrWhiteSpace(teamKey))
         {
-            await ModifyOriginalResponseAsync(p => p.Content = "At least one of Event or Team is required.").ConfigureAwait(false);
+            await UpdateOriginalResponseAsync(p => p.Content = "At least one of Event or Team is required.").ConfigureAwait(false);
         }
         else
         {
@@ -94,22 +94,22 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
                 await _subscriptionManager.SaveSubscriptionAsync(new NotificationSubscription(Context.Interaction.GuildId, Context.Interaction.ChannelId!.Value, eventKey, teamKey), default).ConfigureAwait(false);
                 if (!string.IsNullOrWhiteSpace(eventKey) && !string.IsNullOrWhiteSpace(teamKey))
                 {
-                    await ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo[teamKey].GetLabel(includeLocation: false)}** at the **{_eventsRepo[eventKey].GetLabel(includeYear: true)}** event.").ConfigureAwait(false);
+                    await UpdateOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo[teamKey].GetLabel(includeLocation: false)}** at the **{_eventsRepo[eventKey].GetLabel(includeYear: true)}** event.").ConfigureAwait(false);
                 }
                 else if (!string.IsNullOrWhiteSpace(eventKey))
                 {
-                    await ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to the **{_eventsRepo[eventKey].GetLabel(includeYear: true)}** event.").ConfigureAwait(false);
+                    await UpdateOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to the **{_eventsRepo[eventKey].GetLabel(includeYear: true)}** event.").ConfigureAwait(false);
                 }
                 else
                 {
-                    await ModifyOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo[teamKey!].GetLabel(includeLocation: false)}**.").ConfigureAwait(false);
+                    await UpdateOriginalResponseAsync(p => p.Content = $"This channel is now subscribed to team **{_teamsRepo[teamKey!].GetLabel(includeLocation: false)}**.").ConfigureAwait(false);
                 }
             }
             catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
             {
                 Debug.Fail(e.Message);
-                await DeleteOriginalResponseAsync();
-                await RespondAsync("An error occurred while creating the subscription. Please try again later.", ephemeral: true).ConfigureAwait(false);
+                await DeleteResponseAsync().ConfigureAwait(false);
+                await SendResponseAsync("An error occurred while creating the subscription. Please try again later.", ephemeral: true).ConfigureAwait(false);
             }
         }
     }
@@ -135,11 +135,11 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
 
         if (activeSubsForChannel.Length is 0)
         {
-            await ModifyOriginalResponseAsync(p => p.Content = "No subscriptions found for this channel.").ConfigureAwait(false);
+            await UpdateOriginalResponseAsync(p => p.Content = "No subscriptions found for this channel.").ConfigureAwait(false);
         }
         else
         {
-            await ModifyOriginalResponseAsync(p =>
+            await UpdateOriginalResponseAsync(p =>
             {
                 p.Components = new ComponentBuilder()
                     .WithSelectMenu(SubscriptionDeleteSelectionMenuId, [.. activeSubsForChannel.Select(buildOption)], placeholder: "Choose a subscription to remove from this channel")

@@ -17,7 +17,7 @@ using Microsoft.Extensions.Logging;
 using System.Text;
 
 [Group("events", "Gets information about FRC events")]
-public sealed class EventsCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<EventsCommandModule>>())
+public class EventsCommandModule(IServiceProvider services) : CommandModuleBase(services.GetRequiredService<ILogger<EventsCommandModule>>())
 {
     private readonly IEmbedCreator<string> _detailEmbedCreator = services.GetRequiredKeyedService<IEmbedCreator<string>>(nameof(EventDetail));
     private readonly IEmbedCreator<(string?, ushort)> _scheduleEmbedCreator = services.GetRequiredKeyedService<IEmbedCreator<(string?, ushort)>>(nameof(Schedule));
@@ -36,7 +36,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
         using IDisposable scope = Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(eventKey))
         {
-            await ModifyOriginalResponseAsync(p => p.Content = "Event key is required.").ConfigureAwait(false);
+            await UpdateOriginalResponseAsync(p => p.Content = "Event key is required.").ConfigureAwait(false);
             return;
         }
 
@@ -62,27 +62,27 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
         using IDisposable scope = Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(eventKey))
         {
-            await ModifyOriginalResponseAsync(p => p.Content = "Event key is required.").ConfigureAwait(false);
+            await UpdateOriginalResponseAsync(p => p.Content = "Event key is required.").ConfigureAwait(false);
             return;
         }
 
         if (Context.Guild is null)
         {
-            await ModifyOriginalResponseAsync(p => p.Content = "This command can only be used in a server.").ConfigureAwait(false);
+            await UpdateOriginalResponseAsync(p => p.Content = "This command can only be used in a server.").ConfigureAwait(false);
             return;
         }
 
         IGuildUser invokingUser = await Context.Guild.GetUserAsync(Context.User.Id);
         if (!invokingUser.GuildPermissions.CreateEvents)
         {
-            await ModifyOriginalResponseAsync(p => p.Content = "You do not have permission to create events in this server.").ConfigureAwait(false);
+            await UpdateOriginalResponseAsync(p => p.Content = "You do not have permission to create events in this server.").ConfigureAwait(false);
             return;
         }
 
         IGuildUser botUserOnGuild = await Context.Guild.GetCurrentUserAsync().ConfigureAwait(false);
         if (!botUserOnGuild.GuildPermissions.ManageEvents)
         {
-            await ModifyOriginalResponseAsync(p => p.Content = "I do not have permission to create events in this server. Talk to your admin about granting me this!").ConfigureAwait(false);
+            await UpdateOriginalResponseAsync(p => p.Content = "I do not have permission to create events in this server. Talk to your admin about granting me this!").ConfigureAwait(false);
             return;
         }
 
@@ -118,30 +118,30 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
             var eventLink = $"https://discord.com/events/{guildEvent.GuildId}/{guildEvent.Id}";
             if (channel is not null)
             {
-                await ModifyOriginalResponseAsync(p => p.Content = $"Event created and posted in https://discord.com/channels/{guildEvent.GuildId}/{channel.Id}").ConfigureAwait(false);
-                await channel.SendMessageAsync($"[Event created]({eventLink})").ConfigureAwait(false);
+                await UpdateOriginalResponseAsync(p => p.Content = $"Event created and posted in https://discord.com/channels/{guildEvent.GuildId}/{channel.Id}").ConfigureAwait(false);
+                await SendMessageAsync(channel, $"[Event created]({eventLink})").ConfigureAwait(false);
             }
             else
             {
                 if (!post)
                 {
-                    await ModifyOriginalResponseAsync(p => p.Content = $"Event created: {eventLink}").ConfigureAwait(false);
+                    await UpdateOriginalResponseAsync(p => p.Content = $"Event created: {eventLink}").ConfigureAwait(false);
                 }
                 else
                 {
-                    await DeleteOriginalResponseAsync().ConfigureAwait(false);
-                    await Context.Channel.SendMessageAsync($"[Event created]({eventLink})").ConfigureAwait(false);
+                    await DeleteResponseAsync().ConfigureAwait(false);
+                    await SendMessageAsync(Context.Channel, $"[Event created]({eventLink})").ConfigureAwait(false);
                 }
             }
         }
         catch (KeyNotFoundException)
         {
-            await ModifyOriginalResponseAsync(p => p.Content = "Event not found.").ConfigureAwait(false);
+            await UpdateOriginalResponseAsync(p => p.Content = "Event not found.").ConfigureAwait(false);
         }
         catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
             Logger.ThereWasAnErrorCreatingAGuildEventForEventKeyInGuildGuildNameGuildId(e, eventKey, Context.Guild.Name, Context.Guild.Id);
-            await ModifyOriginalResponseAsync(p => p.Content = "An error occurred while creating the event. Try again or contact your admin to investigate.").ConfigureAwait(false);
+            await UpdateOriginalResponseAsync(p => p.Content = "An error occurred while creating the event. Try again or contact your admin to investigate.").ConfigureAwait(false);
         }
     }
 
@@ -161,7 +161,7 @@ public sealed class EventsCommandModule(IServiceProvider services) : CommandModu
         using IDisposable scope = Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(eventKey))
         {
-            await ModifyOriginalResponseAsync(p => p.Content = "Event key is required.").ConfigureAwait(false);
+            await UpdateOriginalResponseAsync(p => p.Content = "Event key is required.").ConfigureAwait(false);
             return;
         }
 
