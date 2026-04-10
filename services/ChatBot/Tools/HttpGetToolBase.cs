@@ -43,12 +43,11 @@ internal abstract class HttpGetToolBase(IHttpClientFactory httpClientFactory, IL
         IReadOnlyList<CitationLink>? citations,
         CancellationToken cancellationToken)
     {
+        string? requestTarget = request.RequestUri?.OriginalString;
         HttpClient client = httpClientFactory.CreateClient(clientName);
         if (client.BaseAddress is { } u && request.RequestUri is { } r)
         {
-            UriBuilder targetUriBuilder = new(u);
-            targetUriBuilder.Path += r.OriginalString;
-            request.RequestUri = targetUriBuilder.Uri;
+            request.RequestUri = new Uri(u, r);
         }
 
         long startTimestamp = Stopwatch.GetTimestamp();
@@ -83,7 +82,7 @@ internal abstract class HttpGetToolBase(IHttpClientFactory httpClientFactory, IL
         }
 
         return SerializeToolResponse(
-            request.RequestUri,
+            requestTarget,
             (int)response.StatusCode,
             response.IsSuccessStatusCode,
             data,
@@ -93,7 +92,7 @@ internal abstract class HttpGetToolBase(IHttpClientFactory httpClientFactory, IL
     }
 
     protected static string SerializeToolResponse(
-        Uri? requestUri,
+        string? apiRequestPath,
         int statusCode,
         bool ok,
         JsonElement? data,
@@ -103,40 +102,53 @@ internal abstract class HttpGetToolBase(IHttpClientFactory httpClientFactory, IL
         => JsonSerializer.Serialize(
             new
             {
-                request = requestUri,
+                apiRequest = string.IsNullOrWhiteSpace(apiRequestPath)
+                    ? null
+                    : new
+                    {
+                        path = apiRequestPath,
+                        kind = "api",
+                    },
                 statusCode,
                 ok,
                 data,
                 text,
                 error,
+                userReferencePages = citations is { Count: > 0 }
+                    ? citations.Select(static citation => new
+                    {
+                        title = citation.Title,
+                        url = citation.Url,
+                    })
+                    : null,
                 citations = citations is { Count: > 0 } ? citations : null,
             },
             s_jsonOptions);
 
-    protected static ReadOnlyCollection<Range> GetPathSegments(string path)
+    protected static ReadOnlyCollection<string> GetPathSegments(string path)
     {
-        ReadOnlySpan<char> trimmedPath = path.AsSpan().Trim().Trim('/');
-        if (trimmedPath.IsEmpty)
+        string trimmedPath = path.Trim().Trim('/');
+        if (trimmedPath.Length is 0)
         {
             return [];
         }
 
-        var retVal = new List<Range>();
-        foreach (var r in trimmedPath.Split('/'))
+        var retVal = new List<string>();
+        foreach (string segment in trimmedPath.Split('/', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
         {
-            if (r.ToString().Trim().Length is 0)
+            if (segment.Length is 0)
             {
                 continue;
             }
 
-            retVal.Add(r);
+            retVal.Add(segment);
         }
 
         return retVal.AsReadOnly();
     }
 
-    protected static string? TryGetSegment(ReadOnlySpan<Range> segments, int index)
-        => index >= 0 && index < segments.Length ? segments[index].ToString() : null;
+    protected static string? TryGetSegment(ReadOnlySpan<string> segments, int index)
+        => index >= 0 && index < segments.Length ? segments[index] : null;
 
     private static string BuildFailureResponseSnippet(string content)
     {

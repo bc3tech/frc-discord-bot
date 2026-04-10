@@ -23,7 +23,7 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
 
     private static ReadOnlyCollection<CitationLink> BuildCitations(string path)
     {
-        var segments = new ReadOnlySpan<Range>([.. GetPathSegments(path)]);
+        var segments = new ReadOnlySpan<string>([.. GetPathSegments(path)]);
         if (segments.IsEmpty)
         {
             return [];
@@ -36,7 +36,7 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
         }
 
         var citations = new List<CitationLink>();
-        var citationType = TryGetSegment(segments, offset)?.ToString().ToLowerInvariant();
+        var citationType = TryGetSegment(segments, offset)?.ToLowerInvariant();
         switch (citationType)
         {
             case "team":

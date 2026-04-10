@@ -73,7 +73,11 @@ internal sealed class TbaApiTool(
             string suggestions = string.Join(", ", s_tbaApiSurface.Value.SuggestTemplates(path, 5));
             return Task.FromResult(JsonSerializer.Serialize(new
             {
-                request = path,
+                apiRequest = new
+                {
+                    path,
+                    kind = "api",
+                },
                 statusCode = 400,
                 ok = false,
                 error = "The requested path does not match any legitimate The Blue Alliance API v3 endpoint in the embedded OpenAPI spec.",
@@ -96,7 +100,11 @@ internal sealed class TbaApiTool(
             string suggestions = string.Join(", ", s_tbaApiSurface.Value.SuggestTemplates(path, 5));
             return Task.FromResult(JsonSerializer.Serialize(new
             {
-                request = path,
+                apiRequest = new
+                {
+                    path,
+                    kind = "api",
+                },
                 statusCode = 400,
                 ok = false,
                 error = "The requested path does not match any legitimate The Blue Alliance API v3 endpoint in the embedded OpenAPI spec.",
@@ -157,7 +165,7 @@ internal sealed class TbaApiTool(
 
     private static ReadOnlyCollection<CitationLink> BuildCitations(string path)
     {
-        var segments = new ReadOnlySpan<Range>([.. GetPathSegments(path)]);
+        var segments = new ReadOnlySpan<string>([.. GetPathSegments(path)]);
         if (segments.IsEmpty)
         {
             return [];

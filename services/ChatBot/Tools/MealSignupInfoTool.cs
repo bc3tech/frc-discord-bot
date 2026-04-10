@@ -64,7 +64,7 @@ internal sealed partial class MealSignupInfoTool(IHttpClientFactory httpClientFa
         response.EnsureSuccessStatusCode();
 
         return SerializeToolResponse(
-            request.RequestUri,
+            request.RequestUri?.OriginalString,
             (int)response.StatusCode,
             response.IsSuccessStatusCode,
             data,

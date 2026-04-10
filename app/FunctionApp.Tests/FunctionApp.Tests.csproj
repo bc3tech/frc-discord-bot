@@ -14,5 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FunctionApp.csproj" />
+    <ProjectReference Include="..\..\services\ChatBot\ChatBot.csproj" />
   </ItemGroup>
 </Project>
