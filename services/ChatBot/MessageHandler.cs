@@ -44,6 +44,7 @@ public sealed partial class MessageHandler(
     private const string AgentThreadIdColumnName = "AgentThreadId";
     private const string CanonicalRowKeyColumnName = "CanonicalRowKey";
     private const string TraceRootContextColumnName = "TraceRootContext";
+    private const string MentionActivatedColumnName = "MentionActivated";
 
     public Task HandleUserMessageAsync(IUserMessage msg, CancellationToken cancellationToken = default)
         => HandleMessageCoreAsync(msg, CreateDirectMessageConversationContext(msg), botUserId: null, cancellationToken);
@@ -680,6 +681,7 @@ public sealed partial class MessageHandler(
                 RowKey: userId,
                 ResponseChannel: msg.Channel,
                 InitialReplyMessageId: null,
+                MentionActivated: false,
                 PersistReplyAliases: false,
                 PersistThreadChannelAlias: false));
     }
@@ -687,12 +689,12 @@ public sealed partial class MessageHandler(
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0046:Convert to conditional expression", Justification = "Easier to read this way")]
     private async Task<ChatConversationContext?> TryResolveGuildConversationContextAsync(SocketUserMessage msg, bool mentionedBot, CancellationToken cancellationToken)
     {
-        if (await TryGetExistingThreadConversationContextAsync(msg, cancellationToken).ConfigureAwait(false) is { } threadContext)
+        if (await TryGetExistingThreadConversationContextAsync(msg, requireMentionActivation: !mentionedBot, activateMention: mentionedBot, cancellationToken: cancellationToken).ConfigureAwait(false) is { } threadContext)
         {
             return threadContext;
         }
 
-        if (await TryGetExistingReplyConversationContextAsync(msg, cancellationToken).ConfigureAwait(false) is { } replyContext)
+        if (await TryGetExistingReplyConversationContextAsync(msg, requireMentionActivation: !mentionedBot, activateMention: mentionedBot, cancellationToken: cancellationToken).ConfigureAwait(false) is { } replyContext)
         {
             return replyContext;
         }
@@ -710,7 +712,7 @@ public sealed partial class MessageHandler(
         return CreateMentionReplyConversationContext(msg);
     }
 
-    private async Task<ChatConversationContext?> TryGetExistingThreadConversationContextAsync(SocketUserMessage msg, CancellationToken cancellationToken)
+    private async Task<ChatConversationContext?> TryGetExistingThreadConversationContextAsync(SocketUserMessage msg, bool requireMentionActivation, bool activateMention, CancellationToken cancellationToken)
     {
         if (msg.Channel is not IThreadChannel)
         {
@@ -718,25 +720,46 @@ public sealed partial class MessageHandler(
         }
 
         string threadId = msg.Channel.Id.ToString();
-        TableEntity? existingConversation = await GetConversationMappingAsync(threadId, threadId, cancellationToken).ConfigureAwait(false);
-        string canonicalRowKey = existingConversation is null
-            ? threadId
-            : GetCanonicalRowKey(existingConversation, threadId);
-        return existingConversation is null
-            ? null
-            : new(
-                new(IsDm: false, ShowProgressMessages: true, MentionUserInFirstResponse: false),
-                new(
-                    LockKey: $"guild-thread:{threadId}",
-                    PartitionKey: threadId,
-                    RowKey: canonicalRowKey,
-                    ResponseChannel: msg.Channel,
-                    InitialReplyMessageId: null,
-                    PersistReplyAliases: false,
-                    PersistThreadChannelAlias: false));
+        TableEntity? threadAlias = await GetConversationMappingAsync(threadId, threadId, cancellationToken).ConfigureAwait(false);
+        if (threadAlias is null)
+        {
+            return null;
+        }
+
+        string canonicalRowKey = GetCanonicalRowKey(threadAlias, threadId);
+        TableEntity? canonicalConversation = string.Equals(canonicalRowKey, threadId, StringComparison.Ordinal)
+            ? threadAlias
+            : await GetConversationMappingAsync(threadId, canonicalRowKey, cancellationToken).ConfigureAwait(false);
+        if (!HasConversationState(canonicalConversation))
+        {
+            return null;
+        }
+
+        bool mentionActivated = IsMentionActivated(threadAlias) || canonicalConversation is not null && IsMentionActivated(canonicalConversation);
+        if (activateMention)
+        {
+            mentionActivated = true;
+        }
+
+        if (requireMentionActivation && !mentionActivated)
+        {
+            return null;
+        }
+
+        return new(
+            new(IsDm: false, ShowProgressMessages: true, MentionUserInFirstResponse: false),
+            new(
+                LockKey: $"guild-thread:{threadId}",
+                PartitionKey: threadId,
+                RowKey: canonicalRowKey,
+                ResponseChannel: msg.Channel,
+                InitialReplyMessageId: null,
+                MentionActivated: mentionActivated,
+                PersistReplyAliases: false,
+                PersistThreadChannelAlias: false));
     }
 
-    private async Task<ChatConversationContext?> TryGetExistingReplyConversationContextAsync(SocketUserMessage msg, CancellationToken cancellationToken)
+    private async Task<ChatConversationContext?> TryGetExistingReplyConversationContextAsync(SocketUserMessage msg, bool requireMentionActivation, bool activateMention, CancellationToken cancellationToken)
     {
         if (msg.Reference?.MessageId.IsSpecified is not true || msg.Reference.MessageId.Value is 0)
         {
@@ -745,13 +768,32 @@ public sealed partial class MessageHandler(
 
         string channelId = msg.Channel.Id.ToString();
         string referencedMessageId = msg.Reference.MessageId.Value.ToString();
-        TableEntity? existingConversation = await GetConversationMappingAsync(channelId, referencedMessageId, cancellationToken).ConfigureAwait(false);
-        if (existingConversation is null)
+        TableEntity? referencedConversation = await GetConversationMappingAsync(channelId, referencedMessageId, cancellationToken).ConfigureAwait(false);
+        if (referencedConversation is null)
         {
             return null;
         }
 
-        string canonicalRowKey = GetCanonicalRowKey(existingConversation, referencedMessageId);
+        string canonicalRowKey = GetCanonicalRowKey(referencedConversation, referencedMessageId);
+        TableEntity? canonicalConversation = string.Equals(canonicalRowKey, referencedMessageId, StringComparison.Ordinal)
+            ? referencedConversation
+            : await GetConversationMappingAsync(channelId, canonicalRowKey, cancellationToken).ConfigureAwait(false);
+        if (!HasConversationState(canonicalConversation))
+        {
+            return null;
+        }
+
+        bool mentionActivated = IsMentionActivated(referencedConversation) || canonicalConversation is not null && IsMentionActivated(canonicalConversation);
+        if (activateMention)
+        {
+            mentionActivated = true;
+        }
+
+        if (requireMentionActivation && !mentionActivated)
+        {
+            return null;
+        }
+
         return new(
             new(IsDm: false, ShowProgressMessages: true, MentionUserInFirstResponse: false),
             new(
@@ -760,6 +802,7 @@ public sealed partial class MessageHandler(
                 RowKey: canonicalRowKey,
                 ResponseChannel: msg.Channel,
                 InitialReplyMessageId: msg.Id,
+                MentionActivated: mentionActivated,
                 PersistReplyAliases: true,
                 PersistThreadChannelAlias: false));
     }
@@ -797,6 +840,7 @@ public sealed partial class MessageHandler(
                 RowKey: threadId,
                 ResponseChannel: createdThread,
                 InitialReplyMessageId: null,
+                MentionActivated: true,
                 PersistReplyAliases: false,
                 PersistThreadChannelAlias: false));
     }
@@ -813,6 +857,7 @@ public sealed partial class MessageHandler(
                 RowKey: messageId,
                 ResponseChannel: msg.Channel,
                 InitialReplyMessageId: msg.Id,
+                MentionActivated: true,
                 PersistReplyAliases: true,
                 PersistThreadChannelAlias: msg.Channel is IThreadChannel));
     }
@@ -822,7 +867,7 @@ public sealed partial class MessageHandler(
         var existingConversation = await userThreadMappings.GetEntityIfExistsAsync<TableEntity>(
             partitionKey,
             rowKey,
-            [AgentThreadIdColumnName, CanonicalRowKeyColumnName, TraceRootContextColumnName],
+            [AgentThreadIdColumnName, CanonicalRowKeyColumnName, TraceRootContextColumnName, MentionActivatedColumnName],
             cancellationToken: cancellationToken).ConfigureAwait(false);
 
         return existingConversation.HasValue
@@ -862,7 +907,8 @@ public sealed partial class MessageHandler(
         if (existingConversation is null
             || string.IsNullOrWhiteSpace(conversationState)
             || !string.Equals(conversationState, threadId, StringComparison.Ordinal)
-            || string.IsNullOrWhiteSpace(GetEntityStringValue(existingConversation, TraceRootContextColumnName)))
+            || string.IsNullOrWhiteSpace(GetEntityStringValue(existingConversation, TraceRootContextColumnName))
+            || IsMentionActivated(existingConversation) != scope.MentionActivated)
         {
             await PersistConversationStateCoreAsync(
                 scope,
@@ -897,6 +943,7 @@ public sealed partial class MessageHandler(
                 ["Author"] = serializedAuthor,
                 [CanonicalRowKeyColumnName] = scope.RowKey,
                 [TraceRootContextColumnName] = traceRootContext,
+                [MentionActivatedColumnName] = scope.MentionActivated,
             },
             TableUpdateMode.Replace,
             cancellationToken: cancellationToken).ConfigureAwait(false);
@@ -910,6 +957,7 @@ public sealed partial class MessageHandler(
             new TableEntity(scope.PartitionKey, scope.PartitionKey)
             {
                 [CanonicalRowKeyColumnName] = scope.RowKey,
+                [MentionActivatedColumnName] = scope.MentionActivated,
             },
             TableUpdateMode.Replace,
             cancellationToken: cancellationToken).ConfigureAwait(false);
@@ -920,6 +968,7 @@ public sealed partial class MessageHandler(
             new TableEntity(scope.PartitionKey, replyMessageId.ToString())
             {
                 [CanonicalRowKeyColumnName] = scope.RowKey,
+                [MentionActivatedColumnName] = scope.MentionActivated,
             },
             TableUpdateMode.Replace,
             cancellationToken: cancellationToken));
@@ -932,6 +981,24 @@ public sealed partial class MessageHandler(
 
     private static string? GetEntityStringValue(TableEntity entity, string propertyName)
         => entity.TryGetValue(propertyName, out object? value) ? value.ToString() : null;
+
+    private static bool HasConversationState(TableEntity? entity)
+        => entity is not null && !string.IsNullOrWhiteSpace(GetEntityStringValue(entity, AgentThreadIdColumnName));
+
+    private static bool IsMentionActivated(TableEntity entity)
+    {
+        if (!entity.TryGetValue(MentionActivatedColumnName, out object? mentionActivated))
+        {
+            return false;
+        }
+
+        if (mentionActivated is bool b)
+        {
+            return b;
+        }
+
+        return mentionActivated is string text && bool.TryParse(text, out bool parsed) && parsed;
+    }
 
     private static string GetTraceRootScopeType(ChatConversationScope scope)
         => scope.LockKey.StartsWith("dm:", StringComparison.Ordinal)
@@ -959,6 +1026,7 @@ public sealed partial class MessageHandler(
         string RowKey,
         IMessageChannel ResponseChannel,
         ulong? InitialReplyMessageId,
+        bool MentionActivated,
         bool PersistReplyAliases,
         bool PersistThreadChannelAlias);
 
