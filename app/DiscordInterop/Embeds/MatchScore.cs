@@ -1,5 +1,7 @@
 ﻿namespace FunctionApp.DiscordInterop.Embeds;
 
+using AgentFramework.OpenTelemetry;
+
 using ChatBot;
 
 using Common;

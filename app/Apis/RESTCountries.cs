@@ -1,6 +1,6 @@
 ﻿namespace FunctionApp.Apis;
 
-using Common.Extensions;
+using AgentFramework.OpenTelemetry;
 
 using FunctionApp;
 

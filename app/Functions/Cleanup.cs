@@ -1,8 +1,8 @@
 namespace FunctionApp.Functions;
 
-using Azure.Data.Tables;
+using AgentFramework.OpenTelemetry;
 
-using Common.Extensions;
+using Azure.Data.Tables;
 
 using FunctionApp;
 using FunctionApp.DiscordInterop;

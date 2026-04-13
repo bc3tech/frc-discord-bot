@@ -38,8 +38,6 @@ using Constants = FunctionApp.Constants;
 
 CultureInfo.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
 
-OpenTelemetryExtensions.EnableAzureExperimentalTracing();
-
 var host = FunctionsApplication.CreateBuilder(args)
     .ConfigureFunctionsWebApplication();
 
