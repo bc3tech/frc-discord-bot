@@ -71,11 +71,11 @@ internal static class Constants
         {
             public const string _Name = nameof(AI);
 
-            public static class Azure
+            public static class Foundry
             {
-                public static readonly string _Name = ConfigurationPath.Combine(AI._Name, nameof(Azure));
+                public static readonly string _Name = ConfigurationPath.Combine(AI._Name, nameof(Foundry));
 
-                public static readonly string ProjectEndpoint = ConfigurationPath.Combine(_Name, nameof(ProjectEndpoint));
+                public static readonly string Endpoint = ConfigurationPath.Combine(_Name, nameof(Endpoint));
                 public static readonly string AgentId = ConfigurationPath.Combine(_Name, nameof(AgentId));
                 public static readonly string MealSignupGeniusId = ConfigurationPath.Combine(_Name, nameof(MealSignupGeniusId));
                 public static readonly string LocalAgentModel = ConfigurationPath.Combine(_Name, nameof(LocalAgentModel));
@@ -88,19 +88,11 @@ internal static class Constants
 
                 public static class EvaluationSettings
                 {
-                    public static readonly string _Name = ConfigurationPath.Combine(Azure._Name, nameof(EvaluationSettings));
+                    public static readonly string _Name = ConfigurationPath.Combine(Foundry._Name, nameof(EvaluationSettings));
 
                     public static readonly string Model = ConfigurationPath.Combine(_Name, nameof(Model));
                     public static readonly string MaxAnswerEvaluationRetries = ConfigurationPath.Combine(_Name, nameof(MaxAnswerEvaluationRetries));
                     public static readonly string TimeoutSeconds = ConfigurationPath.Combine(_Name, nameof(TimeoutSeconds));
-                }
-
-                public static class Planner
-                {
-                    public static readonly string _Name = ConfigurationPath.Combine(Azure._Name, nameof(Planner));
-
-                    public static readonly string Model = ConfigurationPath.Combine(_Name, nameof(Model));
-                    public static readonly string Agents = ConfigurationPath.Combine(_Name, nameof(Agents));
                 }
             }
 

@@ -1,7 +1,5 @@
 ﻿namespace FunctionApp.Apis;
 
-using AgentFramework.OpenTelemetry;
-
 using FunctionApp;
 
 using Microsoft.Extensions.Logging;

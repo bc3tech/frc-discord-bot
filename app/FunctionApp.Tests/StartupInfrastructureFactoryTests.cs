@@ -84,6 +84,45 @@ public sealed class StartupInfrastructureFactoryTests
             credential: new ManagedIdentityCredential(new ManagedIdentityCredentialOptions())));
     }
 
+    [Fact]
+    public void HasFoundryChatConfigurationWhenUsingFoundryKeysReturnsTrue()
+    {
+        IConfiguration configuration = BuildConfiguration(
+            new KeyValuePair<string, string?>(Constants.Configuration.AI.Foundry.Endpoint, "https://example.services.ai.azure.com/api/projects/test"),
+            new KeyValuePair<string, string?>(Constants.Configuration.AI.Foundry.AgentId, "discord-bot"),
+            new KeyValuePair<string, string?>(Constants.Configuration.AI.Foundry.LocalAgentModel, "gpt-5.4-mini"));
+
+        Assert.True(HasAllRequiredFoundryChatConfiguration(configuration));
+    }
+
+    [Fact]
+    public void HasFoundryChatConfigurationWhenKeysAreIncompleteReturnsFalse()
+    {
+        IConfiguration configuration = BuildConfiguration(
+            new KeyValuePair<string, string?>(Constants.Configuration.AI.Foundry.Endpoint, "https://example.services.ai.azure.com/api/projects/test"),
+            new KeyValuePair<string, string?>(Constants.Configuration.AI.Foundry.AgentId, "discord-bot"));
+
+        Assert.False(HasAllRequiredFoundryChatConfiguration(configuration));
+    }
+
     private static IConfiguration BuildConfiguration(params KeyValuePair<string, string?>[] values)
         => new ConfigurationBuilder().AddInMemoryCollection(values).Build();
+
+    private static bool HasAllRequiredFoundryChatConfiguration(IConfiguration configuration)
+        => HasAnyConfiguredValue(configuration, Constants.Configuration.AI.Foundry.Endpoint)
+        && HasAnyConfiguredValue(configuration, Constants.Configuration.AI.Foundry.AgentId)
+        && HasAnyConfiguredValue(configuration, Constants.Configuration.AI.Foundry.LocalAgentModel);
+
+    private static bool HasAnyConfiguredValue(IConfiguration configuration, params string[] keys)
+    {
+        foreach (string key in keys)
+        {
+            if (!string.IsNullOrWhiteSpace(configuration[key]))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

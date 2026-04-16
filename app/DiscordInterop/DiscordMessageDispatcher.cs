@@ -1,7 +1,5 @@
 namespace FunctionApp.DiscordInterop;
 
-using AgentFramework.OpenTelemetry;
-
 using Azure;
 using Azure.Data.Tables;
 

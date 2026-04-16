@@ -1,7 +1,5 @@
 namespace FunctionApp.Functions;
 
-using AgentFramework.OpenTelemetry;
-
 using Azure.Data.Tables;
 
 using FunctionApp;

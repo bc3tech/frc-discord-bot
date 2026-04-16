@@ -1,6 +1,5 @@
 namespace FunctionApp.Tests;
 
-using FunctionApp.DiscordInterop.Embeds;
 using FunctionApp.TbaInterop.Models;
 using FunctionApp.TbaInterop.Models.Notifications;
 

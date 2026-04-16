@@ -1,7 +1,5 @@
 ﻿namespace FunctionApp.DiscordInterop;
 
-using AgentFramework.OpenTelemetry;
-
 using ChatBot;
 
 using Common.Discord;

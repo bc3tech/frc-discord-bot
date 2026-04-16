@@ -1,8 +1,8 @@
 namespace ChatBot;
 
-using Azure.Data.Tables;
-
 using AgentFramework.OpenTelemetry;
+
+using Azure.Data.Tables;
 
 using ChatBot.Agents;
 

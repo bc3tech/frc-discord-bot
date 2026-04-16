@@ -2,8 +2,8 @@ namespace FunctionApp.Tests;
 
 using ChatBot.Tools;
 
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging.Abstractions;
 
 using System.Net;

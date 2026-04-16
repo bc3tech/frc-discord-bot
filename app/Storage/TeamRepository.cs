@@ -1,7 +1,5 @@
 ﻿namespace FunctionApp.Storage;
 
-using AgentFramework.OpenTelemetry;
-
 using Common.Extensions;
 
 using FunctionApp;

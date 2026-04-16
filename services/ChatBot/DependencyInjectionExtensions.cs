@@ -1,12 +1,10 @@
 namespace ChatBot;
 
-using Azure.AI.Agents.Persistent;
+using AgentFramework.OpenTelemetry;
+
 using Azure.AI.Projects;
-using Azure.AI.Extensions.OpenAI;
 using Azure.Core;
 using Azure.Monitor.OpenTelemetry.Exporter;
-
-using AgentFramework.OpenTelemetry;
 
 using ChatBot.Agents;
 using ChatBot.Configuration;
@@ -23,19 +21,11 @@ using OpenTelemetry.Trace;
 
 using System.Net;
 using System.Net.Http.Headers;
-using System.Reflection;
-using System.ClientModel;
 
 using Throws = Common.Throws;
 
 public static class DependencyInjectionExtensions
 {
-    private static readonly FieldInfo CachedOpenAIClientField = typeof(AIProjectClient).GetField("_cachedOpenAIClient", BindingFlags.Instance | BindingFlags.NonPublic)
-        ?? throw new InvalidOperationException("AIProjectClient no longer exposes the expected cached OpenAI client field.");
-
-    private static readonly FieldInfo TokenProviderField = typeof(AIProjectClient).GetField("_tokenProvider", BindingFlags.Instance | BindingFlags.NonPublic)
-        ?? throw new InvalidOperationException("AIProjectClient no longer exposes the expected token provider field.");
-
     public static IServiceCollection ConfigureChatBotFunctionality(this IServiceCollection services)
     {
         OpenTelemetryExtensions.EnableAzureExperimentalTracing();
@@ -81,26 +71,8 @@ public static class DependencyInjectionExtensions
                 };
                 clientOptions.AddPolicy(W3CTraceContextClientModelPipelinePolicy.Instance, System.ClientModel.Primitives.PipelinePosition.PerTry);
 
-                logger.ConnectingToAzureAIFoundryProjectEndpointEndpoint(options.ProjectEndpoint);
-                AIProjectClient projectClient = new(endpoint: options.ProjectEndpoint!, tokenProvider: credential, options: clientOptions);
-                ConfigureProjectOpenAIClient(projectClient, options);
-                return projectClient;
-            })
-            .AddSingleton(sp =>
-            {
-                PersistentAgentsAdministrationClientOptions options = new()
-                {
-                    Diagnostics =
-                    {
-                        IsDistributedTracingEnabled = true,
-                    },
-                };
-                options.AddPolicy(W3CTraceContextAzureHttpPipelinePolicy.Instance, HttpPipelinePosition.PerRetry);
-
-                return new PersistentAgentsClient(
-                    Throws.IfNullOrWhiteSpace(sp.GetRequiredService<IConfiguration>()[ChatBotConstants.Configuration.AI.Azure.ProjectEndpoint]),
-                    sp.GetRequiredService<TokenCredential>(),
-                    options);
+                logger.ConnectingToAzureAIFoundryProjectEndpointEndpoint(options.FoundryEndpoint);
+                return new AIProjectClient(endpoint: options.FoundryEndpoint, tokenProvider: credential, options: clientOptions);
             })
             .AddSingleton<ChatRunner>()
             .AddSingleton<Conversation>();
@@ -112,28 +84,5 @@ public static class DependencyInjectionExtensions
             .Build();
 
         return services;
-    }
-
-    private static void ConfigureProjectOpenAIClient(AIProjectClient projectClient, AiOptions options)
-    {
-        ArgumentNullException.ThrowIfNull(projectClient);
-        ArgumentNullException.ThrowIfNull(options);
-
-        AuthenticationTokenProvider tokenProvider = TokenProviderField.GetValue(projectClient) as AuthenticationTokenProvider
-            ?? throw new InvalidOperationException("The Azure AI project token provider could not be read for OpenAI client configuration.");
-
-        ProjectOpenAIClientOptions openAIClientOptions = new()
-        {
-            ApiVersion = options.OpenAIApiVersion,
-            EnableDistributedTracing = true,
-        };
-        openAIClientOptions.AddPolicy(W3CTraceContextClientModelPipelinePolicy.Instance, System.ClientModel.Primitives.PipelinePosition.PerTry);
-
-        ProjectOpenAIClient openAIClient = new(
-            options.ProjectEndpoint,
-            tokenProvider,
-            openAIClientOptions);
-
-        CachedOpenAIClientField.SetValue(projectClient, openAIClient);
     }
 }

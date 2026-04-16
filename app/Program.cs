@@ -4,8 +4,6 @@ using Azure.Identity;
 using Azure.Monitor.OpenTelemetry.Exporter;
 using Azure.Storage.Blobs;
 
-using AgentFramework.OpenTelemetry;
-
 using ChatBot;
 
 using Common;
@@ -76,9 +74,9 @@ host.Services
     .ConfigureFIRSTApi();
 
 var hasFoundryChatConfiguration =
-    !string.IsNullOrWhiteSpace(host.Configuration[Constants.Configuration.AI.Azure.ProjectEndpoint])
-    && !string.IsNullOrWhiteSpace(host.Configuration[Constants.Configuration.AI.Azure.AgentId])
-    && !string.IsNullOrWhiteSpace(host.Configuration[Constants.Configuration.AI.Azure.LocalAgentModel]);
+    HasAnyConfiguredValue(host.Configuration, Constants.Configuration.AI.Foundry.Endpoint)
+    && HasAnyConfiguredValue(host.Configuration, Constants.Configuration.AI.Foundry.AgentId)
+    && HasAnyConfiguredValue(host.Configuration, Constants.Configuration.AI.Foundry.LocalAgentModel);
 
 if (hasFoundryChatConfiguration)
 {
@@ -150,9 +148,22 @@ if (hasFoundryChatConfiguration)
 else
 {
     startupLogger.AzureAIChatFunctionalityDisabledDueToMissingConfigurationKeysProjectEndpointKeyAgentIdKeyLocalAgentModelKey(
-        Constants.Configuration.AI.Azure.ProjectEndpoint,
-        Constants.Configuration.AI.Azure.AgentId,
-        Constants.Configuration.AI.Azure.LocalAgentModel);
+        Constants.Configuration.AI.Foundry.Endpoint,
+        Constants.Configuration.AI.Foundry.AgentId,
+        Constants.Configuration.AI.Foundry.LocalAgentModel);
 }
 
 await builtHost.RunAsync().ConfigureAwait(false);
+
+static bool HasAnyConfiguredValue(IConfiguration configuration, params string[] keys)
+{
+    foreach (string key in keys)
+    {
+        if (!string.IsNullOrWhiteSpace(configuration[key]))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}

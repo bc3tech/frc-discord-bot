@@ -1,11 +1,11 @@
 namespace ChatBot;
 
-using Azure.AI.Agents.Persistent;
-using Azure.AI.Projects;
-using Azure.AI.Extensions.OpenAI;
-
 using AgentFramework.OpenTelemetry;
 using AgentFramework.OpenTelemetry.Agents;
+
+using Azure.AI.Agents.Persistent;
+using Azure.AI.Extensions.OpenAI;
+using Azure.AI.Projects;
 
 using ChatBot.Agents;
 using ChatBot.Agents.Models;
@@ -22,6 +22,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 using OpenAI.Responses;
+
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;

@@ -1,7 +1,5 @@
 namespace FunctionApp.Tests;
 
-using Common.Extensions;
-
 using Discord;
 
 using FunctionApp.DiscordInterop.Embeds;

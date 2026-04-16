@@ -116,7 +116,7 @@ For example:
 }
 ```
 
-When deployed with the Bicep templates in `infra\`, the Azure AI Foundry account and its child project are provisioned automatically using the current `Microsoft.CognitiveServices/accounts` + `accounts/projects` model. Local auth is disabled on the Foundry account. The container app managed identity is granted `Cognitive Services User` on the Foundry project for keyless data-plane access and `Azure AI User` on the child project for project-scoped Foundry operations. The Function App receives `AI__Azure__ProjectEndpoint`, `Azure__ClientId`, `Azure__TenantId`, `AZURE_CLIENT_ID`, and `AZURE_TENANT_ID` from infrastructure rather than manual secret configuration.
+When deployed with the Bicep templates in `infra\`, the Azure AI Foundry account and its child project are provisioned automatically using the current `Microsoft.CognitiveServices/accounts` + `accounts/projects` model. Local auth is disabled on the Foundry account. The container app managed identity is granted `Cognitive Services User` on the Foundry project for keyless data-plane access and `Azure AI User` on the child project for project-scoped Foundry operations. The Function App receives `AI__Foundry__Endpoint`, `Azure__ClientId`, `Azure__TenantId`, `AZURE_CLIENT_ID`, and `AZURE_TENANT_ID` from infrastructure rather than manual secret configuration.
 
 For DM chat, the app now runs a Microsoft Agent Framework workflow that coordinates:
 
@@ -125,16 +125,16 @@ For DM chat, the app now runs a Microsoft Agent Framework workflow that coordina
 
 The DM pipeline expects:
 
-- `AI__Azure__ProjectEndpoint`
-- `AI__Azure__AgentId`
-- `AI__Azure__LocalAgentModel`
+- `AI__Foundry__Endpoint`
+- `AI__Foundry__AgentId`
+- `AI__Foundry__LocalAgentModel`
 - `DefaultTeamNumber`
 
-The hosted agent definition is checked in at `services\ChatBot\Agents\foundry-agent.yaml` as a reference copy of the Foundry-side configuration. The local declarative agent definition is checked in at `services\ChatBot\Agents\local-agent.yaml` and is instantiated in-process against the configured `AI__Azure__LocalAgentModel`. Semantic evaluator turns (answer/ask-user decision checks) use the Foundry evaluator model. The configured `AI__Azure__AgentId` value can be either a bare agent name such as `2046-discord-bot` to use the latest published version or a versioned Foundry identifier in `<agent-name>:<version>` format such as `2046-discord-bot:2` to pin a specific version. If the Foundry project endpoint, hosted agent id, or local agent model is missing, chat-specific services stay disabled so the rest of the bot can still start normally.
+The hosted agent definition is checked in at `services\ChatBot\Agents\foundry-agent.yaml` as a reference copy of the Foundry-side configuration. The local declarative agent definition is checked in at `services\ChatBot\Agents\local-agent.yaml` and is instantiated in-process against the configured `AI__Foundry__LocalAgentModel`. Semantic evaluator turns (answer/ask-user decision checks) use the Foundry evaluator model. The configured `AI__Foundry__AgentId` value can be either a bare agent name such as `2046-discord-bot` to use the latest published version or a versioned Foundry identifier in `<agent-name>:<version>` format such as `2046-discord-bot:2` to pin a specific version. If the Foundry endpoint, hosted agent id, or local agent model is missing, chat-specific services stay disabled so the rest of the bot can still start normally.
 
 `DefaultTeamNumber` defines the fallback team identity for ambiguous first-person team references in chat. With the default value of `2046`, phrases like we, us, and our resolve to team 2046 unless the turn or grounded conversation context clearly establishes a different team.
 
-Keep `AI__Azure__MealSignupGeniusId` only if you still want the optional meal-signup helper behavior.
+Keep `AI__Foundry__MealSignupGeniusId` only if you still want the optional meal-signup helper behavior.
 
 For `azd` deployments, set the required secret environment values before running `azd deploy`:
 
@@ -142,10 +142,10 @@ For `azd` deployments, set the required secret environment values before running
 azd env set-secret Discord__Token "<your-discord-bot-token>"
 azd env set-secret FIRST__Password "<your-first-password>"
 azd env set-secret TbaApiKey "<your-tba-api-key>"
-azd env set AI__Azure__AgentId "<your-chat-agent-id>"
+azd env set AI__Foundry__AgentId "<your-chat-agent-id>"
 azd env set SEARCH_SERVICE_NAME "<your-search-service-name>"
 azd env set SEARCH_LOCATION "eastus"
-azd env set AI__Azure__LocalAgentModel "gpt-5.4-mini"
+azd env set AI__Foundry__LocalAgentModel "gpt-5.4-mini"
 azd env set DefaultTeamNumber "2046"
 ```
 

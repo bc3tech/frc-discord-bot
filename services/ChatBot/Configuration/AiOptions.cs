@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 internal sealed class AiOptions
 {
     [Required]
-    public required Uri ProjectEndpoint { get; set; } = null!;
+    public required Uri FoundryEndpoint { get; set; } = null!;
 
     [Required]
     public required string AgentId { get; set; } = string.Empty;
@@ -58,41 +58,41 @@ internal sealed class ConfigureAiOptions(IConfiguration configuration) : IConfig
 {
     public void Configure(AiOptions options)
     {
-        options.ProjectEndpoint = GetAbsoluteUri(configuration, ChatBotConstants.Configuration.AI.Azure.ProjectEndpoint);
-        options.AgentId = GetConfiguredValue(configuration, ChatBotConstants.Configuration.AI.Azure.AgentId);
-        options.MealSignupGeniusId = GetConfiguredValue(configuration, ChatBotConstants.Configuration.AI.Azure.MealSignupGeniusId);
-        options.LocalAgentModel = GetConfiguredValue(configuration, ChatBotConstants.Configuration.AI.Azure.LocalAgentModel);
-        options.OpenAIApiVersion = GetConfiguredValue(configuration, ChatBotConstants.Configuration.AI.Azure.OpenAIApiVersion);
+        options.FoundryEndpoint = GetAbsoluteUri(configuration, ChatBotConstants.Configuration.Foundry.Endpoint);
+        options.AgentId = GetConfiguredValue(configuration, ChatBotConstants.Configuration.Foundry.AgentId);
+        options.MealSignupGeniusId = GetConfiguredValue(configuration, ChatBotConstants.Configuration.Foundry.MealSignupGeniusId);
+        options.LocalAgentModel = GetConfiguredValue(configuration, ChatBotConstants.Configuration.Foundry.LocalAgentModel);
+        options.OpenAIApiVersion = GetConfiguredValue(configuration, ChatBotConstants.Configuration.Foundry.OpenAIApiVersion);
 
         options.MaxLocalAgentHandoffs = GetConfiguredIntOrDefault(
             configuration,
             options.MaxLocalAgentHandoffs,
-            ChatBotConstants.Configuration.AI.Azure.MaxLocalAgentHandoffs);
+            ChatBotConstants.Configuration.Foundry.MaxLocalAgentHandoffs);
         options.MaxWorkflowSteps = GetConfiguredIntOrDefault(
             configuration,
             options.MaxWorkflowSteps,
-            ChatBotConstants.Configuration.AI.Azure.MaxWorkflowSteps);
+            ChatBotConstants.Configuration.Foundry.MaxWorkflowSteps);
         options.WorkflowSoftTimeoutSeconds = GetConfiguredIntOrDefault(
             configuration,
             options.WorkflowSoftTimeoutSeconds,
-            ChatBotConstants.Configuration.AI.Azure.WorkflowSoftTimeoutSeconds);
+            ChatBotConstants.Configuration.Foundry.WorkflowSoftTimeoutSeconds);
         options.WorkflowHardTimeoutSeconds = GetConfiguredIntOrDefault(
             configuration,
             options.WorkflowHardTimeoutSeconds,
-            ChatBotConstants.Configuration.AI.Azure.WorkflowHardTimeoutSeconds);
+            ChatBotConstants.Configuration.Foundry.WorkflowHardTimeoutSeconds);
         options.MaxPrematureLocalLookupRetries = GetConfiguredIntOrDefault(
             configuration,
             options.MaxPrematureLocalLookupRetries,
-            ChatBotConstants.Configuration.AI.Azure.MaxPrematureLocalLookupRetries);
-        options.EvaluationSettings.Model = GetConfiguredValue(configuration, ChatBotConstants.Configuration.AI.Azure.EvaluationSettings.Model);
+            ChatBotConstants.Configuration.Foundry.MaxPrematureLocalLookupRetries);
+        options.EvaluationSettings.Model = GetConfiguredValue(configuration, ChatBotConstants.Configuration.Foundry.EvaluationSettings.Model);
         options.EvaluationSettings.MaxAnswerEvaluationRetries = GetConfiguredIntOrDefault(
             configuration,
             options.EvaluationSettings.MaxAnswerEvaluationRetries,
-            ChatBotConstants.Configuration.AI.Azure.EvaluationSettings.MaxAnswerEvaluationRetries);
+            ChatBotConstants.Configuration.Foundry.EvaluationSettings.MaxAnswerEvaluationRetries);
         options.EvaluationSettings.TimeoutSeconds = GetConfiguredIntOrDefault(
             configuration,
             options.EvaluationSettings.TimeoutSeconds,
-            ChatBotConstants.Configuration.AI.Azure.EvaluationSettings.TimeoutSeconds);
+            ChatBotConstants.Configuration.Foundry.EvaluationSettings.TimeoutSeconds);
 
         options.DefaultTeamNumber = GetConfiguredInt(configuration, ChatBotConstants.Configuration.DefaultTeamNumber);
     }
@@ -152,13 +152,13 @@ internal sealed class ValidateAiOptions : IValidateOptions<AiOptions>
     {
         var retVal = new ValidateOptionsResultBuilder();
 
-        if (options.ProjectEndpoint is null || string.IsNullOrWhiteSpace(options.ProjectEndpoint.AbsoluteUri))
+        if (options.FoundryEndpoint is null || string.IsNullOrWhiteSpace(options.FoundryEndpoint.AbsoluteUri))
         {
-            retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{nameof(AiOptions.ProjectEndpoint)}' is missing or empty."));
+            retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{nameof(AiOptions.FoundryEndpoint)}' is missing or empty."));
         }
-        else if (!options.ProjectEndpoint.IsAbsoluteUri)
+        else if (!options.FoundryEndpoint.IsAbsoluteUri)
         {
-            retVal.AddResult(ValidateOptionsResult.Fail($"'{nameof(AiOptions.ProjectEndpoint)}' must be an absolute URI"));
+            retVal.AddResult(ValidateOptionsResult.Fail($"'{nameof(AiOptions.FoundryEndpoint)}' must be an absolute URI"));
         }
 
         if (string.IsNullOrWhiteSpace(options.AgentId))

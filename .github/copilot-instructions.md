@@ -25,6 +25,7 @@ When multiple valid technical options exist, default toward these patterns:
 - **Security by platform capability.** Use managed identity + Key Vault/secret stores and avoid embedding credentials in code or config.
 - **Observable AI and integration workloads.** For LLM/external API workflows, scope tool access, log critical request/response boundaries, and expose telemetry.
 - **MS Agent Framework for AI orchestration.** All AI orchestration must go through the Microsoft Agent Framework (`Microsoft.Agents.AI*`). Do not introduce alternate orchestration stacks or direct LLM coordination code.
+- Remove legacy configuration names and compatibility handling during Foundry API cleanup instead of preserving backward compatibility.
 
 ## Developer Experience Philosophy
 
