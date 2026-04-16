@@ -100,7 +100,7 @@ public static class ChatThreadResetter
             {
                 try
                 {
-                    await projectClient.GetProjectOpenAIClient().Conversations.DeleteConversationAsync(threadId, options: null).ConfigureAwait(false);
+                    await projectClient.GetProjectOpenAIClient().GetProjectConversationsClient().DeleteConversationAsync(threadId, options: null).ConfigureAwait(false);
                 }
                 catch (ClientResultException e) when (e.Status == 404)
                 {

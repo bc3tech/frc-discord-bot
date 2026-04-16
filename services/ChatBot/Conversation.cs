@@ -516,7 +516,7 @@ internal sealed class Conversation(
     {
         ProjectConversation conversation = (await projectClient
             .GetProjectOpenAIClient()
-            .Conversations
+            .GetProjectConversationsClient()
             .CreateProjectConversationAsync(new ProjectConversationCreationOptions(), cancellationToken)
             .ConfigureAwait(false)).Value;
 

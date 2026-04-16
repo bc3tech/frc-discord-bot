@@ -246,7 +246,7 @@ public sealed class SlashCommandModuleTests
         public List<string> Messages { get; } = [];
 
         protected override Task<IDisposable?> TryDeferAsync(bool ephemeral = false, CancellationToken cancellationToken = default)
-            => Task.FromResult(Disposable.WithNoopDispose as IDisposable);
+            => Task.FromResult(Disposable.WithNoopDispose);
 
         protected override Task UpdateOriginalResponseAsync(Action<MessageProperties> updateMessage, CancellationToken cancellationToken = default)
         {
@@ -267,7 +267,7 @@ public sealed class SlashCommandModuleTests
         public List<string> Messages { get; } = [];
 
         protected override Task<IDisposable?> TryDeferAsync(bool ephemeral = false, CancellationToken cancellationToken = default)
-            => Task.FromResult(Disposable.WithNoopDispose as IDisposable);
+            => Task.FromResult(Disposable.WithNoopDispose);
 
         protected override Task UpdateOriginalResponseAsync(Action<MessageProperties> updateMessage, CancellationToken cancellationToken = default)
         {
@@ -288,7 +288,7 @@ public sealed class SlashCommandModuleTests
         public List<string> Messages { get; } = [];
 
         protected override Task<IDisposable?> TryDeferAsync(bool ephemeral = false, CancellationToken cancellationToken = default)
-            => Task.FromResult(Disposable.WithNoopDispose as IDisposable);
+            => Task.FromResult(Disposable.WithNoopDispose);
 
         protected override Task UpdateOriginalResponseAsync(Action<MessageProperties> updateMessage, CancellationToken cancellationToken = default)
         {
@@ -323,7 +323,7 @@ public sealed class SlashCommandModuleTests
         public List<(string Content, bool Ephemeral)> Responses { get; } = [];
 
         protected override Task<IDisposable?> TryDeferAsync(bool ephemeral = false, CancellationToken cancellationToken = default)
-            => Task.FromResult(DeferReturnsNull ? null : Disposable.WithNoopDispose as IDisposable);
+            => Task.FromResult(DeferReturnsNull ? null : Disposable.WithNoopDispose);
 
         protected override Task SendResponseAsync(string responseContent, bool ephemeral = false, CancellationToken cancellationToken = default)
         {
@@ -335,7 +335,7 @@ public sealed class SlashCommandModuleTests
 
     private sealed class Disposable : IDisposable
     {
-        public static Disposable WithNoopDispose { get; } = new();
+        public static IDisposable? WithNoopDispose { get; } = new Disposable();
 
         public void Dispose()
         {

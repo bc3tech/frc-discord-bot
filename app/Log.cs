@@ -568,4 +568,18 @@ static partial class Log
     [LoggerMessage(200, LogLevel.Error, "An error occurred handling message {MessageId}")]
     internal static partial void AnErrorOccurredHandlingMessageMessageId(this ILogger logger, Exception exception, ulong MessageId);
 
+    [LoggerMessage(201, LogLevel.Debug, "No tracked state found for deleted Discord thread {ThreadId}")]
+    internal static partial void NoTrackedStateFoundForDeletedDiscordThreadThreadId(this ILogger logger, ulong ThreadId);
+
+    [LoggerMessage(202, LogLevel.Information, "Removed tracked state for deleted Discord thread {ThreadId} from {PartitionKey}/{RowKey}. Removed entries: {RemovedEntries}")]
+    internal static partial void RemovedTrackedStateForDeletedDiscordThreadThreadIdFromPartitionKeyRowKeyRemovedEntriesRemovedEntries(this ILogger logger, ulong ThreadId, string PartitionKey, string RowKey, int RemovedEntries);
+
+    [LoggerMessage(203, LogLevel.Debug, "Cleaning up tracked state for deleted Discord thread {ThreadId}")]
+    internal static partial void CleaningUpTrackedStateForDeletedDiscordThreadThreadId(this ILogger logger, ulong ThreadId);
+
+    [LoggerMessage(204, LogLevel.Error, "Error cleaning up deleted Discord thread {ThreadId}")]
+    internal static partial void ErrorCleaningUpDeletedDiscordThreadThreadId(this ILogger logger, Exception exception, ulong ThreadId);
+
+    [LoggerMessage(205, LogLevel.Debug, "Discord thread deleted from gateway: {ThreadId}")]
+    internal static partial void DiscordThreadDeletedFromGatewayThreadId(this ILogger logger, ulong ThreadId);
 }

@@ -111,7 +111,7 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
 
         client.ThreadDeleted += async thread =>
         {
-            _logger.LogDebug("Discord thread deleted from gateway: {ThreadId}", thread.Id);
+            _logger.DiscordThreadDeletedFromGatewayThreadId(thread.Id);
 
             try
             {
@@ -119,7 +119,7 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
             }
             catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
             {
-                _logger.LogError(e, "Error cleaning up deleted Discord thread {ThreadId}", thread.Id);
+                _logger.ErrorCleaningUpDeletedDiscordThreadThreadId(e, thread.Id);
             }
         };
 

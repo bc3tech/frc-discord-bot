@@ -268,7 +268,7 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
     public async Task CleanupDeletedThreadAsync(ulong threadId, CancellationToken cancellationToken)
     {
         using var scope = logger.CreateMethodScope();
-        logger.LogDebug("Cleaning up tracked state for deleted Discord thread {ThreadId}", threadId);
+        logger.CleaningUpTrackedStateForDeletedDiscordThreadThreadId(threadId);
 
         bool foundTrackedThread = false;
         await foreach (var entity in threadsTable.QueryAsync<ThreadTableEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
@@ -291,7 +291,7 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
                 await threadsTable.UpdateEntityAsync(entity, ETag.All, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
             }
 
-            logger.LogInformation("Removed tracked state for deleted Discord thread {ThreadId} from {PartitionKey}/{RowKey}. Removed entries: {RemovedEntries}", threadId, entity.PartitionKey, entity.RowKey, removedCount);
+            logger.RemovedTrackedStateForDeletedDiscordThreadThreadIdFromPartitionKeyRowKeyRemovedEntriesRemovedEntries(threadId, entity.PartitionKey, entity.RowKey, removedCount);
             meter.LogMetric("DeletedDiscordThreadStateCleanedUp", removedCount,
                 new Dictionary<string, object?>
                 {
@@ -303,7 +303,7 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
 
         if (!foundTrackedThread)
         {
-            logger.LogDebug("No tracked state found for deleted Discord thread {ThreadId}", threadId);
+            logger.NoTrackedStateFoundForDeletedDiscordThreadThreadId(threadId);
         }
     }
 
