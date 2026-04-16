@@ -5,9 +5,9 @@
     <PackageReference Include="Azure.AI.Projects" />
     <PackageReference Include="Azure.Data.Tables" />
     <PackageReference Include="Azure.Monitor.OpenTelemetry.Exporter" />
-    <PackageReference Include="Microsoft.Agents.AI.AzureAI" />
     <PackageReference Include="Microsoft.Agents.AI.AzureAI.Persistent" />
     <PackageReference Include="Microsoft.Agents.AI.Declarative" />
+    <PackageReference Include="Microsoft.Agents.AI.Foundry" />
     <PackageReference Include="Microsoft.Agents.AI.Workflows" />
     <PackageReference Include="Microsoft.Extensions.Hosting" />
     <PackageReference Include="Microsoft.Extensions.Http" />
