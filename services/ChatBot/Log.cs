@@ -112,4 +112,10 @@ static partial class Log
     [LoggerMessage(34, LogLevel.Debug, "Http API tool call for {ClientName} returned failure response snippet: {ResponseSnippet}")]
     internal static partial void HttpAPIToolCallFailedResponseSnippet(this ILogger logger, string ClientName, string ResponseSnippet);
 
+    [LoggerMessage(35, LogLevel.Information, "Unable to resume Copilot session {SessionId}; falling back to a fresh session.")]
+    internal static partial void UnableToResumeCopilotSessionFallingBackToAFreshSession(this ILogger logger, Exception exception, string SessionId);
+
+    [LoggerMessage(36, LogLevel.Warning, "Hosted Foundry specialist returned non-JSON content; returning raw payload.")]
+    internal static partial void HostedFoundrySpecialistReturnedNonJsonContentReturningRawPayload(this ILogger logger);
+
 }

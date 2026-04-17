@@ -18,6 +18,17 @@ internal static class ChatBotConstants
     {
         public static readonly string DefaultTeamNumber = nameof(DefaultTeamNumber);
 
+        internal static class Copilot
+        {
+            private static readonly string Name = nameof(Copilot);
+
+            public static readonly string Model = ConfigurationPath.Combine(Name, nameof(Model));
+            public static readonly string ReasoningEffort = ConfigurationPath.Combine(Name, nameof(ReasoningEffort));
+            public static readonly string GitHubToken = ConfigurationPath.Combine(Name, nameof(GitHubToken));
+            public static readonly string UseLoggedInUser = ConfigurationPath.Combine(Name, nameof(UseLoggedInUser));
+            public static readonly string LogLevel = ConfigurationPath.Combine(Name, nameof(LogLevel));
+        }
+
         internal static class Foundry
         {
             private static readonly string Name = nameof(Foundry);

@@ -8,10 +8,14 @@ using System.ComponentModel;
 
 internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogger<StatboticsTool> logger) : HttpGetToolBase(httpClientFactory, logger)
 {
+    private const string QueryToolName = "statbotics_api";
+
     public override IReadOnlyList<AIFunction> Functions => field ??=
         [
-            AIFunctionFactory.Create(QueryStatboticsAsync, name: "statbotics_api"),
+            AIFunctionFactory.Create(QueryStatboticsAsync, name: QueryToolName),
         ];
+
+    public override IReadOnlyList<string> ToolNames => [QueryToolName];
 
     [Description("Calls the public Statbotics API (https://www.statbotics.io/docs/rest) for FRC advanced metrics. Use this for EPA, Elo, predictions, rankings backed by Statbotics fields, team-year summaries, and event or match performance metrics. Provide a safe relative API path beginning with /v3/. Example: /v3/team_year/2046/2025. Optionally provide a query string without a leading question mark.")]
     public Task<string> QueryStatboticsAsync(

@@ -5,9 +5,11 @@
     <PackageReference Include="Azure.AI.Projects" />
     <PackageReference Include="Azure.Data.Tables" />
     <PackageReference Include="Azure.Monitor.OpenTelemetry.Exporter" />
+    <PackageReference Include="GitHub.Copilot.SDK" />
     <PackageReference Include="Microsoft.Agents.AI.AzureAI.Persistent" />
     <PackageReference Include="Microsoft.Agents.AI.Declarative" />
     <PackageReference Include="Microsoft.Agents.AI.Foundry" />
+    <PackageReference Include="Microsoft.Agents.AI.GitHub.Copilot" />
     <PackageReference Include="Microsoft.Agents.AI.Workflows" />
     <PackageReference Include="Microsoft.Extensions.Hosting" />
     <PackageReference Include="Microsoft.Extensions.Http" />
@@ -29,6 +31,10 @@
     <None Update="Agents\**\*.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>ChatBot\%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+    </None>
+    <None Update="Copilot\Skills\**\*.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>ChatBot\Copilot\Skills\%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
     </None>
     <None Update="Agents\foundry-agent.yaml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

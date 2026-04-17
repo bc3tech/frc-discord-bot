@@ -7,6 +7,7 @@ using Azure.Core;
 using Azure.Monitor.OpenTelemetry.Exporter;
 
 using ChatBot.Agents;
+using ChatBot.Copilot;
 using ChatBot.Configuration;
 using ChatBot.Tools;
 
@@ -54,6 +55,11 @@ public static class DependencyInjectionExtensions
 
         services
             .AddSingleton<PromptCatalog>()
+            .AddSingleton<CopilotAgentCatalog>()
+            .AddSingleton<CopilotEventStreamAdapter>()
+            .AddSingleton<CopilotClientFactory>()
+            .AddSingleton<FoundrySpecialistTool>()
+            .AddSingleton<CopilotSessionCoordinator>()
             .AddSingleton<IProvideFunctionTools, MealSignupInfoTool>()
             .AddSingleton<IProvideFunctionTools, TbaApiTool>()
             .AddSingleton<IProvideFunctionTools, StatboticsTool>()

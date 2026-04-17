@@ -15,7 +15,10 @@ internal sealed class PromptCatalog(ILogger<PromptCatalog> logger)
     public string AskUserDecisionEvaluatorSystemPrompt { get; } = LoadRequiredPrompt("ask-user-decision-evaluator-system-prompt.md");
     public string AskUserDecisionEvaluatorUserPrompt { get; } = LoadRequiredPrompt("ask-user-decision-evaluator-user-prompt.md");
     public string AskUserDecisionRepairPrompt { get; } = LoadRequiredPrompt("ask-user-decision-repair-prompt.md");
+    public string CopilotFrcDataAgentPrompt { get; } = LoadRequiredPrompt("copilot-frc-data-agent.md");
+    public string CopilotParentSystemMessage { get; } = LoadRequiredPrompt("copilot-parent-system-message.md");
     public string FoundryContinuationMessage { get; } = LoadRequiredPrompt("foundry-continuation-message.md");
+    public string FoundrySpecialistBridgePrompt { get; } = LoadRequiredPrompt("foundry-specialist-bridge-prompt.md");
     public string FoundryTurnSystemMessage { get; } = LoadRequiredPrompt("foundry-turn-system-message.md");
     public string InvalidEvaluatorPayloadRetryPrompt { get; } = LoadRequiredPrompt("invalid-evaluator-payload-retry-prompt.md");
     public string InvalidJsonRetryPrompt { get; } = LoadRequiredPrompt("invalid-json-retry-prompt.md");

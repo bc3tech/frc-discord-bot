@@ -15,7 +15,11 @@ internal abstract class HttpGetToolBase(IHttpClientFactory httpClientFactory, IL
     private const int MaxFailureResponseSnippetLength = 512;
     private static readonly JsonSerializerOptions s_jsonOptions = new(JsonSerializerDefaults.Web);
 
+    public virtual FunctionToolScope Scope => FunctionToolScope.LocalFrcData;
+
     public abstract IReadOnlyList<AIFunction> Functions { get; }
+
+    public abstract IReadOnlyList<string> ToolNames { get; }
 
     protected IHttpClientFactory HttpClientFactory => httpClientFactory;
 

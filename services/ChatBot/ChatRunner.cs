@@ -18,9 +18,7 @@ public sealed class ChatRunner(ILogger<ChatRunner> logger)
     {
         if (_conversation is not null)
         {
-            string conversationId = await _conversation.CreateConversationAsync(cancellationToken).ConfigureAwait(false);
-
-            await foreach (var update in _conversation.PostUserMessageStreamingAsync(conversationId, prompt, cancellationToken: cancellationToken).ConfigureAwait(false))
+            await foreach (var update in _conversation.PostUserMessageStreamingAsync(new Copilot.CopilotChatState(), prompt, cancellationToken: cancellationToken).ConfigureAwait(false))
             {
                 if (!string.IsNullOrWhiteSpace(update.Text))
                 {

@@ -105,6 +105,8 @@ public sealed class HttpGetToolBaseTests
     {
         public override IReadOnlyList<AIFunction> Functions => [];
 
+        public override IReadOnlyList<string> ToolNames => [];
+
         public Task<string> QueryAsync(
             string path,
             string? query,

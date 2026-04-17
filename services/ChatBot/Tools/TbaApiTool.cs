@@ -17,14 +17,18 @@ internal sealed class TbaApiTool(
     ILogger<TbaApiTool> logger) : HttpGetToolBase(httpClientFactory, logger)
 {
     private const string TbaApiSurfaceResourceName = "ChatBot.OpenApi.thebluealliance.json";
+    private const string DescribeSurfaceToolName = "tba_api_surface";
+    private const string QueryToolName = "tba_api";
 
     private readonly string _tbaApiKey = Throws.IfNullOrWhiteSpace(configuration["TbaApiKey"]);
 
     public override IReadOnlyList<AIFunction> Functions => field ??=
         [
-            AIFunctionFactory.Create(DescribeApiSurfaceAsync, name: "tba_api_surface"),
-            AIFunctionFactory.Create(QueryTbaAsync, name: "tba_api"),
+            AIFunctionFactory.Create(DescribeApiSurfaceAsync, name: DescribeSurfaceToolName),
+            AIFunctionFactory.Create(QueryTbaAsync, name: QueryToolName),
         ];
+
+    public override IReadOnlyList<string> ToolNames => [DescribeSurfaceToolName, QueryToolName];
 
     [Description("Describes the legitimate The Blue Alliance API v3 surface from the embedded OpenAPI spec. Use this before calling tba_api whenever you are not already sure of the exact endpoint template. You can pass a topic like team, event, district, match, rankings, awards, media, alliances, or status to narrow the list.")]
     public Task<string> DescribeApiSurfaceAsync(

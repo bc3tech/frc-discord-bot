@@ -1,39 +1,74 @@
 namespace ChatBot;
 
+using ChatBot.Copilot;
+
 using Microsoft.Agents.AI;
 
 using System.Text.Json;
 
 internal static class ConversationThreadState
 {
+    private static readonly JsonSerializerOptions s_serializerOptions = new(JsonSerializerDefaults.Web);
 
     public static string GetThreadId(AgentSession session)
         => session is ChatClientAgentSession { ConversationId: { Length: > 0 } conversationId }
             ? conversationId
             : throw new InvalidOperationException("Agent session did not expose a Foundry thread id.");
 
-    public static string? TryExtractThreadId(string? storedConversationState)
+    public static CopilotChatState Parse(string? storedConversationState)
     {
         if (string.IsNullOrWhiteSpace(storedConversationState))
         {
-            return null;
+            return new();
         }
 
         string trimmed = storedConversationState.Trim();
         if (!trimmed.StartsWith('{') && !trimmed.StartsWith('['))
         {
-            return trimmed;
+            return new()
+            {
+                FoundryThreadId = trimmed,
+            };
+        }
+
+        try
+        {
+            CopilotChatState? parsedState = JsonSerializer.Deserialize<CopilotChatState>(trimmed, s_serializerOptions);
+            if (parsedState is not null)
+            {
+                return Normalize(parsedState);
+            }
+        }
+        catch (JsonException)
+        {
         }
 
         try
         {
             using JsonDocument document = JsonDocument.Parse(trimmed);
-            return TryExtractThreadId(document.RootElement);
+            string? threadId = TryExtractThreadId(document.RootElement);
+            return string.IsNullOrWhiteSpace(threadId)
+                ? new()
+                : new()
+                {
+                    FoundryThreadId = threadId,
+                };
         }
         catch (JsonException)
         {
-            return null;
+            return new();
         }
+    }
+
+    public static string Serialize(CopilotChatState state)
+    {
+        ArgumentNullException.ThrowIfNull(state);
+        return JsonSerializer.Serialize(Normalize(state), s_serializerOptions);
+    }
+
+    public static string? TryExtractThreadId(string? storedConversationState)
+    {
+        return Parse(storedConversationState).FoundryThreadId;
     }
 
     public static string? TryExtractThreadId(JsonElement element)
@@ -77,4 +112,11 @@ internal static class ConversationThreadState
 
         return null;
     }
+
+    private static CopilotChatState Normalize(CopilotChatState state)
+        => state with
+        {
+            Version = CopilotChatState.CurrentVersion,
+            Transcript = CopilotTranscriptWindow.Normalize(state.Transcript),
+        };
 }

@@ -30,6 +30,8 @@ internal sealed partial class MealSignupInfoTool(IHttpClientFactory httpClientFa
 
     public override IReadOnlyList<AIFunction> Functions => field ??= [AIFunctionFactory.Create(FetchMealSignupInfoResponseBodyAsync, ToolName, ToolDescription)];
 
+    public override IReadOnlyList<string> ToolNames => [ToolName];
+
     [Description("Fetches the current Bear Metal meal signup data from SignupGenius. Use this whenever the request is about meal signup state, food assignments, open slots, quantities, dates, delivery times, or who signed up.")]
     public async Task<string> FetchMealSignupInfoResponseBodyAsync(CancellationToken cancellationToken)
     {

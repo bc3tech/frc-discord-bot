@@ -5,6 +5,7 @@ using AgentFramework.OpenTelemetry;
 using Azure.Data.Tables;
 
 using ChatBot.Agents;
+using ChatBot.Copilot;
 
 using Common.Discord;
 using Common.Extensions;
@@ -288,8 +289,7 @@ public sealed partial class MessageHandler(
             }
 
             ChatConversationRuntimeState conversationRuntimeState = await GetOrCreateConversationStateAsync(context.Scope, serializedAuthor, cancellationToken).ConfigureAwait(false);
-            string conversationState = conversationRuntimeState.ConversationState;
-            conversationId = ConversationThreadState.TryExtractThreadId(conversationState) ?? conversationState;
+            conversationId = conversationRuntimeState.ChatState.CopilotSessionId.UnlessNullOrWhitespaceThen(conversationRuntimeState.ChatState.FoundryThreadId);
 
             StringBuilder currentResponseText = new();
             bool renderedVisibleOutput = false;
@@ -298,7 +298,7 @@ public sealed partial class MessageHandler(
             List<IUserMessage> currentResponseMessages = [];
 
             await foreach (var response in conversation.PostUserMessageStreamingAsync(
-                conversationState,
+                conversationRuntimeState.ChatState,
                 prompt,
                 BuildUserContextMessages(msg, context.Style),
                 PersistConversationStateAsync,
@@ -372,6 +372,21 @@ public sealed partial class MessageHandler(
                 throw new InvalidOperationException("Azure AI Foundry workflow completed without returning any message content.");
             }
 
+            CopilotChatState updatedChatState = conversationRuntimeState.ChatState with
+            {
+                Transcript = CopilotTranscriptWindow.AppendTurn(conversationRuntimeState.ChatState.Transcript, prompt, finalCommittedText),
+            };
+            conversationRuntimeState = conversationRuntimeState with
+            {
+                ChatState = updatedChatState,
+            };
+            await PersistConversationStateCoreAsync(
+                context.Scope,
+                serializedAuthor,
+                updatedChatState,
+                conversationRuntimeState.TraceRootContext,
+                cancellationToken).ConfigureAwait(false);
+
             await RenderCommittedTextAsync(finalCommittedText, includeDisclaimer: true, cancellationToken).ConfigureAwait(false);
 
             async Task RenderCommittedTextAsync(string content, bool includeDisclaimer, CancellationToken ct)
@@ -429,13 +444,20 @@ public sealed partial class MessageHandler(
                 return true;
             }
 
-            ValueTask PersistConversationStateAsync(string updatedConversationState, CancellationToken ct)
-                => PersistConversationStateCoreAsync(
+            ValueTask PersistConversationStateAsync(CopilotChatState updatedConversationState, CancellationToken ct)
+            {
+                conversationRuntimeState = conversationRuntimeState with
+                {
+                    ChatState = updatedConversationState,
+                };
+
+                return PersistConversationStateCoreAsync(
                     context.Scope,
                     serializedAuthor,
-                    updatedConversationState,
+                    conversationRuntimeState.ChatState,
                     conversationRuntimeState.TraceRootContext,
                     ct);
+            }
         }
         catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
         {
@@ -879,53 +901,50 @@ public sealed partial class MessageHandler(
     private async Task<ChatConversationRuntimeState> GetOrCreateConversationStateAsync(ChatConversationScope scope, string serializedAuthor, CancellationToken cancellationToken)
     {
         TableEntity? existingConversation = await GetConversationMappingAsync(scope.PartitionKey, scope.RowKey, cancellationToken).ConfigureAwait(false);
-        string? conversationState = existingConversation is not null
+        string? storedConversationState = existingConversation is not null
             ? GetEntityStringValue(existingConversation, AgentThreadIdColumnName)
             : null;
         string? storedTraceRootContext = existingConversation is not null
             ? GetEntityStringValue(existingConversation, TraceRootContextColumnName)
             : null;
 
-        string? threadId = ConversationThreadState.TryExtractThreadId(conversationState);
+        CopilotChatState chatState = ConversationThreadState.Parse(storedConversationState);
         ActivityContext? rootParentContext = Activities.TryParseTraceParent(storedTraceRootContext, out ActivityContext parsedRootContext)
             ? parsedRootContext
             : null;
 
-        if (string.IsNullOrWhiteSpace(threadId))
-        {
-            threadId = await conversation.CreateConversationAsync(cancellationToken).ConfigureAwait(false);
-        }
+        string serializedConversationState = ConversationThreadState.Serialize(chatState);
 
         if (rootParentContext is null)
         {
             rootParentContext = Activities.CreateConversationRootContext(
                 GetTraceRootScopeType(scope),
                 $"{scope.PartitionKey}/{scope.RowKey}",
-                threadId);
+                chatState.CopilotSessionId.UnlessNullOrWhitespaceThen(chatState.FoundryThreadId).UnlessNullOrWhitespaceThen(scope.RowKey));
             storedTraceRootContext = Activities.FormatTraceParent(rootParentContext.Value);
         }
 
         if (existingConversation is null
-            || string.IsNullOrWhiteSpace(conversationState)
-            || !string.Equals(conversationState, threadId, StringComparison.Ordinal)
+            || string.IsNullOrWhiteSpace(storedConversationState)
+            || !string.Equals(storedConversationState, serializedConversationState, StringComparison.Ordinal)
             || string.IsNullOrWhiteSpace(GetEntityStringValue(existingConversation, TraceRootContextColumnName))
             || IsMentionActivated(existingConversation) != scope.MentionActivated)
         {
             await PersistConversationStateCoreAsync(
                 scope,
                 serializedAuthor,
-                threadId,
+                chatState,
                 storedTraceRootContext!,
                 cancellationToken).ConfigureAwait(false);
         }
 
-        return new(threadId, storedTraceRootContext!, rootParentContext.Value);
+        return new(chatState, storedTraceRootContext!, rootParentContext.Value);
     }
 
     private ValueTask PersistConversationStateCoreAsync(
         ChatConversationScope scope,
         string serializedAuthor,
-        string updatedConversationState,
+        CopilotChatState updatedConversationState,
         string traceRootContext,
         CancellationToken cancellationToken)
         => PersistConversationStateCoreInternalAsync(scope, serializedAuthor, updatedConversationState, traceRootContext, cancellationToken);
@@ -933,14 +952,14 @@ public sealed partial class MessageHandler(
     private async ValueTask PersistConversationStateCoreInternalAsync(
         ChatConversationScope scope,
         string serializedAuthor,
-        string updatedConversationState,
+        CopilotChatState updatedConversationState,
         string traceRootContext,
         CancellationToken cancellationToken)
     {
         await userThreadMappings.UpsertEntityAsync(
             new TableEntity(scope.PartitionKey, scope.RowKey)
             {
-                [AgentThreadIdColumnName] = updatedConversationState,
+                [AgentThreadIdColumnName] = ConversationThreadState.Serialize(updatedConversationState),
                 ["Author"] = serializedAuthor,
                 [CanonicalRowKeyColumnName] = scope.RowKey,
                 [TraceRootContextColumnName] = traceRootContext,
@@ -1032,7 +1051,7 @@ public sealed partial class MessageHandler(
         bool PersistThreadChannelAlias);
 
     private sealed record ChatConversationRuntimeState(
-        string ConversationState,
+        CopilotChatState ChatState,
         string TraceRootContext,
         ActivityContext RootParentContext);
 
