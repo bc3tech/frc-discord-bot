@@ -10,7 +10,6 @@
     <PackageReference Include="Microsoft.Agents.AI.Declarative" />
     <PackageReference Include="Microsoft.Agents.AI.Foundry" />
     <PackageReference Include="Microsoft.Agents.AI.GitHub.Copilot" />
-    <PackageReference Include="Microsoft.Agents.AI.Workflows" />
     <PackageReference Include="Microsoft.Extensions.Hosting" />
     <PackageReference Include="Microsoft.Extensions.Http" />
     <PackageReference Include="Microsoft.Net.Http.Headers" />

@@ -14,7 +14,6 @@ using Discord;
 using Discord.WebSocket;
 
 using Microsoft.Agents.AI;
-using Microsoft.Agents.AI.Workflows;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -306,7 +305,7 @@ public sealed partial class MessageHandler(
                 cancellationToken: cancellationToken).ConfigureAwait(false))
             {
                 bool responseCompleted = response.FinishReason is not null;
-                bool startsNewTopLevelResponse = response.RawRepresentation is WorkflowOutputEvent;
+                bool startsNewTopLevelResponse = false;
                 string streamedText = GetStreamedText(response);
                 bool isUserStatusMessage = Conversation.TryExtractUserStatusMessage(streamedText, out string? userStatusMessage);
                 string sanitized = SanitizeResponseText(isUserStatusMessage
@@ -369,7 +368,7 @@ public sealed partial class MessageHandler(
             string finalCommittedText = GetCommittedStreamingText(currentResponseText, flushUnterminatedTail: true, isFinal: true);
             if (string.IsNullOrWhiteSpace(finalCommittedText))
             {
-                throw new InvalidOperationException("Azure AI Foundry workflow completed without returning any message content.");
+                throw new InvalidOperationException("Copilot chat runtime completed without returning any message content.");
             }
 
             CopilotChatState updatedChatState = conversationRuntimeState.ChatState with
