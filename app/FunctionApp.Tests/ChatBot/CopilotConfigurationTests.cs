@@ -16,8 +16,6 @@ public sealed class CopilotConfigurationTests
             [
                 new KeyValuePair<string, string?>("Copilot:Model", "gpt-5"),
                 new KeyValuePair<string, string?>("Copilot:ReasoningEffort", "high"),
-                new KeyValuePair<string, string?>("Copilot:GitHubToken", "ghp_test"),
-                new KeyValuePair<string, string?>("Copilot:UseLoggedInUser", "false"),
                 new KeyValuePair<string, string?>("Copilot:LogLevel", "debug"),
                 new KeyValuePair<string, string?>(ChatBotConstants.Configuration.Foundry.Endpoint, "https://example.services.ai.azure.com/api/projects/test"),
                 new KeyValuePair<string, string?>(ChatBotConstants.Configuration.Foundry.AgentId, "discord-bot"),
@@ -42,8 +40,6 @@ public sealed class CopilotConfigurationTests
 
         Assert.Equal("gpt-5", options.Copilot.Model);
         Assert.Equal("high", options.Copilot.ReasoningEffort);
-        Assert.Equal("ghp_test", options.Copilot.GitHubToken);
-        Assert.False(options.Copilot.UseLoggedInUser);
         Assert.Equal("debug", options.Copilot.LogLevel);
         Assert.Equal(new Uri("https://example.services.ai.azure.com/api/projects/test"), options.Foundry.Endpoint);
         Assert.Equal("discord-bot", options.AgentId);

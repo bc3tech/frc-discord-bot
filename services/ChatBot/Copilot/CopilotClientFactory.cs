@@ -36,7 +36,7 @@ internal sealed partial class CopilotClientFactory(
 
             CopilotClient client = new(this.CreateClientOptions());
             await client.StartAsync(cancellationToken).ConfigureAwait(false);
-            Log.CopilotClientStarted(this._logger, this._options.Copilot.Model, this._options.Copilot.UseLoggedInUser);
+            Log.CopilotClientStarted(this._logger, this._options.Copilot.Model, this._options.Foundry.Endpoint);
             this._client = client;
             return client;
         }
@@ -59,14 +59,11 @@ internal sealed partial class CopilotClientFactory(
 
     private CopilotClientOptions CreateClientOptions()
     {
-        string? gitHubToken = this._options.Copilot.GitHubToken;
         CopilotClientOptions options = new()
         {
             AutoStart = false,
             Cwd = Directory.GetCurrentDirectory(),
-            GitHubToken = string.IsNullOrWhiteSpace(gitHubToken) ? null : gitHubToken,
             Logger = this._sdkLogger,
-            UseLoggedInUser = string.IsNullOrWhiteSpace(gitHubToken) && this._options.Copilot.UseLoggedInUser,
         };
 
         if (!string.IsNullOrWhiteSpace(this._options.Copilot.LogLevel))
@@ -79,7 +76,7 @@ internal sealed partial class CopilotClientFactory(
 
     private static partial class Log
     {
-        [LoggerMessage(EventId = 1200, Level = LogLevel.Information, Message = "Started GitHub Copilot SDK client for model {Model} (UseLoggedInUser={UseLoggedInUser}).")]
-        public static partial void CopilotClientStarted(ILogger logger, string model, bool useLoggedInUser);
+        [LoggerMessage(EventId = 1200, Level = LogLevel.Information, Message = "Started GitHub Copilot SDK client for Foundry-backed model {Model} at {ProjectEndpoint}.")]
+        public static partial void CopilotClientStarted(ILogger logger, string model, Uri projectEndpoint);
     }
 }

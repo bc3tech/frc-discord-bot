@@ -96,10 +96,6 @@ internal sealed class AiCopilotSettings
 
     public string? ReasoningEffort { get; set; }
 
-    public string? GitHubToken { get; set; }
-
-    public bool UseLoggedInUser { get; set; } = true;
-
     public string? LogLevel { get; set; }
 }
 
@@ -155,11 +151,6 @@ internal sealed class ConfigureAiOptions(IConfiguration configuration) : IConfig
     {
         options.Copilot.Model = GetConfiguredValue(configuration, ChatBotConstants.Configuration.Copilot.Model).UnlessNullOrWhitespaceThen(options.Copilot.Model);
         options.Copilot.ReasoningEffort = GetConfiguredValue(configuration, ChatBotConstants.Configuration.Copilot.ReasoningEffort);
-        options.Copilot.GitHubToken = GetConfiguredValue(configuration, ChatBotConstants.Configuration.Copilot.GitHubToken);
-        options.Copilot.UseLoggedInUser = GetConfiguredBoolOrDefault(
-            configuration,
-            options.Copilot.UseLoggedInUser,
-            ChatBotConstants.Configuration.Copilot.UseLoggedInUser);
         options.Copilot.LogLevel = GetConfiguredValue(configuration, ChatBotConstants.Configuration.Copilot.LogLevel);
 
         options.Foundry.Endpoint = GetAbsoluteUri(configuration, ChatBotConstants.Configuration.Foundry.Endpoint);
@@ -248,21 +239,7 @@ internal sealed class ConfigureAiOptions(IConfiguration configuration) : IConfig
 
         return fallbackValue;
     }
-
-    private static bool GetConfiguredBoolOrDefault(IConfiguration configuration, bool fallbackValue, params string[] keys)
-    {
-        foreach (string key in keys)
-        {
-            if (bool.TryParse(configuration[key], out bool value))
-            {
-                return value;
-            }
-        }
-
-        return fallbackValue;
-    }
 }
-
 internal sealed class ValidateAiOptions : IValidateOptions<AiOptions>
 {
     public ValidateOptionsResult Validate(string? name, AiOptions options)

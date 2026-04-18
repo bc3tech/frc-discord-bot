@@ -5,6 +5,8 @@ using global::ChatBot.Configuration;
 using global::ChatBot.Copilot;
 using global::ChatBot.Tools;
 
+using Azure.Core;
+
 using GitHub.Copilot.SDK;
 
 using Microsoft.Extensions.AI;
@@ -33,13 +35,15 @@ public sealed class CopilotAgentCatalogTests
 
         PromptCatalog promptCatalog = new(NullLogger<PromptCatalog>.Instance);
         StubToolProvider toolProvider = new(["statbotics_api", "tba_api"]);
-        CopilotAgentCatalog catalog = new(Options.Create(options), promptCatalog, [toolProvider]);
+        CopilotFoundryProviderFactory providerFactory = new(Options.Create(options), new StubTokenCredential("token-value"));
+        CopilotAgentCatalog catalog = new(Options.Create(options), promptCatalog, [toolProvider], providerFactory);
         IReadOnlyList<AIFunction> tools = [toolProvider.Functions[0]];
 
-        SessionConfig config = catalog.CreateSessionConfig(tools);
+        SessionConfig config = catalog.CreateSessionConfig(tools, cancellationToken: TestContext.Current.CancellationToken);
         IReadOnlyList<string> skillDirectories = Assert.IsAssignableFrom<IReadOnlyList<string>>(config.SkillDirectories);
         IReadOnlyList<AIFunction> configuredTools = Assert.IsAssignableFrom<IReadOnlyList<AIFunction>>(config.Tools);
         IReadOnlyList<CustomAgentConfig> customAgents = Assert.IsAssignableFrom<IReadOnlyList<CustomAgentConfig>>(config.CustomAgents);
+        ProviderConfig provider = Assert.IsType<ProviderConfig>(config.Provider);
 
         Assert.Equal(CopilotAgentCatalog.ParentAgentName, config.Agent);
         Assert.Equal("gpt-5", config.Model);
@@ -49,6 +53,11 @@ public sealed class CopilotAgentCatalogTests
         Assert.Single(skillDirectories);
         Assert.EndsWith(Path.Combine("ChatBot", "Copilot", "Skills"), skillDirectories[0], StringComparison.Ordinal);
         Assert.Same(tools[0], Assert.Single(configuredTools));
+        Assert.Equal("openai", provider.Type);
+        Assert.Equal("https://example.services.ai.azure.com/api/projects/test/openai/v1/", provider.BaseUrl);
+        Assert.Equal("token-value", provider.BearerToken);
+        Assert.Equal("responses", provider.WireApi);
+        Assert.Equal("2025-06-01", Assert.IsType<AzureOptions>(provider.Azure).ApiVersion);
 
         Assert.Collection(
             customAgents,
@@ -87,5 +96,16 @@ public sealed class CopilotAgentCatalogTests
         ];
 
         public IReadOnlyList<string> ToolNames => toolNames;
+    }
+
+    private sealed class StubTokenCredential(string tokenValue) : TokenCredential
+    {
+        private readonly AccessToken _token = new(tokenValue, DateTimeOffset.UtcNow.AddHours(1));
+
+        public override AccessToken GetToken(TokenRequestContext requestContext, CancellationToken cancellationToken)
+            => _token;
+
+        public override ValueTask<AccessToken> GetTokenAsync(TokenRequestContext requestContext, CancellationToken cancellationToken)
+            => ValueTask.FromResult(_token);
     }
 }

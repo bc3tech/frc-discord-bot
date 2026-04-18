@@ -9,7 +9,11 @@ using GitHub.Copilot.SDK;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Options;
 
-internal sealed class CopilotAgentCatalog(IOptions<AiOptions> options, PromptCatalog promptCatalog, IEnumerable<IProvideFunctionTools> toolProviders)
+internal sealed class CopilotAgentCatalog(
+    IOptions<AiOptions> options,
+    PromptCatalog promptCatalog,
+    IEnumerable<IProvideFunctionTools> toolProviders,
+    CopilotFoundryProviderFactory providerFactory)
 {
     public const string ParentAgentName = "bear-metal-assistant";
     public const string FrcDataSpecialistAgentName = "frc-data-specialist";
@@ -18,8 +22,9 @@ internal sealed class CopilotAgentCatalog(IOptions<AiOptions> options, PromptCat
     private readonly AiOptions _options = options.Value;
     private readonly PromptCatalog _promptCatalog = promptCatalog;
     private readonly IReadOnlyList<string> _localFrcToolNames = toolProviders.CombineToolNames(FunctionToolScope.LocalFrcData);
+    private readonly CopilotFoundryProviderFactory _providerFactory = providerFactory;
 
-    public SessionConfig CreateSessionConfig(IReadOnlyList<AIFunction> tools, SessionEventHandler? onEvent = null)
+    public SessionConfig CreateSessionConfig(IReadOnlyList<AIFunction> tools, SessionEventHandler? onEvent = null, CancellationToken cancellationToken = default)
         => new()
         {
             Agent = ParentAgentName,
@@ -28,6 +33,7 @@ internal sealed class CopilotAgentCatalog(IOptions<AiOptions> options, PromptCat
             Model = _options.Copilot.Model,
             OnEvent = onEvent,
             OnPermissionRequest = PermissionHandler.ApproveAll,
+            Provider = _providerFactory.CreateProviderConfig(cancellationToken),
             ReasoningEffort = _options.Copilot.ReasoningEffort,
             SkillDirectories = [SkillDirectoryPath],
             Streaming = true,
@@ -35,7 +41,7 @@ internal sealed class CopilotAgentCatalog(IOptions<AiOptions> options, PromptCat
             WorkingDirectory = Directory.GetCurrentDirectory(),
         };
 
-    public ResumeSessionConfig CreateResumeSessionConfig(IReadOnlyList<AIFunction> tools, SessionEventHandler? onEvent = null)
+    public ResumeSessionConfig CreateResumeSessionConfig(IReadOnlyList<AIFunction> tools, SessionEventHandler? onEvent = null, CancellationToken cancellationToken = default)
         => new()
         {
             Agent = ParentAgentName,
@@ -44,6 +50,7 @@ internal sealed class CopilotAgentCatalog(IOptions<AiOptions> options, PromptCat
             Model = _options.Copilot.Model,
             OnEvent = onEvent,
             OnPermissionRequest = PermissionHandler.ApproveAll,
+            Provider = _providerFactory.CreateProviderConfig(cancellationToken),
             ReasoningEffort = _options.Copilot.ReasoningEffort,
             SkillDirectories = [SkillDirectoryPath],
             Streaming = true,

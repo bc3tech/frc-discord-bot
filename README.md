@@ -118,19 +118,21 @@ For example:
 
 When deployed with the Bicep templates in `infra\`, the Azure AI Foundry account and its child project are provisioned automatically using the current `Microsoft.CognitiveServices/accounts` + `accounts/projects` model. Local auth is disabled on the Foundry account. The container app managed identity is granted `Cognitive Services User` on the Foundry project for keyless data-plane access and `Azure AI User` on the child project for project-scoped Foundry operations. The Function App receives `AI__Foundry__Endpoint`, `Azure__ClientId`, `Azure__TenantId`, `AZURE_CLIENT_ID`, and `AZURE_TENANT_ID` from infrastructure rather than manual secret configuration.
 
-For DM chat, the app now runs a Microsoft Agent Framework workflow that coordinates:
+For DM chat, the app now runs on the GitHub Copilot SDK session runtime, backed by Azure AI Foundry models and coordinated with:
 
-- a hosted Azure AI Foundry prompt agent for user-facing synthesis plus hosted tools like web search and code interpreter
-- a local declarative agent for in-process tools such as TBA, Statbotics, and meal-signup lookups
+- a Copilot parent agent for user-facing synthesis
+- a local Copilot custom agent for in-process tools such as TBA, Statbotics, and meal-signup lookups
+- a hosted Azure AI Foundry specialist agent invoked through a narrow bridge tool when remote specialization is needed
 
 The DM pipeline expects:
 
 - `AI__Foundry__Endpoint`
 - `AI__Foundry__AgentId`
+- `AI__Copilot__Model`
 - `AI__Foundry__LocalAgentModel`
 - `DefaultTeamNumber`
 
-The hosted agent definition is checked in at `services\ChatBot\Agents\foundry-agent.yaml` as a reference copy of the Foundry-side configuration. The local declarative agent definition is checked in at `services\ChatBot\Agents\local-agent.yaml` and is instantiated in-process against the configured `AI__Foundry__LocalAgentModel`. Semantic evaluator turns (answer/ask-user decision checks) use the Foundry evaluator model. The configured `AI__Foundry__AgentId` value can be either a bare agent name such as `2046-discord-bot` to use the latest published version or a versioned Foundry identifier in `<agent-name>:<version>` format such as `2046-discord-bot:2` to pin a specific version. If the Foundry endpoint, hosted agent id, or local agent model is missing, chat-specific services stay disabled so the rest of the bot can still start normally.
+`AI__Foundry__Endpoint` should be the Azure AI Foundry project endpoint in the form `https://<resource>.services.ai.azure.com/api/projects/<project>`. The Copilot runtime derives its BYOK base URL from that project endpoint by targeting the project-scoped `/openai/v1/` route and uses a fresh Azure bearer token each turn instead of GitHub login or PAT auth. `AI__Copilot__Model` should be the Foundry deployment name used by the parent Copilot session. The hosted agent definition is checked in at `services\ChatBot\Agents\foundry-agent.yaml` as a reference copy of the Foundry-side configuration. The local declarative agent definition is checked in at `services\ChatBot\Agents\local-agent.yaml` as a prompt reference for the in-process specialist behavior, while the live Copilot custom-agent runtime uses the configured tool set and Foundry-backed session model. Semantic evaluator turns (answer/ask-user decision checks) use the Foundry evaluator model. The configured `AI__Foundry__AgentId` value can be either a bare agent name such as `2046-discord-bot` to use the latest published version or a versioned Foundry identifier in `<agent-name>:<version>` format such as `2046-discord-bot:2` to pin a specific version. If the Foundry endpoint, hosted agent id, Copilot model, or local agent model is missing, chat-specific services stay disabled so the rest of the bot can still start normally.
 
 `DefaultTeamNumber` defines the fallback team identity for ambiguous first-person team references in chat. With the default value of `2046`, phrases like we, us, and our resolve to team 2046 unless the turn or grounded conversation context clearly establishes a different team.
 

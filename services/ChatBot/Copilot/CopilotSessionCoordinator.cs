@@ -74,7 +74,7 @@ internal sealed class CopilotSessionCoordinator(
             try
             {
                 CopilotSession resumedSession = await client
-                    .ResumeSessionAsync(chatState.CopilotSessionId, _agentCatalog.CreateResumeSessionConfig(sessionTools), cancellationToken)
+                    .ResumeSessionAsync(chatState.CopilotSessionId, _agentCatalog.CreateResumeSessionConfig(sessionTools, cancellationToken: cancellationToken), cancellationToken)
                     .ConfigureAwait(false);
 
                 if (!string.Equals(chatState.CopilotSessionId, resumedSession.SessionId, StringComparison.Ordinal))
@@ -93,7 +93,7 @@ internal sealed class CopilotSessionCoordinator(
         }
 
         CopilotSession session = await client
-            .CreateSessionAsync(_agentCatalog.CreateSessionConfig(sessionTools), cancellationToken)
+            .CreateSessionAsync(_agentCatalog.CreateSessionConfig(sessionTools, cancellationToken: cancellationToken), cancellationToken)
             .ConfigureAwait(false);
 
         await persistState(chatState with { CopilotSessionId = session.SessionId }, cancellationToken).ConfigureAwait(false);
