@@ -14,6 +14,11 @@ internal abstract class HttpGetToolBase(IHttpClientFactory httpClientFactory, IL
 {
     private const int MaxFailureResponseSnippetLength = 512;
     private static readonly JsonSerializerOptions s_jsonOptions = new(JsonSerializerDefaults.Web);
+    private static readonly ReadOnlyDictionary<string, object?> s_skipPermissionAdditionalProperties = new(
+        new Dictionary<string, object?>
+        {
+            ["skip_permission"] = true,
+        });
 
     public virtual FunctionToolScope Scope => FunctionToolScope.LocalFrcData;
 
@@ -22,6 +27,14 @@ internal abstract class HttpGetToolBase(IHttpClientFactory httpClientFactory, IL
     public abstract IReadOnlyList<string> ToolNames { get; }
 
     protected IHttpClientFactory HttpClientFactory => httpClientFactory;
+
+    protected static AIFunctionFactoryOptions CreateSkippableFunctionOptions(string name, string? description = null)
+        => new()
+        {
+            Name = name,
+            Description = description,
+            AdditionalProperties = s_skipPermissionAdditionalProperties,
+        };
 
     protected async Task<string> SendGetAsync(
         string clientName,

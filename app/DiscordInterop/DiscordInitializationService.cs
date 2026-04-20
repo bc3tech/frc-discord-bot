@@ -113,6 +113,7 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
 
             try
             {
+                await ChatThreadResetter.CleanupDeletedThreadAsync(services, thread.Id, cancellationToken).ConfigureAwait(false);
                 await dispatcher.CleanupDeletedThreadAsync(thread.Id, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)

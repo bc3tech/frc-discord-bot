@@ -28,7 +28,12 @@ internal sealed partial class MealSignupInfoTool(IHttpClientFactory httpClientFa
 
     private readonly string _mealSignupGeniusId = configuration.Value.MealSignupGeniusId;
 
-    public override IReadOnlyList<AIFunction> Functions => field ??= [AIFunctionFactory.Create(FetchMealSignupInfoResponseBodyAsync, ToolName, ToolDescription)];
+    public override IReadOnlyList<AIFunction> Functions => field ??=
+        [
+            AIFunctionFactory.Create(
+                FetchMealSignupInfoResponseBodyAsync,
+                CreateSkippableFunctionOptions(ToolName, ToolDescription)),
+        ];
 
     public override IReadOnlyList<string> ToolNames => [ToolName];
 

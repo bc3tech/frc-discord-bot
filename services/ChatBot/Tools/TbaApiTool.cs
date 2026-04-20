@@ -24,8 +24,8 @@ internal sealed class TbaApiTool(
 
     public override IReadOnlyList<AIFunction> Functions => field ??=
         [
-            AIFunctionFactory.Create(DescribeApiSurfaceAsync, name: DescribeSurfaceToolName),
-            AIFunctionFactory.Create(QueryTbaAsync, name: QueryToolName),
+            AIFunctionFactory.Create(DescribeApiSurfaceAsync, CreateSkippableFunctionOptions(DescribeSurfaceToolName)),
+            AIFunctionFactory.Create(QueryTbaAsync, CreateSkippableFunctionOptions(QueryToolName)),
         ];
 
     public override IReadOnlyList<string> ToolNames => [DescribeSurfaceToolName, QueryToolName];

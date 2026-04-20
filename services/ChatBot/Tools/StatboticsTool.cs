@@ -12,7 +12,7 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
 
     public override IReadOnlyList<AIFunction> Functions => field ??=
         [
-            AIFunctionFactory.Create(QueryStatboticsAsync, name: QueryToolName),
+            AIFunctionFactory.Create(QueryStatboticsAsync, CreateSkippableFunctionOptions(QueryToolName)),
         ];
 
     public override IReadOnlyList<string> ToolNames => [QueryToolName];
