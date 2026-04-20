@@ -7,10 +7,13 @@ using GitHub.Copilot.SDK;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 
+using System.Text;
 using System.Threading.Channels;
 
 internal static class CopilotEventStreamAdapter
 {
+    private static readonly TimeSpan TurnCompletionTimeout = TimeSpan.FromMinutes(2);
+
     public static async IAsyncEnumerable<AgentResponseUpdate> StreamTurnAsync(
         CopilotSession session,
         string prompt,
@@ -32,9 +35,9 @@ internal static class CopilotEventStreamAdapter
             }
         });
 
-        Task sendTask = Task.Run(SendPromptAsync, cancellationToken);
+        Task<AssistantMessageEvent?> sendTask = Task.Run(SendPromptAsync, cancellationToken);
 
-        string? latestAssistantMessage = null;
+        StringBuilder streamedAssistantMessage = new();
         bool emittedStatus = false;
         while (await events.Reader.WaitToReadAsync(cancellationToken).ConfigureAwait(false))
         {
@@ -46,34 +49,56 @@ internal static class CopilotEventStreamAdapter
                         emittedStatus = true;
                         yield return CreateStatusUpdate(BuildToolStatusMessage(toolExecutionStartEvent.Data.ToolName));
                         break;
-                    case AssistantMessageEvent assistantMessageEvent when !string.IsNullOrWhiteSpace(assistantMessageEvent.Data.Content):
-                        latestAssistantMessage = assistantMessageEvent.Data.Content.Trim();
+                    case ToolExecutionProgressEvent toolExecutionProgressEvent when !string.IsNullOrWhiteSpace(toolExecutionProgressEvent.Data.ProgressMessage):
+                        emittedStatus = true;
+                        yield return CreateStatusUpdate(toolExecutionProgressEvent.Data.ProgressMessage.Trim());
                         break;
-                    case SessionIdleEvent:
-                        await sendTask.ConfigureAwait(false);
-
-                        if (string.IsNullOrWhiteSpace(latestAssistantMessage))
+                    case AssistantMessageDeltaEvent assistantMessageDeltaEvent when !string.IsNullOrWhiteSpace(assistantMessageDeltaEvent.Data.DeltaContent):
+                        streamedAssistantMessage.Append(assistantMessageDeltaEvent.Data.DeltaContent);
+                        yield return CreateAssistantUpdate(streamedAssistantMessage.ToString());
+                        break;
+                    case AssistantMessageEvent assistantMessageEvent when !string.IsNullOrWhiteSpace(assistantMessageEvent.Data.Content):
+                    {
+                        string fullContent = assistantMessageEvent.Data.Content.Trim();
+                        if (!string.Equals(streamedAssistantMessage.ToString(), fullContent, StringComparison.Ordinal))
                         {
-                            throw new InvalidOperationException("Copilot session completed without producing an assistant message.");
+                            streamedAssistantMessage.Clear();
+                            streamedAssistantMessage.Append(fullContent);
+                            yield return CreateAssistantUpdate(fullContent);
                         }
 
-                        yield return new AgentResponseUpdate(ChatRole.Assistant, [new TextContent(latestAssistantMessage)])
-                        {
-                            FinishReason = ChatFinishReason.Stop,
-                        };
-                        yield break;
+                        break;
+                    }
+                    case SessionErrorEvent sessionErrorEvent:
+                        throw new InvalidOperationException(
+                            $"Copilot session error ({sessionErrorEvent.Data.ErrorType}): {sessionErrorEvent.Data.Message}");
                 }
             }
         }
 
-        await sendTask.ConfigureAwait(false);
-        throw new InvalidOperationException("Copilot session completed without emitting a SessionIdle event.");
+        AssistantMessageEvent? finalAssistantMessageEvent = await sendTask.ConfigureAwait(false);
+        string finalAssistantMessage = finalAssistantMessageEvent is { Data.Content: { } content }
+            ? content.Trim()
+            : streamedAssistantMessage.ToString().Trim();
+        if (string.IsNullOrWhiteSpace(finalAssistantMessage))
+        {
+            throw new InvalidOperationException("Copilot session completed without producing an assistant message.");
+        }
 
-        async Task SendPromptAsync()
+        yield return new AgentResponseUpdate(ChatRole.Assistant, [new TextContent(finalAssistantMessage)])
+        {
+            FinishReason = ChatFinishReason.Stop,
+        };
+
+        async Task<AssistantMessageEvent?> SendPromptAsync()
         {
             try
             {
-                _ = await session.SendAsync(new MessageOptions { Prompt = prompt }, cancellationToken).ConfigureAwait(false);
+                AssistantMessageEvent? response = await session
+                    .SendAndWaitAsync(new MessageOptions { Prompt = prompt }, TurnCompletionTimeout, cancellationToken)
+                    .ConfigureAwait(false);
+                events.Writer.TryComplete();
+                return response;
             }
             catch (Exception e)
             {
@@ -88,6 +113,9 @@ internal static class CopilotEventStreamAdapter
         {
             FinishReason = ChatFinishReason.Stop,
         };
+
+    private static AgentResponseUpdate CreateAssistantUpdate(string message)
+        => new(ChatRole.Assistant, [new TextContent(message)]);
 
     private static string BuildToolStatusMessage(string? toolName)
         => toolName switch

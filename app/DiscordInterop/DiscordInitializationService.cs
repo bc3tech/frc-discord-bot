@@ -29,19 +29,39 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
     private readonly ILogger _logger = logFactory.CreateLogger<DiscordInitializationService>();
     private readonly DiscordSocketClient client = discordClient as DiscordSocketClient ?? throw new ArgumentException(nameof(discordClient));
 
+    private static readonly Lock _messageHandlingSync = new();
     private static readonly IList<Task> _messageHandlingInProgress = [];
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "Background job")]
     private static Task _messageHandlingCleanupTask = Task.Run(static async () =>
     {
         while (true)
         {
-            if (_messageHandlingInProgress.Count is 0)
+            Task[] inFlightTasks;
+            lock (_messageHandlingSync)
             {
-                await Task.Delay(TimeSpan.FromMinutes(1));
+                inFlightTasks = [.. _messageHandlingInProgress];
             }
 
-            var completedTask = await Task.WhenAny(_messageHandlingInProgress).ConfigureAwait(false);
-            _messageHandlingInProgress.Remove(completedTask);
+            if (inFlightTasks.Length is 0)
+            {
+                await Task.Delay(TimeSpan.FromMinutes(1)).ConfigureAwait(false);
+                continue;
+            }
+
+            Task completedTask = await Task.WhenAny(inFlightTasks).ConfigureAwait(false);
+            try
+            {
+                await completedTask.ConfigureAwait(false);
+            }
+            catch
+            {
+                // Faults are handled inside the background work item before reaching this cleanup loop.
+            }
+
+            lock (_messageHandlingSync)
+            {
+                _messageHandlingInProgress.Remove(completedTask);
+            }
         }
     });
 
@@ -133,12 +153,27 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
                     {
                         if (i.Channel is IDMChannel)
                         {
-                            _messageHandlingInProgress.Add(Task.Run(() => chatBot.HandleUserMessageAsync(msg, cancellationToken)));
+                            TrackMessageHandlingTask(Task.Run(
+                                () => HandleMessageSafelyAsync(
+                                    msg,
+                                    i.Channel,
+                                    ct => chatBot.HandleUserMessageAsync(msg, ct),
+                                    cancellationToken),
+                                cancellationToken));
                         }
                         else if (i.Channel is IGuildChannel c)
                         {
-                            var u = await c.GetUserAsync(client.CurrentUser.Id, options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
-                            _messageHandlingInProgress.Add(Task.Run(() => chatBot.TryHandleGuildMessageAsync(msg, client.CurrentUser.Id, u.RoleIds, cancellationToken)));
+                            TrackMessageHandlingTask(Task.Run(
+                                async () =>
+                                {
+                                    var u = await c.GetUserAsync(client.CurrentUser.Id, options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+                                    await HandleMessageSafelyAsync(
+                                        msg,
+                                        i.Channel,
+                                        ct => chatBot.TryHandleGuildMessageAsync(msg, client.CurrentUser.Id, u.RoleIds, ct),
+                                        cancellationToken).ConfigureAwait(false);
+                                },
+                                cancellationToken));
                         }
                     }
                     catch (Exception e)
@@ -151,6 +186,26 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
                     }
                 }
             };
+        }
+
+        async Task HandleMessageSafelyAsync(
+            SocketUserMessage msg,
+            ISocketMessageChannel channel,
+            Func<CancellationToken, Task> handler,
+            CancellationToken ct)
+        {
+            try
+            {
+                await handler(ct).ConfigureAwait(false);
+            }
+            catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
+            {
+                _logger.AnErrorOccurredHandlingMessageMessageId(e, msg.Id);
+                if (channel is IMessageChannel messageChannel)
+                {
+                    await messageChannel.SendFailureEmbedAsync("Sorry, something went wrong.", time, _logger, ct).ConfigureAwait(false);
+                }
+            }
         }
 
         client.ButtonExecuted += async (button) =>
@@ -220,6 +275,14 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
         };
 
         await installCommandTask.ConfigureAwait(false);
+    }
+
+    private static void TrackMessageHandlingTask(Task task)
+    {
+        lock (_messageHandlingSync)
+        {
+            _messageHandlingInProgress.Add(task);
+        }
     }
 
     public async Task StopAsync(CancellationToken cancellationToken)

@@ -92,7 +92,7 @@ internal sealed class AiOptions
 internal sealed class AiCopilotSettings
 {
     [Required]
-    public string Model { get; set; } = "gpt-5";
+    public string Model { get; set; } = "gpt-5.4-mini";
 
     public string? ReasoningEffort { get; set; }
 

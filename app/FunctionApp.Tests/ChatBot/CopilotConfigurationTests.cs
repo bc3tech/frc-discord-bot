@@ -14,7 +14,7 @@ public sealed class CopilotConfigurationTests
         IConfiguration configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(
             [
-                new KeyValuePair<string, string?>("AI:Copilot:Model", "gpt-5"),
+                new KeyValuePair<string, string?>("AI:Copilot:Model", "gpt-5.4-mini"),
                 new KeyValuePair<string, string?>("AI:Copilot:ReasoningEffort", "high"),
                 new KeyValuePair<string, string?>("AI:Copilot:LogLevel", "debug"),
                 new KeyValuePair<string, string?>(ChatBotConstants.Configuration.Foundry.Endpoint, "https://example.services.ai.azure.com/api/projects/test"),
@@ -38,7 +38,7 @@ public sealed class CopilotConfigurationTests
 
         new ConfigureAiOptions(configuration).Configure(options);
 
-        Assert.Equal("gpt-5", options.Copilot.Model);
+        Assert.Equal("gpt-5.4-mini", options.Copilot.Model);
         Assert.Equal("high", options.Copilot.ReasoningEffort);
         Assert.Equal("debug", options.Copilot.LogLevel);
         Assert.Equal(new Uri("https://example.services.ai.azure.com/api/projects/test"), options.Foundry.Endpoint);
@@ -71,7 +71,7 @@ public sealed class CopilotConfigurationTests
         IConfiguration configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(
             [
-                new KeyValuePair<string, string?>("AI:Copilot:Model", "gpt-5"),
+                new KeyValuePair<string, string?>("AI:Copilot:Model", "gpt-5.4-mini"),
                 new KeyValuePair<string, string?>("AI:Foundry:Endpoint", "https://example.services.ai.azure.com/api/projects/test"),
                 new KeyValuePair<string, string?>("AI:Foundry:AgentId", "discord-bot"),
                 new KeyValuePair<string, string?>("AI:Foundry:LocalAgentModel", "gpt-5.4-mini"),
@@ -92,7 +92,7 @@ public sealed class CopilotConfigurationTests
         IConfiguration configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(
             [
-                new KeyValuePair<string, string?>("AI:Copilot:Model", "gpt-5"),
+                new KeyValuePair<string, string?>("AI:Copilot:Model", "gpt-5.4-mini"),
                 new KeyValuePair<string, string?>("AI:Foundry:Endpoint", "https://example.services.ai.azure.com/api/projects/test"),
                 new KeyValuePair<string, string?>("DefaultTeamNumber", "2046"),
             ])

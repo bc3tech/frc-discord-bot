@@ -28,7 +28,7 @@ public sealed class CopilotAgentCatalogTests
             DefaultTeamNumber = 2046,
             Copilot =
             {
-                Model = "gpt-5",
+                Model = "gpt-5.4-mini",
                 ReasoningEffort = "high",
             },
         };
@@ -46,7 +46,7 @@ public sealed class CopilotAgentCatalogTests
         ProviderConfig provider = Assert.IsType<ProviderConfig>(config.Provider);
 
         Assert.Equal(CopilotAgentCatalog.ParentAgentName, config.Agent);
-        Assert.Equal("gpt-5", config.Model);
+        Assert.Equal("gpt-5.4-mini", config.Model);
         Assert.Equal("high", config.ReasoningEffort);
         Assert.True(config.Streaming);
         Assert.Equal(Directory.GetCurrentDirectory(), config.WorkingDirectory);
@@ -54,7 +54,7 @@ public sealed class CopilotAgentCatalogTests
         Assert.EndsWith(Path.Combine("ChatBot", "Copilot", "Skills"), skillDirectories[0], StringComparison.Ordinal);
         Assert.Same(tools[0], Assert.Single(configuredTools));
         Assert.Equal("openai", provider.Type);
-        Assert.Equal("https://example.services.ai.azure.com/api/projects/test/openai/v1/", provider.BaseUrl);
+        Assert.Equal("https://example.services.ai.azure.com/openai/v1/", provider.BaseUrl);
         Assert.Equal("token-value", provider.BearerToken);
         Assert.Equal("responses", provider.WireApi);
         Assert.Equal("2025-06-01", Assert.IsType<AzureOptions>(provider.Azure).ApiVersion);

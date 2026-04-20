@@ -35,7 +35,7 @@ public sealed class CopilotFoundryProviderFactoryTests
         ProviderConfig provider = factory.CreateProviderConfig(TestContext.Current.CancellationToken);
 
         Assert.Equal("openai", provider.Type);
-        Assert.Equal("https://example.services.ai.azure.com/api/projects/test/openai/v1/", provider.BaseUrl);
+        Assert.Equal("https://example.services.ai.azure.com/openai/v1/", provider.BaseUrl);
         Assert.Equal("token-value", provider.BearerToken);
         Assert.Equal(expectedWireApi, provider.WireApi);
         Assert.Equal("2025-06-01", Assert.IsType<AzureOptions>(provider.Azure).ApiVersion);

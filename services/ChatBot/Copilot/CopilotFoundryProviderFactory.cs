@@ -31,9 +31,10 @@ internal sealed class CopilotFoundryProviderFactory(IOptions<AiOptions> options,
 
     private static string BuildOpenAiBaseUrl(Uri projectEndpoint)
     {
-        UriBuilder builder = new(projectEndpoint);
-        string normalizedPath = builder.Path.TrimEnd('/');
-        builder.Path = $"{normalizedPath}/openai/v1/";
+        UriBuilder builder = new(projectEndpoint.GetLeftPart(UriPartial.Authority))
+        {
+            Path = "/openai/v1/",
+        };
         return builder.Uri.AbsoluteUri;
     }
 
