@@ -198,25 +198,11 @@ public sealed partial class MessageHandler(
                 }
             }
 
-            async Task StopTransientStatusMessageAsync()
+            void CancelProgressRotation()
             {
-                await StopProgressRotationAsync().ConfigureAwait(false);
-                if (transientStatusMessage is null)
+                if (!sorryForTheDelayCanceler.IsCancellationRequested)
                 {
-                    return;
-                }
-
-                try
-                {
-                    await transientStatusMessage.TryDeleteDiscordMessageAsync("delete progress message", time, logger, CancellationToken.None).ConfigureAwait(false);
-                }
-                catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
-                {
-                    logger.FailedToRemoveTransientThinkingMessage(e);
-                }
-                finally
-                {
-                    transientStatusMessage = null;
+                    _ = sorryForTheDelayCanceler.CancelAsync();
                 }
             }
 
@@ -352,7 +338,8 @@ public sealed partial class MessageHandler(
 
                 if (!renderedVisibleOutput)
                 {
-                    await StopTransientStatusMessageAsync().ConfigureAwait(false);
+                    CancelProgressRotation();
+                    logger.RenderingFirstVisibleChatbotOutput(nextCommittedText.Length);
                 }
 
                 if (await TryRenderCommittedTextAsync(currentResponseMessages, nextCommittedText, includeDisclaimer: false, cancellationToken).ConfigureAwait(false))
@@ -364,7 +351,7 @@ public sealed partial class MessageHandler(
                 startNewResponseGroupOnNextText |= responseCompleted;
             }
 
-            await StopTransientStatusMessageAsync().ConfigureAwait(false);
+            CancelProgressRotation();
             string finalCommittedText = GetCommittedStreamingText(currentResponseText, flushUnterminatedTail: true, isFinal: true);
             if (string.IsNullOrWhiteSpace(finalCommittedText))
             {
@@ -379,6 +366,7 @@ public sealed partial class MessageHandler(
             {
                 ChatState = updatedChatState,
             };
+            logger.PersistingCompletedChatbotTurn(finalCommittedText.Length, updatedChatState.Transcript.Count);
             await PersistConversationStateCoreAsync(
                 context.Scope,
                 serializedAuthor,
@@ -386,6 +374,7 @@ public sealed partial class MessageHandler(
                 conversationRuntimeState.TraceRootContext,
                 cancellationToken).ConfigureAwait(false);
 
+            logger.RenderingFinalChatbotOutput(finalCommittedText.Length);
             await RenderCommittedTextAsync(finalCommittedText, includeDisclaimer: true, cancellationToken).ConfigureAwait(false);
 
             async Task RenderCommittedTextAsync(string content, bool includeDisclaimer, CancellationToken ct)

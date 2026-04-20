@@ -121,4 +121,25 @@ static partial class Log
     [LoggerMessage(37, LogLevel.Warning, "Resumed Copilot session {SessionId} failed before producing assistant output; retrying the turn on a fresh session.")]
     internal static partial void ResumedCopilotSessionTurnFailedRetryingFreshSession(this ILogger logger, Exception exception, string SessionId);
 
+    [LoggerMessage(38, LogLevel.Debug, "Starting Copilot turn on session {SessionId}. PromptLength={PromptLength}.")]
+    internal static partial void StartingCopilotTurn(this ILogger logger, string SessionId, int PromptLength);
+
+    [LoggerMessage(39, LogLevel.Trace, "Observed Copilot session event {EventType} on session {SessionId}.")]
+    internal static partial void CopilotSessionEventObserved(this ILogger logger, string SessionId, string EventType);
+
+    [LoggerMessage(40, LogLevel.Debug, "Completed Copilot turn on session {SessionId}. ReturnedAssistantMessage={ReturnedAssistantMessage}. StreamedAssistantCharacters={StreamedAssistantCharacters}.")]
+    internal static partial void CopilotTurnCompleted(this ILogger logger, string SessionId, bool ReturnedAssistantMessage, int StreamedAssistantCharacters);
+
+    [LoggerMessage(41, LogLevel.Warning, "Copilot turn on session {SessionId} failed before completion. StreamedAssistantCharacters={StreamedAssistantCharacters}.")]
+    internal static partial void CopilotTurnFailed(this ILogger logger, string SessionId, int StreamedAssistantCharacters, Exception exception);
+
+    [LoggerMessage(42, LogLevel.Debug, "Rendering first visible chatbot output. CharacterCount={CharacterCount}.")]
+    internal static partial void RenderingFirstVisibleChatbotOutput(this ILogger logger, int CharacterCount);
+
+    [LoggerMessage(43, LogLevel.Debug, "Persisting completed chatbot turn. FinalCharacterCount={FinalCharacterCount}. TranscriptMessageCount={TranscriptMessageCount}.")]
+    internal static partial void PersistingCompletedChatbotTurn(this ILogger logger, int FinalCharacterCount, int TranscriptMessageCount);
+
+    [LoggerMessage(44, LogLevel.Debug, "Rendering final chatbot output. CharacterCount={CharacterCount}.")]
+    internal static partial void RenderingFinalChatbotOutput(this ILogger logger, int CharacterCount);
+
 }

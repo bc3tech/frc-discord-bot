@@ -146,6 +146,7 @@ public sealed class CopilotLiveIntegrationTests
             .AddSingleton<CopilotFoundryProviderFactory>()
             .AddSingleton<CopilotAgentCatalog>()
             .AddSingleton<CopilotClientFactory>()
+            .AddSingleton<ICopilotSessionRuntime, CopilotSdkSessionRuntime>()
             .AddSingleton<CopilotSessionCoordinator>()
             .AddSingleton<Conversation>()
             .AddSingleton<FoundrySpecialistTool>()
@@ -157,7 +158,7 @@ public sealed class CopilotLiveIntegrationTests
     }
 
     [Fact]
-    public async Task LiveConversationResumeFlowAnswersMealDutyPromptTwice()
+    public async Task LiveConversationFreshParentSessionFlowAnswersMealDutyPromptTwice()
     {
         using CancellationTokenSource timeout = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
         timeout.CancelAfter(TimeSpan.FromMinutes(5));
@@ -180,12 +181,72 @@ public sealed class CopilotLiveIntegrationTests
 
         string firstAssistantMessage = await RunConversationTurnAsync(conversation, chatState, PersistStateAsync, timeout.Token);
         Assert.False(string.IsNullOrWhiteSpace(chatState.CopilotSessionId));
-        string resumedSessionId = chatState.CopilotSessionId!;
+        string firstSessionId = chatState.CopilotSessionId!;
         string secondAssistantMessage = await RunConversationTurnAsync(conversation, chatState, PersistStateAsync, timeout.Token);
 
         Assert.False(string.IsNullOrWhiteSpace(firstAssistantMessage));
         Assert.False(string.IsNullOrWhiteSpace(secondAssistantMessage));
-        Assert.Equal(resumedSessionId, chatState.CopilotSessionId);
+        Assert.False(string.IsNullOrWhiteSpace(chatState.CopilotSessionId));
+        Assert.NotEqual(firstSessionId, chatState.CopilotSessionId);
+    }
+
+    [Fact]
+    public async Task LiveConversationWithDiscordUserContextAnswersMealDutyPrompt()
+    {
+        using CancellationTokenSource timeout = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        timeout.CancelAfter(TimeSpan.FromMinutes(5));
+
+        IConfiguration configuration = BuildLiveConfiguration();
+        Assert.True(
+            configuration.HasValidChatBotConfiguration(out string[] validationFailures),
+            $"Missing live chatbot configuration:{Environment.NewLine}{string.Join(Environment.NewLine, validationFailures)}");
+
+        using var logCollector = new TestLogCollector();
+        await using ServiceProvider serviceProvider = BuildServiceProvider(configuration, logCollector);
+        Conversation conversation = serviceProvider.GetRequiredService<Conversation>();
+        PromptCatalog prompts = serviceProvider.GetRequiredService<PromptCatalog>();
+
+        CopilotChatState chatState = new();
+        ValueTask PersistStateAsync(CopilotChatState updatedState, CancellationToken cancellationToken)
+        {
+            chatState = updatedState;
+            return ValueTask.CompletedTask;
+        }
+
+        ChatMessage[] leadingMessages =
+        [
+            new(
+                ChatRole.System,
+                prompts.Format(
+                    prompts.UserContextMessage,
+                    ("USER_DISPLAY_NAME", "Brandon H"),
+                    ("DISCORD_USERNAME", "bc3tech"),
+                    ("DISCORD_USER_ID", "568549752464211972"),
+                    ("MESSAGE_SOURCE", "Direct Message"))),
+        ];
+
+        List<AgentResponseUpdate> updates = [];
+        Exception? failure = null;
+        try
+        {
+            await foreach (AgentResponseUpdate update in conversation.PostUserMessageStreamingAsync(
+                chatState,
+                ReproPrompt,
+                leadingMessages,
+                PersistStateAsync,
+                cancellationToken: timeout.Token).ConfigureAwait(false))
+            {
+                updates.Add(update);
+            }
+        }
+        catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
+        {
+            failure = e;
+        }
+
+        string finalAssistantMessage = ExtractFinalAssistantMessage(updates);
+        Console.WriteLine(BuildDiagnosticSummary(failure, finalAssistantMessage, updates, [], logCollector.Messages));
+        Assert.False(string.IsNullOrWhiteSpace(finalAssistantMessage), BuildFailureMessage(failure, updates, [], logCollector.Messages));
     }
 
     private static IConfiguration BuildLiveConfiguration()

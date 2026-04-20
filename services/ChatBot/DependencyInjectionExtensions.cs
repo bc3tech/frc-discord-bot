@@ -79,6 +79,7 @@ public static class DependencyInjectionExtensions
             .AddSingleton<CopilotFoundryProviderFactory>()
             .AddSingleton<CopilotAgentCatalog>()
             .AddSingleton<CopilotClientFactory>()
+            .AddSingleton<ICopilotSessionRuntime, CopilotSdkSessionRuntime>()
             .AddSingleton<FoundrySpecialistTool>()
             .AddSingleton<CopilotSessionCoordinator>()
             .AddSingleton<IProvideFunctionTools, MealSignupInfoTool>()

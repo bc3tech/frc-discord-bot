@@ -11,15 +11,13 @@ using Microsoft.Extensions.Logging;
 using System.Text;
 
 internal sealed class CopilotSessionCoordinator(
-    CopilotClientFactory clientFactory,
-    CopilotAgentCatalog agentCatalog,
+    ICopilotSessionRuntime sessionRuntime,
     FoundrySpecialistTool foundrySpecialistTool,
     IEnumerable<IProvideFunctionTools> toolProviders,
     ILogger<CopilotSessionCoordinator> logger)
 {
     private readonly IReadOnlyList<AIFunction> _localToolFunctions = toolProviders.CombineFunctions(FunctionToolScope.LocalFrcData);
-    private readonly CopilotClientFactory _clientFactory = clientFactory;
-    private readonly CopilotAgentCatalog _agentCatalog = agentCatalog;
+    private readonly ICopilotSessionRuntime _sessionRuntime = sessionRuntime;
     private readonly FoundrySpecialistTool _foundrySpecialistTool = foundrySpecialistTool;
     private readonly ILogger<CopilotSessionCoordinator> _logger = logger;
 
@@ -49,122 +47,21 @@ internal sealed class CopilotSessionCoordinator(
             PersistStateAsync);
         List<AIFunction> sessionTools = [.. _localToolFunctions, foundryTool];
 
-        CopilotClient client = await _clientFactory.GetStartedClientAsync(cancellationToken).ConfigureAwait(false);
-        (CopilotSession Session, bool Resumed) sessionInfo = await GetOrCreateSessionAsync(client, currentState, sessionTools, PersistStateAsync, cancellationToken).ConfigureAwait(false);
-        await using (sessionInfo.Session.ConfigureAwait(false))
-        {
-            string prompt = BuildPrompt(message, leadingMessages, currentState.Transcript, includeTranscriptReplay: !sessionInfo.Resumed);
-            if (!sessionInfo.Resumed)
-            {
-                await foreach (AgentResponseUpdate update in CopilotEventStreamAdapter.StreamTurnAsync(sessionInfo.Session, prompt, cancellationToken).ConfigureAwait(false))
-                {
-                    yield return update;
-                }
-
-                yield break;
-            }
-
-            (IReadOnlyList<AgentResponseUpdate> updates, bool visibleAssistantContent, Exception? failure) = await CollectTurnUpdatesAsync(
-                sessionInfo.Session,
-                prompt,
-                cancellationToken).ConfigureAwait(false);
-
-            if (failure is null)
-            {
-                foreach (AgentResponseUpdate update in updates)
-                {
-                    yield return update;
-                }
-
-                yield break;
-            }
-
-            if (visibleAssistantContent || failure is OperationCanceledException or TaskCanceledException)
-            {
-                throw failure;
-            }
-
-            Log.ResumedCopilotSessionTurnFailedRetryingFreshSession(_logger, failure, sessionInfo.Session.SessionId);
-        }
-
-        await PersistStateAsync(currentState with { CopilotSessionId = null }, cancellationToken).ConfigureAwait(false);
-        (CopilotSession Session, bool Resumed) freshSessionInfo = await GetOrCreateSessionAsync(client, currentState, sessionTools, PersistStateAsync, cancellationToken).ConfigureAwait(false);
-        await using (freshSessionInfo.Session.ConfigureAwait(false))
+        ICopilotTurnSession session = await _sessionRuntime.StartSessionAsync(sessionTools, cancellationToken).ConfigureAwait(false);
+        currentState = currentState with { CopilotSessionId = session.SessionId };
+        await using (session.ConfigureAwait(false))
         {
             string prompt = BuildPrompt(message, leadingMessages, currentState.Transcript, includeTranscriptReplay: true);
-            await foreach (AgentResponseUpdate update in CopilotEventStreamAdapter.StreamTurnAsync(freshSessionInfo.Session, prompt, cancellationToken).ConfigureAwait(false))
+            await foreach (AgentResponseUpdate update in _sessionRuntime.StreamTurnAsync(session, prompt, _logger, cancellationToken).ConfigureAwait(false))
             {
                 yield return update;
             }
         }
-    }
 
-    private static bool HasVisibleAssistantContent(AgentResponseUpdate update)
-        => update.Contents
-            .OfType<TextContent>()
-            .Select(static content => content.Text.Trim())
-            .Any(text => !string.IsNullOrWhiteSpace(text) && !Conversation.TryExtractUserStatusMessage(text, out _));
-
-    private static async Task<(IReadOnlyList<AgentResponseUpdate> Updates, bool VisibleAssistantContent, Exception? Failure)> CollectTurnUpdatesAsync(
-        CopilotSession session,
-        string prompt,
-        CancellationToken cancellationToken)
-    {
-        List<AgentResponseUpdate> updates = [];
-        bool visibleAssistantContent = false;
-
-        try
+        if (persistChatState is not null)
         {
-            await foreach (AgentResponseUpdate update in CopilotEventStreamAdapter.StreamTurnAsync(session, prompt, cancellationToken).ConfigureAwait(false))
-            {
-                updates.Add(update);
-                visibleAssistantContent |= HasVisibleAssistantContent(update);
-            }
-
-            return (updates, visibleAssistantContent, null);
+            await persistChatState(currentState, cancellationToken).ConfigureAwait(false);
         }
-        catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
-        {
-            return (updates, visibleAssistantContent, e);
-        }
-    }
-
-    private async Task<(CopilotSession Session, bool Resumed)> GetOrCreateSessionAsync(
-        CopilotClient client,
-        CopilotChatState chatState,
-        IReadOnlyList<AIFunction> sessionTools,
-        Func<CopilotChatState, CancellationToken, ValueTask> persistState,
-        CancellationToken cancellationToken)
-    {
-        if (!string.IsNullOrWhiteSpace(chatState.CopilotSessionId))
-        {
-            try
-            {
-                CopilotSession resumedSession = await client
-                    .ResumeSessionAsync(chatState.CopilotSessionId, _agentCatalog.CreateResumeSessionConfig(sessionTools, cancellationToken: cancellationToken), cancellationToken)
-                    .ConfigureAwait(false);
-
-                if (!string.Equals(chatState.CopilotSessionId, resumedSession.SessionId, StringComparison.Ordinal))
-                {
-                    await persistState(chatState with { CopilotSessionId = resumedSession.SessionId }, cancellationToken).ConfigureAwait(false);
-                }
-
-                return (resumedSession, true);
-            }
-            catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
-            {
-                Log.UnableToResumeCopilotSessionFallingBackToAFreshSession(_logger, e, chatState.CopilotSessionId);
-                await persistState(chatState with { CopilotSessionId = null }, cancellationToken).ConfigureAwait(false);
-                chatState = chatState with { CopilotSessionId = null };
-            }
-        }
-
-        CopilotSession session = await client
-            .CreateSessionAsync(_agentCatalog.CreateSessionConfig(sessionTools, cancellationToken: cancellationToken), cancellationToken)
-            .ConfigureAwait(false);
-
-        await persistState(chatState with { CopilotSessionId = session.SessionId }, cancellationToken).ConfigureAwait(false);
-        return (session, false);
     }
 
     private static string BuildPrompt(

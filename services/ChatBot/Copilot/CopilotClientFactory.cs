@@ -14,8 +14,10 @@ internal sealed partial class CopilotClientFactory(
 {
     private readonly AiOptions _options = options.Value;
     private readonly ILogger _logger = loggerFactory.CreateLogger<CopilotClientFactory>();
-    private readonly ILogger _sdkLogger = loggerFactory.CreateLogger<CopilotClient>();
+    private readonly ILogger _sdkLogger = new CopilotSdkRedactingLogger(loggerFactory.CreateLogger<CopilotClient>());
     private readonly SemaphoreSlim _sync = new(1, 1);
+    private static readonly TimeSpan ClientStartupTimeout = TimeSpan.FromSeconds(30);
+    private static readonly TimeSpan ClientDisposeTimeout = TimeSpan.FromSeconds(10);
 
     private CopilotClient? _client;
 
@@ -38,10 +40,11 @@ internal sealed partial class CopilotClientFactory(
             Log.StartingCopilotClient(this._logger, this._options.Copilot.Model, this._options.Foundry.Endpoint, useLoggedInUser: false);
             try
             {
-                await client.StartAsync(cancellationToken).ConfigureAwait(false);
+                await client.StartAsync(cancellationToken).WaitAsync(ClientStartupTimeout, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
             {
+                await TryDisposeClientAsync(client, this._logger).ConfigureAwait(false);
                 Log.CopilotClientStartupFailed(this._logger, e, this._options.Copilot.Model, this._options.Foundry.Endpoint, useLoggedInUser: false);
                 throw;
             }
@@ -65,6 +68,22 @@ internal sealed partial class CopilotClientFactory(
         }
 
         this._sync.Dispose();
+    }
+
+    private static async Task TryDisposeClientAsync(CopilotClient client, ILogger logger)
+    {
+        try
+        {
+            await client.DisposeAsync().AsTask().WaitAsync(ClientDisposeTimeout).ConfigureAwait(false);
+        }
+        catch (TimeoutException timeoutException)
+        {
+            Log.CopilotClientCleanupFailed(logger, timeoutException);
+        }
+        catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
+        {
+            Log.CopilotClientCleanupFailed(logger, e);
+        }
     }
 
     private CopilotClientOptions CreateClientOptions()
@@ -97,5 +116,8 @@ internal sealed partial class CopilotClientFactory(
 
         [LoggerMessage(EventId = 1201, Level = LogLevel.Error, Message = "GitHub Copilot SDK client startup failed for Foundry-backed model {Model} at {ProjectEndpoint} with UseLoggedInUser={UseLoggedInUser}.")]
         public static partial void CopilotClientStartupFailed(ILogger logger, Exception exception, string model, Uri projectEndpoint, bool useLoggedInUser);
+
+        [LoggerMessage(EventId = 1202, Level = LogLevel.Warning, Message = "GitHub Copilot SDK client cleanup failed after startup did not complete.")]
+        public static partial void CopilotClientCleanupFailed(ILogger logger, Exception exception);
     }
 }
