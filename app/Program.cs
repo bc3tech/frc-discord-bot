@@ -4,6 +4,8 @@ using Azure.Identity;
 using Azure.Monitor.OpenTelemetry.Exporter;
 using Azure.Storage.Blobs;
 
+using BC3Technologies.DiscordGpt.Hosting;
+
 using ChatBot;
 
 using Common;
@@ -76,7 +78,7 @@ host.Services
 var hasValidChatBotConfiguration = host.Configuration.HasValidChatBotConfiguration(out var chatBotConfigurationFailures);
 if (hasValidChatBotConfiguration)
 {
-    host.Services.ConfigureChatBotFunctionality();
+    // DiscordGPT HERE - integration with Foundry, AzureWebjobsStorage for blob & table storage
 }
 
 host.Services

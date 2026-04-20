@@ -9,6 +9,13 @@
   <Folder Name="/Libraries/">
     <Project Path="lib/AgentFramework.OpenTelemetry/AgentFramework.OpenTelemetry.csproj" />
   </Folder>
+  <Folder Name="/Libraries/DiscordGpt/">
+    <Project Path="gpt/src/BC3Technologies.DiscordGpt.Copilot.Foundry/BC3Technologies.DiscordGpt.Copilot.Foundry.csproj" />
+    <Project Path="gpt/src/BC3Technologies.DiscordGpt.Copilot/BC3Technologies.DiscordGpt.Copilot.csproj" />
+    <Project Path="gpt/src/BC3Technologies.DiscordGpt.Core/BC3Technologies.DiscordGpt.Core.csproj" />
+    <Project Path="gpt/src/BC3Technologies.DiscordGpt.Discord/BC3Technologies.DiscordGpt.Discord.csproj" />
+    <Project Path="gpt/src/BC3Technologies.DiscordGpt.Hosting/BC3Technologies.DiscordGpt.Hosting.csproj" />
+  </Folder>
   <Folder Name="/Tests/">
     <Project Path="app/FunctionApp.Tests/FunctionApp.Tests.csproj" />
     <Project Path="lib/AgentFramework.OpenTelemetry.Tests/AgentFramework.OpenTelemetry.Tests.csproj" />
