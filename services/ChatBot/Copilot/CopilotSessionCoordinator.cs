@@ -13,7 +13,6 @@ using System.Text;
 internal sealed class CopilotSessionCoordinator(
     CopilotClientFactory clientFactory,
     CopilotAgentCatalog agentCatalog,
-    CopilotEventStreamAdapter eventStreamAdapter,
     FoundrySpecialistTool foundrySpecialistTool,
     IEnumerable<IProvideFunctionTools> toolProviders,
     ILogger<CopilotSessionCoordinator> logger)
@@ -21,7 +20,6 @@ internal sealed class CopilotSessionCoordinator(
     private readonly IReadOnlyList<AIFunction> _localToolFunctions = toolProviders.CombineFunctions(FunctionToolScope.LocalFrcData);
     private readonly CopilotClientFactory _clientFactory = clientFactory;
     private readonly CopilotAgentCatalog _agentCatalog = agentCatalog;
-    private readonly CopilotEventStreamAdapter _eventStreamAdapter = eventStreamAdapter;
     private readonly FoundrySpecialistTool _foundrySpecialistTool = foundrySpecialistTool;
     private readonly ILogger<CopilotSessionCoordinator> _logger = logger;
 

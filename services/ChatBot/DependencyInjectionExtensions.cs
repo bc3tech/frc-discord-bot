@@ -78,7 +78,6 @@ public static class DependencyInjectionExtensions
             .AddSingleton<PromptCatalog>()
             .AddSingleton<CopilotFoundryProviderFactory>()
             .AddSingleton<CopilotAgentCatalog>()
-            .AddSingleton<CopilotEventStreamAdapter>()
             .AddSingleton<CopilotClientFactory>()
             .AddSingleton<FoundrySpecialistTool>()
             .AddSingleton<CopilotSessionCoordinator>()

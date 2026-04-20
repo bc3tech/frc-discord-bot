@@ -9,7 +9,7 @@ using Microsoft.Extensions.AI;
 
 using System.Threading.Channels;
 
-internal sealed class CopilotEventStreamAdapter
+internal static class CopilotEventStreamAdapter
 {
     public static async IAsyncEnumerable<AgentResponseUpdate> StreamTurnAsync(
         CopilotSession session,
