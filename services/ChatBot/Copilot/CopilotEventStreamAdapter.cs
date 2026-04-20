@@ -19,43 +19,66 @@ internal static class CopilotEventStreamAdapter
         ArgumentNullException.ThrowIfNull(session);
         ArgumentException.ThrowIfNullOrWhiteSpace(prompt);
 
-        Channel<SessionEvent> events = Channel.CreateUnbounded<SessionEvent>();
-        using IDisposable subscription = session.On(static @event =>
+        Channel<SessionEvent> events = Channel.CreateUnbounded<SessionEvent>(new UnboundedChannelOptions
         {
-            if (@event is null)
+            SingleReader = true,
+            SingleWriter = false,
+        });
+        using IDisposable eventSubscription = session.On(@event =>
+        {
+            if (@event is not null)
             {
-                return;
+                events.Writer.TryWrite(@event);
             }
         });
-        using IDisposable eventSubscription = session.On(@event => events.Writer.TryWrite(@event));
 
-        _ = await session.SendAsync(new MessageOptions { Prompt = prompt }, cancellationToken).ConfigureAwait(false);
+        Task sendTask = Task.Run(SendPromptAsync, cancellationToken);
 
         string? latestAssistantMessage = null;
         bool emittedStatus = false;
-        while (true)
+        while (await events.Reader.WaitToReadAsync(cancellationToken).ConfigureAwait(false))
         {
-            SessionEvent @event = await events.Reader.ReadAsync(cancellationToken).ConfigureAwait(false);
-            switch (@event)
+            while (events.Reader.TryRead(out SessionEvent? @event))
             {
-                case ToolExecutionStartEvent toolExecutionStartEvent when !emittedStatus:
-                    emittedStatus = true;
-                    yield return CreateStatusUpdate(BuildToolStatusMessage(toolExecutionStartEvent.Data.ToolName));
-                    break;
-                case AssistantMessageEvent assistantMessageEvent when !string.IsNullOrWhiteSpace(assistantMessageEvent.Data.Content):
-                    latestAssistantMessage = assistantMessageEvent.Data.Content.Trim();
-                    break;
-                case SessionIdleEvent:
-                    if (string.IsNullOrWhiteSpace(latestAssistantMessage))
-                    {
-                        throw new InvalidOperationException("Copilot session completed without producing an assistant message.");
-                    }
+                switch (@event)
+                {
+                    case ToolExecutionStartEvent toolExecutionStartEvent when !emittedStatus:
+                        emittedStatus = true;
+                        yield return CreateStatusUpdate(BuildToolStatusMessage(toolExecutionStartEvent.Data.ToolName));
+                        break;
+                    case AssistantMessageEvent assistantMessageEvent when !string.IsNullOrWhiteSpace(assistantMessageEvent.Data.Content):
+                        latestAssistantMessage = assistantMessageEvent.Data.Content.Trim();
+                        break;
+                    case SessionIdleEvent:
+                        await sendTask.ConfigureAwait(false);
 
-                    yield return new AgentResponseUpdate(ChatRole.Assistant, [new TextContent(latestAssistantMessage)])
-                    {
-                        FinishReason = ChatFinishReason.Stop,
-                    };
-                    yield break;
+                        if (string.IsNullOrWhiteSpace(latestAssistantMessage))
+                        {
+                            throw new InvalidOperationException("Copilot session completed without producing an assistant message.");
+                        }
+
+                        yield return new AgentResponseUpdate(ChatRole.Assistant, [new TextContent(latestAssistantMessage)])
+                        {
+                            FinishReason = ChatFinishReason.Stop,
+                        };
+                        yield break;
+                }
+            }
+        }
+
+        await sendTask.ConfigureAwait(false);
+        throw new InvalidOperationException("Copilot session completed without emitting a SessionIdle event.");
+
+        async Task SendPromptAsync()
+        {
+            try
+            {
+                _ = await session.SendAsync(new MessageOptions { Prompt = prompt }, cancellationToken).ConfigureAwait(false);
+            }
+            catch (Exception e)
+            {
+                events.Writer.TryComplete(e);
+                throw;
             }
         }
     }

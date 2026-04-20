@@ -35,7 +35,17 @@ internal sealed partial class CopilotClientFactory(
             }
 
             CopilotClient client = new(this.CreateClientOptions());
-            await client.StartAsync(cancellationToken).ConfigureAwait(false);
+            Log.StartingCopilotClient(this._logger, this._options.Copilot.Model, this._options.Foundry.Endpoint, useLoggedInUser: false);
+            try
+            {
+                await client.StartAsync(cancellationToken).ConfigureAwait(false);
+            }
+            catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
+            {
+                Log.CopilotClientStartupFailed(this._logger, e, this._options.Copilot.Model, this._options.Foundry.Endpoint, useLoggedInUser: false);
+                throw;
+            }
+
             Log.CopilotClientStarted(this._logger, this._options.Copilot.Model, this._options.Foundry.Endpoint);
             this._client = client;
             return client;
@@ -64,6 +74,9 @@ internal sealed partial class CopilotClientFactory(
             AutoStart = false,
             Cwd = Directory.GetCurrentDirectory(),
             Logger = this._sdkLogger,
+            Port = 0,
+            UseStdio = false,
+            UseLoggedInUser = false,
         };
 
         if (!string.IsNullOrWhiteSpace(this._options.Copilot.LogLevel))
@@ -76,7 +89,13 @@ internal sealed partial class CopilotClientFactory(
 
     private static partial class Log
     {
+        [LoggerMessage(EventId = 1199, Level = LogLevel.Information, Message = "Starting GitHub Copilot SDK client for Foundry-backed model {Model} at {ProjectEndpoint} with UseLoggedInUser={UseLoggedInUser}.")]
+        public static partial void StartingCopilotClient(ILogger logger, string model, Uri projectEndpoint, bool useLoggedInUser);
+
         [LoggerMessage(EventId = 1200, Level = LogLevel.Information, Message = "Started GitHub Copilot SDK client for Foundry-backed model {Model} at {ProjectEndpoint}.")]
         public static partial void CopilotClientStarted(ILogger logger, string model, Uri projectEndpoint);
+
+        [LoggerMessage(EventId = 1201, Level = LogLevel.Error, Message = "GitHub Copilot SDK client startup failed for Foundry-backed model {Model} at {ProjectEndpoint} with UseLoggedInUser={UseLoggedInUser}.")]
+        public static partial void CopilotClientStartupFailed(ILogger logger, Exception exception, string model, Uri projectEndpoint, bool useLoggedInUser);
     }
 }
