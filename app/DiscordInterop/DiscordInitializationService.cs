@@ -146,9 +146,9 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
         {
             client.MessageReceived += async i =>
             {
-                _logger.MessageReceivedFromGatewayGatewayMessage(i);
                 if (i is SocketUserMessage msg && !i.Author.IsBot)
                 {
+                    _logger.MessageReceivedFromGatewayGatewayMessage(i);
                     try
                     {
                         if (i.Channel is IDMChannel)

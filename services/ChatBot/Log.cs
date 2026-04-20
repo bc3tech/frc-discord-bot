@@ -118,4 +118,7 @@ static partial class Log
     [LoggerMessage(36, LogLevel.Warning, "Hosted Foundry specialist returned non-JSON content; returning raw payload.")]
     internal static partial void HostedFoundrySpecialistReturnedNonJsonContentReturningRawPayload(this ILogger logger);
 
+    [LoggerMessage(37, LogLevel.Warning, "Resumed Copilot session {SessionId} failed before producing assistant output; retrying the turn on a fresh session.")]
+    internal static partial void ResumedCopilotSessionTurnFailedRetryingFreshSession(this ILogger logger, Exception exception, string SessionId);
+
 }

@@ -146,12 +146,46 @@ public sealed class CopilotLiveIntegrationTests
             .AddSingleton<CopilotFoundryProviderFactory>()
             .AddSingleton<CopilotAgentCatalog>()
             .AddSingleton<CopilotClientFactory>()
+            .AddSingleton<CopilotSessionCoordinator>()
+            .AddSingleton<Conversation>()
             .AddSingleton<FoundrySpecialistTool>()
             .AddSingleton<IProvideFunctionTools, MealSignupInfoTool>()
             .AddSingleton<IProvideFunctionTools, TbaApiTool>()
             .AddSingleton<IProvideFunctionTools, StatboticsTool>();
 
         return services.BuildServiceProvider(validateScopes: true);
+    }
+
+    [Fact]
+    public async Task LiveConversationResumeFlowAnswersMealDutyPromptTwice()
+    {
+        using CancellationTokenSource timeout = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
+        timeout.CancelAfter(TimeSpan.FromMinutes(5));
+
+        IConfiguration configuration = BuildLiveConfiguration();
+        Assert.True(
+            configuration.HasValidChatBotConfiguration(out string[] validationFailures),
+            $"Missing live chatbot configuration:{Environment.NewLine}{string.Join(Environment.NewLine, validationFailures)}");
+
+        using var logCollector = new TestLogCollector();
+        await using ServiceProvider serviceProvider = BuildServiceProvider(configuration, logCollector);
+        Conversation conversation = serviceProvider.GetRequiredService<Conversation>();
+
+        CopilotChatState chatState = new();
+        ValueTask PersistStateAsync(CopilotChatState updatedState, CancellationToken cancellationToken)
+        {
+            chatState = updatedState;
+            return ValueTask.CompletedTask;
+        }
+
+        string firstAssistantMessage = await RunConversationTurnAsync(conversation, chatState, PersistStateAsync, timeout.Token);
+        Assert.False(string.IsNullOrWhiteSpace(chatState.CopilotSessionId));
+        string resumedSessionId = chatState.CopilotSessionId!;
+        string secondAssistantMessage = await RunConversationTurnAsync(conversation, chatState, PersistStateAsync, timeout.Token);
+
+        Assert.False(string.IsNullOrWhiteSpace(firstAssistantMessage));
+        Assert.False(string.IsNullOrWhiteSpace(secondAssistantMessage));
+        Assert.Equal(resumedSessionId, chatState.CopilotSessionId);
     }
 
     private static IConfiguration BuildLiveConfiguration()
@@ -307,6 +341,25 @@ public sealed class CopilotLiveIntegrationTests
 
     private static string JoinValues(IReadOnlyList<string>? values)
         => values is { Count: > 0 } ? string.Join(" | ", values) : "(none)";
+
+    private static async Task<string> RunConversationTurnAsync(
+        Conversation conversation,
+        CopilotChatState chatState,
+        Func<CopilotChatState, CancellationToken, ValueTask> persistConversationState,
+        CancellationToken cancellationToken)
+    {
+        List<AgentResponseUpdate> updates = [];
+        await foreach (AgentResponseUpdate update in conversation.PostUserMessageStreamingAsync(
+            chatState,
+            ReproPrompt,
+            persistConversationState,
+            cancellationToken: cancellationToken).ConfigureAwait(false))
+        {
+            updates.Add(update);
+        }
+
+        return ExtractFinalAssistantMessage(updates);
+    }
 
     private sealed class TestLogCollector : ILoggerProvider
     {

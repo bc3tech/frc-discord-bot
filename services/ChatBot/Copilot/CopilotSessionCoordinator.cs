@@ -51,12 +51,81 @@ internal sealed class CopilotSessionCoordinator(
 
         CopilotClient client = await _clientFactory.GetStartedClientAsync(cancellationToken).ConfigureAwait(false);
         (CopilotSession Session, bool Resumed) sessionInfo = await GetOrCreateSessionAsync(client, currentState, sessionTools, PersistStateAsync, cancellationToken).ConfigureAwait(false);
-        await using CopilotSession session = sessionInfo.Session;
-
-        string prompt = BuildPrompt(message, leadingMessages, currentState.Transcript, includeTranscriptReplay: !sessionInfo.Resumed);
-        await foreach (AgentResponseUpdate update in CopilotEventStreamAdapter.StreamTurnAsync(session, prompt, cancellationToken).ConfigureAwait(false))
+        await using (sessionInfo.Session.ConfigureAwait(false))
         {
-            yield return update;
+            string prompt = BuildPrompt(message, leadingMessages, currentState.Transcript, includeTranscriptReplay: !sessionInfo.Resumed);
+            if (!sessionInfo.Resumed)
+            {
+                await foreach (AgentResponseUpdate update in CopilotEventStreamAdapter.StreamTurnAsync(sessionInfo.Session, prompt, cancellationToken).ConfigureAwait(false))
+                {
+                    yield return update;
+                }
+
+                yield break;
+            }
+
+            (IReadOnlyList<AgentResponseUpdate> updates, bool visibleAssistantContent, Exception? failure) = await CollectTurnUpdatesAsync(
+                sessionInfo.Session,
+                prompt,
+                cancellationToken).ConfigureAwait(false);
+
+            if (failure is null)
+            {
+                foreach (AgentResponseUpdate update in updates)
+                {
+                    yield return update;
+                }
+
+                yield break;
+            }
+
+            if (visibleAssistantContent || failure is OperationCanceledException or TaskCanceledException)
+            {
+                throw failure;
+            }
+
+            Log.ResumedCopilotSessionTurnFailedRetryingFreshSession(_logger, failure, sessionInfo.Session.SessionId);
+        }
+
+        await PersistStateAsync(currentState with { CopilotSessionId = null }, cancellationToken).ConfigureAwait(false);
+        (CopilotSession Session, bool Resumed) freshSessionInfo = await GetOrCreateSessionAsync(client, currentState, sessionTools, PersistStateAsync, cancellationToken).ConfigureAwait(false);
+        await using (freshSessionInfo.Session.ConfigureAwait(false))
+        {
+            string prompt = BuildPrompt(message, leadingMessages, currentState.Transcript, includeTranscriptReplay: true);
+            await foreach (AgentResponseUpdate update in CopilotEventStreamAdapter.StreamTurnAsync(freshSessionInfo.Session, prompt, cancellationToken).ConfigureAwait(false))
+            {
+                yield return update;
+            }
+        }
+    }
+
+    private static bool HasVisibleAssistantContent(AgentResponseUpdate update)
+        => update.Contents
+            .OfType<TextContent>()
+            .Select(static content => content.Text.Trim())
+            .Any(text => !string.IsNullOrWhiteSpace(text) && !Conversation.TryExtractUserStatusMessage(text, out _));
+
+    private static async Task<(IReadOnlyList<AgentResponseUpdate> Updates, bool VisibleAssistantContent, Exception? Failure)> CollectTurnUpdatesAsync(
+        CopilotSession session,
+        string prompt,
+        CancellationToken cancellationToken)
+    {
+        List<AgentResponseUpdate> updates = [];
+        bool visibleAssistantContent = false;
+
+        try
+        {
+            await foreach (AgentResponseUpdate update in CopilotEventStreamAdapter.StreamTurnAsync(session, prompt, cancellationToken).ConfigureAwait(false))
+            {
+                updates.Add(update);
+                visibleAssistantContent |= HasVisibleAssistantContent(update);
+            }
+
+            return (updates, visibleAssistantContent, null);
+        }
+        catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
+        {
+            return (updates, visibleAssistantContent, e);
         }
     }
 
