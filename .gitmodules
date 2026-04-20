@@ -2,3 +2,6 @@
 	path = lib
 	url = https://github.com/brandonh-msft/agentframework-opentelemetry.git
 	branch = main
+[submodule "gpt"]
+	path = gpt
+	url = https://git.bc3.tech/bc3tech/discord-gpt.git
