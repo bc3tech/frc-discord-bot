@@ -20,7 +20,7 @@ internal static class ChatBotConstants
 
         internal static class Copilot
         {
-            private static readonly string Name = nameof(Copilot);
+            private static readonly string Name = ConfigurationPath.Combine(nameof(AI), nameof(Copilot));
 
             public static readonly string Model = ConfigurationPath.Combine(Name, nameof(Model));
             public static readonly string ReasoningEffort = ConfigurationPath.Combine(Name, nameof(ReasoningEffort));
@@ -29,7 +29,7 @@ internal static class ChatBotConstants
 
         internal static class Foundry
         {
-            private static readonly string Name = nameof(Foundry);
+            private static readonly string Name = ConfigurationPath.Combine(nameof(AI), nameof(Foundry));
 
             public static readonly string Endpoint = ConfigurationPath.Combine(Name, nameof(Endpoint));
             public static readonly string AgentId = ConfigurationPath.Combine(Name, nameof(AgentId));

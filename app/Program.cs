@@ -73,12 +73,8 @@ host.Services
     .ConfigureStatboticsApi()
     .ConfigureFIRSTApi();
 
-var hasFoundryChatConfiguration =
-    HasAnyConfiguredValue(host.Configuration, Constants.Configuration.AI.Foundry.Endpoint)
-    && HasAnyConfiguredValue(host.Configuration, Constants.Configuration.AI.Foundry.AgentId)
-    && HasAnyConfiguredValue(host.Configuration, Constants.Configuration.AI.Foundry.LocalAgentModel);
-
-if (hasFoundryChatConfiguration)
+var hasValidChatBotConfiguration = host.Configuration.HasValidChatBotConfiguration(out var chatBotConfigurationFailures);
+if (hasValidChatBotConfiguration)
 {
     host.Services.ConfigureChatBotFunctionality();
 }
@@ -141,29 +137,13 @@ var builtHost = host.Build();
 var startupLogger = builtHost.Services.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");
 startupLogger.OpenTelemetryStartupConfigurationApplicationInsightsConnectionStringIsConnectionStringStateOTELServiceNameIsServiceName(
     string.IsNullOrWhiteSpace(host.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]) ? "missing" : "configured", host.Configuration["OTEL_SERVICE_NAME"] ?? "unset");
-if (hasFoundryChatConfiguration)
+if (hasValidChatBotConfiguration)
 {
     startupLogger.AzureAIChatFunctionalityEnabled();
 }
 else
 {
-    startupLogger.AzureAIChatFunctionalityDisabledDueToMissingConfigurationKeysProjectEndpointKeyAgentIdKeyLocalAgentModelKey(
-        Constants.Configuration.AI.Foundry.Endpoint,
-        Constants.Configuration.AI.Foundry.AgentId,
-        Constants.Configuration.AI.Foundry.LocalAgentModel);
+    startupLogger.AzureAIChatFunctionalityDisabledDueToOptionsValidationFailures(string.Join("; ", chatBotConfigurationFailures));
 }
 
 await builtHost.RunAsync().ConfigureAwait(false);
-
-static bool HasAnyConfiguredValue(IConfiguration configuration, params string[] keys)
-{
-    foreach (string key in keys)
-    {
-        if (!string.IsNullOrWhiteSpace(configuration[key]))
-        {
-            return true;
-        }
-    }
-
-    return false;
-}

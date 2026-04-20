@@ -27,6 +27,27 @@ using Throws = Common.Throws;
 
 public static class DependencyInjectionExtensions
 {
+    public static bool HasValidChatBotConfiguration(this IConfiguration configuration, out string[] validationFailures)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+
+        AiOptions options = new()
+        {
+            FoundryEndpoint = new Uri("https://bootstrap.invalid"),
+            AgentId = "bootstrap",
+            MealSignupGeniusId = "bootstrap",
+            LocalAgentModel = "bootstrap",
+            OpenAIApiVersion = "2025-06-01",
+            DefaultTeamNumber = 1,
+        };
+
+        new ConfigureAiOptions(configuration).Configure(options);
+
+        ValidateOptionsResult validationResult = new ValidateAiOptions().Validate(name: null, options);
+        validationFailures = validationResult.Failures?.ToArray() ?? [];
+        return validationResult.Succeeded;
+    }
+
     public static IServiceCollection ConfigureChatBotFunctionality(this IServiceCollection services)
     {
         OpenTelemetryExtensions.EnableAzureExperimentalTracing();

@@ -14,9 +14,9 @@ public sealed class CopilotConfigurationTests
         IConfiguration configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(
             [
-                new KeyValuePair<string, string?>("Copilot:Model", "gpt-5"),
-                new KeyValuePair<string, string?>("Copilot:ReasoningEffort", "high"),
-                new KeyValuePair<string, string?>("Copilot:LogLevel", "debug"),
+                new KeyValuePair<string, string?>("AI:Copilot:Model", "gpt-5"),
+                new KeyValuePair<string, string?>("AI:Copilot:ReasoningEffort", "high"),
+                new KeyValuePair<string, string?>("AI:Copilot:LogLevel", "debug"),
                 new KeyValuePair<string, string?>(ChatBotConstants.Configuration.Foundry.Endpoint, "https://example.services.ai.azure.com/api/projects/test"),
                 new KeyValuePair<string, string?>(ChatBotConstants.Configuration.Foundry.AgentId, "discord-bot"),
                 new KeyValuePair<string, string?>(ChatBotConstants.Configuration.Foundry.MealSignupGeniusId, "signup-board"),
@@ -63,5 +63,45 @@ public sealed class CopilotConfigurationTests
 
         Assert.False(result.Succeeded);
         Assert.Contains("Copilot.Model", string.Join(Environment.NewLine, result.Failures ?? []));
+    }
+
+    [Fact]
+    public void HasValidChatBotConfigurationWhenRequiredAiSettingsPresentReturnsTrue()
+    {
+        IConfiguration configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(
+            [
+                new KeyValuePair<string, string?>("AI:Copilot:Model", "gpt-5"),
+                new KeyValuePair<string, string?>("AI:Foundry:Endpoint", "https://example.services.ai.azure.com/api/projects/test"),
+                new KeyValuePair<string, string?>("AI:Foundry:AgentId", "discord-bot"),
+                new KeyValuePair<string, string?>("AI:Foundry:LocalAgentModel", "gpt-5.4-mini"),
+                new KeyValuePair<string, string?>("AI:Foundry:OpenAIApiVersion", "2025-06-01"),
+                new KeyValuePair<string, string?>("DefaultTeamNumber", "2046"),
+            ])
+            .Build();
+
+        bool isValid = configuration.HasValidChatBotConfiguration(out string[] validationFailures);
+
+        Assert.True(isValid);
+        Assert.Empty(validationFailures);
+    }
+
+    [Fact]
+    public void HasValidChatBotConfigurationWhenRequiredAiSettingsMissingReturnsFalse()
+    {
+        IConfiguration configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(
+            [
+                new KeyValuePair<string, string?>("AI:Copilot:Model", "gpt-5"),
+                new KeyValuePair<string, string?>("AI:Foundry:Endpoint", "https://example.services.ai.azure.com/api/projects/test"),
+                new KeyValuePair<string, string?>("DefaultTeamNumber", "2046"),
+            ])
+            .Build();
+
+        bool isValid = configuration.HasValidChatBotConfiguration(out string[] validationFailures);
+
+        Assert.False(isValid);
+        Assert.Contains(validationFailures, failure => failure.Contains(nameof(AiOptions.AgentId), StringComparison.Ordinal));
+        Assert.Contains(validationFailures, failure => failure.Contains(nameof(AiOptions.LocalAgentModel), StringComparison.Ordinal));
     }
 }

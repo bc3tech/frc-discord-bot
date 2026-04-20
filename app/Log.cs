@@ -574,6 +574,9 @@ static partial class Log
     [LoggerMessage(202, LogLevel.Information, "Removed tracked state for deleted Discord thread {ThreadId} from {PartitionKey}/{RowKey}. Removed entries: {RemovedEntries}")]
     internal static partial void RemovedTrackedStateForDeletedDiscordThreadThreadIdFromPartitionKeyRowKeyRemovedEntriesRemovedEntries(this ILogger logger, ulong ThreadId, string PartitionKey, string RowKey, int RemovedEntries);
 
+    [LoggerMessage(206, LogLevel.Warning, "Azure AI chat functionality disabled because chatbot options validation failed: {ValidationFailures}")]
+    internal static partial void AzureAIChatFunctionalityDisabledDueToOptionsValidationFailures(this ILogger logger, string ValidationFailures);
+
     [LoggerMessage(203, LogLevel.Debug, "Cleaning up tracked state for deleted Discord thread {ThreadId}")]
     internal static partial void CleaningUpTrackedStateForDeletedDiscordThreadThreadId(this ILogger logger, ulong ThreadId);
 
