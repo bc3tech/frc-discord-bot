@@ -79,6 +79,7 @@ var hasValidChatBotConfiguration = host.Configuration.HasValidChatBotConfigurati
 if (hasValidChatBotConfiguration)
 {
     // DiscordGPT HERE - integration with Foundry, AzureWebjobsStorage for blob & table storage
+    host.Services.AddFrcChatBot(host.Configuration);
 }
 
 host.Services
@@ -101,6 +102,7 @@ var tableEndpoint = StartupInfrastructureFactory.TryGetStorageServiceUri(
     ConfigurationPath.Combine("AzureWebJobsStorage", "tableServiceUri"),
     ConfigurationPath.Combine("AzureWebJobsStorage", "accountName"));
 TableServiceClient tsc = StartupInfrastructureFactory.CreateTableServiceClient(storageConnectionString, tableEndpoint, credential);
+host.Services.AddSingleton(tsc);
 var storageTables = host.Configuration
     .GetSection(Constants.Configuration.Azure.Storage.Tables)
     .Get<IEnumerable<string>>() ?? [];
