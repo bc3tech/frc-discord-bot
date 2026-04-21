@@ -1,5 +1,7 @@
 namespace ChatBot.Tools;
 
+using BC3Technologies.DiscordGpt.Core;
+
 using Common;
 using Common.Extensions;
 
@@ -14,21 +16,37 @@ using System.Text.Json;
 internal sealed class TbaApiTool(
     IConfiguration configuration,
     IHttpClientFactory httpClientFactory,
-    ILogger<TbaApiTool> logger) : HttpGetToolBase(httpClientFactory, logger)
+    ILogger<TbaApiTool> logger) : HttpGetToolBase(httpClientFactory, logger), IDiscordTool
 {
     private const string TbaApiSurfaceResourceName = "ChatBot.OpenApi.thebluealliance.json";
-    private const string DescribeSurfaceToolName = "tba_api_surface";
-    private const string QueryToolName = "tba_api";
+    internal const string DescribeSurfaceToolName = "tba_api_surface";
+    internal const string QueryToolName = "tba_api";
+    internal const string DescribeSurfaceToolDescription = "Describes the legitimate The Blue Alliance API v3 endpoint surface.";
+    internal const string QueryToolDescription = "Calls the official The Blue Alliance API v3 for FRC competition data.";
 
     private readonly string _tbaApiKey = Throws.IfNullOrWhiteSpace(configuration["TbaApiKey"]);
 
     public override IReadOnlyList<AIFunction> Functions => field ??=
         [
-            AIFunctionFactory.Create(DescribeApiSurfaceAsync, CreateSkippableFunctionOptions(DescribeSurfaceToolName)),
-            AIFunctionFactory.Create(QueryTbaAsync, CreateSkippableFunctionOptions(QueryToolName)),
+            AsSurfaceFunction(),
+            AsFunction(),
         ];
 
     public override IReadOnlyList<string> ToolNames => [DescribeSurfaceToolName, QueryToolName];
+
+    public string Name => QueryToolName;
+
+    public string Description => QueryToolDescription;
+
+    public AIFunction AsFunction()
+        => AIFunctionFactory.Create(
+            QueryTbaAsync,
+            CreateSkippableFunctionOptions(QueryToolName, QueryToolDescription));
+
+    internal AIFunction AsSurfaceFunction()
+        => AIFunctionFactory.Create(
+            DescribeApiSurfaceAsync,
+            CreateSkippableFunctionOptions(DescribeSurfaceToolName, DescribeSurfaceToolDescription));
 
     [Description("Describes the legitimate The Blue Alliance API v3 surface from the embedded OpenAPI spec. Use this before calling tba_api whenever you are not already sure of the exact endpoint template. You can pass a topic like team, event, district, match, rankings, awards, media, alliances, or status to narrow the list.")]
     public Task<string> DescribeApiSurfaceAsync(

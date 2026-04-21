@@ -28,7 +28,7 @@ internal abstract class HttpGetToolBase(IHttpClientFactory httpClientFactory, IL
 
     protected IHttpClientFactory HttpClientFactory => httpClientFactory;
 
-    protected static AIFunctionFactoryOptions CreateSkippableFunctionOptions(string name, string? description = null)
+    internal static AIFunctionFactoryOptions CreateSkippableFunctionOptions(string name, string? description = null)
         => new()
         {
             Name = name,

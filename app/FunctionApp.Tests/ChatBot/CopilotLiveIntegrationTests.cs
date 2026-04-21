@@ -10,6 +10,8 @@ using Azure.AI.Projects;
 using Azure.Core;
 using Azure.Identity;
 
+using BC3Technologies.DiscordGpt.Core;
+
 using GitHub.Copilot.SDK;
 
 using Microsoft.Extensions.AI;
@@ -55,8 +57,9 @@ public sealed class CopilotLiveIntegrationTests
         CopilotAgentCatalog agentCatalog = serviceProvider.GetRequiredService<CopilotAgentCatalog>();
         FoundrySpecialistTool foundrySpecialistTool = serviceProvider.GetRequiredService<FoundrySpecialistTool>();
         IReadOnlyList<AIFunction> localToolFunctions = serviceProvider
-            .GetServices<IProvideFunctionTools>()
-            .CombineFunctions(FunctionToolScope.LocalFrcData);
+            .GetServices<IDiscordTool>()
+            .Select(static tool => tool.AsFunction())
+            .ToArray();
 
         CopilotChatState chatState = new();
         ValueTask PersistStateAsync(CopilotChatState updatedState, CancellationToken cancellationToken)
@@ -152,9 +155,10 @@ public sealed class CopilotLiveIntegrationTests
             .AddSingleton<CopilotSessionCoordinator>()
             .AddSingleton<Conversation>()
             .AddSingleton<FoundrySpecialistTool>()
-            .AddSingleton<IProvideFunctionTools, MealSignupInfoTool>()
-            .AddSingleton<IProvideFunctionTools, TbaApiTool>()
-            .AddSingleton<IProvideFunctionTools, StatboticsTool>();
+            .AddSingleton<IDiscordTool, MealSignupInfoTool>()
+            .AddSingleton<IDiscordTool, TbaApiSurfaceTool>()
+            .AddSingleton<IDiscordTool, TbaApiTool>()
+            .AddSingleton<IDiscordTool, StatboticsTool>();
 
         return services.BuildServiceProvider(validateScopes: true);
     }

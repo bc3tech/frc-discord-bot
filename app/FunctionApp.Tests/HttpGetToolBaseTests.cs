@@ -1,5 +1,7 @@
 namespace FunctionApp.Tests;
 
+using BC3Technologies.DiscordGpt.Core;
+
 using ChatBot.Tools;
 
 using Microsoft.Extensions.AI;
@@ -58,6 +60,7 @@ public sealed class HttpGetToolBaseTests
         };
 
         var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+        IDiscordTool discordTool = tool;
 
         // Act
         string response = await tool.QueryStatboticsAsync("/v3/team_year/2046/2025", cancellationToken: CancellationToken.None);
@@ -65,6 +68,8 @@ public sealed class HttpGetToolBaseTests
         using JsonDocument document = JsonDocument.Parse(response);
 
         // Assert
+        Assert.Equal("statbotics_api", discordTool.Name);
+        Assert.Equal("statbotics_api", discordTool.AsFunction().Name);
         Assert.Equal("/v3/team_year/2046/2025", document.RootElement.GetProperty("apiRequest").GetProperty("path").GetString());
         Assert.Equal("https://www.statbotics.io/team/2046/2025", document.RootElement.GetProperty("userReferencePages")[0].GetProperty("url").GetString());
     }
@@ -89,6 +94,7 @@ public sealed class HttpGetToolBaseTests
             ])
             .Build();
         var tool = new TbaApiTool(configuration, new StubHttpClientFactory(client), NullLogger<TbaApiTool>.Instance);
+        IDiscordTool discordTool = tool;
 
         // Act
         string response = await tool.QueryTbaAsync("/team/frc2046", cancellationToken: CancellationToken.None);
@@ -96,8 +102,35 @@ public sealed class HttpGetToolBaseTests
         using JsonDocument document = JsonDocument.Parse(response);
 
         // Assert
+        Assert.Equal("tba_api", discordTool.Name);
+        Assert.Equal("tba_api", discordTool.AsFunction().Name);
         Assert.Equal("/team/frc2046", document.RootElement.GetProperty("apiRequest").GetProperty("path").GetString());
         Assert.Equal("https://www.thebluealliance.com/team/2046", document.RootElement.GetProperty("userReferencePages")[0].GetProperty("url").GetString());
+    }
+
+    [Fact]
+    public void TbaApiSurfaceToolExposesSurfaceFunction()
+    {
+        using var handler = new StubHttpMessageHandler(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent("""{"key":"frc2046"}"""),
+        });
+        using var client = new HttpClient(handler)
+        {
+            BaseAddress = new Uri("https://www.thebluealliance.com/api/v3"),
+        };
+
+        var configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(
+            [
+                new KeyValuePair<string, string?>("TbaApiKey", "test-key"),
+            ])
+            .Build();
+        var queryTool = new TbaApiTool(configuration, new StubHttpClientFactory(client), NullLogger<TbaApiTool>.Instance);
+        var surfaceTool = new TbaApiSurfaceTool(queryTool);
+
+        Assert.Equal("tba_api_surface", surfaceTool.Name);
+        Assert.Equal("tba_api_surface", surfaceTool.AsFunction().Name);
     }
 
     private sealed class TestHttpGetTool(IHttpClientFactory httpClientFactory)

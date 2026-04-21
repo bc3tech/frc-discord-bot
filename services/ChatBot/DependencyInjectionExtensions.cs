@@ -87,8 +87,6 @@ public static class DependencyInjectionExtensions
         });
 
         services.AddSingleton<TbaApiTool>();
-        services.AddSingleton<StatboticsTool>();
-        services.AddSingleton<MealSignupInfoTool>();
 
         services.AddDiscordGpt()
             .UseFoundry(options =>
@@ -98,10 +96,10 @@ public static class DependencyInjectionExtensions
                 options.ApiVersion = GetOptionalConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.OpenAIApiVersion);
             })
             .UseConversationStore<TableConversationStore>()
-            .AddTool<MealSignupInfoDiscordTool>()
-            .AddTool<TbaApiSurfaceDiscordTool>()
-            .AddTool<TbaApiQueryDiscordTool>()
-            .AddTool<StatboticsDiscordTool>();
+            .AddTool<MealSignupInfoTool>()
+            .AddTool<TbaApiSurfaceTool>()
+            .AddTool<TbaApiTool>()
+            .AddTool<StatboticsTool>();
 
         services.AddTableConversationStore(options =>
         {

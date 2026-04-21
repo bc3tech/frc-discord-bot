@@ -1,5 +1,7 @@
 namespace ChatBot.Tools;
 
+using BC3Technologies.DiscordGpt.Core;
+
 using Common;
 using Common.Extensions;
 
@@ -20,7 +22,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-internal sealed partial class MealSignupInfoTool(IHttpClientFactory httpClientFactory, IConfiguration configuration, ILogger<MealSignupInfoTool> logger) : HttpGetToolBase(httpClientFactory, logger)
+internal sealed partial class MealSignupInfoTool(IHttpClientFactory httpClientFactory, IConfiguration configuration, ILogger<MealSignupInfoTool> logger)
+    : HttpGetToolBase(httpClientFactory, logger), IDiscordTool
 {
     private const string ToolName = "fetch_meal_signup_info";
     private const string ToolDescription = "Fetch the current Bear Metal meal signup data from SignupGenius. Use this for meal-signup questions such as what food is needed, who signed up, open slots, quantities, dates, delivery times, comments, and other current SignupGenius state.";
@@ -35,6 +38,15 @@ internal sealed partial class MealSignupInfoTool(IHttpClientFactory httpClientFa
         ];
 
     public override IReadOnlyList<string> ToolNames => [ToolName];
+
+    public string Name => ToolName;
+
+    public string Description => ToolDescription;
+
+    public AIFunction AsFunction()
+        => AIFunctionFactory.Create(
+            FetchMealSignupInfoResponseBodyAsync,
+            CreateSkippableFunctionOptions(ToolName, ToolDescription));
 
     [Description("Fetches the current Bear Metal meal signup data from SignupGenius. Use this whenever the request is about meal signup state, food assignments, open slots, quantities, dates, delivery times, or who signed up.")]
     public async Task<string> FetchMealSignupInfoResponseBodyAsync(CancellationToken cancellationToken)

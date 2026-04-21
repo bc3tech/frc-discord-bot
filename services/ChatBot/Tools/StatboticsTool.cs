@@ -1,4 +1,6 @@
-﻿namespace ChatBot.Tools;
+namespace ChatBot.Tools;
+
+using BC3Technologies.DiscordGpt.Core;
 
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
@@ -6,9 +8,11 @@ using Microsoft.Extensions.Logging;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogger<StatboticsTool> logger) : HttpGetToolBase(httpClientFactory, logger)
+internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogger<StatboticsTool> logger)
+    : HttpGetToolBase(httpClientFactory, logger), IDiscordTool
 {
     private const string QueryToolName = "statbotics_api";
+    private const string QueryToolDescription = "Calls the public Statbotics API for advanced FRC metrics.";
 
     public override IReadOnlyList<AIFunction> Functions => field ??=
         [
@@ -16,6 +20,15 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
         ];
 
     public override IReadOnlyList<string> ToolNames => [QueryToolName];
+
+    public string Name => QueryToolName;
+
+    public string Description => QueryToolDescription;
+
+    public AIFunction AsFunction()
+        => AIFunctionFactory.Create(
+            QueryStatboticsAsync,
+            CreateSkippableFunctionOptions(QueryToolName, QueryToolDescription));
 
     [Description("Calls the public Statbotics API (https://www.statbotics.io/docs/rest) for FRC advanced metrics. Use this for EPA, Elo, predictions, rankings backed by Statbotics fields, team-year summaries, and event or match performance metrics. Provide a safe relative API path beginning with /v3/. Example: /v3/team_year/2046/2025. Optionally provide a query string without a leading question mark.")]
     public Task<string> QueryStatboticsAsync(
