@@ -1,24 +1,19 @@
 namespace ChatBot;
 
-using AgentFramework.OpenTelemetry;
+using Azure.AI.Inference;
 
-using Azure.AI.Projects;
-using Azure.Core;
-using Azure.Monitor.OpenTelemetry.Exporter;
+using BC3Technologies.DiscordGpt.Core;
+using BC3Technologies.DiscordGpt.Copilot;
+using BC3Technologies.DiscordGpt.Copilot.Foundry;
+using BC3Technologies.DiscordGpt.Hosting;
+using BC3Technologies.DiscordGpt.Storage.TableStorage;
 
-using ChatBot.Agents;
-using ChatBot.Copilot;
-using ChatBot.Configuration;
 using ChatBot.Tools;
 
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
-using OpenTelemetry;
-using OpenTelemetry.Trace;
 
 using System.Net;
 using System.Net.Http.Headers;
@@ -27,30 +22,44 @@ using Throws = Common.Throws;
 
 public static class DependencyInjectionExtensions
 {
+    private static readonly string[] s_discordTokenKeys = ["Discord:Token"];
+    private static readonly string[] s_discordApplicationIdKeys = ["Discord:ApplicationId", "Discord:AppId"];
+
     public static bool HasValidChatBotConfiguration(this IConfiguration configuration, out string[] validationFailures)
     {
         ArgumentNullException.ThrowIfNull(configuration);
 
-        AiOptions options = new()
+        List<string> failures = [];
+
+        var foundryEndpoint = GetOptionalConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.Endpoint);
+        if (!Uri.TryCreate(foundryEndpoint, UriKind.Absolute, out _))
         {
-            FoundryEndpoint = new Uri("https://bootstrap.invalid"),
-            AgentId = "bootstrap",
-            MealSignupGeniusId = "bootstrap",
-            LocalAgentModel = "bootstrap",
-            OpenAIApiVersion = "2025-06-01",
-            DefaultTeamNumber = 1,
-        };
+            failures.Add($"Required configuration value '{ChatBotConstants.Configuration.Foundry.Endpoint}' must be an absolute URI.");
+        }
 
-        new ConfigureAiOptions(configuration).Configure(options);
+        if (string.IsNullOrWhiteSpace(GetOptionalConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.LocalAgentModel)))
+        {
+            failures.Add($"Required configuration value '{ChatBotConstants.Configuration.Foundry.LocalAgentModel}' is missing or empty.");
+        }
 
-        ValidateOptionsResult validationResult = new ValidateAiOptions().Validate(name: null, options);
-        validationFailures = validationResult.Failures?.ToArray() ?? [];
-        return validationResult.Succeeded;
+        if (string.IsNullOrWhiteSpace(GetOptionalConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.MealSignupGeniusId)))
+        {
+            failures.Add($"Required configuration value '{ChatBotConstants.Configuration.Foundry.MealSignupGeniusId}' is missing or empty.");
+        }
+
+        if (string.IsNullOrWhiteSpace(GetOptionalConfigurationValue(configuration, s_discordTokenKeys)))
+        {
+            failures.Add("Required configuration value 'Discord:Token' is missing or empty.");
+        }
+
+        validationFailures = [.. failures];
+        return validationFailures.Length is 0;
     }
 
-    public static IServiceCollection ConfigureChatBotFunctionality(this IServiceCollection services)
+    public static IServiceCollection AddFrcChatBot(this IServiceCollection services, IConfiguration configuration)
     {
-        OpenTelemetryExtensions.EnableAzureExperimentalTracing();
+        ArgumentNullException.ThrowIfNull(services);
+        ArgumentNullException.ThrowIfNull(configuration);
 
         services
             .AddHttpClient(ChatBotConstants.HttpClients.MealSignupInfo, MealSignupInfoTool.ConfigureHttpClient)
@@ -70,47 +79,82 @@ public static class DependencyInjectionExtensions
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         });
 
-        services.ConfigureOptions<ConfigureAiOptions>()
-            .ConfigureOptions<ValidateAiOptions>()
-            .AddOptionsWithValidateOnStart<AiOptions>();
+        services.Configure<DiscordGptCoreOptions>(options =>
+        {
+            options.BotToken = GetRequiredConfigurationValue(configuration, s_discordTokenKeys);
+            options.ApplicationId = GetOptionalConfigurationValue(configuration, s_discordApplicationIdKeys);
+            options.MaxHistoryLength = 50;
+        });
 
-        services
-            .AddSingleton<PromptCatalog>()
-            .AddSingleton<CopilotFoundryProviderFactory>()
-            .AddSingleton<CopilotAgentCatalog>()
-            .AddSingleton<CopilotClientFactory>()
-            .AddSingleton<ICopilotSessionRuntime, CopilotSdkSessionRuntime>()
-            .AddSingleton<FoundrySpecialistTool>()
-            .AddSingleton<CopilotSessionCoordinator>()
-            .AddSingleton<IProvideFunctionTools, MealSignupInfoTool>()
-            .AddSingleton<IProvideFunctionTools, TbaApiTool>()
-            .AddSingleton<IProvideFunctionTools, StatboticsTool>()
-            .AddSingleton<UserChatSynchronization>()
-            .AddSingleton<MessageHandler>()
-            .AddSingleton(sp =>
+        services.AddSingleton<TbaApiTool>();
+        services.AddSingleton<StatboticsTool>();
+        services.AddSingleton<MealSignupInfoTool>();
+
+        services.AddDiscordGpt()
+            .UseFoundry(options =>
             {
-                var options = sp.GetRequiredService<IOptions<AiOptions>>().Value;
-                ILogger<AIProjectClient> logger = sp.GetRequiredService<ILoggerFactory>().CreateLogger<AIProjectClient>();
-                TokenCredential credential = sp.GetRequiredService<TokenCredential>();
-
-                AIProjectClientOptions clientOptions = new()
-                {
-                    EnableDistributedTracing = true
-                };
-                clientOptions.AddPolicy(W3CTraceContextClientModelPipelinePolicy.Instance, System.ClientModel.Primitives.PipelinePosition.PerTry);
-
-                logger.ConnectingToAzureAIFoundryProjectEndpointEndpoint(options.FoundryEndpoint);
-                return new AIProjectClient(endpoint: options.FoundryEndpoint, tokenProvider: credential, options: clientOptions);
+                options.Endpoint = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.Endpoint);
+                options.DeploymentName = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.LocalAgentModel);
+                options.ApiVersion = GetOptionalConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.OpenAIApiVersion);
             })
-            .AddSingleton<ChatRunner>()
-            .AddSingleton<Conversation>();
+            .UseConversationStore<TableConversationStore>()
+            .AddTool<MealSignupInfoDiscordTool>()
+            .AddTool<TbaApiSurfaceDiscordTool>()
+            .AddTool<TbaApiQueryDiscordTool>()
+            .AddTool<StatboticsDiscordTool>();
 
-        Sdk.CreateTracerProviderBuilder()
-            .AddAgentFrameworkOpenTelemetry("Discord.ChatBot")
-            .AddProcessor<AzureIdentityActivityFilteringProcessor>()
-            .AddAzureMonitorTraceExporter()
-            .Build();
+        services.AddTableConversationStore(options =>
+        {
+            options.TableName = ChatBotConstants.ServiceKeys.TableClient_UserChatAgentThreads;
+        });
+
+        services.AddSingleton<IChatClient>(sp =>
+        {
+            FoundryChatClientOptions options = sp.GetRequiredService<IOptions<FoundryChatClientOptions>>().Value;
+            IChatClient innerClient = sp.GetRequiredService<ChatCompletionsClient>().AsIChatClient(options.DeploymentName);
+
+            string promptPath = Path.Combine(AppContext.BaseDirectory, "ChatBot", "agent_prompt.txt");
+            if (!File.Exists(promptPath))
+            {
+                throw new FileNotFoundException($"Required chatbot prompt file was not found: {promptPath}", promptPath);
+            }
+
+            string prompt = File.ReadAllText(promptPath).ReplaceLineEndings("\n").Trim();
+            return new FrcSystemPromptChatClient(innerClient, prompt);
+        });
+
+        services.AddCopilotAgent(options =>
+        {
+            options.AllowAllTools = true;
+            options.AllowAllSkills = true;
+            options.AllowToolsInDirectMessages = true;
+            options.AllowSkillsInDirectMessages = true;
+        });
+
+        services.AddSingleton<MessageHandler>();
 
         return services;
+    }
+
+    private static string GetRequiredConfigurationValue(IConfiguration configuration, params string[] keys)
+    {
+        string? value = GetOptionalConfigurationValue(configuration, keys);
+        return !string.IsNullOrWhiteSpace(value)
+            ? value
+            : throw new InvalidOperationException($"Required configuration value '{string.Join("' or '", keys)}' is missing or empty.");
+    }
+
+    private static string? GetOptionalConfigurationValue(IConfiguration configuration, params string[] keys)
+    {
+        foreach (var key in keys)
+        {
+            string? value = configuration[key];
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                return value.Trim();
+            }
+        }
+
+        return null;
     }
 }

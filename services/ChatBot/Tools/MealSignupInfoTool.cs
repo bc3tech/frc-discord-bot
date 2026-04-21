@@ -1,12 +1,11 @@
 namespace ChatBot.Tools;
 
-using ChatBot.Configuration;
-
+using Common;
 using Common.Extensions;
 
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 
 using System;
@@ -21,12 +20,12 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-internal sealed partial class MealSignupInfoTool(IHttpClientFactory httpClientFactory, IOptions<AiOptions> configuration, ILogger<MealSignupInfoTool> logger) : HttpGetToolBase(httpClientFactory, logger)
+internal sealed partial class MealSignupInfoTool(IHttpClientFactory httpClientFactory, IConfiguration configuration, ILogger<MealSignupInfoTool> logger) : HttpGetToolBase(httpClientFactory, logger)
 {
     private const string ToolName = "fetch_meal_signup_info";
     private const string ToolDescription = "Fetch the current Bear Metal meal signup data from SignupGenius. Use this for meal-signup questions such as what food is needed, who signed up, open slots, quantities, dates, delivery times, comments, and other current SignupGenius state.";
 
-    private readonly string _mealSignupGeniusId = configuration.Value.MealSignupGeniusId;
+    private readonly string _mealSignupGeniusId = Throws.IfNullOrWhiteSpace(configuration[ChatBotConstants.Configuration.Foundry.MealSignupGeniusId]);
 
     public override IReadOnlyList<AIFunction> Functions => field ??=
         [
