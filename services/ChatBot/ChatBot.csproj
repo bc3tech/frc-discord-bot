@@ -18,6 +18,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\common\Common.csproj" />
     <ProjectReference Include="..\..\lib\AgentFramework.OpenTelemetry\AgentFramework.OpenTelemetry.csproj" />
+    <ProjectReference Include="..\..\gpt\src\BC3Technologies.DiscordGpt.Hosting\BC3Technologies.DiscordGpt.Hosting.csproj" />
+    <ProjectReference Include="..\..\gpt\src\BC3Technologies.DiscordGpt.Core\BC3Technologies.DiscordGpt.Core.csproj" />
+    <ProjectReference Include="..\..\gpt\src\BC3Technologies.DiscordGpt.Discord\BC3Technologies.DiscordGpt.Discord.csproj" />
+    <ProjectReference Include="..\..\gpt\src\BC3Technologies.DiscordGpt.Copilot\BC3Technologies.DiscordGpt.Copilot.csproj" />
+    <ProjectReference Include="..\..\gpt\src\BC3Technologies.DiscordGpt.Copilot.Foundry\BC3Technologies.DiscordGpt.Copilot.Foundry.csproj" />
   </ItemGroup>
 
   <ItemGroup>
