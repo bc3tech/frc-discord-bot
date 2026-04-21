@@ -1,7 +1,5 @@
 namespace ChatBot;
 
-using Azure.AI.Inference;
-
 using BC3Technologies.DiscordGpt.Core;
 using BC3Technologies.DiscordGpt.Copilot;
 using BC3Technologies.DiscordGpt.Copilot.Foundry;
@@ -13,7 +11,8 @@ using ChatBot.Tools;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+
+using OpenAI.Chat;
 
 using System.Net;
 using System.Net.Http.Headers;
@@ -108,7 +107,6 @@ public static class DependencyInjectionExtensions
             {
                 options.Endpoint = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.Endpoint);
                 options.DeploymentName = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.LocalAgentModel);
-                options.ApiVersion = GetOptionalConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.OpenAIApiVersion);
             })
             .UseConversationStore<TableConversationStore>()
             .AddTool<MealSignupInfoTool>()
@@ -123,8 +121,7 @@ public static class DependencyInjectionExtensions
 
         services.AddSingleton<IChatClient>(sp =>
         {
-            FoundryChatClientOptions options = sp.GetRequiredService<IOptions<FoundryChatClientOptions>>().Value;
-            IChatClient innerClient = sp.GetRequiredService<ChatCompletionsClient>().AsIChatClient(options.DeploymentName);
+            IChatClient innerClient = sp.GetRequiredService<ChatClient>().AsIChatClient();
 
             string promptPath = Path.Combine(AppContext.BaseDirectory, "ChatBot", "agent_prompt.txt");
             if (!File.Exists(promptPath))
