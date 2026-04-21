@@ -133,7 +133,7 @@ public static class DependencyInjectionExtensions
             return new FrcSystemPromptChatClient(innerClient, prompt);
         });
 
-        services.AddCopilotAgent(options =>
+        services.AddDiscordGpt(options =>
         {
             options.AllowAllTools = true;
             options.AllowAllSkills = true;
