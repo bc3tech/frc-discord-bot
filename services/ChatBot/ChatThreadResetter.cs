@@ -1,8 +1,6 @@
 namespace ChatBot;
 
-using Azure;
-using Azure.AI.Projects;
-using Azure.Data.Tables;
+using BC3Technologies.DiscordGpt.Core;
 
 using Common.Discord;
 using Common.Extensions;
@@ -14,12 +12,9 @@ using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-using System.ClientModel;
-
 public static class ChatThreadResetter
 {
     public const string ChatResetConfirmButtonId = "chat-reset-confirm";
-    private const string AgentThreadIdColumnName = "AgentThreadId";
 
     private static ILogger? logger;
 
@@ -80,97 +75,17 @@ public static class ChatThreadResetter
 
     public static async Task ResetThreadForUserAsync(IServiceProvider services, ulong userId, CancellationToken cancellationToken = default)
     {
-        string userIdString = userId.ToString();
-        UserChatSynchronization userChatSynchronization = services.GetRequiredService<UserChatSynchronization>();
-        await using IAsyncDisposable userLock = await userChatSynchronization.AcquireAsync(BuildDirectMessageLockKey(userIdString), cancellationToken).ConfigureAwait(false);
-        TableClient table = services.GetRequiredKeyedService<TableClient>(ChatBotConstants.ServiceKeys.TableClient_UserChatAgentThreads);
-        NullableResponse<TableEntity> existingThread = await table.GetEntityIfExistsAsync<TableEntity>(
-            userIdString,
-            userIdString,
-            [AgentThreadIdColumnName],
-            cancellationToken: cancellationToken).ConfigureAwait(false);
+        ArgumentNullException.ThrowIfNull(services);
 
-        string? threadId = existingThread.HasValue
-            ? ConversationThreadState.TryExtractThreadId(existingThread.Value?[AgentThreadIdColumnName]?.ToString())
-            : null;
-        await DeleteFoundryConversationIfPresentAsync(services, threadId, cancellationToken).ConfigureAwait(false);
-
-        try
-        {
-            await table.DeleteEntityAsync(partitionKey: userIdString, rowKey: userIdString, cancellationToken: cancellationToken).ConfigureAwait(false);
-        }
-        catch (RequestFailedException e) when (e.Status == 404)
-        {
-        }
+        IConversationStore conversationStore = services.GetRequiredService<IConversationStore>();
+        await conversationStore.ClearAsync(ConversationKey.Dm(userId.ToString()), cancellationToken).ConfigureAwait(false);
     }
 
     public static async Task CleanupDeletedThreadAsync(IServiceProvider services, ulong threadId, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(services);
 
-        string threadIdString = threadId.ToString();
-        UserChatSynchronization userChatSynchronization = services.GetRequiredService<UserChatSynchronization>();
-        await using IAsyncDisposable threadLock = await userChatSynchronization.AcquireAsync(BuildGuildThreadLockKey(threadIdString), cancellationToken).ConfigureAwait(false);
-
-        TableClient table = services.GetRequiredKeyedService<TableClient>(ChatBotConstants.ServiceKeys.TableClient_UserChatAgentThreads);
-        HashSet<string> foundryConversationIds = [];
-        List<TableEntity> entities = [];
-
-        await foreach (TableEntity entity in table.QueryAsync<TableEntity>(
-            filter: $"PartitionKey eq '{threadIdString}'",
-            cancellationToken: cancellationToken).ConfigureAwait(false))
-        {
-            entities.Add(entity);
-
-            if (entity.TryGetValue(AgentThreadIdColumnName, out object? storedConversationState)
-                && ConversationThreadState.TryExtractThreadId(storedConversationState.ToString()) is { Length: > 0 } foundryConversationId)
-            {
-                foundryConversationIds.Add(foundryConversationId);
-            }
-        }
-
-        foreach (string foundryConversationId in foundryConversationIds)
-        {
-            await DeleteFoundryConversationIfPresentAsync(services, foundryConversationId, cancellationToken).ConfigureAwait(false);
-        }
-
-        foreach (TableEntity entity in entities)
-        {
-            try
-            {
-                await table.DeleteEntityAsync(entity.PartitionKey, entity.RowKey, ETag.All, cancellationToken).ConfigureAwait(false);
-            }
-            catch (RequestFailedException e) when (e.Status == 404)
-            {
-            }
-        }
+        IConversationStore conversationStore = services.GetRequiredService<IConversationStore>();
+        await conversationStore.ClearAsync(ConversationKey.Thread(threadId.ToString()), cancellationToken).ConfigureAwait(false);
     }
-
-    private static async Task DeleteFoundryConversationIfPresentAsync(IServiceProvider services, string? threadId, CancellationToken cancellationToken)
-    {
-        cancellationToken.ThrowIfCancellationRequested();
-
-        if (string.IsNullOrWhiteSpace(threadId))
-        {
-            return;
-        }
-
-        AIProjectClient? projectClient = services.GetService<AIProjectClient>();
-        if (projectClient is null)
-        {
-            return;
-        }
-
-        try
-        {
-            await projectClient.GetProjectOpenAIClient().GetProjectConversationsClient().DeleteConversationAsync(threadId, options: null).ConfigureAwait(false);
-        }
-        catch (ClientResultException e) when (e.Status == 404)
-        {
-        }
-    }
-
-    private static string BuildDirectMessageLockKey(string userId) => $"dm:{userId}";
-
-    private static string BuildGuildThreadLockKey(string threadId) => $"guild-thread:{threadId}";
 }
