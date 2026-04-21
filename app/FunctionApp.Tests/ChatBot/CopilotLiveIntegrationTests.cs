@@ -25,8 +25,10 @@ using System.Text;
 public sealed class CopilotLiveIntegrationTests
 {
     private const string ReproPrompt = "who's got meal duty this week";
+    public static bool IsLiveCopilotEnabled =>
+        string.Equals(Environment.GetEnvironmentVariable("FRC_ENABLE_LIVE_COPILOT_TESTS"), "1", StringComparison.Ordinal);
 
-    [Fact]
+    [Fact(Skip = "Set FRC_ENABLE_LIVE_COPILOT_TESTS=1 to run live Copilot integration tests.", SkipUnless = nameof(IsLiveCopilotEnabled))]
     public async Task LiveCopilotSessionAnswersMealDutyPrompt()
     {
         using CancellationTokenSource timeout = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
@@ -157,7 +159,7 @@ public sealed class CopilotLiveIntegrationTests
         return services.BuildServiceProvider(validateScopes: true);
     }
 
-    [Fact]
+    [Fact(Skip = "Set FRC_ENABLE_LIVE_COPILOT_TESTS=1 to run live Copilot integration tests.", SkipUnless = nameof(IsLiveCopilotEnabled))]
     public async Task LiveConversationFreshParentSessionFlowAnswersMealDutyPromptTwice()
     {
         using CancellationTokenSource timeout = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
@@ -190,7 +192,7 @@ public sealed class CopilotLiveIntegrationTests
         Assert.NotEqual(firstSessionId, chatState.CopilotSessionId);
     }
 
-    [Fact]
+    [Fact(Skip = "Set FRC_ENABLE_LIVE_COPILOT_TESTS=1 to run live Copilot integration tests.", SkipUnless = nameof(IsLiveCopilotEnabled))]
     public async Task LiveConversationWithDiscordUserContextAnswersMealDutyPrompt()
     {
         using CancellationTokenSource timeout = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
