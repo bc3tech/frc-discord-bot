@@ -102,7 +102,7 @@ public static class DependencyInjectionExtensions
 
         services.AddSingleton<TbaApiTool>();
 
-        services.AddDiscordGpt()
+        services.AddDiscordGpt(options => options.AllowAll = true)
             .UseFoundry(options =>
             {
                 options.Endpoint = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.Endpoint);
@@ -133,7 +133,7 @@ public static class DependencyInjectionExtensions
             return new FrcSystemPromptChatClient(innerClient, prompt);
         });
 
-        services.AddDiscordGpt(options =>
+        services.Configure<CopilotToolAuthorizationOptions>(options =>
         {
             options.AllowAllTools = true;
             options.AllowAllSkills = true;
