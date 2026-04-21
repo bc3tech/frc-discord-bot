@@ -57,9 +57,24 @@ public static class DependencyInjectionExtensions
     }
 
     public static IServiceCollection AddFrcChatBot(this IServiceCollection services, IConfiguration configuration)
+        => AddFrcChatBot(services, configuration, out _, out _);
+
+    public static IServiceCollection AddFrcChatBot(
+        this IServiceCollection services,
+        IConfiguration configuration,
+        out bool isEnabled,
+        out string[] validationFailures)
     {
         ArgumentNullException.ThrowIfNull(services);
         ArgumentNullException.ThrowIfNull(configuration);
+
+        if (!configuration.HasValidChatBotConfiguration(out validationFailures))
+        {
+            isEnabled = false;
+            return services;
+        }
+
+        isEnabled = true;
 
         services
             .AddHttpClient(ChatBotConstants.HttpClients.MealSignupInfo, MealSignupInfoTool.ConfigureHttpClient)

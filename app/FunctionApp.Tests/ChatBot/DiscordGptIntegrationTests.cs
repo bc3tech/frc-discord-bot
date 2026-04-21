@@ -140,6 +140,30 @@ public sealed class DiscordGptIntegrationTests
     }
 
     [Fact]
+    public void AddFrcChatBotWithInvalidConfigurationDoesNotRegisterChatbotServices()
+    {
+        IConfiguration configuration = BuildConfiguration(
+            ("AI:Foundry:Endpoint", "https://example.services.ai.azure.com/api/projects/frc"),
+            ("AI:Foundry:MealSignupGeniusId", "signup-board"),
+            ("TbaApiKey", "tba-api-key"));
+
+        ServiceCollection services = new();
+        services.AddSingleton(configuration);
+        services.AddLogging();
+        services.AddSingleton(new TableServiceClient("UseDevelopmentStorage=true"));
+
+        services.AddFrcChatBot(configuration, out bool isEnabled, out string[] validationFailures);
+        Assert.False(isEnabled);
+        Assert.Contains(validationFailures, failure => failure.Contains("AI:Foundry:LocalAgentModel", StringComparison.Ordinal));
+        Assert.Contains(validationFailures, failure => failure.Contains("Discord:Token", StringComparison.Ordinal));
+
+        using ServiceProvider provider = services.BuildServiceProvider(validateScopes: true);
+        Assert.Null(provider.GetService<MessageHandler>());
+        Assert.Null(provider.GetService<IConversationStore>());
+        Assert.Null(provider.GetService<IDiscordEventHandler>());
+    }
+
+    [Fact]
     public async Task ChatThreadResetterClearsExpectedConversationScopes()
     {
         Mock<IConversationStore> store = new(MockBehavior.Strict);

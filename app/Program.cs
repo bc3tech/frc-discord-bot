@@ -75,12 +75,11 @@ host.Services
     .ConfigureStatboticsApi()
     .ConfigureFIRSTApi();
 
-var hasValidChatBotConfiguration = host.Configuration.HasValidChatBotConfiguration(out var chatBotConfigurationFailures);
-if (hasValidChatBotConfiguration)
-{
-    // DiscordGPT HERE - integration with Foundry, AzureWebjobsStorage for blob & table storage
-    host.Services.AddFrcChatBot(host.Configuration);
-}
+// DiscordGPT HERE - integration with Foundry, AzureWebjobsStorage for blob & table storage
+host.Services.AddFrcChatBot(
+    host.Configuration,
+    out bool hasValidChatBotConfiguration,
+    out string[] chatBotConfigurationFailures);
 
 host.Services
     .AddSingleton(sp => new EmbeddingColorizer(new FRCColors.Client(sp.GetRequiredService<IHttpClientFactory>()), sp.GetService<ILoggerFactory>()?.CreateLogger<EmbeddingColorizer>()))
