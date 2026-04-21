@@ -75,12 +75,6 @@ host.Services
     .ConfigureStatboticsApi()
     .ConfigureFIRSTApi();
 
-// DiscordGPT HERE - integration with Foundry, AzureWebjobsStorage for blob & table storage
-host.Services.AddFrcChatBot(
-    host.Configuration,
-    out bool hasValidChatBotConfiguration,
-    out string[] chatBotConfigurationFailures);
-
 host.Services
     .AddSingleton(sp => new EmbeddingColorizer(new FRCColors.Client(sp.GetRequiredService<IHttpClientFactory>()), sp.GetService<ILoggerFactory>()?.CreateLogger<EmbeddingColorizer>()))
     .AddSingleton(credential)
@@ -90,6 +84,11 @@ host.Services
     .AddSingleton<RESTCountries>()
     .AddSingleton<TimeProvider, PacificTimeProvider>();
 //.FixAppInsightsLogging();
+
+host.Services.AddFrcChatBot(
+    host.Configuration,
+    out bool hasValidChatBotConfiguration,
+    out string[] chatBotConfigurationFailures);
 
 // Prefer explicit service URIs so Container Apps can use managed identity-backed storage.
 // The connection-string fallback is retained for local development.
