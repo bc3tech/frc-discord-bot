@@ -259,6 +259,7 @@ public sealed class CopilotLiveIntegrationTests
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
             .AddJsonFile("appsettings.development.json", optional: true, reloadOnChange: false)
             .AddJsonFile("local.settings.json", optional: true, reloadOnChange: false)
+            .AddJsonFile("live.integration.settings.json", optional: true, reloadOnChange: false)
             .AddUserSecrets(typeof(StartupInfrastructureFactory).Assembly, optional: true)
             .AddEnvironmentVariables()
             .Build();
@@ -268,7 +269,7 @@ public sealed class CopilotLiveIntegrationTests
             .AsEnumerable()
             .Where(static pair => pair.Value is not null && pair.Key.Length > "Values:".Length)
             .ToDictionary(
-                static pair => pair.Key["Values:".Length..],
+                static pair => pair.Key["Values:".Length..].Replace("__", ":", StringComparison.Ordinal),
                 static pair => pair.Value,
                 StringComparer.OrdinalIgnoreCase);
 

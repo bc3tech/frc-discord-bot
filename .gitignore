@@ -300,3 +300,4 @@ DiscordBotFunctionApp/Properties/ServiceDependencies
 DiscordBotFunctionApp/Properties/serviceDependencies.BearMetalDiscordBotApp - Zip Deploy.json
 .azure
 .atv/observations.jsonl
+app/live.integration.settings.json
