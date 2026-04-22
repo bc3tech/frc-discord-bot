@@ -77,15 +77,32 @@ public static class ChatThreadResetter
     {
         ArgumentNullException.ThrowIfNull(services);
 
+        var conversationKey = ConversationKey.Dm(userId.ToString());
+
         IConversationStore conversationStore = services.GetRequiredService<IConversationStore>();
-        await conversationStore.ClearAsync(ConversationKey.Dm(userId.ToString()), cancellationToken).ConfigureAwait(false);
+        await conversationStore.ClearAsync(conversationKey, cancellationToken).ConfigureAwait(false);
+
+        // Reset the persisted trace context so the next message opens a brand-new App Insights Trace.
+        var traceStore = services.GetService<CopilotSdk.OpenTelemetry.IConversationTraceContextStore>();
+        if (traceStore is not null)
+        {
+            await traceStore.RemoveAsync(conversationKey.ToStorageKey(), cancellationToken).ConfigureAwait(false);
+        }
     }
 
     public static async Task CleanupDeletedThreadAsync(IServiceProvider services, ulong threadId, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(services);
 
+        var conversationKey = ConversationKey.Thread(threadId.ToString());
+
         IConversationStore conversationStore = services.GetRequiredService<IConversationStore>();
-        await conversationStore.ClearAsync(ConversationKey.Thread(threadId.ToString()), cancellationToken).ConfigureAwait(false);
+        await conversationStore.ClearAsync(conversationKey, cancellationToken).ConfigureAwait(false);
+
+        var traceStore = services.GetService<CopilotSdk.OpenTelemetry.IConversationTraceContextStore>();
+        if (traceStore is not null)
+        {
+            await traceStore.RemoveAsync(conversationKey.ToStorageKey(), cancellationToken).ConfigureAwait(false);
+        }
     }
 }

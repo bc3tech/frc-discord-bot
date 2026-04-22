@@ -7,11 +7,15 @@ using BC3Technologies.DiscordGpt.Hosting;
 using BC3Technologies.DiscordGpt.Storage.Blob;
 using BC3Technologies.DiscordGpt.Storage.TableStorage;
 
+using ChatBot.Diagnostics;
 using ChatBot.Tools;
+
+using CopilotSdk.OpenTelemetry;
 
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 using OpenAI.Chat;
 
@@ -138,6 +142,15 @@ public static class DependencyInjectionExtensions
         {
             options.TableName = ChatBotConstants.ServiceKeys.TableClient_UserChatAgentThreads;
         });
+
+        // Conversation telemetry: persist root span context across Function invocations so all
+        // turns of a Discord conversation roll up into a single Application Insights Trace.
+        services.AddCopilotSdkOpenTelemetry();
+        services.Configure<TableConversationTraceContextStoreOptions>(options =>
+        {
+            options.TableName = ChatBotConstants.ServiceKeys.TableClient_ConversationTraces;
+        });
+        services.Replace(ServiceDescriptor.Singleton<IConversationTraceContextStore, TableConversationTraceContextStore>());
 
         services.AddSingleton<IChatClient>(sp =>
         {

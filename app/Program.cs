@@ -64,7 +64,9 @@ TokenCredential credential = host.Environment.IsDevelopment()
 host.Services
     .AddSingleton(sp => sp.GetRequiredService<IMeterFactory>().Create(Constants.Telemetry.AppMeterName))
     .AddOpenTelemetry()
-    .WithTracing(b => b.AddProcessor<AzureIdentityActivityFilteringProcessor>())
+    .WithTracing(b => b
+        .AddProcessor<AzureIdentityActivityFilteringProcessor>()
+        .AddSource(CopilotSdk.OpenTelemetry.CopilotSdkOpenTelemetry.ActivitySourceName))
     .WithMetrics(b => b.AddMeter(Constants.Telemetry.AppMeterName))
     .UseFunctionsWorkerDefaults()
     .UseAzureMonitorExporter();

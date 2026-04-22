@@ -13,8 +13,11 @@ using Microsoft.Extensions.Logging;
 /// of the currently-active turn span (which the caller is expected to have opened via
 /// <see cref="IConversationTracer.BeginTurnAsync"/> immediately before creating the session).
 /// </summary>
-public static class CopilotSessionTelemetry
+public static partial class CopilotSessionTelemetry
 {
+    [LoggerMessage(Level = LogLevel.Warning, Message = "Copilot SDK telemetry translator failed for event type {EventType}")]
+    private static partial void LogTranslatorFailed(ILogger logger, Exception exception, string? eventType);
+
     /// <summary>
     /// Begin emitting OTel spans for events on <paramref name="session"/>. Returns an
     /// <see cref="IDisposable"/> that, when disposed, unsubscribes the listener and ends any
@@ -61,7 +64,10 @@ public static class CopilotSessionTelemetry
             }
             catch (Exception ex) when (ex is not OutOfMemoryException)
             {
-                this._logger?.LogWarning(ex, "Copilot SDK telemetry translator failed for event type {EventType}", @event?.GetType().Name);
+                if (this._logger is not null)
+                {
+                    LogTranslatorFailed(this._logger, ex, @event.GetType().Name);
+                }
             }
         }
 
@@ -181,11 +187,12 @@ public static class CopilotSessionTelemetry
                 return;
             }
 
-            var message = error.Data?.Message ?? "Copilot session error";
-            target.SetStatus(ActivityStatusCode.Error, message);
-            if (!string.IsNullOrEmpty(error.Data?.ErrorType))
+            var data = error.Data;
+            var message = data.Message;
+            target.SetStatus(ActivityStatusCode.Error, string.IsNullOrEmpty(message) ? "Copilot session error" : message);
+            if (!string.IsNullOrEmpty(data.ErrorType))
             {
-                target.SetTag("error.type", error.Data.ErrorType);
+                target.SetTag("error.type", data.ErrorType);
             }
         }
     }
