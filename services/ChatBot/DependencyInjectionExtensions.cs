@@ -116,7 +116,8 @@ public static class DependencyInjectionExtensions
         services.AddSingleton<TbaApiTool>();
 
         services
-            .AddDiscordGpt(options =>
+            .AddDiscordGpt()
+            .UseCopilot(options =>
             {
                 options.AllowAll = true;
                 options.EmitReasoningProgress = true;
