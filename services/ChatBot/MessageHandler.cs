@@ -2,6 +2,8 @@ namespace ChatBot;
 
 using BC3Technologies.DiscordGpt.Core;
 
+using global::CopilotSdk.OpenTelemetry;
+
 using Discord;
 using Discord.WebSocket;
 
@@ -9,22 +11,26 @@ using Microsoft.Extensions.Logging;
 
 public sealed partial class MessageHandler(
     IDiscordEventHandler discordEventHandler,
+    IConversationKeyResolver conversationKeyResolver,
+    IConversationTracer conversationTracer,
     ILogger<MessageHandler> logger)
 {
     private readonly IDiscordEventHandler _discordEventHandler = discordEventHandler;
+    private readonly IConversationKeyResolver _conversationKeyResolver = conversationKeyResolver;
+    private readonly IConversationTracer _conversationTracer = conversationTracer;
     private readonly ILogger<MessageHandler> _logger = logger;
 
-    public Task HandleUserMessageAsync(IUserMessage message, CancellationToken cancellationToken = default)
+    public async Task HandleUserMessageAsync(IUserMessage message, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(message);
 
         if (message.Author.IsBot)
         {
-            return Task.CompletedTask;
+            return;
         }
 
         MessageCreatedEvent discordEvent = BuildMessageCreatedEvent(message, botMentioned: false, mentionedRoleIds: []);
-        return _discordEventHandler.HandleAsync(discordEvent, cancellationToken);
+        await InvokeWithTurnSpanAsync(discordEvent, cancellationToken).ConfigureAwait(false);
     }
 
     public async Task<bool> TryHandleGuildMessageAsync(
@@ -57,8 +63,33 @@ public sealed partial class MessageHandler(
             botMentioned: botMentioned || isThreadMessage,
             mentionedRoleIds: [.. message.MentionedRoles.Select(role => role.Id.ToString())]);
 
-        await _discordEventHandler.HandleAsync(discordEvent, cancellationToken).ConfigureAwait(false);
+        await InvokeWithTurnSpanAsync(discordEvent, cancellationToken).ConfigureAwait(false);
         return true;
+    }
+
+    private async Task InvokeWithTurnSpanAsync(MessageCreatedEvent discordEvent, CancellationToken cancellationToken)
+    {
+        ConversationKey conversationKey = await _conversationKeyResolver
+            .ResolveAsync(discordEvent, cancellationToken)
+            .ConfigureAwait(false);
+
+        var rootTags = new Dictionary<string, object?>
+        {
+            ["discord.conversation.scope"] = (int)conversationKey.Scope,
+            ["discord.user.id"] = discordEvent.UserId,
+            ["discord.channel.id"] = discordEvent.ChannelId,
+            ["discord.guild.id"] = discordEvent.GuildId,
+            ["discord.is_dm"] = discordEvent.IsDm,
+        };
+
+        await using var turn = await _conversationTracer
+            .BeginTurnAsync(conversationKey.ToStorageKey(), rootTags, cancellationToken)
+            .ConfigureAwait(false);
+
+        turn.Activity?.SetTag("discord.message.id", discordEvent.MessageId);
+        turn.Activity?.SetTag("discord.thread.id", discordEvent.ThreadId);
+
+        await _discordEventHandler.HandleAsync(discordEvent, cancellationToken).ConfigureAwait(false);
     }
 
     private static MessageCreatedEvent BuildMessageCreatedEvent(

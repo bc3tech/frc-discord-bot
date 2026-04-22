@@ -24,6 +24,7 @@ public sealed class DiscordGptIntegrationTests
     public async Task HandleUserMessageAsyncForwardsDirectMessagesWithExpectedEnvelope()
     {
         AutoMocker mocker = new();
+        SetupTracingMocks(mocker);
         MessageHandler sut = mocker.CreateInstance<MessageHandler>();
         Mock<IDiscordEventHandler> eventHandler = mocker.GetMock<IDiscordEventHandler>();
         MessageCreatedEvent? capturedEvent = null;
@@ -213,6 +214,28 @@ public sealed class DiscordGptIntegrationTests
         => new ConfigurationBuilder()
             .AddInMemoryCollection(entries.Select(static entry => new KeyValuePair<string, string?>(entry.Key, entry.Value)))
             .Build();
+
+    private static void SetupTracingMocks(AutoMocker mocker)
+    {
+        mocker.GetMock<IConversationKeyResolver>()
+            .Setup(r => r.ResolveAsync(It.IsAny<DiscordEvent>(), It.IsAny<CancellationToken>()))
+            .Returns<DiscordEvent, CancellationToken>((evt, _) => Task.FromResult(
+                evt is MessageCreatedEvent { IsDm: true } dm
+                    ? ConversationKey.Dm(dm.UserId)
+                    : ConversationKey.Reply(((MessageCreatedEvent)evt).MessageId)));
+
+        Mock<global::CopilotSdk.OpenTelemetry.IConversationTurnScope> scope = new();
+        scope.SetupGet(s => s.Activity).Returns((System.Diagnostics.Activity?)null);
+        scope.SetupGet(s => s.ConversationId).Returns(string.Empty);
+        scope.Setup(s => s.DisposeAsync()).Returns(ValueTask.CompletedTask);
+
+        mocker.GetMock<global::CopilotSdk.OpenTelemetry.IConversationTracer>()
+            .Setup(t => t.BeginTurnAsync(
+                It.IsAny<string>(),
+                It.IsAny<IReadOnlyDictionary<string, object?>>(),
+                It.IsAny<CancellationToken>()))
+            .Returns(Task.FromResult(scope.Object));
+    }
 
     private static IUserMessage CreateUserMessage(
         ulong userId,

@@ -115,6 +115,27 @@ deployments (Functions, App Service, Kubernetes), implement `IConversationTraceC
 against a durable backend — Azure Tables, Cosmos DB, Redis, etc. — and register it after
 `AddCopilotSdkOpenTelemetry()`.
 
+## Tool / sub-agent spans require harness cooperation
+
+`CopilotSessionTelemetry.Subscribe(session, …)` is the API that emits per-tool-call /
+sub-agent / streaming-delta spans. It needs a reference to the live `CopilotSession`,
+which `GitHub.Copilot.SDK` only exposes from within the code that calls
+`CopilotClient.CreateSessionAsync`. `CopilotClient` is `sealed`, has no session-created
+event, and there is no public hook to intercept session creation from outside the
+prompt-harness code.
+
+Practically:
+
+- If you control the prompt harness (or the framework that wraps it — e.g. your own
+  fork of `BC3Technologies.DiscordGpt`), call `CopilotSessionTelemetry.Subscribe(session)`
+  immediately after `CreateSessionAsync` and you get tool/sub-agent spans automatically
+  parented to the active turn span.
+- If you don't, you can still use this library for **conversation-root + per-turn**
+  tracing by calling `IConversationTracer.BeginTurnAsync(conversationId, …)` around your
+  invocation of the harness. Every turn of the same conversation will share a `trace_id`,
+  and Application Insights will render the conversation as one Trace — you just won't
+  see individual tool-call spans inside each turn.
+
 ## License
 
 MIT
