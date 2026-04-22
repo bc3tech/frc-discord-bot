@@ -15,11 +15,6 @@ public sealed partial class MessageHandler(
     IConversationTracer conversationTracer,
     ILogger<MessageHandler> logger)
 {
-    private readonly IDiscordEventHandler _discordEventHandler = discordEventHandler;
-    private readonly IConversationKeyResolver _conversationKeyResolver = conversationKeyResolver;
-    private readonly IConversationTracer _conversationTracer = conversationTracer;
-    private readonly ILogger<MessageHandler> _logger = logger;
-
     public async Task HandleUserMessageAsync(IUserMessage message, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(message);
@@ -54,7 +49,7 @@ public sealed partial class MessageHandler(
 
         if (!shouldProcess)
         {
-            Log.IgnoringGuildMessage(_logger, message.Id, message.Author.Id, message.Channel.Id);
+            Log.IgnoringGuildMessage(logger, message.Id, message.Author.Id, message.Channel.Id);
             return false;
         }
 
@@ -69,7 +64,7 @@ public sealed partial class MessageHandler(
 
     private async Task InvokeWithTurnSpanAsync(MessageCreatedEvent discordEvent, CancellationToken cancellationToken)
     {
-        ConversationKey conversationKey = await _conversationKeyResolver
+        ConversationKey conversationKey = await conversationKeyResolver
             .ResolveAsync(discordEvent, cancellationToken)
             .ConfigureAwait(false);
 
@@ -82,14 +77,14 @@ public sealed partial class MessageHandler(
             ["discord.is_dm"] = discordEvent.IsDm,
         };
 
-        await using var turn = await _conversationTracer
+        await using var turn = await conversationTracer
             .BeginTurnAsync(conversationKey.ToStorageKey(), rootTags, cancellationToken)
             .ConfigureAwait(false);
 
         turn.Activity?.SetTag("discord.message.id", discordEvent.MessageId);
         turn.Activity?.SetTag("discord.thread.id", discordEvent.ThreadId);
 
-        await _discordEventHandler.HandleAsync(discordEvent, cancellationToken).ConfigureAwait(false);
+        await discordEventHandler.HandleAsync(discordEvent, cancellationToken).ConfigureAwait(false);
     }
 
     private static MessageCreatedEvent BuildMessageCreatedEvent(
