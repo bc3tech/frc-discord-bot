@@ -44,7 +44,7 @@ internal sealed partial class CopilotClientFactory(
             }
             catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
             {
-                await TryDisposeClientAsync(client, this._logger).ConfigureAwait(false);
+                await TryDisposeClientAsync(client, this._logger, cancellationToken).ConfigureAwait(false);
                 Log.CopilotClientStartupFailed(this._logger, e, this._options.Copilot.Model, this._options.Foundry.Endpoint, useLoggedInUser: false);
                 throw;
             }
@@ -70,11 +70,12 @@ internal sealed partial class CopilotClientFactory(
         this._sync.Dispose();
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Resilience", "EA0014:The async method doesn't support cancellation", Justification = "Not valid on Dispose semantics")]
     private static async Task TryDisposeClientAsync(CopilotClient client, ILogger logger)
     {
         try
         {
-            await client.DisposeAsync().AsTask().WaitAsync(ClientDisposeTimeout).ConfigureAwait(false);
+            await client.DisposeAsync().ConfigureAwait(false);
         }
         catch (TimeoutException timeoutException)
         {

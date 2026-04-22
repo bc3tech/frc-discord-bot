@@ -14,7 +14,6 @@ internal sealed class CopilotFoundryProviderFactory(IOptions<AiOptions> options,
     private static readonly TokenRequestContext FoundryTokenRequestContext = new([FoundryBearerScope]);
 
     private readonly AiOptions _options = options.Value;
-    private readonly TokenCredential _credential = credential;
 
     public ProviderConfig CreateProviderConfig(CancellationToken cancellationToken = default)
         => new()
@@ -24,7 +23,7 @@ internal sealed class CopilotFoundryProviderFactory(IOptions<AiOptions> options,
                 ApiVersion = _options.Foundry.OpenAIApiVersion,
             },
             BaseUrl = BuildOpenAiBaseUrl(_options.Foundry.Endpoint),
-            BearerToken = _credential.GetToken(FoundryTokenRequestContext, cancellationToken).Token,
+            BearerToken = credential.GetToken(FoundryTokenRequestContext, cancellationToken).Token,
             Type = "azure",
             WireApi = GetWireApi(_options.Copilot.Model),
         };
