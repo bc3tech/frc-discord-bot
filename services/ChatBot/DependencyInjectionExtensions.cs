@@ -117,10 +117,14 @@ public static class DependencyInjectionExtensions
 
         services
             .AddDiscordGpt()
-            .UseCopilot(options =>
+            .UseCopilot(c =>
             {
-                options.AllowAll = true;
-                options.EmitReasoningProgress = true;
+                c.ConfigureOptions(options =>
+                {
+                    options.AllowAll = true;
+                    options.EmitReasoningProgress = true;
+                });
+                c.WithBlobSessionStorage(tokenCredential, blobServiceUri, options => options.ContainerName = ChatBotConstants.ServiceKeys.BlobContainer_CopilotSessions);
             })
             .UseFoundry(options =>
             {
@@ -154,7 +158,6 @@ public static class DependencyInjectionExtensions
                 ];
                 cfg.Infer = true;
             })
-            .WithBlobSessionStorage(tokenCredential, blobServiceUri, options => options.ContainerName = ChatBotConstants.ServiceKeys.BlobContainer_CopilotSessions)
             .WithTableConversationStore(options => options.TableName = ChatBotConstants.ServiceKeys.TableClient_UserChatAgentThreads)
             .AddTool<MealSignupInfoTool>()
             .AddTool<TbaApiSurfaceTool>()
