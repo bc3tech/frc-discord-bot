@@ -21,7 +21,6 @@
   <Folder Name="/Tests/">
     <Project Path="app/FunctionApp.Tests/FunctionApp.Tests.csproj" />
     <Project Path="lib/CopilotSdk.OpenTelemetry.Tests/CopilotSdk.OpenTelemetry.Tests.csproj" />
-    <Project Path="lib/CopilotSdk.OpenTelemetry.Spike/CopilotSdk.OpenTelemetry.Spike.csproj" />
   </Folder>
   <Folder Name="/Tools/">
     <Project Path="tools/datadumper/DataDumper.csproj" />
