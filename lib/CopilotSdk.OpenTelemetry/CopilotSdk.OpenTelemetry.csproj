@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>CopilotSdk.OpenTelemetry</RootNamespace>
+    <AssemblyName>CopilotSdk.OpenTelemetry</AssemblyName>
+    <PackageId>CopilotSdk.OpenTelemetry</PackageId>
+    <Description>OpenTelemetry GenAI tracing for the GitHub Copilot SDK. Persists a conversation root span across turns so multi-turn agent interactions appear as a single trace in Application Insights and other OTel backends.</Description>
+    <Authors>Brandon Hurlburt</Authors>
+    <PackageTags>opentelemetry;genai;github-copilot;copilot-sdk;application-insights;tracing</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GitHub.Copilot.SDK" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="OpenTelemetry.Api" />
+  </ItemGroup>
+
+</Project>
