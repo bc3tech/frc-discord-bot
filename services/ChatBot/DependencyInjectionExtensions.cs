@@ -4,6 +4,7 @@ using BC3Technologies.DiscordGpt.Core;
 using BC3Technologies.DiscordGpt.Copilot;
 using BC3Technologies.DiscordGpt.Copilot.Foundry;
 using BC3Technologies.DiscordGpt.Hosting;
+using BC3Technologies.DiscordGpt.Storage.Blob;
 using BC3Technologies.DiscordGpt.Storage.TableStorage;
 
 using ChatBot.Tools;
@@ -18,6 +19,8 @@ using System.Net;
 using System.Net.Http.Headers;
 
 using Throws = Common.Throws;
+
+using Azure.Core;
 
 public static class DependencyInjectionExtensions
 {
@@ -55,14 +58,20 @@ public static class DependencyInjectionExtensions
         return validationFailures.Length is 0;
     }
 
-    public static IServiceCollection AddFrcChatBot(this IServiceCollection services, IConfiguration configuration)
-        => AddFrcChatBot(services, configuration, out _, out _);
+    public static IServiceCollection AddFrcChatBot(
+        this IServiceCollection services,
+        IConfiguration configuration,
+        TokenCredential? tokenCredential = null,
+        Uri? blobServiceUri = null)
+        => AddFrcChatBot(services, configuration, out _, out _, tokenCredential, blobServiceUri);
 
     public static IServiceCollection AddFrcChatBot(
         this IServiceCollection services,
         IConfiguration configuration,
         out bool isEnabled,
-        out string[] validationFailures)
+        out string[] validationFailures,
+        TokenCredential? tokenCredential = null,
+        Uri? blobServiceUri = null)
     {
         ArgumentNullException.ThrowIfNull(services);
         ArgumentNullException.ThrowIfNull(configuration);
@@ -74,6 +83,8 @@ public static class DependencyInjectionExtensions
         }
 
         isEnabled = true;
+        ArgumentNullException.ThrowIfNull(tokenCredential);
+        ArgumentNullException.ThrowIfNull(blobServiceUri);
 
         services
             .AddHttpClient(ChatBotConstants.HttpClients.MealSignupInfo, MealSignupInfoTool.ConfigureHttpClient)
@@ -107,6 +118,10 @@ public static class DependencyInjectionExtensions
             {
                 options.Endpoint = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.Endpoint);
                 options.DeploymentName = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.LocalAgentModel);
+            })
+            .WithBlobSessionStorage(tokenCredential, blobServiceUri, options =>
+            {
+                options.ContainerName = ChatBotConstants.ServiceKeys.BlobContainer_CopilotSessions;
             })
             .WithConversationStore<TableConversationStore>()
             .AddTool<MealSignupInfoTool>()

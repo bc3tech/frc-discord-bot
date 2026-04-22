@@ -85,11 +85,6 @@ host.Services
     .AddSingleton<TimeProvider, PacificTimeProvider>();
 //.FixAppInsightsLogging();
 
-host.Services.AddFrcChatBot(
-    host.Configuration,
-    out bool hasValidChatBotConfiguration,
-    out string[] chatBotConfigurationFailures);
-
 // Prefer explicit service URIs so Container Apps can use managed identity-backed storage.
 // The connection-string fallback is retained for local development.
 string? storageConnectionString = host.Configuration["AzureWebJobsStorage"];
@@ -119,21 +114,26 @@ foreach (var tableName in storageTables)
     });
 }
 
-host.Services.AddSingleton(sp =>
+var blobsEndpoint = StartupInfrastructureFactory.TryGetStorageServiceUri(
+    host.Configuration,
+    "blob",
+    Constants.Configuration.Azure.Storage.BlobsEndpoint,
+    ConfigurationPath.Combine("AzureWebJobsStorage", "blobServiceUri"),
+    ConfigurationPath.Combine("AzureWebJobsStorage", "accountName"));
+BlobServiceClient bsc = StartupInfrastructureFactory.CreateBlobServiceClient(storageConnectionString, blobsEndpoint, credential);
+host.Services.AddSingleton(_ =>
 {
-    var blobsEndpoint = StartupInfrastructureFactory.TryGetStorageServiceUri(
-        host.Configuration,
-        "blob",
-        Constants.Configuration.Azure.Storage.BlobsEndpoint,
-        ConfigurationPath.Combine("AzureWebJobsStorage", "blobServiceUri"),
-        ConfigurationPath.Combine("AzureWebJobsStorage", "accountName"));
-    BlobServiceClient bsc = StartupInfrastructureFactory.CreateBlobServiceClient(storageConnectionString, blobsEndpoint, credential);
-
     var blobContainer = bsc.GetBlobContainerClient("misc");
     blobContainer.CreateIfNotExists();
-
     return blobContainer;
 });
+
+host.Services.AddFrcChatBot(
+    host.Configuration,
+    out bool hasValidChatBotConfiguration,
+    out string[] chatBotConfigurationFailures,
+    credential,
+    bsc.Uri);
 
 var builtHost = host.Build();
 var startupLogger = builtHost.Services.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");

@@ -2,6 +2,7 @@ namespace FunctionApp.Tests;
 
 using global::ChatBot;
 
+using Azure.Core;
 using Azure.Data.Tables;
 
 using BC3Technologies.DiscordGpt.Copilot;
@@ -95,7 +96,7 @@ public sealed class DiscordGptIntegrationTests
         services.AddSingleton(configuration);
         services.AddLogging();
         services.AddSingleton(new TableServiceClient("UseDevelopmentStorage=true"));
-        services.AddFrcChatBot(configuration);
+        services.AddFrcChatBot(configuration, Mock.Of<TokenCredential>(), new Uri("https://storageacct.blob.core.windows.net"));
 
         using ServiceProvider provider = services.BuildServiceProvider(validateScopes: true);
 
@@ -132,7 +133,7 @@ public sealed class DiscordGptIntegrationTests
         services.AddSingleton(configuration);
         services.AddLogging();
         services.AddSingleton(new TableServiceClient("UseDevelopmentStorage=true"));
-        services.AddFrcChatBot(configuration);
+        services.AddFrcChatBot(configuration, Mock.Of<TokenCredential>(), new Uri("https://storageacct.blob.core.windows.net"));
 
         using ServiceProvider provider = services.BuildServiceProvider(validateScopes: true);
         DiscordGptCoreOptions coreOptions = provider.GetRequiredService<IOptions<DiscordGptCoreOptions>>().Value;
@@ -151,8 +152,12 @@ public sealed class DiscordGptIntegrationTests
         services.AddSingleton(configuration);
         services.AddLogging();
         services.AddSingleton(new TableServiceClient("UseDevelopmentStorage=true"));
-
-        services.AddFrcChatBot(configuration, out bool isEnabled, out string[] validationFailures);
+        services.AddFrcChatBot(
+            configuration,
+            out bool isEnabled,
+            out string[] validationFailures,
+            Mock.Of<TokenCredential>(),
+            new Uri("https://storageacct.blob.core.windows.net"));
         Assert.False(isEnabled);
         Assert.Contains(validationFailures, failure => failure.Contains("AI:Foundry:LocalAgentModel", StringComparison.Ordinal));
         Assert.Contains(validationFailures, failure => failure.Contains("Discord:Token", StringComparison.Ordinal));

@@ -7,6 +7,7 @@ internal static class ChatBotConstants
     internal static class ServiceKeys
     {
         public const string TableClient_UserChatAgentThreads = "userChatAgentThreads";
+        public const string BlobContainer_CopilotSessions = "copilot-sessions";
     }
 
     internal static class HttpClients
