@@ -25,7 +25,7 @@ internal sealed class CopilotFoundryProviderFactory(IOptions<AiOptions> options,
             },
             BaseUrl = BuildOpenAiBaseUrl(_options.Foundry.Endpoint),
             BearerToken = _credential.GetToken(FoundryTokenRequestContext, cancellationToken).Token,
-            Type = "openai",
+            Type = "azure",
             WireApi = GetWireApi(_options.Copilot.Model),
         };
 

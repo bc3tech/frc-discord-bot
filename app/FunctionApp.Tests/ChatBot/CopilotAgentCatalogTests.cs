@@ -53,7 +53,7 @@ public sealed class CopilotAgentCatalogTests
         Assert.Single(skillDirectories);
         Assert.EndsWith(Path.Combine("ChatBot", "Copilot", "Skills"), skillDirectories[0], StringComparison.Ordinal);
         Assert.Same(tools[0], Assert.Single(configuredTools));
-        Assert.Equal("openai", provider.Type);
+        Assert.Equal("azure", provider.Type);
         Assert.Equal("https://example.services.ai.azure.com/openai/v1/", provider.BaseUrl);
         Assert.Equal("token-value", provider.BearerToken);
         Assert.Equal("responses", provider.WireApi);
