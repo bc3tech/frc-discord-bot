@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\common\Common.csproj" />
-    <ProjectReference Include="..\..\lib\AgentFramework.OpenTelemetry\AgentFramework.OpenTelemetry.csproj" />
     <ProjectReference Include="..\..\gpt\src\BC3Technologies.DiscordGpt.Hosting\BC3Technologies.DiscordGpt.Hosting.csproj" />
     <ProjectReference Include="..\..\gpt\src\BC3Technologies.DiscordGpt.Core\BC3Technologies.DiscordGpt.Core.csproj" />
     <ProjectReference Include="..\..\gpt\src\BC3Technologies.DiscordGpt.Discord\BC3Technologies.DiscordGpt.Discord.csproj" />
@@ -30,28 +29,9 @@
   <ItemGroup>
     <EmbeddedResource Include="..\..\app\Apis\thebluealliance.json" Link="OpenApi\thebluealliance.json" />
     <EmbeddedResource Include="progress_messages.txt" />
-    <None Update="Agents\**\*.yaml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>ChatBot\%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
-    </None>
-    <None Update="Agents\**\*.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>ChatBot\%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
-    </None>
-    <None Update="Copilot\Skills\**\*.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>ChatBot\Copilot\Skills\%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
-    </None>
-    <None Update="Agents\foundry-agent.yaml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
     <None Update="agent_prompt.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>ChatBot\agent_prompt.txt</TargetPath>
-    </None>
-    <None Update="meal_agent_prompt.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>ChatBot\meal_agent_prompt.txt</TargetPath>
     </None>
   </ItemGroup>
 

@@ -1,5 +1,7 @@
 ﻿namespace FunctionApp.Apis;
 
+using Common.Extensions;
+
 using FunctionApp;
 
 using Microsoft.Extensions.Logging;

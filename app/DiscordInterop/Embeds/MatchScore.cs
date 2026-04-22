@@ -1,7 +1,5 @@
 ﻿namespace FunctionApp.DiscordInterop.Embeds;
 
-using ChatBot;
-
 using Common;
 using Common.Discord;
 using Common.Extensions;
@@ -46,8 +44,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
                                          EmbedBuilderFactory builderFactory,
                                           TimeProvider time,
                                           Meter meter,
-                                          ILogger<MatchScore> logger,
-                                          ChatRunner? gpt = null) : INotificationEmbedCreator, IEmbedCreator<(string matchKey, bool summarize)>, IHandleUserInteractions
+                                          ILogger<MatchScore> logger) : INotificationEmbedCreator, IEmbedCreator<(string matchKey, bool summarize)>, IHandleUserInteractions
 {
     public const NotificationType TargetType = NotificationType.match_score;
     public const string GetBreakdownButtonId = "get-score-breakdown";
@@ -174,32 +171,6 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             .Build();
 
         yield return new(embedding);
-
-        if (input.summarize && gpt is not null)
-        {
-            bool first = true;
-            var prompt = $"Create a narrative for this match:\n\n```json{JsonSerializer.Serialize(detailedMatch)}\n```";
-            yield return new ResponseEmbedding(baseBuilder.WithDescription("Generating match summary... 🤖").Build(), Transient: true);
-            await foreach (var completion in gpt.GetCompletionsAsync(prompt, cancellationToken))
-            {
-                var builder = builderFactory.GetBuilder(highlightTeam);
-                if (first)
-                {
-                    builder.Title = "AI Match Summary";
-                    first = false;
-                }
-
-                foreach (var descriptionChunk in completion.Chunk(4096))
-                {
-                    yield return new(builder.WithDescription(new(descriptionChunk)).Build());
-                }
-            }
-
-            if (first)
-            {
-                yield return new(baseBuilder.WithDescription("No summary generated. 🥺").Build());
-            }
-        }
     }
 
     private async Task BuildDescriptionAsync(ushort? highlightTeam, Match? notificationMatch, Match tbaMatch, StringBuilder descriptionBuilder, (int redScore, int blueScore) scores, bool includeBreakdown, CancellationToken cancellationToken)

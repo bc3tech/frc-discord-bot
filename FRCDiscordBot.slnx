@@ -6,9 +6,6 @@
     <Project Path="services/Statbotics/src/Statbotics/Statbotics.csproj" />
     <Project Path="services/TheBlueAlliance/src/TheBlueAlliance/TheBlueAlliance.csproj" />
   </Folder>
-  <Folder Name="/Libraries/">
-    <Project Path="lib/AgentFramework.OpenTelemetry/AgentFramework.OpenTelemetry.csproj" />
-  </Folder>
   <Folder Name="/Libraries/DiscordGpt/">
     <Project Path="gpt/src/BC3Technologies.DiscordGpt.Copilot.Foundry/BC3Technologies.DiscordGpt.Copilot.Foundry.csproj" />
     <Project Path="gpt/src/BC3Technologies.DiscordGpt.Copilot/BC3Technologies.DiscordGpt.Copilot.csproj" />
@@ -20,7 +17,6 @@
   </Folder>
   <Folder Name="/Tests/">
     <Project Path="app/FunctionApp.Tests/FunctionApp.Tests.csproj" />
-    <Project Path="lib/AgentFramework.OpenTelemetry.Tests/AgentFramework.OpenTelemetry.Tests.csproj" />
   </Folder>
   <Folder Name="/Tools/">
     <Project Path="tools/datadumper/DataDumper.csproj" />
