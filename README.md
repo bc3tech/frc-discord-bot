@@ -51,7 +51,8 @@ The infrastructure necessary to run the bot includes:
   - [The Blue Alliance](https://www.thebluealliance.com/apidocs)
   - [FRC Colors](https://github.com/jonahsnider/frc-colors.com#api-usage)
 
-- `/lib` - reusable shared libraries intended for extraction/open-source packaging. `AgentFramework.OpenTelemetry` lives here and contains the Microsoft Agent Framework OpenTelemetry glue used by `services\ChatBot`.
+- `/lib` - reusable shared libraries intended for extraction/open-source packaging.
+  - `CopilotSdk.OpenTelemetry` — OpenTelemetry GenAI tracing for the GitHub Copilot SDK. Persists a per-conversation root span across turns so multi-turn agent interactions roll up into a single Trace in Application Insights and other OTel backends. See [`lib/CopilotSdk.OpenTelemetry/README.md`](lib/CopilotSdk.OpenTelemetry/README.md).
 
 ### Re/generating API clients, models
 

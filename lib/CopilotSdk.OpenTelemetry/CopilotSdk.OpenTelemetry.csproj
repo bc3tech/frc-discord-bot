@@ -8,8 +8,14 @@
     <Authors>Brandon Hurlburt</Authors>
     <PackageTags>opentelemetry;genai;github-copilot;copilot-sdk;application-insights;tracing</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="GitHub.Copilot.SDK" />
@@ -18,4 +24,7 @@
     <PackageReference Include="OpenTelemetry.Api" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="CopilotSdk.OpenTelemetry.Tests" />
+  </ItemGroup>
 </Project>

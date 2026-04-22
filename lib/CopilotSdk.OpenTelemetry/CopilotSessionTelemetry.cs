@@ -34,7 +34,14 @@ public static partial class CopilotSessionTelemetry
         return new Subscription(subscription, state);
     }
 
-    private sealed class TelemetryState(Activity? parent, ILogger? logger)
+    /// <summary>
+    /// Creates a translator state instance for testing that can be driven with synthetic
+    /// <see cref="SessionEvent"/> values without needing a real <see cref="CopilotSession"/>.
+    /// </summary>
+    internal static TelemetryState CreateForTesting(Activity? parent, ILogger? logger = null) =>
+        new(parent, logger);
+
+    internal sealed class TelemetryState(Activity? parent, ILogger? logger)
     {
         private readonly Activity? _parent = parent;
         private readonly ILogger? _logger = logger;
