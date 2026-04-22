@@ -48,6 +48,11 @@ public static class DependencyInjectionExtensions
             failures.Add($"Required configuration value '{ChatBotConstants.Configuration.Foundry.LocalAgentModel}' is missing or empty.");
         }
 
+        if (string.IsNullOrWhiteSpace(GetOptionalConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.AgentId)))
+        {
+            failures.Add($"Required configuration value '{ChatBotConstants.Configuration.Foundry.AgentId}' is missing or empty.");
+        }
+
         if (string.IsNullOrWhiteSpace(GetOptionalConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.MealSignupGeniusId)))
         {
             failures.Add($"Required configuration value '{ChatBotConstants.Configuration.Foundry.MealSignupGeniusId}' is missing or empty.");
@@ -110,7 +115,12 @@ public static class DependencyInjectionExtensions
 
         services.AddSingleton<TbaApiTool>();
 
-        services.AddDiscordGpt(options => options.AllowAll = true)
+        services
+            .AddDiscordGpt(options =>
+            {
+                options.AllowAll = true;
+                options.EmitReasoningProgress = true;
+            })
             .UseFoundry(options =>
             {
                 options.Endpoint = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.Endpoint);
@@ -122,6 +132,34 @@ public static class DependencyInjectionExtensions
             .AddTool<TbaApiSurfaceTool>()
             .AddTool<TbaApiTool>()
             .AddTool<StatboticsTool>();
+
+        // (1) The deployed Azure Foundry agent is the user-facing front-of-conversation
+        // agent. Its portal-managed instructions own voice/tone, MCP knowledge base
+        // (rules / roster / directory), browser_automation_preview, and code_interpreter.
+        services.WithAzureFoundryAgent(GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.AgentId));
+
+        // (2) Local sub-agent for live FRC data + meal signup. The Foundry agent
+        // delegates to this agent (via the Copilot SDK's Infer routing on Description)
+        // when it needs grounded competition data or meal-signup state.
+        services.WithCopilotLocalAgent(cfg =>
+        {
+            cfg.Name = "frc-data";
+            cfg.DisplayName = "FRC live data lookup";
+            cfg.Description =
+                "Live FIRST Robotics Competition data lookups for Team 2046 (Bear Metal) and any other team: " +
+                "team rosters/metadata, events, schedules, matches, alliance partners, rankings, awards, " +
+                "district keys, season aggregations, EPA/Elo/predictions, and Bear Metal meal-signup state. " +
+                "Use for any question that needs grounded TBA, Statbotics, or meal-signup data.";
+            cfg.Prompt = LoadPromptFile("local_agent_prompt.txt");
+            cfg.Tools = [
+                TbaApiTool.DescribeSurfaceToolName,
+                TbaApiTool.QueryToolName,
+                TbaApiTool.LastCompetitionToolName,
+                "statbotics_api",
+                "fetch_meal_signup_info",
+            ];
+            cfg.Infer = true;
+        });
 
         services.AddTableConversationStore(options => options.TableName = ChatBotConstants.ServiceKeys.TableClient_UserChatAgentThreads);
 
@@ -138,15 +176,7 @@ public static class DependencyInjectionExtensions
         services.AddSingleton<IChatClient>(sp =>
         {
             IChatClient innerClient = sp.GetRequiredService<ChatClient>().AsIChatClient();
-
-            string promptPath = Path.Combine(AppContext.BaseDirectory, "ChatBot", "agent_prompt.txt");
-            if (!File.Exists(promptPath))
-            {
-                throw new FileNotFoundException($"Required chatbot prompt file was not found: {promptPath}", promptPath);
-            }
-
-            string prompt = File.ReadAllText(promptPath).ReplaceLineEndings("\n").Trim();
-            return new FrcSystemPromptChatClient(innerClient, prompt);
+            return new FrcSystemPromptChatClient(innerClient, LoadPromptFile("agent_prompt.txt"));
         });
 
         services.Configure<CopilotToolAuthorizationOptions>(options =>
@@ -161,6 +191,17 @@ public static class DependencyInjectionExtensions
 
         success = true;
         return services;
+    }
+
+    private static string LoadPromptFile(string fileName)
+    {
+        string promptPath = Path.Combine(AppContext.BaseDirectory, "ChatBot", fileName);
+        if (!File.Exists(promptPath))
+        {
+            throw new FileNotFoundException($"Required chatbot prompt file was not found: {promptPath}", promptPath);
+        }
+
+        return File.ReadAllText(promptPath).ReplaceLineEndings("\n").Trim();
     }
 
     private static string GetRequiredConfigurationValue(IConfiguration configuration, params string[] keys)

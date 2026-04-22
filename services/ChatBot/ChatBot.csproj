@@ -34,6 +34,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>ChatBot\agent_prompt.txt</TargetPath>
     </None>
+    <None Update="local_agent_prompt.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>ChatBot\local_agent_prompt.txt</TargetPath>
+    </None>
   </ItemGroup>
 
 </Project>
