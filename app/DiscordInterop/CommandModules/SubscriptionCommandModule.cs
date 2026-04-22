@@ -30,14 +30,14 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
     [SlashCommand("show", "Shows the current subscriptions")]
     public async Task ShowAsync()
     {
-        using var typing = await TryDeferAsync().ConfigureAwait(false);
+        using IDisposable? typing = await TryDeferAsync().ConfigureAwait(false);
         if (typing is null)
         {
             return;
         }
 
-        using var scope = Logger.CreateMethodScope();
-        var currentSubs = await _subscriptionManager.GetSubscriptionsForGuildAsync(Context.Interaction.GuildId, default)
+        using IDisposable scope = Logger.CreateMethodScope();
+        HashSet<(string, string)> currentSubs = await _subscriptionManager.GetSubscriptionsForGuildAsync(Context.Interaction.GuildId, default)
             .Where(i => i.ChannelId == Context.Interaction.ChannelId!.Value)
             .Select(i => (i.Event ?? CommonConstants.ALL, i.Team ?? CommonConstants.ALL))
             .ToHashSetAsync()
@@ -49,11 +49,11 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
         }
         else
         {
-            var groupedSubscriptions = currentSubs.GroupBy(i => i.Item1);
+            IEnumerable<IGrouping<string, (string, string)>> groupedSubscriptions = currentSubs.GroupBy(i => i.Item1);
             // Create a string that starts with the group key then lists all the group values on subsequent lines
             // This is a bit more complex than it needs to be because we want to show the team number if it's not 'all'
             // and we want to show the event key if it's not 'all'
-            var output = groupedSubscriptions.Select(i => $"""
+            IEnumerable<string> output = groupedSubscriptions.Select(i => $"""
                 - **{(i.Key is not CommonConstants.ALL ? _eventsRepo[i.Key].GetLabel() : "All Events")}**:
                 {string.Join('\n', i.Select(j => $"  - {(j.Item2 is not CommonConstants.ALL ? _teamsRepo[j.Item2].GetLabel() : "All Teams")}"))}
                 """);
@@ -73,13 +73,13 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
         [Summary("team", "Team to subscribe to, 'all' if not specified."), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))] string? teamKey = null,
         [Summary("event", "Event to subscribe to, 'all' if not specified."), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string? eventKey = null)
     {
-        using var typing = await TryDeferAsync().ConfigureAwait(false);
+        using IDisposable? typing = await TryDeferAsync().ConfigureAwait(false);
         if (typing is null)
         {
             return;
         }
 
-        using var scope = Logger.CreateMethodScope();
+        using IDisposable scope = Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(eventKey) && string.IsNullOrWhiteSpace(teamKey))
         {
             await UpdateOriginalResponseAsync(p => p.Content = "At least one of Event or Team is required.").ConfigureAwait(false);
@@ -121,14 +121,14 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
     [SlashCommand("delete", "Deletes a subscription to a team/event for the current channel")]
     public async Task DeleteAsync()
     {
-        using var typing = await TryDeferAsync(ephemeral: Context.Channel is not IDMChannel).ConfigureAwait(false);
+        using IDisposable? typing = await TryDeferAsync(ephemeral: Context.Channel is not IDMChannel).ConfigureAwait(false);
         if (typing is null)
         {
             return;
         }
 
-        using var scope = Logger.CreateMethodScope();
-        var activeSubsForChannel = await _subscriptionManager.GetSubscriptionsForGuildAsync(Context.Interaction.GuildId, default)
+        using IDisposable scope = Logger.CreateMethodScope();
+        NotificationSubscription[] activeSubsForChannel = await _subscriptionManager.GetSubscriptionsForGuildAsync(Context.Interaction.GuildId, default)
             .Where(i => i.ChannelId == Context.Interaction.ChannelId!.Value)
             .ToArrayAsync()
             .ConfigureAwait(false);
@@ -188,13 +188,13 @@ public sealed class SubscriptionCommandModule(IServiceProvider services) : Comma
             await _subscriptionManager.RemoveSubscriptionAsync(subToDelete, default).ConfigureAwait(false);
 
             // Create a copy of the existing components; when updating a message, components are only settable wholesale
-            var newActionRows = new ComponentBuilder()
+            ComponentBuilder? newActionRows = new ComponentBuilder()
                 .WithRows(component.Message.Components
                     .OfType<ActionRowComponent>()
                     .Select(i => new ActionRowBuilder().WithComponents([.. i.Components.Select(static j => j.ToBuilder())])));
-            var rowWithSelectMenuAndOption = newActionRows.ActionRows
+            ActionRowBuilder rowWithSelectMenuAndOption = newActionRows.ActionRows
                 .First(i => i.Components.OfType<SelectMenuBuilder>().Any(j => j.Options.Any(k => k.Value == value)));
-            var oldSelectMenu = rowWithSelectMenuAndOption.Components
+            SelectMenuBuilder oldSelectMenu = rowWithSelectMenuAndOption.Components
                 .OfType<SelectMenuBuilder>()
                 .First(i => i.CustomId is SubscriptionDeleteSelectionMenuId);
             var indexOfOldSelectMenu = rowWithSelectMenuAndOption.Components.IndexOf(oldSelectMenu);

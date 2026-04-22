@@ -25,9 +25,9 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup,
 {
     public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync(string eventKey, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        using var scope = logger.CreateMethodScope();
+        using IDisposable scope = logger.CreateMethodScope();
 
-        var eventDetails = _eventsRepo[eventKey];
+        TheBlueAlliance.Model.Event eventDetails = _eventsRepo[eventKey];
         var countryCode = (await _countryCodeLookup.GetCountryCodeForFlagLookupAsync(eventDetails.Country, default).ConfigureAwait(false))!;
 
         StringBuilder descriptionBuilder = new();
@@ -54,7 +54,7 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup,
             .AppendLine($"Schedule [here]({eventDetails.ScheduleUrl})");
         #endregion
 
-        var builder = builderFactory.GetBuilder()
+        EmbedBuilder builder = builderFactory.GetBuilder()
             .WithTitle($"**{eventDetails.Name}**")
             .WithUrl(eventDetails.Website)
             .WithDescription(descriptionBuilder.ToString());
@@ -75,7 +75,7 @@ internal sealed class EventDetail(RESTCountries _countryCodeLookup,
         {
             builder.AddField("Where to watch", string.Join('\n', eventDetails.Webcasts.Select(i =>
             {
-                var (webcastSource, webcastLink) = i.GetFullUrl(logger);
+                (string? webcastSource, Uri? webcastLink) = i.GetFullUrl(logger);
                 return $"- [{webcastSource}]({webcastLink})";
             })));
         }

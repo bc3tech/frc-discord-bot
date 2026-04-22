@@ -20,13 +20,13 @@ public class TeamsCommandModule(IServiceProvider services) : CommandModuleBase(s
     [SlashCommand("get-details", "Gets details about a team")]
     public async Task ShowAsync([Summary("team"), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))] string teamKey, [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        using var typing = await TryDeferAsync(!post).ConfigureAwait(false);
+        using IDisposable? typing = await TryDeferAsync(!post).ConfigureAwait(false);
         if (typing is null)
         {
             return;
         }
 
-        using var scope = Logger.CreateMethodScope();
+        using IDisposable scope = Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(teamKey))
         {
             await UpdateOriginalResponseAsync(p => p.Content = "Team key is required.").ConfigureAwait(false);
@@ -45,13 +45,13 @@ public class TeamsCommandModule(IServiceProvider services) : CommandModuleBase(s
         [Summary("year", "Year to get rank, default: current year")] ushort? year = null,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        using var typing = await TryDeferAsync(!post).ConfigureAwait(false);
+        using IDisposable? typing = await TryDeferAsync(!post).ConfigureAwait(false);
         if (typing is null)
         {
             return;
         }
 
-        using var scope = Logger.CreateMethodScope();
+        using IDisposable scope = Logger.CreateMethodScope();
         if (string.IsNullOrWhiteSpace(teamKey))
         {
             await UpdateOriginalResponseAsync(p => p.Content = "Team key is required.").ConfigureAwait(false);
@@ -70,7 +70,7 @@ public class TeamsCommandModule(IServiceProvider services) : CommandModuleBase(s
         [Summary("num-matches")] ushort numMatches = 6,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        using var typing = await TryDeferAsync(!post).ConfigureAwait(false);
+        using IDisposable? typing = await TryDeferAsync(!post).ConfigureAwait(false);
         if (typing is null)
         {
             return;

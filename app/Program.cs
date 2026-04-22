@@ -38,7 +38,7 @@ using Constants = FunctionApp.Constants;
 
 CultureInfo.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
 
-var host = FunctionsApplication.CreateBuilder(args)
+FunctionsApplicationBuilder host = FunctionsApplication.CreateBuilder(args)
     .ConfigureFunctionsWebApplication();
 
 host.Configuration
@@ -90,7 +90,7 @@ host.Services
 // Prefer explicit service URIs so Container Apps can use managed identity-backed storage.
 // The connection-string fallback is retained for local development.
 string? storageConnectionString = host.Configuration["AzureWebJobsStorage"];
-var tableEndpoint = StartupInfrastructureFactory.TryGetStorageServiceUri(
+Uri? tableEndpoint = StartupInfrastructureFactory.TryGetStorageServiceUri(
     host.Configuration,
     "table",
     Constants.Configuration.Azure.Storage.TableEndpoint,
@@ -98,7 +98,7 @@ var tableEndpoint = StartupInfrastructureFactory.TryGetStorageServiceUri(
     ConfigurationPath.Combine("AzureWebJobsStorage", "accountName"));
 TableServiceClient tsc = StartupInfrastructureFactory.CreateTableServiceClient(storageConnectionString, tableEndpoint, credential);
 host.Services.AddSingleton(tsc);
-var storageTables = host.Configuration
+IEnumerable<string> storageTables = host.Configuration
     .GetSection(Constants.Configuration.Azure.Storage.Tables)
     .Get<IEnumerable<string>>() ?? [];
 
@@ -106,9 +106,9 @@ foreach (var tableName in storageTables)
 {
     host.Services.AddKeyedSingleton(tableName, (sp, _) =>
     {
-        var logger = sp.GetService<ILogger<TableClient>>();
+        ILogger<TableClient>? logger = sp.GetService<ILogger<TableClient>>();
         logger?.CreatingTableClientForTable(tableName);
-        var tableClient = tsc.GetTableClient(tableName);
+        TableClient tableClient = tsc.GetTableClient(tableName);
         logger?.EnsuringTableTableExists(tableName);
         tableClient.CreateIfNotExists();
         logger?.TableTableExists(tableName);
@@ -116,7 +116,7 @@ foreach (var tableName in storageTables)
     });
 }
 
-var blobsEndpoint = StartupInfrastructureFactory.TryGetStorageServiceUri(
+Uri? blobsEndpoint = StartupInfrastructureFactory.TryGetStorageServiceUri(
     host.Configuration,
     "blob",
     Constants.Configuration.Azure.Storage.BlobsEndpoint,
@@ -125,7 +125,7 @@ var blobsEndpoint = StartupInfrastructureFactory.TryGetStorageServiceUri(
 BlobServiceClient bsc = StartupInfrastructureFactory.CreateBlobServiceClient(storageConnectionString, blobsEndpoint, credential);
 host.Services.AddSingleton(_ =>
 {
-    var blobContainer = bsc.GetBlobContainerClient("misc");
+    BlobContainerClient blobContainer = bsc.GetBlobContainerClient("misc");
     blobContainer.CreateIfNotExists();
     return blobContainer;
 });
@@ -137,8 +137,8 @@ host.Services.TryAddChatBot(
     out bool hasValidChatBotConfiguration,
     out string[] chatBotConfigurationFailures);
 
-var builtHost = host.Build();
-var startupLogger = builtHost.Services.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");
+IHost builtHost = host.Build();
+ILogger startupLogger = builtHost.Services.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");
 startupLogger.OpenTelemetryStartupConfigurationApplicationInsightsConnectionStringIsConnectionStringStateOTELServiceNameIsServiceName(
     string.IsNullOrWhiteSpace(host.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]) ? "missing" : "configured", host.Configuration["OTEL_SERVICE_NAME"] ?? "unset");
 if (hasValidChatBotConfiguration)
@@ -155,11 +155,8 @@ await builtHost.RunAsync().ConfigureAwait(false);
 static Uri ResolveCopilotBlobStorageUri(Uri? configuredBlobServiceUri, Uri blobServiceClientUri)
 {
     Uri candidate = configuredBlobServiceUri ?? blobServiceClientUri;
-    if (!Uri.UriSchemeHttps.Equals(candidate.Scheme, StringComparison.OrdinalIgnoreCase))
-    {
-        throw new InvalidOperationException(
-            $"Copilot blob storage URI must be HTTPS when using credential-based auth. Configure '{Constants.Configuration.Azure.Storage.BlobsEndpoint}' as an HTTPS endpoint. Received: {candidate}");
-    }
-
-    return candidate;
+    return !Uri.UriSchemeHttps.Equals(candidate.Scheme, StringComparison.OrdinalIgnoreCase)
+        ? throw new InvalidOperationException(
+            $"Copilot blob storage URI must be HTTPS when using credential-based auth. Configure '{Constants.Configuration.Azure.Storage.BlobsEndpoint}' as an HTTPS endpoint. Received: {candidate}")
+        : candidate;
 }

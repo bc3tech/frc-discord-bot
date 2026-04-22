@@ -16,7 +16,7 @@ internal sealed class EmbedBuilderFactory(EmbeddingColorizer colorizer)
 
     public EmbedBuilder GetBuilder(ushort? teamNumber = null, bool footerRequired = true)
     {
-        var r = new EmbedBuilder()
+        EmbedBuilder r = new EmbedBuilder()
             .WithFooter(
 #if !DEBUG
             footerRequired ? FooterText : string.Empty

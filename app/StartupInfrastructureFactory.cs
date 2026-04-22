@@ -49,7 +49,7 @@ internal static class StartupInfrastructureFactory
                 continue;
             }
 
-            if (Uri.TryCreate(value, UriKind.Absolute, out var serviceUri))
+            if (Uri.TryCreate(value, UriKind.Absolute, out Uri? serviceUri))
             {
                 return serviceUri;
             }

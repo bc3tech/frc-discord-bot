@@ -472,9 +472,6 @@ static partial class Log
     [LoggerMessage(169, LogLevel.Warning, "Failed to delete temporary Azure AI Foundry thread {ThreadId}")]
     internal static partial void FailedToDeleteTemporaryAzureAIFoundryThread(this ILogger logger, Exception exception, string ThreadId);
 
-    [LoggerMessage(169, LogLevel.Debug, "Cleaning up subscriptions for event {Event}")]
-    internal static partial void CleaningUpSubscriptionsForEventEvent(this ILogger logger, string Event);
-
     [LoggerMessage(170, LogLevel.Warning, "Failed to retrieve event for event subscription {Event}")]
     internal static partial void FailedToRetrieveEventForEventSubscriptionEvent(this ILogger logger, string Event);
 
@@ -574,9 +571,6 @@ static partial class Log
     [LoggerMessage(202, LogLevel.Information, "Removed tracked state for deleted Discord thread {ThreadId} from {PartitionKey}/{RowKey}. Removed entries: {RemovedEntries}")]
     internal static partial void RemovedTrackedStateForDeletedDiscordThreadThreadIdFromPartitionKeyRowKeyRemovedEntriesRemovedEntries(this ILogger logger, ulong ThreadId, string PartitionKey, string RowKey, int RemovedEntries);
 
-    [LoggerMessage(206, LogLevel.Warning, "Azure AI chat functionality disabled because chatbot options validation failed: {ValidationFailures}")]
-    internal static partial void AzureAIChatFunctionalityDisabledDueToOptionsValidationFailures(this ILogger logger, string ValidationFailures);
-
     [LoggerMessage(203, LogLevel.Debug, "Cleaning up tracked state for deleted Discord thread {ThreadId}")]
     internal static partial void CleaningUpTrackedStateForDeletedDiscordThreadThreadId(this ILogger logger, ulong ThreadId);
 
@@ -585,4 +579,10 @@ static partial class Log
 
     [LoggerMessage(205, LogLevel.Debug, "Discord thread deleted from gateway: {ThreadId}")]
     internal static partial void DiscordThreadDeletedFromGatewayThreadId(this ILogger logger, ulong ThreadId);
+
+    [LoggerMessage(206, LogLevel.Warning, "Azure AI chat functionality disabled because chatbot options validation failed: {ValidationFailures}")]
+    internal static partial void AzureAIChatFunctionalityDisabledDueToOptionsValidationFailures(this ILogger logger, string ValidationFailures);
+
+    [LoggerMessage(207, LogLevel.Debug, "Cleaning up subscriptions for event {Event}")]
+    internal static partial void CleaningUpSubscriptionsForEventEvent(this ILogger logger, string Event);
 }

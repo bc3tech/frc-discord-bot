@@ -28,7 +28,7 @@ internal sealed class Schedule(EmbedBuilderFactory builderFactory, EventReposito
             yield break;
         }
 
-        var embedding = builderFactory.GetBuilder(highlightTeam, footerRequired: false)
+        EmbedBuilder embedding = builderFactory.GetBuilder(highlightTeam, footerRequired: false)
                     .WithTitle("Schedule");
 
         IEnumerable<Match>? matches = [];
@@ -54,7 +54,7 @@ internal sealed class Schedule(EmbedBuilderFactory builderFactory, EventReposito
             matches = await matchApi.GetEventMatchesAsync(input.eventKey!, cancellationToken: cancellationToken).ConfigureAwait(false);
         }
 
-        var matchesToPost = matches?.OrderBy(m => (int)m.CompLevel)
+        IEnumerable<Match>? matchesToPost = matches?.OrderBy(m => (int)m.CompLevel)
                 .ThenBy(m => m.SetNumber)
                 .ThenBy(m => m.MatchNumber)
                 .Where(m => !m.ActualTime.HasValue && !m.PostResultTime.HasValue
@@ -70,11 +70,11 @@ internal sealed class Schedule(EmbedBuilderFactory builderFactory, EventReposito
         {
             embedding.Description += " (All times Pacific, estimated)";
 
-            var groupedMatches = matchesToPost.GroupBy(m => m.EventKey);
+            IEnumerable<IGrouping<string, Match>> groupedMatches = matchesToPost.GroupBy(m => m.EventKey);
 
             yield return new(embedding.Build());
 
-            foreach (var g in groupedMatches)
+            foreach (IGrouping<string, Match> g in groupedMatches)
             {
                 embedding = builderFactory.GetBuilder();
                 if (string.IsNullOrEmpty(input.eventKey))
@@ -83,9 +83,9 @@ internal sealed class Schedule(EmbedBuilderFactory builderFactory, EventReposito
                     embedding.Url = events[g.Key].TbaUrl;
                 }
 
-                foreach (var m in g)
+                foreach (Match? m in g)
                 {
-                    var matchField = new EmbedFieldBuilder()
+                    EmbedFieldBuilder matchField = new EmbedFieldBuilder()
                         .WithName($"{m.CompLevel.ToShortString()} {m.SetNumber}.{m.MatchNumber}")
                         .WithIsInline(true);
 

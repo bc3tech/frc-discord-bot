@@ -57,7 +57,7 @@ internal static class DependencyInjectionExtensions
         })
         .AddSingleton<IDiscordClient>(sp =>
         {
-            var logger = sp.GetService<ILogger<DiscordSocketClient>>();
+            ILogger<DiscordSocketClient>? logger = sp.GetService<ILogger<DiscordSocketClient>>();
             var c = new DiscordSocketClient(sp.GetRequiredService<DiscordSocketConfig>());
             c.Log += m =>
             {
@@ -73,7 +73,7 @@ internal static class DependencyInjectionExtensions
         .AddSingleton<DiscordMessageDispatcher>()
         .AddSingleton(sp =>
         {
-            var logger = sp.GetService<ILogger<InteractionService>>();
+            ILogger<InteractionService>? logger = sp.GetService<ILogger<InteractionService>>();
             var discordLogLevel = sp.GetRequiredService<IConfiguration>()[Constants.Configuration.Discord.LogLevel] ?? "Info";
             var i = new InteractionService(((DiscordSocketClient)sp.GetRequiredService<IDiscordClient>()).Rest, new InteractionServiceConfig
             {

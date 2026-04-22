@@ -16,7 +16,7 @@ public static class JsonElementExtensions
     {
         if (elt.ValueKind is JsonValueKind.Object)
         {
-            foreach (var property in elt.EnumerateObject())
+            foreach (JsonProperty property in elt.EnumerateObject())
             {
                 if (property.Name == propertyName)
                 {
@@ -30,7 +30,7 @@ public static class JsonElementExtensions
         }
         else if (elt.ValueKind is JsonValueKind.Array)
         {
-            foreach (var item in elt.EnumerateArray())
+            foreach (JsonElement item in elt.EnumerateArray())
             {
                 FindAllPropertiesWithName(item, propertyName, foundSoFar);
             }

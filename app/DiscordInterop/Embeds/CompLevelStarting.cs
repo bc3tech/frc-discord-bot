@@ -1,5 +1,7 @@
 ﻿namespace FunctionApp.DiscordInterop.Embeds;
 
+using Discord;
+
 using FunctionApp.DiscordInterop;
 using FunctionApp.TbaInterop.Models;
 using FunctionApp.TbaInterop.Models.Notifications;
@@ -19,7 +21,7 @@ internal sealed class CompLevelStarting(EmbedBuilderFactory builderFactory, Time
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage input, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var notification = input.GetDataAs<TbaInterop.Models.Notifications.CompLevelStarting>();
+        TbaInterop.Models.Notifications.CompLevelStarting notification = input.GetDataAs<TbaInterop.Models.Notifications.CompLevelStarting>();
         if (notification == default)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
@@ -28,9 +30,9 @@ internal sealed class CompLevelStarting(EmbedBuilderFactory builderFactory, Time
             yield break;
         }
 
-        var compLevel = Enum.Parse<CompLevel>(notification.comp_level, ignoreCase: true);
+        CompLevel compLevel = Enum.Parse<CompLevel>(notification.comp_level, ignoreCase: true);
         var eventName = notification.event_name;
-        var embed = builderFactory.GetBuilder(highlightTeam)
+        EmbedBuilder embed = builderFactory.GetBuilder(highlightTeam)
             .WithDescription($"""
                 # 📢⏰{compLevel.ToLongString()}⏰📢
                 ## Starting soon for {eventName}

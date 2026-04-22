@@ -16,12 +16,9 @@ using Microsoft.Extensions.Logging;
 internal sealed class CopilotTelemetrySessionSubscriber(ILogger<CopilotTelemetrySessionSubscriber> logger)
     : ISessionEventSubscriber
 {
-    private readonly ILogger<CopilotTelemetrySessionSubscriber> _logger = logger
-        ?? throw new ArgumentNullException(nameof(logger));
-
     public IDisposable Subscribe(CopilotSession session)
     {
         ArgumentNullException.ThrowIfNull(session);
-        return CopilotSessionTelemetry.Subscribe(session, this._logger);
+        return CopilotSessionTelemetry.Subscribe(session, logger);
     }
 }

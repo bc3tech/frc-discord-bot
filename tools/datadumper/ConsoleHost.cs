@@ -8,10 +8,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+using System.Collections.ObjectModel;
 using System.Text.Json;
 
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Client;
+using TheBlueAlliance.Model;
 
 internal sealed class ConsoleHost(BlobServiceClient storage, ITeamApi teams, IEventApi events, IMatchApi matches, IConfiguration appConfig, ILogger<ConsoleHost> logger) : IHostedService
 {
@@ -24,9 +26,9 @@ internal sealed class ConsoleHost(BlobServiceClient storage, ITeamApi teams, IEv
             List<Task> workers = [];
 
             logger.ConnectingToStorageAccountYouMayBePromptedToLogIn();
-            var eventDataContainer = storage.GetBlobContainerClient("tba-events");
+            BlobContainerClient eventDataContainer = storage.GetBlobContainerClient("tba-events");
             await eventDataContainer.CreateIfNotExistsAsync(cancellationToken: cancellationToken);
-            var matchesDataContainer = storage.GetBlobContainerClient("tba-matches");
+            BlobContainerClient matchesDataContainer = storage.GetBlobContainerClient("tba-matches");
             await matchesDataContainer.CreateIfNotExistsAsync(cancellationToken: cancellationToken);
 
             var startYear = int.Parse(Throws.IfNullOrWhiteSpace(appConfig["StartYear"]));
@@ -39,7 +41,7 @@ internal sealed class ConsoleHost(BlobServiceClient storage, ITeamApi teams, IEv
                 logger.GettingEventsFromTBAForYear(year);
                 try
                 {
-                    var eventsList = await events.GetEventsByYearAsync(year, cancellationToken: cancellationToken);
+                    Collection<Event>? eventsList = await events.GetEventsByYearAsync(year, cancellationToken: cancellationToken);
                     if (eventsList?.Count is null or 0)
                     {
                         return;
@@ -52,7 +54,7 @@ internal sealed class ConsoleHost(BlobServiceClient storage, ITeamApi teams, IEv
                     {
                         try
                         {
-                            var eventMatches = await matches.GetEventMatchesAsync(i.Key, cancellationToken: cancellationToken);
+                            Collection<Match>? eventMatches = await matches.GetEventMatchesAsync(i.Key, cancellationToken: cancellationToken);
                             logger.GotNumMatchesMatchesForEventKey(eventMatches?.Count ?? 0, i.Key);
 
                             await uploadMatchesAsync(matchesDataContainer, eventMatches, cancellationToken);
@@ -70,13 +72,13 @@ internal sealed class ConsoleHost(BlobServiceClient storage, ITeamApi teams, IEv
                 }
             }));
 
-            var teamDataContainer = storage.GetBlobContainerClient("tba-teams");
+            BlobContainerClient teamDataContainer = storage.GetBlobContainerClient("tba-teams");
             await teamDataContainer.CreateIfNotExistsAsync(cancellationToken: cancellationToken);
             for (int pageNum = 0; ; pageNum++)
             {
                 try
                 {
-                    var teamsList = await teams.GetTeamsAsync(pageNum, cancellationToken: cancellationToken);
+                    Collection<Team>? teamsList = await teams.GetTeamsAsync(pageNum, cancellationToken: cancellationToken);
                     if (teamsList?.Count is null or 0)
                     {
                         break;
@@ -109,11 +111,11 @@ internal sealed class ConsoleHost(BlobServiceClient storage, ITeamApi teams, IEv
         async Task uploadTeamsAsync(BlobContainerClient teamDataContainer, System.Collections.ObjectModel.Collection<TheBlueAlliance.Model.Team> teamsList, CancellationToken cancellationToken)
         {
             List<Task> workers = [];
-            foreach (var team in teamsList)
+            foreach (Team team in teamsList)
             {
                 logger.UploadingTeamTeamKey(team.Key);
 
-                var blob = teamDataContainer.GetBlobClient($"{team.Key}.json");
+                BlobClient blob = teamDataContainer.GetBlobClient($"{team.Key}.json");
                 workers.Add(blob.UploadAsync(new BinaryData(JsonSerializer.Serialize(team)), overwrite: true, cancellationToken: cancellationToken).ContinueWith((_) => logger.UploadedTeamTeamKey(team.Key), scheduler: TaskScheduler.Default, cancellationToken: cancellationToken, continuationOptions: TaskContinuationOptions.None));
             }
 
@@ -122,10 +124,10 @@ internal sealed class ConsoleHost(BlobServiceClient storage, ITeamApi teams, IEv
 
         async Task uploadEventsAsync(BlobContainerClient eventDataContainer, System.Collections.ObjectModel.Collection<TheBlueAlliance.Model.Event> eventsList, CancellationToken cancellationToken)
         {
-            foreach (var evt in eventsList)
+            foreach (Event evt in eventsList)
             {
                 logger.UploadingEventEventKey(evt.Key);
-                var blob = eventDataContainer.GetBlobClient($"{evt.Key}.json");
+                BlobClient blob = eventDataContainer.GetBlobClient($"{evt.Key}.json");
                 await blob.UploadAsync(new BinaryData(JsonSerializer.Serialize(evt)), overwrite: true, cancellationToken: cancellationToken);
                 logger.UploadedEventEventKey(evt.Key);
             }
@@ -135,10 +137,10 @@ internal sealed class ConsoleHost(BlobServiceClient storage, ITeamApi teams, IEv
         {
             if (eventMatches is not null and { Count: > 0 })
             {
-                foreach (var match in eventMatches)
+                foreach (Match match in eventMatches)
                 {
                     logger.UploadingMatchMatchKey(match.Key);
-                    var blob = matchesDataContainer.GetBlobClient($"{match.Key}.json");
+                    BlobClient blob = matchesDataContainer.GetBlobClient($"{match.Key}.json");
                     await blob.UploadAsync(new BinaryData(JsonSerializer.Serialize(match)), overwrite: true, cancellationToken: cancellationToken);
                     logger.UploadedMatchMatchKey(match.Key);
                 }

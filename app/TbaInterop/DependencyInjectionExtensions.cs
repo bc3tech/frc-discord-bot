@@ -16,7 +16,7 @@ internal static class DependencyInjectionExtensions
         return services
             .AddSingleton(sp =>
             {
-                var config = sp.GetRequiredService<IConfiguration>();
+                IConfiguration config = sp.GetRequiredService<IConfiguration>();
                 var apiKey = Throws.IfNullOrWhiteSpace(config[FunctionApp.Constants.Configuration.TbaApiKey], message: $"TheBlueAlliance API key is required. Set the {FunctionApp.Constants.Configuration.TbaApiKey} config variable appropriately");
                 return new Configuration
                 {
@@ -26,26 +26,26 @@ internal static class DependencyInjectionExtensions
             })
             .AddSingleton<ITeamApi>(sp =>
             {
-                var client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(FunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
-                var cfg = sp.GetRequiredService<Configuration>();
+                HttpClient client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(FunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
+                Configuration cfg = sp.GetRequiredService<Configuration>();
                 return new TeamApi(client, cfg);
             })
             .AddSingleton<IEventApi>(sp =>
             {
-                var client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(FunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
-                var cfg = sp.GetRequiredService<Configuration>();
+                HttpClient client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(FunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
+                Configuration cfg = sp.GetRequiredService<Configuration>();
                 return new EventApi(client, cfg);
             })
             .AddSingleton<IMatchApi>(sp =>
             {
-                var client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(FunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
-                var cfg = sp.GetRequiredService<Configuration>();
+                HttpClient client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(FunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
+                Configuration cfg = sp.GetRequiredService<Configuration>();
                 return new MatchApi(client, cfg);
             })
             .AddSingleton<IDistrictApi>(sp =>
             {
-                var client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(FunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
-                var cfg = sp.GetRequiredService<Configuration>();
+                HttpClient client = sp.GetRequiredService<IHttpClientFactory>().CreateClient(FunctionApp.Constants.ServiceKeys.TheBlueAllianceHttpClient);
+                Configuration cfg = sp.GetRequiredService<Configuration>();
                 return new DistrictApi(client, cfg);
             })
             .AddHostedService<TbaInitializationService>();

@@ -43,10 +43,10 @@ public sealed class SlashCommandModuleTests
         TestTeamsCommandModule module = new(services);
         await module.GetRankAsync("2046", eventKey: "2027cabl", year: 2027, post: true);
 
-        (int? year, string teamKey, string? eventKey) input = Assert.Single(rankCreator.Inputs);
-        Assert.Equal(2027, input.year);
-        Assert.Equal("frc2046", input.teamKey);
-        Assert.Equal("2027cabl", input.eventKey);
+        (int? year, string teamKey, string? eventKey) = Assert.Single(rankCreator.Inputs);
+        Assert.Equal(2027, year);
+        Assert.Equal("frc2046", teamKey);
+        Assert.Equal("2027cabl", eventKey);
     }
 
     [Fact]
@@ -60,9 +60,9 @@ public sealed class SlashCommandModuleTests
         TestTeamsCommandModule module = new(services);
         await module.GetScheduleAsync(teamKey: "frc2046", eventKey: "2027cabl", numMatches: 4, post: true);
 
-        (string? eventKey, ushort numMatches) input = Assert.Single(scheduleCreator.Inputs);
-        Assert.Equal("2027cabl", input.eventKey);
-        Assert.Equal((ushort)4, input.numMatches);
+        (string? eventKey, ushort numMatches) = Assert.Single(scheduleCreator.Inputs);
+        Assert.Equal("2027cabl", eventKey);
+        Assert.Equal((ushort)4, numMatches);
         Assert.Equal((ushort)2046, Assert.Single(scheduleCreator.HighlightTeams));
     }
 
@@ -105,9 +105,9 @@ public sealed class SlashCommandModuleTests
         TestEventsCommandModule module = new(services);
         await module.GetScheduleAsync(eventKey: "2027cabl", teamKey: "frc1678", numMatches: 3, post: true);
 
-        (string? eventKey, ushort numMatches) input = Assert.Single(scheduleCreator.Inputs);
-        Assert.Equal("2027cabl", input.eventKey);
-        Assert.Equal((ushort)3, input.numMatches);
+        (string? eventKey, ushort numMatches) = Assert.Single(scheduleCreator.Inputs);
+        Assert.Equal("2027cabl", eventKey);
+        Assert.Equal((ushort)3, numMatches);
         Assert.Equal((ushort)1678, Assert.Single(scheduleCreator.HighlightTeams));
     }
 
@@ -121,9 +121,9 @@ public sealed class SlashCommandModuleTests
         TestMatchesCommandModule module = new(services);
         await module.ShowNextAsync(eventKey: "2027cabl", teamKey: "2046", post: true);
 
-        (string eventKey, string teamKey) input = Assert.Single(upcomingCreator.Inputs);
-        Assert.Equal("2027cabl", input.eventKey);
-        Assert.Equal("frc2046", input.teamKey);
+        (string eventKey, string teamKey) = Assert.Single(upcomingCreator.Inputs);
+        Assert.Equal("2027cabl", eventKey);
+        Assert.Equal("frc2046", teamKey);
         Assert.Equal((ushort)2046, Assert.Single(upcomingCreator.HighlightTeams));
     }
 
@@ -137,9 +137,9 @@ public sealed class SlashCommandModuleTests
         TestMatchesCommandModule module = new(services);
         await module.GetResultAsync(eventKey: "2027cabl", compLevel: (int)CompLevel.Qm, matchNumber: 8, summarize: true, post: true);
 
-        (string matchKey, bool summarize) input = Assert.Single(scoreCreator.Inputs);
-        Assert.Equal("2027cabl_qm8", input.matchKey);
-        Assert.True(input.summarize);
+        (string matchKey, bool summarize) = Assert.Single(scoreCreator.Inputs);
+        Assert.Equal("2027cabl_qm8", matchKey);
+        Assert.True(summarize);
         Assert.Empty(upcomingCreator.Inputs);
     }
 
@@ -163,9 +163,9 @@ public sealed class SlashCommandModuleTests
 
         await module.PingAsync();
 
-        (string content, bool ephemeral) response = Assert.Single(module.Responses);
-        Assert.Equal("Pong!", response.content);
-        Assert.True(response.ephemeral);
+        (string content, bool ephemeral) = Assert.Single(module.Responses);
+        Assert.Equal("Pong!", content);
+        Assert.True(ephemeral);
     }
 
     [Fact]
@@ -231,13 +231,9 @@ public sealed class SlashCommandModuleTests
 
             Inputs.Add(input);
             HighlightTeams.Add(highlightTeam);
-            if (throwOnCreate)
-            {
-                throw new InvalidOperationException("intentional test exception");
-            }
-
-            yield return new(new EmbedBuilder().WithTitle("Test Embed").Build());
-            await Task.CompletedTask;
+            yield return throwOnCreate
+                ? throw new InvalidOperationException("intentional test exception")
+                : new(new EmbedBuilder().WithTitle("Test Embed").Build());
         }
     }
 

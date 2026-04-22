@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Threading.Tasks;
@@ -23,13 +24,13 @@ internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, Me
     public async ValueTask InitializeAsync(CancellationToken cancellationToken)
     {
         var startTime = time.GetTimestamp();
-        using var scope = logger.CreateMethodScope();
+        using IDisposable scope = logger.CreateMethodScope();
         for (int i = 0, currentYear = time.GetLocalNow().Year + 1; i < 5; i++, currentYear--)
         {
             logger.LoadingEventsFromTBAForEventYear(currentYear);
             try
             {
-                var newEvents = await apiClient.GetEventsByYearAsync(currentYear, cancellationToken: cancellationToken).ConfigureAwait(false);
+                Collection<Event>? newEvents = await apiClient.GetEventsByYearAsync(currentYear, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (newEvents?.Count is null or 0)
                 {
                     continue;
@@ -37,7 +38,7 @@ internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, Me
 
                 logger.RetrievedEventCountEvents(newEvents.Count);
 
-                foreach (var e in newEvents)
+                foreach (Event e in newEvents)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
                     if (_events.TryAdd(e.Key, e))
@@ -75,7 +76,7 @@ internal sealed class EventRepository(IEventApi apiClient, TimeProvider time, Me
     {
         get
         {
-            if (_events.TryGetValue(eventKey, out var t) && t is not null)
+            if (_events.TryGetValue(eventKey, out Event? t) && t is not null)
             {
                 return t;
             }

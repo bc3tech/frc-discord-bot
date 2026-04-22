@@ -27,7 +27,7 @@ public sealed class ScheduleUpdateEmbeddingTests
             NotificationType.schedule_updated,
             $$"""{"event_key":"{{eventKey}}","event_name":"{{eventName}}","first_match_time":1744232100}""");
 
-        SubscriptionEmbedding[] embeddings = await CollectEmbeddingsAsync(creator.CreateAsync(message));
+        SubscriptionEmbedding[] embeddings = await CollectEmbeddingsAsync(creator.CreateAsync(message, cancellationToken: TestContext.Current.CancellationToken));
 
         Embed embed = Assert.Single(embeddings).Content;
         Assert.Equal($"📢{eventName} Schedule Update⏰", embed.Title);
@@ -44,7 +44,7 @@ public sealed class ScheduleUpdateEmbeddingTests
             NotificationType.schedule_updated,
             """{"first_match_time":1744232100,"event":{"key":"2028mitry","name":"Michigan District Troy Event"}}""");
 
-        SubscriptionEmbedding[] embeddings = await CollectEmbeddingsAsync(creator.CreateAsync(message));
+        SubscriptionEmbedding[] embeddings = await CollectEmbeddingsAsync(creator.CreateAsync(message, cancellationToken: TestContext.Current.CancellationToken));
 
         Embed embed = Assert.Single(embeddings).Content;
         Assert.Equal("📢Michigan District Troy Event Schedule Update⏰", embed.Title);
@@ -60,7 +60,7 @@ public sealed class ScheduleUpdateEmbeddingTests
             NotificationType.schedule_updated,
             """{"first_match_time":1744232100,"event":{"short_name":""}}""");
 
-        SubscriptionEmbedding[] embeddings = await CollectEmbeddingsAsync(creator.CreateAsync(message));
+        SubscriptionEmbedding[] embeddings = await CollectEmbeddingsAsync(creator.CreateAsync(message, cancellationToken: TestContext.Current.CancellationToken));
 
         Assert.Empty(embeddings);
     }

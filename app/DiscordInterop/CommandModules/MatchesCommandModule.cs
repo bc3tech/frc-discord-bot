@@ -26,13 +26,13 @@ public class MatchesCommandModule(IServiceProvider services) : CommandModuleBase
         [Summary("team"), Autocomplete(typeof(AutoCompleteHandlers.TeamsAutoCompleteHandler))] string teamKey,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        using var typing = await TryDeferAsync(!post).ConfigureAwait(false);
+        using IDisposable? typing = await TryDeferAsync(!post).ConfigureAwait(false);
         if (typing is null)
         {
             return;
         }
 
-        using var scope = Logger.CreateMethodScope();
+        using IDisposable scope = Logger.CreateMethodScope();
         try
         {
             teamKey = CommandInputNormalization.NormalizeTeamKey(teamKey);
@@ -62,13 +62,13 @@ public class MatchesCommandModule(IServiceProvider services) : CommandModuleBase
         [Summary("summarize", "Create a 'ChatGPT' style summary?")] bool summarize = false,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        using var typing = await TryDeferAsync(!post).ConfigureAwait(false);
+        using IDisposable? typing = await TryDeferAsync(!post).ConfigureAwait(false);
         if (typing is null)
         {
             return;
         }
 
-        using var scope = Logger.CreateMethodScope();
+        using IDisposable scope = Logger.CreateMethodScope();
         string matchKey = CommandInputNormalization.BuildMatchKey(eventKey, compLevel, matchNumber);
         await GenerateResponseAsync(matchScoreEmbeddingGenerator, (matchKey, summarize)).ConfigureAwait(false);
     }

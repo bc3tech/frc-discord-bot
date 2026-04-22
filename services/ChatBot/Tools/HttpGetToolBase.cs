@@ -144,21 +144,23 @@ internal abstract class HttpGetToolBase(IHttpClientFactory httpClientFactory, IL
 
     protected static ReadOnlyCollection<string> GetPathSegments(string path)
     {
-        string trimmedPath = path.Trim().Trim('/');
-        if (trimmedPath.Length is 0)
+        ReadOnlySpan<char> trimmedPath = path.AsSpan().Trim().Trim('/');
+        if (trimmedPath.IsEmpty)
         {
             return [];
         }
 
         var retVal = new List<string>();
-        foreach (string segment in trimmedPath.Split('/', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+        MemoryExtensions.SpanSplitEnumerator<char> segments = trimmedPath.Split('/');
+        while (segments.MoveNext())
         {
-            if (segment.Length is 0)
+            ReadOnlySpan<char> segment = trimmedPath[segments.Current].Trim();
+            if (segment.IsEmpty)
             {
                 continue;
             }
 
-            retVal.Add(segment);
+            retVal.Add(segment.ToString());
         }
 
         return retVal.AsReadOnly();

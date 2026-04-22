@@ -20,20 +20,20 @@ public sealed class ChatCommandModule(IServiceProvider services) : CommandModule
     [SlashCommand("reset", "Resets your personal (DM) chat thread; makes me forget everything we've talked about!")]
     public async Task ResetThreadAsync()
     {
-        using var typing = await TryDeferAsync(ephemeral: true).ConfigureAwait(false);
+        using IDisposable? typing = await TryDeferAsync(ephemeral: true).ConfigureAwait(false);
         if (typing is null)
         {
             return;
         }
 
         var ephemeral = Context.Channel is not IDMChannel;
-        var embed = _embedBuilder
+        Embed embed = _embedBuilder
             .WithTitle("Are you sure?")
             .WithDescription($"This will reset your chat thread! I will forget everything we've talked about.{(ephemeral ? "If you've changed your mind, you can just ignore or dismiss this message :grin:" : string.Empty)}")
             .WithColor(Color.Red)
             .Build();
 
-        var buttons = new ComponentBuilder().WithButton("Confirm", ChatThreadResetter.ChatResetConfirmButtonId, ButtonStyle.Danger);
+        ComponentBuilder buttons = new ComponentBuilder().WithButton("Confirm", ChatThreadResetter.ChatResetConfirmButtonId, ButtonStyle.Danger);
         if (!ephemeral)
         {
             buttons.WithButton("Cancel", Constants.InteractionElements.CancelButtonDeleteMessage, ButtonStyle.Secondary);

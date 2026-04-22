@@ -29,7 +29,7 @@ public sealed class CompLevelStartingEmbeddingTests
             NotificationType.starting_comp_level,
             $$"""{"event_name":"{{eventName}}","comp_level":"{{compLevel}}","event_key":"2027test","scheduled_time":1744232100}""");
 
-        SubscriptionEmbedding[] embeddings = await CollectEmbeddingsAsync(creator.CreateAsync(message, highlightTeam: null));
+        SubscriptionEmbedding[] embeddings = await CollectEmbeddingsAsync(creator.CreateAsync(message, highlightTeam: null, cancellationToken: TestContext.Current.CancellationToken));
 
         var expectedCompLevel = Enum.Parse<CompLevel>(compLevel, ignoreCase: true).ToLongString();
         var description = Assert.Single(embeddings).Content.Description;
@@ -46,7 +46,7 @@ public sealed class CompLevelStartingEmbeddingTests
             NotificationType.starting_comp_level,
             """{"unknown":"shape"}""");
 
-        SubscriptionEmbedding[] embeddings = await CollectEmbeddingsAsync(creator.CreateAsync(message));
+        SubscriptionEmbedding[] embeddings = await CollectEmbeddingsAsync(creator.CreateAsync(message, cancellationToken: TestContext.Current.CancellationToken));
 
         Assert.Empty(embeddings);
     }

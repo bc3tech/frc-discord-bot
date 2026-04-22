@@ -17,8 +17,8 @@ internal sealed class WebhookEmbeddingGenerator(IServiceProvider services, ILogg
     [return: NotNull]
     public async IAsyncEnumerable<SubscriptionEmbedding> CreateEmbeddingsAsync(WebhookMessage tbaWebhookMessage, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        using var scope = logger.CreateMethodScope();
-        var embedCreator = services.GetKeyedService<INotificationEmbedCreator>(tbaWebhookMessage.MessageType.ToInvariantString());
+        using IDisposable scope = logger.CreateMethodScope();
+        INotificationEmbedCreator? embedCreator = services.GetKeyedService<INotificationEmbedCreator>(tbaWebhookMessage.MessageType.ToInvariantString());
         if (embedCreator is null)
         {
             logger.NoEmbeddingCreatorRegisteredForMessageTypeMessageType(tbaWebhookMessage.MessageType);
@@ -26,7 +26,7 @@ internal sealed class WebhookEmbeddingGenerator(IServiceProvider services, ILogg
         else
         {
             logger.GeneratingEmbeddingsForWebhookMessageTypeWebhookMessageType(tbaWebhookMessage.MessageType);
-            await foreach (var i in embedCreator.CreateAsync(tbaWebhookMessage, highlightTeam, cancellationToken))
+            await foreach (SubscriptionEmbedding? i in embedCreator.CreateAsync(tbaWebhookMessage, highlightTeam, cancellationToken))
             {
                 if (i is not null)
                 {

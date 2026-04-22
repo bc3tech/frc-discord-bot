@@ -7,6 +7,7 @@ using FunctionApp;
 using Microsoft.Extensions.Logging;
 
 using System.Collections.Concurrent;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 
@@ -20,7 +21,7 @@ internal sealed class TeamRepository(ITeamApi apiClient, Meter meter, ILogger<Te
 
     public async ValueTask InitializeAsync(CancellationToken cancellationToken)
     {
-        using var scope = logger.CreateMethodScope();
+        using IDisposable scope = logger.CreateMethodScope();
 
         logger.LoadingTeamsFromTBA();
         int i = 0;
@@ -29,7 +30,7 @@ internal sealed class TeamRepository(ITeamApi apiClient, Meter meter, ILogger<Te
             do
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                var newTeams = await apiClient.GetTeamsAsync(i++, cancellationToken: cancellationToken).ConfigureAwait(false);
+                Collection<Team>? newTeams = await apiClient.GetTeamsAsync(i++, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (newTeams?.Count is null or 0)
                 {
                     break;
@@ -37,7 +38,7 @@ internal sealed class TeamRepository(ITeamApi apiClient, Meter meter, ILogger<Te
 
                 logger.RetrievedTeamCountTeams(newTeams.Count);
 
-                foreach (var t in newTeams)
+                foreach (Team t in newTeams)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
                     if (_teams.TryAdd(t.Key, t))
@@ -75,7 +76,7 @@ internal sealed class TeamRepository(ITeamApi apiClient, Meter meter, ILogger<Te
     {
         get
         {
-            if (_teams.TryGetValue(teamKey, out var t) && t is not null)
+            if (_teams.TryGetValue(teamKey, out Team? t) && t is not null)
             {
                 return t;
             }

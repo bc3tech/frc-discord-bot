@@ -10,7 +10,7 @@ public partial record Webcast
 {
     public (string Name, Uri? Url) GetFullUrl(ILogger? log = null)
     {
-        var retVal = (this.Type.ToInvariantString(), this.Type switch
+        (string, Uri?) retVal = (this.Type.ToInvariantString(), this.Type switch
         {
             Webcast.TypeEnum.Youtube => new($"https://youtube.com/watch?v={this.Channel}"),
             Webcast.TypeEnum.Twitch => new($"https://twitch.tv/{this.Channel}"),

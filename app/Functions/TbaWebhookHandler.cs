@@ -1,5 +1,6 @@
 namespace FunctionApp.Functions;
 
+using Azure;
 using Azure.Data.Tables;
 
 using Common;
@@ -46,7 +47,7 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher,
             return req.CreateResponse(System.Net.HttpStatusCode.Conflict);
         }
 
-        var message = JsonSerializer.Deserialize<WebhookMessage>(bodyContent);
+        WebhookMessage? message = JsonSerializer.Deserialize<WebhookMessage>(bodyContent);
         if (message is not null)
         {
             logger.WebhookPayloadDeserializedIntoWebhookMessageSerializedWebhookMessage(message, JsonSerializer.Serialize(message));
@@ -58,7 +59,7 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher,
             }
             else if (message.MessageType is NotificationType.ping)
             {
-                var pingData = message.GetDataAs<Ping>();
+                Ping pingData = message.GetDataAs<Ping>();
                 logger.ReceivedPingMessageFromTheBlueAllianceTitlePingTitleDescriptionPingDesc(pingData.title, pingData.desc);
                 return req.CreateResponse(System.Net.HttpStatusCode.OK);
             }
@@ -74,7 +75,7 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher,
         }
 
         logger.UnknownUnhandledMessage();
-        var unknownResponse = req.CreateResponse(System.Net.HttpStatusCode.BadRequest);
+        HttpResponseData unknownResponse = req.CreateResponse(System.Net.HttpStatusCode.BadRequest);
         unknownResponse.WriteString("Unknown message type or body.");
         return unknownResponse;
     }
@@ -82,7 +83,7 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher,
     private const string WebhookStatusRoute = "/api/tba/webhook/status";
     private static HttpResponseData MakeAcceptedAtResponse(HttpRequestData fromRequest, string invocationId)
     {
-        var acceptedResult = fromRequest.CreateResponse(System.Net.HttpStatusCode.Accepted);
+        HttpResponseData acceptedResult = fromRequest.CreateResponse(System.Net.HttpStatusCode.Accepted);
         var location = new UriBuilder(fromRequest.Url)
         {
             Path = WebhookStatusRoute,
@@ -97,7 +98,7 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher,
     public HttpResponseData GetStatus([HttpTrigger(AuthorizationLevel.Function, "get", Route = "tba/webhook/status")] HttpRequestData req, FunctionContext context)
     {
         var targetInvocationId = Throws.IfNullOrWhiteSpace(req.Query["invocationId"]);
-        var task = _processingTasks[targetInvocationId];
+        Task task = _processingTasks[targetInvocationId];
 
         if (task.IsCompletedSuccessfully)
         {
@@ -106,11 +107,11 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher,
 
         if (task.IsFaulted)
         {
-            var exception = task.Exception;
+            AggregateException? exception = task.Exception;
             if (exception is not null)
             {
                 logger.ErrorProcessingWebhookMessage(exception, targetInvocationId);
-                var r = req.CreateResponse(System.Net.HttpStatusCode.InternalServerError);
+                HttpResponseData r = req.CreateResponse(System.Net.HttpStatusCode.InternalServerError);
 #if DEBUG
                 r.WriteString(exception.InnerException?.Message ?? exception.Message);
 #endif
@@ -137,7 +138,7 @@ internal sealed class TbaWebhookHandler(DiscordMessageDispatcher dispatcher,
             var bodyBytes = Encoding.UTF8.GetBytes(bodyContent);
             var hashBytes = System.Security.Cryptography.SHA3_512.HashData(bodyBytes);
             var base64UrlEncodedBody = UrlEncoder.Default.Encode(Convert.ToBase64String(hashBytes));
-            var existingMessage = await messagesTable.GetEntityIfExistsAsync<TableEntity>(base64UrlEncodedBody, base64UrlEncodedBody, cancellationToken: cancellationToken).ConfigureAwait(false);
+            NullableResponse<TableEntity> existingMessage = await messagesTable.GetEntityIfExistsAsync<TableEntity>(base64UrlEncodedBody, base64UrlEncodedBody, cancellationToken: cancellationToken).ConfigureAwait(false);
 
             if (!existingMessage.HasValue)
             {

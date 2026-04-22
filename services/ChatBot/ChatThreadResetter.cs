@@ -5,6 +5,8 @@ using BC3Technologies.DiscordGpt.Core;
 using Common.Discord;
 using Common.Extensions;
 
+using CopilotSdk.OpenTelemetry;
+
 using Discord;
 using Discord.Net;
 using Discord.WebSocket;
@@ -24,7 +26,7 @@ public static class ChatThreadResetter
         ArgumentNullException.ThrowIfNull(button);
 
         logger ??= services.GetService<ILoggerFactory>()?.CreateLogger(typeof(ChatThreadResetter));
-        using var scope = logger?.CreateMethodScope();
+        using IDisposable? scope = logger?.CreateMethodScope();
 
         if (button.Data.CustomId is not ChatResetConfirmButtonId)
         {
@@ -83,7 +85,7 @@ public static class ChatThreadResetter
         await conversationStore.ClearAsync(conversationKey, cancellationToken).ConfigureAwait(false);
 
         // Reset the persisted trace context so the next message opens a brand-new App Insights Trace.
-        var traceStore = services.GetService<CopilotSdk.OpenTelemetry.IConversationTraceContextStore>();
+        IConversationTraceContextStore? traceStore = services.GetService<CopilotSdk.OpenTelemetry.IConversationTraceContextStore>();
         if (traceStore is not null)
         {
             await traceStore.RemoveAsync(conversationKey.ToStorageKey(), cancellationToken).ConfigureAwait(false);
@@ -99,7 +101,7 @@ public static class ChatThreadResetter
         IConversationStore conversationStore = services.GetRequiredService<IConversationStore>();
         await conversationStore.ClearAsync(conversationKey, cancellationToken).ConfigureAwait(false);
 
-        var traceStore = services.GetService<CopilotSdk.OpenTelemetry.IConversationTraceContextStore>();
+        IConversationTraceContextStore? traceStore = services.GetService<CopilotSdk.OpenTelemetry.IConversationTraceContextStore>();
         if (traceStore is not null)
         {
             await traceStore.RemoveAsync(conversationKey.ToStorageKey(), cancellationToken).ConfigureAwait(false);

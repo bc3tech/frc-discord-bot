@@ -18,7 +18,7 @@ internal static class DependencyInjectionExtensions
         {
             // The worker-service AI logger provider injects a default Warning+ filter.
             // Remove it so the standard Logging configuration controls custom ILogger output.
-            var toRemove = options.Rules.FirstOrDefault(rule => rule.ProviderName
+            LoggerFilterRule? toRemove = options.Rules.FirstOrDefault(rule => rule.ProviderName
                 is "Microsoft.Extensions.Logging.ApplicationInsights.ApplicationInsightsLoggerProvider");
 
             if (toRemove is not null)

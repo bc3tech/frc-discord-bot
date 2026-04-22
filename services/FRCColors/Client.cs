@@ -18,7 +18,7 @@ public sealed class Client(IHttpClientFactory clientFactory)
     {
         if (teamNumber.HasValue)
         {
-            var resp = await _client.GetFromJsonAsync<SingleTeamColors>($"https://api.frc-colors.com/v1/team/{teamNumber.Value}", cancellationToken: cancellationToken).ConfigureAwait(false);
+            SingleTeamColors? resp = await _client.GetFromJsonAsync<SingleTeamColors>($"https://api.frc-colors.com/v1/team/{teamNumber.Value}", cancellationToken: cancellationToken).ConfigureAwait(false);
             (bool flowControl, (Color? primaryColor, Color? secondaryColor) value) = ParseColors(resp);
             if (!flowControl)
             {
@@ -34,7 +34,7 @@ public sealed class Client(IHttpClientFactory clientFactory)
     {
         if (teamNumber.HasValue)
         {
-            var resp = _client.GetFromJson<SingleTeamColors>(new($"https://api.frc-colors.com/v1/team/{teamNumber.Value}"), cancellationToken);
+            SingleTeamColors? resp = _client.GetFromJson<SingleTeamColors>(new($"https://api.frc-colors.com/v1/team/{teamNumber.Value}"), cancellationToken);
             (bool flowControl, (Color? primaryColor, Color? secondaryColor) value) = ParseColors(resp);
             if (!flowControl)
             {

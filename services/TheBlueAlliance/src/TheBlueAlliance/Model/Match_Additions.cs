@@ -20,7 +20,7 @@ public partial record Match
 
     public IEnumerable<(string Name, Uri Link)> GetVideoUrls(ILogger? log = null)
     {
-        foreach (var v in this.Videos)
+        foreach (MatchVideosInner v in this.Videos)
         {
             if (v.Type is "youtube")
             {

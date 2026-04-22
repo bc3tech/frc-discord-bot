@@ -3,6 +3,8 @@
 using Common.Discord;
 using Common.Extensions;
 
+using Discord;
+
 using FunctionApp;
 
 using FunctionApp.DiscordInterop;
@@ -21,7 +23,7 @@ internal sealed class EmbeddingColorizer(FRCColors.Client colorClient, ILogger<E
         {
             try
             {
-                var (primaryColor, secondaryColor) = await colorClient.GetColorsForTeamAsync(forTeam.Value, cancellationToken).ConfigureAwait(false);
+                (System.Drawing.Color? primaryColor, System.Drawing.Color? secondaryColor) = await colorClient.GetColorsForTeamAsync(forTeam.Value, cancellationToken).ConfigureAwait(false);
                 (bool flowControl, bool value) = SetEmbeddingColor(embedding, primaryColor, secondaryColor);
                 if (!flowControl)
                 {
@@ -45,7 +47,7 @@ internal sealed class EmbeddingColorizer(FRCColors.Client colorClient, ILogger<E
         {
             try
             {
-                var (primaryColor, secondaryColor) = colorClient.GetColorsForTeam(forTeam.Value, cancellationToken);
+                (System.Drawing.Color? primaryColor, System.Drawing.Color? secondaryColor) = colorClient.GetColorsForTeam(forTeam.Value, cancellationToken);
                 (bool flowControl, bool value) = SetEmbeddingColor(embedding, primaryColor, secondaryColor);
                 if (!flowControl)
                 {
@@ -63,7 +65,7 @@ internal sealed class EmbeddingColorizer(FRCColors.Client colorClient, ILogger<E
 
     private static (bool flowControl, bool value) SetEmbeddingColor(Discord.EmbedBuilder embedding, System.Drawing.Color? primaryColor, System.Drawing.Color? secondaryColor)
     {
-        var themeColor = Utility.GetLightestColorOf([primaryColor?.ToDiscordColor(), secondaryColor?.ToDiscordColor()]);
+        Color? themeColor = Utility.GetLightestColorOf([primaryColor?.ToDiscordColor(), secondaryColor?.ToDiscordColor()]);
         if (themeColor.HasValue)
         {
             embedding.WithColor(themeColor.Value);

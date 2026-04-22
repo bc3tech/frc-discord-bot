@@ -5,13 +5,17 @@ using Common.Extensions;
 using Discord;
 
 using FIRST.Api;
+using FIRST.Model;
 
 using FunctionApp;
 using FunctionApp.Storage;
 
 using Microsoft.Extensions.Logging;
 
+using Statbotics.Model;
+
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -49,17 +53,17 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
 
         yield return new(new EmbedBuilder().WithTitle("Getting district-wide data...").Build(), Transient: true);
 
-        var embedding = builderFactory.GetBuilder(teamKey);
+        EmbedBuilder embedding = builderFactory.GetBuilder(teamKey);
         var descriptionBuilder = new StringBuilder();
 
-        var frcTeamRankings = await rankings.SeasonRankingsDistrictGetAsync(targetYear.ToString(), teamNumber: teamNumberStr, cancellationToken: cancellationToken).ConfigureAwait(false);
+        SeasonRankingsDistrict? frcTeamRankings = await rankings.SeasonRankingsDistrictGetAsync(targetYear.ToString(), teamNumber: teamNumberStr, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (frcTeamRankings is null or { DistrictRanks: null or { Length: 0 } })
         {
             descriptionBuilder.AppendLine($"No district ranking data found for {teams[teamKey].GetLabel()}");
         }
         else
         {
-            var teamYearStats = await teamStats.ReadTeamYearV3TeamYearTeamYearGetAsync(teamNumberStr, targetYear, cancellationToken).ConfigureAwait(false);
+            TeamYear? teamYearStats = await teamStats.ReadTeamYearV3TeamYearTeamYearGetAsync(teamNumberStr, targetYear, cancellationToken).ConfigureAwait(false);
             if (teamYearStats?.Epa?.Ranks is not null)
             {
                 if (teamYearStats.Epa.TotalPoints?.Mean is not null)
@@ -78,7 +82,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
 
                 if (teamYearStats.Epa.Ranks.District is not null)
                 {
-                    var districtDetail = tbaDistrictData.GetDistrictsByYear(targetYear)?.FirstOrDefault(d => d.Abbreviation.Equals(teamYearStats.District, StringComparison.OrdinalIgnoreCase));
+                    District? districtDetail = tbaDistrictData.GetDistrictsByYear(targetYear)?.FirstOrDefault(d => d.Abbreviation.Equals(teamYearStats.District, StringComparison.OrdinalIgnoreCase));
                     if (!string.IsNullOrWhiteSpace(districtDetail?.DisplayName))
                     {
                         descriptionBuilder.AppendLine($"District ({districtDetail.DisplayName}): {teamYearStats.Epa.Ranks.District.Rank} / {teamYearStats.Epa.Ranks.District.TeamCount} ({teamYearStats.Epa.Ranks.District.Percentile:P2}ile)");
@@ -100,10 +104,10 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                 }
             }
 
-            foreach (var d in frcTeamRankings.DistrictRanks)
+            foreach (SeasonRankingsDistrict.DistrictRank d in frcTeamRankings.DistrictRanks)
             {
-                var districtDetail = await tbaDistrictData.GetDistrictsByYearAsync(targetYear, cancellationToken: cancellationToken);
-                var district = districtDetail?.FirstOrDefault(i => i.Abbreviation.Equals(d.DistrictCode, StringComparison.OrdinalIgnoreCase));
+                Collection<District>? districtDetail = await tbaDistrictData.GetDistrictsByYearAsync(targetYear, cancellationToken: cancellationToken);
+                District? district = districtDetail?.FirstOrDefault(i => i.Abbreviation.Equals(d.DistrictCode, StringComparison.OrdinalIgnoreCase));
                 descriptionBuilder.AppendLine($"## Official {(district is not null ? district.DisplayName : d.DistrictCode)} District rank\n");
                 descriptionBuilder.AppendLine($"Current Rank: {d.Rank}");
                 descriptionBuilder.AppendLine($"District Points: {d.TotalPoints} (Adjusted - {d.AdjustmentPoints})");
@@ -112,13 +116,13 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                 descriptionBuilder.Clear();
                 if (district is not null)
                 {
-                    var tbaRanks = await tbaDistrictData.GetDistrictRankingsAsync(district.Key, cancellationToken: cancellationToken).ConfigureAwait(false);
-                    var tbaTeamRank = tbaRanks?.FirstOrDefault(tbaRanks => tbaRanks.TeamKey == teamKey);
+                    Collection<DistrictRanking>? tbaRanks = await tbaDistrictData.GetDistrictRankingsAsync(district.Key, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    DistrictRanking? tbaTeamRank = tbaRanks?.FirstOrDefault(tbaRanks => tbaRanks.TeamKey == teamKey);
                     if (tbaTeamRank is not null and { EventPoints: not null and { Count: > 0 } }
                         && string.IsNullOrWhiteSpace(input.EventKey))
                     {
                         descriptionBuilder.AppendLine($"### District Point breakdown by Event\n");
-                        foreach (var e in tbaTeamRank.EventPoints)
+                        foreach (DistrictRankingEventPointsInner e in tbaTeamRank.EventPoints)
                         {
                             descriptionBuilder.AppendLine($"**{events[e.EventKey].GetLabel()}**");
                             addDistrictRankingEventPointsForEvent(descriptionBuilder, e);
@@ -137,7 +141,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
             yield return new(new EmbedBuilder().WithTitle($"Getting event data for {eventLabel}...").Build(), Transient: true);
 
             descriptionBuilder.AppendLine($"## {eventLabel}\n");
-            var eventDetail = events[input.EventKey];
+            TheBlueAlliance.Model.Event? eventDetail = events[input.EventKey];
             Debug.Assert(eventDetail is not null);
             if (eventDetail is null)
             {
@@ -145,7 +149,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
             }
             else
             {
-                var eventRankings = await rankings.SeasonRankingsEventCodeGetAsync(eventDetail.EventCode.ToUpperInvariant(), targetYear.ToString(), teamNumberStr, cancellationToken: cancellationToken).ConfigureAwait(false);
+                SeasonRankingsEvent? eventRankings = await rankings.SeasonRankingsEventCodeGetAsync(eventDetail.EventCode.ToUpperInvariant(), targetYear.ToString(), teamNumberStr, cancellationToken: cancellationToken).ConfigureAwait(false);
                 Debug.Assert(eventRankings is not null);
                 if (eventRankings is null)
                 {
@@ -153,7 +157,7 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                 }
                 else
                 {
-                    var teamRanking = eventRankings.Rankings.FirstOrDefault(r => r.TeamNumber == highlightTeam);
+                    SeasonRankingsEvent.Ranking? teamRanking = eventRankings.Rankings.FirstOrDefault(r => r.TeamNumber == highlightTeam);
                     Debug.Assert(teamRanking is not null);
                     if (teamRanking is null)
                     {
@@ -166,10 +170,10 @@ internal sealed class TeamRank(EmbedBuilderFactory builderFactory,
                         descriptionBuilder.AppendLine($"Avg Qual Match Score: {teamRanking.QualAverage}");
                         descriptionBuilder.AppendLine($"DQ count: {teamRanking.Dq}");
 
-                        var eventPoints = await tbaDistrictData.GetEventDistrictPointsAsync(input.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+                        EventDistrictPoints? eventPoints = await tbaDistrictData.GetEventDistrictPointsAsync(input.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
                         if (eventPoints is not null)
                         {
-                            var districtPointsForTeamAtEvent = eventPoints.Points[teamKey];
+                            EventDistrictPointsPointsValue? districtPointsForTeamAtEvent = eventPoints.Points[teamKey];
                             if (districtPointsForTeamAtEvent is not null)
                             {
                                 descriptionBuilder.AppendLine($"District Points: {teamRanking.MatchesPlayed}");

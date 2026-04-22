@@ -1,5 +1,6 @@
 namespace FunctionApp.Functions;
 
+using Azure;
 using Azure.Data.Tables;
 
 using Common.Extensions;
@@ -18,6 +19,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Model;
 
 internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClient_ProcessedMessages)] TableClient processedMessagesTable,
                               [FromKeyedServices(Constants.ServiceKeys.TableClient_Threads)] TableClient eventMessageThreads,
@@ -45,11 +47,11 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
         logger.ExecutingCleanup();
 
         var startTime = time.GetTimestamp();
-        await foreach (var oldMessage in processedMessagesTable.QueryAsync<TableEntity>(filter: $"Timestamp lt datetime'{DateTime.UtcNow.AddDays(maxDays * -1):O}'", cancellationToken: cancellationToken))
+        await foreach (TableEntity oldMessage in processedMessagesTable.QueryAsync<TableEntity>(filter: $"Timestamp lt datetime'{DateTime.UtcNow.AddDays(maxDays * -1):O}'", cancellationToken: cancellationToken))
         {
             logger.DeletingMessageFromRecordTimestamp(oldMessage.Timestamp);
 
-            var r = await processedMessagesTable.DeleteEntityAsync(oldMessage.PartitionKey, oldMessage.RowKey, cancellationToken: cancellationToken);
+            Response r = await processedMessagesTable.DeleteEntityAsync(oldMessage.PartitionKey, oldMessage.RowKey, cancellationToken: cancellationToken);
             if (r.IsError)
             {
                 logger.FailedToDeleteMessageFromRecordTimestampErrorMessage(oldMessage.Timestamp, r.ReasonPhrase);
@@ -62,11 +64,11 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
         meter.LogMetric("ProcessedMessagesCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
 
         startTime = time.GetTimestamp();
-        await foreach (var oldMessage in eventMessageThreads.QueryAsync<ThreadTableEntity>(filter: $"Timestamp lt datetime'{DateTime.UtcNow.AddDays(maxDays * -1):O}'", cancellationToken: cancellationToken))
+        await foreach (ThreadTableEntity oldMessage in eventMessageThreads.QueryAsync<ThreadTableEntity>(filter: $"Timestamp lt datetime'{DateTime.UtcNow.AddDays(maxDays * -1):O}'", cancellationToken: cancellationToken))
         {
             logger.DeletingOldThreadForThreadEventMessageFromRecordTimestamp(oldMessage.RowKey, oldMessage.Timestamp);
 
-            var r = await eventMessageThreads.DeleteEntityAsync(oldMessage.PartitionKey, oldMessage.RowKey, cancellationToken: cancellationToken);
+            Response r = await eventMessageThreads.DeleteEntityAsync(oldMessage.PartitionKey, oldMessage.RowKey, cancellationToken: cancellationToken);
             if (r.IsError)
             {
                 logger.FailedToDeleteThreadFromRecordTimestampErrorMessage(oldMessage.Timestamp, r.ReasonPhrase);
@@ -79,12 +81,12 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
         meter.LogMetric("EventMessageThreadsCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
 
         startTime = time.GetTimestamp();
-        await foreach (var s in teamSubscriptions.QueryAsync<TeamSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
+        await foreach (TeamSubscriptionEntity? s in teamSubscriptions.QueryAsync<TeamSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
         {
             logger.CleaningUpSubscriptionsForTeamTeam(s.Team);
             if (s.Event != CommonConstants.ALL)
             {
-                var tbaEvent = await events.GetEventSimpleAsync(s.Event, cancellationToken: cancellationToken).ConfigureAwait(false);
+                EventSimple? tbaEvent = await events.GetEventSimpleAsync(s.Event, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (tbaEvent is null)
                 {
                     logger.FailedToRetrieveEventForTeamSubscriptionTeamEvent(s.Team, s.Event);
@@ -94,7 +96,7 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
                 if ((time.GetLocalNow().Date - tbaEvent.EndDate.ToDateTime(TimeOnly.MinValue)).TotalDays > maxDays)
                 {
                     logger.EventEventHasEnded5DaysAgoCleaningUpSubscriptionToItForTeamTeamKey(s.Event, s.Team);
-                    var r = await teamSubscriptions.DeleteEntityAsync(s.PartitionKey, s.RowKey, cancellationToken: cancellationToken);
+                    Response r = await teamSubscriptions.DeleteEntityAsync(s.PartitionKey, s.RowKey, cancellationToken: cancellationToken);
                     if (r.IsError)
                     {
                         logger.FailedToDeleteSubscriptionForTeamTeamErrorMessage(s.Team, r.ReasonPhrase);
@@ -104,10 +106,10 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
             }
 
             bool updated = false;
-            var emptySubscriptions = s.Subscribers.Where(j => j.Value.Count is 0).ToArray();
+            KeyValuePair<string, HashSet<ulong>>[] emptySubscriptions = [.. s.Subscribers.Where(j => j.Value.Count is 0)];
             if (emptySubscriptions.Length > 0)
             {
-                foreach (var emptySub in emptySubscriptions)
+                foreach (KeyValuePair<string, HashSet<ulong>> emptySub in emptySubscriptions)
                 {
                     logger.FoundEmptySubscriptionForTeamTeamKeyGuildIdRemoving(s.Team, emptySub.Key);
 
@@ -131,12 +133,12 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
         meter.LogMetric("TeamSubscriptionsCleanupTimeSec", time.GetElapsedTime(startTime).TotalSeconds);
 
         startTime = time.GetTimestamp();
-        await foreach (var s in eventSubscriptions.QueryAsync<EventSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
+        await foreach (EventSubscriptionEntity? s in eventSubscriptions.QueryAsync<EventSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
         {
             logger.CleaningUpSubscriptionsForEventEvent(s.Event);
             if (s.PartitionKey != CommonConstants.ALL)
             {
-                var tbaEvent = await events.GetEventSimpleAsync(s.Event, cancellationToken: cancellationToken).ConfigureAwait(false);
+                EventSimple? tbaEvent = await events.GetEventSimpleAsync(s.Event, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (tbaEvent is null)
                 {
                     logger.FailedToRetrieveEventForEventSubscriptionEvent(s.Event);
@@ -146,7 +148,7 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
                 if ((time.GetLocalNow().Date - tbaEvent.EndDate.ToDateTime(TimeOnly.MinValue)).TotalDays > maxDays)
                 {
                     logger.EventEventHasEnded5DaysAgoCleaningUpEventSubscription(s.Event);
-                    var r = await eventSubscriptions.DeleteEntityAsync(s.PartitionKey, s.RowKey, cancellationToken: cancellationToken);
+                    Response r = await eventSubscriptions.DeleteEntityAsync(s.PartitionKey, s.RowKey, cancellationToken: cancellationToken);
                     if (r.IsError)
                     {
                         logger.FailedToDeleteSubscriptionForEventEventErrorMessage(s.Event, r.ReasonPhrase);
@@ -156,10 +158,10 @@ internal sealed class Cleanup([FromKeyedServices(Constants.ServiceKeys.TableClie
             }
 
             bool updated = false;
-            var emptySubscriptions = s.Subscribers.Where(j => j.Value.Count is 0).ToArray();
+            KeyValuePair<string, HashSet<ulong>>[] emptySubscriptions = [.. s.Subscribers.Where(j => j.Value.Count is 0)];
             if (emptySubscriptions.Length > 0)
             {
-                foreach (var emptySub in emptySubscriptions)
+                foreach (KeyValuePair<string, HashSet<ulong>> emptySub in emptySubscriptions)
                 {
                     logger.FoundEmptySubscriptionForEventEventGuildGuildIdRemoving(s.Event, emptySub.Key);
 

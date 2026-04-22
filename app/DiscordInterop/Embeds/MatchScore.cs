@@ -19,6 +19,7 @@ using FunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Runtime.CompilerServices;
@@ -51,10 +52,10 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        using var scope = logger.CreateMethodScope();
+        using IDisposable scope = logger.CreateMethodScope();
         logger.CreatingMatchScoreEmbed();
-        var baseBuilder = builderFactory.GetBuilder(highlightTeam);
-        var notification = msg.GetDataAs<FunctionApp.TbaInterop.Models.Notifications.MatchScore>();
+        EmbedBuilder baseBuilder = builderFactory.GetBuilder(highlightTeam);
+        TbaInterop.Models.Notifications.MatchScore? notification = msg.GetDataAs<FunctionApp.TbaInterop.Models.Notifications.MatchScore>();
         if (notification is null)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
@@ -62,7 +63,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             yield break;
         }
 
-        var tbaMatch = await matchApi.GetMatchAsync(notification.match_key, cancellationToken: cancellationToken).ConfigureAwait(false);
+        Match? tbaMatch = await matchApi.GetMatchAsync(notification.match_key, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (tbaMatch is null)
         {
             logger.FailedToRetrieveDetailedMatchDataForMatchKey(notification.match_key);
@@ -70,7 +71,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             yield break;
         }
 
-        var scores = GetActualScores(notification.match, tbaMatch);
+        (int Red, int Blue) scores = GetActualScores(notification.match, tbaMatch);
         if (scores.Red is -1 || scores.Blue is -1)
         {
             yield return null;
@@ -88,7 +89,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
         await BuildDescriptionAsync(highlightTeam, notification.match, tbaMatch, descriptionBuilder, scores, false, cancellationToken).ConfigureAwait(false);
 
-        var embedding = baseBuilder
+        EmbedBuilder embedding = baseBuilder
             .WithTitle($"{notification.event_name}: {notification.match?.CompLevel.Or(tbaMatch.CompLevel).ToShortString()} {notification.match?.SetNumber.Or(tbaMatch.SetNumber)} - Match {notification.match?.MatchNumber.Or(tbaMatch.MatchNumber)}")
             .WithDescription(descriptionBuilder.ToString());
 
@@ -97,8 +98,8 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
     private (int Red, int Blue) GetActualScores(Match? notificationMatch, Match tbaMatch)
     {
-        using var scope = logger.CreateMethodScope();
-        var match = notificationMatch ?? tbaMatch;
+        using IDisposable scope = logger.CreateMethodScope();
+        Match match = notificationMatch ?? tbaMatch;
         var blueScore = match.Alliances.Blue.Score;
         if (blueScore is -1)
         {
@@ -132,10 +133,10 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
     public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync((string matchKey, bool summarize) input, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var baseBuilder = builderFactory.GetBuilder();
+        EmbedBuilder baseBuilder = builderFactory.GetBuilder();
 
         var matchKey = input.matchKey;
-        var detailedMatch = await matchApi.GetMatchAsync(Throws.IfNullOrWhiteSpace(matchKey), cancellationToken: cancellationToken).ConfigureAwait(false);
+        Match? detailedMatch = await matchApi.GetMatchAsync(Throws.IfNullOrWhiteSpace(matchKey), cancellationToken: cancellationToken).ConfigureAwait(false);
         if (detailedMatch is null)
         {
             logger.FailedToRetrieveDetailedMatchDataForMatchKey(matchKey);
@@ -143,7 +144,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             yield break;
         }
 
-        var scores = GetActualScores(detailedMatch, detailedMatch);
+        (int Red, int Blue) scores = GetActualScores(detailedMatch, detailedMatch);
         if (scores.Red is -1 || scores.Blue is -1)
         {
             logger.BadDataForMatchMatchKeyMatchData(detailedMatch.Key, JsonSerializer.Serialize(detailedMatch));
@@ -166,7 +167,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
         await BuildDescriptionAsync(highlightTeam, detailedMatch, detailedMatch, descriptionBuilder, scores, true, cancellationToken).ConfigureAwait(false);
 
-        var embedding = baseBuilder
+        Embed embedding = baseBuilder
             .WithDescription(descriptionBuilder.ToString())
             .Build();
 
@@ -175,8 +176,8 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
     private async Task BuildDescriptionAsync(ushort? highlightTeam, Match? notificationMatch, Match tbaMatch, StringBuilder descriptionBuilder, (int redScore, int blueScore) scores, bool includeBreakdown, CancellationToken cancellationToken)
     {
-        var match = notificationMatch ?? tbaMatch;
-        var winningAlliance = match.WinningAlliance;
+        Match match = notificationMatch ?? tbaMatch;
+        Match.WinningAllianceEnum winningAlliance = match.WinningAlliance;
         if (winningAlliance is Match.WinningAllianceEnum.Empty)
         {
             winningAlliance = scores.redScore > scores.blueScore ? Match.WinningAllianceEnum.Red : scores.redScore == scores.blueScore ? Match.WinningAllianceEnum.Empty : Match.WinningAllianceEnum.Blue;
@@ -186,7 +187,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
         await AddEventOrDayWrapupAsync(descriptionBuilder, notificationMatch, tbaMatch, winningAlliance, cancellationToken).ConfigureAwait(false);
 
-        var videos = match.Videos.Or(tbaMatch.Videos).Where(v => v.Type is "youtube" && v.Key is not null).Select(v => $"- https://www.youtube.com/watch?v={v.Key}");
+        IEnumerable<string> videos = match.Videos.Or(tbaMatch.Videos).Where(v => v.Type is "youtube" && v.Key is not null).Select(v => $"- https://www.youtube.com/watch?v={v.Key}");
         if (videos.Any())
         {
             descriptionBuilder
@@ -203,16 +204,16 @@ internal sealed partial class MatchScore(IEventApi eventApi,
     {
         scores ??= GetActualScores(notificationMatch, tbaMatch);
 
-        var match = notificationMatch ?? tbaMatch;
-        var alliances = match.Alliances;
+        Match match = notificationMatch ?? tbaMatch;
+        MatchAlliances alliances = match.Alliances;
         var allTeamKeys = alliances.Red.TeamKeys.Concat(alliances.Blue.TeamKeys).ToHashSet();
-        var winningAlliance = match.WinningAlliance.UnlessThen(i => i is Match.WinningAllianceEnum.Empty, tbaMatch.WinningAlliance);
+        Match.WinningAllianceEnum winningAlliance = match.WinningAlliance.UnlessThen(i => i is Match.WinningAllianceEnum.Empty, tbaMatch.WinningAlliance);
 
         int[] allianceRanks = await GetAllianceRanksAsync(notificationMatch, tbaMatch, alliances, cancellationToken).ConfigureAwait(false);
-        var districtPoints = await ComputeDistrictPointsForTeamsAsync(match.EventKey, allTeamKeys, cancellationToken).ConfigureAwait(false);
+        IReadOnlyDictionary<string, int>? districtPoints = await ComputeDistrictPointsForTeamsAsync(match.EventKey, allTeamKeys, cancellationToken).ConfigureAwait(false);
 
         bool isQuals = match.CompLevel is CompLevel.Qm;
-        var scoreBreakdown = includeFullBreakdown ? await GetScoreBreakdownAsync(notificationMatch, tbaMatch, cancellationToken).ConfigureAwait(false) : null;
+        MatchScoreBreakdown? scoreBreakdown = includeFullBreakdown ? await GetScoreBreakdownAsync(notificationMatch, tbaMatch, cancellationToken).ConfigureAwait(false) : null;
 
         var eventHighScore = await GetHighScoreForEventAsync(notificationMatch?.EventKey ?? tbaMatch.EventKey, cancellationToken).ConfigureAwait(false);
         #region Red Score Breakdown
@@ -299,14 +300,14 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
     private async ValueTask<ushort> GetHighScoreForEventAsync(string eventKey, CancellationToken cancellationToken)
     {
-        var matchesInEvent = await eventApi.GetEventMatchesSimpleAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false) ?? [];
+        Collection<MatchSimple> matchesInEvent = await eventApi.GetEventMatchesSimpleAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false) ?? [];
         return (ushort)Math.Max(0, matchesInEvent.Max(i => Math.Max(i.Alliances.Blue.Score, i.Alliances.Red.Score)));
     }
 
     private async Task<MatchScoreBreakdown?> GetScoreBreakdownAsync(Match? notificationMatch, Match tbaMatch, CancellationToken cancellationToken)
     {
         var startTime = time.GetTimestamp();
-        var breakdown = notificationMatch?.ScoreBreakdown.Or(tbaMatch.ScoreBreakdown);
+        MatchScoreBreakdown? breakdown = notificationMatch?.ScoreBreakdown.Or(tbaMatch.ScoreBreakdown);
 
         while (breakdown is null && !cancellationToken.IsCancellationRequested)
         {
@@ -425,11 +426,11 @@ internal sealed partial class MatchScore(IEventApi eventApi,
     private async Task<int[]> GetAllianceRanksAsync(Match? notificationMatch, Match tbaMatch, MatchAlliances alliances, CancellationToken cancellationToken)
     {
         var retVal = new int[] { 0, 0, 0 };
-        var match = notificationMatch ?? tbaMatch;
+        Match match = notificationMatch ?? tbaMatch;
         if (match.CompLevel is not CompLevel.Qm)
         {
-            var eventAlliances = await eventApi.GetEventAlliancesAsync(match.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
-            foreach (var eliminationAlliance in eventAlliances ?? [])
+            Collection<EliminationAlliance>? eventAlliances = await eventApi.GetEventAlliancesAsync(match.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+            foreach (EliminationAlliance eliminationAlliance in eventAlliances ?? [])
             {
                 if (!eliminationAlliance.Picks.Except(alliances.Red.TeamKeys).Any())
                 {
@@ -449,7 +450,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
     private async Task AddEventOrDayWrapupAsync(StringBuilder descriptionBuilder, Match? notificationMatch, Match tbaMatch, Match.WinningAllianceEnum winningAlliance, CancellationToken cancellationToken)
     {
-        var match = notificationMatch ?? tbaMatch;
+        Match match = notificationMatch ?? tbaMatch;
         var matchNumber = match.MatchNumber;
         var isPossibleEventEnd = match.CompLevel is CompLevel.F && matchNumber > 1;
         string eventKey = match.EventKey;
@@ -459,7 +460,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             var winCounts = new int[3] { 0, 0, 0 };
             winCounts[(int)winningAlliance]++;
 
-            var finalMatch = await matchApi.GetMatchAsync($"{eventKey}_f1m1", cancellationToken: cancellationToken).ConfigureAwait(false);
+            Match? finalMatch = await matchApi.GetMatchAsync($"{eventKey}_f1m1", cancellationToken: cancellationToken).ConfigureAwait(false);
             Debug.Assert(finalMatch is not null);
 
             winCounts[(int)finalMatch.WinningAlliance]++;
@@ -481,22 +482,22 @@ internal sealed partial class MatchScore(IEventApi eventApi,
         }
         else
         {
-            var eventPieces = EventPartsRegex().Match(eventKey);
+            System.Text.RegularExpressions.Match eventPieces = EventPartsRegex().Match(eventKey);
             Debug.Assert(eventPieces.Success);
             var season = eventPieces.Groups[1].Value;
             var eventCode = eventPieces.Groups[2].Value;
-            var tourneyLevel = (match.CompLevel is CompLevel.Qm) ? TournamentLevel.Qualification : TournamentLevel.Playoff;
+            TournamentLevel tourneyLevel = (match.CompLevel is CompLevel.Qm) ? TournamentLevel.Qualification : TournamentLevel.Playoff;
             try
             {
-                var eventSchedule = await schedule.SeasonScheduleEventCodeGetAsync(eventCode, season, tournamentLevel: tourneyLevel, cancellationToken: cancellationToken).ConfigureAwait(false);
+                EventSchedule? eventSchedule = await schedule.SeasonScheduleEventCodeGetAsync(eventCode, season, tournamentLevel: tourneyLevel, cancellationToken: cancellationToken).ConfigureAwait(false);
                 Debug.Assert(eventSchedule is not null, "We expect to find the event in the schedule using the event code & season");
                 if (eventSchedule is not null)
                 {
-                    var thisMatch = eventSchedule.Schedule.FirstOrDefault(i => i.MatchNumber == matchNumber);
+                    EventSchedule.ScheduleObj? thisMatch = eventSchedule.Schedule.FirstOrDefault(i => i.MatchNumber == matchNumber);
                     Debug.Assert(thisMatch is not null, "We expect to find the match in the schedule using the comp level & the match number");
                     if (thisMatch is not null)
                     {
-                        var lastEventOfEachDay = eventSchedule.Schedule
+                        IEnumerable<EventSchedule.ScheduleObj> lastEventOfEachDay = eventSchedule.Schedule
                             .GroupBy(i => i.StartTime.GetValueOrDefault(DateTimeOffset.MinValue).Date)
                             .Select(i => i.MaxBy(j => j.StartTime.GetValueOrDefault(DateTimeOffset.MinValue))!);
                         if (lastEventOfEachDay.Any(i => i.MatchNumber == thisMatch.MatchNumber))
@@ -529,10 +530,10 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
     private async Task<IReadOnlyDictionary<string, int>?> ComputeDistrictPointsForTeamsAsync(string eventKey, IEnumerable<string> allTeamKeys, CancellationToken cancellationToken)
     {
-        var eventDetail = events[eventKey];
+        Event eventDetail = events[eventKey];
         if (eventDetail.EventType is (int)EventType.District or (int)EventType.DistrictCmpDivision or (int)EventType.DistrictCmp)
         {
-            var districtPoints = await districtApi.GetEventDistrictPointsAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+            EventDistrictPoints? districtPoints = await districtApi.GetEventDistrictPointsAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
             Dictionary<string, int> retVal = [];
             if (districtPoints is null)
             {
@@ -543,7 +544,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                if (!districtPoints.Points.TryGetValue(teamKey, out var dpEntry))
+                if (!districtPoints.Points.TryGetValue(teamKey, out EventDistrictPointsPointsValue? dpEntry))
                 {
                     retVal.Add(teamKey, 0);
                 }
@@ -561,7 +562,7 @@ internal sealed partial class MatchScore(IEventApi eventApi,
 
     public async Task<bool> HandleInteractionAsync(IServiceProvider services, SocketMessageComponent component, CancellationToken cancellationToken)
     {
-        using var scope = logger.CreateMethodScope();
+        using IDisposable scope = logger.CreateMethodScope();
         if (component.Data.CustomId.StartsWith(GetBreakdownButtonId, StringComparison.Ordinal))
         {
             await SendBreakdownToUserAsync(component, cancellationToken).ConfigureAwait(false);
@@ -587,10 +588,10 @@ internal sealed partial class MatchScore(IEventApi eventApi,
             }
         }
 
-        using var typing = arg.Channel.EnterTypingState(canceledRequestOptions);
+        using IDisposable typing = arg.Channel.EnterTypingState(canceledRequestOptions);
 
         var matchKey = arg.Data.CustomId[(arg.Data.CustomId.IndexOf('_') + 1)..];
-        var matchData = await matchApi.GetMatchAsync(matchKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+        Match? matchData = await matchApi.GetMatchAsync(matchKey, cancellationToken: cancellationToken).ConfigureAwait(false);
         Debug.Assert(matchData is not null);
         if (matchData is not null)
         {

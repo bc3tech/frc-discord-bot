@@ -52,7 +52,7 @@ internal sealed class FrcSystemPromptChatClient : IChatClient
     {
         ArgumentNullException.ThrowIfNull(messages);
 
-        var messageList = messages as IReadOnlyList<ChatMessage> ?? [.. messages];
+        IReadOnlyList<ChatMessage> messageList = messages as IReadOnlyList<ChatMessage> ?? [.. messages];
         return [new ChatMessage(ChatRole.System, _systemPrompt), .. messageList];
     }
 }

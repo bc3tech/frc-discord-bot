@@ -12,12 +12,12 @@ internal static class DependencyInjectionExtensions
 {
     public static IServiceCollection ConfigureFIRSTApi(this IServiceCollection services)
     {
-        var httpClient = services.BuildServiceProvider().GetRequiredService<IHttpClientFactory>().CreateClient(Constants.ServiceKeys.FIRSTHttpClient);
+        HttpClient httpClient = services.BuildServiceProvider().GetRequiredService<IHttpClientFactory>().CreateClient(Constants.ServiceKeys.FIRSTHttpClient);
 
         return services
             .AddSingleton(sp =>
             {
-                var appConfig = sp.GetRequiredService<IConfiguration>();
+                IConfiguration appConfig = sp.GetRequiredService<IConfiguration>();
                 return new Configuration
                 {
                     BasePath = "https://frc-api.firstinspires.org/v3.0",
@@ -27,12 +27,12 @@ internal static class DependencyInjectionExtensions
             })
             .AddSingleton<IScheduleApi>(sp =>
              {
-                 var config = sp.GetRequiredService<Configuration>();
+                 Configuration config = sp.GetRequiredService<Configuration>();
                  return new ScheduleApi(httpClient, config);
              })
             .AddSingleton<IRankingsApi>(sp =>
             {
-                var config = sp.GetRequiredService<Configuration>();
+                Configuration config = sp.GetRequiredService<Configuration>();
                 return new RankingsApi(httpClient, config);
             });
     }

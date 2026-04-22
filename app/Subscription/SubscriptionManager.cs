@@ -1,5 +1,6 @@
 ﻿namespace FunctionApp.Subscription;
 
+using Azure;
 using Azure.Data.Tables;
 
 using FunctionApp;
@@ -26,7 +27,7 @@ internal sealed class SubscriptionManager(
 {
     public async IAsyncEnumerable<NotificationSubscription> GetSubscriptionsForGuildAsync(ulong? guildId, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
-        await foreach (var e in teamSubscriptions.QueryAsync<TeamSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
+        await foreach (TeamSubscriptionEntity? e in teamSubscriptions.QueryAsync<TeamSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
         {
             foreach (var s in e.Subscribers.SubscriptionsForGuild(guildId))
             {
@@ -34,7 +35,7 @@ internal sealed class SubscriptionManager(
             }
         }
 
-        await foreach (var e in eventSubscriptions.QueryAsync<EventSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
+        await foreach (EventSubscriptionEntity? e in eventSubscriptions.QueryAsync<EventSubscriptionEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
         {
             foreach (var s in e.Subscribers.SubscriptionsForGuild(guildId))
             {
@@ -48,19 +49,19 @@ internal sealed class SubscriptionManager(
         if (sub.Team is not null)
         {
             logger.AddingSubscriptionForTeamSubscriptionTeam(sub.Team);
-            var r = await teamSubscriptions.GetEntityIfExistsAsync<TeamSubscriptionEntity>(sub.Team, CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
-            var allEventSubscription = r.HasValue ? r.Value : null;
+            NullableResponse<TeamSubscriptionEntity> r = await teamSubscriptions.GetEntityIfExistsAsync<TeamSubscriptionEntity>(sub.Team, CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
+            TeamSubscriptionEntity? allEventSubscription = r.HasValue ? r.Value : null;
             if (allEventSubscription is null || !allEventSubscription.Subscribers.Exists(sub.GuildId, sub.ChannelId))
             {
                 var eventString = sub.Event ?? CommonConstants.ALL;
                 logger.CreatingNewSubscriptionForTeamSubscriptionTeamAndEventSubscriptionEvent(sub.Team, eventString);
 
                 r = await teamSubscriptions.GetEntityIfExistsAsync<TeamSubscriptionEntity>(sub.Team, eventString, cancellationToken: cancellationToken).ConfigureAwait(false);
-                var eventSubscription = r.HasValue ? r.Value : null;
+                TeamSubscriptionEntity? eventSubscription = r.HasValue ? r.Value : null;
                 eventSubscription ??= new TeamSubscriptionEntity { PartitionKey = sub.Team, RowKey = eventString };
 
                 eventSubscription.Subscribers.AddSubscription(sub.GuildId, sub.ChannelId);
-                var result = await teamSubscriptions.UpsertEntityAsync(eventSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
+                Response result = await teamSubscriptions.UpsertEntityAsync(eventSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (result.IsError)
                 {
                     logger.FailedToUpsertSubscriptionForTeamSubscriptionTeamAndEventSubscriptionEventStatusCodeReason(sub.Team, eventString, result.Status, result.ReasonPhrase);
@@ -75,18 +76,18 @@ internal sealed class SubscriptionManager(
         else if (sub.Event is not null)
         {
             logger.AddingSubscriptionForEventSubscriptionEvent(sub.Event);
-            var r = await eventSubscriptions.GetEntityIfExistsAsync<EventSubscriptionEntity>(sub.Event, CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
-            var allTeamSubscription = r.HasValue ? r.Value : null;
+            NullableResponse<EventSubscriptionEntity> r = await eventSubscriptions.GetEntityIfExistsAsync<EventSubscriptionEntity>(sub.Event, CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
+            EventSubscriptionEntity? allTeamSubscription = r.HasValue ? r.Value : null;
             if (allTeamSubscription is null || !allTeamSubscription.Subscribers.Exists(sub.GuildId, sub.ChannelId))
             {
                 logger.CreatingNewSubscriptionForEventSubscriptionEventAndTeamSubscriptionTeam(sub.Event);
 
                 r = await eventSubscriptions.GetEntityIfExistsAsync<EventSubscriptionEntity>(sub.Event, CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
-                var eventSubscription = r.HasValue ? r.Value : null;
+                EventSubscriptionEntity? eventSubscription = r.HasValue ? r.Value : null;
                 eventSubscription ??= new EventSubscriptionEntity { PartitionKey = sub.Event };
 
                 eventSubscription.Subscribers.AddSubscription(sub.GuildId, sub.ChannelId);
-                var result = await eventSubscriptions.UpsertEntityAsync(eventSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
+                Response result = await eventSubscriptions.UpsertEntityAsync(eventSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (result.IsError)
                 {
                     logger.FailedToUpsertSubscriptionForEventSubscriptionEventAndTeamSubscriptionTeamStatusCodeReason(sub.Event, result.Status, result.ReasonPhrase);
@@ -105,12 +106,12 @@ internal sealed class SubscriptionManager(
         if (sub.Team is not null and not CommonConstants.ALL)
         {
             logger.RemovingSubscriptionForTeamSubscriptionTeamTeam(sub.Team);
-            var r = await teamSubscriptions.GetEntityIfExistsAsync<TeamSubscriptionEntity>(sub.Team, sub.Event ?? CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
-            var eventSubscription = r.HasValue ? r.Value : null;
+            NullableResponse<TeamSubscriptionEntity> r = await teamSubscriptions.GetEntityIfExistsAsync<TeamSubscriptionEntity>(sub.Team, sub.Event ?? CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
+            TeamSubscriptionEntity? eventSubscription = r.HasValue ? r.Value : null;
             if (eventSubscription is not null)
             {
                 eventSubscription.Subscribers.RemoveSubscription(sub.GuildId, sub.ChannelId);
-                var result = await teamSubscriptions.UpsertEntityAsync(eventSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
+                Response result = await teamSubscriptions.UpsertEntityAsync(eventSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (result.IsError)
                 {
                     logger.FailedToRemoveSubscriptionForTeamTeamStatusReason(sub.Team, result.Status, result.ReasonPhrase);
@@ -125,12 +126,12 @@ internal sealed class SubscriptionManager(
         else
         {
             logger.RemovingSubscriptionForEventSubscriptionEventEvent(sub.Event);
-            var r = await eventSubscriptions.GetEntityIfExistsAsync<EventSubscriptionEntity>(sub.Event ?? CommonConstants.ALL, sub.Team?.ToString(CultureInfo.InvariantCulture) ?? CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
-            var eventSubscription = r.HasValue ? r.Value : null;
+            NullableResponse<EventSubscriptionEntity> r = await eventSubscriptions.GetEntityIfExistsAsync<EventSubscriptionEntity>(sub.Event ?? CommonConstants.ALL, sub.Team?.ToString(CultureInfo.InvariantCulture) ?? CommonConstants.ALL, cancellationToken: cancellationToken).ConfigureAwait(false);
+            EventSubscriptionEntity? eventSubscription = r.HasValue ? r.Value : null;
             if (eventSubscription is not null)
             {
                 eventSubscription.Subscribers.RemoveSubscription(sub.GuildId, sub.ChannelId);
-                var result = await eventSubscriptions.UpsertEntityAsync(eventSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
+                Response result = await eventSubscriptions.UpsertEntityAsync(eventSubscription, TableUpdateMode.Replace, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (result.IsError)
                 {
                     logger.FailedToRemoveSubscriptionForEventEventStatusReason(sub.Event, result.Status, result.ReasonPhrase);

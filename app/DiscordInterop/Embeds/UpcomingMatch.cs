@@ -11,6 +11,7 @@ using FunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -35,8 +36,8 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var baseBuilder = builderFactory.GetBuilder(highlightTeam);
-        var notification = msg.GetDataAs<FunctionApp.TbaInterop.Models.Notifications.UpcomingMatch>();
+        EmbedBuilder baseBuilder = builderFactory.GetBuilder(highlightTeam);
+        TbaInterop.Models.Notifications.UpcomingMatch? notification = msg.GetDataAs<FunctionApp.TbaInterop.Models.Notifications.UpcomingMatch>();
         if (notification is null)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
@@ -51,7 +52,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
             yield break;
         }
 
-        var detailedMatch = await matchApi.GetMatchSimpleAsync(notification.match_key, cancellationToken: cancellationToken).ConfigureAwait(false);
+        MatchSimple? detailedMatch = await matchApi.GetMatchSimpleAsync(notification.match_key, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (detailedMatch is null)
         {
             logger.FailedToRetrieveDetailedMatchDataForMatchKey(notification.match_key);
@@ -72,18 +73,18 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
 
         await BuildDescriptionAsync(descriptionBuilder, highlightTeam, detailedMatch, cancellationToken).ConfigureAwait(false);
 
-        var embedding = baseBuilder
+        EmbedBuilder embedding = baseBuilder
             .WithTitle($"{events[detailedMatch.EventKey].GetLabel()}: {detailedMatch.CompLevel.ToShortString()} {detailedMatch.SetNumber} - Match {detailedMatch.MatchNumber}")
             .WithUrl($"https://www.thebluealliance.com/match/{notification.match_key}")
             .WithDescription(descriptionBuilder.ToString());
 
         if (notification.webcast is not null)
         {
-            var (source, url) = notification.webcast.GetFullUrl(logger);
+            (string? source, Uri? url) = notification.webcast.GetFullUrl(logger);
             if (url is not null)
             {
                 string viewerCountString = notification.webcast.ViewerCount.HasValue ? $" ({notification.webcast.ViewerCount} viewer{(notification.webcast.ViewerCount.Value != 1 ? "s" : string.Empty)})" : string.Empty;
-                var webcastButton = ButtonBuilder
+                ButtonBuilder webcastButton = ButtonBuilder
                     .CreateLinkButton($"{source}{viewerCountString}", url.OriginalString)
                     .WithEmote(Emoji.Parse("📺"));
                 yield return new(embedding.Build(), [webcastButton.Build()]);
@@ -96,19 +97,19 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
 
     public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync((string eventKey, string teamKey) input, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var baseBuilder = builderFactory.GetBuilder(highlightTeam);
+        EmbedBuilder baseBuilder = builderFactory.GetBuilder(highlightTeam);
 
-        var (eventKey, teamKey) = input;
-        var matches = await matchApi.GetTeamEventMatchesAsync(eventKey, teamKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+        (string? eventKey, string? teamKey) = input;
+        Collection<TheBlueAlliance.Model.Match>? matches = await matchApi.GetTeamEventMatchesAsync(eventKey, teamKey, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (matches is null)
         {
             yield return new(baseBuilder.WithDescription("No upcoming matches found.").Build());
             yield break;
         }
 
-        var nextMatch = matches.OrderBy(i => i.MatchNumber).First(i => i.ActualTime is null);
+        TheBlueAlliance.Model.Match nextMatch = matches.OrderBy(i => i.MatchNumber).First(i => i.ActualTime is null);
         var matchKey = nextMatch.Key;
-        var simpleMatch = await matchApi.GetMatchSimpleAsync(matchKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+        MatchSimple? simpleMatch = await matchApi.GetMatchSimpleAsync(matchKey, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (simpleMatch is null)
         {
             logger.FailedToRetrieveDetailedMatchDataForMatchKey(matchKey);
@@ -128,12 +129,12 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
             **Predicted start time: {DateTimeOffset.FromUnixTimeSeconds(simpleMatch.PredictedTime.GetValueOrDefault(0)).ToLocalTime(time):t}**
             """);
 
-        var matchVideoData = await matchApi.GetMatchAsync(simpleMatch.Key, cancellationToken: cancellationToken).ConfigureAwait(false);
+        TheBlueAlliance.Model.Match? matchVideoData = await matchApi.GetMatchAsync(simpleMatch.Key, cancellationToken: cancellationToken).ConfigureAwait(false);
         await BuildDescriptionAsync(descriptionBuilder, highlightTeam, simpleMatch, cancellationToken, beforeFooter: addMatchVideos);
 
         void addMatchVideos(StringBuilder builder)
         {
-            var videoUrls = matchVideoData?.GetVideoUrls();
+            IEnumerable<(string Name, Uri Link)>? videoUrls = matchVideoData?.GetVideoUrls();
             if (videoUrls?.Any() is true)
             {
                 builder.AppendLine(
@@ -145,7 +146,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
             }
         }
 
-        var embedding = baseBuilder.WithDescription(descriptionBuilder.ToString())
+        Embed embedding = baseBuilder.WithDescription(descriptionBuilder.ToString())
             .WithUrl($"https://www.thebluealliance.com/match/{simpleMatch.Key}")
             .Build();
 
@@ -158,7 +159,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
         Debug.Assert(ranks is not null);
         logger.RankingsRankings(ranks is not null ? JsonSerializer.Serialize(ranks) : "[null]");
 
-        var stats = await matchStats.ReadMatchV3MatchMatchGetAsync(matchDetails.Key, cancellationToken: cancellationToken).ConfigureAwait(false);
+        Statbotics.Model.Match? stats = await matchStats.ReadMatchV3MatchMatchGetAsync(matchDetails.Key, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (stats is null)
         {
             logger.NoStatsGivenFromStatboticsForMatchMatchKey(matchDetails.Key);
@@ -167,7 +168,7 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
         logger.MatchStatsMatchStats(stats is not null ? JsonSerializer.Serialize(stats) : "[null]");
 
         MatchSimple.WinningAllianceEnum? predictedWinner = stats?.Pred?.Winner is not null ? MatchSimple.WinningAllianceEnumFromStringOrDefault(stats.Pred.Winner).GetValueOrDefault(MatchSimple.WinningAllianceEnum.Empty) : null;
-        var matchSimpleAlliances = matchDetails.Alliances.Blue.TeamKeys
+        IEnumerable<ushort> matchSimpleAlliances = matchDetails.Alliances.Blue.TeamKeys
             .Concat(matchDetails.Alliances.Red.TeamKeys)
             .Concat(matchDetails.Alliances.Blue.DqTeamKeys)
             .Concat(matchDetails.Alliances.Red.DqTeamKeys)
@@ -243,8 +244,8 @@ internal sealed partial class UpcomingMatch(TheBlueAlliance.Api.IEventApi eventI
         var retVal = new int[] { 0, 0, 0 };
         if (detailedMatch.CompLevel is not CompLevel.Qm)
         {
-            var eventAlliances = await eventInsights.GetEventAlliancesAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
-            foreach (var eliminationAlliance in eventAlliances ?? [])
+            Collection<EliminationAlliance>? eventAlliances = await eventInsights.GetEventAlliancesAsync(detailedMatch.EventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+            foreach (EliminationAlliance eliminationAlliance in eventAlliances ?? [])
             {
                 if (!eliminationAlliance.Picks.Except(detailedMatch.Alliances.Red.TeamKeys).Any())
                 {

@@ -30,7 +30,7 @@ public sealed class WebhookEmbeddingGeneratorTests
         WebhookEmbeddingGenerator generator = new(services, NullLogger<WebhookEmbeddingGenerator>.Instance);
         WebhookMessage message = CreateMessage(NotificationType.schedule_updated, """{"event_key":"2027cabl","event_name":"California Regional"}""");
 
-        SubscriptionEmbedding[] embeddings = await CollectEmbeddingsAsync(generator.CreateEmbeddingsAsync(message, highlightTeam: 2046));
+        SubscriptionEmbedding[] embeddings = await CollectEmbeddingsAsync(generator.CreateEmbeddingsAsync(message, highlightTeam: 2046, cancellationToken: TestContext.Current.CancellationToken));
 
         Embed embed = Assert.Single(embeddings).Content;
         Assert.Equal("schedule", embed.Title);
@@ -51,7 +51,7 @@ public sealed class WebhookEmbeddingGeneratorTests
         WebhookEmbeddingGenerator generator = new(services, NullLogger<WebhookEmbeddingGenerator>.Instance);
         WebhookMessage message = CreateMessage(NotificationType.schedule_updated, """{"event_key":"2027cabl","event_name":"California Regional"}""");
 
-        SubscriptionEmbedding[] embeddings = await CollectEmbeddingsAsync(generator.CreateEmbeddingsAsync(message));
+        SubscriptionEmbedding[] embeddings = await CollectEmbeddingsAsync(generator.CreateEmbeddingsAsync(message, cancellationToken: TestContext.Current.CancellationToken));
 
         Embed embed = Assert.Single(embeddings).Content;
         Assert.Equal("valid", embed.Title);
@@ -64,7 +64,7 @@ public sealed class WebhookEmbeddingGeneratorTests
         WebhookEmbeddingGenerator generator = new(services, NullLogger<WebhookEmbeddingGenerator>.Instance);
         WebhookMessage message = CreateMessage(NotificationType.schedule_updated, """{"event_key":"2027cabl","event_name":"California Regional"}""");
 
-        SubscriptionEmbedding[] embeddings = await CollectEmbeddingsAsync(generator.CreateEmbeddingsAsync(message));
+        SubscriptionEmbedding[] embeddings = await CollectEmbeddingsAsync(generator.CreateEmbeddingsAsync(message, cancellationToken: TestContext.Current.CancellationToken));
 
         Assert.Empty(embeddings);
     }

@@ -16,6 +16,7 @@ using FunctionApp.TbaInterop.Models.Notifications;
 
 using Microsoft.Extensions.Logging;
 
+using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Text.Encodings.Web;
 
@@ -32,8 +33,8 @@ internal sealed class Award(IEventApi events,
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var baseBuilder = builderFactory.GetBuilder(highlightTeam);
-        var notification = msg.GetDataAs<AwardsPosted>();
+        EmbedBuilder baseBuilder = builderFactory.GetBuilder(highlightTeam);
+        AwardsPosted notification = msg.GetDataAs<AwardsPosted>();
         if (notification == default)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
@@ -41,8 +42,8 @@ internal sealed class Award(IEventApi events,
             yield break;
         }
 
-        var tbaAwards = await events.GetEventAwardsAsync(notification.event_key, cancellationToken: cancellationToken).ConfigureAwait(false);
-        var eventAwards = notification.awards?.Length is not null and not 0 ? notification.awards! : tbaAwards?.ToArray();
+        Collection<TheBlueAlliance.Model.Award>? tbaAwards = await events.GetEventAwardsAsync(notification.event_key, cancellationToken: cancellationToken).ConfigureAwait(false);
+        TheBlueAlliance.Model.Award[]? eventAwards = notification.awards?.Length is not null and not 0 ? notification.awards! : tbaAwards?.ToArray();
         if (eventAwards is null)
         {
             logger.FailedToRetrieveDetailedAwardsDataForEventKey(notification.event_key);
@@ -62,21 +63,21 @@ internal sealed class Award(IEventApi events,
             eventAwards = [.. eventAwards.Where(i => i.RecipientList.Any(j => j.TeamKey.TeamKeyToTeamNumber() == highlightTeam) is true)];
         }
 
-        var trophyBlob = imageBlobs.GetBlobClient("trophy.png");
+        BlobClient trophyBlob = imageBlobs.GetBlobClient("trophy.png");
         var trophyImageUri = imageBlobs.CanGenerateSasUri
             ? trophyBlob.GenerateSasUri(BlobSasPermissions.Read, DateTimeOffset.MaxValue).ToString()
             : trophyBlob.Uri.ToString();
-        var blueBannerBlob = imageBlobs.GetBlobClient("bluebanner.png");
+        BlobClient blueBannerBlob = imageBlobs.GetBlobClient("bluebanner.png");
         var blueBannerImageUri = imageBlobs.CanGenerateSasUri
             ? blueBannerBlob.GenerateSasUri(BlobSasPermissions.Read, DateTimeOffset.MaxValue).ToString()
             : blueBannerBlob.Uri.ToString();
 
-        foreach (var award in eventAwards)
+        foreach (TheBlueAlliance.Model.Award? award in eventAwards)
         {
             var thumbnailUri = ((AwardType)award.AwardType).IsBlueBanner() ? blueBannerImageUri : trophyImageUri;
 
             var embedUrl = $"https://www.thebluealliance.com/event/{notification.event_key}?name={UrlEncoder.Default.Encode(award.Name)}#awards";
-            var embedding = baseBuilder
+            EmbedBuilder embedding = baseBuilder
                 .WithTitle(notification.event_name)
                 .WithUrl(embedUrl)
                 .WithDescription(
@@ -108,9 +109,9 @@ internal sealed class Award(IEventApi events,
             .Select(i => i.TeamKey)
             .Distinct())
         {
-            var media = await teamApi.GetTeamMediaByYearAsync(t, award.Year, cancellationToken: cancellationToken).ConfigureAwait(false);
+            Collection<TheBlueAlliance.Model.Media>? media = await teamApi.GetTeamMediaByYearAsync(t, award.Year, cancellationToken: cancellationToken).ConfigureAwait(false);
 
-            var image = media?.FirstOrDefault(i => i.Preferred is true && !string.IsNullOrWhiteSpace(i.DirectUrl));
+            TheBlueAlliance.Model.Media? image = media?.FirstOrDefault(i => i.Preferred is true && !string.IsNullOrWhiteSpace(i.DirectUrl));
             if (image is not null)
             {
                 yield return image.DirectUrl!;

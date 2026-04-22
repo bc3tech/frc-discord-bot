@@ -116,28 +116,19 @@ public static class DependencyInjectionExtensions
                 options.Endpoint = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.Endpoint);
                 options.DeploymentName = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.LocalAgentModel);
             })
-            .WithBlobSessionStorage(tokenCredential, blobServiceUri, options =>
-            {
-                options.ContainerName = ChatBotConstants.ServiceKeys.BlobContainer_CopilotSessions;
-            })
+            .WithBlobSessionStorage(tokenCredential, blobServiceUri, options => options.ContainerName = ChatBotConstants.ServiceKeys.BlobContainer_CopilotSessions)
             .WithConversationStore<TableConversationStore>()
             .AddTool<MealSignupInfoTool>()
             .AddTool<TbaApiSurfaceTool>()
             .AddTool<TbaApiTool>()
             .AddTool<StatboticsTool>();
 
-        services.AddTableConversationStore(options =>
-        {
-            options.TableName = ChatBotConstants.ServiceKeys.TableClient_UserChatAgentThreads;
-        });
+        services.AddTableConversationStore(options => options.TableName = ChatBotConstants.ServiceKeys.TableClient_UserChatAgentThreads);
 
         // Conversation telemetry: persist root span context across Function invocations so all
         // turns of a Discord conversation roll up into a single Application Insights Trace.
         services.AddCopilotSdkOpenTelemetry();
-        services.Configure<TableConversationTraceContextStoreOptions>(options =>
-        {
-            options.TableName = ChatBotConstants.ServiceKeys.TableClient_ConversationTraces;
-        });
+        services.Configure<TableConversationTraceContextStoreOptions>(options => options.TableName = ChatBotConstants.ServiceKeys.TableClient_ConversationTraces);
         services.Replace(ServiceDescriptor.Singleton<IConversationTraceContextStore, TableConversationTraceContextStore>());
 
         // Per-session bridge: every Copilot session created by the harness emits

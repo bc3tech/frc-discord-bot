@@ -2,7 +2,7 @@ namespace FunctionApp.Tests;
 
 using BC3Technologies.DiscordGpt.Core;
 
-using ChatBot.Tools;
+using global::ChatBot.Tools;
 
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
@@ -60,7 +60,7 @@ public sealed class HttpGetToolBaseTests
         };
 
         var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
-        IDiscordTool discordTool = tool;
+        var discordTool = tool;
 
         // Act
         string response = await tool.QueryStatboticsAsync("/v3/team_year/2046/2025", cancellationToken: CancellationToken.None);
@@ -87,14 +87,14 @@ public sealed class HttpGetToolBaseTests
             BaseAddress = new Uri("https://www.thebluealliance.com/api/v3"),
         };
 
-        var configuration = new ConfigurationBuilder()
+        IConfigurationRoot configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(
             [
                 new KeyValuePair<string, string?>("TbaApiKey", "test-key"),
             ])
             .Build();
         var tool = new TbaApiTool(configuration, new StubHttpClientFactory(client), NullLogger<TbaApiTool>.Instance);
-        IDiscordTool discordTool = tool;
+        var discordTool = tool;
 
         // Act
         string response = await tool.QueryTbaAsync("/team/frc2046", cancellationToken: CancellationToken.None);
@@ -120,7 +120,7 @@ public sealed class HttpGetToolBaseTests
             BaseAddress = new Uri("https://www.thebluealliance.com/api/v3"),
         };
 
-        var configuration = new ConfigurationBuilder()
+        IConfigurationRoot configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(
             [
                 new KeyValuePair<string, string?>("TbaApiKey", "test-key"),
@@ -187,7 +187,7 @@ public sealed class HttpGetToolBaseTests
         {
             BaseAddress = new Uri("https://www.thebluealliance.com/api/v3"),
         };
-        var configuration = new ConfigurationBuilder()
+        IConfigurationRoot configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(
             [
                 new KeyValuePair<string, string?>("TbaApiKey", "test-key"),
@@ -213,6 +213,7 @@ public sealed class HttpGetToolBaseTests
     }
 
     [Fact]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0046:Convert to conditional expression", Justification = "<Pending>")]
     public async Task ResolveLastCompetitionAsyncWhenCurrentSeasonHasNoEventsFallsBackToPriorSeason()
     {
         int currentYear = DateTime.UtcNow.Year;
@@ -275,7 +276,7 @@ public sealed class HttpGetToolBaseTests
         {
             BaseAddress = new Uri("https://www.thebluealliance.com/api/v3"),
         };
-        var configuration = new ConfigurationBuilder()
+        IConfigurationRoot configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(
             [
                 new KeyValuePair<string, string?>("TbaApiKey", "test-key"),
@@ -364,7 +365,7 @@ public sealed class HttpGetToolBaseTests
     public void BuildRecoveryHintsForCurrentYearEventsEmpty()
     {
         int currentYear = DateTime.UtcNow.Year;
-        List<string> hints = TbaApiTool.BuildRecoveryHints($"/team/frc2046/events/{currentYear}/simple", ok: true, isEmpty: true);
+        List<string> hints = TbaApiTool.BuildRecoveryHints($"/team/frc2046/events/{currentYear}/simple", ok: true);
         Assert.NotEmpty(hints);
         Assert.Contains($"{currentYear - 1}", hints[0]);
     }
@@ -396,7 +397,7 @@ public sealed class HttpGetToolBaseTests
         {
             BaseAddress = new Uri("https://www.thebluealliance.com/api/v3"),
         };
-        var configuration = new ConfigurationBuilder()
+        IConfigurationRoot configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(
             [
                 new KeyValuePair<string, string?>("TbaApiKey", "test-key"),

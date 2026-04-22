@@ -1,5 +1,6 @@
 namespace FunctionApp.DiscordInterop;
 
+using Azure;
 using Azure.Data.Tables;
 
 using FunctionApp.Storage.TableEntities;
@@ -18,7 +19,7 @@ internal sealed class TableWebhookSubscriptionStore<T>(TableClient tableClient) 
 
     public async Task<T?> GetEntityIfExistsAsync(string partitionKey, string rowKey, CancellationToken cancellationToken)
     {
-        var response = await tableClient.GetEntityIfExistsAsync<T>(partitionKey, rowKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+        NullableResponse<T> response = await tableClient.GetEntityIfExistsAsync<T>(partitionKey, rowKey, cancellationToken: cancellationToken).ConfigureAwait(false);
         return response.HasValue ? response.Value : null;
     }
 }

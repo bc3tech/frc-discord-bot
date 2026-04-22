@@ -17,7 +17,7 @@ public sealed class AllianceSelectionPayloadTests
             NotificationType.alliance_selection,
             """{"event_key":"2027cabl","event_name":"California Regional"}""");
 
-        var notification = message.GetDataAs<AllianceSelectionNotification>();
+        AllianceSelectionNotification notification = message.GetDataAs<AllianceSelectionNotification>();
         var eventKey = AllianceSelectionEmbed.ResolveEventKey(notification);
 
         Assert.Equal("2027cabl", eventKey);
@@ -30,7 +30,7 @@ public sealed class AllianceSelectionPayloadTests
             NotificationType.alliance_selection,
             """{"event":{"key":"2028mitry","name":"Michigan District Troy Event"}}""");
 
-        var notification = message.GetDataAs<AllianceSelectionNotification>();
+        AllianceSelectionNotification notification = message.GetDataAs<AllianceSelectionNotification>();
         var eventKey = AllianceSelectionEmbed.ResolveEventKey(notification);
 
         Assert.Equal("2028mitry", eventKey);
@@ -43,7 +43,7 @@ public sealed class AllianceSelectionPayloadTests
             NotificationType.alliance_selection,
             """{"event":{"key":"2028mitry","name":"Michigan District Troy Event"}}""");
 
-        var notification = message.GetDataAs<AllianceSelectionNotification>();
+        AllianceSelectionNotification notification = message.GetDataAs<AllianceSelectionNotification>();
         string eventName = AllianceSelectionEmbed.ResolveEventName(notification, "2028mitry");
 
         Assert.Equal("Michigan District Troy Event", eventName);

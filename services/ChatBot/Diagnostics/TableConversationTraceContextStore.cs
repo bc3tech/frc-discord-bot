@@ -31,22 +31,19 @@ public sealed partial class TableConversationTraceContextStore(
     {
         ArgumentException.ThrowIfNullOrEmpty(conversationId);
 
-        var (partitionKey, rowKey) = SplitKey(conversationId);
-        var tableClient = await GetTableClientAsync(cancellationToken).ConfigureAwait(false);
+        (string? partitionKey, string? rowKey) = SplitKey(conversationId);
+        TableClient tableClient = await GetTableClientAsync(cancellationToken).ConfigureAwait(false);
 
         try
         {
-            var response = await tableClient
+            Response<TraceContextEntity> response = await tableClient
                 .GetEntityAsync<TraceContextEntity>(partitionKey, rowKey, cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
 
-            var entity = response.Value;
-            if (string.IsNullOrEmpty(entity.TraceId) || string.IsNullOrEmpty(entity.SpanId))
-            {
-                return null;
-            }
-
-            return new ConversationTraceContext(entity.TraceId, entity.SpanId, entity.TraceFlags);
+            TraceContextEntity entity = response.Value;
+            return string.IsNullOrEmpty(entity.TraceId) || string.IsNullOrEmpty(entity.SpanId)
+                ? null
+                : new ConversationTraceContext(entity.TraceId, entity.SpanId, entity.TraceFlags);
         }
         catch (RequestFailedException ex) when (ex.Status == 404)
         {
@@ -60,8 +57,8 @@ public sealed partial class TableConversationTraceContextStore(
         ArgumentException.ThrowIfNullOrEmpty(conversationId);
         ArgumentNullException.ThrowIfNull(context);
 
-        var (partitionKey, rowKey) = SplitKey(conversationId);
-        var tableClient = await GetTableClientAsync(cancellationToken).ConfigureAwait(false);
+        (string? partitionKey, string? rowKey) = SplitKey(conversationId);
+        TableClient tableClient = await GetTableClientAsync(cancellationToken).ConfigureAwait(false);
 
         var entity = new TraceContextEntity
         {
@@ -82,8 +79,8 @@ public sealed partial class TableConversationTraceContextStore(
     {
         ArgumentException.ThrowIfNullOrEmpty(conversationId);
 
-        var (partitionKey, rowKey) = SplitKey(conversationId);
-        var tableClient = await GetTableClientAsync(cancellationToken).ConfigureAwait(false);
+        (string? partitionKey, string? rowKey) = SplitKey(conversationId);
+        TableClient tableClient = await GetTableClientAsync(cancellationToken).ConfigureAwait(false);
 
         try
         {
@@ -103,7 +100,7 @@ public sealed partial class TableConversationTraceContextStore(
             return _tableClient;
         }
 
-        var client = _tableServiceClient.GetTableClient(_options.TableName);
+        TableClient client = _tableServiceClient.GetTableClient(_options.TableName);
         if (_options.CreateTableIfNotExists)
         {
             await client.CreateIfNotExistsAsync(cancellationToken).ConfigureAwait(false);

@@ -15,7 +15,7 @@ public sealed class InMemoryConversationTraceContextStore : IConversationTraceCo
     public Task<ConversationTraceContext?> TryGetAsync(string conversationId, CancellationToken cancellationToken)
     {
         ArgumentException.ThrowIfNullOrEmpty(conversationId);
-        return Task.FromResult(this._store.TryGetValue(conversationId, out var ctx) ? ctx : null);
+        return Task.FromResult(_store.TryGetValue(conversationId, out ConversationTraceContext? ctx) ? ctx : null);
     }
 
     /// <inheritdoc />
@@ -23,7 +23,7 @@ public sealed class InMemoryConversationTraceContextStore : IConversationTraceCo
     {
         ArgumentException.ThrowIfNullOrEmpty(conversationId);
         ArgumentNullException.ThrowIfNull(context);
-        this._store[conversationId] = context;
+        _store[conversationId] = context;
         return Task.CompletedTask;
     }
 
@@ -31,7 +31,7 @@ public sealed class InMemoryConversationTraceContextStore : IConversationTraceCo
     public Task RemoveAsync(string conversationId, CancellationToken cancellationToken)
     {
         ArgumentException.ThrowIfNullOrEmpty(conversationId);
-        this._store.TryRemove(conversationId, out _);
+        _store.TryRemove(conversationId, out _);
         return Task.CompletedTask;
     }
 }

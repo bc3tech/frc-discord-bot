@@ -14,7 +14,7 @@ public static class HttpClientExtensions
     {
         var request = new HttpRequestMessage(HttpMethod.Get, url);
         request.Headers.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-        var response = client.Send(request, cancellationToken);
+        HttpResponseMessage response = client.Send(request, cancellationToken);
         if (response.IsSuccessStatusCode)
         {
             using var reader = new StreamReader(response.Content.ReadAsStream(cancellationToken), Encoding.UTF8, leaveOpen: true);

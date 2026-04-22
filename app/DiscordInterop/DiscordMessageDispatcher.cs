@@ -20,6 +20,7 @@ using Microsoft.Extensions.Logging;
 
 using System;
 using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Text.Json;
@@ -44,8 +45,8 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
     public async Task<bool> ProcessWebhookMessageAsync(WebhookMessage message, CancellationToken cancellationToken)
     {
         var startTime = time.GetTimestamp();
-        using var scope = logger.CreateMethodScope();
-        (var teams, var events) = GetTeamsAndEventsInMessage(message.MessageData);
+        using IDisposable scope = logger.CreateMethodScope();
+        (ImmutableHashSet<string>? teams, ImmutableHashSet<string>? events) = GetTeamsAndEventsInMessage(message.MessageData);
         logger.TeamsTeamsInMessageEventsEventsInMessage(teams.Count, events.Count);
 
         if (message.IsBroadcast)
@@ -54,7 +55,7 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
             // If we're broadcasting the message to everybody at the event, then we need to include every team at the event as a possible subscriber.
             foreach (var e in events)
             {
-                var eventTeams = await eventApi.GetEventTeamsKeysAsync(e, cancellationToken: cancellationToken).ConfigureAwait(false);
+                Collection<string>? eventTeams = await eventApi.GetEventTeamsKeysAsync(e, cancellationToken: cancellationToken).ConfigureAwait(false);
                 teams = [.. teams, .. eventTeams ?? []];
             }
         }
@@ -83,13 +84,13 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
     private async Task SendNotificationsAsync<T>(WebhookMessage message, IWebhookSubscriptionStore<T> sourceTable, IEnumerable<(string p, string r)> records, Func<(string, string), ushort?> teamFinder, ILogger<DiscordMessageDispatcher> logger, CancellationToken cancellationToken)
         where T : class, ISubscriptionEntity
     {
-        foreach (var i in records)
+        foreach ((string p, string r) i in records)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            using var subscriptionScope = _notificationLoggingScope(logger, i.p, i.r);
+            using IDisposable? subscriptionScope = _notificationLoggingScope(logger, i.p, i.r);
             logger.CheckingTargetTable(sourceTable.Name);
 
-            var sub = await sourceTable.GetEntityIfExistsAsync(i.p, i.r, cancellationToken).ConfigureAwait(false);
+            T? sub = await sourceTable.GetEntityIfExistsAsync(i.p, i.r, cancellationToken).ConfigureAwait(false);
             if (sub?.Subscribers.SelectMany(i => i.Value).Any() is true)
             {
                 logger.FoundRecord();
@@ -102,29 +103,29 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
 
     protected virtual async Task ProcessSubscriptionAsync(WebhookMessage message, GuildSubscriptions subscribers, ushort? highlightTeam, CancellationToken cancellationToken)
     {
-        using var scope = logger.CreateMethodScope();
-        var chunksOfEmbeddingsToSend = (await _embedGenerator.CreateEmbeddingsAsync(message, highlightTeam, cancellationToken: cancellationToken)
+        using IDisposable scope = logger.CreateMethodScope();
+        IEnumerable<SubscriptionEmbedding[]> chunksOfEmbeddingsToSend = (await _embedGenerator.CreateEmbeddingsAsync(message, highlightTeam, cancellationToken: cancellationToken)
             .ToArrayAsync(cancellationToken).ConfigureAwait(false))
             .Chunk(MAX_EMBEDS_PER_MESSAGE);
         var discordRequestOptions = cancellationToken.ToRequestOptions();
         if (chunksOfEmbeddingsToSend.Any(i => i.Length is not 0))
         {
             // check to see if there are any threads already created for this message
-            var threadLocator = message.GetThreadDetails(allServices);
+            (string PartitionKey, string RowKey, string Title)? threadLocator = message.GetThreadDetails(allServices);
             List<ulong?> channelsWhereWeAlreadyPostedIntoThreads = [];
             if (threadLocator is not null)
             {
-                var (pk, rk, _) = threadLocator.Value;
-                var entity = await threadsTable.GetEntityIfExistsAsync<ThreadTableEntity>(pk, rk, cancellationToken: cancellationToken).ConfigureAwait(false);
+                (string? pk, string? rk, string _) = threadLocator.Value;
+                NullableResponse<ThreadTableEntity> entity = await threadsTable.GetEntityIfExistsAsync<ThreadTableEntity>(pk, rk, cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (entity.HasValue && entity.Value is not null)
                 {
-                    foreach (var t in entity.Value.ThreadIdList)
+                    foreach (ThreadTableEntity.ThreadDetail t in entity.Value.ThreadIdList)
                     {
                         var chanId = t.ChannelId;
                         var threadId = t.ThreadId;
                         IMessageChannel? rawChan = await _discordClient.GetChannelAsync(threadId, discordRequestOptions).ConfigureAwait(false) as IMessageChannel ?? await _discordClient.GetDMChannelAsync(threadId).ConfigureAwait(false);
                         var guildId = (rawChan as IGuildChannel)?.GuildId;
-                        var guildSubscriptions = subscribers.SubscriptionsForGuild(guildId);
+                        IReadOnlySet<ulong> guildSubscriptions = subscribers.SubscriptionsForGuild(guildId);
                         if (guildSubscriptions.Any() && rawChan is not null)
                         {
                             MessageReference? replyToMessage;
@@ -169,14 +170,14 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
             foreach (var subscriberChannelId in subscribers.SelectMany(i => i.Value))
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                var targetChannel = await _discordClient.GetChannelAsync(subscriberChannelId, discordRequestOptions).ConfigureAwait(false);
+                IChannel? targetChannel = await _discordClient.GetChannelAsync(subscriberChannelId, discordRequestOptions).ConfigureAwait(false);
                 Debug.Assert(targetChannel is not null);
                 logger.RetrievedChannelChannelIdChannelName(subscriberChannelId, targetChannel.Name);
 
                 if (targetChannel is IMessageChannel msgChan)
                 {
                     logger.SendingNotificationToChannelChannelIdChannelName(subscriberChannelId, targetChannel.Name);
-                    var threadForMessage = await CreateThreadForMessageAsync(message, msgChan, cancellationToken);
+                    IMessageChannel threadForMessage = await CreateThreadForMessageAsync(message, msgChan, cancellationToken);
                     var replyToMessageId = await sendEmbeddingsAsync(chunksOfEmbeddingsToSend, discordRequestOptions, threadForMessage).ConfigureAwait(false);
 
                     await StoreReplyToMessageAsync(message, msgChan, threadForMessage, replyToMessageId, cancellationToken);
@@ -198,9 +199,9 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
         static async Task<ulong> sendEmbeddingsAsync(IEnumerable<SubscriptionEmbedding[]> chunksOfEmbeddingsToSend, RequestOptions discordRequestOptions, IMessageChannel chan, MessageReference? replyToMessage = null)
         {
             ulong? id = null;
-            foreach (var i in chunksOfEmbeddingsToSend)
+            foreach (SubscriptionEmbedding[] i in chunksOfEmbeddingsToSend)
             {
-                var m = await chan.SendMessageAsync(embeds: [.. i.Select(i => i.Content)], components: ComponentBuilder.FromComponents([.. i.SelectMany(j => j.Actions ?? [])]).Build(), messageReference: replyToMessage, options: discordRequestOptions).ConfigureAwait(false);
+                IUserMessage m = await chan.SendMessageAsync(embeds: [.. i.Select(i => i.Content)], components: ComponentBuilder.FromComponents([.. i.SelectMany(j => j.Actions ?? [])]).Build(), messageReference: replyToMessage, options: discordRequestOptions).ConfigureAwait(false);
                 id ??= m.Id;
             }
 
@@ -210,11 +211,11 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
 
     private async Task StoreReplyToMessageAsync(WebhookMessage msg, IMessageChannel channel, IMessageChannel thread, ulong? replyToMessageId, CancellationToken cancellationToken)
     {
-        var threadDetails = msg.GetThreadDetails(allServices);
+        (string PartitionKey, string RowKey, string Title)? threadDetails = msg.GetThreadDetails(allServices);
         if (threadDetails is not null)
         {
-            var entity = (await threadsTable.GetEntityAsync<ThreadTableEntity>(threadDetails.Value.PartitionKey, threadDetails.Value.RowKey, cancellationToken: cancellationToken).ConfigureAwait(false)).Value;
-            var i = entity.ThreadIdList.First(i => i.ChannelId == channel.Id && i.ThreadId == thread.Id);
+            ThreadTableEntity entity = (await threadsTable.GetEntityAsync<ThreadTableEntity>(threadDetails.Value.PartitionKey, threadDetails.Value.RowKey, cancellationToken: cancellationToken).ConfigureAwait(false)).Value;
+            ThreadTableEntity.ThreadDetail i = entity.ThreadIdList.First(i => i.ChannelId == channel.Id && i.ThreadId == thread.Id);
             i.MessageId = replyToMessageId;
 
             await threadsTable.UpdateEntityAsync(entity, ETag.All, mode: TableUpdateMode.Replace, cancellationToken).ConfigureAwait(false);
@@ -223,7 +224,7 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
 
     private async Task<IMessageChannel> CreateThreadForMessageAsync(WebhookMessage message, IMessageChannel msgChan, CancellationToken cancellationToken)
     {
-        var threadDetails = message.GetThreadDetails(allServices);
+        (string PartitionKey, string RowKey, string Title)? threadDetails = message.GetThreadDetails(allServices);
         if (threadDetails is null || !threadDetails.HasValue)
         {
             return msgChan;
@@ -242,7 +243,7 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
 
         try
         {
-            var tableResponse = await threadsTable.GetEntityIfExistsAsync<ThreadTableEntity>(threadDetails.Value.PartitionKey, threadDetails.Value.RowKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+            NullableResponse<ThreadTableEntity>? tableResponse = await threadsTable.GetEntityIfExistsAsync<ThreadTableEntity>(threadDetails.Value.PartitionKey, threadDetails.Value.RowKey, cancellationToken: cancellationToken).ConfigureAwait(false);
             ThreadTableEntity tableEntity = tableResponse is not null && tableResponse.HasValue
                 ? tableResponse.Value!
                 : new(time)
@@ -265,11 +266,11 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
 
     public async Task CleanupDeletedThreadAsync(ulong threadId, CancellationToken cancellationToken)
     {
-        using var scope = logger.CreateMethodScope();
+        using IDisposable scope = logger.CreateMethodScope();
         logger.CleaningUpTrackedStateForDeletedDiscordThreadThreadId(threadId);
 
         bool foundTrackedThread = false;
-        await foreach (var entity in threadsTable.QueryAsync<ThreadTableEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
+        await foreach (ThreadTableEntity? entity in threadsTable.QueryAsync<ThreadTableEntity>(cancellationToken: cancellationToken).ConfigureAwait(false))
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -311,9 +312,9 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
 
         foreach (var propertyName in new[] { "team", "team_key", "teams", "team_keys", "picks", "declines", "team_number" })
         {
-            if (messageData.TryGetPropertyAnywhere(propertyName, out var properties) && properties is not null)
+            if (messageData.TryGetPropertyAnywhere(propertyName, out IReadOnlyCollection<JsonElement>? properties) && properties is not null)
             {
-                foreach (var propertyValue in properties)
+                foreach (JsonElement propertyValue in properties)
                 {
                     addElement(propertyValue, teams);
                 }
@@ -322,9 +323,9 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
 
         foreach (var propertyName in new[] { "event_key", "events", "event_keys" })
         {
-            if (messageData.TryGetPropertyAnywhere(propertyName, out var properties) && properties is not null)
+            if (messageData.TryGetPropertyAnywhere(propertyName, out IReadOnlyCollection<JsonElement>? properties) && properties is not null)
             {
-                foreach (var propertyValue in properties)
+                foreach (JsonElement propertyValue in properties)
                 {
                     addElement(propertyValue, events);
                 }
@@ -337,11 +338,11 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
         {
             if (maybeNullElt.HasValue)
             {
-                var elt = maybeNullElt.Value;
+                JsonElement elt = maybeNullElt.Value;
                 string? s;
                 if (elt.ValueKind is JsonValueKind.Array)
                 {
-                    foreach (var i in elt.EnumerateArray())
+                    foreach (JsonElement i in elt.EnumerateArray())
                     {
                         s = i.GetString();
                         if (!string.IsNullOrWhiteSpace(s))

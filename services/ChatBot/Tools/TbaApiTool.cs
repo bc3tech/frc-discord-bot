@@ -140,7 +140,7 @@ internal sealed class TbaApiTool(
             return serializedResponse;
         }
 
-        List<string> hints = BuildRecoveryHints(path, ok, isEmpty);
+        List<string> hints = BuildRecoveryHints(path, ok);
         if (hints.Count is 0)
         {
             return serializedResponse;
@@ -165,12 +165,7 @@ internal sealed class TbaApiTool(
 
     private static bool IsEmptyData(JsonElement root)
     {
-        if (!root.TryGetProperty("data", out JsonElement data))
-        {
-            return true;
-        }
-
-        return data.ValueKind switch
+        return !root.TryGetProperty("data", out JsonElement data) || data.ValueKind switch
         {
             JsonValueKind.Null or JsonValueKind.Undefined => true,
             JsonValueKind.Array => data.GetArrayLength() is 0,
@@ -180,7 +175,7 @@ internal sealed class TbaApiTool(
         };
     }
 
-    internal static List<string> BuildRecoveryHints(string path, bool ok, bool isEmpty)
+    internal static List<string> BuildRecoveryHints(string path, bool ok)
     {
         List<string> hints = [];
         ReadOnlyCollection<string> segments = GetPathSegments(path);
@@ -296,12 +291,9 @@ internal sealed class TbaApiTool(
     private static int? TryExtractYearFromEventKey(string eventKey)
     {
         // TBA event keys start with a 4-digit year, e.g. "2025pnwcmp"
-        if (eventKey.Length >= 4 && int.TryParse(eventKey.AsSpan(0, 4), CultureInfo.InvariantCulture, out int year) && year is >= 1992 and <= 2100)
-        {
-            return year;
-        }
-
-        return null;
+        return eventKey.Length >= 4 && int.TryParse(eventKey.AsSpan(0, 4), CultureInfo.InvariantCulture, out int year) && year is >= 1992 and <= 2100
+            ? year
+            : null;
     }
 
     private static string? TryExtractEventKeyFromMatchKey(string matchKey)
@@ -386,8 +378,8 @@ internal sealed class TbaApiTool(
             usedEventNameHint = !string.IsNullOrWhiteSpace(eventNameHint),
             eventHint = string.IsNullOrWhiteSpace(eventNameHint) ? null : eventNameHint.Trim(),
             eventData = selectedEvent,
-            teamStatus = statusTask.Result.Data,
-            teamAwards = awardsTask.Result.Data,
+            teamStatus = (await statusTask).Data,
+            teamAwards = (await awardsTask).Data,
             userReferencePages = new[]
             {
                 new { title = "The Blue Alliance event page", url = $"https://www.thebluealliance.com/event/{eventKey}" },
@@ -564,8 +556,8 @@ internal sealed class TbaApiTool(
                 return false;
             }
 
-            var templateSegments = template.Split('/');
-            var pathSegments = path.Split('/');
+            MemoryExtensions.SpanSplitEnumerator<char> templateSegments = template.Split('/');
+            MemoryExtensions.SpanSplitEnumerator<char> pathSegments = path.Split('/');
             while (templateSegments.MoveNext() && pathSegments.MoveNext())
             {
                 ReadOnlySpan<char> templateSegment = template[templateSegments.Current];
@@ -631,8 +623,8 @@ internal sealed class TbaApiTool(
             int lengthScore = templateSegmentCount == concreteSegmentCount ? 3 : 0;
             int prefixScore = 0;
 
-            var templateSegments = template.Split('/');
-            var concreteSegments = concretePath.Split('/');
+            MemoryExtensions.SpanSplitEnumerator<char> templateSegments = template.Split('/');
+            MemoryExtensions.SpanSplitEnumerator<char> concreteSegments = concretePath.Split('/');
             while (templateSegments.MoveNext() && concreteSegments.MoveNext())
             {
                 ReadOnlySpan<char> templateSegment = template[templateSegments.Current];
@@ -694,13 +686,7 @@ internal sealed class TbaApiTool(
         if (!string.IsNullOrWhiteSpace(eventNameHint))
         {
             string normalizedHint = eventNameHint.Trim().ToLowerInvariant();
-            string[] hintTokens =
-            [
-                .. normalizedHint
-                    .Split([' ', '-', '_', '/', ','], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                    .Select(static token => token.Trim())
-                    .Where(static token => token.Length > 1),
-            ];
+            string[] hintTokens = TokenizeHint(normalizedHint);
 
             TbaEventSummary? bestHintMatch = candidates
                 .Select(e => new
@@ -779,6 +765,29 @@ internal sealed class TbaApiTool(
         }
 
         return score;
+    }
+
+    private static string[] TokenizeHint(string normalizedHint)
+    {
+        ReadOnlySpan<char> source = normalizedHint.AsSpan();
+        Span<Range> ranges = stackalloc Range[Math.Min(source.Length, 64)];
+        int tokenCount = source.SplitAny(ranges, [' ', '-', '_', '/', ','], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        if (tokenCount is 0)
+        {
+            return [];
+        }
+
+        var tokens = new List<string>(tokenCount);
+        for (int i = 0; i < tokenCount; i++)
+        {
+            ReadOnlySpan<char> token = source[ranges[i]].Trim();
+            if (token.Length > 1)
+            {
+                tokens.Add(token.ToString());
+            }
+        }
+
+        return [.. tokens];
     }
 
     private async Task<TbaApiResult> GetTbaDataAsync(string path, CancellationToken cancellationToken)

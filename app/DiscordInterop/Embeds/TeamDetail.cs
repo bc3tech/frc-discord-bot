@@ -29,16 +29,16 @@ internal sealed class TeamDetail(RESTCountries _countryCodeLookup,
 {
     public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync(string teamKey, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        using var scope = logger.CreateMethodScope();
+        using IDisposable scope = logger.CreateMethodScope();
 
-        var teamDetails = _teamsRepo[teamKey];
+        TheBlueAlliance.Model.Team teamDetails = _teamsRepo[teamKey];
 
         var jsonResult = JsonSerializer.Serialize(await teamStats.ReadTeamV3TeamTeamGetAsync(teamKey.TeamKeyToTeamNumber()!.ToString()!, cancellationToken).ConfigureAwait(false));
-        var teamResult = JsonSerializer.Deserialize<Team>(jsonResult)!;
+        Team teamResult = JsonSerializer.Deserialize<Team>(jsonResult)!;
         var locationString = await createLocationStringAsync(teamDetails, _countryCodeLookup).ConfigureAwait(false);
-        var imageUrl = (await tbaTeamApi.GetTeamMediaByYearAsync(teamKey, time.GetUtcNow().Year, cancellationToken: cancellationToken).ConfigureAwait(false))?
+        TheBlueAlliance.Model.Media? imageUrl = (await tbaTeamApi.GetTeamMediaByYearAsync(teamKey, time.GetUtcNow().Year, cancellationToken: cancellationToken).ConfigureAwait(false))?
             .FirstOrDefault(i => !string.IsNullOrWhiteSpace(i.DirectUrl));
-        var builder = builderFactory.GetBuilder()
+        EmbedBuilder builder = builderFactory.GetBuilder()
             .WithTitle($"**{teamDetails.Nickname}**")
             .WithUrl($"{teamDetails.Website}#{teamKey}")
             .WithThumbnailUrl($"https://www.thebluealliance.com/avatar/{time.GetLocalNow().Year}/{teamKey}.png")
@@ -47,7 +47,7 @@ internal sealed class TeamDetail(RESTCountries _countryCodeLookup,
             .AddField("Location", locationString)
             .AddField("Active?", teamResult.Active ? "Yes" : "No");
 
-        var lightestColor = Utility.GetLightestColorOf(
+        Color? lightestColor = Utility.GetLightestColorOf(
             teamResult.Colors?.Primary is not null ? Color.Parse(teamResult.Colors.Primary) : null,
             teamResult.Colors?.Secondary is not null ? Color.Parse(teamResult.Colors.Secondary) : null);
         if (lightestColor is not null)
@@ -55,7 +55,7 @@ internal sealed class TeamDetail(RESTCountries _countryCodeLookup,
             builder.WithColor(lightestColor.Value);
         }
 
-        var district = (await districts.GetTeamDistrictsAsync(teamKey, cancellationToken: cancellationToken).ConfigureAwait(false))?.FirstOrDefault();
+        TheBlueAlliance.Model.District? district = (await districts.GetTeamDistrictsAsync(teamKey, cancellationToken: cancellationToken).ConfigureAwait(false))?.FirstOrDefault();
         if (district is not null && !string.IsNullOrWhiteSpace(district.DisplayName))
         {
             builder.AddField("District", district.DisplayName);
@@ -71,7 +71,7 @@ internal sealed class TeamDetail(RESTCountries _countryCodeLookup,
             builder.AddField("Rookie Year", $"{teamDetails.RookieYear}");
         }
 
-        var fullRecord = teamResult.Records?.Full;
+        Record? fullRecord = teamResult.Records?.Full;
         if (fullRecord is not null)
         {
             builder.AddField("All-time Record", $"{fullRecord.Wins}-{fullRecord.Losses}-{fullRecord.Ties} ({fullRecord.Wins / ((float)fullRecord.Wins + fullRecord.Losses + fullRecord.Ties):.000})");

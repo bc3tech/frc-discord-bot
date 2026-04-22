@@ -11,7 +11,7 @@ public class PingCommandModule(ILogger<PingCommandModule> logger) : CommandModul
     [SlashCommand("ping", "Pings the bot to check if it's alive")]
     public async Task PingAsync()
     {
-        using var typing = await TryDeferAsync(ephemeral: true).ConfigureAwait(false);
+        using IDisposable? typing = await TryDeferAsync(ephemeral: true).ConfigureAwait(false);
         if (typing is null)
         {
             return;

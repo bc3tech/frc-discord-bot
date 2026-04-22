@@ -119,8 +119,8 @@ public sealed class DiscordMessageDispatcherWebhookTests
         IWebhookSubscriptionStore<TeamSubscriptionEntity> teamStore,
         IWebhookSubscriptionStore<EventSubscriptionEntity> eventStore)
     {
-        var loggerFactory = LoggerFactory.Create(builder => builder.ClearProviders());
-        var services = new ServiceCollection().BuildServiceProvider();
+        ILoggerFactory loggerFactory = LoggerFactory.Create(builder => builder.ClearProviders());
+        ServiceProvider services = new ServiceCollection().BuildServiceProvider();
         var embedGenerator = new WebhookEmbeddingGenerator(services, loggerFactory.CreateLogger<WebhookEmbeddingGenerator>());
         var discordClient = new DiscordSocketClient(new DiscordSocketConfig());
         var threadsTable = new TableClient("UseDevelopmentStorage=true", "threads");
@@ -216,7 +216,7 @@ public sealed class DiscordMessageDispatcherWebhookTests
         private static GuildSubscriptions Clone(GuildSubscriptions source)
         {
             GuildSubscriptions clone = [];
-            foreach (var (guildId, channels) in source)
+            foreach ((string? guildId, HashSet<ulong>? channels) in source)
             {
                 clone[guildId] = [.. channels];
             }

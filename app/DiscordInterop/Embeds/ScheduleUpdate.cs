@@ -1,5 +1,7 @@
 ﻿namespace FunctionApp.DiscordInterop.Embeds;
 
+using Discord;
+
 using FunctionApp;
 
 using FunctionApp.TbaInterop.Models;
@@ -16,8 +18,8 @@ internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var baseBuilder = builderFactory.GetBuilder();
-        var notification = msg.GetDataAs<TbaInterop.Models.Notifications.ScheduleUpdate>();
+        EmbedBuilder baseBuilder = builderFactory.GetBuilder();
+        TbaInterop.Models.Notifications.ScheduleUpdate notification = msg.GetDataAs<TbaInterop.Models.Notifications.ScheduleUpdate>();
         if (notification == default)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
@@ -32,7 +34,7 @@ internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger
             yield break;
         }
 
-        var embedding = baseBuilder
+        EmbedBuilder embedding = baseBuilder
             .WithTitle($"📢{eventName} Schedule Update⏰")
             .WithUrl($"https://www.thebluealliance.com/event/{eventKey}")
             .WithDescription("Click for details");
@@ -46,11 +48,11 @@ internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger
         eventName = notification.event_name;
 
         if (messageData.ValueKind is JsonValueKind.Object
-            && messageData.TryGetProperty("event", out var eventData)
+            && messageData.TryGetProperty("event", out JsonElement eventData)
             && eventData.ValueKind is JsonValueKind.Object)
         {
             if (string.IsNullOrWhiteSpace(eventKey)
-                && eventData.TryGetProperty("key", out var keyElement)
+                && eventData.TryGetProperty("key", out JsonElement keyElement)
                 && keyElement.GetString() is { } key
                 && !string.IsNullOrWhiteSpace(key))
             {
@@ -58,7 +60,7 @@ internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger
             }
 
             if (string.IsNullOrWhiteSpace(eventName)
-                && eventData.TryGetProperty("name", out var nameElement)
+                && eventData.TryGetProperty("name", out JsonElement nameElement)
                 && nameElement.GetString() is { } name
                 && !string.IsNullOrWhiteSpace(name))
             {
@@ -66,7 +68,7 @@ internal sealed class ScheduleUpdate(EmbedBuilderFactory builderFactory, ILogger
             }
 
             if (string.IsNullOrWhiteSpace(eventName)
-                && eventData.TryGetProperty("short_name", out var shortNameElement)
+                && eventData.TryGetProperty("short_name", out JsonElement shortNameElement)
                 && shortNameElement.GetString() is { } shortName
                 && !string.IsNullOrWhiteSpace(shortName))
             {

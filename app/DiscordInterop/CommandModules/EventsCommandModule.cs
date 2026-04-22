@@ -27,7 +27,7 @@ public class EventsCommandModule(IServiceProvider services) : CommandModuleBase(
         [Summary("event"), Autocomplete(typeof(AutoCompleteHandlers.EventsAutoCompleteHandler))] string eventKey,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        using var typing = await TryDeferAsync(!post).ConfigureAwait(false);
+        using IDisposable? typing = await TryDeferAsync(!post).ConfigureAwait(false);
         if (typing is null)
         {
             return;
@@ -53,7 +53,7 @@ public class EventsCommandModule(IServiceProvider services) : CommandModuleBase(
         [Summary("channel", "The channel where users can chat about the event")] IMessageChannel? channel = null,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        using var typing = await TryDeferAsync(!post).ConfigureAwait(false);
+        using IDisposable? typing = await TryDeferAsync(!post).ConfigureAwait(false);
         if (typing is null)
         {
             return;
@@ -113,7 +113,7 @@ public class EventsCommandModule(IServiceProvider services) : CommandModuleBase(
             descriptionBuilder.AppendLine($"[Schedule]({targetEvent.ScheduleUrl})");
             descriptionBuilder.AppendLine($"Results and more at: {targetEvent.TbaUrl}");
 
-            var guildEvent = await Context.Guild.CreateEventAsync(!string.IsNullOrWhiteSpace(title) ? title : targetEvent.Name, startOffset, GuildScheduledEventType.External, description: descriptionBuilder.ToString(), endTime: endOffset, location: locationValue);
+            IGuildScheduledEvent guildEvent = await Context.Guild.CreateEventAsync(!string.IsNullOrWhiteSpace(title) ? title : targetEvent.Name, startOffset, GuildScheduledEventType.External, description: descriptionBuilder.ToString(), endTime: endOffset, location: locationValue);
 
             var eventLink = $"https://discord.com/events/{guildEvent.GuildId}/{guildEvent.Id}";
             if (channel is not null)
@@ -152,7 +152,7 @@ public class EventsCommandModule(IServiceProvider services) : CommandModuleBase(
         [Summary("num-matches")] ushort numMatches = 6,
         [Summary("post", "`true` to post response publicly")] bool post = false)
     {
-        using var typing = await TryDeferAsync(!post).ConfigureAwait(false);
+        using IDisposable? typing = await TryDeferAsync(!post).ConfigureAwait(false);
         if (typing is null)
         {
             return;

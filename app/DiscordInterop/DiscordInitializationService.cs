@@ -166,7 +166,7 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
                             TrackMessageHandlingTask(Task.Run(
                                 async () =>
                                 {
-                                    var u = await c.GetUserAsync(client.CurrentUser.Id, options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
+                                    IGuildUser u = await c.GetUserAsync(client.CurrentUser.Id, options: cancellationToken.ToRequestOptions()).ConfigureAwait(false);
                                     await HandleMessageSafelyAsync(
                                         msg,
                                         i.Channel,
@@ -243,7 +243,7 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
             {
                 try
                 {
-                    foreach (var s in services.GetServices<IHandleUserInteractions>())
+                    foreach (IHandleUserInteractions s in services.GetServices<IHandleUserInteractions>())
                     {
                         if (await s.HandleInteractionAsync(services, button, cancellationToken).ConfigureAwait(false))
                         {
@@ -262,7 +262,7 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
 
         client.SelectMenuExecuted += async (menu) =>
         {
-            foreach (var s in services.GetServices<IHandleUserInteractions>())
+            foreach (IHandleUserInteractions s in services.GetServices<IHandleUserInteractions>())
             {
                 if (await s.HandleInteractionAsync(services, menu, cancellationToken).ConfigureAwait(false))
                 {
@@ -293,7 +293,7 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
 
     private async Task InstallCommandsAsync(CancellationToken cancellationToken)
     {
-        using var scope = _logger.CreateMethodScope();
+        using IDisposable scope = _logger.CreateMethodScope();
         // Hook the MessageReceived event into our command handler
         client.SlashCommandExecuted += cmd =>
         {
@@ -310,7 +310,7 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
 
         _logger.LoadingCommandModules();
 
-        var discoveredModules = await interactionService.AddModulesAsync(Assembly.GetExecutingAssembly(), services).ConfigureAwait(false);
+        IEnumerable<ModuleInfo> discoveredModules = await interactionService.AddModulesAsync(Assembly.GetExecutingAssembly(), services).ConfigureAwait(false);
         _logger.NumCommandsCommandModulesLoaded(interactionService.Modules.Count);
 
         await interactionService.RegisterCommandsGloballyAsync();

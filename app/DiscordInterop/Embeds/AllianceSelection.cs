@@ -2,6 +2,8 @@
 
 using Common.Extensions;
 
+using Discord;
+
 using FunctionApp;
 
 using FunctionApp.Storage;
@@ -11,11 +13,13 @@ using FunctionApp.TbaInterop.Models.Notifications;
 using Microsoft.Extensions.Logging;
 
 using System.Collections.Concurrent;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
 using TheBlueAlliance.Api;
+using TheBlueAlliance.Model;
 
 internal sealed class AllianceSelection(IEventApi tbaClient,
                                         EventRepository events,
@@ -30,11 +34,11 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
 
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        using var scope = logger.CreateMethodScope();
+        using IDisposable scope = logger.CreateMethodScope();
         logger.CreatingAllianceSelectionEmbed();
 
-        var baseBuilder = builderFactory.GetBuilder(highlightTeam);
-        var notification = msg.GetDataAs<TbaInterop.Models.Notifications.AllianceSelection>();
+        EmbedBuilder baseBuilder = builderFactory.GetBuilder(highlightTeam);
+        TbaInterop.Models.Notifications.AllianceSelection notification = msg.GetDataAs<TbaInterop.Models.Notifications.AllianceSelection>();
         if (notification == default)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
@@ -57,7 +61,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
             yield break;
         }
 
-        var alliances = await tbaClient.GetEventAlliancesAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+        Collection<EliminationAlliance>? alliances = await tbaClient.GetEventAlliancesAsync(eventKey, cancellationToken: cancellationToken).ConfigureAwait(false);
         while (alliances?.Count is null or 0)
         {
             logger.FailedToRetrieveAllianceSelectionDataForEventKey(eventKey);
@@ -72,7 +76,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
         var descriptionBuilder = new StringBuilder($"## {eventName}: Alliance Selection Complete\n");
         for (int i = 0; i < alliances.Count; i++)
         {
-            var alliance = alliances[i];
+            EliminationAlliance alliance = alliances[i];
             descriptionBuilder.AppendLine($"### Alliance {i + 1}\n");
             foreach (var teamKey in alliance.Picks)
             {
@@ -89,7 +93,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
             }
         }
 
-        var eventDetail = events[eventKey];
+        Event eventDetail = events[eventKey];
         descriptionBuilder.AppendLine($"\nYou can find more alliance details on the [Event Results](https://frc.link/e/tba/{eventDetail.FirstEventCode}/{eventDetail.Year}#results) page");
 
 #pragma warning disable EA0001 // Perform message formatting in the body of the logging method
@@ -104,6 +108,7 @@ internal sealed class AllianceSelection(IEventApi tbaClient,
     internal static string? ResolveEventKey(TbaInterop.Models.Notifications.AllianceSelection notification)
         => !string.IsNullOrWhiteSpace(notification.event_key) ? notification.event_key : notification.Event?.Key;
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0046:Convert to conditional expression", Justification = "Nearly impossible to read")]
     internal static string ResolveEventName(TbaInterop.Models.Notifications.AllianceSelection notification, string fallbackEventKey)
     {
         if (!string.IsNullOrWhiteSpace(notification.event_name))

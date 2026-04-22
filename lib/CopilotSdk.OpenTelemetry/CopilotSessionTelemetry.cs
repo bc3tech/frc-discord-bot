@@ -30,7 +30,7 @@ public static partial class CopilotSessionTelemetry
         ArgumentNullException.ThrowIfNull(session);
 
         var state = new TelemetryState(Activity.Current, logger);
-        var subscription = session.On(@event => state.Handle(@event));
+        IDisposable subscription = session.On(state.Handle);
         return new Subscription(subscription, state);
     }
 
@@ -54,16 +54,16 @@ public static partial class CopilotSessionTelemetry
                 switch (@event)
                 {
                     case ToolExecutionStartEvent start:
-                        this.OnToolStart(start);
+                        OnToolStart(start);
                         break;
                     case ToolExecutionCompleteEvent complete:
-                        this.OnToolComplete(complete);
+                        OnToolComplete(complete);
                         break;
                     case AssistantUsageEvent usage:
-                        this.OnUsage(usage);
+                        OnUsage(usage);
                         break;
                     case SessionErrorEvent error:
-                        this.OnError(error);
+                        OnError(error);
                         break;
                     default:
                         break;
@@ -71,26 +71,26 @@ public static partial class CopilotSessionTelemetry
             }
             catch (Exception ex) when (ex is not OutOfMemoryException)
             {
-                if (this._logger is not null)
+                if (_logger is not null)
                 {
-                    LogTranslatorFailed(this._logger, ex, @event.GetType().Name);
+                    LogTranslatorFailed(_logger, ex, @event.GetType().Name);
                 }
             }
         }
 
         public void DisposeAll()
         {
-            foreach (var kvp in this._toolActivities)
+            foreach (KeyValuePair<string, Activity> kvp in _toolActivities)
             {
                 kvp.Value.Dispose();
             }
 
-            this._toolActivities.Clear();
+            _toolActivities.Clear();
         }
 
         private void OnToolStart(ToolExecutionStartEvent start)
         {
-            var data = start.Data;
+            ToolExecutionStartData? data = start.Data;
             if (data is null || string.IsNullOrEmpty(data.ToolCallId))
             {
                 return;
@@ -98,9 +98,9 @@ public static partial class CopilotSessionTelemetry
 
             var name = !string.IsNullOrEmpty(data.ToolName) ? data.ToolName : "tool";
             var spanName = $"{CopilotSdkOpenTelemetry.Operations.ExecuteTool} {name}";
-            var parentContext = this._parent?.Context ?? default;
+            ActivityContext parentContext = _parent?.Context ?? default;
 
-            var activity = CopilotSdkOpenTelemetry.ActivitySource.StartActivity(
+            Activity? activity = CopilotSdkOpenTelemetry.ActivitySource.StartActivity(
                 spanName,
                 kind: ActivityKind.Internal,
                 parentContext: parentContext,
@@ -128,18 +128,18 @@ public static partial class CopilotSessionTelemetry
                 activity.SetTag("gen_ai.tool.mcp.tool_name", data.McpToolName);
             }
 
-            this._toolActivities[data.ToolCallId] = activity;
+            _toolActivities[data.ToolCallId] = activity;
         }
 
         private void OnToolComplete(ToolExecutionCompleteEvent complete)
         {
-            var data = complete.Data;
+            ToolExecutionCompleteData? data = complete.Data;
             if (data is null || string.IsNullOrEmpty(data.ToolCallId))
             {
                 return;
             }
 
-            if (!this._toolActivities.TryRemove(data.ToolCallId, out var activity))
+            if (!_toolActivities.TryRemove(data.ToolCallId, out Activity? activity))
             {
                 return;
             }
@@ -158,13 +158,13 @@ public static partial class CopilotSessionTelemetry
 
         private void OnUsage(AssistantUsageEvent usage)
         {
-            var target = this._parent;
+            Activity? target = _parent;
             if (target is null)
             {
                 return;
             }
 
-            var data = usage.Data;
+            AssistantUsageData? data = usage.Data;
             if (data is null)
             {
                 return;
@@ -188,13 +188,13 @@ public static partial class CopilotSessionTelemetry
 
         private void OnError(SessionErrorEvent error)
         {
-            var target = this._parent;
+            Activity? target = _parent;
             if (target is null)
             {
                 return;
             }
 
-            var data = error.Data;
+            SessionErrorData data = error.Data;
             var message = data.Message;
             target.SetStatus(ActivityStatusCode.Error, string.IsNullOrEmpty(message) ? "Copilot session error" : message);
             if (!string.IsNullOrEmpty(data.ErrorType))
@@ -210,7 +210,7 @@ public static partial class CopilotSessionTelemetry
 
         public void Dispose()
         {
-            if (Interlocked.Exchange(ref this._disposed, 1) == 1)
+            if (Interlocked.Exchange(ref _disposed, 1) == 1)
             {
                 return;
             }

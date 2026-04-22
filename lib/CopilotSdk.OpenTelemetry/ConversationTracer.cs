@@ -18,13 +18,13 @@ public sealed class ConversationTracer(IConversationTraceContextStore store) : I
     {
         ArgumentException.ThrowIfNullOrEmpty(conversationId);
 
-        var existing = await this._store.TryGetAsync(conversationId, cancellationToken).ConfigureAwait(false);
+        ConversationTraceContext? existing = await _store.TryGetAsync(conversationId, cancellationToken).ConfigureAwait(false);
         ConversationTraceContext rootContext;
 
         if (existing is null)
         {
             rootContext = CreateAndPersistRoot(conversationId, rootTags);
-            await this._store.SetAsync(conversationId, rootContext, cancellationToken).ConfigureAwait(false);
+            await _store.SetAsync(conversationId, rootContext, cancellationToken).ConfigureAwait(false);
         }
         else
         {
@@ -32,7 +32,7 @@ public sealed class ConversationTracer(IConversationTraceContextStore store) : I
         }
 
         var parent = rootContext.ToActivityContext();
-        var turn = CopilotSdkOpenTelemetry.ActivitySource.StartActivity(
+        Activity? turn = CopilotSdkOpenTelemetry.ActivitySource.StartActivity(
             CopilotSdkOpenTelemetry.Operations.Chat,
             kind: ActivityKind.Server,
             parentContext: parent,
@@ -52,14 +52,14 @@ public sealed class ConversationTracer(IConversationTraceContextStore store) : I
         IReadOnlyDictionary<string, object?>? rootTags)
     {
         // Open the root span detached from any ambient activity so the trace id is fresh.
-        var previous = Activity.Current;
+        Activity? previous = Activity.Current;
         Activity.Current = null;
         try
         {
-            using var root = CopilotSdkOpenTelemetry.ActivitySource.StartActivity(
+            using Activity? root = CopilotSdkOpenTelemetry.ActivitySource.StartActivity(
                 CopilotSdkOpenTelemetry.Operations.Chat,
                 kind: ActivityKind.Server,
-                parentContext: default(ActivityContext),
+                parentContext: default,
                 tags:
                 [
                     new(CopilotSdkOpenTelemetry.GenAiAttributes.System, CopilotSdkOpenTelemetry.GenAiSystemValue),
@@ -79,7 +79,7 @@ public sealed class ConversationTracer(IConversationTraceContextStore store) : I
 
             if (rootTags is not null)
             {
-                foreach (var (key, value) in rootTags)
+                foreach ((string? key, object? value) in rootTags)
                 {
                     root.SetTag(key, value);
                 }

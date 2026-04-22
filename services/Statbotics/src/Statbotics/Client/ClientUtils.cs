@@ -14,6 +14,7 @@ using System.Collections;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 
@@ -207,9 +208,9 @@ public static partial class ClientUtils
     {
         ArgumentNullException.ThrowIfNull(enumVal);
 
-        var enumType = enumVal.GetType();
-        var memInfo = enumType.GetMember(enumVal.ToString() ?? throw new InvalidOperationException());
-        var attr = memInfo.FirstOrDefault()?.GetCustomAttributes(false).OfType<EnumMemberAttribute>().FirstOrDefault();
+        Type enumType = enumVal.GetType();
+        MemberInfo[] memInfo = enumType.GetMember(enumVal.ToString() ?? throw new InvalidOperationException());
+        EnumMemberAttribute? attr = memInfo.FirstOrDefault()?.GetCustomAttributes(false).OfType<EnumMemberAttribute>().FirstOrDefault();
         return attr is not null;
     }
 
@@ -222,9 +223,9 @@ public static partial class ClientUtils
     {
         ArgumentNullException.ThrowIfNull(enumVal);
 
-        var enumType = enumVal.GetType();
-        var memInfo = enumType.GetMember(enumVal.ToString() ?? throw new InvalidOperationException());
-        var attr = memInfo.FirstOrDefault()?.GetCustomAttributes(false).OfType<EnumMemberAttribute>().FirstOrDefault();
+        Type enumType = enumVal.GetType();
+        MemberInfo[] memInfo = enumType.GetMember(enumVal.ToString() ?? throw new InvalidOperationException());
+        EnumMemberAttribute? attr = memInfo.FirstOrDefault()?.GetCustomAttributes(false).OfType<EnumMemberAttribute>().FirstOrDefault();
         return attr?.Value;
     }
 

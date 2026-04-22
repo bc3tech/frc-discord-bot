@@ -19,7 +19,7 @@ internal sealed class Program
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Resilience", "EA0014:The async method doesn't support cancellation", Justification = "Not applicable to Main()")]
     private static async Task Main(string[] args)
     {
-        var b = new HostBuilder()
+        IHostBuilder b = new HostBuilder()
             .ConfigureAppConfiguration((context, builder) =>
             {
                 builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -54,7 +54,7 @@ internal sealed class Program
                     .AddSingleton<IDistrictApi>(sp => new DistrictApi(httpClient, config));
 
                 var cred = new DefaultAzureCredential(includeInteractiveCredentials: context.HostingEnvironment.IsDevelopment());
-                var token = cred.GetToken(new TokenRequestContext(["https://storage.azure.com/.default"]));
+                AccessToken token = cred.GetToken(new TokenRequestContext(["https://storage.azure.com/.default"]));
 
                 services.AddSingleton(sp => new BlobServiceClient(new Uri(Throws.IfNullOrWhiteSpace(context.Configuration["StorageAccountUri"]), UriKind.Absolute), cred));
             });

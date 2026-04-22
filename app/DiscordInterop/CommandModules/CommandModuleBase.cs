@@ -22,10 +22,10 @@ public abstract class CommandModuleBase(ILogger logger) : InteractionModuleBase
 
     internal virtual async Task GenerateResponseAsync<T>(IEmbedCreator<T> embeddingCreator, T input, ushort? highlightTeam = null, Func<ImmutableArray<Embed>, Task>? modifyCallback = null, CancellationToken cancellationToken = default)
     {
-        using var scope = Logger.CreateMethodScope();
+        using IDisposable scope = Logger.CreateMethodScope();
         ResponseEmbedding[] embeds = [];
         ushort numEmbeddingsCreated = 0, erroredEmbeddings = 0;
-        await foreach (var m in embeddingCreator.CreateAsync(input, highlightTeam, cancellationToken: cancellationToken).ConfigureAwait(false))
+        await foreach (ResponseEmbedding? m in embeddingCreator.CreateAsync(input, highlightTeam, cancellationToken: cancellationToken).ConfigureAwait(false))
         {
             if (m is null)
             {
@@ -37,7 +37,7 @@ public abstract class CommandModuleBase(ILogger logger) : InteractionModuleBase
             {
 
                 embeds = [.. embeds, m];
-                var discordEmbeds = embeds.Select(i => i.Content).ToArray();
+                Embed[] discordEmbeds = [.. embeds.Select(i => i.Content)];
                 if (!m.Transient)
                 {
                     discordEmbeds = [.. embeds.Where(i => !i.Transient).Select(i => i.Content)];

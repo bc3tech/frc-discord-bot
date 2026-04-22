@@ -16,6 +16,7 @@ using System.Threading;
 
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Extensions;
+using TheBlueAlliance.Model;
 
 internal sealed class MatchVideo(IMatchApi matches,
                                  EventRepository eventRepo,
@@ -27,8 +28,8 @@ internal sealed class MatchVideo(IMatchApi matches,
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously; to conform to interface
     public async IAsyncEnumerable<SubscriptionEmbedding?> CreateAsync(WebhookMessage msg, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var baseBuilder = builderFactory.GetBuilder(highlightTeam, footerRequired: false);
-        var notification = msg.GetDataAs<TbaInterop.Models.Notifications.MatchVideo>();
+        EmbedBuilder baseBuilder = builderFactory.GetBuilder(highlightTeam, footerRequired: false);
+        TbaInterop.Models.Notifications.MatchVideo? notification = msg.GetDataAs<TbaInterop.Models.Notifications.MatchVideo>();
         if (notification is null)
         {
             logger.FailedToDeserializeNotificationDataAsNotificationType(TargetType);
@@ -36,10 +37,10 @@ internal sealed class MatchVideo(IMatchApi matches,
             yield break;
         }
 
-        var videoUrls = notification.match?.GetVideoUrls();
+        IEnumerable<(string Name, Uri Link)>? videoUrls = notification.match?.GetVideoUrls();
         if (videoUrls is not null && videoUrls.Any())
         {
-            var embedding = baseBuilder
+            EmbedBuilder embedding = baseBuilder
                 .WithTitle($"{notification.event_name} | {notification.match!.CompLevel.ToShortString()} {notification.match.SetNumber}.{notification.match.MatchNumber}")
                 .WithDescription($"New video{(videoUrls.Count() > 1 ? 's' : string.Empty)} posted");
             IEnumerable<IMessageComponent> actions = videoUrls.Select(i => ButtonBuilder.CreateLinkButton($"🎞️{i.Name}", i.Link.OriginalString).Build());
@@ -50,12 +51,12 @@ internal sealed class MatchVideo(IMatchApi matches,
 
     public async IAsyncEnumerable<ResponseEmbedding?> CreateAsync(string matchKey, ushort? highlightTeam = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        var baseBuilder = builderFactory.GetBuilder(highlightTeam);
+        EmbedBuilder baseBuilder = builderFactory.GetBuilder(highlightTeam);
 
-        var match = await matches.GetMatchAsync(matchKey, cancellationToken: cancellationToken).ConfigureAwait(false);
+        Match? match = await matches.GetMatchAsync(matchKey, cancellationToken: cancellationToken).ConfigureAwait(false);
         if (match is not null)
         {
-            var embedding = baseBuilder
+            EmbedBuilder embedding = baseBuilder
                 .WithTitle($"Videos for {eventRepo[match.EventKey].GetLabel()} | {match.CompLevel.ToShortString()} {match.SetNumber}.{match.MatchNumber}")
                 .WithDescription(string.Join('\n', match.GetVideoUrls().Select(i => $"- [{i.Name}]({i.Link})")));
 

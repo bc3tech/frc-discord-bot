@@ -10,6 +10,7 @@ using System.Text.Json.Serialization;
 
 using TheBlueAlliance.Api;
 using TheBlueAlliance.Extensions;
+using TheBlueAlliance.Model;
 
 internal sealed record WebhookMessage
 {
@@ -33,7 +34,7 @@ internal sealed record WebhookMessage
             case NotificationType.match_video:
             case NotificationType.event_match_video:
                 {
-                    var data = GetDataAs<MatchVideo>();
+                    MatchVideo? data = GetDataAs<MatchVideo>();
                     threadedEntity = data;
                     Debug.Assert(!string.IsNullOrWhiteSpace(data?.event_name), "Bad data!");
                     if (data is not null)
@@ -45,7 +46,7 @@ internal sealed record WebhookMessage
                 break;
             case NotificationType.match_score:
                 {
-                    var data = GetDataAs<MatchScore>();
+                    MatchScore? data = GetDataAs<MatchScore>();
                     threadedEntity = data;
                     Debug.Assert(!string.IsNullOrWhiteSpace(data?.event_name), "Bad data!");
                     if (data is not null)
@@ -57,12 +58,12 @@ internal sealed record WebhookMessage
                 break;
             case NotificationType.upcoming_match:
                 {
-                    var data = GetDataAs<UpcomingMatch>();
+                    UpcomingMatch? data = GetDataAs<UpcomingMatch>();
                     threadedEntity = data;
                     Debug.Assert(!string.IsNullOrWhiteSpace(data?.event_name), "Bad data!");
                     if (data is not null)
                     {
-                        var matchData = services.GetRequiredService<IMatchApi>().GetMatch(data.match_key);
+                        Match? matchData = services.GetRequiredService<IMatchApi>().GetMatch(data.match_key);
                         threadTitle = matchData is not null
                             ? $"{data.event_name} | {matchData.CompLevel.ToShortString()} {matchData.SetNumber}.{matchData.MatchNumber}"
                             : data.event_name;

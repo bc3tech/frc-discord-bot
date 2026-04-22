@@ -19,7 +19,7 @@ public class InMemoryConversationTraceContextStoreTests
 
         await store.SetAsync("conv-1", ctx, default);
 
-        var got = await store.TryGetAsync("conv-1", default);
+        ConversationTraceContext? got = await store.TryGetAsync("conv-1", default);
         Assert.Equal(ctx, got);
     }
 

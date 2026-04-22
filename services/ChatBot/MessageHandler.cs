@@ -77,7 +77,7 @@ public sealed partial class MessageHandler(
             ["discord.is_dm"] = discordEvent.IsDm,
         };
 
-        await using var turn = await conversationTracer
+        await using IConversationTurnScope turn = await conversationTracer
             .BeginTurnAsync(conversationKey.ToStorageKey(), rootTags, cancellationToken)
             .ConfigureAwait(false);
 

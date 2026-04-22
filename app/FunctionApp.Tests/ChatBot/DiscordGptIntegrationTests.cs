@@ -1,4 +1,4 @@
-namespace FunctionApp.Tests;
+namespace FunctionApp.Tests.ChatBot;
 
 using global::ChatBot;
 

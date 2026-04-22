@@ -104,11 +104,11 @@ internal sealed partial class CustomJsonCodec
                 var filePath = string.IsNullOrEmpty(_configuration.TempFolderPath)
                 ? Path.GetTempPath()
                 : _configuration.TempFolderPath;
-                var regex = FilenameContentDetector();
+                Regex regex = FilenameContentDetector();
                 foreach (var header in headers)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
-                    var match = regex.Match(header.ToString());
+                    Match match = regex.Match(header.ToString());
                     if (match.Success)
                     {
                         string fileName = filePath + ClientUtils.SanitizeFilename(match.Groups[1].Value.Replace("\"", "").Replace("'", ""));
