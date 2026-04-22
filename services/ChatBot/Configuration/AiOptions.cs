@@ -13,78 +13,6 @@ internal sealed class AiOptions
 
     public AiFoundrySettings Foundry { get; init; } = new();
 
-    [Required]
-    public required Uri FoundryEndpoint
-    {
-        get => this.Foundry.Endpoint;
-        set => this.Foundry.Endpoint = value;
-    }
-
-    [Required]
-    public required string AgentId
-    {
-        get => this.Foundry.AgentId;
-        set => this.Foundry.AgentId = value;
-    }
-
-    [Required]
-    public required string MealSignupGeniusId
-    {
-        get => this.Foundry.MealSignupGeniusId;
-        set => this.Foundry.MealSignupGeniusId = value;
-    }
-
-    [Required]
-    public required string LocalAgentModel
-    {
-        get => this.Foundry.LocalAgentModel;
-        set => this.Foundry.LocalAgentModel = value;
-    }
-
-    [Required]
-    public required string OpenAIApiVersion
-    {
-        get => this.Foundry.OpenAIApiVersion;
-        set => this.Foundry.OpenAIApiVersion = value;
-    }
-
-    [Range(1, int.MaxValue)]
-    public int MaxLocalAgentHandoffs
-    {
-        get => this.Foundry.MaxLocalAgentHandoffs;
-        set => this.Foundry.MaxLocalAgentHandoffs = value;
-    }
-
-    [Range(1, int.MaxValue)]
-    public int MaxWorkflowSteps
-    {
-        get => this.Foundry.MaxWorkflowSteps;
-        set => this.Foundry.MaxWorkflowSteps = value;
-    }
-
-    [Range(1, int.MaxValue)]
-    public int WorkflowSoftTimeoutSeconds
-    {
-        get => this.Foundry.WorkflowSoftTimeoutSeconds;
-        set => this.Foundry.WorkflowSoftTimeoutSeconds = value;
-    }
-
-    [Range(1, int.MaxValue)]
-    public int WorkflowHardTimeoutSeconds
-    {
-        get => this.Foundry.WorkflowHardTimeoutSeconds;
-        set => this.Foundry.WorkflowHardTimeoutSeconds = value;
-    }
-
-    [Range(0, int.MaxValue)]
-    public int MaxPrematureLocalLookupRetries
-    {
-        get => this.Foundry.MaxPrematureLocalLookupRetries;
-        set => this.Foundry.MaxPrematureLocalLookupRetries = value;
-    }
-
-    public AiEvaluationSettings EvaluationSettings => this.Foundry.EvaluationSettings;
-
     [Range(1, int.MaxValue)]
     public required int DefaultTeamNumber { get; set; }
 }
@@ -248,66 +176,66 @@ internal sealed class ValidateAiOptions : IValidateOptions<AiOptions>
 
         if (string.IsNullOrWhiteSpace(options.Copilot.Model))
         {
-            retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{nameof(AiOptions.Copilot)}.{nameof(AiCopilotSettings.Model)}' is missing or empty."));
+            retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{ChatBotConstants.Configuration.Copilot.Model}' is missing or empty."));
         }
 
-        if (options.FoundryEndpoint is null || string.IsNullOrWhiteSpace(options.FoundryEndpoint.AbsoluteUri))
+        if (options.Foundry.Endpoint is null || string.IsNullOrWhiteSpace(options.Foundry.Endpoint.AbsoluteUri))
         {
-            retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{nameof(AiOptions.FoundryEndpoint)}' is missing or empty."));
+            retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{ChatBotConstants.Configuration.Foundry.Endpoint}' is missing or empty."));
         }
-        else if (!options.FoundryEndpoint.IsAbsoluteUri)
+        else if (!options.Foundry.Endpoint.IsAbsoluteUri)
         {
-            retVal.AddResult(ValidateOptionsResult.Fail($"'{nameof(AiOptions.FoundryEndpoint)}' must be an absolute URI"));
-        }
-
-        if (string.IsNullOrWhiteSpace(options.AgentId))
-        {
-            retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{nameof(AiOptions.AgentId)}' is missing or empty."));
+            retVal.AddResult(ValidateOptionsResult.Fail($"'{ChatBotConstants.Configuration.Foundry.Endpoint}' must be an absolute URI"));
         }
 
-        if (string.IsNullOrWhiteSpace(options.LocalAgentModel))
+        if (string.IsNullOrWhiteSpace(options.Foundry.AgentId))
         {
-            retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{nameof(AiOptions.LocalAgentModel)}' is missing or empty."));
+            retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{ChatBotConstants.Configuration.Foundry.AgentId}' is missing or empty."));
         }
 
-        if (string.IsNullOrWhiteSpace(options.OpenAIApiVersion))
+        if (string.IsNullOrWhiteSpace(options.Foundry.LocalAgentModel))
         {
-            retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{nameof(AiOptions.OpenAIApiVersion)}' is missing or empty."));
+            retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{ChatBotConstants.Configuration.Foundry.LocalAgentModel}' is missing or empty."));
         }
 
-        if (options.MaxLocalAgentHandoffs <= 0)
+        if (string.IsNullOrWhiteSpace(options.Foundry.OpenAIApiVersion))
         {
-            retVal.AddResult(ValidateOptionsResult.Fail($"'{nameof(AiOptions.MaxLocalAgentHandoffs)}' must be greater than zero."));
+            retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{ChatBotConstants.Configuration.Foundry.OpenAIApiVersion}' is missing or empty."));
         }
 
-        if (options.MaxWorkflowSteps <= 0)
+        if (options.Foundry.MaxLocalAgentHandoffs <= 0)
         {
-            retVal.AddResult(ValidateOptionsResult.Fail($"'{nameof(AiOptions.MaxWorkflowSteps)}' must be greater than zero."));
+            retVal.AddResult(ValidateOptionsResult.Fail($"'{ChatBotConstants.Configuration.Foundry.MaxLocalAgentHandoffs}' must be greater than zero."));
         }
 
-        if (options.WorkflowSoftTimeoutSeconds <= 0)
+        if (options.Foundry.MaxWorkflowSteps <= 0)
         {
-            retVal.AddResult(ValidateOptionsResult.Fail($"'{nameof(AiOptions.WorkflowSoftTimeoutSeconds)}' must be greater than zero."));
+            retVal.AddResult(ValidateOptionsResult.Fail($"'{ChatBotConstants.Configuration.Foundry.MaxWorkflowSteps}' must be greater than zero."));
         }
 
-        if (options.WorkflowHardTimeoutSeconds <= options.WorkflowSoftTimeoutSeconds)
+        if (options.Foundry.WorkflowSoftTimeoutSeconds <= 0)
         {
-            retVal.AddResult(ValidateOptionsResult.Fail($"'{nameof(AiOptions.WorkflowHardTimeoutSeconds)}' must be greater than '{nameof(AiOptions.WorkflowSoftTimeoutSeconds)}'."));
+            retVal.AddResult(ValidateOptionsResult.Fail($"'{ChatBotConstants.Configuration.Foundry.WorkflowSoftTimeoutSeconds}' must be greater than zero."));
         }
 
-        if (options.MaxPrematureLocalLookupRetries < 0)
+        if (options.Foundry.WorkflowHardTimeoutSeconds <= options.Foundry.WorkflowSoftTimeoutSeconds)
         {
-            retVal.AddResult(ValidateOptionsResult.Fail($"'{nameof(AiOptions.MaxPrematureLocalLookupRetries)}' must be zero or greater."));
+            retVal.AddResult(ValidateOptionsResult.Fail($"'{ChatBotConstants.Configuration.Foundry.WorkflowHardTimeoutSeconds}' must be greater than '{ChatBotConstants.Configuration.Foundry.WorkflowSoftTimeoutSeconds}'."));
         }
 
-        if (options.EvaluationSettings.MaxAnswerEvaluationRetries < 0)
+        if (options.Foundry.MaxPrematureLocalLookupRetries < 0)
         {
-            retVal.AddResult(ValidateOptionsResult.Fail($"'{nameof(AiOptions.EvaluationSettings)}.{nameof(AiEvaluationSettings.MaxAnswerEvaluationRetries)}' must be zero or greater."));
+            retVal.AddResult(ValidateOptionsResult.Fail($"'{ChatBotConstants.Configuration.Foundry.MaxPrematureLocalLookupRetries}' must be zero or greater."));
         }
 
-        if (options.EvaluationSettings.TimeoutSeconds <= 0)
+        if (options.Foundry.EvaluationSettings.MaxAnswerEvaluationRetries < 0)
         {
-            retVal.AddResult(ValidateOptionsResult.Fail($"'{nameof(AiOptions.EvaluationSettings)}.{nameof(AiEvaluationSettings.TimeoutSeconds)}' must be greater than zero."));
+            retVal.AddResult(ValidateOptionsResult.Fail($"'{ChatBotConstants.Configuration.Foundry.EvaluationSettings.MaxAnswerEvaluationRetries}' must be zero or greater."));
+        }
+
+        if (options.Foundry.EvaluationSettings.TimeoutSeconds <= 0)
+        {
+            retVal.AddResult(ValidateOptionsResult.Fail($"'{ChatBotConstants.Configuration.Foundry.EvaluationSettings.TimeoutSeconds}' must be greater than zero."));
         }
 
         if (options.DefaultTeamNumber <= 0)
