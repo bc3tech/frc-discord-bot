@@ -108,7 +108,7 @@ public static class DependencyInjectionExtensions
                 options.Endpoint = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.Endpoint);
                 options.DeploymentName = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.LocalAgentModel);
             })
-            .UseConversationStore<TableConversationStore>()
+            .WithConversationStore<TableConversationStore>()
             .AddTool<MealSignupInfoTool>()
             .AddTool<TbaApiSurfaceTool>()
             .AddTool<TbaApiTool>()

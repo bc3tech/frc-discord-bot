@@ -15,6 +15,7 @@
     <Project Path="gpt/src/BC3Technologies.DiscordGpt.Core/BC3Technologies.DiscordGpt.Core.csproj" />
     <Project Path="gpt/src/BC3Technologies.DiscordGpt.Discord/BC3Technologies.DiscordGpt.Discord.csproj" />
     <Project Path="gpt/src/BC3Technologies.DiscordGpt.Hosting/BC3Technologies.DiscordGpt.Hosting.csproj" />
+    <Project Path="gpt/src/BC3Technologies.DiscordGpt.Storage.Blob/BC3Technologies.DiscordGpt.Storage.Blob.csproj" />
     <Project Path="gpt/src/BC3Technologies.DiscordGpt.Storage.TableStorage/BC3Technologies.DiscordGpt.Storage.TableStorage.csproj" />
   </Folder>
   <Folder Name="/Tests/">

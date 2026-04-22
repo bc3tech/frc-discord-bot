@@ -30,6 +30,7 @@
  		<PackageReference Include="OpenTelemetry.Instrumentation.Http" />
  	</ItemGroup>
   	<ItemGroup>
+  		<ProjectReference Include="..\gpt\src\BC3Technologies.DiscordGpt.Storage.Blob\BC3Technologies.DiscordGpt.Storage.Blob.csproj" />
   		<ProjectReference Include="..\services\FIRST\src\FIRST\FIRST.csproj" />
 		<ProjectReference Include="..\services\ChatBot\ChatBot.csproj" />
   		<ProjectReference Include="..\services\FRCColors\FRCColors.csproj" />
@@ -37,12 +38,8 @@
   		<ProjectReference Include="..\services\TheBlueAlliance\src\TheBlueAlliance\TheBlueAlliance.csproj" />
   	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\gpt\src\BC3Technologies.DiscordGpt.Hosting\BC3Technologies.DiscordGpt.Hosting.csproj" />
-		<ProjectReference Include="..\gpt\src\BC3Technologies.DiscordGpt.Discord\BC3Technologies.DiscordGpt.Discord.csproj" />
 		<ProjectReference Include="..\gpt\src\BC3Technologies.DiscordGpt.Storage.TableStorage\BC3Technologies.DiscordGpt.Storage.TableStorage.csproj" />
-		<ProjectReference Include="..\gpt\src\BC3Technologies.DiscordGpt.Copilot\BC3Technologies.DiscordGpt.Copilot.csproj" />
 		<ProjectReference Include="..\gpt\src\BC3Technologies.DiscordGpt.Copilot.Foundry\BC3Technologies.DiscordGpt.Copilot.Foundry.csproj" />
-		<ProjectReference Include="..\gpt\src\BC3Technologies.DiscordGpt.Core\BC3Technologies.DiscordGpt.Core.csproj" />
 	</ItemGroup>
 	<ItemGroup>
  		<None Update="appsettings.development.json">
