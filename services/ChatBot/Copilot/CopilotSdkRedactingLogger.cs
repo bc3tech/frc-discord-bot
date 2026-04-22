@@ -12,22 +12,22 @@ internal sealed partial class CopilotSdkRedactingLogger(ILogger innerLogger) : I
 
     public IDisposable? BeginScope<TState>(TState state)
         where TState : notnull
-        => this._innerLogger.BeginScope(SanitizeScopeState(state));
+        => _innerLogger.BeginScope(SanitizeScopeState(state));
 
-    public bool IsEnabled(LogLevel logLevel) => this._innerLogger.IsEnabled(logLevel);
+    public bool IsEnabled(LogLevel logLevel) => _innerLogger.IsEnabled(logLevel);
 
     public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
     {
         ArgumentNullException.ThrowIfNull(formatter);
 
-        if (!this._innerLogger.IsEnabled(logLevel))
+        if (!_innerLogger.IsEnabled(logLevel))
         {
             return;
         }
 
         string renderedMessage = Redact(formatter(state, exception));
         SanitizedLogState sanitizedState = new(SanitizeStructuredState(state), renderedMessage);
-        this._innerLogger.Log(logLevel, eventId, sanitizedState, exception, static (sanitized, _) => sanitized.RenderedMessage);
+        _innerLogger.Log(logLevel, eventId, sanitizedState, exception, static (sanitized, _) => sanitized.RenderedMessage);
     }
 
     private static IReadOnlyList<KeyValuePair<string, object?>> SanitizeStructuredState<TState>(TState state)

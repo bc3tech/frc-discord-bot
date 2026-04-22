@@ -23,51 +23,51 @@ internal sealed partial class CopilotClientFactory(
 
     public async ValueTask<CopilotClient> GetStartedClientAsync(CancellationToken cancellationToken = default)
     {
-        if (this._client is not null)
+        if (_client is not null)
         {
-            return this._client;
+            return _client;
         }
 
-        await this._sync.WaitAsync(cancellationToken).ConfigureAwait(false);
+        await _sync.WaitAsync(cancellationToken).ConfigureAwait(false);
         try
         {
-            if (this._client is not null)
+            if (_client is not null)
             {
-                return this._client;
+                return _client;
             }
 
-            CopilotClient client = new(this.CreateClientOptions());
-            Log.StartingCopilotClient(this._logger, this._options.Copilot.Model, this._options.Foundry.Endpoint, useLoggedInUser: false);
+            CopilotClient client = new(CreateClientOptions());
+            Log.StartingCopilotClient(_logger, _options.Copilot.Model, _options.Foundry.Endpoint, useLoggedInUser: false);
             try
             {
                 await client.StartAsync(cancellationToken).WaitAsync(ClientStartupTimeout, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception e) when (e is not OperationCanceledException and not TaskCanceledException)
             {
-                await TryDisposeClientAsync(client, this._logger, cancellationToken).ConfigureAwait(false);
-                Log.CopilotClientStartupFailed(this._logger, e, this._options.Copilot.Model, this._options.Foundry.Endpoint, useLoggedInUser: false);
+                await TryDisposeClientAsync(client, _logger).ConfigureAwait(false);
+                Log.CopilotClientStartupFailed(_logger, e, _options.Copilot.Model, _options.Foundry.Endpoint, useLoggedInUser: false);
                 throw;
             }
 
-            Log.CopilotClientStarted(this._logger, this._options.Copilot.Model, this._options.Foundry.Endpoint);
-            this._client = client;
+            Log.CopilotClientStarted(_logger, _options.Copilot.Model, _options.Foundry.Endpoint);
+            _client = client;
             return client;
         }
         finally
         {
-            _ = this._sync.Release();
+            _ = _sync.Release();
         }
     }
 
     public async ValueTask DisposeAsync()
     {
-        if (this._client is not null)
+        if (_client is not null)
         {
-            await this._client.DisposeAsync().ConfigureAwait(false);
-            this._client = null;
+            await _client.DisposeAsync().ConfigureAwait(false);
+            _client = null;
         }
 
-        this._sync.Dispose();
+        _sync.Dispose();
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Resilience", "EA0014:The async method doesn't support cancellation", Justification = "Not valid on Dispose semantics")]
@@ -93,15 +93,15 @@ internal sealed partial class CopilotClientFactory(
         {
             AutoStart = false,
             Cwd = Directory.GetCurrentDirectory(),
-            Logger = this._sdkLogger,
+            Logger = _sdkLogger,
             Port = 0,
             UseStdio = false,
             UseLoggedInUser = false,
         };
 
-        if (!string.IsNullOrWhiteSpace(this._options.Copilot.LogLevel))
+        if (!string.IsNullOrWhiteSpace(_options.Copilot.LogLevel))
         {
-            options.LogLevel = this._options.Copilot.LogLevel;
+            options.LogLevel = _options.Copilot.LogLevel;
         }
 
         return options;
