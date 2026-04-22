@@ -155,13 +155,11 @@ public static class DependencyInjectionExtensions
                 cfg.Infer = true;
             })
             .WithBlobSessionStorage(tokenCredential, blobServiceUri, options => options.ContainerName = ChatBotConstants.ServiceKeys.BlobContainer_CopilotSessions)
-            .WithConversationStore<TableConversationStore>()
+            .WithTableConversationStore(options => options.TableName = ChatBotConstants.ServiceKeys.TableClient_UserChatAgentThreads)
             .AddTool<MealSignupInfoTool>()
             .AddTool<TbaApiSurfaceTool>()
             .AddTool<TbaApiTool>()
             .AddTool<StatboticsTool>();
-
-        services.AddTableConversationStore(options => options.TableName = ChatBotConstants.ServiceKeys.TableClient_UserChatAgentThreads);
 
         // Conversation telemetry: persist root span context across Function invocations so all
         // turns of a Discord conversation roll up into a single Application Insights Trace.
