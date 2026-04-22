@@ -140,6 +140,10 @@ public static class DependencyInjectionExtensions
         });
         services.Replace(ServiceDescriptor.Singleton<IConversationTraceContextStore, TableConversationTraceContextStore>());
 
+        // Per-session bridge: every Copilot session created by the harness emits
+        // execute_tool child spans under the in-flight chat.turn activity.
+        services.AddSingleton<BC3Technologies.DiscordGpt.Copilot.ISessionEventSubscriber, ChatBot.Diagnostics.CopilotTelemetrySessionSubscriber>();
+
         services.AddSingleton<IChatClient>(sp =>
         {
             IChatClient innerClient = sp.GetRequiredService<ChatClient>().AsIChatClient();

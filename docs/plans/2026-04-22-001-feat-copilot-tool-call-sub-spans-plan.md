@@ -606,3 +606,42 @@ preserved (in a checkpoint or in this plan's "Spike Findings" addendum).
 - Related work: `feat/telemetry` branch, commits `01590f1, ac829e8, 8deddb2, 65c14ff, 62bcb46`.
 - External: <https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-spans/>
 - Prior art: <https://github.com/brandonh-msft/agentframework-opentelemetry>
+
+
+---
+
+## Spike Findings (Unit 1) — 2026-04-22
+
+Live run against `CopilotClient` 0.2.2 + GitHub Models, full output in `lib/CopilotSdk.OpenTelemetry.Spike/bin/Debug/net10.0/spike-findings.md` (preserved during Unit 1 only).
+
+
+### Decision-gate results
+
+| Gate | Result | Notes |
+|------|--------|-------|
+| **G1** — `client.On(SessionLifecycleEvent)` fires `session.created` for sessions opened via the same client's `CreateSessionAsync` | ✅ YES | Fires `~225ms` after `CreateSessionAsync` returns (t+2278 → t+2505). Type string is `session.created` (not `session_started` as plan guessed). |
+| **G2** — `ResumeSessionAsync` returns a session whose subscription delivers the *live* event stream | ✅ YES | Both `ResumeSessionConfig.OnEvent` (atomic) and post-resume `session.On()` delivered the full stream: `SessionCustomAgentsUpdatedEvent`, `SessionToolsUpdatedEvent`, `UserMessageEvent`, `AssistantTurnStartEvent`, `SessionUsageInfoEvent`, `AssistantTurnEndEvent`, `SessionErrorEvent`, `SessionIdleEvent`. |
+| **G3** — Lifecycle fires before first tool / first assistant event | ✅ YES | Lifecycle `session.created` at t+2505. First assistant event (`AssistantTurnStartEvent`) at t+3753. ~1248 ms head start — ample to subscribe before any tool span needs to be emitted. |
+| **G4** — `Activity.Current` is preserved inside lifecycle callback | ✅ YES | `Activity.Current` in lifecycle handler == calling `spike.turn` activity, even though callback runs on a different thread (thread 4 → thread 9). The SDK preserves `AsyncLocal<T>`. Activity is also preserved on every event delivery via the resumed handle (across threads 4, 6, 9, 11). |
+
+### Important nuances
+
+- **`ResumeSessionConfig` requires `Provider` and `OnPermissionRequest`** (mirroring create-time config). The lifecycle listener must capture the same `ProviderConfig` used at `CreateSessionAsync` to call resume successfully. In production, this means our DI registration needs access to `IOptions<DiscordGptOptions>` (or whatever holds the provider/key) and likely cooperation with `gpt/` for the provider config — **OR** we let the existing `Provider` config flow naturally because the registered `CopilotClient` already has `GitHubToken` and the SDK may accept a minimal `ResumeSessionConfig` once the create-side identity is established. **Implementation-time question**: re-test resume with only `OnPermissionRequest = ApproveAll` once we are inside the production app where the underlying CLI is authenticated via `GitHubToken` (not via per-session Provider).
+- **`ResumeSessionConfig.OnEvent`** is the atomic subscription — preferred over post-resume `session.On()` because it eliminates the small window between resume completion and subscribe.
+- **Startup event gap.** Between `CreateSessionAsync` return (t+2278) and lifecycle firing (t+2505), a couple of bookkeeping events are emitted on the primary handle (`SessionStartEvent`, `PendingMessagesModifiedEvent`) that the resumed handle does not see. **None are tool / assistant events**, so this gap is irrelevant for tool span emission.
+- **Threading.** SDK invokes handlers on threadpool threads (observed: 4, 6, 9, 10, 11). All handlers received the correct `Activity.Current`. The translator's existing `ConcurrentDictionary<string, Activity>` keyed on `ToolCallId` already handles concurrency correctly.
+
+### Recommended path: **Path A (zero-touch lifecycle/resume)**
+
+Proceed to **Unit 2A**:
+- New `CopilotSessionLifecycleListener : IHostedService` in `lib/CopilotSdk.OpenTelemetry/`
+- `StartAsync` → `_client.On(lifecycle => …)` returning the subscription handle (stored, disposed in `StopAsync`)
+- On `session.created` → `_client.ResumeSessionAsync(evt.SessionId, new ResumeSessionConfig { OnPermissionRequest = ApproveAll, OnEvent = e => _translator.Handle(e) })` — passing `OnEvent` is preferred over a post-resume `.On()` call (atomic, no race window).
+- `CopilotSessionTelemetry` exposes a per-session entry-point (`HandleEvent(SessionEvent)` against an internal `ConcurrentDictionary<sessionId, perSessionState>`), seeded by the lifecycle listener with `(sessionId, Activity.Current)` at lifecycle-callback time.
+- **No changes to `gpt/`.** The existing `session.On(...)` subscription in `GitHubCopilotPromptHarness` continues unchanged (it powers progress dispatch + tool-call counting). Path A's resumed-handle subscription runs in parallel.
+
+### Unresolved question for Unit 2A
+
+Whether `ResumeSessionConfig` strictly requires `Provider`/`Model` again in the **production** wiring (where `CopilotClient` is constructed with `GitHubToken` rather than a session-level `Provider`). Two options:
+1. Resume succeeds with just `OnPermissionRequest` + `OnEvent` (because the CLI knows the session and its provider config). **Test this first.**
+2. Resume requires the original `Provider`. We'd need the listener to capture the create-time `SessionConfig.Provider` somehow — possibly by also subscribing to `client.On("session.updated")` to catch metadata, or by intercepting `CreateSessionAsync` calls (which would re-introduce coupling to `gpt/`). **Acceptable fallback**: register an `IConfigureOptions<DiscordGptOptions>` style hook that knows the provider config (it already lives in `gpt/` DI), and pass it explicitly to the listener.

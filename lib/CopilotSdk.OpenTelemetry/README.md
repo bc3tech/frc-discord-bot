@@ -126,8 +126,24 @@ prompt-harness code.
 
 Practically:
 
-- If you control the prompt harness (or the framework that wraps it — e.g. your own
-  fork of `BC3Technologies.DiscordGpt`), call `CopilotSessionTelemetry.Subscribe(session)`
+- If you use [`BC3Technologies.DiscordGpt.Copilot`](../../gpt/src/BC3Technologies.DiscordGpt.Copilot/),
+  the harness exposes an `ISessionEventSubscriber` DI extension point. Register a
+  subscriber that calls `CopilotSessionTelemetry.Subscribe(session, logger)` and the
+  harness will invoke it on every freshly-created session and dispose the returned
+  handle when the prompt finishes:
+
+  ```csharp
+  internal sealed class CopilotTelemetrySessionSubscriber(
+      ILogger<CopilotTelemetrySessionSubscriber> logger) : ISessionEventSubscriber
+  {
+      public IDisposable Subscribe(CopilotSession session)
+          => CopilotSessionTelemetry.Subscribe(session, logger);
+  }
+
+  services.AddSingleton<ISessionEventSubscriber, CopilotTelemetrySessionSubscriber>();
+  ```
+
+- If you control your own prompt harness, call `CopilotSessionTelemetry.Subscribe(session)`
   immediately after `CreateSessionAsync` and you get tool/sub-agent spans automatically
   parented to the active turn span.
 - If you don't, you can still use this library for **conversation-root + per-turn**
