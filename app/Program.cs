@@ -133,7 +133,7 @@ host.Services.AddFrcChatBot(
     out bool hasValidChatBotConfiguration,
     out string[] chatBotConfigurationFailures,
     credential,
-    bsc.Uri);
+    ResolveCopilotBlobStorageUri(blobsEndpoint, bsc.Uri));
 
 var builtHost = host.Build();
 var startupLogger = builtHost.Services.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");
@@ -149,3 +149,15 @@ else
 }
 
 await builtHost.RunAsync().ConfigureAwait(false);
+
+static Uri ResolveCopilotBlobStorageUri(Uri? configuredBlobServiceUri, Uri blobServiceClientUri)
+{
+    Uri candidate = configuredBlobServiceUri ?? blobServiceClientUri;
+    if (!Uri.UriSchemeHttps.Equals(candidate.Scheme, StringComparison.OrdinalIgnoreCase))
+    {
+        throw new InvalidOperationException(
+            $"Copilot blob storage URI must be HTTPS when using credential-based auth. Configure '{Constants.Configuration.Azure.Storage.BlobsEndpoint}' as an HTTPS endpoint. Received: {candidate}");
+    }
+
+    return candidate;
+}

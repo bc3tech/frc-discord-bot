@@ -169,6 +169,29 @@ public sealed class DiscordGptIntegrationTests
     }
 
     [Fact]
+    public void AddFrcChatBotWhenBlobServiceUriIsHttpThrowsInvalidOperationException()
+    {
+        IConfiguration configuration = BuildConfiguration(
+            ("AI:Foundry:Endpoint", "https://example.services.ai.azure.com/api/projects/frc"),
+            ("AI:Foundry:LocalAgentModel", "gpt-5.4-mini"),
+            ("AI:Foundry:MealSignupGeniusId", "signup-board"),
+            ("Discord:Token", "discord-token"),
+            ("Discord:ApplicationId", "1234567890"),
+            ("TbaApiKey", "tba-api-key"));
+
+        ServiceCollection services = new();
+        services.AddSingleton(configuration);
+        services.AddLogging();
+        services.AddSingleton(new TableServiceClient("UseDevelopmentStorage=true"));
+
+        Assert.Throws<InvalidOperationException>(() =>
+            services.AddFrcChatBot(
+                configuration,
+                Mock.Of<TokenCredential>(),
+                new Uri("http://storageacct.blob.core.windows.net")));
+    }
+
+    [Fact]
     public async Task ChatThreadResetterClearsExpectedConversationScopes()
     {
         Mock<IConversationStore> store = new(MockBehavior.Strict);

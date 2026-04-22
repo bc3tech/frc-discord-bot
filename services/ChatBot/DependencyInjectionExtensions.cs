@@ -85,6 +85,11 @@ public static class DependencyInjectionExtensions
         isEnabled = true;
         ArgumentNullException.ThrowIfNull(tokenCredential);
         ArgumentNullException.ThrowIfNull(blobServiceUri);
+        if (!Uri.UriSchemeHttps.Equals(blobServiceUri.Scheme, StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException(
+                $"Copilot blob storage URI must use HTTPS when credential-based auth is enabled. Received: {blobServiceUri}");
+        }
 
         services
             .AddHttpClient(ChatBotConstants.HttpClients.MealSignupInfo, MealSignupInfoTool.ConfigureHttpClient)
