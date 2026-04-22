@@ -96,7 +96,9 @@ public sealed class DiscordGptIntegrationTests
         services.AddSingleton(configuration);
         services.AddLogging();
         services.AddSingleton(new TableServiceClient("UseDevelopmentStorage=true"));
-        services.AddFrcChatBot(configuration, Mock.Of<TokenCredential>(), new Uri("https://storageacct.blob.core.windows.net"));
+
+        services.TryAddChatBot(configuration, Mock.Of<TokenCredential>(), new Uri("https://storageacct.blob.core.windows.net"), out bool success, out string[] validationFailures);
+        Assert.True(success);
 
         using ServiceProvider provider = services.BuildServiceProvider(validateScopes: true);
 
@@ -133,7 +135,9 @@ public sealed class DiscordGptIntegrationTests
         services.AddSingleton(configuration);
         services.AddLogging();
         services.AddSingleton(new TableServiceClient("UseDevelopmentStorage=true"));
-        services.AddFrcChatBot(configuration, Mock.Of<TokenCredential>(), new Uri("https://storageacct.blob.core.windows.net"));
+
+        services.TryAddChatBot(configuration, Mock.Of<TokenCredential>(), new Uri("https://storageacct.blob.core.windows.net"), out bool success, out string[] validationFailures);
+        Assert.True(success);
 
         using ServiceProvider provider = services.BuildServiceProvider(validateScopes: true);
         DiscordGptCoreOptions coreOptions = provider.GetRequiredService<IOptions<DiscordGptCoreOptions>>().Value;
@@ -152,12 +156,12 @@ public sealed class DiscordGptIntegrationTests
         services.AddSingleton(configuration);
         services.AddLogging();
         services.AddSingleton(new TableServiceClient("UseDevelopmentStorage=true"));
-        services.AddFrcChatBot(
+        services.TryAddChatBot(
             configuration,
-            out bool isEnabled,
-            out string[] validationFailures,
             Mock.Of<TokenCredential>(),
-            new Uri("https://storageacct.blob.core.windows.net"));
+            new Uri("https://storageacct.blob.core.windows.net"),
+            out bool isEnabled,
+            out string[] validationFailures);
         Assert.False(isEnabled);
         Assert.Contains(validationFailures, failure => failure.Contains("AI:Foundry:LocalAgentModel", StringComparison.Ordinal));
         Assert.Contains(validationFailures, failure => failure.Contains("Discord:Token", StringComparison.Ordinal));
@@ -184,11 +188,8 @@ public sealed class DiscordGptIntegrationTests
         services.AddLogging();
         services.AddSingleton(new TableServiceClient("UseDevelopmentStorage=true"));
 
-        Assert.Throws<InvalidOperationException>(() =>
-            services.AddFrcChatBot(
-                configuration,
-                Mock.Of<TokenCredential>(),
-                new Uri("http://storageacct.blob.core.windows.net")));
+        services.TryAddChatBot(configuration, Mock.Of<TokenCredential>(), new Uri("http://storageacct.blob.core.windows.net"), out bool success, out string[] validationFailures);
+        Assert.False(success);
     }
 
     [Fact]

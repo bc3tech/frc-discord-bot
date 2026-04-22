@@ -130,12 +130,12 @@ host.Services.AddSingleton(_ =>
     return blobContainer;
 });
 
-host.Services.AddFrcChatBot(
+host.Services.TryAddChatBot(
     host.Configuration,
-    out bool hasValidChatBotConfiguration,
-    out string[] chatBotConfigurationFailures,
     credential,
-    ResolveCopilotBlobStorageUri(blobsEndpoint, bsc.Uri));
+    ResolveCopilotBlobStorageUri(blobsEndpoint, bsc.Uri),
+    out bool hasValidChatBotConfiguration,
+    out string[] chatBotConfigurationFailures);
 
 var builtHost = host.Build();
 var startupLogger = builtHost.Services.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");

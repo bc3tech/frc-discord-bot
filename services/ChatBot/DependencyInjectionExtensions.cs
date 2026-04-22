@@ -62,37 +62,25 @@ public static class DependencyInjectionExtensions
         return validationFailures.Length is 0;
     }
 
-    public static IServiceCollection AddFrcChatBot(
+    public static IServiceCollection TryAddChatBot(
         this IServiceCollection services,
         IConfiguration configuration,
-        TokenCredential? tokenCredential = null,
-        Uri? blobServiceUri = null)
-        => AddFrcChatBot(services, configuration, out _, out _, tokenCredential, blobServiceUri);
-
-    public static IServiceCollection AddFrcChatBot(
-        this IServiceCollection services,
-        IConfiguration configuration,
-        out bool isEnabled,
-        out string[] validationFailures,
-        TokenCredential? tokenCredential = null,
-        Uri? blobServiceUri = null)
+        TokenCredential tokenCredential,
+        Uri blobServiceUri,
+        out bool success,
+        out string[] validationFailures)
     {
-        ArgumentNullException.ThrowIfNull(services);
-        ArgumentNullException.ThrowIfNull(configuration);
-
         if (!configuration.HasValidChatBotConfiguration(out validationFailures))
         {
-            isEnabled = false;
+            success = false;
             return services;
         }
 
-        isEnabled = true;
-        ArgumentNullException.ThrowIfNull(tokenCredential);
-        ArgumentNullException.ThrowIfNull(blobServiceUri);
         if (!Uri.UriSchemeHttps.Equals(blobServiceUri.Scheme, StringComparison.OrdinalIgnoreCase))
         {
-            throw new InvalidOperationException(
-                $"Copilot blob storage URI must use HTTPS when credential-based auth is enabled. Received: {blobServiceUri}");
+            success = false;
+            validationFailures = [$"Copilot blob storage URI must use HTTPS when credential-based auth is enabled. Received: {blobServiceUri}"];
+            return services;
         }
 
         services
@@ -176,6 +164,7 @@ public static class DependencyInjectionExtensions
 
         services.AddSingleton<MessageHandler>();
 
+        success = true;
         return services;
     }
 
