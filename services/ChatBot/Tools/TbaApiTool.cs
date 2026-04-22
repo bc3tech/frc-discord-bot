@@ -11,7 +11,9 @@ using Microsoft.Extensions.Logging;
 
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 internal sealed class TbaApiTool(
     IConfiguration configuration,
@@ -21,8 +23,10 @@ internal sealed class TbaApiTool(
     private const string TbaApiSurfaceResourceName = "ChatBot.OpenApi.thebluealliance.json";
     internal const string DescribeSurfaceToolName = "tba_api_surface";
     internal const string QueryToolName = "tba_api";
+    internal const string LastCompetitionToolName = "tba_last_comp";
     internal const string DescribeSurfaceToolDescription = "Describes the legitimate The Blue Alliance API v3 endpoint surface.";
     internal const string QueryToolDescription = "Calls the official The Blue Alliance API v3 for FRC competition data.";
+    internal const string LastCompetitionToolDescription = "Resolves a team's most recent completed competition and grounded result details from TBA.";
 
     private readonly string _tbaApiKey = Throws.IfNullOrWhiteSpace(configuration["TbaApiKey"]);
 
@@ -30,9 +34,10 @@ internal sealed class TbaApiTool(
         [
             AsSurfaceFunction(),
             AsFunction(),
+            AsLastCompetitionFunction(),
         ];
 
-    public override IReadOnlyList<string> ToolNames => [DescribeSurfaceToolName, QueryToolName];
+    public override IReadOnlyList<string> ToolNames => [DescribeSurfaceToolName, QueryToolName, LastCompetitionToolName];
 
     public string Name => QueryToolName;
 
@@ -47,6 +52,11 @@ internal sealed class TbaApiTool(
         => AIFunctionFactory.Create(
             DescribeApiSurfaceAsync,
             CreateSkippableFunctionOptions(DescribeSurfaceToolName, DescribeSurfaceToolDescription));
+
+    internal AIFunction AsLastCompetitionFunction()
+        => AIFunctionFactory.Create(
+            ResolveLastCompetitionAsync,
+            CreateSkippableFunctionOptions(LastCompetitionToolName, LastCompetitionToolDescription));
 
     [Description("Describes the legitimate The Blue Alliance API v3 surface from the embedded OpenAPI spec. Use this before calling tba_api whenever you are not already sure of the exact endpoint template. You can pass a topic like team, event, district, match, rankings, awards, media, alliances, or status to narrow the list.")]
     public Task<string> DescribeApiSurfaceAsync(
@@ -81,7 +91,7 @@ internal sealed class TbaApiTool(
     }
 
     [Description("Calls the official The Blue Alliance API (https://www.thebluealliance.com/apidocs/v3) for FRC competition data. Use only legitimate API v3 paths that exist in the real TBA API surface. If you are not sure of the exact endpoint template, call tba_api_surface first. Provide a safe relative API path beginning with /. Example: /team/frc2046/events/2025/simple. Optionally provide a query string without a leading question mark.")]
-    public Task<string> QueryTbaAsync(
+    public async Task<string> QueryTbaAsync(
         [Description("Relative API path beginning with / that must match a legitimate TBA API v3 endpoint template once path parameters are substituted. Example: /team/frc2046/events/2025/simple")] string path,
         [Description("Optional query string without a leading question mark. Example: keys=1")] string? query = null,
         CancellationToken cancellationToken = default)
@@ -92,7 +102,7 @@ internal sealed class TbaApiTool(
         if (endpoint is null)
         {
             string suggestions = string.Join(", ", s_tbaApiSurface.Value.SuggestTemplates(path, 5));
-            return Task.FromResult(JsonSerializer.Serialize(new
+            return JsonSerializer.Serialize(new
             {
                 apiRequest = new
                 {
@@ -104,35 +114,291 @@ internal sealed class TbaApiTool(
                 error = "The requested path does not match any legitimate The Blue Alliance API v3 endpoint in the embedded OpenAPI spec.",
                 guidance = "Call tba_api_surface first to discover the real endpoint template, then retry with a concrete path that matches it.",
                 suggestions = suggestions.Length > 0 ? suggestions : null,
-            }));
+            });
         }
 
-        try
+        string response = await SendGetAsync(
+            clientName: "tba-api",
+            path,
+            query,
+            citations: BuildCitations(path),
+            cancellationToken: cancellationToken).ConfigureAwait(false);
+
+        return AugmentResponseWithRecoveryHints(response, path);
+    }
+
+    internal static string AugmentResponseWithRecoveryHints(string serializedResponse, string path)
+    {
+        using JsonDocument doc = JsonDocument.Parse(serializedResponse);
+        JsonElement root = doc.RootElement;
+
+        bool ok = root.TryGetProperty("ok", out JsonElement okElement) && okElement.GetBoolean();
+        bool isEmpty = ok && IsEmptyData(root);
+
+        if (ok && !isEmpty)
         {
-            return SendGetAsync(
-                clientName: "tba-api",
-                path,
-                query,
-                citations: BuildCitations(path),
-                cancellationToken: cancellationToken);
+            return serializedResponse;
         }
-        catch (HttpRequestException e) when (e.StatusCode is System.Net.HttpStatusCode.NotFound)
+
+        List<string> hints = BuildRecoveryHints(path, ok, isEmpty);
+        if (hints.Count is 0)
         {
-            string suggestions = string.Join(", ", s_tbaApiSurface.Value.SuggestTemplates(path, 5));
-            return Task.FromResult(JsonSerializer.Serialize(new
-            {
-                apiRequest = new
+            return serializedResponse;
+        }
+
+        // Re-serialize with recovery hints appended
+        var augmented = new Dictionary<string, JsonElement>();
+        foreach (JsonProperty property in root.EnumerateObject())
+        {
+            augmented[property.Name] = property.Value.Clone();
+        }
+
+        augmented["recoveryHints"] = JsonSerializer.SerializeToElement(hints);
+        if (isEmpty)
+        {
+            augmented["guidance"] = JsonSerializer.SerializeToElement(
+                "The request succeeded but returned no data. This usually means the season hasn't started, the resource doesn't exist yet, or the parameters are wrong. Follow the recovery hints before asking the user.");
+        }
+
+        return JsonSerializer.Serialize(augmented);
+    }
+
+    private static bool IsEmptyData(JsonElement root)
+    {
+        if (!root.TryGetProperty("data", out JsonElement data))
+        {
+            return true;
+        }
+
+        return data.ValueKind switch
+        {
+            JsonValueKind.Null or JsonValueKind.Undefined => true,
+            JsonValueKind.Array => data.GetArrayLength() is 0,
+            JsonValueKind.Object => !data.EnumerateObject().Any(),
+            JsonValueKind.String => data.GetString() is null or { Length: 0 },
+            _ => false,
+        };
+    }
+
+    internal static List<string> BuildRecoveryHints(string path, bool ok, bool isEmpty)
+    {
+        List<string> hints = [];
+        ReadOnlyCollection<string> segments = GetPathSegments(path);
+        if (segments.Count is 0)
+        {
+            return hints;
+        }
+
+        string rootType = segments[0].ToLowerInvariant();
+        int? yearInPath = TryExtractYear(segments);
+
+        switch (rootType)
+        {
+            case "team" when segments.Count >= 4 && segments[2].Equals("events", StringComparison.OrdinalIgnoreCase):
+                // /team/frc{N}/events/{year}/...
+                if (yearInPath is not null)
                 {
-                    path,
-                    kind = "api",
-                },
-                statusCode = 400,
-                ok = false,
-                error = "The requested path does not match any legitimate The Blue Alliance API v3 endpoint in the embedded OpenAPI spec.",
-                guidance = "Call tba_api_surface first to discover the real endpoint template, then retry with a concrete path that matches it.",
-                suggestions = suggestions.Length > 0 ? suggestions : null,
-            }));
+                    hints.Add($"No events found for this team in {yearInPath}. The {yearInPath} season may not have data yet. Try the previous year: {path.Replace($"/{yearInPath}/", $"/{yearInPath - 1}/")}");
+                }
+
+                break;
+
+            case "team" when segments.Count >= 4 && segments[2].Equals("event", StringComparison.OrdinalIgnoreCase):
+                // /team/frc{N}/event/{eventKey}/...
+                string teamKey = segments[1];
+                hints.Add($"Event key '{segments[3]}' not found or has no data for team {teamKey}. List the team's events first to find valid event keys: /team/{teamKey}/events/{yearInPath ?? DateTime.UtcNow.Year}/simple");
+                if (yearInPath is not null)
+                {
+                    hints.Add($"If the current year has no data, try: /team/{teamKey}/events/{yearInPath - 1}/simple");
+                }
+
+                break;
+
+            case "event":
+                // /event/{eventKey}/...
+                if (segments.Count >= 2)
+                {
+                    string eventKey = segments[1];
+                    int inferredYear = TryExtractYearFromEventKey(eventKey) ?? DateTime.UtcNow.Year;
+                    hints.Add($"Event '{eventKey}' not found or has no data. List all events for the year to find the correct key: /events/{inferredYear}/simple");
+                    if (inferredYear == DateTime.UtcNow.Year)
+                    {
+                        hints.Add($"If the current year has no events yet, try: /events/{inferredYear - 1}/simple");
+                    }
+                }
+
+                break;
+
+            case "match":
+                // /match/{matchKey}/...
+                if (segments.Count >= 2)
+                {
+                    string matchKey = segments[1];
+                    string? eventKeyFromMatch = TryExtractEventKeyFromMatchKey(matchKey);
+                    if (eventKeyFromMatch is not null)
+                    {
+                        hints.Add($"Match '{matchKey}' not found. List matches for the event: /event/{eventKeyFromMatch}/matches/simple");
+                    }
+                    else
+                    {
+                        hints.Add($"Match key '{matchKey}' not found. Verify the event key first, then list matches: /event/{{eventKey}}/matches/simple");
+                    }
+                }
+
+                break;
+
+            case "events":
+                // /events/{year}/...
+                if (yearInPath is not null)
+                {
+                    hints.Add($"No events found for {yearInPath}. The season may not have started. Try: /events/{yearInPath - 1}/simple");
+                }
+
+                break;
+
+            case "district":
+                // /district/{districtKey}/...
+                if (yearInPath is not null && segments.Count >= 2)
+                {
+                    hints.Add($"No data for district '{segments[1]}' in {yearInPath}. Try the previous year or verify the district abbreviation via /districts/{yearInPath}/simple");
+                }
+
+                break;
         }
+
+        // Generic year-based fallback if no specific hint was generated
+        if (hints.Count is 0 && yearInPath is not null && yearInPath >= DateTime.UtcNow.Year)
+        {
+            hints.Add($"No data found for {yearInPath}. The season may not have started yet. Try replacing the year with {yearInPath - 1}.");
+        }
+
+        if (!ok)
+        {
+            hints.Add("Do NOT ask the user for missing parameters. Try the suggested fallback paths first.");
+        }
+
+        return hints;
+    }
+
+    private static int? TryExtractYear(IReadOnlyList<string> segments)
+    {
+        foreach (string segment in segments)
+        {
+            if (segment.Length is 4 && int.TryParse(segment, CultureInfo.InvariantCulture, out int year) && year is >= 1992 and <= 2100)
+            {
+                return year;
+            }
+        }
+
+        return null;
+    }
+
+    private static int? TryExtractYearFromEventKey(string eventKey)
+    {
+        // TBA event keys start with a 4-digit year, e.g. "2025pnwcmp"
+        if (eventKey.Length >= 4 && int.TryParse(eventKey.AsSpan(0, 4), CultureInfo.InvariantCulture, out int year) && year is >= 1992 and <= 2100)
+        {
+            return year;
+        }
+
+        return null;
+    }
+
+    private static string? TryExtractEventKeyFromMatchKey(string matchKey)
+    {
+        // TBA match keys: "{eventKey}_qm1", "{eventKey}_sf1m1", etc.
+        int underscoreIndex = matchKey.LastIndexOf('_');
+        return underscoreIndex > 0 ? matchKey[..underscoreIndex] : null;
+    }
+
+    [Description("Resolves the team's most recent completed competition in TBA and returns grounded status + awards. Prefer this for questions like 'last comp', 'how did we do at our last event', or when the user gives a natural-language event name without a key. If seasonYear is omitted, the tool starts with the current year and falls back to earlier seasons.")]
+    public async Task<string> ResolveLastCompetitionAsync(
+        [Description("FRC team number. Example: 2046")] int teamNumber,
+        [Description("Optional season year. Example: 2026. Omit to start from current year and automatically fall back.")] int? seasonYear = null,
+        [Description("Optional natural-language event hint. Example: 'pnw district championships'.")] string? eventNameHint = null,
+        CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        if (teamNumber <= 0)
+        {
+            return JsonSerializer.Serialize(new
+            {
+                ok = false,
+                error = "teamNumber must be a positive integer.",
+            });
+        }
+
+        int currentYear = DateTime.UtcNow.Year;
+        int startYear = seasonYear ?? currentYear;
+        List<int> attemptedYears = [];
+        TbaEventSummary? selectedEvent = null;
+        int selectedYear = startYear;
+        for (int year = startYear; year >= Math.Max(startYear - 2, 1992); year--)
+        {
+            attemptedYears.Add(year);
+            TbaApiResult eventsResult = await GetTbaDataAsync($"/team/frc{teamNumber}/events/{year}/simple", cancellationToken).ConfigureAwait(false);
+            if (!eventsResult.Ok || eventsResult.Data is null || eventsResult.Data.Value.ValueKind is not JsonValueKind.Array)
+            {
+                continue;
+            }
+
+            TbaEventSummary[] events = eventsResult.Data.Value
+                .Deserialize<TbaEventSummary[]>(s_jsonOptions)
+                ?? [];
+            if (events.Length is 0)
+            {
+                continue;
+            }
+
+            selectedEvent = SelectEvent(events, eventNameHint);
+            if (selectedEvent is not null)
+            {
+                selectedYear = year;
+                break;
+            }
+        }
+
+        if (selectedEvent is null || string.IsNullOrWhiteSpace(selectedEvent.Key))
+        {
+            return JsonSerializer.Serialize(new
+            {
+                ok = false,
+                teamNumber,
+                requestedSeasonYear = seasonYear,
+                attemptedYears,
+                usedEventNameHint = !string.IsNullOrWhiteSpace(eventNameHint),
+                error = "Unable to resolve a completed event for this team from TBA. Try providing an exact event key.",
+            });
+        }
+
+        string eventKey = selectedEvent.Key!;
+        Task<TbaApiResult> statusTask = GetTbaDataAsync($"/team/frc{teamNumber}/event/{eventKey}/status", cancellationToken);
+        Task<TbaApiResult> awardsTask = GetTbaDataAsync($"/team/frc{teamNumber}/event/{eventKey}/awards", cancellationToken);
+        await Task.WhenAll(statusTask, awardsTask).ConfigureAwait(false);
+
+        return JsonSerializer.Serialize(new
+        {
+            ok = true,
+            teamNumber,
+            seasonYear = selectedYear,
+            requestedSeasonYear = seasonYear,
+            attemptedYears,
+            usedEventNameHint = !string.IsNullOrWhiteSpace(eventNameHint),
+            eventHint = string.IsNullOrWhiteSpace(eventNameHint) ? null : eventNameHint.Trim(),
+            eventData = selectedEvent,
+            teamStatus = statusTask.Result.Data,
+            teamAwards = awardsTask.Result.Data,
+            userReferencePages = new[]
+            {
+                new { title = "The Blue Alliance event page", url = $"https://www.thebluealliance.com/event/{eventKey}" },
+                new { title = "The Blue Alliance team page", url = $"https://www.thebluealliance.com/team/{teamNumber}" },
+            },
+            citations = new[]
+            {
+                new CitationLink("The Blue Alliance event page", $"https://www.thebluealliance.com/event/{eventKey}"),
+                new CitationLink("The Blue Alliance team page", $"https://www.thebluealliance.com/team/{teamNumber}"),
+            },
+        });
     }
 
     private static readonly Lazy<TbaApiSurface> s_tbaApiSurface = new(() =>
@@ -394,5 +660,146 @@ internal sealed class TbaApiTool(
 
             return lengthScore + prefixScore;
         }
+    }
+
+    private readonly record struct TbaApiResult(bool Ok, JsonElement? Data, string? Error);
+
+    private sealed record TbaEventSummary(
+        [property: JsonPropertyName("key")] string? Key,
+        [property: JsonPropertyName("name")] string? Name,
+        [property: JsonPropertyName("short_name")] string? ShortName,
+        [property: JsonPropertyName("event_code")] string? EventCode,
+        [property: JsonPropertyName("start_date")] string? StartDate,
+        [property: JsonPropertyName("end_date")] string? EndDate,
+        [property: JsonPropertyName("week")] int? Week,
+        [property: JsonPropertyName("district")] TbaDistrictSummary? District);
+
+    private sealed record TbaDistrictSummary(
+        [property: JsonPropertyName("abbreviation")] string? Abbreviation,
+        [property: JsonPropertyName("display_name")] string? DisplayName);
+
+    private static readonly JsonSerializerOptions s_jsonOptions = new(JsonSerializerDefaults.Web);
+
+    private static TbaEventSummary? SelectEvent(IEnumerable<TbaEventSummary> events, string? eventNameHint)
+    {
+        DateOnly today = DateOnly.FromDateTime(DateTime.UtcNow);
+        TbaEventSummary[] materializedEvents = [.. events.Where(static e => !string.IsNullOrWhiteSpace(e.Key))];
+        if (materializedEvents.Length is 0)
+        {
+            return null;
+        }
+
+        TbaEventSummary[] completed = [.. materializedEvents.Where(e => IsCompletedEvent(e, today))];
+        TbaEventSummary[] candidates = completed.Length > 0 ? completed : materializedEvents;
+        if (!string.IsNullOrWhiteSpace(eventNameHint))
+        {
+            string normalizedHint = eventNameHint.Trim().ToLowerInvariant();
+            string[] hintTokens =
+            [
+                .. normalizedHint
+                    .Split([' ', '-', '_', '/', ','], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                    .Select(static token => token.Trim())
+                    .Where(static token => token.Length > 1),
+            ];
+
+            TbaEventSummary? bestHintMatch = candidates
+                .Select(e => new
+                {
+                    Event = e,
+                    Score = ScoreEventNameHint(e, normalizedHint, hintTokens),
+                })
+                .Where(static x => x.Score > 0)
+                .OrderByDescending(static x => x.Score)
+                .ThenByDescending(x => ParseEventDate(x.Event.EndDate) ?? DateOnly.MinValue)
+                .Select(static x => x.Event)
+                .FirstOrDefault();
+            if (bestHintMatch is not null)
+            {
+                return bestHintMatch;
+            }
+        }
+
+        return candidates
+            .OrderByDescending(e => ParseEventDate(e.EndDate) ?? DateOnly.MinValue)
+            .ThenByDescending(static e => e.Week ?? int.MinValue)
+            .ThenByDescending(static e => e.Key, StringComparer.Ordinal)
+            .FirstOrDefault();
+    }
+
+    private static bool IsCompletedEvent(TbaEventSummary evt, DateOnly today)
+    {
+        DateOnly? endDate = ParseEventDate(evt.EndDate);
+        if (endDate is not null)
+        {
+            return endDate.Value <= today;
+        }
+
+        DateOnly? startDate = ParseEventDate(evt.StartDate);
+        return startDate is not null && startDate.Value <= today;
+    }
+
+    private static DateOnly? ParseEventDate(string? value)
+        => DateOnly.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateOnly date)
+            ? date
+            : null;
+
+    private static int ScoreEventNameHint(TbaEventSummary evt, string normalizedHint, IReadOnlyList<string> hintTokens)
+    {
+        string searchSpace = string.Join(
+            ' ',
+            new[]
+            {
+                evt.Name,
+                evt.ShortName,
+                evt.EventCode,
+                evt.Key,
+                evt.District?.Abbreviation,
+                evt.District?.DisplayName,
+            }.Where(static value => !string.IsNullOrWhiteSpace(value)))
+            .ToLowerInvariant();
+
+        int score = 0;
+        if (searchSpace.Contains(normalizedHint, StringComparison.Ordinal))
+        {
+            score += 50;
+        }
+
+        foreach (string token in hintTokens)
+        {
+            if (searchSpace.Contains(token, StringComparison.Ordinal))
+            {
+                score += 10;
+                continue;
+            }
+
+            if (token is "pnw" && searchSpace.Contains("pacific northwest", StringComparison.Ordinal))
+            {
+                score += 10;
+            }
+        }
+
+        return score;
+    }
+
+    private async Task<TbaApiResult> GetTbaDataAsync(string path, CancellationToken cancellationToken)
+    {
+        string response = await SendGetAsync(
+            clientName: "tba-api",
+            path: path,
+            query: null,
+            citations: BuildCitations(path),
+            cancellationToken: cancellationToken).ConfigureAwait(false);
+
+        using JsonDocument doc = JsonDocument.Parse(response);
+        JsonElement root = doc.RootElement;
+        bool ok = root.TryGetProperty("ok", out JsonElement okElement) && okElement.GetBoolean();
+        JsonElement? data = root.TryGetProperty("data", out JsonElement dataElement) && dataElement.ValueKind is not JsonValueKind.Null
+            ? dataElement.Clone()
+            : null;
+        string? error = root.TryGetProperty("error", out JsonElement errorElement) && errorElement.ValueKind is JsonValueKind.String
+            ? errorElement.GetString()
+            : null;
+
+        return new TbaApiResult(ok, data, error);
     }
 }

@@ -205,7 +205,7 @@ internal static class CopilotEventStreamAdapter
         {
             FoundrySpecialistTool.ToolName => "Give me a sec - I am checking the official side of this now.",
             "fetch_meal_signup_info" => "Hang tight - I am pulling the signup board details now.",
-            "statbotics_api" or "tba_api" or "tba_api_surface" => "Hang tight - I am pulling the numbers together now.",
+            "statbotics_api" or "tba_api" or "tba_api_surface" or "tba_last_comp" => "Hang tight - I am pulling the numbers together now.",
             _ => "Give me a sec - I am lining up the grounded details now.",
         };
 }

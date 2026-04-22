@@ -263,7 +263,6 @@ public sealed class CopilotLiveIntegrationTests
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: false)
             .AddJsonFile("appsettings.development.json", optional: true, reloadOnChange: false)
             .AddJsonFile("local.settings.json", optional: true, reloadOnChange: false)
-            .AddJsonFile("live.integration.settings.json", optional: true, reloadOnChange: false)
             .AddUserSecrets(typeof(StartupInfrastructureFactory).Assembly, optional: true)
             .AddEnvironmentVariables()
             .Build();

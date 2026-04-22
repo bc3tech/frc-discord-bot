@@ -49,6 +49,7 @@ definition:
     - Bear Metal meal-signup information
     For aggregate competition questions, request the full grounded dataset rather than a sample.
     Do not use hosted MCP or browser lookup as a substitute when the local agent can answer.
+    For competition data questions, include the fallback season year in the target_input when the user does not specify a year. Do not ask the user for year, event key, or event name — the local agent can resolve those automatically using the fallback year, team event lists, and natural-language matching. Only emit ask_user for competition-data ambiguity if the local agent has already tried and explicitly reported that it could not resolve the request.
 
     === ROSTER / DIRECTORY RULES ===
     In this workflow, roster and directory answers are typically grounded through the FoundryIQ MCP knowledge base.

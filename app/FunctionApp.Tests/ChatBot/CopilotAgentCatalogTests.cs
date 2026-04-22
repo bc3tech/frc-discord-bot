@@ -34,7 +34,7 @@ public sealed class CopilotAgentCatalogTests
         };
 
         PromptCatalog promptCatalog = new(NullLogger<PromptCatalog>.Instance);
-        StubToolProvider toolProvider = new(["statbotics_api", "tba_api"]);
+        StubToolProvider toolProvider = new(["statbotics_api", "tba_api", "tba_last_comp"]);
         CopilotFoundryProviderFactory providerFactory = new(Options.Create(options), new StubTokenCredential("token-value"));
         CopilotAgentCatalog catalog = new(Options.Create(options), promptCatalog, [toolProvider], providerFactory);
         IReadOnlyList<AIFunction> tools = [toolProvider.Functions[0]];
@@ -74,7 +74,7 @@ public sealed class CopilotAgentCatalogTests
                 Assert.Equal(CopilotAgentCatalog.FrcDataSpecialistAgentName, frcAgent.Name);
                 Assert.Equal("FRC Data Specialist", frcAgent.DisplayName);
                 Assert.True(frcAgent.Infer);
-                Assert.Equal(["statbotics_api", "tba_api"], frcAgent.Tools);
+                Assert.Equal(["statbotics_api", "tba_api", "tba_last_comp"], frcAgent.Tools);
                 Assert.DoesNotContain("[[DEFAULT_TEAM_NUMBER]]", frcAgent.Prompt, StringComparison.Ordinal);
                 Assert.Contains("2046", frcAgent.Prompt, StringComparison.Ordinal);
             });
