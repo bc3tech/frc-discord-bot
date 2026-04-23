@@ -112,6 +112,7 @@ public static class DependencyInjectionExtensions
             options.MaxHistoryLength = 50;
         });
 
+        services.TryAddSingleton<TbaApiTool>();
         services
             .AddDiscordGpt()
             .WithFoundryModels(options =>
@@ -149,9 +150,10 @@ public static class DependencyInjectionExtensions
                 })
             )
             .AddTool<MealSignupInfoTool>()
-            .AddTool<TbaApiSurfaceTool>()
             .AddTool<TbaApiTool>()
-            .AddTool<StatboticsTool>();
+            .AddTool<TbaApiSurfaceTool>()
+            .AddTool<StatboticsTool>()
+            .AddTool<MealSignupInfoTool>();
 
         // Conversation telemetry: persist root span context across Function invocations so all
         // turns of a Discord conversation roll up into a single Application Insights Trace.
