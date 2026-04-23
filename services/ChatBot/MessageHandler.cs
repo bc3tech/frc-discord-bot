@@ -2,10 +2,10 @@ namespace ChatBot;
 
 using BC3Technologies.DiscordGpt.Core;
 
-using global::CopilotSdk.OpenTelemetry;
-
 using Discord;
 using Discord.WebSocket;
+
+using global::CopilotSdk.OpenTelemetry;
 
 using Microsoft.Extensions.Logging;
 

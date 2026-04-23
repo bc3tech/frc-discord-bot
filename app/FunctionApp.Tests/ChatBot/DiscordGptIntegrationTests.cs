@@ -1,7 +1,5 @@
 namespace FunctionApp.Tests.ChatBot;
 
-using global::ChatBot;
-
 using Azure.Core;
 using Azure.Data.Tables;
 
@@ -10,6 +8,8 @@ using BC3Technologies.DiscordGpt.Core;
 using BC3Technologies.DiscordGpt.Storage.TableStorage;
 
 using Discord;
+
+using global::ChatBot;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,7 +1,5 @@
 namespace FunctionApp.Tests;
 
-using BC3Technologies.DiscordGpt.Core;
-
 using global::ChatBot.Tools;
 
 using Microsoft.Extensions.AI;

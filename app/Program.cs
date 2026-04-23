@@ -4,8 +4,6 @@ using Azure.Identity;
 using Azure.Monitor.OpenTelemetry.Exporter;
 using Azure.Storage.Blobs;
 
-using BC3Technologies.DiscordGpt.Hosting;
-
 using ChatBot;
 
 using Common;
@@ -28,7 +26,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using OpenTelemetry.Logs;
-using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 
 using System.Diagnostics.Metrics;
@@ -53,7 +50,7 @@ host.Logging
         o.IncludeFormattedMessage = true;
         o.IncludeScopes = true;
 
-        o.AddConsoleExporter(c => c.Targets = OpenTelemetry.Exporter.ConsoleExporterOutputTargets.Debug);
+        //o.AddConsoleExporter(c => c.Targets = OpenTelemetry.Exporter.ConsoleExporterOutputTargets.Debug);
     })
     .AddDebug();
 

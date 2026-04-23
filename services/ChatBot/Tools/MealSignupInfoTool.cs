@@ -5,8 +5,8 @@ using BC3Technologies.DiscordGpt.Core;
 using Common;
 using Common.Extensions;
 
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 

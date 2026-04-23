@@ -1,8 +1,8 @@
 namespace CopilotSdk.OpenTelemetry.Tests;
 
-using System.Diagnostics;
-
 using GitHub.Copilot.SDK;
+
+using System.Diagnostics;
 
 using Xunit;
 

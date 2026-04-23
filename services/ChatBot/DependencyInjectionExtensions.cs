@@ -1,11 +1,12 @@
 namespace ChatBot;
 
-using BC3Technologies.DiscordGpt.Core;
+using Azure.Core;
+
 using BC3Technologies.DiscordGpt.Copilot;
 using BC3Technologies.DiscordGpt.Copilot.Foundry;
+using BC3Technologies.DiscordGpt.Core;
 using BC3Technologies.DiscordGpt.Hosting;
 using BC3Technologies.DiscordGpt.Storage.Blob;
-using BC3Technologies.DiscordGpt.Storage.TableStorage;
 
 using ChatBot.Diagnostics;
 using ChatBot.Tools;
@@ -23,8 +24,6 @@ using System.Net;
 using System.Net.Http.Headers;
 
 using Throws = Common.Throws;
-
-using Azure.Core;
 
 public static class DependencyInjectionExtensions
 {
@@ -113,10 +112,14 @@ public static class DependencyInjectionExtensions
             options.MaxHistoryLength = 50;
         });
 
-        services.AddSingleton<TbaApiTool>();
-
         services
             .AddDiscordGpt()
+            .WithFoundryModels(options =>
+            {
+                options.Endpoint = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.Endpoint);
+                options.DeploymentName = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.LocalAgentModel);
+            })
+            .WithTableConversationStore(options => options.TableName = ChatBotConstants.ServiceKeys.TableClient_UserChatAgentThreads)
             .UseCopilot(c => c
                 .WithBlobSessionStorage(tokenCredential, blobServiceUri, options => options.ContainerName = ChatBotConstants.ServiceKeys.BlobContainer_CopilotSessions)
                 .ConfigureOptions(options =>
@@ -124,6 +127,7 @@ public static class DependencyInjectionExtensions
                     options.AllowAll = true;
                     options.EmitReasoningProgress = true;
                 })
+                .WithAzureFoundryAgent(GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.AgentId))
                 .WithLocalAgent(cfg =>
                 {
                     cfg.Name = "frc-data";
@@ -143,13 +147,7 @@ public static class DependencyInjectionExtensions
                     ];
                     cfg.Infer = true;
                 })
-                .WithAzureFoundryAgent(GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.AgentId)))
-            .WithFoundryModels(options =>
-            {
-                options.Endpoint = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.Endpoint);
-                options.DeploymentName = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.LocalAgentModel);
-            })
-            .WithTableConversationStore(options => options.TableName = ChatBotConstants.ServiceKeys.TableClient_UserChatAgentThreads)
+            )
             .AddTool<MealSignupInfoTool>()
             .AddTool<TbaApiSurfaceTool>()
             .AddTool<TbaApiTool>()
@@ -163,7 +161,7 @@ public static class DependencyInjectionExtensions
 
         // Per-session bridge: every Copilot session created by the harness emits
         // execute_tool child spans under the in-flight chat.turn activity.
-        services.AddSingleton<BC3Technologies.DiscordGpt.Copilot.ISessionEventSubscriber, ChatBot.Diagnostics.CopilotTelemetrySessionSubscriber>();
+        services.AddSingleton<ISessionEventSubscriber, CopilotTelemetrySessionSubscriber>();
 
         services.AddSingleton<IChatClient>(sp =>
         {

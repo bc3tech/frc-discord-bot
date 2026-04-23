@@ -1,11 +1,11 @@
 namespace CopilotSdk.OpenTelemetry;
 
-using System.Collections.Concurrent;
-using System.Diagnostics;
-
 using global::GitHub.Copilot.SDK;
 
 using Microsoft.Extensions.Logging;
+
+using System.Collections.Concurrent;
+using System.Diagnostics;
 
 /// <summary>
 /// Subscribes to a <see cref="CopilotSession"/>'s event stream and translates the relevant events

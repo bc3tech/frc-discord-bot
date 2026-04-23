@@ -1,6 +1,7 @@
 ---
 title: Builder-scoped DI extensions for harness-specific concerns
 date: 2026-04-22
+last_updated: 2026-04-22
 category: best-practices
 module: discord-gpt-hosting
 problem_type: best_practice
@@ -9,6 +10,7 @@ severity: medium
 applies_when:
   - Adding a new feature package to the DiscordGpt SDK (storage, agent harness, transport, etc.)
   - Reviewing IServiceCollection extension methods that only make sense alongside DiscordGpt
+  - Reviewing DiscordGptBuilder extension methods that only make sense when a specific harness is selected
   - The same concept has competing implementations and the user picks one (not many)
 tags:
   - dependency-injection
@@ -30,6 +32,8 @@ Early extension methods were authored as `IServiceCollection` extensions (`servi
 2. **It implies "additive."** `Add*` reads like "register another one." But you don't run two conversation stores or two AI harnesses simultaneously — you pick one. The verb `With*` matches the actual semantic (replace the default), and chaining off the builder makes the dependency explicit.
 
 The fix is a structural rule: **anything that only makes sense in the context of DiscordGpt (or any other harness this SDK might support) must hang off the relevant builder, not `IServiceCollection`.**
+
+The rule applies **recursively**. Once a harness-specific builder exists (e.g. `CopilotBuilder`, surfaced via `UseCopilot(c => ...)`), the same test runs again at that level: any method that's only meaningful when **that specific harness** is selected belongs on the harness builder, not on the generic `DiscordGptBuilder`. The litmus test is: *"Would a hypothetical alternate harness — say a future `UseAgentFramework()` — have any use for this method?"* If no, it belongs inside the harness builder's callback.
 
 ## Guidance
 
@@ -91,7 +95,9 @@ services.AddDiscordGpt()
 
 - Adding any new conversation store, session store, AI harness, transport, or other "pick one" component to the SDK.
 - Adding configuration that only has meaning when DiscordGpt is registered (e.g., tools, skills, agents, prompts).
+- Adding configuration that only has meaning when a specific harness is selected (e.g., Copilot session config sources, Copilot custom agents, Foundry persistent agent registrations) — these belong on the harness builder (`CopilotBuilder`), not `DiscordGptBuilder`.
 - Reviewing PRs that add `services.Add*` extensions named after a DiscordGpt feature — push back and request a builder extension instead.
+- Reviewing PRs that add `DiscordGptBuilder` extensions whose entire reason for existing is a specific harness — push back and request the method live on that harness's builder instead.
 
 Counter-cases (where `IServiceCollection` extensions are still correct):
 
@@ -130,6 +136,48 @@ services.AddDiscordGpt()
     .WithSkill<MySkill>();
 ```
 
+Same rule applied **recursively** to extensions that are Copilot-only — they hang off `CopilotBuilder` (inside the `UseCopilot(c => ...)` callback), not `DiscordGptBuilder`:
+
+```csharp
+// Before — Copilot-only methods sat on DiscordGptBuilder, polluting the
+// surface for any future non-Copilot harness:
+services.AddDiscordGpt()
+    .UseCopilot(c => c.ConfigureOptions(...))
+    .WithFoundryModels(...)
+    .WithAzureFoundryAgent(agentId)        // Copilot-only — wrong receiver
+    .WithCopilotLocalAgent(cfg => { ... }) // Copilot-only — wrong receiver
+    .AddCopilotSkillDirectory("./skills")  // Copilot-only — wrong receiver
+    .WithTableConversationStore(...)       // harness-agnostic — correct
+    .AddTool<MyTool>();                    // harness-agnostic — correct
+
+// After — Copilot-specific extensions move inside the UseCopilot callback;
+// names also drop the now-redundant "Copilot" prefix:
+services.AddDiscordGpt()
+    .UseCopilot(c => c
+        .WithBlobSessionStorage(...)
+        .ConfigureOptions(...)
+        .WithLocalAgent(cfg => { ... })
+        .AddSkillDirectory("./skills")
+        .WithAzureFoundryAgent(agentId))   // moved off DiscordGptBuilder
+    .WithFoundryModels(...)                // harness-agnostic-ish; review separately
+    .WithTableConversationStore(...)       // harness-agnostic — stays
+    .AddTool<MyTool>();                    // generic AddTool<T> stays — IDiscordTool
+                                            // is a Hosting/Core abstraction
+```
+
+Classification cheat-sheet for "should this hang off `DiscordGptBuilder` or `CopilotBuilder`?":
+
+| Surface | Receiver | Why |
+|---|---|---|
+| `IDiscordTool` / `IDiscordSkill` / `IConversationStore` registrations | `DiscordGptBuilder` | Core abstractions in `Hosting`; harness-agnostic |
+| Discord transport (`UseGateway`, `UseWebhooks`) | `DiscordGptBuilder` | Independent of which AI harness runs |
+| Conversation-store adapters (`WithBlobConversationStore`, `WithTableConversationStore`) | `DiscordGptBuilder` | Storage is harness-agnostic |
+| `UseCopilot(c => ...)` itself | `DiscordGptBuilder` | The harness selector |
+| Copilot session config/storage (`WithSessionConfigSource<T>`, `WithSessionStorage<T>`, `WithBlobSessionStorage`) | `CopilotBuilder` | Copilot-SDK concepts |
+| Copilot custom agents (`WithLocalAgent`, `WithAzureFoundryAgent`) | `CopilotBuilder` | Only the Copilot harness consumes `CustomAgentConfig` / Copilot session tools |
+| Copilot skills (`AddSkillDirectory`, `DisableSkill`) | `CopilotBuilder` | Skill loading is a Copilot-SDK concept |
+| Delegate-based `AddTool(name, desc, Delegate)` | `CopilotBuilder` | Wraps via `DelegatingTool` (Copilot package); the generic `AddTool<T>` stays on `DiscordGptBuilder` |
+
 Generic escape hatch preserved for custom implementations and unit tests:
 
 ```csharp
@@ -140,6 +188,10 @@ services.AddDiscordGpt()
 ## Related
 
 - `gpt/src/BC3Technologies.DiscordGpt.Hosting/DiscordGptBuilderToolExtensions.cs` — `WithConversationStore<T>()` generic primitive (line 53) and `WithInMemoryConversationStore()` (line 70).
-- `gpt/src/BC3Technologies.DiscordGpt.Storage.Blob/BlobConversationStoreBuilderExtensions.cs` — reference implementation.
+- `gpt/src/BC3Technologies.DiscordGpt.Storage.Blob/BlobConversationStoreBuilderExtensions.cs` — reference implementation of the harness-agnostic builder extension pattern.
 - `gpt/src/BC3Technologies.DiscordGpt.Storage.TableStorage/TableConversationStoreBuilderExtensions.cs` — mirror.
-- Session storage (`WithBlobSessionStorage`) follows the same shape; will be revisited in a follow-up pass.
+- `gpt/src/BC3Technologies.DiscordGpt.Copilot/CopilotBuilder.cs` — the harness-specific builder created by `UseCopilot(c => ...)`. Exposes `Services` and `ConfigureOptions(...)`.
+- `gpt/src/BC3Technologies.DiscordGpt.Copilot/CopilotBuilderSessionExtensions.cs` — Copilot-only session pipeline extensions (`WithSessionConfigSource<T>`, `WithSessionStorage<T>`).
+- `gpt/src/BC3Technologies.DiscordGpt.Copilot/CopilotBuilderAgentSkillToolExtensions.cs` — Copilot-only agent/skill/tool extensions (`WithLocalAgent`, `AddSkillDirectory`, `DisableSkill`, delegate `AddTool`).
+- `gpt/src/BC3Technologies.DiscordGpt.Copilot.Foundry/DiscordGptBuilderExtensions.cs` — `WithAzureFoundryAgent` lives on `CopilotBuilder` despite the file name; `WithFoundryModels` still on `DiscordGptBuilder` (under separate review).
+- Session storage (`WithBlobSessionStorage`) follows the same shape and now correctly hangs off `CopilotBuilder`.

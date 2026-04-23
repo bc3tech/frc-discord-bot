@@ -1,7 +1,5 @@
 namespace ChatBot.Diagnostics;
 
-using System.Globalization;
-
 using Azure;
 using Azure.Data.Tables;
 
