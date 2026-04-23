@@ -142,13 +142,13 @@ public static class DependencyInjectionExtensions
                         "fetch_meal_signup_info",
                     ];
                     cfg.Infer = true;
-                }))
+                })
+                .WithAzureFoundryAgent(GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.AgentId)))
             .WithFoundryModels(options =>
             {
                 options.Endpoint = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.Endpoint);
                 options.DeploymentName = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.LocalAgentModel);
             })
-            .WithAzureFoundryAgent(GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.AgentId))
             .WithTableConversationStore(options => options.TableName = ChatBotConstants.ServiceKeys.TableClient_UserChatAgentThreads)
             .AddTool<MealSignupInfoTool>()
             .AddTool<TbaApiSurfaceTool>()
