@@ -112,6 +112,10 @@ public static class DependencyInjectionExtensions
             options.MaxHistoryLength = 50;
         });
 
+        // Bind DiscordGpt section so consumers can set GitHubToken, Telemetry, and CliLogLevel
+        // via any IConfiguration source (appsettings, environment, Key Vault, container-app secrets).
+        services.Configure<DiscordGptOptions>(configuration.GetSection("DiscordGpt"));
+
         services.TryAddSingleton<TbaApiTool>();
         services
             .AddDiscordGpt()
@@ -123,12 +127,15 @@ public static class DependencyInjectionExtensions
             .WithTableConversationStore(options => options.TableName = ChatBotConstants.ServiceKeys.TableClient_UserChatAgentThreads)
             .UseCopilot(c => c
                 .WithBlobSessionStorage(tokenCredential, blobServiceUri, options => options.ContainerName = ChatBotConstants.ServiceKeys.BlobContainer_CopilotSessions)
+                .WithTableConversationSessionMap(options => options.TableName = ChatBotConstants.ServiceKeys.TableClient_CopilotSessions)
                 .ConfigureOptions(options =>
                 {
                     options.AllowAll = true;
                     options.EmitReasoningProgress = true;
                 })
                 .WithAzureFoundryAgent(GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.AgentId))
+                .WithSessionConfigSource<IsolatedSessionConfigSource>()
+                .WithSessionDiagnosticsLogging()
                 .WithLocalAgent(cfg =>
                 {
                     cfg.Name = "frc-data";
@@ -152,8 +159,7 @@ public static class DependencyInjectionExtensions
             .AddTool<MealSignupInfoTool>()
             .AddTool<TbaApiTool>()
             .AddTool<TbaApiSurfaceTool>()
-            .AddTool<StatboticsTool>()
-            .AddTool<MealSignupInfoTool>();
+            .AddTool<StatboticsTool>();
 
         // Conversation telemetry: persist root span context across Function invocations so all
         // turns of a Discord conversation roll up into a single Application Insights Trace.

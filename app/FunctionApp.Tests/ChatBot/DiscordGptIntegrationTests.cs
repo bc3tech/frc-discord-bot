@@ -87,6 +87,7 @@ public sealed class DiscordGptIntegrationTests
         IConfiguration configuration = BuildConfiguration(
             ("AI:Foundry:Endpoint", "https://example.services.ai.azure.com/api/projects/frc"),
             ("AI:Foundry:LocalAgentModel", "gpt-5.4-mini"),
+            ("AI:Foundry:AgentId", "agent-id"),
             ("AI:Foundry:MealSignupGeniusId", "signup-board"),
             ("AI:Foundry:OpenAIApiVersion", "2025-06-01"),
             ("Discord:Token", "discord-token"),
@@ -97,6 +98,7 @@ public sealed class DiscordGptIntegrationTests
         services.AddSingleton(configuration);
         services.AddLogging();
         services.AddSingleton(new TableServiceClient("UseDevelopmentStorage=true"));
+        services.AddSingleton(Mock.Of<IDiscordClient>());
 
         services.TryAddChatBot(configuration, Mock.Of<TokenCredential>(), new Uri("https://storageacct.blob.core.windows.net"), out bool success, out string[] validationFailures);
         Assert.True(success);
@@ -127,6 +129,7 @@ public sealed class DiscordGptIntegrationTests
         IConfiguration configuration = BuildConfiguration(
             ("AI:Foundry:Endpoint", "https://example.services.ai.azure.com/api/projects/frc"),
             ("AI:Foundry:LocalAgentModel", "gpt-5.4-mini"),
+            ("AI:Foundry:AgentId", "agent-id"),
             ("AI:Foundry:MealSignupGeniusId", "signup-board"),
             ("Discord:Token", "discord-token"),
             ("Discord:AppId", "app-id-alias"),
@@ -136,6 +139,7 @@ public sealed class DiscordGptIntegrationTests
         services.AddSingleton(configuration);
         services.AddLogging();
         services.AddSingleton(new TableServiceClient("UseDevelopmentStorage=true"));
+        services.AddSingleton(Mock.Of<IDiscordClient>());
 
         services.TryAddChatBot(configuration, Mock.Of<TokenCredential>(), new Uri("https://storageacct.blob.core.windows.net"), out bool success, out string[] validationFailures);
         Assert.True(success);
@@ -179,6 +183,7 @@ public sealed class DiscordGptIntegrationTests
         IConfiguration configuration = BuildConfiguration(
             ("AI:Foundry:Endpoint", "https://example.services.ai.azure.com/api/projects/frc"),
             ("AI:Foundry:LocalAgentModel", "gpt-5.4-mini"),
+            ("AI:Foundry:AgentId", "agent-id"),
             ("AI:Foundry:MealSignupGeniusId", "signup-board"),
             ("Discord:Token", "discord-token"),
             ("Discord:ApplicationId", "1234567890"),

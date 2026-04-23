@@ -8,6 +8,7 @@ internal static class ChatBotConstants
     {
         public const string TableClient_UserChatAgentThreads = "userChatAgentThreads";
         public const string TableClient_ConversationTraces = "conversationtraces";
+        public const string TableClient_CopilotSessions = "copilotsessions";
         public const string BlobContainer_CopilotSessions = "copilot-sessions";
     }
 
