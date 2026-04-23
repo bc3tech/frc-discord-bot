@@ -117,47 +117,38 @@ public static class DependencyInjectionExtensions
 
         services
             .AddDiscordGpt()
-            .UseCopilot(c =>
-            {
-                c.ConfigureOptions(options =>
+            .UseCopilot(c => c
+                .WithBlobSessionStorage(tokenCredential, blobServiceUri, options => options.ContainerName = ChatBotConstants.ServiceKeys.BlobContainer_CopilotSessions)
+                .ConfigureOptions(options =>
                 {
                     options.AllowAll = true;
                     options.EmitReasoningProgress = true;
-                });
-                c.WithBlobSessionStorage(tokenCredential, blobServiceUri, options => options.ContainerName = ChatBotConstants.ServiceKeys.BlobContainer_CopilotSessions);
-            })
-            .UseFoundry(options =>
+                })
+                .WithLocalAgent(cfg =>
+                {
+                    cfg.Name = "frc-data";
+                    cfg.DisplayName = "FRC live data lookup";
+                    cfg.Description =
+                        "Live FIRST Robotics Competition data lookups for Team 2046 (Bear Metal) and any other team: " +
+                        "team rosters/metadata, events, schedules, matches, alliance partners, rankings, awards, " +
+                        "district keys, season aggregations, EPA/Elo/predictions, and Bear Metal meal-signup state. " +
+                        "Use for any question that needs grounded TBA, Statbotics, or meal-signup data.";
+                    cfg.Prompt = LoadPromptFile("local_agent_prompt.txt");
+                    cfg.Tools = [
+                        TbaApiTool.DescribeSurfaceToolName,
+                        TbaApiTool.QueryToolName,
+                        TbaApiTool.LastCompetitionToolName,
+                        "statbotics_api",
+                        "fetch_meal_signup_info",
+                    ];
+                    cfg.Infer = true;
+                }))
+            .WithFoundryModels(options =>
             {
                 options.Endpoint = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.Endpoint);
                 options.DeploymentName = GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.LocalAgentModel);
             })
-            // (1) The deployed Azure Foundry agent participates as a peer in the Copilot SDK
-            // session. Its portal-managed instructions own voice/tone, MCP knowledge base
-            // (rules / roster / directory), browser_automation_preview, and code_interpreter.
-            // Additional Foundry agents may be registered by chaining further .WithAzureFoundryAgent(...) calls.
             .WithAzureFoundryAgent(GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.AgentId))
-            // (2) Local sub-agent for live FRC data + meal signup. The SDK routes to this
-            // agent (via Infer on Description) when a turn needs grounded competition data
-            // or meal-signup state.
-            .WithCopilotLocalAgent(cfg =>
-            {
-                cfg.Name = "frc-data";
-                cfg.DisplayName = "FRC live data lookup";
-                cfg.Description =
-                    "Live FIRST Robotics Competition data lookups for Team 2046 (Bear Metal) and any other team: " +
-                    "team rosters/metadata, events, schedules, matches, alliance partners, rankings, awards, " +
-                    "district keys, season aggregations, EPA/Elo/predictions, and Bear Metal meal-signup state. " +
-                    "Use for any question that needs grounded TBA, Statbotics, or meal-signup data.";
-                cfg.Prompt = LoadPromptFile("local_agent_prompt.txt");
-                cfg.Tools = [
-                    TbaApiTool.DescribeSurfaceToolName,
-                    TbaApiTool.QueryToolName,
-                    TbaApiTool.LastCompetitionToolName,
-                    "statbotics_api",
-                    "fetch_meal_signup_info",
-                ];
-                cfg.Infer = true;
-            })
             .WithTableConversationStore(options => options.TableName = ChatBotConstants.ServiceKeys.TableClient_UserChatAgentThreads)
             .AddTool<MealSignupInfoTool>()
             .AddTool<TbaApiSurfaceTool>()
