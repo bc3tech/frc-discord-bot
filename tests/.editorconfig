@@ -1,0 +1,26 @@
+# Test projects: silence all dotnet style/quality analyzers.
+# Test code prioritizes clarity and intent over strict conventions, and
+# generated test stubs (e.g., openapi-generator) trigger a lot of noise.
+#
+# This file does NOT set `root = true` so settings still inherit from the
+# repo-root .editorconfig (indentation, line endings, etc.). Only analyzer
+# severities are overridden.
+
+[*.{cs,vb}]
+# Disable enforcement of code style in build for test projects.
+dotnet_analyzer_diagnostic.severity = none
+
+# Blanket-silence every analyzer category. Anything not matched above is
+# caught by these category-level rules.
+dotnet_analyzer_diagnostic.category-Style.severity = none
+dotnet_analyzer_diagnostic.category-CodeQuality.severity = none
+dotnet_analyzer_diagnostic.category-Design.severity = none
+dotnet_analyzer_diagnostic.category-Documentation.severity = none
+dotnet_analyzer_diagnostic.category-Globalization.severity = none
+dotnet_analyzer_diagnostic.category-Interoperability.severity = none
+dotnet_analyzer_diagnostic.category-Maintainability.severity = none
+dotnet_analyzer_diagnostic.category-Naming.severity = none
+dotnet_analyzer_diagnostic.category-Performance.severity = none
+dotnet_analyzer_diagnostic.category-Reliability.severity = none
+dotnet_analyzer_diagnostic.category-Security.severity = none
+dotnet_analyzer_diagnostic.category-Usage.severity = none
