@@ -7,20 +7,12 @@
 # severities are overridden.
 
 [*.{cs,vb}]
-# Disable enforcement of code style in build for test projects.
-dotnet_analyzer_diagnostic.severity = none
-
 # Blanket-silence every analyzer category. Anything not matched above is
 # caught by these category-level rules.
 dotnet_analyzer_diagnostic.category-Style.severity = none
-dotnet_analyzer_diagnostic.category-CodeQuality.severity = none
-dotnet_analyzer_diagnostic.category-Design.severity = none
-dotnet_analyzer_diagnostic.category-Documentation.severity = none
-dotnet_analyzer_diagnostic.category-Globalization.severity = none
-dotnet_analyzer_diagnostic.category-Interoperability.severity = none
-dotnet_analyzer_diagnostic.category-Maintainability.severity = none
+
+# CA1816: Dispose methods should call SuppressFinalize
+dotnet_diagnostic.CA1816.severity = none
+
+# Default severity for analyzer diagnostics with category 'Naming'
 dotnet_analyzer_diagnostic.category-Naming.severity = none
-dotnet_analyzer_diagnostic.category-Performance.severity = none
-dotnet_analyzer_diagnostic.category-Reliability.severity = none
-dotnet_analyzer_diagnostic.category-Security.severity = none
-dotnet_analyzer_diagnostic.category-Usage.severity = none

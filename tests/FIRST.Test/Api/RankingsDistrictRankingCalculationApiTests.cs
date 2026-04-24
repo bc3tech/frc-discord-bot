@@ -17,9 +17,7 @@ using Xunit;
 using FIRST.Client;
 using FIRST.Api;
 
-namespace FIRST.Test.Api
-
-
+namespace FIRST.Test.Api;
     /// <summary>
     ///  Class for testing RankingsDistrictRankingCalculationApi
     /// </summary>

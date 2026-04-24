@@ -6,3 +6,4 @@
 using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Resilience", "EA0014:The async method doesn't support cancellation", Justification = "These are UTs", Scope = "module")]
+[assembly: SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "These are UTs", Scope = "module")]

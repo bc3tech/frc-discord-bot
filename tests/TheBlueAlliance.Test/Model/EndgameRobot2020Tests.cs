@@ -17,9 +17,7 @@ using TheBlueAlliance.Model;
 using TheBlueAlliance.Client;
 using System.Reflection;
 
-namespace TheBlueAlliance.Test.Model
-
-
+namespace TheBlueAlliance.Test.Model;
     /// <summary>
     ///  Class for testing EndgameRobot2020
     /// </summary>
@@ -53,4 +51,3 @@ namespace TheBlueAlliance.Test.Model
             //Assert.IsType<EndgameRobot2020>(instance);
         }
     }
-}

@@ -17,9 +17,7 @@ using Statbotics.Model;
 using Statbotics.Client;
 using System.Reflection;
 
-namespace Statbotics.Test.Model
-
-
+namespace Statbotics.Test.Model;
     /// <summary>
     ///  Class for testing HTTPValidationError
     /// </summary>
@@ -64,4 +62,3 @@ namespace Statbotics.Test.Model
             // TODO unit test for the property 'Detail'
         }
     }
-}

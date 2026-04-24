@@ -19,8 +19,12 @@
     <Project Path="gpt/src/BC3Technologies.DiscordGpt.Storage.TableStorage/BC3Technologies.DiscordGpt.Storage.TableStorage.csproj" />
   </Folder>
   <Folder Name="/Tests/">
+    <File Path="tests/.editorconfig" />
     <Project Path="tests/CopilotSdk.OpenTelemetry.Tests/CopilotSdk.OpenTelemetry.Tests.csproj" />
+    <Project Path="tests/FIRST.Test/FIRST.Test.csproj" />
     <Project Path="tests/FunctionApp.Tests/FunctionApp.Tests.csproj" />
+    <Project Path="tests/Statbotics.Test/Statbotics.Test.csproj" />
+    <Project Path="tests/TheBlueAlliance.Test/TheBlueAlliance.Test.csproj" />
   </Folder>
   <Folder Name="/Tools/">
     <Project Path="tools/datadumper/DataDumper.csproj" />

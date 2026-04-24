@@ -17,9 +17,7 @@ using Statbotics.Model;
 using Statbotics.Client;
 using System.Reflection;
 
-namespace Statbotics.Test.Model
-
-
+namespace Statbotics.Test.Model;
     /// <summary>
     ///  Class for testing ValidationErrorLocInner
     /// </summary>
@@ -53,4 +51,3 @@ namespace Statbotics.Test.Model
             //Assert.IsType<ValidationErrorLocInner>(instance);
         }
     }
-}

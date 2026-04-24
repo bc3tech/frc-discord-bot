@@ -19,9 +19,7 @@ using Statbotics.Api;
 // uncomment below to import models
 //using Statbotics.Model;
 
-namespace Statbotics.Test.Api
-
-
+namespace Statbotics.Test.Api;
     /// <summary>
     ///  Class for testing YearApi
     /// </summary>

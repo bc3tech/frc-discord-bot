@@ -19,9 +19,7 @@ using TheBlueAlliance.Api;
 // uncomment below to import models
 //using TheBlueAlliance.Model;
 
-namespace TheBlueAlliance.Test.Api
-
-
+namespace TheBlueAlliance.Test.Api;
     /// <summary>
     ///  Class for testing EventApi
     /// </summary>

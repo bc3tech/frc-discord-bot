@@ -17,9 +17,7 @@ using Xunit;
 using Statbotics.Client;
 using Statbotics.Api;
 
-namespace Statbotics.Test.Api
-
-
+namespace Statbotics.Test.Api;
     /// <summary>
     ///  Class for testing DefaultApi
     /// </summary>

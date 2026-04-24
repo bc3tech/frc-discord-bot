@@ -17,9 +17,7 @@ using TheBlueAlliance.Model;
 using TheBlueAlliance.Client;
 using System.Reflection;
 
-namespace TheBlueAlliance.Test.Model
-
-
+namespace TheBlueAlliance.Test.Model;
     /// <summary>
     ///  Class for testing Team
     /// </summary>
@@ -224,4 +222,3 @@ namespace TheBlueAlliance.Test.Model
             // TODO unit test for the property 'Website'
         }
     }
-}
