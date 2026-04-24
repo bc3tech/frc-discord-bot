@@ -16,7 +16,6 @@ public static class ServiceCollectionExtensions
     /// </summary>
     public static IServiceCollection AddCopilotSdkOpenTelemetry(this IServiceCollection services)
     {
-        ArgumentNullException.ThrowIfNull(services);
 
         services.TryAddSingleton<IConversationTraceContextStore, InMemoryConversationTraceContextStore>();
         services.TryAddSingleton<IConversationTracer, ConversationTracer>();
@@ -30,7 +29,6 @@ public static class ServiceCollectionExtensions
     /// </summary>
     public static TracerProviderBuilder AddCopilotSdkOpenTelemetry(this TracerProviderBuilder builder)
     {
-        ArgumentNullException.ThrowIfNull(builder);
         return builder.AddSource(CopilotSdkOpenTelemetry.ActivitySourceName);
     }
 }

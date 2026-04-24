@@ -17,7 +17,6 @@ public sealed partial class MessageHandler(
 {
     public async Task HandleUserMessageAsync(IUserMessage message, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(message);
 
         if (message.Author.IsBot)
         {
@@ -34,8 +33,6 @@ public sealed partial class MessageHandler(
         IReadOnlyCollection<ulong> botRoleIds,
         CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(message);
-        ArgumentNullException.ThrowIfNull(botRoleIds);
 
         if (message.Author.IsBot)
         {
@@ -92,8 +89,6 @@ public sealed partial class MessageHandler(
         bool botMentioned,
         IReadOnlyList<string> mentionedRoleIds)
     {
-        ArgumentNullException.ThrowIfNull(message);
-        ArgumentNullException.ThrowIfNull(mentionedRoleIds);
 
         string displayName = string.IsNullOrWhiteSpace(message.Author.GlobalName)
             ? message.Author.Username

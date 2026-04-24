@@ -22,8 +22,6 @@ public static class ChatThreadResetter
 
     public static async Task HandleButtonClickAsync(IServiceProvider services, SocketMessageComponent button, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(services);
-        ArgumentNullException.ThrowIfNull(button);
 
         logger ??= services.GetService<ILoggerFactory>()?.CreateLogger(typeof(ChatThreadResetter));
         using IDisposable? scope = logger?.CreateMethodScope();
@@ -77,7 +75,6 @@ public static class ChatThreadResetter
 
     public static async Task ResetThreadForUserAsync(IServiceProvider services, ulong userId, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(services);
 
         var conversationKey = ConversationKey.Dm(userId.ToString());
 
@@ -94,7 +91,6 @@ public static class ChatThreadResetter
 
     public static async Task CleanupDeletedThreadAsync(IServiceProvider services, ulong threadId, CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(services);
 
         var conversationKey = ConversationKey.Thread(threadId.ToString());
 

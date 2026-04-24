@@ -11,7 +11,6 @@ internal sealed class FrcSystemPromptChatClient : IChatClient
 
     public FrcSystemPromptChatClient(IChatClient innerClient, string systemPrompt)
     {
-        ArgumentNullException.ThrowIfNull(innerClient);
         ArgumentException.ThrowIfNullOrWhiteSpace(systemPrompt);
 
         _innerClient = innerClient;
@@ -50,7 +49,6 @@ internal sealed class FrcSystemPromptChatClient : IChatClient
 
     private IReadOnlyList<ChatMessage> PrependSystemPrompt(IEnumerable<ChatMessage> messages)
     {
-        ArgumentNullException.ThrowIfNull(messages);
 
         IReadOnlyList<ChatMessage> messageList = messages as IReadOnlyList<ChatMessage> ?? [.. messages];
         return [new ChatMessage(ChatRole.System, _systemPrompt), .. messageList];

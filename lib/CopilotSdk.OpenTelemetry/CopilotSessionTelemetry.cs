@@ -27,7 +27,6 @@ public static partial class CopilotSessionTelemetry
     /// <param name="logger">Optional logger used to record non-fatal translator issues.</param>
     public static IDisposable Subscribe(CopilotSession session, ILogger? logger = null)
     {
-        ArgumentNullException.ThrowIfNull(session);
 
         var state = new TelemetryState(Activity.Current, logger);
         IDisposable subscription = session.On(state.Handle);

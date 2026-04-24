@@ -34,7 +34,6 @@ public static class DependencyInjectionExtensions
 
     public static bool HasValidChatBotConfiguration(this IConfiguration configuration, out string[] validationFailures)
     {
-        ArgumentNullException.ThrowIfNull(configuration);
 
         List<string> failures = [];
 

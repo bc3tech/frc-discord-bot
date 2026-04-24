@@ -6,7 +6,7 @@ You are acting as a coding assistant for Brandon Hurlburt (bc3tech). This file d
 
 These are non-negotiable and apply regardless of language or framework:
 
-1. **Strictest possible type safety.** Nullable reference types in C#, `pyright strict` in Python, `strict: true` in TypeScript. Never weaken type checking to make something compile faster.
+1. **Strictest possible type safety.** Enable nullable reference types in C# and enforce them via the compiler and static analysis — rely on nullable annotations and static analysis rather than runtime null guards (avoid patterns like ArgumentNullException.ThrowIfNull). Use `pyright strict` in Python, `strict: true` in TypeScript. Never weaken type checking to make something compile faster.
 2. **Code quality enforced in build, not by convention.** `TreatWarningsAsErrors`, `EnforceCodeStyleInBuild`, ruff, pyright — if the tool can catch it, it should fail the build.
 3. **Comprehensive `.editorconfig`.** Treat it as a first-class deliverable. 150+ rules, many at `error` severity. Code style is enforced, not debated.
 4. **Dependency injection everywhere.** Microsoft.Extensions.DI in C#, `dependency-injector` in Python. Constructor injection is the default. No `new`-ing up services.

@@ -53,7 +53,6 @@ public sealed partial class TableConversationTraceContextStore(
     public async Task SetAsync(string conversationId, ConversationTraceContext context, CancellationToken cancellationToken)
     {
         ArgumentException.ThrowIfNullOrEmpty(conversationId);
-        ArgumentNullException.ThrowIfNull(context);
 
         (string? partitionKey, string? rowKey) = SplitKey(conversationId);
         TableClient tableClient = await GetTableClientAsync(cancellationToken).ConfigureAwait(false);

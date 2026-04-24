@@ -22,7 +22,6 @@ public sealed class InMemoryConversationTraceContextStore : IConversationTraceCo
     public Task SetAsync(string conversationId, ConversationTraceContext context, CancellationToken cancellationToken)
     {
         ArgumentException.ThrowIfNullOrEmpty(conversationId);
-        ArgumentNullException.ThrowIfNull(context);
         _store[conversationId] = context;
         return Task.CompletedTask;
     }

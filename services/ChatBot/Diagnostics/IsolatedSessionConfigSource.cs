@@ -103,7 +103,6 @@ public sealed partial class IsolatedSessionConfigSource(
     /// <inheritdoc />
     public ValueTask ConfigureAsync(SessionConfig sessionConfig, CancellationToken cancellationToken)
     {
-        ArgumentNullException.ThrowIfNull(sessionConfig);
 
         ConversationContext? context = _conversationContextAccessor.Current
             ?? throw new InvalidOperationException(

@@ -18,7 +18,6 @@ internal sealed class CopilotTelemetrySessionSubscriber(ILogger<CopilotTelemetry
 {
     public IDisposable Subscribe(CopilotSession session)
     {
-        ArgumentNullException.ThrowIfNull(session);
         return CopilotSessionTelemetry.Subscribe(session, logger);
     }
 }
