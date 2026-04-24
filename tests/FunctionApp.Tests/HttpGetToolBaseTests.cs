@@ -22,7 +22,7 @@ public sealed class HttpGetToolBaseTests
         });
         using var client = new HttpClient(handler)
         {
-            BaseAddress = new Uri("https://api.statbotics.io"),
+            BaseAddress = new Uri("https://api.statbotics.io/"),
         };
 
         var tool = new TestHttpGetTool(new StubHttpClientFactory(client));
@@ -36,7 +36,7 @@ public sealed class HttpGetToolBaseTests
         using JsonDocument document = JsonDocument.Parse(response);
 
         // Assert
-        Assert.Equal("/v3/team_year/2046/2025?metric=epa", document.RootElement.GetProperty("apiRequest").GetProperty("path").GetString());
+        Assert.Equal("v3/team_year/2046/2025?metric=epa", document.RootElement.GetProperty("apiRequest").GetProperty("path").GetString());
         Assert.Equal("api", document.RootElement.GetProperty("apiRequest").GetProperty("kind").GetString());
         Assert.Equal("https://www.statbotics.io/team/2046/2025", document.RootElement.GetProperty("userReferencePages")[0].GetProperty("url").GetString());
         Assert.Equal("https://www.statbotics.io/team/2046/2025", document.RootElement.GetProperty("citations")[0].GetProperty("url").GetString());
@@ -54,7 +54,7 @@ public sealed class HttpGetToolBaseTests
         });
         using var client = new HttpClient(handler)
         {
-            BaseAddress = new Uri("https://api.statbotics.io"),
+            BaseAddress = new Uri("https://api.statbotics.io/"),
         };
 
         var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
@@ -68,7 +68,7 @@ public sealed class HttpGetToolBaseTests
         // Assert
         Assert.Equal("statbotics_api", discordTool.Name);
         Assert.Equal("statbotics_api", discordTool.AsFunction().Name);
-        Assert.Equal("/v3/team_year/2046/2025", document.RootElement.GetProperty("apiRequest").GetProperty("path").GetString());
+        Assert.Equal("v3/team_year/2046/2025", document.RootElement.GetProperty("apiRequest").GetProperty("path").GetString());
         Assert.Equal("https://www.statbotics.io/team/2046/2025", document.RootElement.GetProperty("userReferencePages")[0].GetProperty("url").GetString());
     }
 
@@ -82,7 +82,7 @@ public sealed class HttpGetToolBaseTests
         });
         using var client = new HttpClient(handler)
         {
-            BaseAddress = new Uri("https://www.thebluealliance.com/api/v3"),
+            BaseAddress = new Uri("https://www.thebluealliance.com/api/v3/"),
         };
 
         IConfigurationRoot configuration = new ConfigurationBuilder()
@@ -102,7 +102,7 @@ public sealed class HttpGetToolBaseTests
         // Assert
         Assert.Equal("tba_api", discordTool.Name);
         Assert.Equal("tba_api", discordTool.AsFunction().Name);
-        Assert.Equal("/team/frc2046", document.RootElement.GetProperty("apiRequest").GetProperty("path").GetString());
+        Assert.Equal("team/frc2046", document.RootElement.GetProperty("apiRequest").GetProperty("path").GetString());
         Assert.Equal("https://www.thebluealliance.com/team/2046", document.RootElement.GetProperty("userReferencePages")[0].GetProperty("url").GetString());
     }
 
@@ -139,7 +139,7 @@ public sealed class HttpGetToolBaseTests
             string path = requestUri.AbsolutePath;
             return path switch
             {
-                "/team/frc2046/events/2024/simple" => new HttpResponseMessage(HttpStatusCode.OK)
+                "/api/v3/team/frc2046/events/2024/simple" => new HttpResponseMessage(HttpStatusCode.OK)
                 {
                     Content = new StringContent(
                         """
@@ -167,11 +167,11 @@ public sealed class HttpGetToolBaseTests
                         ]
                         """),
                 },
-                "/team/frc2046/event/2024pncmp/status" => new HttpResponseMessage(HttpStatusCode.OK)
+                "/api/v3/team/frc2046/event/2024pncmp/status" => new HttpResponseMessage(HttpStatusCode.OK)
                 {
                     Content = new StringContent("""{"qual":{"ranking":{"rank":4},"record":{"wins":10,"losses":2,"ties":0}},"playoff":{"status":"won"}}"""),
                 },
-                "/team/frc2046/event/2024pncmp/awards" => new HttpResponseMessage(HttpStatusCode.OK)
+                "/api/v3/team/frc2046/event/2024pncmp/awards" => new HttpResponseMessage(HttpStatusCode.OK)
                 {
                     Content = new StringContent("""[{"name":"District Championship Winner"}]"""),
                 },
@@ -183,7 +183,7 @@ public sealed class HttpGetToolBaseTests
         });
         using var client = new HttpClient(handler)
         {
-            BaseAddress = new Uri("https://www.thebluealliance.com/api/v3"),
+            BaseAddress = new Uri("https://www.thebluealliance.com/api/v3/"),
         };
         IConfigurationRoot configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(
@@ -219,7 +219,7 @@ public sealed class HttpGetToolBaseTests
         using var handler = new RoutingHttpMessageHandler(requestUri =>
         {
             string path = requestUri.AbsolutePath;
-            if (path == $"/team/frc2046/events/{currentYear}/simple")
+            if (path == $"/api/v3/team/frc2046/events/{currentYear}/simple")
             {
                 return new HttpResponseMessage(HttpStatusCode.OK)
                 {
@@ -227,7 +227,7 @@ public sealed class HttpGetToolBaseTests
                 };
             }
 
-            if (path == $"/team/frc2046/events/{fallbackYear}/simple")
+            if (path == $"/api/v3/team/frc2046/events/{fallbackYear}/simple")
             {
                 return new HttpResponseMessage(HttpStatusCode.OK)
                 {
@@ -249,7 +249,7 @@ public sealed class HttpGetToolBaseTests
                 };
             }
 
-            if (path == $"/team/frc2046/event/{fallbackYear}pncmp/status")
+            if (path == $"/api/v3/team/frc2046/event/{fallbackYear}pncmp/status")
             {
                 return new HttpResponseMessage(HttpStatusCode.OK)
                 {
@@ -257,7 +257,7 @@ public sealed class HttpGetToolBaseTests
                 };
             }
 
-            if (path == $"/team/frc2046/event/{fallbackYear}pncmp/awards")
+            if (path == $"/api/v3/team/frc2046/event/{fallbackYear}pncmp/awards")
             {
                 return new HttpResponseMessage(HttpStatusCode.OK)
                 {
@@ -272,7 +272,7 @@ public sealed class HttpGetToolBaseTests
         });
         using var client = new HttpClient(handler)
         {
-            BaseAddress = new Uri("https://www.thebluealliance.com/api/v3"),
+            BaseAddress = new Uri("https://www.thebluealliance.com/api/v3/"),
         };
         IConfigurationRoot configuration = new ConfigurationBuilder()
             .AddInMemoryCollection(

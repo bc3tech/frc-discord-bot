@@ -96,13 +96,13 @@ public static class DependencyInjectionExtensions
             });
         services.AddHttpClient("tba-api", static (sp, client) =>
         {
-            client.BaseAddress = new Uri("https://www.thebluealliance.com/api/v3");
+            client.BaseAddress = new Uri("https://www.thebluealliance.com/api/v3/");
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Add("X-TBA-Auth-Key", Throws.IfNullOrWhiteSpace(sp.GetRequiredService<IConfiguration>()["TbaApiKey"], "TBA_AUTH_KEY environment variable is not set."));
         });
         services.AddHttpClient("statbotics-api", static client =>
         {
-            client.BaseAddress = new Uri("https://api.statbotics.io");
+            client.BaseAddress = new Uri("https://api.statbotics.io/");
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         });
 

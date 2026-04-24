@@ -64,6 +64,12 @@ internal abstract class HttpGetToolBase(IHttpClientFactory httpClientFactory, IL
         HttpClient client = httpClientFactory.CreateClient(clientName);
         if (client.BaseAddress is { } u && request.RequestUri is { } r)
         {
+            if (requestTarget?.StartsWith('/') is true)
+            {
+                requestTarget = requestTarget[1..];
+                r = new(requestTarget, UriKind.Relative);
+            }
+
             request.RequestUri = new Uri(u, r);
         }
 

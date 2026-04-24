@@ -90,7 +90,7 @@ internal sealed class TbaApiTool(
         }));
     }
 
-    [Description("Calls the official The Blue Alliance API (https://www.thebluealliance.com/apidocs/v3) for FRC competition data. Use only legitimate API v3 paths that exist in the real TBA API surface. If you are not sure of the exact endpoint template, call tba_api_surface first. Provide a safe relative API path beginning with /. Example: /team/frc2046/events/2025/simple. Optionally provide a query string without a leading question mark.")]
+    [Description("Calls the official The Blue Alliance API (https://www.thebluealliance.com/api/v3) for FRC competition data. Use only legitimate API v3 paths that exist in the real TBA API surface. If you are not sure of the exact endpoint template, call tba_api_surface first. Provide a safe relative API path beginning with /. Example: /team/frc2046/events/2025/simple. Optionally provide a query string without a leading question mark.")]
     public async Task<string> QueryTbaAsync(
         [Description("Relative API path beginning with / that must match a legitimate TBA API v3 endpoint template once path parameters are substituted. Example: /team/frc2046/events/2025/simple")] string path,
         [Description("Optional query string without a leading question mark. Example: keys=1")] string? query = null,
