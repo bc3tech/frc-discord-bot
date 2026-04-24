@@ -3,6 +3,18 @@
 		<AzureFunctionsVersion>v4</AzureFunctionsVersion>
 		<OutputType>Exe</OutputType>
 		<UserSecretsId>898f8bc7-849a-4a06-be1c-3fac71d06105</UserSecretsId>
+		<!--
+			Microsoft.Azure.Functions.Worker.Sdk generates a WorkerExtensions inner project under
+			$(IntermediateOutputPath)WorkerExtensions/ and restores its packages into a project-local
+			'packages\nuget\' folder. Combined with deeply-nested package paths (e.g.
+			microsoft.azure.webjobs.script.extensionsmetadatagenerator/4.0.1/tools/netstandard2.0/generator/
+			Microsoft.Azure.WebJobs.Script.ExtensionsMetadataGenerator.Console.runtimeconfig.dev.json),
+			this exceeds Windows MAX_PATH (260) when the repo is cloned to even a moderately-deep
+			location, causing MSBuild error MSB4248 in Visual Studio.
+			Redirect the inner-build to a short path under TEMP to avoid this.
+			See: Microsoft.Azure.Functions.Worker.Sdk.targets, ExtensionsCsProjDirectory.
+		-->
+		<ExtensionsCsProjDirectory>$([System.IO.Path]::GetTempPath())fxwx\$(MSBuildProjectName)\</ExtensionsCsProjDirectory>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Apis\frc-events.yaml" />
@@ -46,6 +58,9 @@
  		<None Update="host.json">
  			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+ 		<None Update="local.settings.json">
+ 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+ 		</None>
 	</ItemGroup>
 	<ItemGroup>
 		<Using Include="System.Threading.ExecutionContext" Alias="ExecutionContext" />

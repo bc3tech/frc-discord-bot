@@ -85,7 +85,7 @@ public sealed class IsolatedSessionConfigSourceTests : IDisposable
     }
 
     [Fact]
-    public async Task ConfigureAsync_ExclusionListIsExactlyThreeTools()
+    public async Task ConfigureAsync_ExcludesAllNonFrcBuiltInTools()
     {
         ChatBotIsolated source = CreateSource();
         _accessor.Current = NewContext(ConversationScope.DirectMessage, "1");
@@ -94,10 +94,36 @@ public sealed class IsolatedSessionConfigSourceTests : IDisposable
         await source.ConfigureAsync(cfg, CancellationToken.None);
 
         Assert.NotNull(cfg.ExcludedTools);
-        Assert.Equal(3, cfg.ExcludedTools!.Count);
-        Assert.Contains("ask_user", cfg.ExcludedTools);
-        Assert.Contains("web_fetch", cfg.ExcludedTools);
-        Assert.Contains("web_search", cfg.ExcludedTools);
+
+        // Tools the agent prompt has been observed misusing (sql/powershell to "find past
+        // chat history") or that have no purpose in a headless Discord turn.
+        string[] mustBeExcluded =
+        [
+            "ask_user",
+            "web_fetch",
+            "web_search",
+            "sql",
+            "session_store_sql",
+            "store_memory",
+            "vote_memory",
+            "powershell",
+            "bash",
+            "view",
+            "create",
+            "edit",
+            "glob",
+            "grep",
+            "task",
+            "skill",
+        ];
+        foreach (var toolName in mustBeExcluded)
+        {
+            Assert.Contains(toolName, cfg.ExcludedTools!);
+        }
+
+        // report_intent is intentionally NOT excluded -- it provides telemetry value
+        // and has no side effects beyond logging.
+        Assert.DoesNotContain("report_intent", cfg.ExcludedTools!);
     }
 
     [Fact]

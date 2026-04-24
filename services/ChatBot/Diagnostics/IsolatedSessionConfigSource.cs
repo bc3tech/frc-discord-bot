@@ -47,17 +47,53 @@ public sealed partial class IsolatedSessionConfigSource(
 {
     private static readonly string s_botConfigRoot = Path.Combine(Path.GetTempPath(), "frc-bot-copilot");
 
-    // Intentionally small: the CLI's identity-scoped leaks are closed by per-conversation
-    // ConfigDir (above). What remains are built-ins with no purpose in a headless Discord
-    // turn: there's no human to answer ask_user, and the agent prompt forbids outbound
-    // web traffic from a Discord-triggered turn (R15). Everything else — including sql,
-    // store_memory, task — is safe to expose because ConfigDir isolation now scopes the
-    // data those tools see to the current conversation.
+    // Aggressively narrow the CLI's built-in surface for headless Discord turns.
+    //
+    // Background: the GHCP CLI ships a developer toolkit (sql, powershell, view/edit/create,
+    // grep/glob, store_memory, task, agent management, web_fetch, etc.) intended for an
+    // interactive coding agent. In a Discord-triggered turn there is no human on the other
+    // end, no codebase to navigate, no past chat to mine — yet the model has been observed
+    // reaching for `sql` ("SELECT FROM sqlite_master") and `powershell` ("Get-ChildItem -Recurse")
+    // to "find past data about X" instead of calling the configured FRC tools (TBA, Statbotics).
+    //
+    // Policy: exclude every built-in that doesn't directly serve a Discord answer. The only
+    // built-in we keep is `report_intent`, which is harmless telemetry. The configured FRC
+    // tools (tba_api_surface, tba_api, tba_last_comp, statbotics_api, fetch_meal_signup_info,
+    // plus any sub-agents like frc-data) live outside this list and remain available.
     private static readonly string[] s_excludedBuiltInTools =
     [
+        // User-interaction tools — no human in the loop on a Discord turn.
         "ask_user",
+        // Outbound network tools — agent prompt forbids web traffic from a Discord turn.
         "web_fetch",
         "web_search",
+        // Local data stores the model wrongly treats as "past chat history" / "session notes".
+        "sql",
+        "session_store_sql",
+        "store_memory",
+        "vote_memory",
+        // Shell / process tools — bot has no business shelling out on a host machine.
+        "powershell",
+        "read_powershell",
+        "write_powershell",
+        "stop_powershell",
+        "list_powershell",
+        "bash",
+        // Filesystem tools — no codebase to navigate during a Discord turn.
+        "view",
+        "create",
+        "edit",
+        "glob",
+        "grep",
+        // Task / agent orchestration tools — single-turn Q&A doesn't need them.
+        "task",
+        "task_complete",
+        "read_agent",
+        "list_agents",
+        "write_agent",
+        // CLI self-introspection — irrelevant to FRC questions.
+        "skill",
+        "fetch_copilot_cli_documentation",
     ];
 
     private readonly IConversationContextAccessor _conversationContextAccessor =
