@@ -46,7 +46,7 @@ jobs:
         run: dotnet build lib/CopilotSdk.OpenTelemetry/CopilotSdk.OpenTelemetry.csproj --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test lib/CopilotSdk.OpenTelemetry.Tests/CopilotSdk.OpenTelemetry.Tests.csproj --configuration Release
+        run: dotnet test tests/CopilotSdk.OpenTelemetry.Tests/CopilotSdk.OpenTelemetry.Tests.csproj --configuration Release
 
       - name: Pack
         run: >-

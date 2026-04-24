@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
     <IsPackable>false</IsPackable>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -8,7 +9,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="GitHub.Copilot.SDK" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="xunit.v3" />
     <PackageReference Include="xunit.runner.visualstudio">
       <PrivateAssets>all</PrivateAssets>
@@ -16,6 +16,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CopilotSdk.OpenTelemetry\CopilotSdk.OpenTelemetry.csproj" />
+    <ProjectReference Include="..\..\lib\CopilotSdk.OpenTelemetry\CopilotSdk.OpenTelemetry.csproj" />
   </ItemGroup>
 </Project>

@@ -19,8 +19,8 @@
     <Project Path="gpt/src/BC3Technologies.DiscordGpt.Storage.TableStorage/BC3Technologies.DiscordGpt.Storage.TableStorage.csproj" />
   </Folder>
   <Folder Name="/Tests/">
-    <Project Path="app/FunctionApp.Tests/FunctionApp.Tests.csproj" />
-    <Project Path="lib/CopilotSdk.OpenTelemetry.Tests/CopilotSdk.OpenTelemetry.Tests.csproj" />
+    <Project Path="tests/CopilotSdk.OpenTelemetry.Tests/CopilotSdk.OpenTelemetry.Tests.csproj" />
+    <Project Path="tests/FunctionApp.Tests/FunctionApp.Tests.csproj" />
   </Folder>
   <Folder Name="/Tools/">
     <Project Path="tools/datadumper/DataDumper.csproj" />
