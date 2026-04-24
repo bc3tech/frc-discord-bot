@@ -13,6 +13,8 @@ using ChatBot.Tools;
 
 using CopilotSdk.OpenTelemetry;
 
+using GitHub.Copilot.SDK;
+
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -132,6 +134,13 @@ public static class DependencyInjectionExtensions
                 {
                     options.AllowAll = true;
                     options.EmitReasoningProgress = true;
+
+                    // Replace the Copilot CLI's default coding-agent persona with the Bear Metal Bot
+                    // Discord persona. Without this, the orchestrator has no team context (doesn't know
+                    // "we" = Team 2046, what "dcmp" means, that it should call FRC tools) and ends up
+                    // asking clarifying questions instead of looking up data.
+                    options.SystemMessage = LoadPromptFile("agent_prompt.txt");
+                    options.SystemMessageMode = SystemMessageMode.Replace;
                 })
                 .WithAzureFoundryAgent(GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.AgentId))
                 .WithSessionConfigSource<IsolatedSessionConfigSource>()
