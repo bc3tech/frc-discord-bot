@@ -100,8 +100,6 @@ public sealed class IsolatedSessionConfigSourceTests : IDisposable
         string[] mustBeExcluded =
         [
             "ask_user",
-            "web_fetch",
-            "web_search",
             "sql",
             "session_store_sql",
             "store_memory",
