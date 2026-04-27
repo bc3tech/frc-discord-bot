@@ -50,8 +50,8 @@
     <ProjectReference Include="..\Statbotics\SourceGen\StatboticsKnownValues.SourceGen.csproj"
                       OutputItemType="Analyzer"
                       ReferenceOutputAssembly="false" />
-    <AdditionalFiles Include="..\..\vendor\statbotics\backend\src\db\models\*.py" />
-    <AdditionalFiles Include="..\..\vendor\statbotics-extras\country-state.json" />
+    <AdditionalFiles Include="..\..\vendor\statbotics\backend\src\db\models\*.py" Visible="false" />
+    <AdditionalFiles Include="..\..\vendor\statbotics-extras\country-state.json" Visible="false" />
   </ItemGroup>
 
 </Project>
