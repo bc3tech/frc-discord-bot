@@ -7,6 +7,7 @@
   </Folder>
   <Folder Name="/Build/">
     <Project Path="services/Statbotics/SourceGen/StatboticsKnownValues.SourceGen.csproj" />
+    <Project Path="services/Statbotics/SourceGen/Tools/CountryStateRefresh/CountryStateRefresh.csproj" />
   </Folder>
   <Folder Name="/Libraries/">
     <Project Path="lib/CopilotSdk.OpenTelemetry/CopilotSdk.OpenTelemetry.csproj" />
