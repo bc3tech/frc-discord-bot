@@ -117,6 +117,9 @@ public static class DependencyInjectionExtensions
         // via any IConfiguration source (appsettings, environment, Key Vault, container-app secrets).
         services.Configure<DiscordGptOptions>(configuration.GetSection("DiscordGpt"));
 
+        // Bind agent-facing logging/progress settings from AI:AgentLogging.
+        services.Configure<AgentLoggingOptions>(configuration.GetSection("AI:AgentLogging"));
+
         services.TryAddSingleton<TbaApiTool>();
         services.TryAddSingleton<StatboticsTool>();
         services
@@ -133,7 +136,9 @@ public static class DependencyInjectionExtensions
                 .ConfigureOptions(options =>
                 {
                     options.AllowAll = true;
-                    options.EmitReasoningProgress = true;
+
+                    var timeoutSeconds= configuration.GetValue<int?>(ChatBotConstants.Configuration.Copilot.ResponseTimeoutSeconds);
+                    options.ResponseTimeout = TimeSpan.FromSeconds(timeoutSeconds ?? 300);
 
                     var timeoutSeconds = configuration.GetValue<int?>(ChatBotConstants.Configuration.Copilot.ResponseTimeoutSeconds);
                     options.ResponseTimeout = TimeSpan.FromSeconds(timeoutSeconds ?? 300);

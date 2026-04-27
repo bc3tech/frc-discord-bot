@@ -99,8 +99,6 @@ internal static class Constants
             public static class AgentLogging
             {
                 public static readonly string _Name = ConfigurationPath.Combine(AI._Name, nameof(AgentLogging));
-
-                public static readonly string StreamInternalDialog = ConfigurationPath.Combine(_Name, nameof(StreamInternalDialog));
             }
         }
     }

@@ -70,8 +70,6 @@ internal static class ChatBotConstants
             internal static class AgentLogging
             {
                 private static readonly string Name = ConfigurationPath.Combine(AI.Name, nameof(AgentLogging));
-
-                public static readonly string StreamInternalDialog = ConfigurationPath.Combine(Name, nameof(StreamInternalDialog));
             }
         }
     }

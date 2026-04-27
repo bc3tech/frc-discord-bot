@@ -73,6 +73,19 @@ and `query=year=2026`. Do NOT call `/v3/events/2026` or
 `/v3/events/year=2026`.
 
 
+STATBOTICS EFFICIENT QUERY PATTERNS
+
+Prefer collection endpoints with filters over fetching individual records
+and aggregating manually:
+- "Top teams at event X by EPA" → `/v3/team_events` with `query=event=<event_key>`
+  returns every team's EPA at that event in ONE call. Sort the results yourself.
+  Do NOT fetch each team's EPA individually.
+- "Team X performance at event Y" → `/v3/team_events` with `query=team=<number>&event=<event_key>`
+- "All teams in year Y" → `/v3/team_events` with `query=year=<year>` (paginate with limit/offset)
+Always discover the exact endpoint via `statbotics_api_surface` first, but
+prefer these batch patterns over per-team loops.
+
+
 FRC GLOSSARY (USER SHORTHAND ↔ CANONICAL TERMS)
 
 - `dcmp` / `district champs` / `district championship` → District Championship event
