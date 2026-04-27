@@ -23,4 +23,10 @@ static partial class Log
 
     [LoggerMessage(34, LogLevel.Debug, "Http API tool call for {ClientName} returned failure response snippet: {ResponseSnippet}")]
     internal static partial void HttpAPIToolCallFailedResponseSnippet(this ILogger logger, string ClientName, string ResponseSnippet);
+
+    [LoggerMessage(35, LogLevel.Information, "Statbotics query parameter validation rejected call to {Path} with query '{Query}'")]
+    internal static partial void StatboticsQueryValidationRejected(this ILogger logger, string Path, string Query);
+
+    [LoggerMessage(36, LogLevel.Information, "Statbotics returned HTTP 500 for {Path} with query '{Query}'; rewrote response with constraint guidance")]
+    internal static partial void StatboticsApi500Rewritten(this ILogger logger, string Path, string Query);
 }

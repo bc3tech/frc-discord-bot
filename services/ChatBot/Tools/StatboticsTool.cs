@@ -5,8 +5,10 @@ using BC3Technologies.DiscordGpt.Core;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
 
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Text.Json;
 
 internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogger<StatboticsTool> logger)
@@ -75,7 +77,7 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
     }
 
     [Description("Calls the public Statbotics API (https://www.statbotics.io/docs/rest) for FRC advanced metrics. Use this for EPA, Elo, predictions, rankings backed by Statbotics fields, team-year summaries, and event or match performance metrics. Use only legitimate /v3 paths from statbotics_api_surface. For list endpoints, put filters in query, not path: events for a year use path /v3/events with query year=2026, never /v3/events/2026. Optionally provide a query string without a leading question mark.")]
-    public Task<string> QueryStatboticsAsync(
+    public async Task<string> QueryStatboticsAsync(
         [Description("Relative API path beginning with /v3/ that must match a legitimate Statbotics endpoint template once path parameters are substituted. Examples: /v3/team_year/2046/2025 or /v3/events")] string path,
         [Description("Optional query string without a leading question mark. Use this for list filters. Examples: year=2026, team=2046&year=2025, metric=epa&limit=10")] string? query = null,
         CancellationToken cancellationToken = default)
@@ -86,7 +88,7 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
         if (endpoint is null)
         {
             string suggestions = string.Join(", ", s_statboticsApiSurface.Value.SuggestTemplates(path, 5));
-            return Task.FromResult(JsonSerializer.Serialize(new
+            return JsonSerializer.Serialize(new
             {
                 apiRequest = new
                 {
@@ -98,10 +100,285 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
                 error = "The requested path does not match any legitimate Statbotics API v3 endpoint in the embedded OpenAPI spec.",
                 guidance = "Call statbotics_api_surface first to discover the real endpoint template, then retry with a concrete path that matches it. For list filters, keep the path at the collection endpoint and put filters in query; for example path=/v3/events and query=year=2026.",
                 suggestions = suggestions.Length > 0 ? suggestions : null,
-            }));
+            });
         }
 
-        return SendGetAsync(ChatBotConstants.HttpClients.StatboticsApi, path, query, citations: BuildCitations(path), cancellationToken: cancellationToken);
+        if (TryBuildQueryValidationError(endpoint, path, query, out string? validationError))
+        {
+            logger.StatboticsQueryValidationRejected(path, query ?? string.Empty);
+            return validationError;
+        }
+
+        string response = await SendGetAsync(
+            ChatBotConstants.HttpClients.StatboticsApi,
+            path,
+            query,
+            citations: BuildCitations(path),
+            cancellationToken: cancellationToken).ConfigureAwait(false);
+
+        if (TryRewriteServerError(endpoint, path, query, response, out string? rewritten))
+        {
+            logger.StatboticsApi500Rewritten(path, query ?? string.Empty);
+            return rewritten;
+        }
+
+        return response;
+    }
+
+    private static bool TryBuildQueryValidationError(
+        StatboticsEndpoint endpoint,
+        string path,
+        string? query,
+        [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out string? errorJson)
+    {
+        errorJson = null;
+        if (string.IsNullOrWhiteSpace(query))
+        {
+            return false;
+        }
+
+        IReadOnlyList<KeyValuePair<string, string>> pairs = ParseQueryPairs(query);
+        if (pairs.Count == 0)
+        {
+            return false;
+        }
+
+        var violations = new List<object>();
+        var seenNames = new HashSet<string>(StringComparer.Ordinal);
+        foreach (KeyValuePair<string, string> pair in pairs)
+        {
+            if (!seenNames.Add(pair.Key))
+            {
+                violations.Add(new
+                {
+                    name = pair.Key,
+                    suppliedValue = pair.Value,
+                    problem = $"Query parameter '{pair.Key}' was supplied more than once. Statbotics does not honor duplicates predictably; supply each parameter exactly once.",
+                });
+                continue;
+            }
+
+            StatboticsParameter? parameter = endpoint.QueryParameters.FirstOrDefault(
+                p => string.Equals(p.Name, pair.Key, StringComparison.Ordinal));
+            if (parameter is null)
+            {
+                violations.Add(new
+                {
+                    name = pair.Key,
+                    suppliedValue = pair.Value,
+                    problem = $"Unknown query parameter '{pair.Key}' for endpoint template '{endpoint.Template}'.",
+                });
+                continue;
+            }
+
+            if (parameter.Enum is { Length: > 0 } enumValues
+                && !enumValues.Any(v => string.Equals(v, pair.Value, StringComparison.Ordinal)))
+            {
+                violations.Add(new
+                {
+                    name = parameter.Name,
+                    suppliedValue = pair.Value,
+                    problem = $"Value '{pair.Value}' is not a member of the declared enum for '{parameter.Name}'. Statbotics returns HTTP 500 for any value outside this list.",
+                    legalValues = enumValues,
+                });
+                continue;
+            }
+
+            if (IsNumericType(parameter.Type))
+            {
+                if (!double.TryParse(pair.Value, System.Globalization.NumberStyles.Number, System.Globalization.CultureInfo.InvariantCulture, out double numeric))
+                {
+                    violations.Add(new
+                    {
+                        name = parameter.Name,
+                        suppliedValue = pair.Value,
+                        problem = $"Value '{pair.Value}' is not a valid {parameter.Type} for parameter '{parameter.Name}'.",
+                    });
+                    continue;
+                }
+
+                if (parameter.Minimum is double min && numeric < min)
+                {
+                    violations.Add(new
+                    {
+                        name = parameter.Name,
+                        suppliedValue = pair.Value,
+                        problem = $"Value {numeric} is below the declared minimum {min} for '{parameter.Name}'.",
+                        minimum = min,
+                        maximum = parameter.Maximum,
+                    });
+                    continue;
+                }
+
+                if (parameter.Maximum is double max && numeric > max)
+                {
+                    violations.Add(new
+                    {
+                        name = parameter.Name,
+                        suppliedValue = pair.Value,
+                        problem = $"Value {numeric} is above the declared maximum {max} for '{parameter.Name}'.",
+                        minimum = parameter.Minimum,
+                        maximum = max,
+                    });
+                    continue;
+                }
+            }
+        }
+
+        if (violations.Count == 0)
+        {
+            return false;
+        }
+
+        errorJson = JsonSerializer.Serialize(new
+        {
+            apiRequest = new
+            {
+                path,
+                kind = "api",
+            },
+            statusCode = 400,
+            ok = false,
+            error = "Query parameter validation failed against the embedded Statbotics OpenAPI spec.",
+            guidance = "Fix the listed parameters and retry. For enum violations, use one of the listed legal values exactly (case-sensitive). For type/range violations, supply a value matching the declared type and bounds.",
+            violations,
+            legalQueryParameters = endpoint.QueryParameters.Select(p => new
+            {
+                name = p.Name,
+                type = p.Type,
+                @enum = p.Enum,
+                minimum = p.Minimum,
+                maximum = p.Maximum,
+                required = p.Required,
+            }),
+        });
+        return true;
+    }
+
+    private static bool TryRewriteServerError(
+        StatboticsEndpoint endpoint,
+        string path,
+        string? query,
+        string responseJson,
+        [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out string? rewritten)
+    {
+        rewritten = null;
+        if (string.IsNullOrWhiteSpace(query))
+        {
+            return false;
+        }
+
+        StatboticsParameter[] constrained = [.. endpoint.QueryParameters.Where(HasDeclaredConstraint)];
+        if (constrained.Length == 0)
+        {
+            return false;
+        }
+
+        IReadOnlyList<KeyValuePair<string, string>> suppliedPairs = ParseQueryPairs(query);
+        var constrainedNames = new HashSet<string>(constrained.Select(p => p.Name), StringComparer.Ordinal);
+        if (!suppliedPairs.Any(p => constrainedNames.Contains(p.Key)))
+        {
+            return false;
+        }
+
+        int statusCode;
+        string? originalText;
+        string? originalApiRequestPath;
+        try
+        {
+            using JsonDocument document = JsonDocument.Parse(responseJson);
+            JsonElement root = document.RootElement;
+            if (!root.TryGetProperty("statusCode", out JsonElement statusElement) || statusElement.ValueKind != JsonValueKind.Number)
+            {
+                return false;
+            }
+
+            statusCode = statusElement.GetInt32();
+            if (statusCode != 500)
+            {
+                return false;
+            }
+
+            originalText = root.TryGetProperty("text", out JsonElement textElement) && textElement.ValueKind == JsonValueKind.String
+                ? textElement.GetString()
+                : null;
+            originalApiRequestPath = root.TryGetProperty("apiRequest", out JsonElement apiRequestElement)
+                && apiRequestElement.ValueKind == JsonValueKind.Object
+                && apiRequestElement.TryGetProperty("path", out JsonElement pathElement)
+                && pathElement.ValueKind == JsonValueKind.String
+                ? pathElement.GetString()
+                : null;
+        }
+        catch (JsonException)
+        {
+            return false;
+        }
+
+        rewritten = JsonSerializer.Serialize(new
+        {
+            apiRequest = new
+            {
+                path = originalApiRequestPath ?? path,
+                kind = "api",
+            },
+            statusCode = 500,
+            ok = false,
+            error = "Statbotics returned HTTP 500. The most common cause is a query parameter value that violates the endpoint's declared constraints (enum, type, or range).",
+            guidance = "Check each query parameter against constrainedQueryParameters below. For enum parameters you MUST use one of the listed string values exactly (case-sensitive); numeric values like 3 are not accepted. After correcting, retry the call.",
+            suppliedQuery = query,
+            constrainedQueryParameters = constrained.Select(p => new
+            {
+                name = p.Name,
+                type = p.Type,
+                @enum = p.Enum,
+                minimum = p.Minimum,
+                maximum = p.Maximum,
+            }),
+            originalResponseText = string.IsNullOrWhiteSpace(originalText) ? null : originalText,
+        });
+        return true;
+    }
+
+    private static bool HasDeclaredConstraint(StatboticsParameter parameter)
+        => (parameter.Enum is { Length: > 0 })
+        || parameter.Minimum.HasValue
+        || parameter.Maximum.HasValue;
+
+    private static bool IsNumericType(string? type)
+        => string.Equals(type, "integer", StringComparison.OrdinalIgnoreCase)
+        || string.Equals(type, "number", StringComparison.OrdinalIgnoreCase);
+
+    private static IReadOnlyList<KeyValuePair<string, string>> ParseQueryPairs(string query)
+    {
+        string trimmed = query.Trim().TrimStart('?');
+        if (string.IsNullOrEmpty(trimmed))
+        {
+            return [];
+        }
+
+        var pairs = new List<KeyValuePair<string, string>>();
+        foreach (Range range in trimmed.AsSpan().Split('&'))
+        {
+            ReadOnlySpan<char> part = trimmed.AsSpan(range);
+            if (part.IsEmpty)
+            {
+                continue;
+            }
+
+            int eq = part.IndexOf('=');
+            if (eq < 0)
+            {
+                pairs.Add(new(Uri.UnescapeDataString(part.ToString()), string.Empty));
+            }
+            else
+            {
+                pairs.Add(new(
+                    Uri.UnescapeDataString(part[..eq].ToString()),
+                    Uri.UnescapeDataString(part[(eq + 1)..].ToString())));
+            }
+        }
+
+        return pairs;
     }
 
     private static readonly Lazy<StatboticsApiSurface> s_statboticsApiSurface = new(() =>
