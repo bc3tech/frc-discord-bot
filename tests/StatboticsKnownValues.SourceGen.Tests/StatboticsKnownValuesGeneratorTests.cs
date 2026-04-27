@@ -132,6 +132,35 @@ public sealed class StatboticsKnownValuesGeneratorTests
         Assert.True(epaIdx < nameIdx, $"Expected 'epa' ({epaIdx}) before 'name' ({nameIdx})");
         Assert.True(nameIdx < teamIdx, $"Expected 'name' ({nameIdx}) before 'team' ({teamIdx})");
     }
+
+    [Fact]
+    public void Generator_JsonParserHandlesEscapedQuotesInValues()
+    {
+        // Defensive regression: if a country name ever contains a literal quote
+        // (escaped as \" in JSON), the hand-rolled JSON parser must not terminate
+        // the string early. Today CountryStateRefresh writes raw UTF-8 so this
+        // shape doesn't appear in production snapshots, but the parser must
+        // handle it correctly to avoid silent data corruption if invariants drift.
+        const string escapedJson = """
+            {
+              "countries": ["Côte d\"Ivoire", "USA"],
+              "states": ["NC"]
+            }
+            """;
+
+        var result = RunGenerator(
+        [
+            ("vendor/statbotics/backend/src/db/models/team.py", LoadFixture("team_simple.py")),
+            ("vendor/statbotics-extras/country-state.json", escapedJson),
+        ]);
+
+        Assert.Empty(result.Diagnostics);
+        string source = result.GeneratedTrees.Single().ToString();
+        // The parser must decode \" as a literal " in the value, then the
+        // generator's own Escape() function re-escapes it for the C# source literal.
+        Assert.Contains("\"Côte d\\\"Ivoire\"", source);
+        Assert.Contains("\"USA\"", source);
+    }
 }
 
 internal sealed class InMemoryAdditionalText(string path, string content) : AdditionalText

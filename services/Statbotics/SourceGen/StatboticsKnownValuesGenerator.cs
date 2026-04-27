@@ -127,31 +127,69 @@ public sealed class StatboticsKnownValuesGenerator : IIncrementalGenerator
         }
 
         int openBracket = json.IndexOf('[', idx);
-        int closeBracket = json.IndexOf(']', openBracket);
-        if (openBracket < 0 || closeBracket < 0)
+        if (openBracket < 0)
         {
             return Array.Empty<string>();
         }
 
-        string inner = json.Substring(openBracket + 1, closeBracket - openBracket - 1);
         var values = new List<string>();
-        int searchFrom = 0;
-        while (searchFrom < inner.Length)
+        var current = new StringBuilder();
+        bool inString = false;
+        bool escapeNext = false;
+
+        for (int i = openBracket + 1; i < json.Length; i++)
         {
-            int openQuote = inner.IndexOf('"', searchFrom);
-            if (openQuote < 0)
-            {
-                break;
-            }
+            char c = json[i];
 
-            int closeQuote = inner.IndexOf('"', openQuote + 1);
-            if (closeQuote < 0)
+            if (inString)
             {
-                break;
+                if (escapeNext)
+                {
+                    // Handle the standard JSON escapes that could appear in user data.
+                    // Don't bother with \uXXXX here — CountryStateRefresh writes raw UTF-8
+                    // (UnsafeRelaxedJsonEscaping), so unicode escapes never appear in our
+                    // snapshot files. If that invariant ever changes, decode \uXXXX here.
+                    char unescaped = c switch
+                    {
+                        '"' => '"',
+                        '\\' => '\\',
+                        '/' => '/',
+                        'n' => '\n',
+                        't' => '\t',
+                        'r' => '\r',
+                        'b' => '\b',
+                        'f' => '\f',
+                        _ => c,
+                    };
+                    current.Append(unescaped);
+                    escapeNext = false;
+                }
+                else if (c == '\\')
+                {
+                    escapeNext = true;
+                }
+                else if (c == '"')
+                {
+                    values.Add(current.ToString());
+                    current.Clear();
+                    inString = false;
+                }
+                else
+                {
+                    current.Append(c);
+                }
             }
-
-            values.Add(inner.Substring(openQuote + 1, closeQuote - openQuote - 1));
-            searchFrom = closeQuote + 1;
+            else
+            {
+                if (c == '"')
+                {
+                    inString = true;
+                }
+                else if (c == ']')
+                {
+                    break;
+                }
+            }
         }
 
         return values.ToArray();
