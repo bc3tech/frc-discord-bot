@@ -1,3 +1,6 @@
 [submodule "gpt"]
 path = gpt
 url = https://git.bc3.tech/bc3tech/discord-gpt.git
+[submodule "vendor/statbotics"]
+	path = vendor/statbotics
+	url = https://github.com/avgupta456/statbotics.git

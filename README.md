@@ -15,6 +15,20 @@ The FRC Discord Bot comprises functionality specific to the First Robotics Compe
 
 The FRC Discord Bot is developed as a containerized Azure Function using .NET 10.0. Setting up your dev environment is as simple as installing [Visual Studio](https://visualstudio.com) 2022+ with the Azure workload, cloning the repo, and hitting `Build`.
 
+This repository uses git submodules for the embedded `gpt` library and the `vendor/statbotics` build-time codegen source. After cloning, run:
+
+```sh
+git submodule update --init --recursive
+```
+
+Or set this once globally so future operations stay in sync automatically:
+
+```sh
+git config --global submodule.recurse true
+```
+
+CI runs both `actions/checkout@v4` steps with `submodules: recursive`, so submodule contents are guaranteed to be present at build time.
+
 ## Infrastructure components
 
 The infrastructure necessary to run the bot includes:
