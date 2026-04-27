@@ -108,6 +108,64 @@ public sealed class HttpGetToolBaseTests
     }
 
     [Fact]
+    public async Task DescribeStatboticsApiSurfaceIncludesLegalMetricColumns()
+    {
+        using var handler = new StubHttpMessageHandler(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent("""{"unused":true}"""),
+        });
+        using var client = new HttpClient(handler) { BaseAddress = new Uri("https://api.statbotics.io/") };
+        var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+
+        string response = await tool.DescribeApiSurfaceAsync("team_event", CancellationToken.None);
+
+        using JsonDocument document = JsonDocument.Parse(response);
+        JsonElement root = document.RootElement;
+
+        // /v3/team_events should appear with a non-null LegalMetricColumns array containing "epa".
+        JsonElement teamEventsEndpoint = root.GetProperty("endpoints")
+            .EnumerateArray()
+            .First(e => e.GetProperty("Template").GetString() == "/v3/team_events");
+
+        JsonElement legalMetricColumns = teamEventsEndpoint.GetProperty("LegalMetricColumns");
+        Assert.Equal(JsonValueKind.Array, legalMetricColumns.ValueKind);
+        Assert.Contains(legalMetricColumns.EnumerateArray(), c => c.GetString() == "epa");
+        Assert.Contains(legalMetricColumns.EnumerateArray(), c => c.GetString() == "auto_epa");
+    }
+
+    [Fact]
+    public async Task DescribeStatboticsApiSurfaceLegalMetricColumnsNullForSingularEndpoints()
+    {
+        using var handler = new StubHttpMessageHandler(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent("""{"unused":true}"""),
+        });
+        using var client = new HttpClient(handler) { BaseAddress = new Uri("https://api.statbotics.io/") };
+        var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+
+        string response = await tool.DescribeApiSurfaceAsync("team_event", CancellationToken.None);
+
+        using JsonDocument document = JsonDocument.Parse(response);
+        JsonElement root = document.RootElement;
+
+        // The singular /v3/team_event/{team}/{event} endpoint has no metric param;
+        // LegalMetricColumns should be null (NOT an empty array — the model needs to
+        // distinguish "no known columns" from "no legal columns").
+        JsonElement singularEndpoint = root.GetProperty("endpoints")
+            .EnumerateArray()
+            .FirstOrDefault(e => e.GetProperty("Template").GetString() == "/v3/team_event/{team}/{event}");
+
+        if (singularEndpoint.ValueKind == JsonValueKind.Undefined)
+        {
+            // Endpoint not in this filter window; skip the assertion gracefully.
+            return;
+        }
+
+        JsonElement legalMetricColumns = singularEndpoint.GetProperty("LegalMetricColumns");
+        Assert.Equal(JsonValueKind.Null, legalMetricColumns.ValueKind);
+    }
+
+    [Fact]
     public async Task QueryStatboticsAsyncRejectsYearAsEventsPathSegment()
     {
         // Arrange

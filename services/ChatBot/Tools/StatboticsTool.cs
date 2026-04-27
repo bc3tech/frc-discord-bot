@@ -66,12 +66,15 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
                 endpoint.Parameters,
                 endpoint.PathParameters,
                 endpoint.QueryParameters,
+                LegalMetricColumns = StatboticsKnownValues.MetricColumns.TryGetValue(endpoint.Template, out ImmutableHashSet<string>? cols)
+                    ? cols
+                    : null,
             }).ToArray().AsReadOnly();
 
         return Task.FromResult(JsonSerializer.Serialize(new
         {
             baseUrl = "https://api.statbotics.io",
-            guidance = "Choose one exact path template and substitute only documented path parameters. Put filters such as year, country, state, district, team, event, metric, limit, and offset in the statbotics_api query argument. Example: list current-year events with path=/v3/events and query=year=2026, not /v3/events/2026. When a query parameter declares an Enum, you MUST use one of those exact string values (e.g. type=champs_div, never type=3); the Statbotics server returns HTTP 500 for any value not in the enum.",
+            guidance = "Choose one exact path template and substitute only documented path parameters. Put filters such as year, country, state, district, team, event, metric, limit, and offset in the statbotics_api query argument. Example: list current-year events with path=/v3/events and query=year=2026, not /v3/events/2026. When a query parameter declares an Enum, you MUST use one of those exact string values (e.g. type=champs_div, never type=3); the Statbotics server returns HTTP 500 for any value not in the enum. The `metric` parameter on list endpoints accepts only the column names listed in this endpoint's `LegalMetricColumns` field; pick one from there.",
             endpointCount = selectedEndpoints.Count,
             endpoints = selectedEndpoints,
         }));
