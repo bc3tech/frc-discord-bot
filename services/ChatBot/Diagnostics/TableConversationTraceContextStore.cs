@@ -41,7 +41,7 @@ public sealed partial class TableConversationTraceContextStore(
             TraceContextEntity entity = response.Value;
             return string.IsNullOrEmpty(entity.TraceId) || string.IsNullOrEmpty(entity.SpanId)
                 ? null
-                : new ConversationTraceContext(entity.TraceId, entity.SpanId, (byte)entity.TraceFlags);
+                : new ConversationTraceContext(entity.TraceId, entity.SpanId, (byte)entity.TraceFlags, entity.StartTimestamp);
         }
         catch (RequestFailedException ex) when (ex.Status == 404)
         {
@@ -64,6 +64,7 @@ public sealed partial class TableConversationTraceContextStore(
             TraceId = context.TraceId,
             SpanId = context.SpanId,
             TraceFlags = context.TraceFlags,
+            StartTimestamp = context.StartTimestamp,
             CreatedUtc = DateTimeOffset.UtcNow,
         };
 
@@ -160,6 +161,7 @@ public sealed partial class TableConversationTraceContextStore(
         public string TraceId { get; set; } = string.Empty;
         public string SpanId { get; set; } = string.Empty;
         public int TraceFlags { get; set; }
+        public DateTimeOffset? StartTimestamp { get; set; }
         public DateTimeOffset CreatedUtc { get; set; }
     }
 }

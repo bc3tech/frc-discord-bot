@@ -1,7 +1,7 @@
 ---
 title: "refactor: Replace ChatBot with DiscordGpt libraries (bridge-only, surgical scope)"
 type: refactor
-status: active
+status: completed
 date: 2026-04-20
 deepened: 2026-04-20
 ---
@@ -193,7 +193,7 @@ The existing `services/ChatBot/` stack is custom-built around Azure AI Foundry p
 
 ## Implementation Units
 
-- [ ] **Unit 1: Upstream `gpt/` library — `DiscordRestClient` send/thread methods + `SendResponseAsync` impl + `HttpClient` registration**
+- [x] **Unit 1: Upstream `gpt/` library — `DiscordRestClient` send/thread methods + `SendResponseAsync` impl + `HttpClient` registration**
 
 **Goal:** Make the library physically capable of delivering replies. Without this, every other unit produces a non-functional bot.
 
@@ -236,7 +236,7 @@ The existing `services/ChatBot/` stack is custom-built around Azure AI Foundry p
 
 ---
 
-- [ ] **Unit 2: Project references — add DiscordGpt library refs to `app/FunctionApp.csproj` and `FRCDiscordBot.slnx`**
+- [x] **Unit 2: Project references — add DiscordGpt library refs to `app/FunctionApp.csproj` and `FRCDiscordBot.slnx`**
 
 **Goal:** Make library types available to `app/Program.cs` and to `services/ChatBot/MessageHandler.cs`.
 
@@ -266,7 +266,7 @@ The existing `services/ChatBot/` stack is custom-built around Azure AI Foundry p
 
 ---
 
-- [ ] **Unit 3: Port FRC tools + system prompt + agent composition to new files alongside `MessageHandler.cs`**
+- [x] **Unit 3: Port FRC tools + system prompt + agent composition to new files alongside `MessageHandler.cs`**
 
 **Goal:** Stand up the FRC-specific tool implementations, system prompt, and the `AddFrcChatBot` composition extension. The `IDiscordAgent` itself is the library's `CopilotDiscordAgent` (registered by `AddCopilotAgent`); FRC contributes only tools, prompt, the Foundry chat backend, and configuration. These are NEW files; existing legacy files in `services/ChatBot/Agents/`, `Copilot/`, `Tools/`, etc., remain untouched here and are deleted in Unit 7.
 
@@ -313,7 +313,7 @@ The existing `services/ChatBot/` stack is custom-built around Azure AI Foundry p
 
 ---
 
-- [ ] **Unit 4: Wireup at `// DiscordGPT HERE` in `app/Program.cs`**
+- [x] **Unit 4: Wireup at `// DiscordGPT HERE` in `app/Program.cs`**
 
 **Goal:** Compose the library pipeline + FRC agent at the marker. Configure `TableConversationStore` to use `userChatAgentThreads`. Reuse existing `TableServiceClient` and `BlobServiceClient` registrations.
 
@@ -341,7 +341,7 @@ The existing `services/ChatBot/` stack is custom-built around Azure AI Foundry p
 
 ---
 
-- [ ] **Unit 5: Replace `MessageHandler.cs` body with gate-and-bridge to `IDiscordEventHandler`**
+- [x] **Unit 5: Replace `MessageHandler.cs` body with gate-and-bridge to `IDiscordEventHandler`**
 
 **Goal:** `MessageHandler` becomes a thin adapter: validate the inbound `IUserMessage` is GPT-eligible, synthesize a `MessageCreatedEvent`, hand off to `IDiscordEventHandler.HandleAsync`. Public method signatures preserved so `DiscordInitializationService.cs` is untouched.
 
@@ -384,7 +384,7 @@ The existing `services/ChatBot/` stack is custom-built around Azure AI Foundry p
 
 ---
 
-- [ ] **Unit 6: Rewrite `/chat reset` and `/chat new` to call `IConversationStore.ClearAsync`**
+- [x] **Unit 6: Rewrite `/chat reset` and `/chat new` to call `IConversationStore.ClearAsync`**
 
 **Goal:** Slash commands keep working after `ChatThreadResetter` is deleted. `ChatCommandModule.cs` is the only file modified in this unit.
 
@@ -418,7 +418,7 @@ The existing `services/ChatBot/` stack is custom-built around Azure AI Foundry p
 
 ---
 
-- [ ] **Unit 7: Delete obsolete `services/ChatBot/*` files + drop-and-recreate `userChatAgentThreads` table**
+- [x] **Unit 7: Delete obsolete `services/ChatBot/*` files + drop-and-recreate `userChatAgentThreads` table**
 
 **Goal:** Strip all legacy ChatBot code. Only `MessageHandler.cs`, `ChatBot.csproj`, the slimmed `DependencyInjectionExtensions.cs`, and the new files from Unit 3 (`Agents/FrcDiscordAgent.cs`, `Prompts/*.txt`, `Tools/*.cs`) survive. Operationally, drop and recreate the Azure Table.
 
@@ -467,7 +467,7 @@ The existing `services/ChatBot/` stack is custom-built around Azure AI Foundry p
 
 ---
 
-- [ ] **Unit 8: Build verification + smoke test**
+- [x] **Unit 8: Build verification + smoke test**
 
 **Goal:** Confirm the entire repo still builds with `TreatWarningsAsErrors`, all tests pass, and a deployed instance can complete a DM round-trip and a guild-mention thread creation.
 

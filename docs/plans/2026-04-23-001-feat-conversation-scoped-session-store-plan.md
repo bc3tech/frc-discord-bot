@@ -1,7 +1,7 @@
 ---
 title: 'feat: Conversation-scoped Copilot session store + CopilotClient hardening'
 type: feat
-status: active
+status: completed
 date: 2026-04-23
 origin: docs/brainstorms/2026-04-23-conversation-scoped-session-store-requirements.md
 ---
@@ -171,7 +171,7 @@ graph TB
 
 ## Implementation Units
 
-- [ ] **Unit 1: POC — verify `ResumeSessionAsync` against blob `SessionFs` + empty local index**
+- [x] **Unit 1: POC — verify `ResumeSessionAsync` against blob `SessionFs` + empty local index**
 
 **Goal:** Resolve the one deferred-to-implementation question that shapes Unit 5's branch logic.
 
@@ -199,7 +199,7 @@ graph TB
 
 ---
 
-- [ ] **Unit 2: Add `GitHubToken`, `Telemetry`, `CliLogLevel` to `DiscordGptOptions`**
+- [x] **Unit 2: Add `GitHubToken`, `Telemetry`, `CliLogLevel` to `DiscordGptOptions`**
 
 **Goal:** Library options surface for R2-R4, so the bot factory can read them via `IOptions<DiscordGptOptions>`.
 
@@ -229,7 +229,7 @@ graph TB
 
 ---
 
-- [ ] **Unit 3: Harden `CopilotClient` factory in `DiscordGptBuilderCopilotExtensions`**
+- [x] **Unit 3: Harden `CopilotClient` factory in `DiscordGptBuilderCopilotExtensions`**
 
 **Goal:** R1-R5 — the singleton factory sets `UseLoggedInUser=false`, conditionally sets `GitHubToken`/`LogLevel`/`Telemetry`, wires `Logger`, and enables client-level `SessionFs` whenever an `ISessionFsHandler` is registered.
 
@@ -265,7 +265,7 @@ graph TB
 
 ---
 
-- [ ] **Unit 4: `IConversationSessionMap` interface + in-memory default + Azure Table impl**
+- [x] **Unit 4: `IConversationSessionMap` interface + in-memory default + Azure Table impl**
 
 **Goal:** R10 — durable `(convKey → sessionId)` mapping that any Functions instance can read/write.
 
@@ -307,7 +307,7 @@ graph TB
 
 ---
 
-- [ ] **Unit 5: Harness `ResumeSessionAsync` path + per-conversation lock**
+- [x] **Unit 5: Harness `ResumeSessionAsync` path + per-conversation lock**
 
 **Goal:** R11, R12, R13 — harness looks up `sessionId` per turn, calls `Resume` or `Create` accordingly, stores new ids, and serializes per-conversation turns.
 
@@ -351,7 +351,7 @@ graph TB
 
 ---
 
-- [ ] **Unit 6: Rewrite `IsolatedSessionConfigSource` for per-conversation `ConfigDir` + reduced exclusions**
+- [x] **Unit 6: Rewrite `IsolatedSessionConfigSource` for per-conversation `ConfigDir` + reduced exclusions**
 
 **Goal:** R7, R8, R9, R14, R15, R16 — replace the 11-tool stopgap with a per-conversation `ConfigDir` and a 3-tool exclusion set.
 
@@ -394,7 +394,7 @@ graph TB
 
 ---
 
-- [ ] **Unit 7: Wire-up in `services/ChatBot`**
+- [x] **Unit 7: Wire-up in `services/ChatBot`**
 
 **Goal:** Bind the new options from `IConfiguration`, register the table-backed mapping store.
 

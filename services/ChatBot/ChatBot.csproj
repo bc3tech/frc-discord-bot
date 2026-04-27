@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="..\..\app\Apis\thebluealliance.json" Link="OpenApi\thebluealliance.json" />
+    <EmbeddedResource Include="..\..\app\Apis\statbotics.json" Link="OpenApi\statbotics.json" />
     <EmbeddedResource Include="progress_messages.txt" />
     <None Update="agent_prompt.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -15,6 +15,8 @@ internal static class ChatBotConstants
     internal static class HttpClients
     {
         public const string MealSignupInfo = "ChatBot.MealSignupInfo";
+        public const string TbaApi = "tba-api";
+        public const string StatboticsApi = "statbotics-api";
     }
 
     internal static class Configuration
@@ -27,7 +29,13 @@ internal static class ChatBotConstants
 
             public static readonly string Model = ConfigurationPath.Combine(Name, nameof(Model));
             public static readonly string ReasoningEffort = ConfigurationPath.Combine(Name, nameof(ReasoningEffort));
+            public static readonly string ResponseTimeoutSeconds = ConfigurationPath.Combine(Name, nameof(ResponseTimeoutSeconds));
             public static readonly string LogLevel = ConfigurationPath.Combine(Name, nameof(LogLevel));
+
+            internal static class Telemetry
+            {
+                public static readonly string Name = ConfigurationPath.Combine(Copilot.Name, nameof(Telemetry));
+            }
         }
 
         internal static class Foundry

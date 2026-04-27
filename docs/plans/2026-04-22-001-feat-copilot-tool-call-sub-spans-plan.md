@@ -1,11 +1,14 @@
 ---
 title: "feat: Copilot SDK tool-call sub-spans"
 type: feat
-status: active
+status: superseded
 date: 2026-04-22
+superseded_by: "docs/plans/2026-04-24-001-refactor-telemetry-span-hierarchy-plan.md"
 ---
 
 # feat: Copilot SDK tool-call sub-spans
+
+> **⚠️ Superseded** — This plan's goals (tool-call sub-spans, agent spans, correct parenting) were fully addressed by the [2026-04-24 telemetry span hierarchy rewrite](2026-04-24-001-refactor-telemetry-span-hierarchy-plan.md). The wiring blocker described here was solved by moving `ISessionEventSubscriber` into the library and auto-registering `TelemetrySessionSubscriber` via `AddCopilotSdkOpenTelemetry()`. See also: [solution doc](../solutions/logic-errors/opentelemetry-incorrect-span-hierarchy-2026-04-24.md).
 
 ## Overview
 

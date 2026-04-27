@@ -74,9 +74,11 @@ public sealed partial class MessageHandler(
             ["discord.is_dm"] = discordEvent.IsDm,
         };
 
-        await using IConversationTurnScope turn = await conversationTracer
-            .BeginTurnAsync(conversationKey.ToStorageKey(), rootTags, cancellationToken)
+        await using IConversationScope conversation = await conversationTracer
+            .CreateOrResumeConversationAsync(conversationKey.ToStorageKey(), rootTags, cancellationToken)
             .ConfigureAwait(false);
+
+        await using IConversationTurnScope turn = conversationTracer.BeginTurn(conversationKey.ToStorageKey());
 
         turn.Activity?.SetTag("discord.message.id", discordEvent.MessageId);
         turn.Activity?.SetTag("discord.thread.id", discordEvent.ThreadId);
@@ -114,8 +116,7 @@ public sealed partial class MessageHandler(
 
     private static string BuildMessageContent(string cleanContent, string displayName, string userId)
     {
-        string normalizedContent = cleanContent;
-        return $"{normalizedContent}\n\n===User Display Name: {displayName}\nUser Id: {userId}===";
+        return $"{cleanContent}\n\n===User Display Name: {displayName}\nUser Id: {userId}===";
     }
 
     private static partial class Log

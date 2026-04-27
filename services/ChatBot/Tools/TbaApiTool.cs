@@ -118,7 +118,7 @@ internal sealed class TbaApiTool(
         }
 
         string response = await SendGetAsync(
-            clientName: "tba-api",
+            clientName: ChatBotConstants.HttpClients.TbaApi,
             path,
             query,
             citations: BuildCitations(path),
@@ -793,7 +793,7 @@ internal sealed class TbaApiTool(
     private async Task<TbaApiResult> GetTbaDataAsync(string path, CancellationToken cancellationToken)
     {
         string response = await SendGetAsync(
-            clientName: "tba-api",
+            clientName: ChatBotConstants.HttpClients.TbaApi,
             path: path,
             query: null,
             citations: BuildCitations(path),

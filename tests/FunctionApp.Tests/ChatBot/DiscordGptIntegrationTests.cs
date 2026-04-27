@@ -85,6 +85,7 @@ public sealed class DiscordGptIntegrationTests
     public void AddFrcChatBotRegistersExpectedDiscordGptOptionsAndServices()
     {
         IConfiguration configuration = BuildConfiguration(
+            ("AI:Copilot:Model", "gpt-5.4-mini"),
             ("AI:Foundry:Endpoint", "https://example.services.ai.azure.com/api/projects/frc"),
             ("AI:Foundry:LocalAgentModel", "gpt-5.4-mini"),
             ("AI:Foundry:AgentId", "agent-id"),
@@ -127,6 +128,7 @@ public sealed class DiscordGptIntegrationTests
     public void AddFrcChatBotUsesDiscordAppIdAliasWhenApplicationIdIsMissing()
     {
         IConfiguration configuration = BuildConfiguration(
+            ("AI:Copilot:Model", "gpt-5.4-mini"),
             ("AI:Foundry:Endpoint", "https://example.services.ai.azure.com/api/projects/frc"),
             ("AI:Foundry:LocalAgentModel", "gpt-5.4-mini"),
             ("AI:Foundry:AgentId", "agent-id"),
@@ -181,6 +183,7 @@ public sealed class DiscordGptIntegrationTests
     public void AddFrcChatBotWhenBlobServiceUriIsHttpThrowsInvalidOperationException()
     {
         IConfiguration configuration = BuildConfiguration(
+            ("AI:Copilot:Model", "gpt-5.4-mini"),
             ("AI:Foundry:Endpoint", "https://example.services.ai.azure.com/api/projects/frc"),
             ("AI:Foundry:LocalAgentModel", "gpt-5.4-mini"),
             ("AI:Foundry:AgentId", "agent-id"),
@@ -229,17 +232,27 @@ public sealed class DiscordGptIntegrationTests
                     ? ConversationKey.Dm(dm.UserId)
                     : ConversationKey.Reply(((MessageCreatedEvent)evt).MessageId)));
 
-        Mock<global::CopilotSdk.OpenTelemetry.IConversationTurnScope> scope = new();
-        scope.SetupGet(s => s.Activity).Returns((System.Diagnostics.Activity?)null);
-        scope.SetupGet(s => s.ConversationId).Returns(string.Empty);
-        scope.Setup(s => s.DisposeAsync()).Returns(ValueTask.CompletedTask);
+        Mock<global::CopilotSdk.OpenTelemetry.IConversationScope> conversationScope = new();
+        conversationScope.SetupGet(s => s.Activity).Returns((System.Diagnostics.Activity?)null);
+        conversationScope.SetupGet(s => s.ConversationId).Returns(string.Empty);
+        conversationScope.SetupGet(s => s.IsNew).Returns(true);
+        conversationScope.Setup(s => s.DisposeAsync()).Returns(ValueTask.CompletedTask);
+
+        Mock<global::CopilotSdk.OpenTelemetry.IConversationTurnScope> turnScope = new();
+        turnScope.SetupGet(s => s.Activity).Returns((System.Diagnostics.Activity?)null);
+        turnScope.SetupGet(s => s.ConversationId).Returns(string.Empty);
+        turnScope.Setup(s => s.DisposeAsync()).Returns(ValueTask.CompletedTask);
 
         mocker.GetMock<global::CopilotSdk.OpenTelemetry.IConversationTracer>()
-            .Setup(t => t.BeginTurnAsync(
+            .Setup(t => t.CreateOrResumeConversationAsync(
                 It.IsAny<string>(),
                 It.IsAny<IReadOnlyDictionary<string, object?>>(),
                 It.IsAny<CancellationToken>()))
-            .Returns(Task.FromResult(scope.Object));
+            .Returns(Task.FromResult(conversationScope.Object));
+
+        mocker.GetMock<global::CopilotSdk.OpenTelemetry.IConversationTracer>()
+            .Setup(t => t.BeginTurn(It.IsAny<string>()))
+            .Returns(turnScope.Object);
     }
 
     private static IUserMessage CreateUserMessage(

@@ -94,13 +94,13 @@ public static class DependencyInjectionExtensions
             {
                 AutomaticDecompression = DecompressionMethods.All,
             });
-        services.AddHttpClient("tba-api", static (sp, client) =>
+        services.AddHttpClient(ChatBotConstants.HttpClients.TbaApi, static (sp, client) =>
         {
             client.BaseAddress = new Uri("https://www.thebluealliance.com/api/v3/");
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Add("X-TBA-Auth-Key", Throws.IfNullOrWhiteSpace(sp.GetRequiredService<IConfiguration>()["TbaApiKey"], "TBA_AUTH_KEY environment variable is not set."));
         });
-        services.AddHttpClient("statbotics-api", static client =>
+        services.AddHttpClient(ChatBotConstants.HttpClients.StatboticsApi, static client =>
         {
             client.BaseAddress = new Uri("https://api.statbotics.io/");
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -118,6 +118,7 @@ public static class DependencyInjectionExtensions
         services.Configure<DiscordGptOptions>(configuration.GetSection("DiscordGpt"));
 
         services.TryAddSingleton<TbaApiTool>();
+        services.TryAddSingleton<StatboticsTool>();
         services
             .AddDiscordGpt()
             .WithFoundryModels(options =>
@@ -134,6 +135,9 @@ public static class DependencyInjectionExtensions
                     options.AllowAll = true;
                     options.EmitReasoningProgress = true;
 
+                    var timeoutSeconds = configuration.GetValue<int?>(ChatBotConstants.Configuration.Copilot.ResponseTimeoutSeconds);
+                    options.ResponseTimeout = TimeSpan.FromSeconds(timeoutSeconds ?? 300);
+
                     // Replace the Copilot CLI's default coding-agent persona with the Bear Metal Bot
                     // Discord persona. Without this, the orchestrator has no team context (doesn't know
                     // "we" = Team 2046, what "dcmp" means, that it should call FRC tools) and ends up
@@ -143,6 +147,7 @@ public static class DependencyInjectionExtensions
                 })
                 .WithAzureFoundryAgent(GetRequiredConfigurationValue(configuration, ChatBotConstants.Configuration.Foundry.AgentId))
                 .WithSessionConfigSource<IsolatedSessionConfigSource>()
+                .WithSessionConfigSource<Configuration.ModelSessionConfigSource>()
                 .WithSessionDiagnosticsLogging()
                 .WithLocalAgent(cfg =>
                 {
@@ -158,7 +163,8 @@ public static class DependencyInjectionExtensions
                         TbaApiTool.DescribeSurfaceToolName,
                         TbaApiTool.QueryToolName,
                         TbaApiTool.LastCompetitionToolName,
-                        "statbotics_api",
+                        StatboticsTool.DescribeSurfaceToolName,
+                        StatboticsTool.QueryToolName,
                         "fetch_meal_signup_info",
                     ];
                     cfg.Infer = true;
@@ -167,17 +173,15 @@ public static class DependencyInjectionExtensions
             .AddTool<MealSignupInfoTool>()
             .AddTool<TbaApiTool>()
             .AddTool<TbaApiSurfaceTool>()
-            .AddTool<StatboticsTool>();
+            .AddTool<StatboticsTool>()
+            .AddTool<StatboticsApiSurfaceTool>();
 
         // Conversation telemetry: persist root span context across Function invocations so all
         // turns of a Discord conversation roll up into a single Application Insights Trace.
         services.AddCopilotSdkOpenTelemetry();
+        services.Configure<CopilotSdkOpenTelemetryOptions>(configuration.GetSection(ChatBotConstants.Configuration.Copilot.Telemetry.Name));
         services.Configure<TableConversationTraceContextStoreOptions>(options => options.TableName = ChatBotConstants.ServiceKeys.TableClient_ConversationTraces);
         services.Replace(ServiceDescriptor.Singleton<IConversationTraceContextStore, TableConversationTraceContextStore>());
-
-        // Per-session bridge: every Copilot session created by the harness emits
-        // execute_tool child spans under the in-flight chat.turn activity.
-        services.AddSingleton<ISessionEventSubscriber, CopilotTelemetrySessionSubscriber>();
 
         services.AddSingleton<IChatClient>(sp =>
         {

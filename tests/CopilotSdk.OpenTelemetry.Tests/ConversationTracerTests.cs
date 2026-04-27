@@ -24,110 +24,174 @@ public class ConversationTracerTests : IDisposable
     public void Dispose() => _listener.Dispose();
 
     [Fact]
-    public async Task BeginTurnAsync_CreatesAndPersistsRoot_OnFirstCall()
+    public async Task CreateOrResumeConversation_CreatesConversationActivity_OnFirstCall()
     {
         var store = new InMemoryConversationTraceContextStore();
         var tracer = new ConversationTracer(store);
 
-        await using (await tracer.BeginTurnAsync("conv-1", null, default))
+        await using (await tracer.CreateOrResumeConversationAsync("conv-1", null, default))
         {
-            // turn is open
         }
 
         ConversationTraceContext? persisted = await store.TryGetAsync("conv-1", default);
         Assert.NotNull(persisted);
-        // Two activities stopped: the root (zero duration) and the turn
+        Assert.Single(_activities);
+        Activity conversation = _activities[0];
+        Assert.Equal(CopilotSdkOpenTelemetry.Operations.Conversation, conversation.OperationName);
+        Assert.Equal(ActivityKind.Internal, conversation.Kind);
+        Assert.Equal(CopilotSdkOpenTelemetry.Operations.Conversation, conversation.GetTagItem(CopilotSdkOpenTelemetry.GenAiAttributes.OperationName));
+    }
+
+    [Fact]
+    public async Task CreateOrResumeConversation_PlusBeginTurn_CreatesChildChatActivity()
+    {
+        var store = new InMemoryConversationTraceContextStore();
+        var tracer = new ConversationTracer(store);
+
+        await using (IConversationScope scope = await tracer.CreateOrResumeConversationAsync("conv-1", null, default))
+        {
+            await using IConversationTurnScope turn = tracer.BeginTurn("conv-1");
+            Assert.NotNull(turn.Activity);
+            Assert.Equal(ActivityKind.Client, turn.Activity!.Kind);
+            Assert.Equal(scope.Activity!.SpanId, turn.Activity.ParentSpanId);
+        }
+
         Assert.Equal(2, _activities.Count);
-        Activity turn = _activities[1];
-        Assert.Equal(persisted!.TraceId, turn.TraceId.ToHexString());
+        Activity turnActivity = _activities[0];
+        Activity conversationActivity = _activities[1];
+        Assert.Equal(CopilotSdkOpenTelemetry.Operations.Chat, turnActivity.OperationName);
+        Assert.Equal(CopilotSdkOpenTelemetry.Operations.Conversation, conversationActivity.OperationName);
     }
 
     [Fact]
-    public async Task BeginTurnAsync_TwoTurns_ShareTraceId()
+    public async Task ConversationActivity_HasRealDuration()
     {
         var store = new InMemoryConversationTraceContextStore();
         var tracer = new ConversationTracer(store);
 
-        await using (await tracer.BeginTurnAsync("conv-1", null, default))
+        await using (await tracer.CreateOrResumeConversationAsync("conv-dur", null, default))
         {
-        }
-        await using (await tracer.BeginTurnAsync("conv-1", null, default))
-        {
+            await Task.Delay(50);
         }
 
-        // 1 root + 2 turns = 3 stopped activities
-        Assert.Equal(3, _activities.Count);
-        Activity turn1 = _activities[1];
-        Activity turn2 = _activities[2];
-        Assert.Equal(turn1.TraceId, turn2.TraceId);
+        Activity conversation = _activities[0];
+        Assert.True(conversation.Duration > TimeSpan.Zero);
     }
 
     [Fact]
-    public async Task BeginTurnAsync_AfterRemove_StartsNewTrace()
+    public async Task TurnActivity_HasCorrectAttributes()
     {
         var store = new InMemoryConversationTraceContextStore();
         var tracer = new ConversationTracer(store);
 
-        await using (await tracer.BeginTurnAsync("conv-1", null, default))
+        await using (await tracer.CreateOrResumeConversationAsync("conv-42", null, default))
         {
+            await using IConversationTurnScope turn = tracer.BeginTurn("conv-42");
         }
-        Activity firstTurn = _activities[1];
 
-        await store.RemoveAsync("conv-1", default);
-
-        await using (await tracer.BeginTurnAsync("conv-1", null, default))
-        {
-        }
-        Activity secondTurn = _activities[^1];
-
-        Assert.NotEqual(firstTurn.TraceId, secondTurn.TraceId);
+        Activity turnActivity = _activities[0];
+        Assert.Equal(CopilotSdkOpenTelemetry.GenAiProviderValue, turnActivity.GetTagItem(CopilotSdkOpenTelemetry.GenAiAttributes.ProviderName));
+        Assert.Equal(CopilotSdkOpenTelemetry.Operations.Chat, turnActivity.GetTagItem(CopilotSdkOpenTelemetry.GenAiAttributes.OperationName));
+        Assert.Equal("conv-42", turnActivity.GetTagItem(CopilotSdkOpenTelemetry.GenAiAttributes.ConversationId));
     }
 
     [Fact]
-    public async Task BeginTurnAsync_TagsTurn_WithGenAiAttributes()
+    public async Task ConversationActivity_HasConversationId()
     {
         var store = new InMemoryConversationTraceContextStore();
         var tracer = new ConversationTracer(store);
 
-        await using (await tracer.BeginTurnAsync("conv-42", null, default))
+        await using (await tracer.CreateOrResumeConversationAsync("conv-id-check", null, default))
         {
         }
 
-        Activity turn = _activities.Last();
-        Assert.Equal(CopilotSdkOpenTelemetry.GenAiSystemValue, turn.GetTagItem(CopilotSdkOpenTelemetry.GenAiAttributes.System));
-        Assert.Equal(CopilotSdkOpenTelemetry.Operations.Chat, turn.GetTagItem(CopilotSdkOpenTelemetry.GenAiAttributes.OperationName));
-        Assert.Equal("conv-42", turn.GetTagItem(CopilotSdkOpenTelemetry.GenAiAttributes.ConversationId));
+        Activity conversation = _activities[0];
+        Assert.Equal("conv-id-check", conversation.GetTagItem(CopilotSdkOpenTelemetry.GenAiAttributes.ConversationId));
     }
 
     [Fact]
-    public async Task BeginTurnAsync_AppliesRootTags_OnFirstCallOnly()
+    public async Task SecondInvocation_SharesTraceId()
+    {
+        var store = new InMemoryConversationTraceContextStore();
+        var tracer = new ConversationTracer(store);
+
+        await using (await tracer.CreateOrResumeConversationAsync("conv-1", null, default))
+        {
+        }
+
+        await using (await tracer.CreateOrResumeConversationAsync("conv-1", null, default))
+        {
+        }
+
+        Assert.Equal(2, _activities.Count);
+        Assert.Equal(_activities[0].TraceId, _activities[1].TraceId);
+    }
+
+    [Fact]
+    public async Task StartTimestamp_RoundTrips_ThroughInMemoryStore()
+    {
+        var store = new InMemoryConversationTraceContextStore();
+        var tracer = new ConversationTracer(store);
+
+        await using (await tracer.CreateOrResumeConversationAsync("conv-ts", null, default))
+        {
+        }
+
+        ConversationTraceContext? persisted = await store.TryGetAsync("conv-ts", default);
+        Assert.NotNull(persisted);
+        Assert.NotNull(persisted!.StartTimestamp);
+        Assert.True(persisted.StartTimestamp <= DateTimeOffset.UtcNow);
+    }
+
+    [Fact]
+    public async Task AmbientActivity_DoesNotBecomeConversationParent()
+    {
+        var store = new InMemoryConversationTraceContextStore();
+        var tracer = new ConversationTracer(store);
+
+        using Activity? unrelated = new ActivitySource("Unrelated.Source").StartActivity("ambient");
+
+        await using (await tracer.CreateOrResumeConversationAsync("conv-iso", null, default))
+        {
+        }
+
+        Activity conversation = _activities[0];
+        Assert.Equal(default, conversation.ParentSpanId);
+    }
+
+    [Fact]
+    public async Task RootTags_AppliedToConversation_OnFirstCall()
     {
         var store = new InMemoryConversationTraceContextStore();
         var tracer = new ConversationTracer(store);
         var rootTags = new Dictionary<string, object?> { ["custom.tag"] = "value-1" };
 
-        await using (await tracer.BeginTurnAsync("conv-1", rootTags, default))
+        await using (await tracer.CreateOrResumeConversationAsync("conv-1", rootTags, default))
         {
         }
 
-        Activity root = _activities[0];
-        Assert.Equal("value-1", root.GetTagItem("custom.tag"));
+        Activity conversation = _activities[0];
+        Assert.Equal("value-1", conversation.GetTagItem("custom.tag"));
     }
 
     [Fact]
-    public async Task BeginTurnAsync_AmbientActivity_DoesNotBecomeRootParent()
+    public async Task AfterRemove_NewConversation_GetsNewTraceId()
     {
         var store = new InMemoryConversationTraceContextStore();
         var tracer = new ConversationTracer(store);
 
-        // Open an unrelated ambient activity to prove the root span ignores it.
-        using Activity? unrelated = new ActivitySource("Unrelated.Source").StartActivity("ambient");
-
-        await using (await tracer.BeginTurnAsync("conv-iso", null, default))
+        await using (await tracer.CreateOrResumeConversationAsync("conv-1", null, default))
         {
         }
 
-        Activity root = _activities[0];
-        Assert.Equal(default, root.ParentSpanId);
+        ActivityTraceId firstTraceId = _activities[0].TraceId;
+        await store.RemoveAsync("conv-1", default);
+
+        await using (await tracer.CreateOrResumeConversationAsync("conv-1", null, default))
+        {
+        }
+
+        ActivityTraceId secondTraceId = _activities[^1].TraceId;
+        Assert.NotEqual(firstTraceId, secondTraceId);
     }
 }

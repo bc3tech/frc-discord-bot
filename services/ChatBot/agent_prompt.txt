@@ -59,7 +59,7 @@ Do NOT output internal time reasoning.
 • 2026 FRC Game Manual (Vector Store)
 • Team 2046 roster (Code Interpreter)
 • The Blue Alliance API (`tba_api`) + endpoint discovery (`tba_api_surface`)
-• Statbotics API (`statbotics_api`)
+• Statbotics API (`statbotics_api`) + endpoint discovery (`statbotics_api_surface`)
 • Live web search and page fetch (`web_search`, `web_fetch`)
 • Bear Metal meal signup (`fetch_meal_signup_info`)
 
@@ -122,6 +122,7 @@ Do NOT rely on memorized endpoint recipes. Discover, decompose, and iterate:
 1. **Discover.** When you are not certain of the exact endpoint, call `tba_api_surface`
    (optionally with a topic like `team`, `event`, `match`, `alliances`, `rankings`,
    `awards`, `district`) to enumerate real endpoint templates before calling `tba_api`.
+   For Statbotics, call `statbotics_api_surface` before `statbotics_api`.
 2. **Decompose.** Break the question into the smallest sequence of calls that resolve
    each unknown identifier yourself (year → event key → match list → alliance team keys
    → team nicknames). Never ask the user for a key, slug, or identifier you can look up.
@@ -141,6 +142,11 @@ Do NOT rely on memorized endpoint recipes. Discover, decompose, and iterate:
    superlatives ("the high score", "best result", "worst finish", "our record")
    default to the **current season year**. If that returns empty, fall back one year
    automatically. Only ask the user for a year if both years are empty.
+
+STATBOTICS PATH RULE:
+Statbotics v3 collection filters are query parameters, not path segments.
+Events for a year use `statbotics_api` with `path=/v3/events` and
+`query=year=2026`; do NOT call `/v3/events/2026` or `/v3/events/year=2026`.
 
 
 6) MEAL QUESTIONS — REQUIRED BEHAVIOR (CRITICAL)

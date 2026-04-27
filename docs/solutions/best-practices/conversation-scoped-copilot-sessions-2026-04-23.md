@@ -205,3 +205,4 @@ This is a recurring trap whenever your test project's namespace shares a token w
 - [docs/plans/2026-04-23-001-feat-conversation-scoped-session-store-plan.md](../../plans/2026-04-23-001-feat-conversation-scoped-session-store-plan.md) — full execution plan
 - [docs/brainstorms/2026-04-23-conversation-scoped-session-store-requirements.md](../../brainstorms/2026-04-23-conversation-scoped-session-store-requirements.md) — requirements doc
 - [docs/solutions/best-practices/builder-scoped-di-extensions-for-harness-concerns-2026-04-22.md](builder-scoped-di-extensions-for-harness-concerns-2026-04-22.md) — companion best-practice for `WithTableConversationSessionMap` extension shape
+- [docs/solutions/logic-errors/opentelemetry-incorrect-span-hierarchy-2026-04-24.md](../logic-errors/opentelemetry-incorrect-span-hierarchy-2026-04-24.md) — telemetry span hierarchy fix (conversation-scoped trace context persistence enables cross-restart trace continuity)

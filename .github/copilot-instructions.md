@@ -71,6 +71,10 @@ When writing on my behalf — PR descriptions, commit messages, code review comm
 - **Validation checkpoints.** Check understanding: "Does that make sense?" / "Tell me if I'm off here…"
 - **Minimalist structure.** Immediate point first, optional context sentence, done. Don't bury the lead.
 
+## Documented Solutions
+
+`docs/solutions/` — documented solutions to past problems (bugs, best practices, workflow patterns), organized by category with YAML frontmatter (`module`, `tags`, `problem_type`). Relevant when implementing or debugging in documented areas.
+
 ### PR Descriptions & Commit Messages
 
 - Commit messages reference issue numbers where applicable

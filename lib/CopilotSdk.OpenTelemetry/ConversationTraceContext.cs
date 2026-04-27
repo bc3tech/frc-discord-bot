@@ -14,14 +14,16 @@ using System.Diagnostics;
 /// <param name="TraceId">W3C trace id (32-char lowercase hex).</param>
 /// <param name="SpanId">W3C span id of the root conversation span (16-char lowercase hex).</param>
 /// <param name="TraceFlags">W3C trace flags (typically <c>01</c> when sampled).</param>
-public sealed record ConversationTraceContext(string TraceId, string SpanId, byte TraceFlags)
+/// <param name="StartTimestamp">Optional timestamp of the original conversation span start, used to reconstitute real duration.</param>
+public sealed record ConversationTraceContext(string TraceId, string SpanId, byte TraceFlags, DateTimeOffset? StartTimestamp = null)
 {
     /// <summary>Build a <see cref="ConversationTraceContext"/> from a live <see cref="ActivityContext"/>.</summary>
-    public static ConversationTraceContext FromActivityContext(ActivityContext context) =>
+    public static ConversationTraceContext FromActivityContext(ActivityContext context, DateTimeOffset? startTimestamp = null) =>
         new(
             context.TraceId.ToHexString(),
             context.SpanId.ToHexString(),
-            (byte)context.TraceFlags);
+            (byte)context.TraceFlags,
+            startTimestamp);
 
     /// <summary>Materialise this persisted context as an <see cref="ActivityContext"/> usable as a parent.</summary>
     public ActivityContext ToActivityContext() =>

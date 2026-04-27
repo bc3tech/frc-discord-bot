@@ -1,0 +1,786 @@
+{
+  "version": 1,
+  "generatedAt": "2026-04-24T22:24:02.8283206Z",
+  "rerunPolicy": "additive-only",
+  "requested": {
+    "stackPacks": [
+      "general",
+      "typescript",
+      "python",
+      "rails"
+    ],
+    "atvLayers": [
+      "core-skills",
+      "orchestrators",
+      "universal-agents",
+      "stack-agents",
+      "mcp-servers",
+      "vscode-extensions",
+      "copilot-instructions",
+      "setup-steps",
+      "file-instructions",
+      "docs-structure"
+    ],
+    "gstackRuntime": false,
+    "includeAgentBrowser": false,
+    "presetName": "Starter"
+  },
+  "outcomes": [
+    {
+      "step": "Scaffolding ATV files",
+      "status": "done",
+      "detail": "13 files created, 3 JSON configs merged, 92 existing paths skipped",
+      "duration": "40ms",
+      "substeps": [
+        {
+          "step": ".github/skills",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github/agents",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github/hooks/scripts",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".vscode",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": "docs/plans",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": "docs/brainstorms",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": "docs/solutions",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".atv/instincts",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github/copilot-instructions.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github/copilot-setup-steps.yml",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github/copilot-mcp-config.json",
+          "status": "done",
+          "detail": "merged"
+        },
+        {
+          "step": ".github\\skills\\brainstorming\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-brainstorm\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-compound\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-compound\\assets\\resolution-template.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-compound\\references\\schema.yaml",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-compound\\references\\yaml-schema.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-compound-refresh\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-compound-refresh\\assets\\resolution-template.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-compound-refresh\\references\\schema.yaml",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-compound-refresh\\references\\yaml-schema.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-ideate\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-plan\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-review\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-review\\references\\diff-scope.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-review\\references\\findings-schema.json",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-review\\references\\persona-catalog.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-review\\references\\resolve-base.sh",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-review\\references\\review-output-template.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-review\\references\\subagent-template.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ce-work\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\claude-permissions-optimizer\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\claude-permissions-optimizer\\scripts\\extract-commands.mjs",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\claude-permissions-optimizer\\scripts\\normalize.mjs",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\deepen-plan\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\document-review\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\document-review\\references\\findings-schema.json",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\document-review\\references\\review-output-template.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\document-review\\references\\subagent-template.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\evolve\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\feature-video\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\instincts\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\karpathy-guidelines\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\learn\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\lfg\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\observe\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\ralph-loop\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\resolve_todo_parallel\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\setup\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\slfg\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\test-browser\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\skills\\unslop\\SKILL.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\adversarial-document-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\adversarial-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\agent-native-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\ankane-readme-writer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\api-contract-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\architecture-strategist.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\best-practices-researcher.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\bug-reproduction-validator.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\cli-agent-readiness-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\cli-readiness-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\code-simplicity-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\coherence-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\correctness-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\data-integrity-guardian.agent.md",
+          "status": "done",
+          "detail": "created"
+        },
+        {
+          "step": ".github\\agents\\data-migration-expert.agent.md",
+          "status": "done",
+          "detail": "created"
+        },
+        {
+          "step": ".github\\agents\\data-migrations-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\deployment-verification-agent.agent.md",
+          "status": "done",
+          "detail": "created"
+        },
+        {
+          "step": ".github\\agents\\design-implementation-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\design-iterator.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\design-lens-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\dhh-rails-reviewer.agent.md",
+          "status": "done",
+          "detail": "created"
+        },
+        {
+          "step": ".github\\agents\\feasibility-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\figma-design-sync.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\framework-docs-researcher.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\git-history-analyzer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\issue-intelligence-analyst.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\julik-frontend-races-reviewer.agent.md",
+          "status": "done",
+          "detail": "created"
+        },
+        {
+          "step": ".github\\agents\\kieran-python-reviewer.agent.md",
+          "status": "done",
+          "detail": "created"
+        },
+        {
+          "step": ".github\\agents\\kieran-rails-reviewer.agent.md",
+          "status": "done",
+          "detail": "created"
+        },
+        {
+          "step": ".github\\agents\\kieran-typescript-reviewer.agent.md",
+          "status": "done",
+          "detail": "created"
+        },
+        {
+          "step": ".github\\agents\\learnings-researcher.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\lint.agent.md",
+          "status": "done",
+          "detail": "created"
+        },
+        {
+          "step": ".github\\agents\\maintainability-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\pattern-observer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\pattern-recognition-specialist.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\performance-oracle.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\performance-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\pr-comment-resolver.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\previous-comments-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\product-lens-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\project-standards-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\reliability-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\repo-research-analyst.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\schema-drift-detector.agent.md",
+          "status": "done",
+          "detail": "created"
+        },
+        {
+          "step": ".github\\agents\\scope-guardian-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\security-lens-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\security-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\security-sentinel.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\spec-flow-analyzer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github\\agents\\testing-reviewer.agent.md",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        },
+        {
+          "step": ".github/typescript.instructions.md",
+          "status": "done",
+          "detail": "created"
+        },
+        {
+          "step": ".github/python.instructions.md",
+          "status": "done",
+          "detail": "created"
+        },
+        {
+          "step": ".github/rails.instructions.md",
+          "status": "done",
+          "detail": "created"
+        },
+        {
+          "step": ".vscode/extensions.json",
+          "status": "done",
+          "detail": "merged"
+        },
+        {
+          "step": ".github/hooks/copilot-hooks.json",
+          "status": "done",
+          "detail": "merged"
+        },
+        {
+          "step": ".github/hooks/scripts/observe.js",
+          "status": "skipped",
+          "detail": "exists",
+          "skipReason": "already-installed"
+        }
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "execute-active-plan",
+      "title": "Continue the active plan with /ce-work",
+      "reason": "At least one plan still has unchecked items.",
+      "priority": 80
+    },
+    {
+      "id": "add-prompts",
+      "title": "Create prompt files for repeatable workflows",
+      "reason": "No .prompt.md files found in .github/prompts/.",
+      "priority": 55
+    }
+  ],
+  "fileChecksums": {
+    ".github/copilot-instructions.md": "4d0ebb3be1cbf96544d33cd27a088d6fd7d8445228aa2147eccf6a513dc0938d",
+    ".github/copilot-mcp-config.json": "e449938d945e62d7a14de0a3ab258369dcd277fd09830c6a4fc0b34264b9166f",
+    ".github/copilot-setup-steps.yml": "b69eb24c51bff08703d9206ec87ed6d2cb2429af3990fb2936a8603643ddccf9",
+    ".github/hooks/copilot-hooks.json": "bfae21e627f3cae032a159b76e38387dc503f9c9d02095d3b00eab6abb587aac",
+    ".github/hooks/scripts/observe.js": "d8fa02691d8a5db0bf0655a1dd47d046bfb71604c681bfb1dfe57ba1871bb1df",
+    ".github/python.instructions.md": "4284ce3409db28ab314a7e05b1960f0d2e4924136e9a80b9f2c228aebc7b80dd",
+    ".github/rails.instructions.md": "36078831b87cf7795ba827f1156ef657f665d386dbfd9b710e2f54475ac26169",
+    ".github/typescript.instructions.md": "fc1e116e6cf5115eb999d503742020c76cd4157fa3a6088d23998d1d9a92bbe4",
+    ".github\\agents\\adversarial-document-reviewer.agent.md": "266c4a7a16d0ef5eae78d4745b93d34062c98aebe54bb1093fb7f40b48769fc6",
+    ".github\\agents\\adversarial-reviewer.agent.md": "24a61ab54a33bf05c3a2ef1c0a265c07b3bb486f8d8f08310546ae173325c8b6",
+    ".github\\agents\\agent-native-reviewer.agent.md": "8fd21c56ddda509b505fbd8808bf25722a6ce42f643864c1c88038a9fbe9b0e6",
+    ".github\\agents\\ankane-readme-writer.agent.md": "f34728ff17550e4343b0a3cbf4c4980a5f514d698ea03d0d4df022120dd8a48c",
+    ".github\\agents\\api-contract-reviewer.agent.md": "a1ecd96cda63f68550d6b0f9ee3f7d25aa5773333308a6750a315fb4fb33d87f",
+    ".github\\agents\\architecture-strategist.agent.md": "13458eabd7e844e814a7c8b65d903c773ea46b85be5749a7728c7e2a5c63f270",
+    ".github\\agents\\best-practices-researcher.agent.md": "a2e3b3dfb6b50217ef4bdfaf74188dd53266e55196993f3c2f6d0953a2cb47bd",
+    ".github\\agents\\bug-reproduction-validator.agent.md": "c207d683d55e29affdbbcf677f562ff0af8c65561f3048cb563be2a40a4bd1c3",
+    ".github\\agents\\cli-agent-readiness-reviewer.agent.md": "a3e729cbe891bb0ffdebdbfeb73aac6d65d61e4e92fbec9f42b39703368a5be7",
+    ".github\\agents\\cli-readiness-reviewer.agent.md": "7df930dd830d4cee9dd29d192a720ec8334995feaba43e3235f355662cbbe983",
+    ".github\\agents\\code-simplicity-reviewer.agent.md": "14fe8f4a8128efc8cbd9fa065d8cd9d37b6ac899413b4571809887000053a2fa",
+    ".github\\agents\\coherence-reviewer.agent.md": "ff8e0b7bbba615c9ca649657dfac2cf9408a9a954ab9d26b92c219cf792c9102",
+    ".github\\agents\\correctness-reviewer.agent.md": "6e830b570c04f309b05070701a8ca1c6f8471f06c8548f3c240ab229a3105e89",
+    ".github\\agents\\data-integrity-guardian.agent.md": "00574d01f914cae9af7194d6c9eb3ae4a5d03033062c378c673dc1371c46ca20",
+    ".github\\agents\\data-migration-expert.agent.md": "4264cc91bb1238bc0eb6833669e4135844a7c7c857bbd611b3ff325ddf4e5f32",
+    ".github\\agents\\data-migrations-reviewer.agent.md": "7896651bf756f1dccc4271481820e4d7b2191e96e1e1e851857b43547c16fbb7",
+    ".github\\agents\\deployment-verification-agent.agent.md": "ad19dda050e3bf6fe8ca751538955ff6000a49d72b8c44f660b79f5b33e8fc48",
+    ".github\\agents\\design-implementation-reviewer.agent.md": "029372fe0ca99dc6213b4b491ecb60e46a852d583ef2914ae5356295dc35c386",
+    ".github\\agents\\design-iterator.agent.md": "d7823ec4255d069b9702cf2ef2d195b5540d24e5ec20f97e87cb35be5fc164b3",
+    ".github\\agents\\design-lens-reviewer.agent.md": "840345f969f6d29fec3787da9d6528bab61ed6487ef0495da671ba966ecdd837",
+    ".github\\agents\\dhh-rails-reviewer.agent.md": "8c7044f799b115ffbf2e423c737bb5662f6a39ec1e12eec127e379ec42757895",
+    ".github\\agents\\feasibility-reviewer.agent.md": "f25c7596d4976e125741f53f4fde07682e01545fc3d1e4fb66c92242947d1e98",
+    ".github\\agents\\figma-design-sync.agent.md": "b0520ae18994b4e0887c7864e6fa9ca9c2265554e6cace0a54f8757e35a080b1",
+    ".github\\agents\\framework-docs-researcher.agent.md": "e904f706e6fd0e52aa25669cfd13dc4037a12c952b5288ea4f43df2f305c94aa",
+    ".github\\agents\\git-history-analyzer.agent.md": "83f83b6fe8cafd3439c9bf82c2b531a12999a56d42a20da3a2dad868aa2dc810",
+    ".github\\agents\\issue-intelligence-analyst.agent.md": "2e3dad8144677533fa721e75b0ab93cc11e48c6b5344e56387deca28df652a3f",
+    ".github\\agents\\julik-frontend-races-reviewer.agent.md": "b8d530d9d65ac1e72f4d36a62a5707ac186b87f8fe0e8a3c3014c0a44e407eec",
+    ".github\\agents\\kieran-python-reviewer.agent.md": "d1fcdbd0364444e221ee07635b1b6b109d7cdc14a36b8539cf6db4c38a5405bc",
+    ".github\\agents\\kieran-rails-reviewer.agent.md": "22733c72a3f73af55bcf106e3f72c34b13d12564e36cf38aeb8c151f6f22748f",
+    ".github\\agents\\kieran-typescript-reviewer.agent.md": "5ff0f88df5c05c35100caeb08c0fc3b07d88d3149653d7924d01a064706065e8",
+    ".github\\agents\\learnings-researcher.agent.md": "4575722a473c859f94e87559d8d92c4bfd5ba406112ff1785e1bf15084fb5fd9",
+    ".github\\agents\\lint.agent.md": "b3ab235bee081f638c91b2fc5bda8d7a814160252470602aa572f5fc8f1d5076",
+    ".github\\agents\\maintainability-reviewer.agent.md": "d870261e5667e66b05b0b668cfd328c9c0181430a65f637f706e519efdac00b5",
+    ".github\\agents\\pattern-observer.agent.md": "8496211a56074c04af017510a908e1bc3345079533353a3eb74fe499994380d8",
+    ".github\\agents\\pattern-recognition-specialist.agent.md": "e9dc9a377d85262c97cda1387a3141c964d2f25d9e90deb28634316039851802",
+    ".github\\agents\\performance-oracle.agent.md": "1253dc94b68f6d6586429b29f70b404611d816be498145c23894767040f4751f",
+    ".github\\agents\\performance-reviewer.agent.md": "d463b359c9b70f36f23008d6935f7f7c48e2d65b1b6f1acbe9afcd3dc55004e0",
+    ".github\\agents\\pr-comment-resolver.agent.md": "ba8866b36b88a7b7d112f60e49213375910bc135d41822a9c0dfc0b31e08c2eb",
+    ".github\\agents\\previous-comments-reviewer.agent.md": "170c91f5ed85eaffc145f792e57088002c72ea67621b9adb644513a1c4cb9c45",
+    ".github\\agents\\product-lens-reviewer.agent.md": "5cb5484f743365dc4cbd0d3710b77e7689ff59df7c1e909cf90dab9fbe42f3fb",
+    ".github\\agents\\project-standards-reviewer.agent.md": "0d8c861e7ba32eaa331c4abcd40e56eead21a1d4e5ec69e4c99fb175d468cac2",
+    ".github\\agents\\reliability-reviewer.agent.md": "35910facc67c2768f7bb4fd87199f2db5340b711115dccc7cdfc89a1e181c2f1",
+    ".github\\agents\\repo-research-analyst.agent.md": "e30cd6e25216e4031d52fd24ac0e97ee0c49746f0aa2c5b113ed45f3da20e351",
+    ".github\\agents\\schema-drift-detector.agent.md": "a20aee4792b15882c81f7c7a89bf4916dee6e14ec6c0d9130e7fa173058393a7",
+    ".github\\agents\\scope-guardian-reviewer.agent.md": "f4f23df20bfc1e923acfc553a5bd43bb3dedcb3604824746de8fe97a3ecbdb5e",
+    ".github\\agents\\security-lens-reviewer.agent.md": "c9219901a13546972698b17526c43fa61dc34306f0735097cd469bad20d6a37b",
+    ".github\\agents\\security-reviewer.agent.md": "3a2d83b4c9448a96ce340f37ae1d89fd80598b2cd9fe8a1db744bac739d03c4e",
+    ".github\\agents\\security-sentinel.agent.md": "4821275bbd55821539d893d4ec69a61722f0f32215c127a4df0c5dedd16556cf",
+    ".github\\agents\\spec-flow-analyzer.agent.md": "60386c86032dc9d1305d921cb0c44271210e94c3e198c73556b7dbccb4308ef2",
+    ".github\\agents\\testing-reviewer.agent.md": "211cf0e4090f436ac8d3224e43c11e82e9f10e4cdac8633930b02ce60ea2e8d2",
+    ".github\\skills\\brainstorming\\SKILL.md": "bfaefce6fdc889bdf91939c36156e879775c402378628f6fe597a7f4e5808311",
+    ".github\\skills\\ce-brainstorm\\SKILL.md": "a423157097ed0bb405344585a0164cf889d6d8812f530067a5b4e5b2c5e12144",
+    ".github\\skills\\ce-compound-refresh\\SKILL.md": "b2842c44ec7dbf74ec2959bed97cdc7d0f738cd5eaba5f97060d625e3ab35bc4",
+    ".github\\skills\\ce-compound-refresh\\assets\\resolution-template.md": "e2aa5cf7e01b1d2ae08317863d011cb0b384bbf683bd2cab885a486f5b9cdd3b",
+    ".github\\skills\\ce-compound-refresh\\references\\schema.yaml": "5787641cc2bb0a6f4df36e7aded4db898e47308284e0699b165605eb6731e36b",
+    ".github\\skills\\ce-compound-refresh\\references\\yaml-schema.md": "5715d8c066060f93135b6f5536e9329b2cdb07d09fc134b3e26f9efc2a8a7608",
+    ".github\\skills\\ce-compound\\SKILL.md": "c2f240dfb038ac5ab96e809cb4bc2d924937e0989523fad16f0cd8ed2c5604e4",
+    ".github\\skills\\ce-compound\\assets\\resolution-template.md": "e2aa5cf7e01b1d2ae08317863d011cb0b384bbf683bd2cab885a486f5b9cdd3b",
+    ".github\\skills\\ce-compound\\references\\schema.yaml": "5787641cc2bb0a6f4df36e7aded4db898e47308284e0699b165605eb6731e36b",
+    ".github\\skills\\ce-compound\\references\\yaml-schema.md": "5715d8c066060f93135b6f5536e9329b2cdb07d09fc134b3e26f9efc2a8a7608",
+    ".github\\skills\\ce-ideate\\SKILL.md": "34eafea77db1cfbe3dae94cafcbd0677145cd078398c4c194d00495b15776a31",
+    ".github\\skills\\ce-plan\\SKILL.md": "59ec493d11c7d1048ab23d3b3fc6e11142dca33767c0e47d70b2d3da50bf3d1b",
+    ".github\\skills\\ce-review\\SKILL.md": "3ff5e8180f2912e8037e75c3e5b99f3c243826e41e691f6a64a987c31b71b514",
+    ".github\\skills\\ce-review\\references\\diff-scope.md": "b11a3cbee8372bc4162a2e00898e82317b37c5f56cbf456fe81c3e5fef1ff989",
+    ".github\\skills\\ce-review\\references\\findings-schema.json": "2ddc30b034071836fad3ded0d75af5f67cbd7bbd7f973b9d6070d748be76e8c3",
+    ".github\\skills\\ce-review\\references\\persona-catalog.md": "b220c5ef53514c5669a0795525ffff4faac1a3b5927aaebde846a4e7c41b60ea",
+    ".github\\skills\\ce-review\\references\\resolve-base.sh": "5d51756e7cfdebe9ca9e8fd02595a1f4c6b70435c2c898ce25a7537ae497c8bf",
+    ".github\\skills\\ce-review\\references\\review-output-template.md": "a84580fc5e37e5a4e435681d6984983af88fed73a4a9d9888b87e7e7f8f7f452",
+    ".github\\skills\\ce-review\\references\\subagent-template.md": "750f1e2990403143ade8d06fdb9f8dd26232774202928806feecb7b371bb4f30",
+    ".github\\skills\\ce-work\\SKILL.md": "4c64318b31b75c0a60abfb1a3fbe18f4c5182b40095bba6590770fd8b9545e1d",
+    ".github\\skills\\claude-permissions-optimizer\\SKILL.md": "c7bffdf46bc73ee3a832f0d747d0fbdfb1ca77f18b6fd3261730c21060542d0a",
+    ".github\\skills\\claude-permissions-optimizer\\scripts\\extract-commands.mjs": "89e05ad9dddf3e5801eeeffa69d570adb9b91cfae55c06d9be4015acf86920c2",
+    ".github\\skills\\claude-permissions-optimizer\\scripts\\normalize.mjs": "6c9d5a1a03b6105f41db326d7067a754d15ca195aea8a0815aa569028e2682fa",
+    ".github\\skills\\deepen-plan\\SKILL.md": "fd6803b60860815321c999b69b151a6ed9ddbb86e264fa524a6385a89fcc28df",
+    ".github\\skills\\document-review\\SKILL.md": "d4f2a16f83e2468a7c414e750c6991b000bcbc09532d07d3face798be3906b75",
+    ".github\\skills\\document-review\\references\\findings-schema.json": "e2182c7d2d590f61b231e2d527154e70dc39208fe0f095ae84f27e9bbc0ff9bd",
+    ".github\\skills\\document-review\\references\\review-output-template.md": "3a702b5dc3f849e426b25410cd64ef3ccef0840f62ddcbe98bf12c976ebaa77f",
+    ".github\\skills\\document-review\\references\\subagent-template.md": "d5167612fc3c884433f00b066cd06858a5953cc3cdb4e5fb403196e52b4606b6",
+    ".github\\skills\\evolve\\SKILL.md": "67f81f2316396f250995d185c4bfb8a5a634af63c1df0d65bce4703d76ec0b02",
+    ".github\\skills\\feature-video\\SKILL.md": "c85bd48d3fe929d9ae86665bdc9ec1462878ac4be28d32165f8dbd969e8bfcb1",
+    ".github\\skills\\instincts\\SKILL.md": "7211c09c7c9e9b4be51ddc54f80719fddefdb970b1161f3f748a38849e8085bd",
+    ".github\\skills\\karpathy-guidelines\\SKILL.md": "8004c92988b5ee4121c833167b3642aa01d1916e017460033681128381083a8d",
+    ".github\\skills\\learn\\SKILL.md": "26ca1864c2b4cd186d8c23e466a755c18f3a29839b070a081edfca44a86e3732",
+    ".github\\skills\\lfg\\SKILL.md": "b9d552aca8d6c5c4cc063ec69fa1246d3972d92ebf30fd0b0382d75e6832522d",
+    ".github\\skills\\observe\\SKILL.md": "3547808f1b09c59561a1134c72936e767ced838f8da0b2df653203b2cdde1dba",
+    ".github\\skills\\ralph-loop\\SKILL.md": "5d54c8fcb51d3fa218e6d074aa8d103fbfb40d97ac49c8a7ba8de3811c6163e0",
+    ".github\\skills\\resolve_todo_parallel\\SKILL.md": "a327253dc15aba9a07e23be856e093196156faba15aaf221f2a0f13d066cbb90",
+    ".github\\skills\\setup\\SKILL.md": "ab3cdcbb2e470a2a71fcee4bc1ad21c300f94091960c72266cfdf7f6bd8dedbf",
+    ".github\\skills\\slfg\\SKILL.md": "a80836da60f23d9b018b69dc80575664081097beb46464ec367f94bcaabefa09",
+    ".github\\skills\\test-browser\\SKILL.md": "292f16327520199182aecf6798ca1d5b716f903014445345b896c043f38e5da4",
+    ".github\\skills\\unslop\\SKILL.md": "ae19bc7cf7a8c6eb3b3cf83c2de6b278141f0cc2516b87d9e69e1522f73a195c",
+    ".vscode/extensions.json": "aa428157a344f0f7e8bef571847888f111773a27e16b72cd49ce44de02948315"
+  }
+}

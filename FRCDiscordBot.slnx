@@ -1,6 +1,5 @@
 <Solution>
   <Folder Name="/APIs/">
-    <Project Path="services/ChatBot/ChatBot.csproj" />
     <Project Path="services/FIRST/src/FIRST/FIRST.csproj" />
     <Project Path="services/FRCColors/FRCColors.csproj" />
     <Project Path="services/Statbotics/src/Statbotics/Statbotics.csproj" />
@@ -37,4 +36,5 @@
   </Folder>
   <Project Path="app/FunctionApp.csproj" />
   <Project Path="common/Common.csproj" />
+  <Project Path="services/ChatBot/ChatBot.csproj" />
 </Solution>

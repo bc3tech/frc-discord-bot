@@ -73,6 +73,86 @@ public sealed class HttpGetToolBaseTests
     }
 
     [Fact]
+    public async Task DescribeStatboticsApiSurfaceShowsEventsYearAsQueryParameter()
+    {
+        // Arrange
+        using var handler = new StubHttpMessageHandler(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent("""{"unused":true}"""),
+        });
+        using var client = new HttpClient(handler)
+        {
+            BaseAddress = new Uri("https://api.statbotics.io/"),
+        };
+
+        var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+
+        // Act
+        string response = await tool.DescribeApiSurfaceAsync("event", CancellationToken.None);
+
+        using JsonDocument document = JsonDocument.Parse(response);
+        JsonElement root = document.RootElement;
+
+        // Assert
+        Assert.Contains("path=/v3/events", root.GetProperty("guidance").GetString());
+        Assert.Contains("query=year=2026", root.GetProperty("guidance").GetString());
+        Assert.Contains(
+            root.GetProperty("endpoints").EnumerateArray(),
+            endpoint => endpoint.GetProperty("Template").GetString() == "/v3/events"
+                && endpoint.GetProperty("QueryParameters").EnumerateArray().Any(parameter => parameter.GetString() == "year")
+                && endpoint.GetProperty("PathParameters").GetArrayLength() is 0);
+    }
+
+    [Fact]
+    public async Task QueryStatboticsAsyncRejectsYearAsEventsPathSegment()
+    {
+        // Arrange
+        using var handler = new StubHttpMessageHandler(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent("""{"shouldNotCall":true}"""),
+        });
+        using var client = new HttpClient(handler)
+        {
+            BaseAddress = new Uri("https://api.statbotics.io/"),
+        };
+
+        var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+
+        // Act
+        string response = await tool.QueryStatboticsAsync("/v3/events/2026", cancellationToken: CancellationToken.None);
+
+        using JsonDocument document = JsonDocument.Parse(response);
+        JsonElement root = document.RootElement;
+
+        // Assert
+        Assert.False(root.GetProperty("ok").GetBoolean());
+        Assert.Equal(400, root.GetProperty("statusCode").GetInt32());
+        Assert.Contains("path=/v3/events", root.GetProperty("guidance").GetString());
+        Assert.Contains("query=year=2026", root.GetProperty("guidance").GetString());
+        Assert.Contains("/v3/events", root.GetProperty("suggestions").GetString());
+        Assert.Null(handler.LastRequestUri);
+    }
+
+    [Fact]
+    public void StatboticsApiSurfaceToolExposesSurfaceFunction()
+    {
+        using var handler = new StubHttpMessageHandler(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent("""{"unused":true}"""),
+        });
+        using var client = new HttpClient(handler)
+        {
+            BaseAddress = new Uri("https://api.statbotics.io/"),
+        };
+
+        var queryTool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+        var surfaceTool = new StatboticsApiSurfaceTool(queryTool);
+
+        Assert.Equal("statbotics_api_surface", surfaceTool.Name);
+        Assert.Equal("statbotics_api_surface", surfaceTool.AsFunction().Name);
+    }
+
+    [Fact]
     public async Task QueryTbaAsyncProvidesBrowsableReferencePage()
     {
         // Arrange

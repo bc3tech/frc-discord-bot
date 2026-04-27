@@ -1,7 +1,7 @@
 ---
 title: refactor: Replace chatbot harness with Copilot SDK orchestration
 type: refactor
-status: active
+status: completed
 date: 2026-04-17
 ---
 
@@ -111,7 +111,7 @@ flowchart TB
 
 ## Implementation Units
 
-- [ ] **Unit 1: Introduce Copilot SDK runtime and clean configuration surface**
+- [x] **Unit 1: Introduce Copilot SDK runtime and clean configuration surface**
 
 **Goal:** Add the Copilot SDK parent-runtime dependencies and define a clean chat configuration model that separates Copilot runtime settings from remote Foundry specialist settings.
 
@@ -147,7 +147,7 @@ flowchart TB
 **Verification:**
 - The chat service collection can build with Copilot runtime services registered and no dependency on the old workflow-only configuration fields.
 
-- [ ] **Unit 2: Replace legacy conversation state with a durable Copilot chat-state envelope**
+- [x] **Unit 2: Replace legacy conversation state with a durable Copilot chat-state envelope**
 
 **Goal:** Redesign persisted chat state so the bot can survive instance churn while using Copilot SDK sessions opportunistically.
 
@@ -181,7 +181,7 @@ flowchart TB
 **Verification:**
 - Chat state persistence becomes explicit, versioned, and resilient to both legacy rows and missing local Copilot session cache.
 
-- [ ] **Unit 3: Define Copilot custom agents first, then attach shared skills where they actually help**
+- [x] **Unit 3: Define Copilot custom agents first, then attach shared skills where they actually help**
 
 **Goal:** Move specialist reasoning out of the bespoke Foundry/local handoff contract and into Copilot SDK custom agents, using skills only for reusable shared instruction packs.
 
@@ -227,7 +227,7 @@ flowchart TB
 **Verification:**
 - The local specialist no longer depends on the old hosted-agent JSON protocol, and the plan uses skills only where they genuinely reduce duplicated instruction text instead of replacing specialist agents.
 
-- [ ] **Unit 4: Add a minimal Foundry specialist bridge for remote expertise**
+- [x] **Unit 4: Add a minimal Foundry specialist bridge for remote expertise**
 
 **Goal:** Preserve the external Foundry specialist as a callable expert lane without keeping it as the parent runtime.
 
@@ -261,7 +261,7 @@ flowchart TB
 **Verification:**
 - The external Foundry specialist remains usable, but the surrounding orchestration code collapses to a small bridge surface.
 
-- [ ] **Unit 5: Rebuild `Conversation` around Copilot session events while preserving Discord streaming semantics**
+- [x] **Unit 5: Rebuild `Conversation` around Copilot session events while preserving Discord streaming semantics**
 
 **Goal:** Keep the public chat runtime contract stable for `MessageHandler` while internally swapping to Copilot session creation, resume, streaming, and sub-agent events.
 
@@ -296,7 +296,7 @@ flowchart TB
 **Verification:**
 - `MessageHandler` can continue consuming streamed chat updates without knowing whether the underlying runtime is Copilot or the old workflow engine.
 
-- [ ] **Unit 6: Remove legacy orchestration/evaluator plumbing and lock the migration in with regression tests**
+- [x] **Unit 6: Remove legacy orchestration/evaluator plumbing and lock the migration in with regression tests**
 
 **Goal:** Finish the migration by deleting the old bespoke harness paths, updating chat documentation/config references, and closing the biggest regression gaps.
 
