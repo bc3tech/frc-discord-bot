@@ -164,7 +164,6 @@ host.Services.AddSingleton(_ =>
 
 host.Services.TryAddChatBot(
     host.Configuration,
-    credential,
     ResolveCopilotBlobStorageUri(blobsEndpoint, bsc.Uri),
     out bool hasValidChatBotConfiguration,
     out string[] chatBotConfigurationFailures);

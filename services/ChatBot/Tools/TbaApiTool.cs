@@ -79,12 +79,14 @@ internal sealed class TbaApiTool(
                 endpoint.OperationId,
                 endpoint.Tags,
                 endpoint.Parameters,
+                endpoint.PathParameters,
+                endpoint.QueryParameters,
             }).ToArray().AsReadOnly();
 
         return Task.FromResult(JsonSerializer.Serialize(new
         {
             baseUrl = "https://www.thebluealliance.com/api/v3",
-            guidance = "Choose one of these exact path templates and substitute only the documented path parameters. Call tba_api with the concrete path after selecting the best matching template.",
+            guidance = "Choose one of these exact path templates and substitute only the documented path parameters. Call tba_api with the concrete path after selecting the best matching template. When a parameter declares an Enum, you MUST use one of those exact string values; TBA rejects any other value.",
             endpointCount = selectedEndpoints.Count,
             endpoints = selectedEndpoints,
         }));
@@ -421,19 +423,84 @@ internal sealed class TbaApiTool(
                 string[] tags = operation.TryGetProperty("tags", out JsonElement tagsElement)
                     ? [.. tagsElement.EnumerateArray().Select(tag => tag.GetString().UnlessNullOrWhitespaceThen(string.Empty)).Where(static tag => !string.IsNullOrWhiteSpace(tag))]
                     : [];
-                string[] parameters = operation.TryGetProperty("parameters", out JsonElement parametersElement)
-                    ? [.. parametersElement.EnumerateArray()
-                            .Where(static parameter => parameter.ValueKind == JsonValueKind.Object && parameter.TryGetProperty("name", out _))
-                            .Select(static parameter => parameter.GetProperty("name").GetString().UnlessNullOrWhitespaceThen(string.Empty))
-                            .Where(static name => !string.IsNullOrWhiteSpace(name))]
-                    : [];
+                (TbaParameter[] parameters, TbaParameter[] pathParameters, TbaParameter[] queryParameters) = operation.TryGetProperty("parameters", out JsonElement parametersElement)
+                    ? ReadParameters(parametersElement)
+                    : ([], [], []);
 
-                endpoints.Add(new TbaEndpoint(pathProperty.Name, description, operationId, tags, parameters));
+                endpoints.Add(new TbaEndpoint(pathProperty.Name, description, operationId, tags, parameters, pathParameters, queryParameters));
             }
         }
 
         return new TbaApiSurface(endpoints);
     });
+
+    private static (TbaParameter[] Parameters, TbaParameter[] PathParameters, TbaParameter[] QueryParameters) ReadParameters(JsonElement parametersElement)
+    {
+        var parameters = new List<TbaParameter>();
+        var pathParameters = new List<TbaParameter>();
+        var queryParameters = new List<TbaParameter>();
+        foreach (JsonElement parameter in parametersElement.EnumerateArray())
+        {
+            if (parameter.ValueKind != JsonValueKind.Object || !parameter.TryGetProperty("name", out JsonElement nameElement))
+            {
+                continue;
+            }
+
+            string? name = nameElement.GetString();
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                continue;
+            }
+
+            string? location = parameter.TryGetProperty("in", out JsonElement locationElement) ? locationElement.GetString() : null;
+            bool required = parameter.TryGetProperty("required", out JsonElement requiredElement) && requiredElement.ValueKind == JsonValueKind.True;
+            string? description = parameter.TryGetProperty("description", out JsonElement descriptionElement) ? descriptionElement.GetString() : null;
+
+            string? type = null;
+            string[]? enumValues = null;
+            double? minimum = null;
+            double? maximum = null;
+            if (parameter.TryGetProperty("schema", out JsonElement schemaElement) && schemaElement.ValueKind == JsonValueKind.Object)
+            {
+                if (schemaElement.TryGetProperty("type", out JsonElement typeElement))
+                {
+                    type = typeElement.GetString();
+                }
+
+                if (schemaElement.TryGetProperty("enum", out JsonElement enumElement) && enumElement.ValueKind == JsonValueKind.Array)
+                {
+                    enumValues = [.. enumElement.EnumerateArray()
+                        .Select(static value => value.ValueKind == JsonValueKind.String ? value.GetString() : value.GetRawText())
+                        .Where(static value => !string.IsNullOrWhiteSpace(value))
+                        .Select(static value => value!)];
+                }
+
+                if (schemaElement.TryGetProperty("minimum", out JsonElement minimumElement) && minimumElement.ValueKind == JsonValueKind.Number)
+                {
+                    minimum = minimumElement.GetDouble();
+                }
+
+                if (schemaElement.TryGetProperty("maximum", out JsonElement maximumElement) && maximumElement.ValueKind == JsonValueKind.Number)
+                {
+                    maximum = maximumElement.GetDouble();
+                }
+            }
+
+            var descriptor = new TbaParameter(name, location, required, type, enumValues, minimum, maximum, description);
+
+            parameters.Add(descriptor);
+            if (string.Equals(location, "path", StringComparison.OrdinalIgnoreCase))
+            {
+                pathParameters.Add(descriptor);
+            }
+            else if (string.Equals(location, "query", StringComparison.OrdinalIgnoreCase))
+            {
+                queryParameters.Add(descriptor);
+            }
+        }
+
+        return ([.. parameters], [.. pathParameters], [.. queryParameters]);
+    }
 
     private static bool IsHttpMethod(string methodName)
         => methodName.Equals("get", StringComparison.OrdinalIgnoreCase)
@@ -534,7 +601,24 @@ internal sealed class TbaApiTool(
         return collector.Length;
     }
 
-    private sealed record TbaEndpoint(string Template, string Description, string OperationId, string[] Tags, string[] Parameters)
+    private sealed record TbaParameter(
+        string Name,
+        string? In,
+        bool Required,
+        string? Type,
+        string[]? Enum,
+        double? Minimum,
+        double? Maximum,
+        string? Description);
+
+    private sealed record TbaEndpoint(
+        string Template,
+        string Description,
+        string OperationId,
+        string[] Tags,
+        TbaParameter[] Parameters,
+        TbaParameter[] PathParameters,
+        TbaParameter[] QueryParameters)
     {
         public bool Matches(string topic)
         {
@@ -544,7 +628,7 @@ internal sealed class TbaApiTool(
                 || Description.Contains(normalizedTopic, StringComparison.OrdinalIgnoreCase)
                 || OperationId.Contains(normalizedTopic, StringComparison.OrdinalIgnoreCase)
                 || Tags.Any(tag => tag.Contains(normalizedTopic, StringComparison.OrdinalIgnoreCase))
-                || Parameters.Any(parameter => parameter.Contains(normalizedTopic, StringComparison.OrdinalIgnoreCase));
+                || Parameters.Any(parameter => parameter.Name.Contains(normalizedTopic, StringComparison.OrdinalIgnoreCase));
         }
 
         public bool MatchesConcretePath(string concretePath)

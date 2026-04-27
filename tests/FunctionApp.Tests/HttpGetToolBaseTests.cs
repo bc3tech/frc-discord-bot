@@ -99,7 +99,11 @@ public sealed class HttpGetToolBaseTests
         Assert.Contains(
             root.GetProperty("endpoints").EnumerateArray(),
             endpoint => endpoint.GetProperty("Template").GetString() == "/v3/events"
-                && endpoint.GetProperty("QueryParameters").EnumerateArray().Any(parameter => parameter.GetString() == "year")
+                && endpoint.GetProperty("QueryParameters").EnumerateArray().Any(parameter => parameter.GetProperty("Name").GetString() == "year")
+                && endpoint.GetProperty("QueryParameters").EnumerateArray().Any(parameter =>
+                    parameter.GetProperty("Name").GetString() == "type"
+                    && parameter.TryGetProperty("Enum", out JsonElement enumElement)
+                    && enumElement.EnumerateArray().Any(value => value.GetString() == "champs_div"))
                 && endpoint.GetProperty("PathParameters").GetArrayLength() is 0);
     }
 

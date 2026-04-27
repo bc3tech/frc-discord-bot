@@ -70,7 +70,6 @@ public static class DependencyInjectionExtensions
     public static IServiceCollection TryAddChatBot(
         this IServiceCollection services,
         IConfiguration configuration,
-        TokenCredential tokenCredential,
         Uri blobServiceUri,
         out bool success,
         out string[] validationFailures)
@@ -131,16 +130,22 @@ public static class DependencyInjectionExtensions
             })
             .WithTableConversationStore(options => options.TableName = ChatBotConstants.ServiceKeys.TableClient_UserChatAgentThreads)
             .UseCopilot(c => c
-                .WithBlobSessionStorage(tokenCredential, blobServiceUri, options => options.ContainerName = ChatBotConstants.ServiceKeys.BlobContainer_CopilotSessions)
+                // Intentionally NOT calling .WithBlobSessionStorage here. The bot
+                // runs as a single-instance Container App (max replicas: 1), so
+                // cross-host session.resume is impossible regardless of where
+                // session.db lives. Keeping session-state on the SDK's default
+                // local disk also keeps tool-output spills on real disk where
+                // shelled-out CLI tools (rg, cat) can read them — routing those
+                // through a virtual ISessionFsHandler breaks that handoff.
+                // The WithBlobSessionStorage extension remains available in the
+                // BC3Technologies.DiscordGpt.Storage.Blob package for SDK
+                // consumers who do need cross-host resume.
                 .WithTableConversationSessionMap(options => options.TableName = ChatBotConstants.ServiceKeys.TableClient_CopilotSessions)
                 .ConfigureOptions(options =>
                 {
                     options.AllowAll = true;
 
                     var timeoutSeconds= configuration.GetValue<int?>(ChatBotConstants.Configuration.Copilot.ResponseTimeoutSeconds);
-                    options.ResponseTimeout = TimeSpan.FromSeconds(timeoutSeconds ?? 300);
-
-                    var timeoutSeconds = configuration.GetValue<int?>(ChatBotConstants.Configuration.Copilot.ResponseTimeoutSeconds);
                     options.ResponseTimeout = TimeSpan.FromSeconds(timeoutSeconds ?? 300);
 
                     // Replace the Copilot CLI's default coding-agent persona with the Bear Metal Bot
@@ -197,9 +202,7 @@ public static class DependencyInjectionExtensions
         services.Configure<CopilotToolAuthorizationOptions>(options =>
         {
             options.AllowAllTools = true;
-            options.AllowAllSkills = true;
             options.AllowToolsInDirectMessages = true;
-            options.AllowSkillsInDirectMessages = true;
         });
 
         services.AddSingleton<MessageHandler>();

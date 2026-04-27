@@ -169,7 +169,7 @@ Classification cheat-sheet for "should this hang off `DiscordGptBuilder` or `Cop
 
 | Surface | Receiver | Why |
 |---|---|---|
-| `IDiscordTool` / `IDiscordSkill` / `IConversationStore` registrations | `DiscordGptBuilder` | Core abstractions in `Hosting`; harness-agnostic |
+| `IDiscordTool` / `IConversationStore` registrations | `DiscordGptBuilder` | Core abstractions in `Hosting`; harness-agnostic |
 | Discord transport (`UseGateway`, `UseWebhooks`) | `DiscordGptBuilder` | Independent of which AI harness runs |
 | Conversation-store adapters (`WithBlobConversationStore`, `WithTableConversationStore`) | `DiscordGptBuilder` | Storage is harness-agnostic |
 | `UseCopilot(c => ...)` itself | `DiscordGptBuilder` | The harness selector |

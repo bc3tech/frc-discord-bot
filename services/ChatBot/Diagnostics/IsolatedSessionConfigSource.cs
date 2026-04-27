@@ -37,8 +37,13 @@ using Microsoft.Extensions.Logging;
 /// the source was invoked outside a harness turn and is treated as a programmer error.
 /// </para>
 /// <para>
-/// Conversation persistence is still owned by <c>WithBlobSessionStorage</c> (an SDK
-/// <c>ISessionFsHandler</c>) — this source governs the CLI-side built-in surface only.
+/// Conversation history is owned by <c>WithTableConversationStore</c> (Azure Table
+/// Storage) and the per-conversation Copilot SDK session-id mapping by
+/// <c>WithTableConversationSessionMap</c>. This source governs the CLI-side
+/// built-in tool surface only; the SDK's own session-state files
+/// (<c>session.db</c>, <c>workspace.yaml</c>, <c>checkpoints/</c>) live on local
+/// disk under <see cref="SessionConfig.ConfigDir"/> by SDK default — see
+/// <c>DiscordGptBuilderCopilotExtensions</c> for the rationale.
 /// </para>
 /// </remarks>
 public sealed partial class IsolatedSessionConfigSource(
@@ -84,6 +89,7 @@ public sealed partial class IsolatedSessionConfigSource(
         "edit",
         "glob",
         "grep",
+        "apply_patch",
         // Task / agent orchestration tools — single-turn Q&A doesn't need them.
         "task",
         "task_complete",

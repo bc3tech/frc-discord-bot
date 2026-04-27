@@ -68,7 +68,7 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
         return Task.FromResult(JsonSerializer.Serialize(new
         {
             baseUrl = "https://api.statbotics.io",
-            guidance = "Choose one exact path template and substitute only documented path parameters. Put filters such as year, country, state, district, team, event, metric, limit, and offset in the statbotics_api query argument. Example: list current-year events with path=/v3/events and query=year=2026, not /v3/events/2026.",
+            guidance = "Choose one exact path template and substitute only documented path parameters. Put filters such as year, country, state, district, team, event, metric, limit, and offset in the statbotics_api query argument. Example: list current-year events with path=/v3/events and query=year=2026, not /v3/events/2026. When a query parameter declares an Enum, you MUST use one of those exact string values (e.g. type=champs_div, never type=3); the Statbotics server returns HTTP 500 for any value not in the enum.",
             endpointCount = selectedEndpoints.Count,
             endpoints = selectedEndpoints,
         }));
@@ -132,7 +132,7 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
                 string[] tags = operation.TryGetProperty("tags", out JsonElement tagsElement)
                     ? [.. tagsElement.EnumerateArray().Select(tag => tag.GetString() ?? string.Empty).Where(static tag => !string.IsNullOrWhiteSpace(tag))]
                     : [];
-                (string[] parameters, string[] pathParameters, string[] queryParameters) = operation.TryGetProperty("parameters", out JsonElement parametersElement)
+                (StatboticsParameter[] parameters, StatboticsParameter[] pathParameters, StatboticsParameter[] queryParameters) = operation.TryGetProperty("parameters", out JsonElement parametersElement)
                     ? ReadParameters(parametersElement)
                     : ([], [], []);
 
@@ -143,11 +143,11 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
         return new StatboticsApiSurface(endpoints);
     });
 
-    private static (string[] Parameters, string[] PathParameters, string[] QueryParameters) ReadParameters(JsonElement parametersElement)
+    private static (StatboticsParameter[] Parameters, StatboticsParameter[] PathParameters, StatboticsParameter[] QueryParameters) ReadParameters(JsonElement parametersElement)
     {
-        var parameters = new List<string>();
-        var pathParameters = new List<string>();
-        var queryParameters = new List<string>();
+        var parameters = new List<StatboticsParameter>();
+        var pathParameters = new List<StatboticsParameter>();
+        var queryParameters = new List<StatboticsParameter>();
         foreach (JsonElement parameter in parametersElement.EnumerateArray())
         {
             if (parameter.ValueKind != JsonValueKind.Object || !parameter.TryGetProperty("name", out JsonElement nameElement))
@@ -161,18 +161,50 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
                 continue;
             }
 
-            parameters.Add(name);
-            if (parameter.TryGetProperty("in", out JsonElement locationElement))
+            string? location = parameter.TryGetProperty("in", out JsonElement locationElement) ? locationElement.GetString() : null;
+            bool required = parameter.TryGetProperty("required", out JsonElement requiredElement) && requiredElement.ValueKind == JsonValueKind.True;
+            string? description = parameter.TryGetProperty("description", out JsonElement descriptionElement) ? descriptionElement.GetString() : null;
+
+            string? type = null;
+            string[]? enumValues = null;
+            double? minimum = null;
+            double? maximum = null;
+            if (parameter.TryGetProperty("schema", out JsonElement schemaElement) && schemaElement.ValueKind == JsonValueKind.Object)
             {
-                string? location = locationElement.GetString();
-                if (string.Equals(location, "path", StringComparison.OrdinalIgnoreCase))
+                if (schemaElement.TryGetProperty("type", out JsonElement typeElement))
                 {
-                    pathParameters.Add(name);
+                    type = typeElement.GetString();
                 }
-                else if (string.Equals(location, "query", StringComparison.OrdinalIgnoreCase))
+
+                if (schemaElement.TryGetProperty("enum", out JsonElement enumElement) && enumElement.ValueKind == JsonValueKind.Array)
                 {
-                    queryParameters.Add(name);
+                    enumValues = [.. enumElement.EnumerateArray()
+                        .Select(static value => value.ValueKind == JsonValueKind.String ? value.GetString() : value.GetRawText())
+                        .Where(static value => !string.IsNullOrWhiteSpace(value))
+                        .Select(static value => value!)];
                 }
+
+                if (schemaElement.TryGetProperty("minimum", out JsonElement minimumElement) && minimumElement.ValueKind == JsonValueKind.Number)
+                {
+                    minimum = minimumElement.GetDouble();
+                }
+
+                if (schemaElement.TryGetProperty("maximum", out JsonElement maximumElement) && maximumElement.ValueKind == JsonValueKind.Number)
+                {
+                    maximum = maximumElement.GetDouble();
+                }
+            }
+
+            var descriptor = new StatboticsParameter(name, location, required, type, enumValues, minimum, maximum, description);
+
+            parameters.Add(descriptor);
+            if (string.Equals(location, "path", StringComparison.OrdinalIgnoreCase))
+            {
+                pathParameters.Add(descriptor);
+            }
+            else if (string.Equals(location, "query", StringComparison.OrdinalIgnoreCase))
+            {
+                queryParameters.Add(descriptor);
             }
         }
 
@@ -289,14 +321,24 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
         return count;
     }
 
+    private sealed record StatboticsParameter(
+        string Name,
+        string? In,
+        bool Required,
+        string? Type,
+        string[]? Enum,
+        double? Minimum,
+        double? Maximum,
+        string? Description);
+
     private sealed record StatboticsEndpoint(
         string Template,
         string Description,
         string OperationId,
         string[] Tags,
-        string[] Parameters,
-        string[] PathParameters,
-        string[] QueryParameters)
+        StatboticsParameter[] Parameters,
+        StatboticsParameter[] PathParameters,
+        StatboticsParameter[] QueryParameters)
     {
         public bool Matches(string topic)
         {
@@ -306,7 +348,7 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
                 || Description.Contains(normalizedTopic, StringComparison.OrdinalIgnoreCase)
                 || OperationId.Contains(normalizedTopic, StringComparison.OrdinalIgnoreCase)
                 || Tags.Any(tag => tag.Contains(normalizedTopic, StringComparison.OrdinalIgnoreCase))
-                || Parameters.Any(parameter => parameter.Contains(normalizedTopic, StringComparison.OrdinalIgnoreCase));
+                || Parameters.Any(parameter => parameter.Name.Contains(normalizedTopic, StringComparison.OrdinalIgnoreCase));
         }
 
         public bool MatchesConcretePath(string concretePath)

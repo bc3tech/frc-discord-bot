@@ -8,6 +8,7 @@ using BC3Technologies.DiscordGpt.Core;
 using BC3Technologies.DiscordGpt.Storage.TableStorage;
 
 using Discord;
+using GitHub.Copilot.SDK.Rpc;
 
 using global::ChatBot;
 
@@ -101,7 +102,7 @@ public sealed class DiscordGptIntegrationTests
         services.AddSingleton(new TableServiceClient("UseDevelopmentStorage=true"));
         services.AddSingleton(Mock.Of<IDiscordClient>());
 
-        services.TryAddChatBot(configuration, Mock.Of<TokenCredential>(), new Uri("https://storageacct.blob.core.windows.net"), out bool success, out string[] validationFailures);
+        services.TryAddChatBot(configuration, new Uri("https://storageacct.blob.core.windows.net"), out bool success, out string[] validationFailures);
         Assert.True(success);
 
         using ServiceProvider provider = services.BuildServiceProvider(validateScopes: true);
@@ -116,9 +117,7 @@ public sealed class DiscordGptIntegrationTests
 
         CopilotToolAuthorizationOptions authorization = provider.GetRequiredService<IOptions<CopilotToolAuthorizationOptions>>().Value;
         Assert.True(authorization.AllowAllTools);
-        Assert.True(authorization.AllowAllSkills);
         Assert.True(authorization.AllowToolsInDirectMessages);
-        Assert.True(authorization.AllowSkillsInDirectMessages);
 
         Assert.IsType<TableConversationStore>(provider.GetRequiredService<IConversationStore>());
         Assert.NotNull(provider.GetRequiredService<MessageHandler>());
@@ -143,7 +142,7 @@ public sealed class DiscordGptIntegrationTests
         services.AddSingleton(new TableServiceClient("UseDevelopmentStorage=true"));
         services.AddSingleton(Mock.Of<IDiscordClient>());
 
-        services.TryAddChatBot(configuration, Mock.Of<TokenCredential>(), new Uri("https://storageacct.blob.core.windows.net"), out bool success, out string[] validationFailures);
+        services.TryAddChatBot(configuration, new Uri("https://storageacct.blob.core.windows.net"), out bool success, out string[] validationFailures);
         Assert.True(success);
 
         using ServiceProvider provider = services.BuildServiceProvider(validateScopes: true);
@@ -165,7 +164,6 @@ public sealed class DiscordGptIntegrationTests
         services.AddSingleton(new TableServiceClient("UseDevelopmentStorage=true"));
         services.TryAddChatBot(
             configuration,
-            Mock.Of<TokenCredential>(),
             new Uri("https://storageacct.blob.core.windows.net"),
             out bool isEnabled,
             out string[] validationFailures);
@@ -197,7 +195,7 @@ public sealed class DiscordGptIntegrationTests
         services.AddLogging();
         services.AddSingleton(new TableServiceClient("UseDevelopmentStorage=true"));
 
-        services.TryAddChatBot(configuration, Mock.Of<TokenCredential>(), new Uri("http://storageacct.blob.core.windows.net"), out bool success, out string[] validationFailures);
+        services.TryAddChatBot(configuration, new Uri("http://storageacct.blob.core.windows.net"), out bool success, out string[] validationFailures);
         Assert.False(success);
     }
 
@@ -216,6 +214,47 @@ public sealed class DiscordGptIntegrationTests
         await ChatThreadResetter.CleanupDeletedThreadAsync(provider, 456UL, TestContext.Current.CancellationToken);
 
         store.VerifyAll();
+    }
+
+    [Fact]
+    public async Task ChatThreadResetterClearsCopilotSessionState()
+    {
+        Mock<IConversationStore> store = new(MockBehavior.Strict);
+        store.Setup(s => s.ClearAsync(ConversationKey.Dm("123"), It.IsAny<CancellationToken>())).Returns(Task.CompletedTask).Verifiable();
+
+        Mock<IConversationSessionMap> sessionMap = new(MockBehavior.Strict);
+        sessionMap
+            .Setup(m => m.GetSessionIdAsync(ConversationKey.Dm("123").ToStorageKey(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync("session-123")
+            .Verifiable();
+        sessionMap
+            .Setup(m => m.RemoveAsync(ConversationKey.Dm("123").ToStorageKey(), It.IsAny<CancellationToken>()))
+            .Returns(Task.CompletedTask)
+            .Verifiable();
+
+        SessionFsRmParams? removedPath = null;
+        Mock<ISessionFsHandler> sessionFs = new(MockBehavior.Strict);
+        sessionFs
+            .Setup(fs => fs.RmAsync(It.IsAny<SessionFsRmParams>(), It.IsAny<CancellationToken>()))
+            .Callback<SessionFsRmParams, CancellationToken>((request, _) => removedPath = request)
+            .Returns(Task.CompletedTask)
+            .Verifiable();
+
+        ServiceCollection services = new();
+        services.AddSingleton(store.Object);
+        services.AddSingleton(sessionMap.Object);
+        services.AddSingleton(sessionFs.Object);
+        await using ServiceProvider provider = services.BuildServiceProvider(validateScopes: true);
+
+        await ChatThreadResetter.ResetThreadForUserAsync(provider, 123UL, TestContext.Current.CancellationToken);
+
+        store.VerifyAll();
+        sessionMap.VerifyAll();
+        sessionFs.VerifyAll();
+        Assert.NotNull(removedPath);
+        Assert.Equal("session-123", removedPath.SessionId);
+        Assert.Equal("/", removedPath.Path);
+        Assert.True(removedPath.Recursive);
     }
 
     private static IConfiguration BuildConfiguration(params (string Key, string Value)[] entries)

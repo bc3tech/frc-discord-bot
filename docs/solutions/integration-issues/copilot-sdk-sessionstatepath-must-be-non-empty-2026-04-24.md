@@ -25,6 +25,8 @@ tags:
 
 # Copilot SDK SessionFs.SessionStatePath must be non-empty for ISessionFsHandler to receive session-state IO
 
+> **Note (2026-04-26):** This fix is correct for multi-instance topologies that need cross-host `session.resume`. For **single-instance** hosts (e.g. Container App with `maxReplicas: 1`), it has been **superseded** by [`copilot-sdk-tool-output-spills-need-real-disk-2026-04-26.md`](./copilot-sdk-tool-output-spills-need-real-disk-2026-04-26.md), which reverts to the SDK's local-disk default so that tool-output spills remain readable by shelled-out CLI tools (`rg`, `cat`). The Discord bot host now uses local-disk session FS; `BlobSessionFsHandler` / `WithBlobSessionStorage` remain available in the `BC3Technologies.DiscordGpt.Storage.Blob` package for SDK consumers who do scale out.
+
 ## Problem
 
 The Discord bot persists Copilot SDK session state to Azure Blob Storage via a custom `ISessionFsHandler` (`BlobSessionFsHandler`). Despite the handler being correctly registered and wired onto every `SessionConfig`, the SDK was still writing `session.db` / `workspace.yaml` / `checkpoints/` to local disk under the per-conversation `ConfigDir`. Because the bot's host process is conversation-scoped (different ConfigDir per turn) and stateless across restarts, the next turn's CLI process couldn't find the prior session and `session.resume` failed with `Session not found: <guid>`. Every Discord turn became a fresh session.
