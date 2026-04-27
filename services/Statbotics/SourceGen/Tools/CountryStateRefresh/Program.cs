@@ -18,12 +18,31 @@ internal static class Program
     private const int PageSize = 1000;
     private const int SafetyCap = 50_000;
 
+    private static readonly JsonSerializerOptions s_responseOptions = new(JsonSerializerDefaults.Web);
+
+    private static readonly JsonSerializerOptions s_outputOptions = new()
+    {
+        WriteIndented = true,
+        DefaultIgnoreCondition = JsonIgnoreCondition.Never,
+        // Write non-ASCII characters as raw UTF-8 (e.g., "Türkiye" instead of
+        // "T\u00FCrkiye"). The source generator's hand-rolled JSON parser doesn't
+        // decode \uXXXX escapes; writing raw UTF-8 keeps the round-trip correct.
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+    };
+
     public static async Task<int> Main(string[] args)
     {
+        using var cts = new CancellationTokenSource();
+        Console.CancelKeyPress += (_, e) =>
+        {
+            e.Cancel = true;
+            cts.Cancel();
+        };
+
         string outputPath = ParseOutputPath(args) ?? DefaultOutputPath;
 
-        Console.WriteLine($"Refreshing country/state snapshot to {outputPath}");
-        Console.WriteLine($"Source: {TeamsEndpoint}?limit={PageSize}&offset=N (paginated)");
+        await Console.Out.WriteLineAsync($"Refreshing country/state snapshot to {outputPath}").ConfigureAwait(false);
+        await Console.Out.WriteLineAsync($"Source: {TeamsEndpoint}?limit={PageSize}&offset=N (paginated)").ConfigureAwait(false);
 
         using var httpClient = new HttpClient { Timeout = TimeSpan.FromMinutes(2) };
 
@@ -37,15 +56,13 @@ internal static class Program
             while (offset < SafetyCap)
             {
                 string url = $"{TeamsEndpoint}?limit={PageSize}&offset={offset}";
-                Console.WriteLine($"  fetching offset={offset}...");
+                await Console.Out.WriteLineAsync($"  fetching offset={offset}...").ConfigureAwait(false);
 
-                using var response = await httpClient.GetAsync(url, CancellationToken.None).ConfigureAwait(false);
+                using var response = await httpClient.GetAsync(url, cts.Token).ConfigureAwait(false);
                 response.EnsureSuccessStatusCode();
 
-                await using Stream stream = await response.Content.ReadAsStreamAsync(CancellationToken.None).ConfigureAwait(false);
-                Team[]? page = await JsonSerializer.DeserializeAsync<Team[]>(
-                    stream,
-                    new JsonSerializerOptions(JsonSerializerDefaults.Web)).ConfigureAwait(false);
+                await using Stream stream = await response.Content.ReadAsStreamAsync(cts.Token).ConfigureAwait(false);
+                Team[]? page = await JsonSerializer.DeserializeAsync<Team[]>(stream, s_responseOptions, cts.Token).ConfigureAwait(false);
 
                 if (page is null || page.Length == 0)
                 {
@@ -76,32 +93,24 @@ internal static class Program
         }
         catch (HttpRequestException ex)
         {
-            Console.Error.WriteLine($"HTTP error after {totalTeams} teams (offset={offset}): {ex.Message}");
+            await Console.Error.WriteLineAsync($"HTTP error after {totalTeams} teams (offset={offset}): {ex.Message}").ConfigureAwait(false);
             return 2;
         }
 
-        Console.WriteLine($"Fetched {totalTeams} teams: {countries.Count} distinct countries, {states.Count} distinct states.");
+        await Console.Out.WriteLineAsync($"Fetched {totalTeams} teams: {countries.Count} distinct countries, {states.Count} distinct states.").ConfigureAwait(false);
 
         var snapshot = new Snapshot(
-            LastRefreshedAt: DateTime.UtcNow.ToString("o"),
+            LastRefreshedAt: DateTime.UtcNow.ToString("o", System.Globalization.CultureInfo.InvariantCulture),
             SourceEndpoint: TeamsEndpoint,
             Countries: countries.OrderBy(c => c, StringComparer.Ordinal).ToArray(),
             States: states.OrderBy(s => s, StringComparer.Ordinal).ToArray());
 
-        string json = JsonSerializer.Serialize(snapshot, new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            DefaultIgnoreCondition = JsonIgnoreCondition.Never,
-            // Write non-ASCII characters as raw UTF-8 (e.g., "Türkiye" instead of
-            // "T\u00FCrkiye"). The source generator's hand-rolled JSON parser doesn't
-            // decode \uXXXX escapes; writing raw UTF-8 keeps the round-trip correct.
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-        });
+        string json = JsonSerializer.Serialize(snapshot, s_outputOptions);
 
         Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
-        await File.WriteAllTextAsync(outputPath, json + Environment.NewLine).ConfigureAwait(false);
+        await File.WriteAllTextAsync(outputPath, json + Environment.NewLine, cts.Token).ConfigureAwait(false);
 
-        Console.WriteLine($"Wrote {outputPath}");
+        await Console.Out.WriteLineAsync($"Wrote {outputPath}").ConfigureAwait(false);
         return 0;
     }
 

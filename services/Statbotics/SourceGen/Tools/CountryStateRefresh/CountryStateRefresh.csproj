@@ -5,6 +5,8 @@
     <RootNamespace>StatboticsKnownValues.SourceGen.Tools.CountryStateRefresh</RootNamespace>
     <AssemblyName>CountryStateRefresh</AssemblyName>
     <IsPackable>false</IsPackable>
+    <!-- Main() signature is fixed by the runtime and can't accept a CancellationToken. -->
+    <NoWarn>$(NoWarn);EA0014</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
