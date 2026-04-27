@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!--
+      Roslyn analyzers/source generators must target netstandard2.0 because the
+      compiler that hosts them runs on that surface. This overrides the net10.0
+      default from Directory.Build.props.
+    -->
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <IsRoslynComponent>true</IsRoslynComponent>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IsPackable>false</IsPackable>
+    <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+    <!--
+      Disable extra Microsoft.Extensions analyzers inherited from
+      Directory.Build.props; they target net10.0 and aren't compatible with the
+      netstandard2.0 analyzer host.
+    -->
+    <DisableImplicitFrameworkReferences>false</DisableImplicitFrameworkReferences>
+    <NoWarn>$(NoWarn);1701;1702;NU1701;RS1032;RS2008;CA1305</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Strip Directory.Build.props analyzer auto-references that conflict with netstandard2.0 -->
+    <PackageReference Remove="Microsoft.VisualStudio.Threading.Analyzers" />
+    <PackageReference Remove="Microsoft.Extensions.ExtraAnalyzers" />
+    <PackageReference Remove="Microsoft.Extensions.EnumStrings" />
+  </ItemGroup>
+
+</Project>

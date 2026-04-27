@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>StatboticsKnownValues.SourceGen.Tests</AssemblyName>
+    <RootNamespace>StatboticsKnownValues.SourceGen.Tests</RootNamespace>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <Nullable>enable</Nullable>
+    <NoWarn>$(NoWarn);CA1707;CA1861;CA2007</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--
+      Reference the source generator project as a normal library (no analyzer wiring) so
+      tests can call the generator's public API and parser internals directly.
+    -->
+    <ProjectReference Include="..\..\services\Statbotics\SourceGen\StatboticsKnownValues.SourceGen.csproj">
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <OutputItemType>None</OutputItemType>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Fixtures\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

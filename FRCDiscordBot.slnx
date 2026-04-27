@@ -5,6 +5,9 @@
     <Project Path="services/Statbotics/src/Statbotics/Statbotics.csproj" />
     <Project Path="services/TheBlueAlliance/src/TheBlueAlliance/TheBlueAlliance.csproj" />
   </Folder>
+  <Folder Name="/Build/">
+    <Project Path="services/Statbotics/SourceGen/StatboticsKnownValues.SourceGen.csproj" />
+  </Folder>
   <Folder Name="/Libraries/">
     <Project Path="lib/CopilotSdk.OpenTelemetry/CopilotSdk.OpenTelemetry.csproj" />
   </Folder>
@@ -23,6 +26,7 @@
     <Project Path="tests/FIRST.Test/FIRST.Test.csproj" />
     <Project Path="tests/FunctionApp.Tests/FunctionApp.Tests.csproj" />
     <Project Path="tests/Statbotics.Test/Statbotics.Test.csproj" />
+    <Project Path="tests/StatboticsKnownValues.SourceGen.Tests/StatboticsKnownValues.SourceGen.Tests.csproj" />
     <Project Path="tests/TheBlueAlliance.Test/TheBlueAlliance.Test.csproj" />
   </Folder>
   <Folder Name="/Tools/">

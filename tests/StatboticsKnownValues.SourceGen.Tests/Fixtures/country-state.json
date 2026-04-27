@@ -1,0 +1,6 @@
+{
+  "lastRefreshedAt": "2026-04-27T00:00:00Z",
+  "sourceEndpoint": "fixture",
+  "countries": ["Canada", "Mexico", "USA"],
+  "states": ["CA", "NC", "TX"]
+}
