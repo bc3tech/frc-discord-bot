@@ -29,4 +29,7 @@ static partial class Log
 
     [LoggerMessage(36, LogLevel.Information, "Statbotics returned HTTP 500 for {Path} with query '{Query}'; rewrote response with constraint guidance")]
     internal static partial void StatboticsApi500Rewritten(this ILogger logger, string Path, string Query);
+
+    [LoggerMessage(37, LogLevel.Information, "Statbotics validation skipped for parameter '{ParameterName}' on {Path}: {Reason}")]
+    internal static partial void StatboticsValidationSkipped(this ILogger logger, string ParameterName, string Path, string Reason);
 }

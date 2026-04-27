@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
@@ -91,6 +92,10 @@ internal static class Program
         {
             WriteIndented = true,
             DefaultIgnoreCondition = JsonIgnoreCondition.Never,
+            // Write non-ASCII characters as raw UTF-8 (e.g., "Türkiye" instead of
+            // "T\u00FCrkiye"). The source generator's hand-rolled JSON parser doesn't
+            // decode \uXXXX escapes; writing raw UTF-8 keeps the round-trip correct.
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
         });
 
         Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);

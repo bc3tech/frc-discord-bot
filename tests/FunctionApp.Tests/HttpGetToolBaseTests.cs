@@ -213,15 +213,18 @@ public sealed class HttpGetToolBaseTests
         using var client = new HttpClient(handler) { BaseAddress = new Uri("https://api.statbotics.io/") };
         var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
 
-        // Use a value Statbotics would actually 500 on but our validator can't detect (e.g., a year out of range we don't enforce)
-        string response = await tool.QueryStatboticsAsync("/v3/events", "year=1899", cancellationToken: CancellationToken.None);
+        // Use a query that passes our pre-validation (year is in declared range, type is a
+        // legal enum value) but the test stub still returns 500. This exercises the rewrite
+        // path: the endpoint has constrained params, the supplied query touches one of them
+        // (`type`), so the rewrite envelope is built.
+        string response = await tool.QueryStatboticsAsync("/v3/events", "year=2025&type=champs_div", cancellationToken: CancellationToken.None);
 
         using JsonDocument document = JsonDocument.Parse(response);
         JsonElement root = document.RootElement;
         Assert.False(root.GetProperty("ok").GetBoolean());
         Assert.Equal(500, root.GetProperty("statusCode").GetInt32());
-        Assert.Contains("constraint", root.GetProperty("guidance").GetString(), StringComparison.OrdinalIgnoreCase);
-        Assert.Equal("year=1899", root.GetProperty("suppliedQuery").GetString());
+        Assert.Contains("constrainedQueryParameters", root.GetProperty("guidance").GetString(), StringComparison.OrdinalIgnoreCase);
+        Assert.Equal("year=2025&type=champs_div", root.GetProperty("suppliedQuery").GetString());
         JsonElement constrained = root.GetProperty("constrainedQueryParameters");
         Assert.True(constrained.GetArrayLength() > 0);
         Assert.Contains(constrained.EnumerateArray(), p => p.GetProperty("name").GetString() == "type");
@@ -297,6 +300,158 @@ public sealed class HttpGetToolBaseTests
             violations.EnumerateArray(),
             v => v.GetProperty("name").GetString() == "year"
                 && v.GetProperty("problem").GetString()!.Contains("more than once", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public async Task QueryStatboticsAsyncRejectsInvalidMetricColumn()
+    {
+        using var handler = new StubHttpMessageHandler(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent("""{"shouldNotCall":true}"""),
+        });
+        using var client = new HttpClient(handler) { BaseAddress = new Uri("https://api.statbotics.io/") };
+        var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+
+        string response = await tool.QueryStatboticsAsync("/v3/team_events", "metric=bogus_column", cancellationToken: CancellationToken.None);
+
+        using JsonDocument document = JsonDocument.Parse(response);
+        JsonElement root = document.RootElement;
+        Assert.False(root.GetProperty("ok").GetBoolean());
+        Assert.Equal(400, root.GetProperty("statusCode").GetInt32());
+        Assert.Null(handler.LastRequestUri);
+        JsonElement violations = root.GetProperty("violations");
+        Assert.Contains(
+            violations.EnumerateArray(),
+            v => v.GetProperty("name").GetString() == "metric"
+                && v.GetProperty("suppliedValue").GetString() == "bogus_column"
+                && v.GetProperty("legalMetricColumns").EnumerateArray().Any(c => c.GetString() == "epa"));
+    }
+
+    [Fact]
+    public async Task QueryStatboticsAsyncAllowsValidMetricColumn()
+    {
+        using var handler = new StubHttpMessageHandler(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent("""[{"team":2046,"epa":50}]"""),
+        });
+        using var client = new HttpClient(handler) { BaseAddress = new Uri("https://api.statbotics.io/") };
+        var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+
+        string response = await tool.QueryStatboticsAsync("/v3/team_events", "metric=epa", cancellationToken: CancellationToken.None);
+
+        using JsonDocument document = JsonDocument.Parse(response);
+        Assert.True(document.RootElement.GetProperty("ok").GetBoolean());
+        Assert.Equal(200, document.RootElement.GetProperty("statusCode").GetInt32());
+        Assert.NotNull(handler.LastRequestUri);
+        Assert.Contains("metric=epa", handler.LastRequestUri!.Query);
+    }
+
+    [Fact]
+    public async Task QueryStatboticsAsyncRejectsInvalidCountry()
+    {
+        using var handler = new StubHttpMessageHandler(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent("""{"shouldNotCall":true}"""),
+        });
+        using var client = new HttpClient(handler) { BaseAddress = new Uri("https://api.statbotics.io/") };
+        var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+
+        string response = await tool.QueryStatboticsAsync("/v3/team_events", "country=Atlantis", cancellationToken: CancellationToken.None);
+
+        using JsonDocument document = JsonDocument.Parse(response);
+        JsonElement root = document.RootElement;
+        Assert.False(root.GetProperty("ok").GetBoolean());
+        Assert.Equal(400, root.GetProperty("statusCode").GetInt32());
+        Assert.Null(handler.LastRequestUri);
+        JsonElement violations = root.GetProperty("violations");
+        Assert.Contains(
+            violations.EnumerateArray(),
+            v => v.GetProperty("name").GetString() == "country"
+                && v.GetProperty("legalCountries").EnumerateArray().Any(c => c.GetString() == "USA"));
+    }
+
+    [Fact]
+    public async Task QueryStatboticsAsyncAllowsValidCountry()
+    {
+        using var handler = new StubHttpMessageHandler(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent("""[]"""),
+        });
+        using var client = new HttpClient(handler) { BaseAddress = new Uri("https://api.statbotics.io/") };
+        var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+
+        string response = await tool.QueryStatboticsAsync("/v3/team_events", "country=USA", cancellationToken: CancellationToken.None);
+
+        using JsonDocument document = JsonDocument.Parse(response);
+        Assert.True(document.RootElement.GetProperty("ok").GetBoolean());
+        Assert.NotNull(handler.LastRequestUri);
+    }
+
+    [Fact]
+    public async Task QueryStatboticsAsyncRejectsInvalidState()
+    {
+        using var handler = new StubHttpMessageHandler(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent("""{"shouldNotCall":true}"""),
+        });
+        using var client = new HttpClient(handler) { BaseAddress = new Uri("https://api.statbotics.io/") };
+        var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+
+        string response = await tool.QueryStatboticsAsync("/v3/team_events", "state=ZZ", cancellationToken: CancellationToken.None);
+
+        using JsonDocument document = JsonDocument.Parse(response);
+        JsonElement root = document.RootElement;
+        Assert.False(root.GetProperty("ok").GetBoolean());
+        Assert.Equal(400, root.GetProperty("statusCode").GetInt32());
+        Assert.Null(handler.LastRequestUri);
+        JsonElement violations = root.GetProperty("violations");
+        Assert.Contains(
+            violations.EnumerateArray(),
+            v => v.GetProperty("name").GetString() == "state"
+                && v.GetProperty("legalStates").EnumerateArray().Any(c => c.GetString() == "NC"));
+    }
+
+    [Fact]
+    public async Task QueryStatboticsAsyncAllowsValidState()
+    {
+        using var handler = new StubHttpMessageHandler(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent("""[]"""),
+        });
+        using var client = new HttpClient(handler) { BaseAddress = new Uri("https://api.statbotics.io/") };
+        var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+
+        string response = await tool.QueryStatboticsAsync("/v3/team_events", "state=NC", cancellationToken: CancellationToken.None);
+
+        using JsonDocument document = JsonDocument.Parse(response);
+        Assert.True(document.RootElement.GetProperty("ok").GetBoolean());
+        Assert.NotNull(handler.LastRequestUri);
+    }
+
+    [Fact]
+    public async Task QueryStatboticsAsyncMixedQuerySurfacesAllViolations()
+    {
+        using var handler = new StubHttpMessageHandler(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent("""{"shouldNotCall":true}"""),
+        });
+        using var client = new HttpClient(handler) { BaseAddress = new Uri("https://api.statbotics.io/") };
+        var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+
+        string response = await tool.QueryStatboticsAsync(
+            "/v3/team_events",
+            "metric=bogus&country=Atlantis&year=2026",
+            cancellationToken: CancellationToken.None);
+
+        using JsonDocument document = JsonDocument.Parse(response);
+        JsonElement root = document.RootElement;
+        Assert.Equal(400, root.GetProperty("statusCode").GetInt32());
+        JsonElement violations = root.GetProperty("violations");
+        // year=2026 is valid (within declared range 2002-2026), so no violation for it.
+        // metric=bogus and country=Atlantis should each surface.
+        Assert.Equal(2, violations.GetArrayLength());
+        Assert.Contains(violations.EnumerateArray(), v => v.GetProperty("name").GetString() == "metric");
+        Assert.Contains(violations.EnumerateArray(), v => v.GetProperty("name").GetString() == "country");
     }
 
     [Fact]

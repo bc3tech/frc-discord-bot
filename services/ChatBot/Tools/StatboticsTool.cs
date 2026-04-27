@@ -6,6 +6,7 @@ using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Logging;
 
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -103,7 +104,7 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
             });
         }
 
-        if (TryBuildQueryValidationError(endpoint, path, query, out string? validationError))
+        if (TryBuildQueryValidationError(endpoint, path, query, logger, out string? validationError))
         {
             logger.StatboticsQueryValidationRejected(path, query ?? string.Empty);
             return validationError;
@@ -129,6 +130,7 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
         StatboticsEndpoint endpoint,
         string path,
         string? query,
+        ILogger logger,
         [System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out string? errorJson)
     {
         errorJson = null;
@@ -169,6 +171,72 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
                     problem = $"Unknown query parameter '{pair.Key}' for endpoint template '{endpoint.Template}'.",
                 });
                 continue;
+            }
+
+            // Source-generated known-value validation for vague-description params
+            // (`metric`, `country`, `state`) whose legal sets aren't expressible in
+            // the OpenAPI spec. Each branch either records a violation+continue, or
+            // logs a skip (R14/R15) and falls through naturally to the next pair.
+            if (string.Equals(parameter.Name, "metric", StringComparison.Ordinal))
+            {
+                if (StatboticsKnownValues.MetricColumns.TryGetValue(endpoint.Template, out ImmutableHashSet<string>? columns))
+                {
+                    if (!columns.Contains(pair.Value))
+                    {
+                        violations.Add(new
+                        {
+                            name = parameter.Name,
+                            suppliedValue = pair.Value,
+                            problem = $"'{pair.Value}' is not a valid sort column for endpoint '{endpoint.Template}'. Use one of the listed columns exactly (case-sensitive).",
+                            legalMetricColumns = columns,
+                        });
+                        continue;
+                    }
+                }
+                else
+                {
+                    // R14: endpoint not in mapping (Statbotics may have added a new
+                    // list endpoint). Skip metric validation; log so the gap is observable.
+                    logger.StatboticsValidationSkipped("metric", endpoint.Template, "endpoint not in known mapping");
+                }
+            }
+            else if (string.Equals(parameter.Name, "country", StringComparison.Ordinal))
+            {
+                if (StatboticsKnownValues.KnownCountries.IsEmpty)
+                {
+                    // R15: empty set (defensive — STATBOT002 hard-fails the build if the
+                    // snapshot is missing, so this only fires for an empty-but-present file).
+                    logger.StatboticsValidationSkipped("country", endpoint.Template, "known set is empty");
+                }
+                else if (!StatboticsKnownValues.KnownCountries.Contains(pair.Value))
+                {
+                    violations.Add(new
+                    {
+                        name = parameter.Name,
+                        suppliedValue = pair.Value,
+                        problem = $"'{pair.Value}' is not a known country in Statbotics' team data. Use one of the listed countries exactly (case-sensitive).",
+                        legalCountries = StatboticsKnownValues.KnownCountries,
+                    });
+                    continue;
+                }
+            }
+            else if (string.Equals(parameter.Name, "state", StringComparison.Ordinal))
+            {
+                if (StatboticsKnownValues.KnownStates.IsEmpty)
+                {
+                    logger.StatboticsValidationSkipped("state", endpoint.Template, "known set is empty");
+                }
+                else if (!StatboticsKnownValues.KnownStates.Contains(pair.Value))
+                {
+                    violations.Add(new
+                    {
+                        name = parameter.Name,
+                        suppliedValue = pair.Value,
+                        problem = $"'{pair.Value}' is not a known state/province in Statbotics' team data. Use one of the listed two-letter codes exactly (case-sensitive).",
+                        legalStates = StatboticsKnownValues.KnownStates,
+                    });
+                    continue;
+                }
             }
 
             if (parameter.Enum is { Length: > 0 } enumValues

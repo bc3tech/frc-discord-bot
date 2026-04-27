@@ -27,6 +27,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!--
+      Exclude the sibling Tools/ subfolder. Each tool there has its own .csproj
+      and lives in this directory tree only for organizational grouping.
+    -->
+    <Compile Remove="Tools\**" />
+    <None Remove="Tools\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- Strip Directory.Build.props analyzer auto-references that conflict with netstandard2.0 -->
     <PackageReference Remove="Microsoft.VisualStudio.Threading.Analyzers" />
     <PackageReference Remove="Microsoft.Extensions.ExtraAnalyzers" />

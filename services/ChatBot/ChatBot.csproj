@@ -41,4 +41,17 @@
     </None>
   </ItemGroup>
 
+  <!--
+    StatboticsKnownValues source generator. Emits ChatBot.Tools.StatboticsKnownValues
+    at build time from the upstream Statbotics ORM declarations + a snapshot of
+    distinct country/state values. See services/Statbotics/SourceGen/README.md.
+  -->
+  <ItemGroup>
+    <ProjectReference Include="..\Statbotics\SourceGen\StatboticsKnownValues.SourceGen.csproj"
+                      OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false" />
+    <AdditionalFiles Include="..\..\vendor\statbotics\backend\src\db\models\*.py" />
+    <AdditionalFiles Include="..\..\vendor\statbotics-extras\country-state.json" />
+  </ItemGroup>
+
 </Project>

@@ -61,10 +61,14 @@ public sealed class StatboticsKnownValuesGenerator : IIncrementalGenerator
 
                 if (!EndpointMapping.OrmClassToEndpoint.TryGetValue(ormClassName, out string? endpoint))
                 {
-                    context.ReportDiagnostic(Diagnostic.Create(
-                        Diagnostics.OrmClassNotInMapping,
-                        Location.None,
-                        ormClassName));
+                    if (!EndpointMapping.IntentionallyIgnored.Contains(ormClassName))
+                    {
+                        context.ReportDiagnostic(Diagnostic.Create(
+                            Diagnostics.OrmClassNotInMapping,
+                            Location.None,
+                            ormClassName));
+                    }
+
                     continue;
                 }
 
