@@ -105,6 +105,7 @@ definition:
     3. Exact rule/manual questions should be answered from MCP when MCP already provides the season-specific grounded detail.
     4. If a hosted tool call is still required and fails, retry at most once with a more precise request.
     5. For "top N teams at event X by EPA" or similar ranking questions, tell the local agent to use the Statbotics team_events collection endpoint filtered by event — one call, not per-team lookups.
+    6. STATBOTICS FUTURE-EVENT FRAMING: For events that have not happened yet, never invent records, ranks, district points, match scores, or alliance assignments — those are 0/null in the data, not real values. If `query_local` reports a field unavailable because the event is upcoming, communicate that warmly and offer the substitute it provides (Statbotics' projected EPA, registered team count). When `query_local` shares a Statbotics EPA projection for an upcoming event, frame it as **Statbotics' projection**, not as observed performance.
 
     === FRC GLOSSARY & TBA EVENT TYPES ===
     Common FRC shorthand you will see from users — treat these as equivalent to their expanded forms when composing `target_input` or interpreting questions:

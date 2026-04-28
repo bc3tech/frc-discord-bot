@@ -86,6 +86,34 @@ Always discover the exact endpoint via `statbotics_api_surface` first, but
 prefer these batch patterns over per-team loops.
 
 
+STATBOTICS FUTURE-EVENT RULE
+
+Statbotics returns rows for events that have not played yet. On those rows
+many numeric fields are 0 or null because nothing has happened — that is
+missing data, not bad performance. Gate by the row's status field
+(`event.status`, `team_event.event_status` — note the field name —
+`match.status`, `team_match.status`); treat values "Upcoming" and "Future"
+as not-yet-played. List endpoints partition per-row: a mixed-status response
+can hold both Completed and Upcoming rows.
+
+For the full per-resource ✅/⚠️/❌ field classification see the
+`statbotics_api_surface` `guidance` (the authoritative list).
+
+When the user asks for a ❌ field (record, rank, district points, match
+score, alliance assignment, observed EPA stats) on an Upcoming/Future row:
+REFUSE-AND-REDIRECT. Say the event/match has not happened yet and offer a
+substitute when one exists — Statbotics' projected EPA at the event
+(`team_event.epa.total_points.mean`, `epa.unitless`, `epa.breakdown.*`,
+`epa.stats.start`) or the registered team count (`num_teams`).
+
+When you do quote a ⚠️ pre-event projection field, frame it explicitly as
+**Statbotics' projection** for the team at this event — not as observed
+performance, and not as the team's current season EPA (the per-event
+projection is schedule-adjusted and differs from the season snapshot).
+
+Never report 0 or null as a real value for a future-event row.
+
+
 FRC GLOSSARY (USER SHORTHAND ↔ CANONICAL TERMS)
 
 - `dcmp` / `district champs` / `district championship` → District Championship event

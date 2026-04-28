@@ -68,7 +68,32 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
         return Task.FromResult(JsonSerializer.Serialize(new
         {
             baseUrl = "https://api.statbotics.io",
-            guidance = "Choose one exact path template and substitute only documented path parameters. Put filters such as year, country, state, district, team, event, metric, limit, and offset in the statbotics_api query argument. Example: list current-year events with path=/v3/events and query=year=2026, not /v3/events/2026. When a query parameter declares an Enum, you MUST use one of those exact string values (e.g. type=champs_div, never type=3); the Statbotics server returns HTTP 500 for any value not in the enum.",
+            guidance = """
+                Choose one exact path template and substitute only documented path parameters. Put filters such as year, country, state, district, team, event, metric, limit, and offset in the statbotics_api query argument. Example: list current-year events with path=/v3/events and query=year=2026, not /v3/events/2026. When a query parameter declares an Enum, you MUST use one of those exact string values (e.g. type=champs_div, never type=3); the Statbotics server returns HTTP 500 for any value not in the enum.
+
+                FUTURE-EVENT FIELD VALIDITY (event/team_event/match/team_match): rows for events that have not played return 0 or null for many numeric fields — that is missing data, not bad performance. Gate quoting on each row's status field; treat status values "Upcoming" and "Future" as not-yet-played. List endpoints partition per-row.
+
+                event (status):
+                  ✅ key, name, year, country, state, district, start_date, end_date, type, week, video, num_teams.
+                  ❌ epa.{mean,sd,max,top_8,top_24}, metrics.*, district_points.
+
+                team_event (event_status — note the field name):
+                  ✅ team, event, year, country, state, district, type, week, num_teams.
+                  ⚠️ pre-event PROJECTION — quote ONLY with explicit "Statbotics' projected" framing; these are predictions, NOT observed performance, and total_points.mean is per-event-projected (differs from the team's season EPA): epa.total_points.{mean,sd}, epa.unitless, epa.norm, epa.conf, epa.breakdown.*, epa.stats.start.
+                  ❌ epa.stats.{pre_elim,mean,max}, record.{qual,elim,total}.* (incl. rank, alliance), district_points.
+
+                match (status):
+                  ✅ key, event, comp_level, set_number, match_number, time, predicted_time, alliances.*.team_keys, video.
+                  ⚠️ projection — frame as predicted: pred.*.
+                  ❌ result.*, breakdown.*, all observed score/RP fields.
+
+                team_match (status):
+                  ✅ team, match, event, year, comp_level, set_number, match_number, time, alliance.
+                  ⚠️ projection: epa.* (pre-match projected contribution).
+                  ❌ dq, surrogate post-match flags, observed contribution fields.
+
+                Behavior on ❌ fields for Upcoming/Future rows: REFUSE-AND-REDIRECT. Explain the event/match has not happened yet and offer a substitute when one exists (EPA projection, registered team count). Do NOT report 0/null as a real value.
+                """,
             endpointCount = selectedEndpoints.Count,
             endpoints = selectedEndpoints,
         }));
