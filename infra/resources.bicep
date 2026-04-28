@@ -7,6 +7,16 @@ type DeploymentConfig = {
 
 type AiFeatureConfig = {
   chatBotAgentId: string
+  chatBotAgent365Enabled: string
+  chatBotAgent365TenantId: string
+  chatBotAgent365BlueprintClientId: string
+  chatBotAgent365ManagedIdentityClientId: string
+  chatBotAgent365AgentIdentityClientId: string
+  chatBotAgent365AutoCreateIdentity: string
+  chatBotAgent365AgentIdentityDisplayName: string
+  chatBotAgent365Sponsors: string
+  chatBotAgent365TokenExchangeAudience: string
+  chatBotAgent365ProbeScope: string
   searchServiceName: string
   searchLocation: string
 }
@@ -26,6 +36,16 @@ var foundryLocation = deployment.foundryLocation
 var tags = deployment.tags
 var appExists = deployment.appExists
 var chatBotAgentId = ai.chatBotAgentId
+var chatBotAgent365Enabled = ai.chatBotAgent365Enabled
+var chatBotAgent365TenantId = empty(ai.chatBotAgent365TenantId) ? tenant().tenantId : ai.chatBotAgent365TenantId
+var chatBotAgent365BlueprintClientId = ai.chatBotAgent365BlueprintClientId
+var chatBotAgent365ManagedIdentityClientId = ai.chatBotAgent365ManagedIdentityClientId
+var chatBotAgent365AgentIdentityClientId = ai.chatBotAgent365AgentIdentityClientId
+var chatBotAgent365AutoCreateIdentity = ai.chatBotAgent365AutoCreateIdentity
+var chatBotAgent365AgentIdentityDisplayName = ai.chatBotAgent365AgentIdentityDisplayName
+var chatBotAgent365Sponsors = ai.chatBotAgent365Sponsors
+var chatBotAgent365TokenExchangeAudience = ai.chatBotAgent365TokenExchangeAudience
+var chatBotAgent365ProbeScope = ai.chatBotAgent365ProbeScope
 var searchServiceName = ai.searchServiceName
 var searchLocation = ai.searchLocation
 
@@ -163,6 +183,46 @@ var hostedChatContainerEnv = hostedChatEnabled
       {
         name: 'AI__Azure__AgentId'
         value: chatBotAgentId
+      }
+      {
+        name: 'AI__Agent365__Enabled'
+        value: chatBotAgent365Enabled
+      }
+      {
+        name: 'AI__Agent365__TenantId'
+        value: chatBotAgent365TenantId
+      }
+      {
+        name: 'AI__Agent365__BlueprintClientId'
+        value: chatBotAgent365BlueprintClientId
+      }
+      {
+        name: 'AI__Agent365__ManagedIdentityClientId'
+        value: empty(chatBotAgent365ManagedIdentityClientId) ? platformCore.outputs.appIdentityClientId : chatBotAgent365ManagedIdentityClientId
+      }
+      {
+        name: 'AI__Agent365__AgentIdentityClientId'
+        value: chatBotAgent365AgentIdentityClientId
+      }
+      {
+        name: 'AI__Agent365__AutoCreateIdentity'
+        value: chatBotAgent365AutoCreateIdentity
+      }
+      {
+        name: 'AI__Agent365__AgentIdentityDisplayName'
+        value: chatBotAgent365AgentIdentityDisplayName
+      }
+      {
+        name: 'AI__Agent365__Sponsors'
+        value: chatBotAgent365Sponsors
+      }
+      {
+        name: 'AI__Agent365__TokenExchangeAudience'
+        value: chatBotAgent365TokenExchangeAudience
+      }
+      {
+        name: 'AI__Agent365__ProbeScope'
+        value: chatBotAgent365ProbeScope
       }
       {
         name: 'Azure__TenantId'

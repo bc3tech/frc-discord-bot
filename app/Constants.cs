@@ -110,6 +110,22 @@ internal static class Constants
 
                 public static readonly string StreamInternalDialog = ConfigurationPath.Combine(_Name, nameof(StreamInternalDialog));
             }
+
+            public static class Agent365
+            {
+                public static readonly string _Name = ConfigurationPath.Combine(AI._Name, nameof(Agent365));
+
+                public static readonly string Enabled = ConfigurationPath.Combine(_Name, nameof(Enabled));
+                public static readonly string TenantId = ConfigurationPath.Combine(_Name, nameof(TenantId));
+                public static readonly string BlueprintClientId = ConfigurationPath.Combine(_Name, nameof(BlueprintClientId));
+                public static readonly string ManagedIdentityClientId = ConfigurationPath.Combine(_Name, nameof(ManagedIdentityClientId));
+                public static readonly string AgentIdentityClientId = ConfigurationPath.Combine(_Name, nameof(AgentIdentityClientId));
+                public static readonly string AutoCreateIdentity = ConfigurationPath.Combine(_Name, nameof(AutoCreateIdentity));
+                public static readonly string AgentIdentityDisplayName = ConfigurationPath.Combine(_Name, nameof(AgentIdentityDisplayName));
+                public static readonly string Sponsors = ConfigurationPath.Combine(_Name, nameof(Sponsors));
+                public static readonly string TokenExchangeAudience = ConfigurationPath.Combine(_Name, nameof(TokenExchangeAudience));
+                public static readonly string ProbeScope = ConfigurationPath.Combine(_Name, nameof(ProbeScope));
+            }
         }
     }
 

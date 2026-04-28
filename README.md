@@ -116,7 +116,7 @@ For example:
 }
 ```
 
-When deployed with the Bicep templates in `infra\`, the Azure AI Foundry account and its child project are provisioned automatically using the current `Microsoft.CognitiveServices/accounts` + `accounts/projects` model. Local auth is disabled on the Foundry account. The container app managed identity is granted `Cognitive Services User` on the Foundry project for keyless data-plane access and `Azure AI User` on the child project for project-scoped Foundry operations. The Function App receives `AI__Azure__ProjectEndpoint`, `Azure__ClientId`, `Azure__TenantId`, `AZURE_CLIENT_ID`, and `AZURE_TENANT_ID` from infrastructure rather than manual secret configuration.
+When deployed with the Bicep templates in `infra\`, the Azure AI Foundry account and its child project are provisioned automatically using the current `Microsoft.CognitiveServices/accounts` + `accounts/projects` model. Local auth is disabled on the Foundry account. The container app managed identity is granted `Cognitive Services User` on the Foundry project for keyless data-plane access and `Azure AI User` on the child project for project-scoped Foundry operations. The Function App receives `AI__Azure__ProjectEndpoint`, `Azure__ClientId`, `Azure__TenantId`, `AZURE_CLIENT_ID`, and `AZURE_TENANT_ID` from infrastructure rather than manual secret configuration, plus optional `AI__Agent365__*` settings for Agent Toolkit identity wiring.
 
 For DM chat, the app now runs a Microsoft Agent Framework workflow that coordinates:
 
@@ -130,7 +130,22 @@ The DM pipeline expects:
 - `AI__Azure__LocalAgentModel`
 - `DefaultTeamNumber`
 
+Optional Agent365 / Entra Agent Identity settings:
+
+- `AI__Agent365__Enabled`
+- `AI__Agent365__TenantId`
+- `AI__Agent365__BlueprintClientId`
+- `AI__Agent365__ManagedIdentityClientId`
+- `AI__Agent365__AgentIdentityClientId`
+- `AI__Agent365__AutoCreateIdentity`
+- `AI__Agent365__AgentIdentityDisplayName`
+- `AI__Agent365__Sponsors`
+- `AI__Agent365__TokenExchangeAudience`
+- `AI__Agent365__ProbeScope`
+
 The hosted agent definition is checked in at `services\ChatBot\Agents\foundry-agent.yaml` as a reference copy of the Foundry-side configuration. The local declarative agent definition is checked in at `services\ChatBot\Agents\local-agent.yaml` and is instantiated in-process against the configured `AI__Azure__LocalAgentModel`. Semantic evaluator turns (answer/ask-user decision checks) use the Foundry evaluator model. The configured `AI__Azure__AgentId` value can be either a bare agent name such as `2046-discord-bot` to use the latest published version or a versioned Foundry identifier in `<agent-name>:<version>` format such as `2046-discord-bot:2` to pin a specific version. If the Foundry project endpoint, hosted agent id, or local agent model is missing, chat-specific services stay disabled so the rest of the bot can still start normally.
+
+When `AI__Agent365__Enabled=true`, each active chat turn bootstraps Agent Toolkit baggage context and validates/uses the Agent Identity credentials. Configure `AI__Agent365__BlueprintClientId` and either provide a pre-created `AI__Agent365__AgentIdentityClientId` or set `AI__Agent365__AutoCreateIdentity=true` with `AI__Agent365__Sponsors` (Graph sponsor URIs).
 
 `DefaultTeamNumber` defines the fallback team identity for ambiguous first-person team references in chat. With the default value of `2046`, phrases like we, us, and our resolve to team 2046 unless the turn or grounded conversation context clearly establishes a different team.
 
@@ -147,9 +162,19 @@ azd env set SEARCH_SERVICE_NAME "<your-search-service-name>"
 azd env set SEARCH_LOCATION "eastus"
 azd env set AI__Azure__LocalAgentModel "gpt-5.4-mini"
 azd env set DefaultTeamNumber "2046"
+azd env set AI__Agent365__Enabled "true"
+azd env set AI__Agent365__TenantId "<optional-tenant-id>"
+azd env set AI__Agent365__BlueprintClientId "<agent-identity-blueprint-client-id>"
+azd env set AI__Agent365__ManagedIdentityClientId "<optional-managed-identity-client-id>"
+azd env set AI__Agent365__AgentIdentityClientId "<optional-precreated-agent-identity-client-id>"
+azd env set AI__Agent365__AutoCreateIdentity "true"
+azd env set AI__Agent365__AgentIdentityDisplayName "frc-discord-bot-prod"
+azd env set AI__Agent365__Sponsors "https://graph.microsoft.com/v1.0/users/<sponsor-object-id>"
+azd env set AI__Agent365__TokenExchangeAudience "api://AzureADTokenExchange"
+azd env set AI__Agent365__ProbeScope "https://graph.microsoft.com/.default"
 ```
 
-The function container app receives `Discord__Token`, `FIRST__Password`, and `TbaApiKey` as Container Apps secrets, `FIRST__Username` is set to `bc3tech` as a non-secret app setting, and the default production diagnostics settings are applied through `Logging__LogLevel__Default` and `AzureWebjobs.Heartbeat.Disabled`. Hosted chat settings only flow into the container app when `AI__Azure__AgentId` is set.
+The function container app receives `Discord__Token`, `FIRST__Password`, and `TbaApiKey` as Container Apps secrets, `FIRST__Username` is set to `bc3tech` as a non-secret app setting, and the default production diagnostics settings are applied through `Logging__LogLevel__Default` and `AzureWebjobs.Heartbeat.Disabled`. Hosted chat settings only flow into the container app when `AI__Azure__AgentId` is set, and Agent365 settings stay inert unless `AI__Agent365__Enabled` is explicitly set to `true`.
 
 If `SEARCH_SERVICE_NAME` is non-empty, `azd` also provisions the Azure AI Search service used by the hosted agent knowledge-base connection. The current production environment keeps that service in `eastus`.
 

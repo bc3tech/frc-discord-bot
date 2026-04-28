@@ -9,6 +9,7 @@ using Azure.Monitor.OpenTelemetry.Exporter;
 using AgentFramework.OpenTelemetry;
 
 using ChatBot.Agents;
+using ChatBot.AgentIdentity;
 using ChatBot.Configuration;
 using ChatBot.Tools;
 
@@ -67,6 +68,7 @@ public static class DependencyInjectionExtensions
             .AddSingleton<IProvideFunctionTools, MealSignupInfoTool>()
             .AddSingleton<IProvideFunctionTools, TbaApiTool>()
             .AddSingleton<IProvideFunctionTools, StatboticsTool>()
+            .AddSingleton<AgentIdentityContextProvider>()
             .AddSingleton<UserChatSynchronization>()
             .AddSingleton<MessageHandler>()
             .AddSingleton(sp =>

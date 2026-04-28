@@ -20,6 +20,36 @@
       "chatBotAgentId": {
         "value": "${AI__Azure__AgentId=}"
       },
+      "chatBotAgent365Enabled": {
+        "value": "${AI__Agent365__Enabled=}"
+      },
+      "chatBotAgent365TenantId": {
+        "value": "${AI__Agent365__TenantId=}"
+      },
+      "chatBotAgent365BlueprintClientId": {
+        "value": "${AI__Agent365__BlueprintClientId=}"
+      },
+      "chatBotAgent365ManagedIdentityClientId": {
+        "value": "${AI__Agent365__ManagedIdentityClientId=}"
+      },
+      "chatBotAgent365AgentIdentityClientId": {
+        "value": "${AI__Agent365__AgentIdentityClientId=}"
+      },
+      "chatBotAgent365AutoCreateIdentity": {
+        "value": "${AI__Agent365__AutoCreateIdentity=}"
+      },
+      "chatBotAgent365AgentIdentityDisplayName": {
+        "value": "${AI__Agent365__AgentIdentityDisplayName=}"
+      },
+      "chatBotAgent365Sponsors": {
+        "value": "${AI__Agent365__Sponsors=}"
+      },
+      "chatBotAgent365TokenExchangeAudience": {
+        "value": "${AI__Agent365__TokenExchangeAudience=}"
+      },
+      "chatBotAgent365ProbeScope": {
+        "value": "${AI__Agent365__ProbeScope=}"
+      },
       "searchServiceName": {
         "value": "${SEARCH_SERVICE_NAME=}"
       },

@@ -41,6 +41,8 @@ internal sealed class AiOptions
 
     [Range(1, int.MaxValue)]
     public required int DefaultTeamNumber { get; set; }
+
+    public AiAgent365Settings Agent365 { get; init; } = new();
 }
 
 internal sealed class AiEvaluationSettings
@@ -52,6 +54,29 @@ internal sealed class AiEvaluationSettings
 
     [Range(1, int.MaxValue)]
     public int TimeoutSeconds { get; set; } = 8;
+}
+
+internal sealed class AiAgent365Settings
+{
+    public bool Enabled { get; set; } = false;
+
+    public string TenantId { get; set; } = string.Empty;
+
+    public string BlueprintClientId { get; set; } = string.Empty;
+
+    public string ManagedIdentityClientId { get; set; } = string.Empty;
+
+    public string AgentIdentityClientId { get; set; } = string.Empty;
+
+    public bool AutoCreateIdentity { get; set; } = false;
+
+    public string AgentIdentityDisplayName { get; set; } = "frc-discord-bot";
+
+    public IReadOnlyList<string> Sponsors { get; set; } = [];
+
+    public string TokenExchangeAudience { get; set; } = "api://AzureADTokenExchange";
+
+    public string ProbeScope { get; set; } = "https://graph.microsoft.com/.default";
 }
 
 internal sealed class ConfigureAiOptions(IConfiguration configuration) : IConfigureOptions<AiOptions>
@@ -93,6 +118,51 @@ internal sealed class ConfigureAiOptions(IConfiguration configuration) : IConfig
             configuration,
             options.EvaluationSettings.TimeoutSeconds,
             ChatBotConstants.Configuration.AI.Azure.EvaluationSettings.TimeoutSeconds);
+        options.Agent365.Enabled = GetConfiguredBoolOrDefault(
+            configuration,
+            options.Agent365.Enabled,
+            ChatBotConstants.Configuration.AI.Agent365.Enabled);
+        options.Agent365.TenantId = GetConfiguredValue(
+            configuration,
+            ChatBotConstants.Configuration.AI.Agent365.TenantId,
+            ChatBotConstants.Configuration.Azure.TenantId,
+            "AZURE_TENANT_ID");
+        options.Agent365.BlueprintClientId = GetConfiguredValue(
+            configuration,
+            ChatBotConstants.Configuration.AI.Agent365.BlueprintClientId,
+            "WEBSITE_AUTH_CLIENT_ID");
+        options.Agent365.ManagedIdentityClientId = GetConfiguredValue(
+            configuration,
+            ChatBotConstants.Configuration.AI.Agent365.ManagedIdentityClientId,
+            ChatBotConstants.Configuration.Azure.ClientId,
+            "OVERRIDE_USE_MI_FIC_ASSERTION_CLIENTID",
+            "AZURE_CLIENT_ID");
+        options.Agent365.AgentIdentityClientId = GetConfiguredValue(
+            configuration,
+            ChatBotConstants.Configuration.AI.Agent365.AgentIdentityClientId,
+            "MyAgentId");
+        options.Agent365.AutoCreateIdentity = GetConfiguredBoolOrDefault(
+            configuration,
+            options.Agent365.AutoCreateIdentity,
+            ChatBotConstants.Configuration.AI.Agent365.AutoCreateIdentity);
+        options.Agent365.AgentIdentityDisplayName = GetConfiguredValueOrDefault(
+            configuration,
+            options.Agent365.AgentIdentityDisplayName,
+            ChatBotConstants.Configuration.AI.Agent365.AgentIdentityDisplayName)
+            .Trim();
+        options.Agent365.Sponsors = GetConfiguredStringCollection(
+            configuration,
+            ChatBotConstants.Configuration.AI.Agent365.Sponsors);
+        options.Agent365.TokenExchangeAudience = GetConfiguredValueOrDefault(
+            configuration,
+            options.Agent365.TokenExchangeAudience,
+            ChatBotConstants.Configuration.AI.Agent365.TokenExchangeAudience)
+            .Trim();
+        options.Agent365.ProbeScope = GetConfiguredValueOrDefault(
+            configuration,
+            options.Agent365.ProbeScope,
+            ChatBotConstants.Configuration.AI.Agent365.ProbeScope)
+            .Trim();
 
         options.DefaultTeamNumber = GetConfiguredInt(configuration, ChatBotConstants.Configuration.DefaultTeamNumber);
     }
@@ -143,6 +213,54 @@ internal sealed class ConfigureAiOptions(IConfiguration configuration) : IConfig
         }
 
         return fallbackValue;
+    }
+
+    private static bool GetConfiguredBoolOrDefault(IConfiguration configuration, bool fallbackValue, params string[] keys)
+    {
+        foreach (string key in keys)
+        {
+            if (bool.TryParse(configuration[key], out bool value))
+            {
+                return value;
+            }
+        }
+
+        return fallbackValue;
+    }
+
+    private static string GetConfiguredValueOrDefault(IConfiguration configuration, string fallbackValue, params string[] keys)
+    {
+        string configuredValue = GetConfiguredValue(configuration, keys);
+        return string.IsNullOrWhiteSpace(configuredValue)
+            ? fallbackValue
+            : configuredValue;
+    }
+
+    private static IReadOnlyList<string> GetConfiguredStringCollection(IConfiguration configuration, params string[] keys)
+    {
+        foreach (string key in keys)
+        {
+            string[]? sectionValues = configuration.GetSection(key).Get<string[]>();
+            if (sectionValues is { Length: > 0 })
+            {
+                return [.. sectionValues
+                    .Where(static value => !string.IsNullOrWhiteSpace(value))
+                    .Select(static value => value.Trim())];
+            }
+
+            string? rawValue = configuration[key];
+            if (string.IsNullOrWhiteSpace(rawValue))
+            {
+                continue;
+            }
+
+            return [.. rawValue
+                .Split(['\r', '\n', ';', ','], StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+                .Where(static value => !string.IsNullOrWhiteSpace(value))
+                .Select(static value => value.Trim())];
+        }
+
+        return [];
     }
 }
 
@@ -214,6 +332,70 @@ internal sealed class ValidateAiOptions : IValidateOptions<AiOptions>
         if (options.DefaultTeamNumber <= 0)
         {
             retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{nameof(AiOptions.DefaultTeamNumber)}' must be a positive team number."));
+        }
+
+        if (options.Agent365.Enabled)
+        {
+            if (string.IsNullOrWhiteSpace(options.Agent365.TenantId))
+            {
+                retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{nameof(AiOptions.Agent365)}.{nameof(AiAgent365Settings.TenantId)}' is missing or empty when Agent365 is enabled."));
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Agent365.BlueprintClientId))
+            {
+                retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{nameof(AiOptions.Agent365)}.{nameof(AiAgent365Settings.BlueprintClientId)}' is missing or empty when Agent365 is enabled."));
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Agent365.ManagedIdentityClientId))
+            {
+                retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{nameof(AiOptions.Agent365)}.{nameof(AiAgent365Settings.ManagedIdentityClientId)}' is missing or empty when Agent365 is enabled."));
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Agent365.TokenExchangeAudience))
+            {
+                retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{nameof(AiOptions.Agent365)}.{nameof(AiAgent365Settings.TokenExchangeAudience)}' is missing or empty when Agent365 is enabled."));
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Agent365.ProbeScope))
+            {
+                retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{nameof(AiOptions.Agent365)}.{nameof(AiAgent365Settings.ProbeScope)}' is missing or empty when Agent365 is enabled."));
+            }
+
+            if (string.IsNullOrWhiteSpace(options.Agent365.AgentIdentityClientId))
+            {
+                if (!options.Agent365.AutoCreateIdentity)
+                {
+                    retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{nameof(AiOptions.Agent365)}.{nameof(AiAgent365Settings.AgentIdentityClientId)}' is missing or empty and auto-creation is disabled."));
+                }
+                else
+                {
+                    if (string.IsNullOrWhiteSpace(options.Agent365.AgentIdentityDisplayName))
+                    {
+                        retVal.AddResult(ValidateOptionsResult.Fail($"Required configuration value '{nameof(AiOptions.Agent365)}.{nameof(AiAgent365Settings.AgentIdentityDisplayName)}' is missing or empty when auto-creating an agent identity."));
+                    }
+
+                    if (options.Agent365.Sponsors.Count is 0)
+                    {
+                        retVal.AddResult(ValidateOptionsResult.Fail($"At least one sponsor URI must be configured in '{nameof(AiOptions.Agent365)}.{nameof(AiAgent365Settings.Sponsors)}' when auto-creating an agent identity."));
+                    }
+                    else
+                    {
+                        foreach (string sponsor in options.Agent365.Sponsors)
+                        {
+                            if (!Uri.TryCreate(sponsor, UriKind.Absolute, out Uri? sponsorUri))
+                            {
+                                retVal.AddResult(ValidateOptionsResult.Fail($"Configured sponsor '{sponsor}' is not a valid absolute URI."));
+                                continue;
+                            }
+
+                            if (!string.Equals(sponsorUri.Scheme, Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase))
+                            {
+                                retVal.AddResult(ValidateOptionsResult.Fail($"Configured sponsor '{sponsor}' must use https."));
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         return retVal.Build();

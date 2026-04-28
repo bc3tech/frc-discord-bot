@@ -1,6 +1,5 @@
 namespace ChatBot;
 
-using Azure.AI.Agents.Persistent;
 using Azure.AI.Projects;
 using Azure.AI.Extensions.OpenAI;
 
@@ -9,11 +8,13 @@ using AgentFramework.OpenTelemetry.Agents;
 
 using ChatBot.Agents;
 using ChatBot.Agents.Models;
+using ChatBot.AgentIdentity;
 using ChatBot.Configuration;
 using ChatBot.Tools;
 
 using Common.Extensions;
 
+using Microsoft.Agents.A365.Observability.Runtime.Common;
 using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Workflows;
 using Microsoft.Extensions.AI;
@@ -34,6 +35,7 @@ internal sealed class Conversation(
     AIProjectClient projectClient,
     PromptCatalog promptCatalog,
     IEnumerable<IProvideFunctionTools> toolProviders,
+    AgentIdentityContextProvider agentIdentityContextProvider,
     TimeProvider timeProvider,
     IConfiguration configuration,
     ILoggerFactory loggerFactory)
@@ -47,6 +49,8 @@ internal sealed class Conversation(
     private const string WorkflowStepCountStateKey = "workflow-step-count";
     private const string PrematureLocalLookupRetryStateKey = "premature-local-lookup-retry-count";
     private const string SemanticEvaluatorRetryStateKey = "semantic-evaluator-retry-count";
+    private const string Agent365ChannelName = "discord";
+    private const string Agent365OperationSource = "SDK";
     internal const string UserStatusPrefix = "USER_STATUS:";
 
     private readonly AiOptions _agentOptions = agentOptions.Value;
@@ -54,6 +58,7 @@ internal sealed class Conversation(
     private readonly ILoggerFactory _loggerFactory = loggerFactory;
     private readonly ILogger<Conversation> _logger = loggerFactory.CreateLogger<Conversation>();
     private readonly PromptCatalog _promptCatalog = promptCatalog;
+    private readonly AgentIdentityContextProvider _agentIdentityContextProvider = agentIdentityContextProvider;
     private readonly Lock _agentSync = new();
     private readonly IReadOnlyList<AIFunction> _functions = toolProviders.CombineFunctions();
     private readonly bool _streamInternalDialog = configuration.GetValue<bool>(ChatBotConstants.Configuration.AI.AgentLogging.StreamInternalDialog) is true;
@@ -90,6 +95,7 @@ internal sealed class Conversation(
         FoundryAgent foundryAgent = await CreateFoundryAgentAsync(cancellationToken).ConfigureAwait(false);
         string threadId = await GetOrCreateConversationThreadAsync(foundryAgent, conversationState, persistConversationState, cancellationToken).ConfigureAwait(false);
         activity?.SetTag("gen_ai.conversation.id", threadId);
+        await ApplyAgent365RequestContextAsync(threadId, cancellationToken).ConfigureAwait(false);
 
         List<ChatMessage> initialMessages = leadingMessages is null
             ? [CreateSystemMessage(turnContext), CreateUserMessage(message)]
@@ -270,6 +276,27 @@ internal sealed class Conversation(
         ActivityContext? traceRootContext = null,
         CancellationToken cancellationToken = default)
         => PostUserMessageStreamingAsync(conversationState, message, null, null, traceRootContext, cancellationToken: cancellationToken);
+
+    private async ValueTask ApplyAgent365RequestContextAsync(
+        string conversationId,
+        CancellationToken cancellationToken)
+    {
+        AgentIdentityContext? context = await _agentIdentityContextProvider.GetContextAsync(cancellationToken).ConfigureAwait(false);
+        if (context is null)
+        {
+            return;
+        }
+
+        BaggageBuilder baggage = new();
+        baggage.TenantId(context.TenantId);
+        baggage.ConversationId(conversationId);
+        baggage.ChannelName(Agent365ChannelName);
+        baggage.AgentId(context.AgentIdentityClientId);
+        baggage.AgentName(_agentOptions.Agent365.AgentIdentityDisplayName);
+        baggage.AgentBlueprintId(_agentOptions.Agent365.BlueprintClientId);
+        baggage.OperationSource(Agent365OperationSource);
+        baggage.Build();
+    }
 
     private Workflow BuildWorkflow(FoundryAgent foundryAgent, LocalAgent localAgent, string currentUserMessage, string turnContext)
     {

@@ -112,4 +112,16 @@ static partial class Log
     [LoggerMessage(34, LogLevel.Debug, "Http API tool call for {ClientName} returned failure response snippet: {ResponseSnippet}")]
     internal static partial void HttpAPIToolCallFailedResponseSnippet(this ILogger logger, string ClientName, string ResponseSnippet);
 
+    [LoggerMessage(35, LogLevel.Information, "Agent365 identity ready. tenant={TenantId}, agent={AgentIdentityClientId}, probeScope={ProbeScope}, tokenExpiresOn={TokenExpiresOn}")]
+    internal static partial void Agent365AgentIdentityReady(this ILogger logger, string TenantId, string AgentIdentityClientId, string ProbeScope, DateTimeOffset TokenExpiresOn);
+
+    [LoggerMessage(36, LogLevel.Information, "Using existing Agent365 identity {AgentIdentityClientId} for configured display name '{DisplayName}'.")]
+    internal static partial void Agent365UsingExistingAgentIdentity(this ILogger logger, string AgentIdentityClientId, string DisplayName);
+
+    [LoggerMessage(37, LogLevel.Information, "Creating Agent365 identity for display name '{DisplayName}'.")]
+    internal static partial void Agent365CreatingAgentIdentity(this ILogger logger, string DisplayName);
+
+    [LoggerMessage(38, LogLevel.Information, "Created Agent365 identity {AgentIdentityClientId} (servicePrincipalId={ServicePrincipalId}) for display name '{DisplayName}'.")]
+    internal static partial void Agent365CreatedAgentIdentity(this ILogger logger, string AgentIdentityClientId, string ServicePrincipalId, string DisplayName);
+
 }

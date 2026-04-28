@@ -23,6 +23,7 @@ internal static class ChatBotConstants
             private static readonly string Name = nameof(Azure);
 
             public static readonly string ClientId = ConfigurationPath.Combine(Name, nameof(ClientId));
+            public static readonly string TenantId = ConfigurationPath.Combine(Name, nameof(TenantId));
         }
 
         internal static class AI
@@ -52,6 +53,22 @@ internal static class ChatBotConstants
                     public static readonly string MaxAnswerEvaluationRetries = ConfigurationPath.Combine(Name, nameof(MaxAnswerEvaluationRetries));
                     public static readonly string TimeoutSeconds = ConfigurationPath.Combine(Name, nameof(TimeoutSeconds));
                 }
+            }
+
+            internal static class Agent365
+            {
+                private static readonly string Name = ConfigurationPath.Combine(AI.Name, nameof(Agent365));
+
+                public static readonly string Enabled = ConfigurationPath.Combine(Name, nameof(Enabled));
+                public static readonly string TenantId = ConfigurationPath.Combine(Name, nameof(TenantId));
+                public static readonly string BlueprintClientId = ConfigurationPath.Combine(Name, nameof(BlueprintClientId));
+                public static readonly string ManagedIdentityClientId = ConfigurationPath.Combine(Name, nameof(ManagedIdentityClientId));
+                public static readonly string AgentIdentityClientId = ConfigurationPath.Combine(Name, nameof(AgentIdentityClientId));
+                public static readonly string AutoCreateIdentity = ConfigurationPath.Combine(Name, nameof(AutoCreateIdentity));
+                public static readonly string AgentIdentityDisplayName = ConfigurationPath.Combine(Name, nameof(AgentIdentityDisplayName));
+                public static readonly string Sponsors = ConfigurationPath.Combine(Name, nameof(Sponsors));
+                public static readonly string TokenExchangeAudience = ConfigurationPath.Combine(Name, nameof(TokenExchangeAudience));
+                public static readonly string ProbeScope = ConfigurationPath.Combine(Name, nameof(ProbeScope));
             }
 
             internal static class AgentLogging
