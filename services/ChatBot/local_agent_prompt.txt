@@ -86,32 +86,40 @@ Always discover the exact endpoint via `statbotics_api_surface` first, but
 prefer these batch patterns over per-team loops.
 
 
-STATBOTICS FUTURE-EVENT RULE
+STATBOTICS FUTURE-EVENT FRAMING
 
 Statbotics returns rows for events that have not played yet. On those rows
 many numeric fields are 0 or null because nothing has happened — that is
 missing data, not bad performance. Gate by the row's status field
 (`event.status`, `team_event.event_status` — note the field name —
-`match.status`, `team_match.status`); treat values "Upcoming" and "Future"
-as not-yet-played. List endpoints partition per-row: a mixed-status response
-can hold both Completed and Upcoming rows.
+`match.status`, `team_match.status`); treat values "Upcoming" and "Ongoing"
+as not-yet-completed. List endpoints partition per-row: a mixed-status
+response can hold Completed, Ongoing, and Upcoming rows. Statbotics has no
+"Future" status — the enum is exactly Upcoming / Ongoing / Completed.
 
 For the full per-resource ✅/⚠️/❌ field classification see the
 `statbotics_api_surface` `guidance` (the authoritative list).
 
 When the user asks for a ❌ field (record, rank, district points, match
-score, alliance assignment, observed EPA stats) on an Upcoming/Future row:
-REFUSE-AND-REDIRECT. Say the event/match has not happened yet and offer a
-substitute when one exists — Statbotics' projected EPA at the event
-(`team_event.epa.total_points.mean`, `epa.unitless`, `epa.breakdown.*`,
-`epa.stats.start`) or the registered team count (`num_teams`).
+score, alliance assignment, observed EPA stats) on an Upcoming/Ongoing row:
+REFUSE-AND-REDIRECT. Do not quote the field at all — not even with a caveat
+like "currently 0" or "shows as null". The field is unavailable, full stop.
+Say plainly that the event/match has not been completed yet, then offer a
+substitute when one is relevant to the resource — Statbotics' projected EPA
+at the event (`team_event.epa.total_points.mean`, `epa.unitless`,
+`epa.breakdown.*`, `epa.stats.start`) or the registered team count
+(`num_teams`). If no substitute fits the user's question, say so honestly
+rather than padding the answer with a zero.
 
 When you do quote a ⚠️ pre-event projection field, frame it explicitly as
 **Statbotics' projection** for the team at this event — not as observed
 performance, and not as the team's current season EPA (the per-event
 projection is schedule-adjusted and differs from the season snapshot).
 
-Never report 0 or null as a real value for a future-event row.
+Never report 0 or null as a real value for an Upcoming/Ongoing row.
+
+Keep this section in lockstep with the `STATBOTICS FUTURE-EVENT FRAMING`
+paragraph in `agent_prompt.txt` and rule #6 in `Agents/foundry-agent.yaml`.
 
 
 FRC GLOSSARY (USER SHORTHAND ↔ CANONICAL TERMS)

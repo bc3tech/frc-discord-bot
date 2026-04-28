@@ -13,6 +13,11 @@
 #
 # Sync workflow: maintainer manually copies `definition` into the Foundry agent
 # via the portal until automation exists.
+#
+# LOCKSTEP: The `STATBOTICS FUTURE-EVENT FRAMING` rule (rule #6 below) must stay
+# in sync with the matching paragraph in `services/ChatBot/agent_prompt.txt` and
+# the `STATBOTICS FUTURE-EVENT FRAMING` section in `services/ChatBot/local_agent_prompt.txt`.
+# Edit all three together; the field-validity SSOT lives in `Tools/StatboticsTool.cs`.
 # =============================================================================
 
 name: 2046-discord-bot

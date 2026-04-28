@@ -94,8 +94,13 @@ public sealed class HttpGetToolBaseTests
         JsonElement root = document.RootElement;
 
         // Assert
-        Assert.Contains("path=/v3/events", root.GetProperty("guidance").GetString());
-        Assert.Contains("query=year=2026", root.GetProperty("guidance").GetString());
+        string? guidance = root.GetProperty("guidance").GetString();
+        Assert.Contains("path=/v3/events", guidance);
+        Assert.Contains("query=year=2026", guidance);
+        // Future-event field-validity SSOT must reach the agent via discovery.
+        Assert.Contains("FUTURE-EVENT FIELD VALIDITY", guidance);
+        Assert.Contains("REFUSE-AND-REDIRECT", guidance);
+        Assert.Contains("\"Upcoming\" and \"Ongoing\"", guidance);
         Assert.Contains(
             root.GetProperty("endpoints").EnumerateArray(),
             endpoint => endpoint.GetProperty("Template").GetString() == "/v3/events"

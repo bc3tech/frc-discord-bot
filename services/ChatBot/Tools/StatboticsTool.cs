@@ -71,7 +71,7 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
             guidance = """
                 Choose one exact path template and substitute only documented path parameters. Put filters such as year, country, state, district, team, event, metric, limit, and offset in the statbotics_api query argument. Example: list current-year events with path=/v3/events and query=year=2026, not /v3/events/2026. When a query parameter declares an Enum, you MUST use one of those exact string values (e.g. type=champs_div, never type=3); the Statbotics server returns HTTP 500 for any value not in the enum.
 
-                FUTURE-EVENT FIELD VALIDITY (event/team_event/match/team_match): rows for events that have not played return 0 or null for many numeric fields — that is missing data, not bad performance. Gate quoting on each row's status field; treat status values "Upcoming" and "Future" as not-yet-played. List endpoints partition per-row.
+                FUTURE-EVENT FIELD VALIDITY (event/team_event/match/team_match): rows for events that have not played return 0 or null for many numeric fields — that is missing data, not bad performance. Gate quoting on each row's status field; treat status values "Upcoming" and "Ongoing" as not-yet-completed. List endpoints partition per-row.
 
                 event (status):
                   ✅ key, name, year, country, state, district, start_date, end_date, type, week, video, num_teams.
@@ -92,7 +92,7 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
                   ⚠️ projection: epa.* (pre-match projected contribution).
                   ❌ dq, surrogate post-match flags, observed contribution fields.
 
-                Behavior on ❌ fields for Upcoming/Future rows: REFUSE-AND-REDIRECT. Explain the event/match has not happened yet and offer a substitute when one exists (EPA projection, registered team count). Do NOT report 0/null as a real value.
+                Behavior on ❌ fields for Upcoming/Ongoing rows: REFUSE-AND-REDIRECT. Do NOT quote the field at all, even with a caveat such as "currently 0" or "shows as null" — those values are missing data, not honest disclosure. State plainly the event/match is not completed, then offer a substitute when one fits (EPA projection, registered team count). If no substitute fits, say so honestly.
                 """,
             endpointCount = selectedEndpoints.Count,
             endpoints = selectedEndpoints,
