@@ -116,8 +116,7 @@ public static class DependencyInjectionExtensions
         // via any IConfiguration source (appsettings, environment, Key Vault, container-app secrets).
         services.Configure<DiscordGptOptions>(configuration.GetSection("DiscordGpt"));
 
-        // Bind agent-facing logging/progress settings from AI:AgentLogging.
-        services.Configure<AgentLoggingOptions>(configuration.GetSection("AI:AgentLogging"));
+        services.Configure<AgentLoggingOptions>(configuration.GetSection(ChatBotConstants.Configuration.AgentLogging));
 
         services.TryAddSingleton<TbaApiTool>();
         services.TryAddSingleton<StatboticsTool>();

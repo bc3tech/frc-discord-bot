@@ -301,9 +301,6 @@ public sealed class SlashCommandModuleTests
 
         protected override void HandleShowNextError(Exception exception, string teamKey, string eventKey)
         {
-            _ = exception;
-            _ = teamKey;
-            _ = eventKey;
         }
     }
 

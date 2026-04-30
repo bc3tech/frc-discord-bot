@@ -108,7 +108,6 @@ public sealed class WebhookEmbeddingGeneratorTests
             }
 
             yield return new(new EmbedBuilder().WithTitle(title).Build());
-            await Task.CompletedTask;
         }
     }
 }

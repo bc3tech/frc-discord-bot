@@ -54,7 +54,7 @@ internal sealed class Program
                     .AddSingleton<IDistrictApi>(sp => new DistrictApi(httpClient, config));
 
                 var cred = new DefaultAzureCredential(includeInteractiveCredentials: context.HostingEnvironment.IsDevelopment());
-                AccessToken token = cred.GetToken(new TokenRequestContext(["https://storage.azure.com/.default"]));
+                _ = cred.GetToken(new TokenRequestContext(["https://storage.azure.com/.default"]));
 
                 services.AddSingleton(sp => new BlobServiceClient(new Uri(Throws.IfNullOrWhiteSpace(context.Configuration["StorageAccountUri"]), UriKind.Absolute), cred));
             });

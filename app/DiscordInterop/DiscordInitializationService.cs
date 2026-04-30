@@ -310,7 +310,7 @@ internal sealed partial class DiscordInitializationService(IDiscordClient discor
 
         _logger.LoadingCommandModules();
 
-        IEnumerable<ModuleInfo> discoveredModules = await interactionService.AddModulesAsync(Assembly.GetExecutingAssembly(), services).ConfigureAwait(false);
+        await interactionService.AddModulesAsync(Assembly.GetExecutingAssembly(), services).ConfigureAwait(false);
         _logger.NumCommandsCommandModulesLoaded(interactionService.Modules.Count);
 
         await interactionService.RegisterCommandsGloballyAsync();

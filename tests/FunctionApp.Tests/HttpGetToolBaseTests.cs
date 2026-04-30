@@ -25,7 +25,7 @@ public sealed class HttpGetToolBaseTests
             BaseAddress = new Uri("https://api.statbotics.io/"),
         };
 
-        var tool = new TestHttpGetTool(new StubHttpClientFactory(client));
+        var tool = new TestHttpGetTool(new TestHttpClientFactory(client));
 
         // Act
         string response = await tool.QueryAsync(
@@ -57,7 +57,7 @@ public sealed class HttpGetToolBaseTests
             BaseAddress = new Uri("https://api.statbotics.io/"),
         };
 
-        var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+        var tool = new StatboticsTool(new TestHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
         var discordTool = tool;
 
         // Act
@@ -85,7 +85,7 @@ public sealed class HttpGetToolBaseTests
             BaseAddress = new Uri("https://api.statbotics.io/"),
         };
 
-        var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+        var tool = new StatboticsTool(new TestHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
 
         // Act
         string response = await tool.DescribeApiSurfaceAsync("event", CancellationToken.None);
@@ -125,7 +125,7 @@ public sealed class HttpGetToolBaseTests
             BaseAddress = new Uri("https://api.statbotics.io/"),
         };
 
-        var tool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+        var tool = new StatboticsTool(new TestHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
 
         // Act
         string response = await tool.QueryStatboticsAsync("/v3/events/2026", cancellationToken: CancellationToken.None);
@@ -154,7 +154,7 @@ public sealed class HttpGetToolBaseTests
             BaseAddress = new Uri("https://api.statbotics.io/"),
         };
 
-        var queryTool = new StatboticsTool(new StubHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+        var queryTool = new StatboticsTool(new TestHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
         var surfaceTool = new StatboticsApiSurfaceTool(queryTool);
 
         Assert.Equal("statbotics_api_surface", surfaceTool.Name);
@@ -180,7 +180,7 @@ public sealed class HttpGetToolBaseTests
                 new KeyValuePair<string, string?>("TbaApiKey", "test-key"),
             ])
             .Build();
-        var tool = new TbaApiTool(configuration, new StubHttpClientFactory(client), NullLogger<TbaApiTool>.Instance);
+        var tool = new TbaApiTool(configuration, new TestHttpClientFactory(client), NullLogger<TbaApiTool>.Instance);
         var discordTool = tool;
 
         // Act
@@ -213,7 +213,7 @@ public sealed class HttpGetToolBaseTests
                 new KeyValuePair<string, string?>("TbaApiKey", "test-key"),
             ])
             .Build();
-        var queryTool = new TbaApiTool(configuration, new StubHttpClientFactory(client), NullLogger<TbaApiTool>.Instance);
+        var queryTool = new TbaApiTool(configuration, new TestHttpClientFactory(client), NullLogger<TbaApiTool>.Instance);
         var surfaceTool = new TbaApiSurfaceTool(queryTool);
 
         Assert.Equal("tba_api_surface", surfaceTool.Name);
@@ -280,7 +280,7 @@ public sealed class HttpGetToolBaseTests
                 new KeyValuePair<string, string?>("TbaApiKey", "test-key"),
             ])
             .Build();
-        var tool = new TbaApiTool(configuration, new StubHttpClientFactory(client), NullLogger<TbaApiTool>.Instance);
+        var tool = new TbaApiTool(configuration, new TestHttpClientFactory(client), NullLogger<TbaApiTool>.Instance);
 
         string response = await tool.ResolveLastCompetitionAsync(
             teamNumber: 2046,
@@ -369,7 +369,7 @@ public sealed class HttpGetToolBaseTests
                 new KeyValuePair<string, string?>("TbaApiKey", "test-key"),
             ])
             .Build();
-        var tool = new TbaApiTool(configuration, new StubHttpClientFactory(client), NullLogger<TbaApiTool>.Instance);
+        var tool = new TbaApiTool(configuration, new TestHttpClientFactory(client), NullLogger<TbaApiTool>.Instance);
 
         string response = await tool.ResolveLastCompetitionAsync(
             teamNumber: 2046,
@@ -490,7 +490,7 @@ public sealed class HttpGetToolBaseTests
                 new KeyValuePair<string, string?>("TbaApiKey", "test-key"),
             ])
             .Build();
-        var tool = new TbaApiTool(configuration, new StubHttpClientFactory(client), NullLogger<TbaApiTool>.Instance);
+        var tool = new TbaApiTool(configuration, new TestHttpClientFactory(client), NullLogger<TbaApiTool>.Instance);
 
         string response = await tool.QueryTbaAsync("/team/frc2046/events/2026/simple", cancellationToken: CancellationToken.None);
 
@@ -517,11 +517,6 @@ public sealed class HttpGetToolBaseTests
                 query,
                 citations: [new CitationLink("Statbotics team season page", "https://www.statbotics.io/team/2046/2025")],
                 cancellationToken: cancellationToken);
-    }
-
-    private sealed class StubHttpClientFactory(HttpClient client) : IHttpClientFactory
-    {
-        public HttpClient CreateClient(string name) => client;
     }
 
     private sealed class StubHttpMessageHandler(HttpResponseMessage response) : HttpMessageHandler

@@ -48,25 +48,15 @@ public sealed class ConversationTracer(IConversationTraceContextStore store) : I
             new(CopilotSdkOpenTelemetry.GenAiAttributes.ConversationId, conversationId),
         ];
 
-        Activity? turn;
-        if (_liveConversations.TryGetValue(conversationId, out Activity? conversationActivity))
-        {
-            turn = CopilotSdkOpenTelemetry.ActivitySource.StartActivity(
-                CopilotSdkOpenTelemetry.Operations.Chat,
-                kind: ActivityKind.Client,
-                parentContext: conversationActivity.Context,
-                tags: turnTags,
-                links: null);
-        }
-        else
-        {
-            turn = CopilotSdkOpenTelemetry.ActivitySource.StartActivity(
-                CopilotSdkOpenTelemetry.Operations.Chat,
-                kind: ActivityKind.Client,
-                parentContext: default,
-                tags: turnTags,
-                links: null);
-        }
+        ActivityContext parentContext = _liveConversations.TryGetValue(conversationId, out Activity? conversationActivity)
+            ? conversationActivity.Context
+            : default;
+        Activity? turn = CopilotSdkOpenTelemetry.ActivitySource.StartActivity(
+            CopilotSdkOpenTelemetry.Operations.Chat,
+            kind: ActivityKind.Client,
+            parentContext: parentContext,
+            tags: turnTags,
+            links: null);
 
         return new ConversationTurnScope(conversationId, turn);
     }

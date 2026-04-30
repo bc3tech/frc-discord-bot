@@ -10,7 +10,7 @@ using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
-internal abstract class HttpGetToolBase(IHttpClientFactory httpClientFactory, ILogger logger) : IProvideFunctionTools
+internal abstract class HttpGetToolBase(IHttpClientFactory httpClientFactory, ILogger logger)
 {
     private const int MaxFailureResponseSnippetLength = 512;
     private static readonly JsonSerializerOptions s_jsonOptions = new(JsonSerializerDefaults.Web);
@@ -19,8 +19,6 @@ internal abstract class HttpGetToolBase(IHttpClientFactory httpClientFactory, IL
         {
             ["skip_permission"] = true,
         });
-
-    public virtual FunctionToolScope Scope => FunctionToolScope.LocalFrcData;
 
     public abstract IReadOnlyList<AIFunction> Functions { get; }
 

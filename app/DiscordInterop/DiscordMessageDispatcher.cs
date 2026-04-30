@@ -110,9 +110,7 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
         var discordRequestOptions = cancellationToken.ToRequestOptions();
         if (chunksOfEmbeddingsToSend.Any(i => i.Length is not 0))
         {
-            // check to see if there are any threads already created for this message
             (string PartitionKey, string RowKey, string Title)? threadLocator = message.GetThreadDetails(allServices);
-            List<ulong?> channelsWhereWeAlreadyPostedIntoThreads = [];
             if (threadLocator is not null)
             {
                 (string? pk, string? rk, string _) = threadLocator.Value;
@@ -225,7 +223,7 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
     private async Task<IMessageChannel> CreateThreadForMessageAsync(WebhookMessage message, IMessageChannel msgChan, CancellationToken cancellationToken)
     {
         (string PartitionKey, string RowKey, string Title)? threadDetails = message.GetThreadDetails(allServices);
-        if (threadDetails is null || !threadDetails.HasValue)
+        if (threadDetails is null)
         {
             return msgChan;
         }
@@ -334,27 +332,23 @@ internal partial class DiscordMessageDispatcher(IWebhookSubscriptionStore<TeamSu
 
         return (teams.ToImmutableHashSet(), events.ToImmutableHashSet());
 
-        static void addElement(JsonElement? maybeNullElt, HashSet<string> toHashSet, Func<string, string>? transform = null)
+        static void addElement(JsonElement elt, HashSet<string> toHashSet)
         {
-            if (maybeNullElt.HasValue)
+            string? s;
+            if (elt.ValueKind is JsonValueKind.Array)
             {
-                JsonElement elt = maybeNullElt.Value;
-                string? s;
-                if (elt.ValueKind is JsonValueKind.Array)
+                foreach (JsonElement i in elt.EnumerateArray())
                 {
-                    foreach (JsonElement i in elt.EnumerateArray())
+                    s = i.GetString();
+                    if (!string.IsNullOrWhiteSpace(s))
                     {
-                        s = i.GetString();
-                        if (!string.IsNullOrWhiteSpace(s))
-                        {
-                            toHashSet.Add(transform?.Invoke(s) ?? s!);
-                        }
+                        toHashSet.Add(s);
                     }
                 }
-                else if ((s = elt.ToString()) is not null)
-                {
-                    toHashSet.Add(transform?.Invoke(s) ?? s!);
-                }
+            }
+            else if ((s = elt.ToString()) is not null)
+            {
+                toHashSet.Add(s);
             }
         }
     }

@@ -9,7 +9,6 @@ internal static class ChatBotConstants
         public const string TableClient_UserChatAgentThreads = "userChatAgentThreads";
         public const string TableClient_ConversationTraces = "conversationtraces";
         public const string TableClient_CopilotSessions = "copilotsessions";
-        public const string BlobContainer_CopilotSessions = "copilot-sessions";
     }
 
     internal static class HttpClients
@@ -21,11 +20,14 @@ internal static class ChatBotConstants
 
     internal static class Configuration
     {
+        private const string AiSectionName = "AI";
+
         public static readonly string DefaultTeamNumber = nameof(DefaultTeamNumber);
+        public static readonly string AgentLogging = ConfigurationPath.Combine(AiSectionName, nameof(AgentLogging));
 
         internal static class Copilot
         {
-            private static readonly string Name = ConfigurationPath.Combine(nameof(AI), nameof(Copilot));
+            private static readonly string Name = ConfigurationPath.Combine(AiSectionName, nameof(Copilot));
 
             public static readonly string Model = ConfigurationPath.Combine(Name, nameof(Model));
             public static readonly string ReasoningEffort = ConfigurationPath.Combine(Name, nameof(ReasoningEffort));
@@ -40,7 +42,7 @@ internal static class ChatBotConstants
 
         internal static class Foundry
         {
-            private static readonly string Name = ConfigurationPath.Combine(nameof(AI), nameof(Foundry));
+            private static readonly string Name = ConfigurationPath.Combine(AiSectionName, nameof(Foundry));
 
             public static readonly string Endpoint = ConfigurationPath.Combine(Name, nameof(Endpoint));
             public static readonly string AgentId = ConfigurationPath.Combine(Name, nameof(AgentId));
@@ -60,16 +62,6 @@ internal static class ChatBotConstants
                 public static readonly string Model = ConfigurationPath.Combine(Name, nameof(Model));
                 public static readonly string MaxAnswerEvaluationRetries = ConfigurationPath.Combine(Name, nameof(MaxAnswerEvaluationRetries));
                 public static readonly string TimeoutSeconds = ConfigurationPath.Combine(Name, nameof(TimeoutSeconds));
-            }
-        }
-
-        internal static class AI
-        {
-            private static readonly string Name = nameof(AI);
-
-            internal static class AgentLogging
-            {
-                private static readonly string Name = ConfigurationPath.Combine(AI.Name, nameof(AgentLogging));
             }
         }
     }
