@@ -19,6 +19,7 @@ using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Logging;
 
 using OpenAI.Chat;
 
@@ -118,6 +119,7 @@ public static class DependencyInjectionExtensions
 
         services.Configure<AgentLoggingOptions>(configuration.GetSection(ChatBotConstants.Configuration.AgentLogging));
 
+        services.TryAddSingleton<TimeProvider>(TimeProvider.System);
         services.TryAddSingleton<TbaApiTool>();
         services.TryAddSingleton<StatboticsTool>();
         services
@@ -195,7 +197,10 @@ public static class DependencyInjectionExtensions
         services.AddSingleton<IChatClient>(sp =>
         {
             IChatClient innerClient = sp.GetRequiredService<ChatClient>().AsIChatClient();
-            return new FrcSystemPromptChatClient(innerClient, LoadPromptFile("agent_prompt.txt"));
+            return new FrcSystemPromptChatClient(
+                innerClient,
+                LoadPromptFile("agent_prompt.txt"),
+                sp.GetRequiredService<ILogger<FrcSystemPromptChatClient>>());
         });
 
         services.Configure<CopilotToolAuthorizationOptions>(options =>

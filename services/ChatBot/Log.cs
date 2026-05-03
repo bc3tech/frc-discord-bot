@@ -23,4 +23,7 @@ static partial class Log
 
     [LoggerMessage(34, LogLevel.Debug, "Http API tool call for {ClientName} returned failure response snippet: {ResponseSnippet}")]
     internal static partial void HttpAPIToolCallFailedResponseSnippet(this ILogger logger, string ClientName, string ResponseSnippet);
+
+    [LoggerMessage(50, LogLevel.Warning, "Agent response contained a parenthesized opt-out hint, suggesting a possible R6 (clarifying-question-as-statement) violation. Snippet: {Snippet}")]
+    internal static partial void AgentResponseContainedParentheticalOptOutHint(this ILogger logger, string Snippet);
 }

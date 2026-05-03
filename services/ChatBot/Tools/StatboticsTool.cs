@@ -7,11 +7,68 @@ using Microsoft.Extensions.Logging;
 
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
+using System.Text;
 using System.Text.Json;
 
-internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogger<StatboticsTool> logger)
+internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogger<StatboticsTool> logger, TimeProvider timeProvider)
     : HttpGetToolBase(httpClientFactory, logger), IDiscordTool
 {
+    private readonly TimeProvider _timeProvider = timeProvider;
+
+    private sealed record MatrixEntry(string FieldPath, string HumanReadableName, string Classification);
+
+    // Field validity matrix per resource type and row state. Used both for U4a
+    // human-readable name surfacing in the discovery guidance prompt and for
+    // U4c structured matrix_match blocks attached to query responses. Keep in
+    // lockstep with the prose guidance string in DescribeApiSurfaceAsync.
+    private static readonly IReadOnlyDictionary<string, IReadOnlyList<MatrixEntry>> s_validityMatrix =
+        new Dictionary<string, IReadOnlyList<MatrixEntry>>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["event"] = new MatrixEntry[]
+            {
+                new("epa.mean", "Statbotics' projected average team EPA at this event", "❌-Upcoming/Ongoing"),
+                new("epa.sd", "Statbotics' EPA spread across teams at this event", "❌-Upcoming/Ongoing"),
+                new("epa.max", "Statbotics' top team EPA at this event", "❌-Upcoming/Ongoing"),
+                new("epa.top_8", "Statbotics' top-8 EPA cutoff at this event", "❌-Upcoming/Ongoing"),
+                new("epa.top_24", "Statbotics' top-24 EPA cutoff at this event", "❌-Upcoming/Ongoing"),
+                new("metrics.win_rate", "observed win rate at this event", "❌-Upcoming/Ongoing"),
+                new("district_points", "district points awarded at this event", "❌-Upcoming/Ongoing"),
+                new("num_teams", "number of teams registered for this event", "✅-AllStates"),
+            },
+            ["team_event"] = new MatrixEntry[]
+            {
+                new("epa.total_points.mean", "Statbotics' projected EPA for the team at this event", "⚠️-Upcoming/Ongoing-Projection"),
+                new("epa.total_points.sd", "Statbotics' projection uncertainty for the team at this event", "⚠️-Upcoming/Ongoing-Projection"),
+                new("epa.unitless", "Statbotics' projected unitless EPA for the team at this event", "⚠️-Upcoming/Ongoing-Projection"),
+                new("epa.norm", "Statbotics' projected normalized EPA for the team at this event", "⚠️-Upcoming/Ongoing-Projection"),
+                new("epa.conf", "Statbotics' projection confidence for the team at this event", "⚠️-Upcoming/Ongoing-Projection"),
+                new("epa.stats.pre_elim", "team's observed EPA at the start of elimination rounds", "❌-Upcoming/Ongoing"),
+                new("epa.stats.mean", "team's observed mean EPA across this event", "❌-Upcoming/Ongoing"),
+                new("epa.stats.max", "team's observed peak EPA at this event", "❌-Upcoming/Ongoing"),
+                new("record.qual.wins", "team's qualification wins at this event", "❌-Upcoming/Ongoing"),
+                new("record.elim.wins", "team's elimination wins at this event", "❌-Upcoming/Ongoing"),
+                new("record.total.rank", "team's final rank at this event", "❌-Upcoming/Ongoing"),
+                new("district_points", "district points the team earned at this event", "❌-Upcoming/Ongoing"),
+            },
+            ["match"] = new MatrixEntry[]
+            {
+                new("pred.red_score", "Statbotics' predicted red alliance score", "⚠️-Upcoming-Projection"),
+                new("pred.blue_score", "Statbotics' predicted blue alliance score", "⚠️-Upcoming-Projection"),
+                new("pred.red_win_prob", "Statbotics' predicted red alliance win probability", "⚠️-Upcoming-Projection"),
+                new("result.red_score", "actual red alliance score", "❌-Upcoming"),
+                new("result.blue_score", "actual blue alliance score", "❌-Upcoming"),
+                new("breakdown.red", "actual red alliance scoring breakdown", "❌-Upcoming"),
+                new("breakdown.blue", "actual blue alliance scoring breakdown", "❌-Upcoming"),
+            },
+            ["team_match"] = new MatrixEntry[]
+            {
+                new("epa.total_points", "Statbotics' projected per-match EPA contribution for the team", "⚠️-Upcoming-Projection"),
+                new("dq", "team's observed disqualification flag for this match", "❌-Upcoming"),
+                new("surrogate", "team's observed surrogate flag for this match", "❌-Upcoming"),
+            },
+        };
+
     private const string StatboticsApiSurfaceResourceName = "ChatBot.OpenApi.statbotics.json";
     internal const string DescribeSurfaceToolName = "statbotics_api_surface";
     internal const string QueryToolName = "statbotics_api";
@@ -93,14 +150,28 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
                   ❌ dq, surrogate post-match flags, observed contribution fields.
 
                 Behavior on ❌ fields for Upcoming/Ongoing rows: REFUSE-AND-REDIRECT. Do NOT quote the field at all, even with a caveat such as "currently 0" or "shows as null" — those values are missing data, not honest disclosure. State plainly the event/match is not completed, then offer a substitute when one fits (EPA projection, registered team count). If no substitute fits, say so honestly.
+
+                USING THIS MATRIX FOR ANTI-CLARIFICATION (cross-reference: `=== ANTI-CLARIFICATION POLICY ===` in `Agents/foundry-agent.yaml`): when surfacing a metric to the user, the user-facing assumption phrase MUST quote the row's Human-readable name verbatim — see the `human_readable_names` block below for each resource_type. Per R13, never paraphrase ("EPA score", "team rating") and never expose raw field paths ("epa.total_points.mean", "data.epa.unitless"). For row state Upcoming/Ongoing, only ✅ and ⚠️ rows may be quoted; ⚠️ rows MUST carry "Statbotics' projected" framing inline.
                 """,
+            isFrcCompetitionWindow = IsFrcCompetitionWindow(),
+            humanReadableNames = s_validityMatrix.ToDictionary(
+                static kvp => kvp.Key,
+                static kvp => kvp.Value
+                    .Select(static entry => new { fieldPath = entry.FieldPath, humanReadableName = entry.HumanReadableName, classification = entry.Classification })
+                    .ToArray()),
             endpointCount = selectedEndpoints.Count,
             endpoints = selectedEndpoints,
         }));
     }
 
+    private bool IsFrcCompetitionWindow()
+    {
+        int month = _timeProvider.GetUtcNow().Month;
+        return month is 2 or 3 or 4;
+    }
+
     [Description("Calls the public Statbotics API (https://www.statbotics.io/docs/rest) for FRC advanced metrics. Use this for EPA, Elo, predictions, rankings backed by Statbotics fields, team-year summaries, and event or match performance metrics. Use only legitimate /v3 paths from statbotics_api_surface. For list endpoints, put filters in query, not path: events for a year use path /v3/events with query year=2026, never /v3/events/2026. Optionally provide a query string without a leading question mark.")]
-    public Task<string> QueryStatboticsAsync(
+    public async Task<string> QueryStatboticsAsync(
         [Description("Relative API path beginning with /v3/ that must match a legitimate Statbotics endpoint template once path parameters are substituted. Examples: /v3/team_year/2046/2025 or /v3/events")] string path,
         [Description("Optional query string without a leading question mark. Use this for list filters. Examples: year=2026, team=2046&year=2025, metric=epa&limit=10")] string? query = null,
         CancellationToken cancellationToken = default)
@@ -111,7 +182,7 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
         if (endpoint is null)
         {
             string suggestions = string.Join(", ", s_statboticsApiSurface.Value.SuggestTemplates(path, 5));
-            return Task.FromResult(JsonSerializer.Serialize(new
+            return JsonSerializer.Serialize(new
             {
                 apiRequest = new
                 {
@@ -123,10 +194,92 @@ internal sealed class StatboticsTool(IHttpClientFactory httpClientFactory, ILogg
                 error = "The requested path does not match any legitimate Statbotics API v3 endpoint in the embedded OpenAPI spec.",
                 guidance = "Call statbotics_api_surface first to discover the real endpoint template, then retry with a concrete path that matches it. For list filters, keep the path at the collection endpoint and put filters in query; for example path=/v3/events and query=year=2026.",
                 suggestions = suggestions.Length > 0 ? suggestions : null,
-            }));
+            });
         }
 
-        return SendGetAsync(ChatBotConstants.HttpClients.StatboticsApi, path, query, citations: BuildCitations(path), cancellationToken: cancellationToken);
+        string response = await SendGetAsync(ChatBotConstants.HttpClients.StatboticsApi, path, query, citations: BuildCitations(path), cancellationToken: cancellationToken).ConfigureAwait(false);
+        return AttachMatrixMatch(response, path);
+    }
+
+    // U4c: post-process the SendGetAsync JSON response to inject a structured
+    // matrix_match block keyed by resource_type derived from the path. The
+    // hosted agent's R13 verifier (anti-clarification policy) reads this
+    // block to confirm any user-facing assumption phrase quotes the matrix's
+    // human-readable name verbatim. Keep field shape in lockstep with the
+    // local_agent_prompt.txt response payload contract.
+    private static string AttachMatrixMatch(string response, string path)
+    {
+        string? resourceType = ResolveResourceType(path);
+        if (resourceType is null || !s_validityMatrix.TryGetValue(resourceType, out IReadOnlyList<MatrixEntry>? entries))
+        {
+            return response;
+        }
+
+        try
+        {
+            using JsonDocument document = JsonDocument.Parse(response);
+            if (document.RootElement.ValueKind != JsonValueKind.Object)
+            {
+                return response;
+            }
+
+            using var buffer = new MemoryStream();
+            using (var writer = new Utf8JsonWriter(buffer))
+            {
+                writer.WriteStartObject();
+                foreach (JsonProperty property in document.RootElement.EnumerateObject())
+                {
+                    property.WriteTo(writer);
+                }
+
+                writer.WritePropertyName("matrix_match");
+                writer.WriteStartObject();
+                writer.WriteString("resource_type", resourceType);
+                writer.WriteString(
+                    "note",
+                    "Per R13 anti-clarification policy, any user-facing assumption phrase quoting a Statbotics metric MUST use the human_readable_name VERBATIM from the matching row below. Never paraphrase and never expose the raw field_path. For Upcoming/Ongoing row states, only ✅ and ⚠️ rows may be quoted; ⚠️ rows require 'Statbotics' projected' framing.");
+                writer.WritePropertyName("rows");
+                writer.WriteStartArray();
+                foreach (MatrixEntry entry in entries)
+                {
+                    writer.WriteStartObject();
+                    writer.WriteString("field_path", entry.FieldPath);
+                    writer.WriteString("human_readable_name", entry.HumanReadableName);
+                    writer.WriteString("classification", entry.Classification);
+                    writer.WriteEndObject();
+                }
+
+                writer.WriteEndArray();
+                writer.WriteEndObject();
+                writer.WriteEndObject();
+            }
+
+            return Encoding.UTF8.GetString(buffer.ToArray());
+        }
+        catch (JsonException)
+        {
+            return response;
+        }
+    }
+
+    private static string? ResolveResourceType(string path)
+    {
+        ReadOnlyCollection<string> segments = GetPathSegments(path);
+        // /v3/{resource}/...  resource is index 1; team_event/team_match/team_year
+        // share the singular shape used by the matrix.
+        if (segments.Count < 2 || !string.Equals(segments[0], "v3", StringComparison.OrdinalIgnoreCase))
+        {
+            return null;
+        }
+
+        return segments[1].ToLowerInvariant() switch
+        {
+            "event" or "events" => "event",
+            "team_event" or "team_events" => "team_event",
+            "match" or "matches" => "match",
+            "team_match" or "team_matches" => "team_match",
+            _ => null,
+        };
     }
 
     private static readonly Lazy<StatboticsApiSurface> s_statboticsApiSurface = new(() =>
