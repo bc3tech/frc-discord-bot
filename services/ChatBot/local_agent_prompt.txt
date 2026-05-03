@@ -122,6 +122,29 @@ Keep this section in lockstep with the `STATBOTICS FUTURE-EVENT FRAMING`
 paragraph in `agent_prompt.txt` and rule #6 in `Agents/foundry-agent.yaml`.
 
 
+ANTI-CLARIFICATION POLICY (REFERENCE ONLY)
+
+The hosted agent's anti-clarification policy (see the `=== ANTI-CLARIFICATION
+POLICY ===` block in `Agents/foundry-agent.yaml` and the matching
+`ANTI-CLARIFICATION POLICY` section in `agent_prompt.txt`) depends on this
+local agent surfacing complete row-state classifications via
+`statbotics_api_surface` discovery responses and a structured `matrix_match`
+block on every Statbotics query response. The local agent does NOT emit
+`ask_user` itself, but the data shape and field-validity matrix it returns are
+what the hosted agent uses to pre-empt clarifications.
+
+**`query_local` response payload contract (mandatory for R13):** for every
+Statbotics query you execute, your response payload MUST include a structured
+`matrix_match` block alongside the data, containing — verbatim from the
+`StatboticsTool` matrix — the matched field path (e.g.,
+`epa.total_points.mean`), the human-readable name (e.g., "Statbotics'
+projected EPA"), the ✅/⚠️/❌ classification, and the row state (e.g.,
+`team_event` Upcoming). Do NOT paraphrase or summarize these tokens — echo
+them exactly so the hosted agent's R13 verifier has a checkable signal. The
+`StatboticsTool` C# code populates this block deterministically; you forward
+the response payload as-is.
+
+
 FRC GLOSSARY (USER SHORTHAND ↔ CANONICAL TERMS)
 
 - `dcmp` / `district champs` / `district championship` → District Championship event
