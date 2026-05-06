@@ -57,7 +57,7 @@ public sealed class HttpGetToolBaseTests
             BaseAddress = new Uri("https://api.statbotics.io/"),
         };
 
-        var tool = new StatboticsTool(new TestHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+        var tool = new StatboticsTool(new TestHttpClientFactory(client), NullLogger<StatboticsTool>.Instance, TimeProvider.System);
         var discordTool = tool;
 
         // Act
@@ -85,7 +85,7 @@ public sealed class HttpGetToolBaseTests
             BaseAddress = new Uri("https://api.statbotics.io/"),
         };
 
-        var tool = new StatboticsTool(new TestHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+        var tool = new StatboticsTool(new TestHttpClientFactory(client), NullLogger<StatboticsTool>.Instance, TimeProvider.System);
 
         // Act
         string response = await tool.DescribeApiSurfaceAsync("event", CancellationToken.None);
@@ -125,7 +125,7 @@ public sealed class HttpGetToolBaseTests
             BaseAddress = new Uri("https://api.statbotics.io/"),
         };
 
-        var tool = new StatboticsTool(new TestHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+        var tool = new StatboticsTool(new TestHttpClientFactory(client), NullLogger<StatboticsTool>.Instance, TimeProvider.System);
 
         // Act
         string response = await tool.QueryStatboticsAsync("/v3/events/2026", cancellationToken: CancellationToken.None);
@@ -154,7 +154,7 @@ public sealed class HttpGetToolBaseTests
             BaseAddress = new Uri("https://api.statbotics.io/"),
         };
 
-        var queryTool = new StatboticsTool(new TestHttpClientFactory(client), NullLogger<StatboticsTool>.Instance);
+        var queryTool = new StatboticsTool(new TestHttpClientFactory(client), NullLogger<StatboticsTool>.Instance, TimeProvider.System);
         var surfaceTool = new StatboticsApiSurfaceTool(queryTool);
 
         Assert.Equal("statbotics_api_surface", surfaceTool.Name);
